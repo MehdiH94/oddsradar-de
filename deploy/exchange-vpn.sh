@@ -39,11 +39,12 @@ up() {
   ip netns list | grep -qw "$NS" && down
   ip netns add "$NS"
   ip -n "$NS" link set lo up
-  # The tunnel's interface is made here and moved into the namespace: its
+  # The tunnel's interface is made and set up here (the peer's name resolves
+  # here, not in the empty namespace), then moved into the namespace: its
   # encrypted packets leave by the server's own route, its clear ones stay inside.
   ip link add wg-exchange type wireguard
+  wg setconf wg-exchange <(wg-quick strip "$WG_CONF")
   ip link set wg-exchange netns "$NS"
-  ip netns exec "$NS" wg setconf wg-exchange <(wg-quick strip "$WG_CONF")
   local address
   address=$(field Address | cut -d, -f1)
   [[ -n "$address" ]] || die "no Address in $WG_CONF"

@@ -60,8 +60,8 @@ describe("fetchEvents", () => {
     });
     vi.stubGlobal("fetch", fetchMock);
 
-    await fetchEvents({ sport: "football", sort: "trj", bookmakers: ["winamax"], page: 1 });
-    expect(fetchMock).toHaveBeenCalledWith("/api/events?sport=football&sort=trj&bookmakers=winamax&page=1");
+    await fetchEvents({ sport: "football", sort: "trj", bookmakers: ["leovegas"], page: 1 });
+    expect(fetchMock).toHaveBeenCalledWith("/api/events?sport=football&sort=trj&bookmakers=leovegas&page=1");
 
     await fetchEvents({ sort: "start", bookmakers: [], page: 1 });
     expect(fetchMock).toHaveBeenCalledWith("/api/events?sort=start&bookmakers=&page=1");

@@ -48,13 +48,13 @@ describe("GroupedOddsTables", () => {
         startTime: "2026-09-23T16:45:00.000Z",
         participants: ["PSG", "OM"],
         byBookmaker: {
-          winamax: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.5 }] },
-          betclic: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.65 }] },
+          leovegas: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.5 }] },
+          betway: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.65 }] },
         },
       },
     ];
 
-    render(<GroupedOddsTables events={eventsWithOdds} bookmakers={["winamax"]} />);
+    render(<GroupedOddsTables events={eventsWithOdds} bookmakers={["leovegas"]} />);
 
     expect(screen.getByText("1.50")).toBeInTheDocument();
     expect(screen.queryByText("1.65")).not.toBeInTheDocument();
@@ -72,7 +72,7 @@ describe("GroupedOddsTables", () => {
             startTime: at,
             participants: ["GP de Bahreïn"],
             byBookmaker: {
-              winamax: {
+              leovegas: {
                 scrapedAt: at,
                 odds: [
                   { market: "Vainqueur", selection: "Antonelli", price: 2.25 },

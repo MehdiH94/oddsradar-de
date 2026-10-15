@@ -9,7 +9,7 @@ vi.mock("./preferences", async (importOriginal) => ({
   savePreferences: (preferences: Preferences) => save(preferences),
 }));
 
-const BASE: Preferences = { sport: "football", sort: "trj", bookmakers: ["winamax"], players: false, favoriteSports: [] };
+const BASE: Preferences = { sport: "football", sort: "trj", bookmakers: ["leovegas"], players: false, favoriteSports: [] };
 
 beforeEach(() => {
   vi.useFakeTimers();

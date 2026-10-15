@@ -78,7 +78,7 @@ describe("HomePage", () => {
     stubApi(LIVE);
     render(<HomePage />);
     const list = screen.getByRole("list", { name: "Bookmakers compared" });
-    expect(within(list).getAllByRole("listitem").map((item) => item.textContent)).toEqual(["Winamax", "Betclic"]);
+    expect(within(list).getAllByRole("listitem").map((item) => item.textContent)).toEqual(["LeoVegas", "Betway"]);
   });
 
   it("asks the API for the public totals only, and shows its figures", async () => {

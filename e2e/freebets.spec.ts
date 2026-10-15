@@ -3,7 +3,7 @@ import { BASE_URL, EXCHANGE_MATCH, NEW_PASSWORD, SECOND_VALUE_MATCH, SUREBET_MAT
 import { createConfirmedAccount, logIn } from "./helpers";
 
 // The Freebets page: the account's freebets, saved with the account, and the conversions computed from the seeded
-// matches. Winamax's and Betclic's prices on the seeded matches are fixtures.ts's; the figures below are what the
+// matches. LeoVegas's and Betway's prices on the seeded matches are fixtures.ts's; the figures below are what the
 // engine finds on them (a surebet, a value bet and a plain match are the three best single bets of 50 FB).
 const teams = (match: { participants: string[] }) => match.participants.join(" – ");
 const wallet = (page: Page, bookmaker: string) => page.getByLabel(`${bookmaker} freebets in euros`);
@@ -24,8 +24,8 @@ test("freebets at two bookmakers become the three best bets, with where to place
   // Opened by its address, not reached from another page.
   await page.goto("/freebets");
   await expect(page).toHaveTitle(/Freebets/);
-  await wallet(page, "Winamax").fill("30");
-  await wallet(page, "Betclic").fill("20");
+  await wallet(page, "LeoVegas").fill("30");
+  await wallet(page, "Betway").fill("20");
   await saved(page);
 
   // Three bets on three different matches, the best guaranteed cash first.
@@ -41,21 +41,21 @@ test("freebets at two bookmakers become the three best bets, with where to place
 
   // The first one: every outcome of the match covered, no bookmaker carrying them all.
   await expect(page.getByRole("heading", { name: "Conversion 1 · the 4 bets to place" })).toBeVisible();
-  const winamax = page.getByRole("article", { name: "Winamax" });
-  await expect(winamax).toContainText("30.00 FB used of 30.00");
-  await expect(winamax.getByRole("listitem").nth(0)).toHaveText(/Lyon\s*20.69 FB/);
-  await expect(winamax.getByRole("listitem").nth(1)).toHaveText(/Lille\s*9.31 FB/);
-  const betclic = page.getByRole("article", { name: "Betclic" });
-  await expect(betclic.getByRole("listitem")).toHaveText([/Draw\s*11.83 FB/, /Lille\s*8.17 FB/]);
+  const leovegas = page.getByRole("article", { name: "LeoVegas" });
+  await expect(leovegas).toContainText("30.00 FB used of 30.00");
+  await expect(leovegas.getByRole("listitem").nth(0)).toHaveText(/Lyon\s*20.69 FB/);
+  await expect(leovegas.getByRole("listitem").nth(1)).toHaveText(/Lille\s*9.31 FB/);
+  const betway = page.getByRole("article", { name: "Betway" });
+  await expect(betway.getByRole("listitem")).toHaveText([/Draw\s*11.83 FB/, /Lille\s*8.17 FB/]);
 
   // What the figures are worth: indicative prices, and stake limits the calculation does not know.
   await expect(page.getByRole("note")).toContainText("Indicative prices.");
   await expect(page.getByRole("note")).toContainText("neither the minimum nor the maximum stakes of each bookmaker");
 
   // The list to paste at the bookmaker.
-  await winamax.getByRole("button", { name: "Copy the list" }).click();
-  await expect(winamax.getByRole("status")).toHaveText("List copied");
-  expect(await page.evaluate<string>("navigator.clipboard.readText()")).toBe("Winamax: 2 freebet bets\n- Lyon: 20.69 FB\n- Lille: 9.31 FB");
+  await leovegas.getByRole("button", { name: "Copy the list" }).click();
+  await expect(leovegas.getByRole("status")).toHaveText("List copied");
+  expect(await page.evaluate<string>("navigator.clipboard.readText()")).toBe("LeoVegas: 2 freebet bets\n- Lyon: 20.69 FB\n- Lille: 9.31 FB");
 
   // Another conversion shows its own match and bets.
   await cards.nth(1).click();
@@ -65,12 +65,12 @@ test("freebets at two bookmakers become the three best bets, with where to place
 });
 
 test("the settings are kept in the address and the freebets in the account, whatever the page is reloaded with", async ({ page }) => {
-  await setWallet(page, { winamax: 30, betclic: 20 });
+  await setWallet(page, { leovegas: 30, betway: 20 });
   await page.goto("/freebets?mode=bookmakers&legs=2");
   await expect(page.getByRole("radio", { name: "2-match accumulator" })).toBeChecked();
   // The freebets are read back from the account.
-  await expect(wallet(page, "Winamax")).toHaveValue("30");
-  await expect(wallet(page, "Betclic")).toHaveValue("20");
+  await expect(wallet(page, "LeoVegas")).toHaveValue("30");
+  await expect(wallet(page, "Betway")).toHaveValue("20");
   // Two matches per bet, and a match in one combo only: with the five seeded matches there are two combos.
   const combos = page.getByRole("region", { name: "Top conversions · 2-match accumulator" });
   await expect(combos.getByRole("button")).toHaveCount(2);
@@ -83,14 +83,14 @@ test("the settings are kept in the address and the freebets in the account, what
   await expect(page).toHaveURL(/mode=exchange/);
   await page.reload();
   await expect(page.getByRole("radio", { name: "Against the exchange" })).toBeChecked();
-  await expect(wallet(page, "Winamax")).toHaveValue("30");
+  await expect(wallet(page, "LeoVegas")).toHaveValue("30");
 });
 
 test("against the exchange, one bookmaker's freebets are bet and laid, and each case shows what is left", async ({ page }) => {
-  await setWallet(page, { winamax: 30, betclic: 20 });
-  await page.goto("/freebets?mode=exchange&bookmaker=winamax");
-  // The only match with money to lay: Nantes to win, Winamax's 3.60 against the exchange's 3.70.
-  await expect(page.getByRole("region", { name: /^Top conversions · Winamax · 30.00 FB$/ })).toContainText(teams(EXCHANGE_MATCH));
+  await setWallet(page, { leovegas: 30, betway: 20 });
+  await page.goto("/freebets?mode=exchange&bookmaker=leovegas");
+  // The only match with money to lay: Nantes to win, LeoVegas's 3.60 against the exchange's 3.70.
+  await expect(page.getByRole("region", { name: /^Top conversions · LeoVegas · 30.00 FB$/ })).toContainText(teams(EXCHANGE_MATCH));
   const top = page.getByRole("region", { name: /^Top conversions/ });
   await expect(top).toContainText("68.7%");
   await expect(top).toContainText("€20.61");
@@ -112,9 +112,9 @@ test("against the exchange, one bookmaker's freebets are bet and laid, and each 
   await expect(page.getByRole("note")).not.toContainText("minimum nor the maximum stakes");
 
   // The other bookmaker's freebets, the choice kept in the address.
-  await pick(page, /Betclic/);
-  await expect(page).toHaveURL(/bookmaker=betclic/);
-  await expect(page.getByRole("region", { name: /^Top conversions · Betclic · 20.00 FB$/ })).toContainText(teams(EXCHANGE_MATCH));
+  await pick(page, /Betway/);
+  await expect(page).toHaveURL(/bookmaker=betway/);
+  await expect(page.getByRole("region", { name: /^Top conversions · Betway · 20.00 FB$/ })).toContainText(teams(EXCHANGE_MATCH));
 });
 
 test("a new account is asked for its freebets, and with one bookmaker's only is offered the exchange", async ({ page, request }) => {
@@ -129,17 +129,17 @@ test("a new account is asked for its freebets, and with one bookmaker's only is 
   await expect(page.getByText("Enter your freebets above to see how to convert them.")).toBeVisible();
 
   // One bookmaker is not enough between bookmakers: the page says so and offers the exchange.
-  await wallet(page, "Winamax").fill("30");
+  await wallet(page, "LeoVegas").fill("30");
   await saved(page);
   await expect(page.getByText(/Your freebets are at one bookmaker only/)).toBeVisible();
   await page.getByRole("button", { name: "Convert against the exchange" }).click();
   await expect(page).toHaveURL(/mode=exchange/);
-  await expect(page.getByRole("region", { name: /^Top conversions · Winamax · 30.00 FB$/ })).toContainText(teams(EXCHANGE_MATCH));
+  await expect(page.getByRole("region", { name: /^Top conversions · LeoVegas · 30.00 FB$/ })).toContainText(teams(EXCHANGE_MATCH));
 
   // The freebets are the account's: they come back after a reload, and the seeded account's are not shown.
   await page.reload();
-  await expect(wallet(page, "Winamax")).toHaveValue("30");
-  await expect(wallet(page, "Betclic")).toHaveValue("");
+  await expect(wallet(page, "LeoVegas")).toHaveValue("30");
+  await expect(wallet(page, "Betway")).toHaveValue("");
 });
 
 test.describe("signed out", () => {

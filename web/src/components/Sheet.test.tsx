@@ -7,7 +7,7 @@ describe("Sheet", () => {
     render(
       <Sheet id="s" title="Filters" open onClose={onClose} footer={<button type="button">Show</button>}>
         <label>
-          <input type="checkbox" /> Winamax
+          <input type="checkbox" /> LeoVegas
         </label>
       </Sheet>
     );

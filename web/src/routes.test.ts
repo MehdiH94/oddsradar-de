@@ -3,7 +3,7 @@ import { currentPath, isDashboardQuery, matchHref, navigate, ODDS_PATH, onPathCh
 
 describe("isDashboardQuery", () => {
   it("is true for any key the dashboard keeps in its address", () => {
-    for (const search of ["?sport=tennis", "?match=abc", "?q=psg", "?sort=value", "?bookmakers=winamax", "?page=2", "?players=1", "?competition=Ligue+1"]) {
+    for (const search of ["?sport=tennis", "?match=abc", "?q=psg", "?sort=value", "?bookmakers=leovegas", "?page=2", "?players=1", "?competition=Ligue+1"]) {
       expect(isDashboardQuery(search), search).toBe(true);
     }
   });
@@ -43,10 +43,10 @@ describe("currentPath", () => {
   });
 
   it("sends an old dashboard link at / to /odds, keeping every filter, the match and the hash", () => {
-    window.history.replaceState(null, "", "/?sport=tennis&match=abc&bookmakers=winamax%2Cbetclic#top");
+    window.history.replaceState(null, "", "/?sport=tennis&match=abc&bookmakers=leovegas%2Cbetclic#top");
     expect(currentPath()).toBe(ODDS_PATH);
     expect(window.location.pathname + window.location.search + window.location.hash).toBe(
-      "/odds?sport=tennis&match=abc&bookmakers=winamax%2Cbetclic#top"
+      "/odds?sport=tennis&match=abc&bookmakers=leovegas%2Cbetclic#top"
     );
   });
 

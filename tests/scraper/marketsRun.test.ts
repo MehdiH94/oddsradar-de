@@ -44,7 +44,7 @@ function stored(db: DatabaseSync, bookmaker: string): Record<string, number> {
 
 describe("MARKET_FETCHERS", () => {
   it("has the markets of every bookmaker the listing reads", () => {
-    expect(Object.keys(MARKET_FETCHERS).sort()).toEqual(["betclic", "winamax"]);
+    expect(Object.keys(MARKET_FETCHERS).sort()).toEqual(["betclic", "leovegas", "winamax"]);
   });
 });
 
@@ -54,9 +54,9 @@ describe("MARKETS_BY_BOOKMAKER", () => {
     for (const sports of Object.values(MARKETS_BY_BOOKMAKER)) for (const sport of sports) expect(MARKET_SPORTS).toContain(sport);
   });
 
-  it("gives no bookmaker the sports beyond the base, which none has a reader for", () => {
+  it("gives the sports beyond the base to the bookmakers that have a reader for them only", () => {
     const readers = Object.entries(MARKETS_BY_BOOKMAKER).filter(([, sports]) => sports.has("hockey sur glace"));
-    expect(readers).toEqual([]);
+    expect(readers.map(([bookmaker]) => bookmaker)).toEqual(["leovegas"]);
     // Winamax and Betclic have no table for them: Betclic would read their markets as football's.
     expect(MARKETS_BY_BOOKMAKER.betclic.has("handball")).toBe(false);
   });

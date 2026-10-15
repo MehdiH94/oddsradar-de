@@ -9,8 +9,8 @@ describe("BookmakerLogo", () => {
   });
 
   it("shows a bookmaker's icon, with its name as alt text", () => {
-    render(<BookmakerLogo bookmaker="winamax" />);
-    expect(screen.getByRole("img", { name: "Winamax" })).toBeInTheDocument();
+    render(<BookmakerLogo bookmaker="leovegas" />);
+    expect(screen.getByRole("img", { name: "LeoVegas" })).toBeInTheDocument();
   });
 
   it("shows the name of a bookmaker that has no icon, and nothing beside a written name", () => {

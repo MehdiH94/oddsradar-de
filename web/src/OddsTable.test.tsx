@@ -11,7 +11,7 @@ const events: EventWithOdds[] = [
     startTime: "2026-09-21T19:00:00.000Z",
     participants: ["PSG", "OM"],
     byBookmaker: {
-      winamax: {
+      leovegas: {
         scrapedAt: "2026-09-20T10:00:00.000Z",
         odds: [
           { market: "1X2", selection: "1", price: 1.5 },
@@ -19,7 +19,7 @@ const events: EventWithOdds[] = [
           { market: "1X2", selection: "2", price: 5.0 },
         ],
       },
-      betclic: {
+      betway: {
         scrapedAt: "2026-09-20T10:00:00.000Z",
         odds: [
           { market: "1X2", selection: "1", price: 1.65 },
@@ -76,19 +76,19 @@ describe("OddsTable", () => {
   });
 
   it("only renders prices for the given bookmakers", () => {
-    const { container } = render(<OddsTable events={events} bookmakers={["winamax"]} />);
+    const { container } = render(<OddsTable events={events} bookmakers={["leovegas"]} />);
 
     expect(screen.getByText("1.50")).toBeInTheDocument();
     expect(screen.queryByText("1.65")).not.toBeInTheDocument();
-    expect(container.querySelector('[data-bookmaker="betclic"]')).toBeNull();
+    expect(container.querySelector('[data-bookmaker="betway"]')).toBeNull();
   });
 
   it("shows the prices of the bookmakers that list the match only, each with its icon", () => {
     const withoutDraw: EventWithOdds = {
       ...events[0],
       byBookmaker: {
-        winamax: events[0].byBookmaker.winamax,
-        betclic: {
+        leovegas: events[0].byBookmaker.leovegas,
+        betway: {
           scrapedAt: "2026-09-20T10:00:00.000Z",
           odds: [
             { market: "1X2", selection: "1", price: 1.7 },
@@ -100,26 +100,26 @@ describe("OddsTable", () => {
     const { container } = render(<OddsTable events={[withoutDraw]} />);
 
     const home = [...container.querySelectorAll('td[data-label="1"] [data-bookmaker]')].map((c) => c.getAttribute("data-bookmaker"));
-    expect(home).toEqual(["winamax", "betclic"]);
-    // Betclic lists the match but not its draw: a dash.
-    expect(text(chip("1.70"))).toBe("Betclic: 1.70 (best price)");
+    expect(home).toEqual(["leovegas", "betway"]);
+    // Betway lists the match but not its draw: a dash.
+    expect(text(chip("1.70"))).toBe("Betway: 1.70 (best price)");
     expect(container.querySelectorAll('td[data-label="X"] [data-bookmaker]')).toHaveLength(2);
   });
 
   it("marks each price with its bookmaker's icon, and reads out its name and whether it is the best", () => {
     render(<OddsTable events={events} />);
 
-    expect(chip("1.50").querySelector("img")!.getAttribute("src")).toMatch(/winamax/);
-    expect(text(chip("1.50"))).toBe("Winamax: 1.50");
-    expect(text(chip("1.65"))).toBe("Betclic: 1.65 (best price)");
+    expect(chip("1.50").querySelector("img")!.getAttribute("src")).toMatch(/leovegas/);
+    expect(text(chip("1.50"))).toBe("LeoVegas: 1.50");
+    expect(text(chip("1.65"))).toBe("Betway: 1.65 (best price)");
   });
 
   it("highlights every bookmaker offering the best price, and only them", () => {
     const tie: EventWithOdds = {
       ...events[0],
       byBookmaker: {
-        winamax: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.72 }, { market: "1X2", selection: "X", price: 3.2 }] },
-        betclic: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.72 }, { market: "1X2", selection: "X", price: 3.1 }] },
+        leovegas: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.72 }, { market: "1X2", selection: "X", price: 3.2 }] },
+        betway: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.72 }, { market: "1X2", selection: "X", price: 3.1 }] },
       },
     };
     render(<OddsTable events={[tie]} />);
@@ -132,9 +132,9 @@ describe("OddsTable", () => {
   });
 
   it("highlights the best price among only the given bookmakers", () => {
-    // betclic (1.65) is the real best price, but it's filtered out here, so
+    // betway (1.65) is the real best price, but it's filtered out here, so
     // the sole remaining bookmaker's own price must be marked "best".
-    render(<OddsTable events={events} bookmakers={["winamax"]} />);
+    render(<OddsTable events={events} bookmakers={["leovegas"]} />);
 
     expect(chip("1.50")).toHaveAttribute("data-best");
   });
@@ -289,7 +289,7 @@ describe("OddsTable", () => {
       startTime: "2026-09-21T19:00:00.000Z",
       participants,
       byBookmaker: {
-        winamax: {
+        leovegas: {
           scrapedAt: "2026-09-20T10:00:00.000Z",
           odds: [
             { market: "Vainqueur du match", selection: "1", price: prices[0] },
@@ -340,7 +340,7 @@ describe("OddsTable", () => {
             { market: "Vainqueur du match", selection: "2", price: 1.81 },
           ],
         },
-        winamax: {
+        leovegas: {
           scrapedAt: "2026-09-20T10:00:00.000Z",
           odds: [
             { market: "Vainqueur du match", selection: "1", price: 1.72 },
@@ -370,20 +370,20 @@ describe("OddsTable", () => {
           (price) => [...price.querySelectorAll(":scope > span")].find((span) => !span.classList.contains("visually-hidden"))?.textContent
         )
       );
-      // Winamax only, which lists this match (not Betclic), per outcome.
+      // LeoVegas only, which lists this match (not Betway), per outcome.
       expect(outcomes).toEqual([["1.80"], ["-"], ["2.05"]]);
     });
 
     it("keeps the N column when the only draw prices come from an unticked bookmaker", () => {
-      const betclicOnly: EventWithOdds = { ...events[0], byBookmaker: { betclic: events[0].byBookmaker.betclic } };
-      render(<OddsTable events={[betclicOnly]} bookmakers={["winamax"]} />);
+      const betclicOnly: EventWithOdds = { ...events[0], byBookmaker: { betway: events[0].byBookmaker.betway } };
+      render(<OddsTable events={[betclicOnly]} bookmakers={["leovegas"]} />);
 
       expect(outcomeHeaders()).toContain("X");
     });
   });
 
   describe("with the reference's fair odds", () => {
-    // Betclic's 1,65 on PSG is 6,5 % above the fair 1,55; Winamax's 3,20 on
+    // Betway's 1,65 on PSG is 6,5 % above the fair 1,55; LeoVegas's 3,20 on
     // the draw only 0,6 % above 3,18, under the 1 % of a value bet.
     const referenced: EventWithOdds[] = [
       {
@@ -412,7 +412,7 @@ describe("OddsTable", () => {
     });
 
     it("only counts the ticked bookmakers' value bets", () => {
-      const { container } = render(<OddsTable events={referenced} bookmakers={["winamax"]} />);
+      const { container } = render(<OddsTable events={referenced} bookmakers={["leovegas"]} />);
       expect(container.querySelector("[data-value]")).toBeNull();
       expect(text(fairLines(container)[0])).not.toContain("%");
     });
@@ -425,17 +425,17 @@ describe("OddsTable", () => {
       const tennis: EventWithOdds = {
         ...referenced[0],
         sport: "tennis",
-        byBookmaker: { winamax: main("Vainqueur du match", [{ selection: "1", price: 1.7 }, { selection: "2", price: 2.1 }]) },
+        byBookmaker: { leovegas: main("Vainqueur du match", [{ selection: "1", price: 1.7 }, { selection: "2", price: 2.1 }]) },
         reference: { market: "Vainqueur du match", fair: { "1": 1.6, "2": 2.5 }, matched: 1200, scrapedAt: "2026-09-20T10:00:00.000Z" },
       };
       const { container } = render(<OddsTable events={[tennis]} />);
       expect(fairLines(container).map((line) => line.querySelector("[class*=price]")?.textContent)).toEqual(["1.60", "2.50"]);
-      // Winamax's 1.70 is 6.2% above the fair 1.60.
+      // LeoVegas's 1.70 is 6.2% above the fair 1.60.
       expect(container.querySelector("[data-value]")).toHaveTextContent("1.70");
 
       const other: EventWithOdds = {
         ...tennis,
-        byBookmaker: { winamax: main("Marché à 2 issues", [{ selection: "1", price: 1.7 }, { selection: "2", price: 2.1 }]) },
+        byBookmaker: { leovegas: main("Marché à 2 issues", [{ selection: "1", price: 1.7 }, { selection: "2", price: 2.1 }]) },
       };
       const { container: none } = render(<OddsTable events={[other]} />);
       expect(fairLines(none)).toEqual([]);

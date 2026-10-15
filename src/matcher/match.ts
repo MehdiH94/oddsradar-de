@@ -1064,9 +1064,11 @@ function addSource(sources: Record<string, EventSource>, bookmakerId: string, ev
 }
 
 // The bookmakers whose spelling of an event (its id, its names) is kept, in
-// this order: those it was before the others joined, so that their events
-// keep their ids. The others seed only the events neither lists.
-const SEED_BOOKMAKERS = ["betclic", "winamax"];
+// this order: LeoVegas.de's English names first (Kambi's, which ease the
+// matching with the exchange), then Betway.de's; Betclic and Winamax, whose
+// real captures many tests still read, keep their order between them. The
+// others seed only the events none of them lists.
+const SEED_BOOKMAKERS = ["leovegas", "betway", "betclic", "winamax"];
 const seedRank = (id: string) => (SEED_BOOKMAKERS.includes(id) ? SEED_BOOKMAKERS.indexOf(id) : SEED_BOOKMAKERS.length);
 // The same order, for whatever else keeps one bookmaker's spelling (the players'
 // names of the markets cycle, src/scraper/marketsRun.ts).

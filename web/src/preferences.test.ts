@@ -5,7 +5,7 @@ import { DEFAULT_BOOKMAKERS } from "./bookmakers";
 const PREFS: Preferences = {
   sport: "tennis",
   sort: "start",
-  bookmakers: ["winamax", "vbet"],
+  bookmakers: ["leovegas", "vbet"],
   players: true,
   favoriteSports: ["tennis"],
 };
@@ -28,7 +28,7 @@ describe("readPreferences", () => {
     ["another answer", { events: [], total: 0 }],
     ["a body that is not an object", "oops"],
     ["a wrong sort", { preferences: { ...PREFS, sort: "random" } }],
-    ["bookmakers that are not a list", { preferences: { ...PREFS, bookmakers: "winamax" } }],
+    ["bookmakers that are not a list", { preferences: { ...PREFS, bookmakers: "leovegas" } }],
     ["players that is not a boolean", { preferences: { ...PREFS, players: 1 } }],
     ["favorites that are not names", { preferences: { ...PREFS, favoriteSports: [3] } }],
   ])("reads %s as no preferences", (_label, body) => {
@@ -46,7 +46,7 @@ describe("mergeInitialFilters", () => {
       sport: "tennis",
       sort: "start",
       q: "",
-      bookmakers: ["winamax", "vbet"],
+      bookmakers: ["leovegas", "vbet"],
       players: true,
       page: 1,
     });
@@ -55,18 +55,18 @@ describe("mergeInitialFilters", () => {
   it("applies them whatever the other keys: the search, the page, the match are the tab's own", () => {
     expect(mergeInitialFilters("?q=nadal&page=3&match=abc", PREFS)).toMatchObject({
       sport: "tennis",
-      bookmakers: ["winamax", "vbet"],
+      bookmakers: ["leovegas", "vbet"],
       q: "nadal",
       page: 3,
       match: "abc",
     });
   });
 
-  it.each(["?sport=golf", "?sort=value", "?bookmakers=betclic", "?players=1"])(
+  it.each(["?sport=golf", "?sort=value", "?bookmakers=betway", "?players=1"])(
     "leaves the address alone when it has a filter of its own (%s)",
     (search) => {
       const merged = mergeInitialFilters(search, PREFS);
-      expect(merged).not.toMatchObject({ sport: "tennis", sort: "start", bookmakers: ["winamax", "vbet"] });
+      expect(merged).not.toMatchObject({ sport: "tennis", sort: "start", bookmakers: ["leovegas", "vbet"] });
     },
   );
 

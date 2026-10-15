@@ -13,8 +13,8 @@ import styles from "./MatchPage.module.css";
 const POLL_MS = 60_000;
 
 // Collapsed at first: the markets only one bookmaker offers, nothing to
-// compare in them.
-const FOLDED_SECTIONS = new Set(["winamax", "betclic"]);
+// compare in them (a section keyed by the bookmaker, src/markets/catalog.ts).
+const FOLDED_SECTIONS = new Set<string>(["winamax", "betclic", ...ALL_BOOKMAKERS]);
 
 export interface PageStatus {
   updated?: Date;

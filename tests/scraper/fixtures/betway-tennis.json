@@ -1,0 +1,1236 @@
+{
+ "filters": [
+  "match-winner",
+  "to-win-a-set"
+ ],
+ "eventIds": [
+  17357298,
+  17356484,
+  17356528,
+  17356122,
+  17357299,
+  17357436,
+  17351869,
+  17356882
+ ],
+ "events": {
+  "MethodName": "Events",
+  "MethodResult": "OK",
+  "CorrelationId": "5e6fde61-d82c-4bb5-9b79-e884bfc26bbe",
+  "Events": [
+   {
+    "Version": 6,
+    "Id": 17357298,
+    "GroupName": "Wuhan",
+    "SubCategoryName": "WTA",
+    "CategoryCName": "tennis",
+    "CategoryName": "Tennis",
+    "HomeTeamName": "Diana Shnaider",
+    "AwayTeamName": "Jelena Ostapenko",
+    "EventName": "Diana Shnaider - Jelena Ostapenko",
+    "Milliseconds": 1792119600000,
+    "Date": "10/16/2026",
+    "Time": "03:00",
+    "MarketCount": 0,
+    "Markets": [
+     648978880
+    ],
+    "CouponMarketId": 648978880,
+    "FilterMarkets": {
+     "match-winner": 648978880
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 75373620,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Main Markets",
+      "MarketIds": [
+       648978880
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "diana-shnaider",
+    "AwayTeamCName": "jelena-ostapenko",
+    "GroupCName": "wuhan",
+    "SubCategoryCName": "wta",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": "indoor",
+    "SurfaceName": "Indoor",
+    "SportVariationCName": "3-sets",
+    "SportVariationName": "3-sets",
+    "SportsRadarId": 75373620,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   },
+   {
+    "Version": 10,
+    "Id": 17356484,
+    "GroupName": "Jinan - China",
+    "SubCategoryName": "Challenger",
+    "CategoryCName": "tennis",
+    "CategoryName": "Tennis",
+    "HomeTeamName": "Alexander Shevchenko",
+    "AwayTeamName": "Mattia Bellucci",
+    "EventName": "Alexander Shevchenko - Mattia Bellucci",
+    "Milliseconds": 1792123200000,
+    "Date": "10/16/2026",
+    "Time": "04:00",
+    "MarketCount": 0,
+    "Markets": [
+     648913048
+    ],
+    "CouponMarketId": 648913048,
+    "FilterMarkets": {
+     "match-winner": 648913048
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 75371564,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Main Markets",
+      "MarketIds": [
+       648913048
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "alexander-shevchenko",
+    "AwayTeamCName": "mattia-bellucci",
+    "GroupCName": "jinan---china",
+    "SubCategoryCName": "challenger",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": "indoor",
+    "SurfaceName": "Indoor",
+    "SportVariationCName": "3-sets",
+    "SportVariationName": "3-sets",
+    "SportsRadarId": 75371564,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   },
+   {
+    "Version": 7,
+    "Id": 17356528,
+    "GroupName": "Jinan - China",
+    "SubCategoryName": "Challenger",
+    "CategoryCName": "tennis",
+    "CategoryName": "Tennis",
+    "HomeTeamName": "Shintaro Mochizuki",
+    "AwayTeamName": "Yosuke Watanuki",
+    "EventName": "Shintaro Mochizuki - Yosuke Watanuki",
+    "Milliseconds": 1792123200000,
+    "Date": "10/16/2026",
+    "Time": "04:00",
+    "MarketCount": 0,
+    "Markets": [
+     648917265
+    ],
+    "CouponMarketId": 648917265,
+    "FilterMarkets": {
+     "match-winner": 648917265
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 75371550,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Main Markets",
+      "MarketIds": [
+       648917265
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "shintaro-mochizuki",
+    "AwayTeamCName": "yosuke-watanuki",
+    "GroupCName": "jinan---china",
+    "SubCategoryCName": "challenger",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": "indoor",
+    "SurfaceName": "Indoor",
+    "SportVariationCName": "3-sets",
+    "SportVariationName": "3-sets",
+    "SportsRadarId": 75371550,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   },
+   {
+    "Version": 5,
+    "Id": 17356122,
+    "GroupName": "Shanghai - Doppel",
+    "SubCategoryName": "ATP",
+    "CategoryCName": "tennis",
+    "CategoryName": "Tennis",
+    "HomeTeamName": "T Arribage / A Olivetti",
+    "AwayTeamName": "F Cabral / J Tracy",
+    "EventName": "T Arribage / A Olivetti - F Cabral / J Tracy",
+    "Milliseconds": 1792123200000,
+    "Date": "10/16/2026",
+    "Time": "04:00",
+    "MarketCount": 0,
+    "Markets": [
+     648884836
+    ],
+    "CouponMarketId": 648884836,
+    "FilterMarkets": {
+     "match-winner": 648884836
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 75240494,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Main Markets",
+      "MarketIds": [
+       648884836
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "t-arribage---a-olivetti",
+    "AwayTeamCName": "f-cabral---j-tracy",
+    "GroupCName": "shanghai---doubles",
+    "SubCategoryCName": "atp",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": "indoor",
+    "SurfaceName": "Indoor",
+    "SportVariationCName": "3-sets",
+    "SportVariationName": "3-sets",
+    "SportsRadarId": 75240494,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": false
+   },
+   {
+    "Version": 7,
+    "Id": 17357299,
+    "GroupName": "Wuhan",
+    "SubCategoryName": "WTA",
+    "CategoryCName": "tennis",
+    "CategoryName": "Tennis",
+    "HomeTeamName": "Elina Svitolina",
+    "AwayTeamName": "Sonay Kartal",
+    "EventName": "Elina Svitolina - Sonay Kartal",
+    "Milliseconds": 1792125000000,
+    "Date": "10/16/2026",
+    "Time": "04:30",
+    "MarketCount": 0,
+    "Markets": [
+     648978903
+    ],
+    "CouponMarketId": 648978903,
+    "FilterMarkets": {
+     "match-winner": 648978903
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 75373604,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Main Markets",
+      "MarketIds": [
+       648978903
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "elina-svitolina",
+    "AwayTeamCName": "sonay-kartal",
+    "GroupCName": "wuhan",
+    "SubCategoryCName": "wta",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": "indoor",
+    "SurfaceName": "Indoor",
+    "SportVariationCName": "3-sets",
+    "SportVariationName": "3-sets",
+    "SportsRadarId": 75373604,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   },
+   {
+    "Version": 5,
+    "Id": 17357436,
+    "GroupName": "Wuhan - Doppel",
+    "SubCategoryName": "WTA",
+    "CategoryCName": "tennis",
+    "CategoryName": "Tennis",
+    "HomeTeamName": "G Dabrowski / L Stefani",
+    "AwayTeamName": "I Neel / G Olmos",
+    "EventName": "G Dabrowski / L Stefani - I Neel / G Olmos",
+    "Milliseconds": 1792125000000,
+    "Date": "10/16/2026",
+    "Time": "04:30",
+    "MarketCount": 0,
+    "Markets": [
+     648988614
+    ],
+    "CouponMarketId": 648988614,
+    "FilterMarkets": {
+     "match-winner": 648988614
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 75373722,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Main Markets",
+      "MarketIds": [
+       648988614
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "g-dabrowski---l-stefani",
+    "AwayTeamCName": "i-neel---g-olmos",
+    "GroupCName": "wuhan---doubles",
+    "SubCategoryCName": "wta",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": "indoor",
+    "SurfaceName": "Indoor",
+    "SportVariationCName": "3-sets",
+    "SportVariationName": "3-sets",
+    "SportsRadarId": 75373722,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": false
+   },
+   {
+    "Version": 13,
+    "Id": 17351869,
+    "GroupName": "Jinan - China",
+    "SubCategoryName": "Challenger",
+    "CategoryCName": "tennis",
+    "CategoryName": "Tennis",
+    "HomeTeamName": "Martin Landaluce",
+    "AwayTeamName": "Keegan Smith",
+    "EventName": "Martin Landaluce - Keegan Smith",
+    "Milliseconds": 1792128600000,
+    "Date": "10/16/2026",
+    "Time": "05:30",
+    "MarketCount": 0,
+    "Markets": [
+     648482921
+    ],
+    "CouponMarketId": 648482921,
+    "FilterMarkets": {
+     "match-winner": 648482921
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 75371552,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Main Markets",
+      "MarketIds": [
+       648482921
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "martin-landaluce",
+    "AwayTeamCName": "keegan-smith",
+    "GroupCName": "jinan---china",
+    "SubCategoryCName": "challenger",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": "indoor",
+    "SurfaceName": "Indoor",
+    "SportVariationCName": "3-sets",
+    "SportVariationName": "3-sets",
+    "SportsRadarId": 75371552,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   },
+   {
+    "Version": 6,
+    "Id": 17356882,
+    "GroupName": "Jinan - China",
+    "SubCategoryName": "Challenger",
+    "CategoryCName": "tennis",
+    "CategoryName": "Tennis",
+    "HomeTeamName": "Tomas Machac",
+    "AwayTeamName": "Liam Draxl",
+    "EventName": "Tomas Machac - Liam Draxl",
+    "Milliseconds": 1792128600000,
+    "Date": "10/16/2026",
+    "Time": "05:30",
+    "MarketCount": 0,
+    "Markets": [
+     648949834
+    ],
+    "CouponMarketId": 648949834,
+    "FilterMarkets": {
+     "match-winner": 648949834
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 75371554,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Main Markets",
+      "MarketIds": [
+       648949834
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "tomas-machac",
+    "AwayTeamCName": "liam-draxl",
+    "GroupCName": "jinan---china",
+    "SubCategoryCName": "challenger",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": "indoor",
+    "SurfaceName": "Indoor",
+    "SportVariationCName": "3-sets",
+    "SportVariationName": "3-sets",
+    "SportsRadarId": 75371554,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   }
+  ],
+  "Markets": [
+   {
+    "Version": 5,
+    "Id": 648978880,
+    "Title": "Sieger",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Diana Shnaider",
+     "Jelena Ostapenko"
+    ],
+    "Outcomes": [
+     [
+      2669960254,
+      2669960255
+     ]
+    ],
+    "EventId": 17357298,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669960254
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669960255
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Spieler 1",
+     "Spieler 2"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "match-winner"
+   },
+   {
+    "Version": 6,
+    "Id": 648913048,
+    "Title": "Sieger",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Alexander Shevchenko",
+     "Mattia Bellucci"
+    ],
+    "Outcomes": [
+     [
+      2669745830,
+      2669745831
+     ]
+    ],
+    "EventId": 17356484,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669745830
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669745831
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Spieler 1",
+     "Spieler 2"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "match-winner"
+   },
+   {
+    "Version": 4,
+    "Id": 648917265,
+    "Title": "Sieger",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Shintaro Mochizuki",
+     "Yosuke Watanuki"
+    ],
+    "Outcomes": [
+     [
+      2669757672,
+      2669757673
+     ]
+    ],
+    "EventId": 17356528,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669757672
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669757673
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Spieler 1",
+     "Spieler 2"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "match-winner"
+   },
+   {
+    "Version": 3,
+    "Id": 648884836,
+    "Title": "Sieger",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "T Arribage / A Olivetti",
+     "F Cabral / J Tracy"
+    ],
+    "Outcomes": [
+     [
+      2669658373,
+      2669658374
+     ]
+    ],
+    "EventId": 17356122,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669658373
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669658374
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Spieler 1",
+     "Spieler 2"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "match-winner"
+   },
+   {
+    "Version": 4,
+    "Id": 648978903,
+    "Title": "Sieger",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Elina Svitolina",
+     "Sonay Kartal"
+    ],
+    "Outcomes": [
+     [
+      2669960343,
+      2669960344
+     ]
+    ],
+    "EventId": 17357299,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669960343
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669960344
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Spieler 1",
+     "Spieler 2"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "match-winner"
+   },
+   {
+    "Version": 3,
+    "Id": 648988614,
+    "Title": "Sieger",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "G Dabrowski / L Stefani",
+     "I Neel / G Olmos"
+    ],
+    "Outcomes": [
+     [
+      2669988916,
+      2669988917
+     ]
+    ],
+    "EventId": 17357436,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669988916
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669988917
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Spieler 1",
+     "Spieler 2"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "match-winner"
+   },
+   {
+    "Version": 6,
+    "Id": 648482921,
+    "Title": "Sieger",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Martin Landaluce",
+     "Keegan Smith"
+    ],
+    "Outcomes": [
+     [
+      2668345895,
+      2668345896
+     ]
+    ],
+    "EventId": 17351869,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2668345895
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2668345896
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Spieler 1",
+     "Spieler 2"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "match-winner"
+   },
+   {
+    "Version": 4,
+    "Id": 648949834,
+    "Title": "Sieger",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Tomas Machac",
+     "Liam Draxl"
+    ],
+    "Outcomes": [
+     [
+      2669860057,
+      2669860058
+     ]
+    ],
+    "EventId": 17356882,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669860057
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669860058
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Spieler 1",
+     "Spieler 2"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "match-winner"
+   }
+  ],
+  "Outcomes": [
+   {
+    "Version": 9,
+    "PriceVersion": 9,
+    "OutcomeVersion": 1,
+    "Id": 2669960254,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.38,
+    "OddsDecimalDisplay": "1.38",
+    "OddsNum": 19,
+    "OddsDen": 50,
+    "EventId": 17357298,
+    "MarketId": 648978880,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Diana Shnaider",
+    "CouponName": "Spieler 1",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 9,
+    "PriceVersion": 9,
+    "OutcomeVersion": 1,
+    "Id": 2669960255,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.0,
+    "OddsDecimalDisplay": "3.00",
+    "OddsNum": 2,
+    "OddsDen": 1,
+    "EventId": 17357298,
+    "MarketId": 648978880,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Jelena Ostapenko",
+    "CouponName": "Spieler 2",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 23,
+    "PriceVersion": 23,
+    "OutcomeVersion": 1,
+    "Id": 2669745830,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.9,
+    "OddsDecimalDisplay": "2.90",
+    "OddsNum": 19,
+    "OddsDen": 10,
+    "EventId": 17356484,
+    "MarketId": 648913048,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Alexander Shevchenko",
+    "CouponName": "Spieler 1",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 23,
+    "PriceVersion": 23,
+    "OutcomeVersion": 1,
+    "Id": 2669745831,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.364,
+    "OddsDecimalDisplay": "1.36",
+    "OddsNum": 4,
+    "OddsDen": 11,
+    "EventId": 17356484,
+    "MarketId": 648913048,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Mattia Bellucci",
+    "CouponName": "Spieler 2",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 14,
+    "PriceVersion": 14,
+    "OutcomeVersion": 1,
+    "Id": 2669757672,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.0,
+    "OddsDecimalDisplay": "2.00",
+    "OddsNum": 1,
+    "OddsDen": 1,
+    "EventId": 17356528,
+    "MarketId": 648917265,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Shintaro Mochizuki",
+    "CouponName": "Spieler 1",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 14,
+    "PriceVersion": 14,
+    "OutcomeVersion": 1,
+    "Id": 2669757673,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.727,
+    "OddsDecimalDisplay": "1.72",
+    "OddsNum": 8,
+    "OddsDen": 11,
+    "EventId": 17356528,
+    "MarketId": 648917265,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Yosuke Watanuki",
+    "CouponName": "Spieler 2",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 1,
+    "PriceVersion": 1,
+    "OutcomeVersion": 1,
+    "Id": 2669658373,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.727,
+    "OddsDecimalDisplay": "1.72",
+    "OddsNum": 8,
+    "OddsDen": 11,
+    "EventId": 17356122,
+    "MarketId": 648884836,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "T Arribage / A Olivetti",
+    "CouponName": "Spieler 1",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 1,
+    "PriceVersion": 1,
+    "OutcomeVersion": 1,
+    "Id": 2669658374,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.0,
+    "OddsDecimalDisplay": "2.00",
+    "OddsNum": 1,
+    "OddsDen": 1,
+    "EventId": 17356122,
+    "MarketId": 648884836,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "F Cabral / J Tracy",
+    "CouponName": "Spieler 2",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 6,
+    "PriceVersion": 6,
+    "OutcomeVersion": 1,
+    "Id": 2669960343,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.444,
+    "OddsDecimalDisplay": "1.44",
+    "OddsNum": 4,
+    "OddsDen": 9,
+    "EventId": 17357299,
+    "MarketId": 648978903,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Elina Svitolina",
+    "CouponName": "Spieler 1",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 3,
+    "PriceVersion": 3,
+    "OutcomeVersion": 1,
+    "Id": 2669960344,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.75,
+    "OddsDecimalDisplay": "2.75",
+    "OddsNum": 7,
+    "OddsDen": 4,
+    "EventId": 17357299,
+    "MarketId": 648978903,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Sonay Kartal",
+    "CouponName": "Spieler 2",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 12,
+    "PriceVersion": 12,
+    "OutcomeVersion": 1,
+    "Id": 2669988916,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.182,
+    "OddsDecimalDisplay": "1.18",
+    "OddsNum": 2,
+    "OddsDen": 11,
+    "EventId": 17357436,
+    "MarketId": 648988614,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "G Dabrowski / L Stefani",
+    "CouponName": "Spieler 1",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 13,
+    "PriceVersion": 13,
+    "OutcomeVersion": 1,
+    "Id": 2669988917,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 4.5,
+    "OddsDecimalDisplay": "4.50",
+    "OddsNum": 7,
+    "OddsDen": 2,
+    "EventId": 17357436,
+    "MarketId": 648988614,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "I Neel / G Olmos",
+    "CouponName": "Spieler 2",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 24,
+    "PriceVersion": 24,
+    "OutcomeVersion": 1,
+    "Id": 2668345895,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.286,
+    "OddsDecimalDisplay": "1.28",
+    "OddsNum": 2,
+    "OddsDen": 7,
+    "EventId": 17351869,
+    "MarketId": 648482921,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Martin Landaluce",
+    "CouponName": "Spieler 1",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 26,
+    "PriceVersion": 26,
+    "OutcomeVersion": 1,
+    "Id": 2668345896,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.3,
+    "OddsDecimalDisplay": "3.30",
+    "OddsNum": 23,
+    "OddsDen": 10,
+    "EventId": 17351869,
+    "MarketId": 648482921,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Keegan Smith",
+    "CouponName": "Spieler 2",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 6,
+    "PriceVersion": 6,
+    "OutcomeVersion": 1,
+    "Id": 2669860057,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.3,
+    "OddsDecimalDisplay": "1.30",
+    "OddsNum": 3,
+    "OddsDen": 10,
+    "EventId": 17356882,
+    "MarketId": 648949834,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Tomas Machac",
+    "CouponName": "Spieler 1",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 6,
+    "PriceVersion": 6,
+    "OutcomeVersion": 1,
+    "Id": 2669860058,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.2,
+    "OddsDecimalDisplay": "3.20",
+    "OddsNum": 11,
+    "OddsDen": 5,
+    "EventId": 17356882,
+    "MarketId": 648949834,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Liam Draxl",
+    "CouponName": "Spieler 2",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "2"
+   }
+  ],
+  "Success": true
+ }
+}

@@ -143,7 +143,8 @@ const VERIFIED_SPORTS: ReadonlyArray<{
   // sports list (group.json), and for the winter sports the second step of an
   // event's path, as LeoVegas.de and PMU list them (11 and 15/10/2026).
   kambi?: string | string[];
-  // Betway.de's sport names (./betway.ts).
+  // Betway.de's category names (./betway.ts), as getCategories lists them
+  // (15/10/2026), for the sports it is read for.
   betway?: string | string[];
 }> = [
   {
@@ -151,24 +152,28 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     winamax: "Football",
     betclic: "football",
     kambi: "football",
+    betway: "soccer",
   },
   {
     canonical: "tennis",
     winamax: "Tennis",
     betclic: "tennis",
     kambi: "tennis",
+    betway: "tennis",
   },
   {
     canonical: "basketball",
     winamax: "Basketball",
     betclic: "basketball",
     kambi: "basketball",
+    betway: "basketball",
   },
   {
     canonical: "hockey sur glace",
     winamax: "Hockey sur glace",
     betclic: "ice_hockey",
     kambi: "ice_hockey",
+    betway: "ice-hockey",
   },
   {
     canonical: "baseball",

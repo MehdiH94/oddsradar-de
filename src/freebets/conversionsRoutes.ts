@@ -44,7 +44,7 @@ export function conversionsRouter({ auth, service, cacheMs }: ConversionsRouterO
     const wait = auth.limiter.hit(`freebets:${userId}`, MAX_PER_MINUTE, 60_000);
     if (wait > 0) {
       res.set("Retry-After", String(wait));
-      res.status(429).json({ error: "rate_limited", message: "Trop de demandes. Réessayez dans un instant." });
+      res.status(429).json({ error: "rate_limited", message: "Too many requests. Try again in a moment." });
       return;
     }
 
@@ -67,13 +67,13 @@ export function conversionsRouter({ auth, service, cacheMs }: ConversionsRouterO
     } catch (err) {
       if (err instanceof TooManyRunning) {
         res.set("Retry-After", "2");
-        res.status(429).json({ error: "rate_limited", message: "Trop de calculs en même temps. Réessayez dans un instant." });
+        res.status(429).json({ error: "rate_limited", message: "Too many calculations at once. Try again in a moment." });
       } else if (err instanceof ComputeError && err.code === "busy") {
         res.set("Retry-After", "2");
-        res.status(503).json({ error: "busy", message: "Le calcul est très demandé. Réessayez dans un instant." });
+        res.status(503).json({ error: "busy", message: "The calculation is in high demand. Try again in a moment." });
       } else if (err instanceof ComputeError) {
         console.error("[freebets]", err);
-        res.status(503).json({ error: "unavailable", message: "Le calcul n'a pas abouti. Réessayez dans un instant." });
+        res.status(503).json({ error: "unavailable", message: "The calculation did not finish. Try again in a moment." });
       } else {
         next(err);
       }

@@ -59,7 +59,7 @@ export function loadSession(auth: AuthContext): RequestHandler {
 
 export const requireAuth: RequestHandler = (req, res, next) => {
   if (!req.user) {
-    res.status(401).json({ error: "unauthenticated", message: "Connexion requise." });
+    res.status(401).json({ error: "unauthenticated", message: "You need to log in." });
     return;
   }
   next();
@@ -69,9 +69,9 @@ export const requireAuth: RequestHandler = (req, res, next) => {
 export function requireRole(...roles: Role[]): RequestHandler {
   return (req, res, next) => {
     if (!req.user) {
-      res.status(401).json({ error: "unauthenticated", message: "Connexion requise." });
+      res.status(401).json({ error: "unauthenticated", message: "You need to log in." });
     } else if (!roles.includes(req.user.role)) {
-      res.status(403).json({ error: "forbidden", message: "Accès refusé." });
+      res.status(403).json({ error: "forbidden", message: "Access denied." });
     } else {
       next();
     }
@@ -99,7 +99,7 @@ export function sameSiteOnly(auth: AuthContext): RequestHandler {
       }
     }
     if (!fromHere || !req.is("application/json")) {
-      res.status(403).json({ error: "forbidden", message: "Requête refusée." });
+      res.status(403).json({ error: "forbidden", message: "Request refused." });
       return;
     }
     next();

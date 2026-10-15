@@ -76,7 +76,7 @@ describe("a golf tournament's winner", () => {
       ],
       SITE
     ) as { embeds: { title: string; description?: string; fields: { name: string; value: string }[] }[] };
-    expect(message.embeds[0].title).toBe("💎 +20,0 %");
+    expect(message.embeds[0].title).toBe("💎 +20.0%");
     expect(message.embeds[0].description).toBeUndefined();
     expect(message.embeds[0].fields[0].value).toBe("Baycurrent Classic 2026 · Baycurrent Classic");
   });
@@ -135,9 +135,9 @@ describe("a gem", () => {
       SITE
     );
     const text = JSON.stringify(message.embeds);
-    expect(message.embeds![0].title).toBe("💎 +12,5 %");
+    expect(message.embeds![0].title).toBe("💎 +12.5%");
     for (const hidden of ["Akbou Olympique", "Résultat", "Betsson", "4,05", "3,60", "44"]) expect(text).not.toContain(hidden);
-    expect(message.embeds![0].fields.map((f) => f.name)).toEqual(["Match", "Coup d'envoi", "Page du match"]);
+    expect(message.embeds![0].fields.map((f) => f.name)).toEqual(["Match", "Kick-off", "Match page"]);
   });
 });
 
@@ -209,30 +209,31 @@ describe("runGemAlerts", () => {
     expect(send.mock.calls.every(([url, init]) => url === WEBHOOK && init.method === "POST")).toBe(true);
     const [hello, gems] = bodies();
     expect(hello.content).toBe(
-      "✅ CoteRadar est connecté à ce salon. Une alerte arrivera ici à chaque nouvelle gem : un value bet 1N2 ou vainqueur " +
-        "d'un match (foot, tennis, basket, baseball, football américain, hockey, rugby, MMA) 5 % ou plus au-dessus de la " +
-        "cote juste, ou un pari joueur, jeux ou sets 15 % ou plus ; et chaque surebet (TRJ au-dessus de 100 %, " +
-        "ceux « à vérifier » signalés comme tels). Une seule alerte par match, marché et issue.\n" +
+      "✅ OddsRadar is connected to this channel. An alert will come here for each new gem: a 1X2 or match winner " +
+        "value bet (football, tennis, basketball, baseball, American football, hockey, rugby, MMA) 5% or more above the " +
+        "fair odds, or a player, games or sets bet 15% or more; and each surebet (payout over 100%, " +
+        "those “to verify” flagged as such). A single alert per match, market and outcome." +
+        "\n" +
         `${SITE}/?sport=value-bets&sort=value&bookmakers=winamax,betclic`
     );
     // No one pinged by a name, ever.
     expect([hello.allowed_mentions, gems.allowed_mentions]).toEqual([{ parse: [] }, { parse: [] }]);
 
     // Biggest edge first: Doué (16.7%), Mbappé (15%), France (5%).
-    expect(gems.content).toBe("💎 3 nouvelles gems");
-    expect(gems.embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +16,7 %", "💎 +15,0 %", "💎 +5,0 %"]);
+    expect(gems.content).toBe("💎 3 new gems");
+    expect(gems.embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +16.7%", "💎 +15.0%", "💎 +5.0%"]);
     const [, , france] = gems.embeds;
     const kickOff = KICK_OFF.getTime() / 1000;
     expect(france).toEqual({
-      title: "💎 +5,0 %",
+      title: "💎 +5.0%",
       url: `${SITE}/?match=fra-ita&bookmakers=winamax,betclic`,
       color: 0xd97706,
       fields: [
         { name: "Match", value: "France - Italie · Ligue des Nations" },
-        { name: "Coup d'envoi", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
+        { name: "Kick-off", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
         {
-          name: "Page du match",
-          value: `[Voir le match sur CoteRadar](${SITE}/?match=fra-ita&bookmakers=winamax,betclic)`,
+          name: "Match page",
+          value: `[See the match on OddsRadar](${SITE}/?match=fra-ita&bookmakers=winamax,betclic)`,
         },
       ],
     });
@@ -271,32 +272,32 @@ describe("runGemAlerts", () => {
     // The hello, the gems, the surebets.
     expect(send).toHaveBeenCalledTimes(3);
     const surebets = bodies()[2];
-    expect(surebets.content).toBe("⚖️ 2 nouveaux surebets");
+    expect(surebets.content).toBe("⚖️ 2 new surebets");
     expect(surebets.allowed_mentions).toEqual({ parse: [] });
     const kickOff = KICK_OFF.getTime() / 1000;
     // Biggest TRJ first. The one over 110% is sent too, flagged as to be checked.
     const [toVerify, sure] = surebets.embeds;
-    expect(toVerify.title).toBe("⚖️ À vérifier · 124,8 %");
+    expect(toVerify.title).toBe("⚖️ To verify · 124.8%");
     expect(toVerify.fields.map((f: { name: string }) => f.name)).toEqual([
       "Match",
-      "Coup d'envoi",
-      "Gain",
-      "⚠️ À vérifier",
-      "Page du match",
+      "Kick-off",
+      "Profit",
+      "⚠️ To verify",
+      "Match page",
     ]);
-    expect(toVerify.fields[3].value).toMatch(/^TRJ au-dessus de 110 %/);
+    expect(toVerify.fields[3].value).toMatch(/^Payout over 110%/);
     expect([sure]).toEqual([
       {
-        title: "⚖️ 107,4 %",
+        title: "⚖️ 107.4%",
         url: `${SITE}/?match=lal-bos&bookmakers=winamax,betclic`,
         color: 0x16a34a,
         fields: [
           { name: "Match", value: "Lakers - Celtics · NBA" },
-          { name: "Coup d'envoi", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
-          { name: "Gain", value: "+7,4 %", inline: true },
+          { name: "Kick-off", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
+          { name: "Profit", value: "+7.4%", inline: true },
           {
-            name: "Page du match",
-            value: `[Voir le match sur CoteRadar](${SITE}/?match=lal-bos&bookmakers=winamax,betclic)`,
+            name: "Match page",
+            value: `[See the match on OddsRadar](${SITE}/?match=lal-bos&bookmakers=winamax,betclic)`,
           },
         ],
       },
@@ -311,16 +312,16 @@ describe("runGemAlerts", () => {
     expect(send).toHaveBeenCalledTimes(4);
     expect(bodies()[3].embeds).toHaveLength(1);
     // 1 / (1/2.25 + 1/2.1): 108.6 %, on the same match as the first, in a card of its own.
-    expect(bodies()[3].embeds[0].title).toBe("⚖️ 108,6 %");
+    expect(bodies()[3].embeds[0].title).toBe("⚖️ 108.6%");
     expect(bodies()[3].embeds[0].url).toBe(sure.url);
     expect(
       getAlertStatus(db)
         .sent.filter((g) => g.basis.startsWith("surebet"))
         .map((g) => [g.matchLabel, g.label])
     ).toEqual([
-      ["Lakers - Celtics", "Lakers @ Betclic 2,25 / Celtics @ Betclic 2,10"],
-      ["Bulls - Knicks", "Bulls @ Winamax 2,60 / Knicks @ Betclic 2,40"],
-      ["Lakers - Celtics", "Lakers @ Winamax 2,20 / Celtics @ Betclic 2,10"],
+      ["Lakers - Celtics", "Lakers @ Betclic 2.25 / Celtics @ Betclic 2.10"],
+      ["Bulls - Knicks", "Bulls @ Winamax 2.60 / Knicks @ Betclic 2.40"],
+      ["Lakers - Celtics", "Lakers @ Winamax 2.20 / Celtics @ Betclic 2.10"],
     ]);
   });
 
@@ -342,12 +343,12 @@ describe("runGemAlerts", () => {
       legs: [{ selection: "a", label: "Joueur A", source: "winamax", side: "back", price: 5, stake: 50 }],
     };
     const embed = surebetEmbed(base, SITE);
-    expect(embed.title).toBe("⚖️ À vérifier · 103,0 %");
-    expect(embed.fields.find((f) => f.name === "⚠️ À vérifier")?.value).toMatch(/^Marché à plusieurs gagnants/);
+    expect(embed.title).toBe("⚖️ To verify · 103.0%");
+    expect(embed.fields.find((f) => f.name === "⚠️ To verify")?.value).toMatch(/^Market with several winners/);
     // One that is not to be checked says nothing of it.
     const sure = surebetEmbed({ ...base, market: "Vainqueur", marketLabel: "Vainqueur du tournoi", toVerify: false }, SITE);
-    expect(sure.title).toBe("⚖️ 103,0 %");
-    expect(sure.fields.map((f) => f.name)).not.toContain("⚠️ À vérifier");
+    expect(sure.title).toBe("⚖️ 103.0%");
+    expect(sure.fields.map((f) => f.name)).not.toContain("⚠️ To verify");
   });
 
   it("sends a value bet a surebet holds as that surebet only", async () => {
@@ -368,10 +369,10 @@ describe("runGemAlerts", () => {
     // The hello, the gems, the surebets.
     expect(send).toHaveBeenCalledTimes(3);
     const [, gems, surebets] = bodies();
-    expect(gems.embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +16,7 %", "💎 +5,0 %"]);
+    expect(gems.embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +16.7%", "💎 +5.0%"]);
     expect(surebets.embeds).toHaveLength(1);
     expect(getAlertStatus(db, 50).sent.filter((g) => g.basis.startsWith("surebet")).map((g) => g.label)).toEqual([
-      expect.stringMatching(/^Mbappé @ Winamax 2,30/),
+      expect.stringMatching(/^Mbappé @ Winamax 2.30/),
     ]);
   });
 
@@ -415,21 +416,21 @@ describe("runGemAlerts", () => {
     );
     await run();
     expect(send).toHaveBeenCalledTimes(3);
-    expect(bodies()[2].content).toBe("💎 Nouvelle gem");
+    expect(bodies()[2].content).toBe("💎 New gem");
     // Dembélé's +25,0 %: nothing else of the bet is told.
-    expect(bodies()[2].embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +25,0 %"]);
+    expect(bodies()[2].embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +25.0%"]);
 
     const other = "https://discord.com/api/webhooks/2/other-token";
     await run(other);
     expect(send).toHaveBeenCalledTimes(4);
     expect(send.mock.calls[3][0]).toBe(other);
-    expect(bodies()[3].content).toMatch(/^✅ CoteRadar est connecté/);
+    expect(bodies()[3].content).toMatch(/^✅ OddsRadar is connected/);
 
     // Removed, then put back: greeted again.
     await run(null);
     await run(other);
     expect(send).toHaveBeenCalledTimes(5);
-    expect(bodies()[4].content).toMatch(/^✅ CoteRadar est connecté/);
+    expect(bodies()[4].content).toMatch(/^✅ OddsRadar is connected/);
   });
 
   it("sends an outcome once, at the best bookmaker's price, not once per bookmaker", async () => {
@@ -440,7 +441,7 @@ describe("runGemAlerts", () => {
       new Date().toISOString()
     );
     await run();
-    expect(bodies()[1].embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +20,0 %", "💎 +16,7 %", "💎 +5,0 %"]);
+    expect(bodies()[1].embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +20.0%", "💎 +16.7%", "💎 +5.0%"]);
     expect(getAlertStatus(db).sent).toHaveLength(3);
 
     // Winamax's Mbappé is still a gem: nothing more for the same outcome.
@@ -460,7 +461,7 @@ describe("runGemAlerts", () => {
     // Greeted, then refused: Discord's rate limit.
     send.mockImplementationOnce(ok).mockImplementationOnce(() => Promise.resolve({ ok: false, status: 429 }));
     await run();
-    expect(getAlertStatus(db).lastError?.message).toBe("HTTP 429 : Discord limite les envois, nouvel essai au prochain cycle");
+    expect(getAlertStatus(db).lastError?.message).toBe("HTTP 429: Discord limits the sending, next try at the next cycle");
     expect(getAlertStatus(db).sent).toEqual([]);
 
     await run();
@@ -603,11 +604,11 @@ describe("the size of a message", () => {
 
   it("refuses to send a message Discord would refuse", () => {
     const over = gemsMessage(Array.from({ length: 10 }, (_, i) => longGem(i)));
-    expect(() => assertSendable(over)).toThrow(/message trop long pour Discord : \d+ caractères, 6000 au plus/);
+    expect(() => assertSendable(over)).toThrow(/message too long for Discord: \d+ characters, 6000 at most/);
     expect(() => assertSendable(gemsMessage(Array.from({ length: 11 }, (_, i) => ({ ...longGem(i), competition: "L1", label: "A", marketLabel: "B", participants: ["C", "D"] }))))).toThrow(
-      /11 cartes, 10 au plus/
+      /11 cards, 10 at most/
     );
-    expect(() => assertSendable({ content: "x".repeat(2001) })).toThrow(/texte de 2001 caractères, 2000 au plus/);
+    expect(() => assertSendable({ content: "x".repeat(2001) })).toThrow(/text of 2001 characters, 2000 at most/);
     expect(() => assertSendable({ content: "x".repeat(2000) })).not.toThrow();
     expect(() => assertSendable(surebetsMessage([surebet("a", 2)]))).not.toThrow();
   });
@@ -646,14 +647,14 @@ describe("the link to the match", () => {
   it("is the title's and a line of its own, on a gem and a surebet", () => {
     for (const embed of [gemEmbed(gem, "https://cote-radar.fr"), surebetEmbed(surebet, "https://cote-radar.fr")]) {
       expect(embed.url).toBe(url);
-      expect(embed.fields.at(-1)).toEqual({ name: "Page du match", value: `[Voir le match sur CoteRadar](${url})` });
+      expect(embed.fields.at(-1)).toEqual({ name: "Match page", value: `[See the match on OddsRadar](${url})` });
     }
   });
 
   it("is left out without the site's address, and keeps a Markdown link whole", () => {
     for (const [embed, names] of [
-      [gemEmbed(gem), ["Match", "Coup d'envoi"]],
-      [surebetEmbed(surebet), ["Match", "Coup d'envoi", "Gain"]],
+      [gemEmbed(gem), ["Match", "Kick-off"]],
+      [surebetEmbed(surebet), ["Match", "Kick-off", "Profit"]],
     ] as const) {
       expect(embed.url).toBeUndefined();
       expect(embed.fields.map((f) => f.name)).toEqual(names);
@@ -710,7 +711,7 @@ describe("runGemAlerts, size and rate limit", () => {
     await run();
     expect(sleep).not.toHaveBeenCalled();
     expect(send).toHaveBeenCalledTimes(2);
-    expect(getAlertStatus(db).lastError?.message).toBe("HTTP 429 : Discord limite les envois, nouvel essai au prochain cycle");
+    expect(getAlertStatus(db).lastError?.message).toBe("HTTP 429: Discord limits the sending, next try at the next cycle");
     expect(getAlertStatus(db).sent).toEqual([]);
 
     send.mockImplementationOnce(() => limited());

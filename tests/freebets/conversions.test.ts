@@ -31,16 +31,16 @@ describe("parseRequest", () => {
   });
 
   it.each([
-    [{}, "Mode"],
-    [{ mode: "both" }, "Mode"],
-    [{ mode: ["bookmakers"] }, "Mode"],
-    [{ mode: "bookmakers", legs: "4" }, "combiné"],
-    [{ mode: "bookmakers", legs: "0" }, "combiné"],
-    [{ mode: "bookmakers", legs: "1.5" }, "combiné"],
-    [{ mode: "bookmakers", legs: "x" }, "combiné"],
-    [{ mode: "exchange" }, "Bookmaker"],
-    [{ mode: "exchange", bookmaker: "nobody" }, "Bookmaker"],
-    [{ mode: "exchange", bookmaker: "constructor" }, "Bookmaker"],
+    [{}, "mode"],
+    [{ mode: "both" }, "mode"],
+    [{ mode: ["bookmakers"] }, "mode"],
+    [{ mode: "bookmakers", legs: "4" }, "accumulator"],
+    [{ mode: "bookmakers", legs: "0" }, "accumulator"],
+    [{ mode: "bookmakers", legs: "1.5" }, "accumulator"],
+    [{ mode: "bookmakers", legs: "x" }, "accumulator"],
+    [{ mode: "exchange" }, "bookmaker"],
+    [{ mode: "exchange", bookmaker: "nobody" }, "bookmaker"],
+    [{ mode: "exchange", bookmaker: "constructor" }, "bookmaker"],
     [{ mode: "bookmakers", sports: ["a", "b"] }, "sports"],
     [{ mode: "bookmakers", sports: "x".repeat(41) }, "sports"],
     [{ mode: "bookmakers", sports: Array.from({ length: 31 }, (_, i) => `s${i}`).join(",") }, "sports"],
@@ -122,7 +122,7 @@ describe("chainView", () => {
   const view = chainView(result, new Map(rows.map((r) => [r.id, r])), markets, "betclic", 30);
 
   it("gives the three conversions of the mock-up, on whole cents", () => {
-    expect(view.steps.map((s) => s.label)).toEqual(["Away", "Nul", "Away"]);
+    expect(view.steps.map((s) => s.label)).toEqual(["Away", "Draw", "Away"]);
     expect(view.steps.map((s) => s.fb)).toEqual([14.12, 12.17, 3.71]);
     expect(view.steps.map((s) => s.layStake)).toEqual([11, 9, 2.73]);
     expect(view.steps.map((s) => s.liability)).toEqual([40.15, 26.55, 7.92]);

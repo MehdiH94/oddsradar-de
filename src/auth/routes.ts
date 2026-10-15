@@ -28,10 +28,10 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // The same answer whether or not the email has an account: nobody learns who
 // is registered from the sign-up, resend and reset forms.
 const REGISTERED = {
-  message: "Si cette adresse est valide, un email de confirmation vient de lui être envoyé. Ouvrez le lien qu'il contient pour activer le compte.",
+  message: "If this address is valid, a confirmation email has just been sent to it. Open the link it contains to activate the account.",
 };
 const RESET_SENT = {
-  message: "Si un compte existe pour cette adresse, un email vient de lui être envoyé avec un lien pour choisir un nouveau mot de passe.",
+  message: "If an account exists for this address, an email has just been sent to it with a link to choose a new password.",
 };
 
 const text = (value: unknown, max: number): string | null => (typeof value === "string" && value.length <= max ? value : null);
@@ -53,7 +53,7 @@ export function authRouter(auth: AuthContext): Router {
     const wait = auth.limiter.hit(key, max, windowMs);
     if (wait > 0) {
       res.set("Retry-After", String(wait));
-      res.status(429).json({ error: "rate_limited", message: "Trop de tentatives. Réessayez dans quelques minutes." });
+      res.status(429).json({ error: "rate_limited", message: "Too many attempts. Try again in a few minutes." });
       return false;
     }
     return true;
@@ -87,10 +87,10 @@ export function authRouter(auth: AuthContext): Router {
     const password = text(req.body?.password, 1024);
     if (!allowed(res, `register:ip:${ip(req)}`, 5, HOUR)) return;
     if (email === null || !EMAIL_PATTERN.test(email.trim())) {
-      res.status(400).json({ error: "invalid_email", message: "Adresse email invalide." });
+      res.status(400).json({ error: "invalid_email", message: "Invalid email address." });
       return;
     }
-    const problem = password === null ? "Mot de passe invalide." : passwordProblem(password, email);
+    const problem = password === null ? "Invalid password." : passwordProblem(password, email);
     if (problem || password === null) {
       res.status(400).json({ error: "weak_password", message: problem });
       return;
@@ -117,12 +117,12 @@ export function authRouter(auth: AuthContext): Router {
     const token = text(req.body?.token, 200);
     const userId = token ? consumeAuthToken(db, token, "verify_email", auth.now()) : null;
     if (!userId) {
-      res.status(400).json({ error: "invalid_token", message: "Ce lien de confirmation est invalide ou a expiré." });
+      res.status(400).json({ error: "invalid_token", message: "This confirmation link is invalid or has expired." });
       return;
     }
     markEmailVerified(db, userId, auth.now());
     recordEvent(db, "email_verified", userId, ip(req), auth.now());
-    res.json({ message: "Adresse confirmée. Vous pouvez vous connecter." });
+    res.json({ message: "Address confirmed. You can log in." });
   });
 
   router.post("/resend-verification", async (req, res) => {
@@ -139,7 +139,7 @@ export function authRouter(auth: AuthContext): Router {
     const email = text(req.body?.email, 254);
     const password = text(req.body?.password, 1024);
     if (email === null || password === null) {
-      res.status(400).json({ error: "invalid_request", message: "Email et mot de passe requis." });
+      res.status(400).json({ error: "invalid_request", message: "Email and password required." });
       return;
     }
     const emailKey = `login:email:${normalizeEmail(email)}`;
@@ -149,16 +149,16 @@ export function authRouter(auth: AuthContext): Router {
     const ok = await verifyPassword(password, user ? user.passwordHash : await auth.dummyHash());
     if (!user || !ok) {
       recordEvent(db, "login_failed", user?.id ?? null, ip(req), auth.now());
-      res.status(401).json({ error: "invalid_credentials", message: "Email ou mot de passe incorrect." });
+      res.status(401).json({ error: "invalid_credentials", message: "Wrong email or password." });
       return;
     }
     // The password is right: say what is wrong with the account.
     if (user.status !== "active") {
-      res.status(403).json({ error: "account_disabled", message: "Ce compte est désactivé." });
+      res.status(403).json({ error: "account_disabled", message: "This account is disabled." });
       return;
     }
     if (!user.emailVerifiedAt) {
-      res.status(403).json({ error: "email_not_verified", message: "Confirmez d'abord votre adresse email : un lien vous a été envoyé." });
+      res.status(403).json({ error: "email_not_verified", message: "Confirm your email address first: a link has been sent to you." });
       return;
     }
     if (needsRehash(user.passwordHash, auth.cost)) setPasswordHash(db, user.id, await hashPassword(password, auth.cost), auth.now());
@@ -200,7 +200,7 @@ export function authRouter(auth: AuthContext): Router {
     const token = text(req.body?.token, 200);
     const password = text(req.body?.password, 1024);
     if (token === null || password === null) {
-      res.status(400).json({ error: "invalid_request", message: "Lien et mot de passe requis." });
+      res.status(400).json({ error: "invalid_request", message: "Link and password required." });
       return;
     }
     // Check the link and the password before spending the link: a weak
@@ -208,7 +208,7 @@ export function authRouter(auth: AuthContext): Router {
     const owner = peekAuthToken(db, token, "reset_password", auth.now());
     const user = owner ? findUserById(db, owner) : null;
     if (!user) {
-      res.status(400).json({ error: "invalid_token", message: "Ce lien est invalide ou a expiré." });
+      res.status(400).json({ error: "invalid_token", message: "This link is invalid or has expired." });
       return;
     }
     const problem = passwordProblem(password, user.email);
@@ -218,7 +218,7 @@ export function authRouter(auth: AuthContext): Router {
     }
     const passwordHash = await hashPassword(password, auth.cost);
     if (consumeAuthToken(db, token, "reset_password", auth.now()) !== user.id) {
-      res.status(400).json({ error: "invalid_token", message: "Ce lien est invalide ou a expiré." });
+      res.status(400).json({ error: "invalid_token", message: "This link is invalid or has expired." });
       return;
     }
     setPasswordHash(db, user.id, passwordHash, auth.now());
@@ -227,7 +227,7 @@ export function authRouter(auth: AuthContext): Router {
     markEmailVerified(db, user.id, auth.now());
     deleteUserSessions(db, user.id);
     recordEvent(db, "password_reset", user.id, ip(req), auth.now());
-    res.json({ message: "Mot de passe modifié. Vous pouvez vous connecter." });
+    res.json({ message: "Password changed. You can log in." });
   });
 
   return router;

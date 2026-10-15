@@ -39,28 +39,28 @@ test("an admin lists the accounts, blocks one that is then locked out, and makes
   await expect(page.getByRole("heading", { name: "Administration", level: 1 })).toBeVisible();
 
   const row = (email: string) => page.getByRole("row", { name: new RegExp(email) });
-  await expect(row(blocked)).toContainText("Validé");
-  await expect(row(blocked)).toContainText("Aucun abonnement");
+  await expect(row(blocked)).toContainText("Confirmed");
+  await expect(row(blocked)).toContainText("No subscription");
   await expect(row(SEEDED_ADMIN.email)).toContainText("Admin");
 
   page.on("dialog", (dialog) => void dialog.accept());
-  await row(blocked).getByRole("button", { name: /Bloquer/ }).click();
-  await expect(row(blocked)).toContainText("Bloqué");
+  await row(blocked).getByRole("button", { name: /Block/ }).click();
+  await expect(row(blocked)).toContainText("Blocked");
 
   // Signed out at once, and refused at the login.
   expect((await otherPage.request.get("/api/events")).status()).toBe(401);
   await logIn(otherPage, blocked, NEW_PASSWORD);
-  await expect(otherPage.getByRole("alert")).toContainText("Ce compte est désactivé");
+  await expect(otherPage.getByRole("alert")).toContainText("This account is disabled");
   await other.close();
 
-  await row(promoted).getByRole("button", { name: /Nommer admin/ }).click();
+  await row(promoted).getByRole("button", { name: /Make admin/ }).click();
   await expect(row(promoted)).toContainText("Admin");
-  await expect(row(promoted).getByRole("button", { name: /Retirer admin/ })).toBeVisible();
+  await expect(row(promoted).getByRole("button", { name: /Remove admin/ })).toBeVisible();
 
   // An admin does not act on their own account.
-  await expect(row(SEEDED_ADMIN.email).getByRole("button", { name: /Bloquer/ })).toBeDisabled();
+  await expect(row(SEEDED_ADMIN.email).getByRole("button", { name: /Block/ })).toBeDisabled();
 
   // The page reloads on its own address.
   await page.reload();
-  await expect(row(blocked)).toContainText("Bloqué");
+  await expect(row(blocked)).toContainText("Blocked");
 });

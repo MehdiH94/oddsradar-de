@@ -189,9 +189,9 @@ describe("the tennis reference cycle", () => {
     it("lists them in the category, and the match by value in the listing", () => {
       const bets = getValueBets(db, { sort: "value" }).bets.map((b) => [b.marketLabel, b.label, b.basis, Number(b.edge.toFixed(3))]);
       expect(bets).toEqual([
-        ["Handicap jeux : Donna Vekic +5,5", "Donna Vekic ne perd pas, ou perd par 5 jeux au plus", "fair", 0.08],
-        ["Vainqueur du match", "Donna Vekic", "fair", 0.077],
-        ["Nombre de jeux (20,5 jeux)", "Plus de 20,5", "lay", 0.075],
+        ["Games handicap: Donna Vekic +5.5", "Donna Vekic does not lose, or loses by at most 5 games", "fair", 0.08],
+        ["Match winner", "Donna Vekic", "fair", 0.077],
+        ["Total games (20.5 games)", "Over 20.5", "lay", 0.075],
       ]);
       const listed = getLatestEvents(db, { sport: "tennis", sort: "value" }).events[0];
       expect(listed.reference?.fair["1"]).toBeCloseTo(8.911, 2);

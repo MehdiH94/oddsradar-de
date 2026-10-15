@@ -18,9 +18,9 @@ test("the dashboard lists the matches with each outcome's best price, and keeps 
   for (const match of [VALUE_MATCH, SUREBET_MATCH, SECOND_VALUE_MATCH]) await expect(football).toContainText(teams(match));
   await expect(football).not.toContainText(teams(TENNIS_MATCH));
   const row = football.getByRole("row", { name: new RegExp(teams(VALUE_MATCH)) });
-  await expect(row).toContainText("Winamax : 2,20 (meilleure cote)");
-  await expect(row).toContainText("Betclic : 3,30 (meilleure cote)");
-  await expect(row).toContainText("Betclic : 3,70 (meilleure cote)");
+  await expect(row).toContainText("Winamax: 2.20 (best price)");
+  await expect(row).toContainText("Betclic: 3.30 (best price)");
+  await expect(row).toContainText("Betclic: 3.70 (best price)");
 
   // The sport filter swaps the list, and the address says so.
   await pick(page, "Tennis");
@@ -32,13 +32,13 @@ test("the dashboard lists the matches with each outcome's best price, and keeps 
   // The search narrows the football list to one match; reloading the page, or
   // opening its address elsewhere, gives the same view.
   await pick(page, "Football");
-  await page.getByRole("combobox", { name: "Rechercher un match" }).fill("Lyon");
+  await page.getByRole("combobox", { name: "Search for a match" }).fill("Lyon");
   await expect(page).toHaveURL(/q=Lyon/);
   await expect(football).toContainText(teams(SUREBET_MATCH));
   await expect(football).not.toContainText(teams(VALUE_MATCH));
 
   await page.reload();
-  await expect(page.getByRole("combobox", { name: "Rechercher un match" })).toHaveValue("Lyon");
+  await expect(page.getByRole("combobox", { name: "Search for a match" })).toHaveValue("Lyon");
   await expect(page.getByRole("region", { name: "Football" })).toContainText(teams(SUREBET_MATCH));
   await expect(page.getByRole("region", { name: "Football" })).not.toContainText(teams(VALUE_MATCH));
 });
@@ -46,13 +46,13 @@ test("the dashboard lists the matches with each outcome's best price, and keeps 
 test("the bookmakers ticked in the address are the ones whose prices are compared", async ({ page }) => {
   await page.goto("/odds?sport=football&sort=trj&bookmakers=winamax");
   const row = page.getByRole("region", { name: "Football" }).getByRole("row", { name: new RegExp(teams(VALUE_MATCH)) });
-  await expect(row).toContainText("Winamax : 2,20");
+  await expect(row).toContainText("Winamax: 2.20");
   await expect(row).not.toContainText("Betclic :");
 });
 
 test("the value bets list shows each bet's price against the fair odds, the biggest edge first", async ({ page }) => {
   await page.goto("/odds");
-  await page.getByRole("navigation", { name: "Navigation principale" }).getByText("Value bets", { exact: true }).click();
+  await page.getByRole("navigation", { name: "Main navigation" }).getByText("Value bets", { exact: true }).click();
   await expect(page).toHaveURL(/sport=value-bets/);
 
   const bets = page.getByRole("region", { name: "Value bets" });
@@ -61,11 +61,11 @@ test("the value bets list shows each bet's price against the fair odds, the bigg
   // The home side at Winamax, 2.20 against the fair 2.00: +10%; then Nice's 2.10 against 2.00: +5%.
   await expect(rows.nth(0)).toContainText(teams(VALUE_MATCH));
   await expect(rows.nth(0)).toContainText("Paris SG");
-  await expect(rows.nth(0)).toContainText("Winamax : 2,20");
-  await expect(rows.nth(0)).toContainText("2,00");
-  await expect(rows.nth(0)).toContainText("+10,0 %");
+  await expect(rows.nth(0)).toContainText("Winamax: 2.20");
+  await expect(rows.nth(0)).toContainText("2.00");
+  await expect(rows.nth(0)).toContainText("+10.0%");
   await expect(rows.nth(1)).toContainText(teams(SECOND_VALUE_MATCH));
-  await expect(rows.nth(1)).toContainText("+5,0 %");
+  await expect(rows.nth(1)).toContainText("+5.0%");
 });
 
 test("a match opens from the value bets with all its markets, and its back link returns to the list", async ({ page }) => {
@@ -73,14 +73,14 @@ test("a match opens from the value bets with all its markets, and its back link 
   await page.getByRole("region", { name: "Value bets" }).getByRole("link", { name: teams(VALUE_MATCH), exact: true }).click();
 
   await expect(page.getByRole("heading", { name: "Paris SG – Marseille", level: 2 })).toBeVisible();
-  await expect(page.getByText("2 marchés comparés")).toBeVisible();
+  await expect(page.getByText("2 markets compared")).toBeVisible();
   // Its main market, with the TRJ of the best prices, and a market of its own.
-  const result = page.getByRole("article", { name: "Résultat du match" });
-  await expect(result).toContainText("97,3 %");
-  await expect(result).toContainText("Winamax : 2,20 (meilleure cote)");
-  await expect(page.getByRole("article", { name: "Nombre de buts" })).toContainText("2,5");
+  const result = page.getByRole("article", { name: "Match result" });
+  await expect(result).toContainText("97.3%");
+  await expect(result).toContainText("Winamax: 2.20 (best price)");
+  await expect(page.getByRole("article", { name: "Total goals" })).toContainText("2.5");
 
-  await page.getByRole("link", { name: "Tous les value bets" }).click();
+  await page.getByRole("link", { name: "All value bets" }).click();
   await expect(page).toHaveURL(/sport=value-bets/);
   await expect(page).not.toHaveURL(/match=/);
   await expect(page.getByRole("region", { name: "Value bets" })).toContainText(teams(VALUE_MATCH));
@@ -92,9 +92,9 @@ test("a match's name opens its page from the odds list, even with nothing but it
 
   await expect(page).toHaveURL(/match=e2e-weber-ruiz/);
   await expect(page.getByRole("heading", { name: "Jonas Weber – Mateo Ruiz", level: 2 })).toBeVisible();
-  await expect(page.getByRole("article", { name: "Vainqueur du match" })).toContainText("Betclic");
+  await expect(page.getByRole("article", { name: "Match winner" })).toContainText("Betclic");
 
-  await page.getByRole("link", { name: "Tous les matchs" }).click();
+  await page.getByRole("link", { name: "All matches" }).click();
   await expect(page).not.toHaveURL(/match=/);
   await expect(page.getByRole("region", { name: "Tennis" })).toContainText(teams(TENNIS_MATCH));
 });
@@ -104,10 +104,10 @@ test("a match's competition leads to the matches of that competition, and Back r
   await page.getByRole("region", { name: "Football" }).getByRole("link", { name: teams(VALUE_MATCH), exact: true }).click();
   await expect(page.getByRole("heading", { name: teams(VALUE_MATCH).replace(" - ", " – "), level: 2 })).toBeVisible();
 
-  await page.getByRole("link", { name: `Voir les matchs : ${VALUE_MATCH.competition}` }).click();
+  await page.getByRole("link", { name: `Show the matches: ${VALUE_MATCH.competition}` }).click();
   await expect(page).toHaveURL(/competition=Ligue\+1/);
   await expect(page).not.toHaveURL(/match=/);
-  await expect(page.getByRole("button", { name: `Compétition : ${VALUE_MATCH.competition}` })).toBeVisible();
+  await expect(page.getByRole("button", { name: `Competition: ${VALUE_MATCH.competition}` })).toBeVisible();
   // The competition's matches and its winner, as the menu's choice gives.
   const football = page.getByRole("region", { name: "Football" });
   await expect(football).toContainText(teams(VALUE_MATCH));
@@ -124,18 +124,18 @@ test("a surebet shows each leg's bookmaker, price and stake, and what it earns",
   // One leg per outcome: who to bet with, at what price, and how much of the 100 EUR.
   const legs = surebets.getByRole("listitem");
   await expect(legs).toHaveCount(3);
-  await expect(legs.nth(0)).toHaveText(/Lyon\s*Winamax\s*2,60\s*mise 39,20 €/);
-  await expect(legs.nth(1)).toHaveText(/Nul\s*Betclic\s*3,80\s*mise 26,82 €/);
-  await expect(legs.nth(2)).toHaveText(/Lille\s*Betclic\s*3,00\s*mise 33,98 €/);
-  await expect(surebets).toContainText("101,9 %");
-  await expect(surebets).toContainText("+1,93 €");
+  await expect(legs.nth(0)).toHaveText(/Lyon\s*Winamax\s*2.60\s*stake €39.20/);
+  await expect(legs.nth(1)).toHaveText(/Draw\s*Betclic\s*3.80\s*stake €26.82/);
+  await expect(legs.nth(2)).toHaveText(/Lille\s*Betclic\s*3.00\s*stake €33.98/);
+  await expect(surebets).toContainText("101.9%");
+  await expect(surebets).toContainText("+€1.93");
 });
 
 test("a match page keeps every ticked bookmaker's price in view on a desktop", async ({ page }) => {
   // Every bookmaker ticked (the default).
   await page.goto(`/odds?match=${VALUE_MATCH.id}`);
 
-  for (const name of ["Résultat du match", "Nombre de buts"]) {
+  for (const name of ["Match result", "Total goals"]) {
     const card = page.getByRole("article", { name });
     await expect(card).toBeVisible();
     const chips = card.locator("[data-bookmaker]");
@@ -154,15 +154,15 @@ test("the winners of the competitions are listed with the matches, each with its
   const football = page.getByRole("region", { name: "Football" });
   await expect(football.getByRole("article", { name: COMPETITION_WINNER.title })).toBeVisible();
   await expect(football).toContainText(teams(VALUE_MATCH));
-  await expect(page.getByRole("navigation", { name: "Navigation principale" }).getByText("Vainqueurs", { exact: true })).toHaveCount(0);
+  await expect(page.getByRole("navigation", { name: "Main navigation" }).getByText("Vainqueurs", { exact: true })).toHaveCount(0);
 
   // The best price of each contender, whichever of the two bookmakers has it.
   await page.goto("/odds?sport=football&sort=trj");
   const card = page.getByRole("article", { name: COMPETITION_WINNER.title });
   await expect(card).toBeVisible();
-  await expect(card.getByRole("row", { name: /Paris Saint-Germain/ })).toContainText("Winamax : 1,50 (meilleure cote)");
-  await expect(card.getByRole("row", { name: /Olympique de Marseille/ })).toContainText("Betclic : 3,40 (meilleure cote)");
-  await expect(card.getByRole("row", { name: /AS Monaco/ })).toContainText("Betclic : 4,20 (meilleure cote)");
+  await expect(card.getByRole("row", { name: /Paris Saint-Germain/ })).toContainText("Winamax: 1.50 (best price)");
+  await expect(card.getByRole("row", { name: /Olympique de Marseille/ })).toContainText("Betclic: 3.40 (best price)");
+  await expect(card.getByRole("row", { name: /AS Monaco/ })).toContainText("Betclic: 4.20 (best price)");
 
   // Not in the other sports' lists.
   await pick(page, "Tennis");
@@ -173,26 +173,26 @@ test("the winners of the competitions are listed with the matches, each with its
 test("a competition narrows the list to its matches and its winner, season left out, and the address keeps it", async ({ page }) => {
   await page.goto("/odds");
   const football = page.getByRole("region", { name: "Football" });
-  await page.getByRole("button", { name: "Compétition : Toutes" }).click();
+  await page.getByRole("button", { name: "Competition: All" }).click();
   // « Ligue 1 2026/2027 » is « Ligue 1 »: one entry for the matches and the winner.
   await expect(page.getByRole("radio", { name: /^Ligue 1/ })).toHaveCount(1);
   // The field narrows the list as one types, and Enter takes the first found.
-  await page.getByRole("searchbox", { name: "Rechercher une compétition" }).fill("ligue");
+  await page.getByRole("searchbox", { name: "Search for a competition" }).fill("ligue");
   await expect(page.locator("input[name=competition]")).toHaveCount(1);
-  await page.getByRole("searchbox", { name: "Rechercher une compétition" }).press("Enter");
+  await page.getByRole("searchbox", { name: "Search for a competition" }).press("Enter");
 
   await expect(page).toHaveURL(/competition=Ligue\+1/);
-  await expect(page.getByRole("button", { name: "Compétition : Ligue 1" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Competition: Ligue 1" })).toBeVisible();
   await expect(football).toContainText(teams(VALUE_MATCH));
   await expect(football.getByRole("article", { name: COMPETITION_WINNER.title })).toBeVisible();
 
   // A reload shows the same view; another sport's competitions are its own.
   await page.reload();
-  await expect(page.getByRole("button", { name: "Compétition : Ligue 1" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Competition: Ligue 1" })).toBeVisible();
   await expect(page.getByRole("region", { name: "Football" }).getByRole("article", { name: COMPETITION_WINNER.title })).toBeVisible();
   await pick(page, "Tennis");
   await expect(page).not.toHaveURL(/competition=/);
-  await page.getByRole("button", { name: "Compétition : Toutes" }).click();
+  await page.getByRole("button", { name: "Competition: All" }).click();
   await expect(page.getByRole("radio", { name: "ATP Paris", exact: true })).toBeVisible();
   await expect(page.getByRole("radio", { name: "Ligue 1", exact: true })).toHaveCount(0);
 });

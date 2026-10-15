@@ -158,7 +158,7 @@ describe("the other sports' reference cycle", () => {
       edge: expect.closeTo(2.05 / (1.975 * total) - 1, 9),
     });
     expect(getValueBets(db, {}).bets.map((b) => [b.market, b.marketLabel, b.label, b.basis])).toEqual([
-      ["Vainqueur du match", "Vainqueur du match", "Golden State Valkyries", "fair"],
+      ["Vainqueur du match", "Match winner", "Golden State Valkyries", "fair"],
     ]);
   });
 
@@ -202,7 +202,7 @@ describe("the other sports' reference cycle", () => {
     // Winamax's 1.95 on Tampa Bay, 5.4% above its fair 1.85: a gem.
     const bets = getValueBets(db, {}).bets;
     expect(bets.map((b) => [b.market, b.marketLabel, b.label, Number(b.edge.toFixed(3))])).toEqual([
-      ["1X2", "Résultat du match", "Tampa Bay Lightning", 0.054],
+      ["1X2", "Match result", "Tampa Bay Lightning", 0.054],
     ]);
     expect(isGem(bets[0])).toBe(true);
     const detail = getEventDetail(db, "tbl")!;

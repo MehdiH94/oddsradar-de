@@ -15,7 +15,7 @@ const FILTER_FROM = 30;
 const COMPACT_FROM = 6;
 
 // "2,5": the French decimal comma.
-const formatLine = (line: number) => String(line).replace(".", ",");
+const formatLine = (line: number) => String(line);
 
 function Prices({ outcome, bookmakers }: { outcome: OutcomeDetail | undefined; bookmakers: readonly string[] }) {
   return (

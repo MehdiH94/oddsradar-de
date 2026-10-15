@@ -157,7 +157,7 @@ export function createServer(
       typeof req.query.bookmakers === "string" ? req.query.bookmakers.split(",").filter(Boolean) : undefined;
     const detail = getEventDetail(db, req.params.id, { bookmakers, ...listing });
     if (!detail) {
-      res.status(404).json({ error: "match introuvable, commencé ou retiré" });
+      res.status(404).json({ error: "match not found, started or taken down" });
       return;
     }
     res.json(detail);

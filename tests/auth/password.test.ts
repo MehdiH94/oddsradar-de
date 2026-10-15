@@ -33,8 +33,8 @@ describe("passwordProblem", () => {
   });
 
   it("refuses the obvious: common, repeated, or the email itself", () => {
-    expect(passwordProblem("password1234")).toMatch(/facile/);
-    expect(passwordProblem("aaaaaaaaaaaaaa")).toMatch(/facile/);
-    expect(passwordProblem("adalovelace2026!", "adalovelace@example.com")).toMatch(/facile/);
+    expect(passwordProblem("password1234")).toMatch(/too easy/);
+    expect(passwordProblem("aaaaaaaaaaaaaa")).toMatch(/too easy/);
+    expect(passwordProblem("adalovelace2026!", "adalovelace@example.com")).toMatch(/too easy/);
   });
 });

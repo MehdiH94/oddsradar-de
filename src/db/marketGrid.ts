@@ -78,6 +78,6 @@ export function outrightRateOf(grid: Grid, winners = 1): number | null {
 export function mainOutcomeLabel(outcome: string, participants: readonly string[]): string {
   if (outcome === "1") return participants[0] ?? outcome;
   if (outcome === "2") return participants[1] ?? outcome;
-  if (outcome === "X") return "Nul";
+  if (outcome === "X") return "Draw";
   return outcome;
 }

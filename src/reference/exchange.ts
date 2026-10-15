@@ -1,3 +1,4 @@
+import { exchangeFetch, exchangeWebSocket } from "./exchangeProxy";
 // The reference's source: the Piwi247 exchange (Orbit's platform, Betfair's
 // liquidity), read as a guest the way its own site does
 // (https://exch.piwi247.com/customer/). An exchange's prices are set by the
@@ -81,7 +82,7 @@ export function parseSearch(body: unknown): ExchangeMatch[] {
 // 6/10/2026).
 export async function searchEvents(query: string, opts: { size?: number } = {}): Promise<unknown> {
   const size = opts.size ? `&page=0&size=${opts.size}` : "";
-  const res = await fetch(`${API}event/search?query=${encodeURIComponent(query)}${size}`, {
+  const res = await exchangeFetch(`${API}event/search?query=${encodeURIComponent(query)}${size}`, {
     headers: HEADERS,
     signal: AbortSignal.timeout(15_000),
   });
@@ -223,7 +224,7 @@ function readSocket(markets: readonly { marketId: string; eventId: string }[], t
     const answered = new Set<string>();
     const session = Math.random().toString(36).slice(2, 10);
     const server = Math.floor(Math.random() * 1000);
-    const ws = new WebSocket(`${PRICES_SOCKET}/${server}/${session}/websocket`);
+    const ws = exchangeWebSocket(`${PRICES_SOCKET}/${server}/${session}/websocket`);
     let opened = false;
     const finish = () => {
       clearTimeout(timer);
@@ -350,7 +351,7 @@ export function parseEventPlayerMarkets(body: unknown): ExchangePlayerMarket[] {
 
 // An event's markets, as the exchange answers (event/details).
 export async function fetchEventDetails(eventId: string): Promise<unknown> {
-  const res = await fetch(`${API}event/details/${encodeURIComponent(eventId)}`, {
+  const res = await exchangeFetch(`${API}event/details/${encodeURIComponent(eventId)}`, {
     headers: HEADERS,
     signal: AbortSignal.timeout(15_000),
   });

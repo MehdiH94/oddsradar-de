@@ -1,4 +1,5 @@
 import { normalizeName } from "../matcher/normalize";
+import { exchangeFetch } from "./exchangeProxy";
 import { coversEveryCase, marketKey } from "../markets/catalog";
 import { MARKET_MATCH_WINNER } from "../scraper/canonical";
 import { lineKey, MarketPrices, playerReliability, RunnerPrices } from "./exchange";
@@ -43,7 +44,7 @@ export function parseTennisSearch(body: unknown): TennisExchangeEvent[] {
 }
 
 export async function searchTennis(query: string): Promise<TennisExchangeEvent[]> {
-  const res = await fetch(`${API}event/search?query=${encodeURIComponent(query)}`, {
+  const res = await exchangeFetch(`${API}event/search?query=${encodeURIComponent(query)}`, {
     headers: HEADERS,
     signal: AbortSignal.timeout(15_000),
   });
@@ -147,7 +148,7 @@ export function parseTennisMarkets(body: unknown): TennisMarkets | undefined {
 }
 
 export async function fetchTennisMarkets(eventId: string): Promise<TennisMarkets | undefined> {
-  const res = await fetch(`${API}event/details/${encodeURIComponent(eventId)}`, {
+  const res = await exchangeFetch(`${API}event/details/${encodeURIComponent(eventId)}`, {
     headers: HEADERS,
     signal: AbortSignal.timeout(15_000),
   });

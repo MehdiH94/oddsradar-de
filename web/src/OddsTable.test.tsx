@@ -84,11 +84,11 @@ describe("OddsTable", () => {
   });
 
   it("shows the prices of the bookmakers that list the match only, each with its icon", () => {
-    const withVbet: EventWithOdds = {
+    const withoutDraw: EventWithOdds = {
       ...events[0],
       byBookmaker: {
-        ...events[0].byBookmaker,
-        vbet: {
+        winamax: events[0].byBookmaker.winamax,
+        betclic: {
           scrapedAt: "2026-09-20T10:00:00.000Z",
           odds: [
             { market: "1X2", selection: "1", price: 1.7 },
@@ -97,14 +97,13 @@ describe("OddsTable", () => {
         },
       },
     };
-    const { container } = render(<OddsTable events={[withVbet]} />);
+    const { container } = render(<OddsTable events={[withoutDraw]} />);
 
     const home = [...container.querySelectorAll('td[data-label="1"] [data-bookmaker]')].map((c) => c.getAttribute("data-bookmaker"));
-    expect(home).toEqual(["winamax", "betclic", "vbet"]);
-    // Vbet lists the match but not its draw: a dash; NetBet doesn't: nothing.
-    expect(text(chip("1,70"))).toBe("Vbet : 1,70 (meilleure cote)");
-    expect(container.querySelector('[data-bookmaker="netbet"]')).toBeNull();
-    expect(container.querySelectorAll('td[data-label="N"] [data-bookmaker]')).toHaveLength(3);
+    expect(home).toEqual(["winamax", "betclic"]);
+    // Betclic lists the match but not its draw: a dash.
+    expect(text(chip("1,70"))).toBe("Betclic : 1,70 (meilleure cote)");
+    expect(container.querySelectorAll('td[data-label="N"] [data-bookmaker]')).toHaveLength(2);
   });
 
   it("marks each price with its bookmaker's icon, and reads out its name and whether it is the best", () => {

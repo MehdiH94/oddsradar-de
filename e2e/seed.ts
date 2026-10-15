@@ -30,7 +30,6 @@ export function seedOdds(db: DatabaseSync): void {
       byBookmaker: {
         winamax: oneXTwo(VALUE_MATCH.winamax),
         betclic: oneXTwo(VALUE_MATCH.betclic),
-        unibet: oneXTwo(VALUE_MATCH.unibet),
       },
     },
     {
@@ -72,7 +71,7 @@ export function seedOdds(db: DatabaseSync): void {
       competition: COMPETITION_WINNER.competition,
       startTime: hoursFromNow(24 * 200),
       participants: [COMPETITION_WINNER.title],
-      byBookmaker: { unibet: outright(COMPETITION_WINNER.unibet), vbet: outright(COMPETITION_WINNER.vbet) },
+      byBookmaker: { winamax: outright(COMPETITION_WINNER.winamax), betclic: outright(COMPETITION_WINNER.betclic) },
     },
   ];
   upsertCanonicalEvents(db, events);

@@ -13,11 +13,11 @@ describe("BestPrice", () => {
 
   it("frames a value bet and shows its edge, read out too", () => {
     const { container } = render(
-      <BestPrice label="1" name="PSG" price={1.66} bookmakers={["unibet", "betclic"]} fair={1.62} edge={0.025} />
+      <BestPrice label="1" name="PSG" price={1.66} bookmakers={["winamax", "betclic"]} fair={1.62} edge={0.025} />
     );
 
     expect(container.firstElementChild).toHaveAttribute("data-value");
-    expect(screen.getByText(/^PSG : 1,66 chez Unibet et Betclic, value bet \+2,5/)).toBeInTheDocument();
+    expect(screen.getByText(/^PSG : 1,66 chez Winamax et Betclic, value bet \+2,5/)).toBeInTheDocument();
     // The second bookmaker at that price is counted, not shown.
     expect(screen.getByText("+1")).toBeInTheDocument();
   });

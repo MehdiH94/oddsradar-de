@@ -74,23 +74,11 @@ describe("HomePage", () => {
     );
   });
 
-  it("names the eleven bookmakers it compares", () => {
+  it("names the bookmakers it compares", () => {
     stubApi(LIVE);
     render(<HomePage />);
     const list = screen.getByRole("list", { name: "Bookmakers comparés" });
-    expect(within(list).getAllByRole("listitem").map((item) => item.textContent)).toEqual([
-      "Winamax",
-      "Betclic",
-      "Unibet",
-      "PMU",
-      "NetBet",
-      "Genybet",
-      "Vbet",
-      "CircusBet",
-      "DAZN Bet",
-      "Betsson",
-      "Betify",
-    ]);
+    expect(within(list).getAllByRole("listitem").map((item) => item.textContent)).toEqual(["Winamax", "Betclic"]);
   });
 
   it("asks the API for the public totals only, and shows its figures", async () => {
@@ -103,7 +91,7 @@ describe("HomePage", () => {
     expect(fetchMock.mock.calls.map(([url]) => url)).toEqual(["/api/public/home"]);
 
     const tiles = within(live).getAllByRole("listitem").slice(0, 3);
-    expect(tiles.map((tile) => tile.textContent)).toEqual(["312Matchs suivis", "11Bookmakers comparés", "3Sports"]);
+    expect(tiles.map((tile) => tile.textContent)).toEqual(["312Matchs suivis", "2Bookmakers comparés", "3Sports"]);
     expect(within(live).getByText(/Chiffres relevés à/)).toBeInTheDocument();
   });
 

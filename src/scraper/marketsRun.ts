@@ -7,12 +7,6 @@ import { MARKET_MATCH_WINNER } from "./canonical";
 import { EventMarketOdds, forgetOldStats, forgetStartedEvents, getMarketTargets, MarketTarget, saveMarketOdds } from "../db/repository";
 import { fetchWinamaxMarkets } from "./winamaxMarkets";
 import { fetchBetclicMarkets } from "./betclicMarkets";
-import { fetchUnibetMarkets } from "./unibetMarkets";
-import { fetchCircusbetMarkets, fetchDaznbetMarkets, fetchVbetMarkets } from "./vbet";
-import { fetchBetssonMarkets } from "./betssonMarkets";
-import { fetchGenybetMarkets, fetchNetbetMarkets } from "./sportncoMarkets";
-import { fetchPmuMarkets } from "./pmuMarkets";
-import { fetchBetifyMarkets } from "./betbyMarkets";
 
 // The second cycle of the worker: every market of the matches starting soon,
 // on top of the listing's main market (./run.ts). Its bookmakers are asked by
@@ -24,55 +18,18 @@ export type MarketsFetcher = (sourceIds: readonly string[]) => Promise<Map<strin
 
 export const MARKET_FETCHERS: Record<string, MarketsFetcher> = {
   winamax: fetchWinamaxMarkets,
+  // Kept as the engine's second bookmaker until Tipico takes its place; the
+  // worker no longer lists Betclic (betclic.fr refuses connections from outside
+  // France), so it is never asked.
   betclic: fetchBetclicMarkets,
-  // Unibet's: a golf tournament's Top N and round leaders, and every market a
-  // family covers of a match of the sports it has a table for (./unibetMarkets.ts).
-  unibet: fetchUnibetMarkets,
-  // Vbet's: a golf tournament's, and every market a family covers of a match of the
-  // sports it has a table for (./vbetMarkets.ts).
-  vbet: fetchVbetMarkets,
-  // CircusBet's and DAZN Bet's: the same Swarm server, their own site ids.
-  circusbet: fetchCircusbetMarkets,
-  daznbet: fetchDaznbetMarkets,
-  // Betsson's: every market a family covers of a football or a tennis match
-  // (./betssonMarkets.ts).
-  betsson: fetchBetssonMarkets,
-  // NetBet's: the same, from the page of each match (./sportncoMarkets.ts).
-  netbet: fetchNetbetMarkets,
-  // Genybet's: NetBet's platform, so the same reader (./sportncoMarkets.ts).
-  genybet: fetchGenybetMarkets,
-  // PMU's: every market a family covers of a match of the sports it has a reader for,
-  // and a golf tournament's Top N, round leaders and best of a nationality,
-  // from the offering API its site reads (./pmuMarkets.ts).
-  pmu: fetchPmuMarkets,
-  // Betify's: every market a family covers of a football, a tennis or a basketball
-  // match, from the page of each match on Betby's feed (./betbyMarkets.ts).
-  betify: fetchBetifyMarkets,
 };
 
-// The sports each bookmaker's markets are read for. Football, tennis, basketball and
-// golf are the base (golf not at the bookmakers that give a tournament's winner
-// only: Betsson, NetBet, Genybet); the sports below them are read only by those
-// whose reader has a table for them (./pmuMarkets.ts, ./unibetMarkets.ts,
-// ./vbetMarkets.ts, ./sportncoMarkets.ts), the others returning nothing for them,
-// or, Betclic, reading their markets as football's. A bookmaker not listed here is
-// asked for every sport of the catalog (the fetchers a test gives).
+// The sports each bookmaker's markets are read for. A bookmaker not listed
+// here is asked for every sport of the catalog (the fetchers a test gives).
 const BASE_SPORTS = ["football", "tennis", "basketball", "golf"];
-const MORE_SPORTS = ["football américain", "rugby à xv", "hockey sur glace", "handball"];
-// Unibet's page for a rugby union match has its result and a three-way handicap only.
-const MORE_SPORTS_WITHOUT_RUGBY = MORE_SPORTS.filter((sport) => sport !== "rugby à xv");
 export const MARKETS_BY_BOOKMAKER: Readonly<Record<string, ReadonlySet<string>>> = {
   winamax: new Set(BASE_SPORTS),
   betclic: new Set(BASE_SPORTS),
-  betsson: new Set(BASE_SPORTS.filter((sport) => sport !== "golf")),
-  betify: new Set(BASE_SPORTS),
-  unibet: new Set([...BASE_SPORTS, ...MORE_SPORTS_WITHOUT_RUGBY]),
-  vbet: new Set([...BASE_SPORTS, ...MORE_SPORTS]),
-  circusbet: new Set([...BASE_SPORTS, ...MORE_SPORTS]),
-  daznbet: new Set([...BASE_SPORTS, ...MORE_SPORTS]),
-  netbet: new Set([...BASE_SPORTS.filter((sport) => sport !== "golf"), ...MORE_SPORTS]),
-  genybet: new Set([...BASE_SPORTS.filter((sport) => sport !== "golf"), ...MORE_SPORTS]),
-  pmu: new Set([...BASE_SPORTS, ...MORE_SPORTS]),
 };
 const asksFor = (bookmaker: string, sport: string): boolean => MARKETS_BY_BOOKMAKER[bookmaker]?.has(sport) ?? true;
 

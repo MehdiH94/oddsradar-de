@@ -18,7 +18,7 @@ describe("the settings in the address", () => {
   it("writes only what differs from the defaults", () => {
     expect(settingsQuery(DEFAULT_SETTINGS)).toBe("");
     expect(settingsQuery({ ...DEFAULT_SETTINGS, legs: 2 })).toBe("legs=2");
-    expect(settingsQuery({ mode: "exchange", legs: 3, bookmaker: "vbet", sports: ["football"] })).toBe("mode=exchange&bookmaker=vbet&sports=football");
+    expect(settingsQuery({ mode: "exchange", legs: 3, bookmaker: "betclic", sports: ["football"] })).toBe("mode=exchange&bookmaker=betclic&sports=football");
     expect(settingsQuery({ ...DEFAULT_SETTINGS, sports: [] })).toBe("sports=");
   });
 
@@ -42,7 +42,7 @@ describe("requestOf", () => {
     const exchange: Settings = { mode: "exchange", legs: 1, bookmaker: "betclic", sports: null };
     expect(requestOf(exchange, ["winamax", "betclic"])).toEqual({ mode: "exchange", bookmaker: "betclic" });
     expect(requestOf(exchange, ["winamax"])).toEqual({ mode: "exchange", bookmaker: "winamax" });
-    expect(requestOf({ ...exchange, bookmaker: null }, ["vbet", "betclic"])).toEqual({ mode: "exchange", bookmaker: "vbet" });
+    expect(requestOf({ ...exchange, bookmaker: null }, ["betclic", "winamax"])).toEqual({ mode: "exchange", bookmaker: "betclic" });
     expect(requestOf(exchange, [])).toBeNull();
   });
 });

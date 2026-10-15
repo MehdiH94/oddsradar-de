@@ -22,7 +22,7 @@ describe("BookmakerMenu", () => {
     open();
 
     expect(screen.getByRole("group", { name: "Bookmakers comparés" })).toBeInTheDocument();
-    for (const name of ["Winamax", "Betclic", "Unibet", "PMU", "NetBet", "Genybet", "Vbet", "CircusBet", "DAZN Bet", "Betsson"]) {
+    for (const name of ["Winamax", "Betclic"]) {
       expect(screen.getByRole("checkbox", { name })).toBeChecked();
     }
   });
@@ -31,30 +31,18 @@ describe("BookmakerMenu", () => {
     render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
     open();
 
-    expect(screen.getAllByRole("checkbox").map((box) => box.closest("label")?.textContent)).toEqual([
-      "Winamax",
-      "Betclic",
-      "Unibet",
-      "PMU",
-      "NetBet",
-      "Genybet",
-      "Vbet",
-      "CircusBet",
-      "DAZN Bet",
-      "Betsson",
-      "Betify",
-    ]);
+    expect(screen.getAllByRole("checkbox").map((box) => box.closest("label")?.textContent)).toEqual(["Winamax", "Betclic"]);
   });
 
   it("shows each bookmaker's icon and name, read once", () => {
     const { container } = render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
     open();
 
-    for (const name of ["Winamax", "Betclic", "Unibet", "PMU", "NetBet", "Genybet", "Vbet", "CircusBet", "DAZN Bet", "Betsson", "Betify"]) expect(screen.getByText(name)).toBeInTheDocument();
+    for (const name of ["Winamax", "Betclic"]) expect(screen.getByText(name)).toBeInTheDocument();
     // The icons sit next to the names: decorative, not read a second time.
     // One per bookmaker that has an icon; the others show their name alone.
     const withIcon = ALL_BOOKMAKERS.filter((id) => BOOKMAKER_BRANDING[id]?.logo).length;
-    expect(withIcon).toBeGreaterThanOrEqual(7);
+    expect(withIcon).toBe(2);
     expect(container.querySelectorAll("img.bookmaker-logo")).toHaveLength(withIcon);
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
@@ -75,7 +63,7 @@ describe("BookmakerMenu", () => {
     fireEvent.pointerDown(screen.getByText("Winamax"));
     fireEvent.click(screen.getByText("Winamax"));
 
-    expect(onChange).toHaveBeenCalledWith(["betclic", "unibet", "pmu", "netbet", "genybet", "vbet", "circusbet", "daznbet", "betsson", "betify"]);
+    expect(onChange).toHaveBeenCalledWith(["betclic"]);
     expect(screen.getByRole("checkbox", { name: "Betclic" })).toBeInTheDocument();
   });
 

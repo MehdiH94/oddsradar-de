@@ -9,7 +9,7 @@ describe("copyText", () => {
   });
 
   it("names the matches of a combo's bet", () => {
-    const group = { bookmaker: "vbet" as const, fb: 10, used: 5, bets: [{ outcomes: ["A", "Nul", "C"], label: "A + Nul + C", odds: 20, stake: 5, gain: 95 }] };
-    expect(copyText(group)).toBe("Vbet : 1 pari en freebet\n- A + Nul + C : 5,00 FB");
+    const group = { bookmaker: "betclic" as const, fb: 10, used: 5, bets: [{ outcomes: ["A", "Nul", "C"], label: "A + Nul + C", odds: 20, stake: 5, gain: 95 }] };
+    expect(copyText(group)).toBe("Betclic : 1 pari en freebet\n- A + Nul + C : 5,00 FB");
   });
 });

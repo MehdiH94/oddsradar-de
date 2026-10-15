@@ -48,7 +48,6 @@ test("the bookmakers ticked in the address are the ones whose prices are compare
   const row = page.getByRole("region", { name: "Football" }).getByRole("row", { name: new RegExp(teams(VALUE_MATCH)) });
   await expect(row).toContainText("Winamax : 2,20");
   await expect(row).not.toContainText("Betclic :");
-  await expect(row).not.toContainText("Unibet :");
 });
 
 test("the value bets list shows each bet's price against the fair odds, the biggest edge first", async ({ page }) => {
@@ -133,9 +132,8 @@ test("a surebet shows each leg's bookmaker, price and stake, and what it earns",
 });
 
 test("a match page keeps every ticked bookmaker's price in view on a desktop", async ({ page }) => {
-  // All ten bookmakers ticked: three have prices, the others show a dash.
-  const all = "winamax,betclic,unibet,pmu,netbet,genybet,vbet,circusbet,daznbet,betsson,betify";
-  await page.goto(`/cotes?match=${VALUE_MATCH.id}&bookmakers=${all}`);
+  // Every bookmaker ticked (the default).
+  await page.goto(`/cotes?match=${VALUE_MATCH.id}`);
 
   for (const name of ["Résultat du match", "Nombre de buts"]) {
     const card = page.getByRole("article", { name });
@@ -158,14 +156,13 @@ test("the winners of the competitions are listed with the matches, each with its
   await expect(football).toContainText(teams(VALUE_MATCH));
   await expect(page.getByRole("navigation", { name: "Navigation principale" }).getByText("Vainqueurs", { exact: true })).toHaveCount(0);
 
-  // The two bookmakers that price it ticked (the default ones are Winamax, Betclic
-  // and Unibet): the best price of each contender, whichever of them has it.
-  await page.goto("/cotes?sport=football&sort=trj&bookmakers=unibet%2Cvbet");
+  // The best price of each contender, whichever of the two bookmakers has it.
+  await page.goto("/cotes?sport=football&sort=trj");
   const card = page.getByRole("article", { name: COMPETITION_WINNER.title });
   await expect(card).toBeVisible();
-  await expect(card.getByRole("row", { name: /Paris Saint-Germain/ })).toContainText("Unibet : 1,50 (meilleure cote)");
-  await expect(card.getByRole("row", { name: /Olympique de Marseille/ })).toContainText("Vbet : 3,40 (meilleure cote)");
-  await expect(card.getByRole("row", { name: /AS Monaco/ })).toContainText("Vbet : 4,20 (meilleure cote)");
+  await expect(card.getByRole("row", { name: /Paris Saint-Germain/ })).toContainText("Winamax : 1,50 (meilleure cote)");
+  await expect(card.getByRole("row", { name: /Olympique de Marseille/ })).toContainText("Betclic : 3,40 (meilleure cote)");
+  await expect(card.getByRole("row", { name: /AS Monaco/ })).toContainText("Betclic : 4,20 (meilleure cote)");
 
   // Not in the other sports' lists.
   await pick(page, "Tennis");

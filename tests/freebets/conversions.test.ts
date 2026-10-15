@@ -50,27 +50,27 @@ describe("parseRequest", () => {
 });
 
 describe("what is asked of the engine", () => {
-  const wallet = { winamax: 20, vbet: 15.5 };
+  const wallet = { winamax: 20, betclic: 15.5 };
 
   it("puts the freebets by the site's order of bookmakers, 0 where there are none", () => {
-    expect(freebetsByIndex(wallet)).toEqual([20, 0, 0, 0, 0, 0, 15.5, 0, 0, 0, 0]);
-    expect(holdingBookmakers(wallet)).toEqual(["winamax", "vbet"]);
+    expect(freebetsByIndex(wallet)).toEqual([20, 15.5]);
+    expect(freebetsByIndex({ betclic: 15.5 })).toEqual([0, 15.5]);
+    expect(holdingBookmakers(wallet)).toEqual(["winamax", "betclic"]);
     expect(holdingBookmakers({})).toEqual([]);
   });
 
   it("gives the engine the prices of the bookmakers that hold freebets only, and the matches two of them price", () => {
-    const fb = freebetsByIndex(wallet);
-    const matches = engineMatches(
-      [
-        market("both", "football", { winamax: [2, 3, 4], vbet: [2.1, 3.1, 3.9], betclic: [2.2, 3, 4] }),
-        market("one", "football", { winamax: [2, 3, 4], betclic: [2.2, 3, 4] }),
-        market("tennis", "tennis", { winamax: [1.8, 2.1], vbet: [1.7, 2.2] }, {}, ["1", "2"]),
-      ],
-      fb
-    );
+    const markets = [
+      market("both", "football", { winamax: [2, 3, 4], betclic: [2.2, 3, 4] }),
+      market("one", "football", { winamax: [2, 3, 4] }),
+      market("tennis", "tennis", { winamax: [1.8, 2.1], betclic: [1.7, 2.2] }, {}, ["1", "2"]),
+    ];
+    const matches = engineMatches(markets, freebetsByIndex(wallet));
     expect(matches.map((m) => [m.id, m.outcomes])).toEqual([["both", 3], ["tennis", 2]]);
-    // Betclic holds no freebets: its prices never reach the engine.
-    expect(matches[0].odds).toEqual([[2, 3, 4], null, null, null, null, null, [2.1, 3.1, 3.9], null, null, null, null]);
+    expect(matches[0].odds).toEqual([[2, 3, 4], [2.2, 3, 4]]);
+    // Betclic holding no freebets, its prices never reach the engine: no match
+    // is priced by two holders then.
+    expect(engineMatches(markets, freebetsByIndex({ winamax: 20 }))).toEqual([]);
   });
 
   it("makes an item of each outcome the bookmaker prices and the exchange lays", () => {
@@ -92,21 +92,20 @@ describe("what is asked of the engine", () => {
 describe("eligibleSports", () => {
   const markets = [
     market("f", "football", { winamax: [2, 3, 4], betclic: [2, 3, 4] }, { X: { lay: 3.1, laySize: 40 } }),
-    market("t", "tennis", { winamax: [1.8, 2.1], vbet: [1.7, 2.2] }, {}, ["1", "2"]),
+    market("t", "tennis", { winamax: [1.8, 2.1] }, {}, ["1", "2"]),
     market("b", "basketball", { winamax: [1.8, 2.1] }, { "1": { lay: 1.9, laySize: 30 } }, ["1", "2"]),
   ];
 
   it("between bookmakers, the sports two of the bookmakers holding freebets price", () => {
     expect(eligibleSports(markets, { mode: "bookmakers", legs: 1 }, ["winamax", "betclic"])).toEqual(["football"]);
-    expect(eligibleSports(markets, { mode: "bookmakers", legs: 1 }, ["winamax", "vbet"])).toEqual(["tennis"]);
+    expect(eligibleSports(markets, { mode: "bookmakers", legs: 1 }, ["winamax"])).toEqual([]);
     // With no freebets yet, the page still shows which sports can be converted.
-    expect(eligibleSports(markets, { mode: "bookmakers", legs: 1 }, [])).toEqual(["football", "tennis"]);
+    expect(eligibleSports(markets, { mode: "bookmakers", legs: 1 }, [])).toEqual(["football"]);
   });
 
   it("against the exchange, the sports the bookmaker prices and the exchange lays", () => {
     expect(eligibleSports(markets, { mode: "exchange", bookmaker: "winamax" }, ["winamax"])).toEqual(["basketball", "football"]);
     expect(eligibleSports(markets, { mode: "exchange", bookmaker: "betclic" }, ["betclic"])).toEqual(["football"]);
-    expect(eligibleSports(markets, { mode: "exchange", bookmaker: "vbet" }, ["vbet"])).toEqual([]);
   });
 });
 

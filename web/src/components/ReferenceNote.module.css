@@ -1,0 +1,36 @@
+.note {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* 44 px high, to tap; the text alone shows. */
+.summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--tap);
+  font-weight: 600;
+  color: var(--color-brand);
+  list-style: none;
+  cursor: pointer;
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.note[open] {
+  flex-basis: 100%;
+  order: 1;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 65ch;
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--color-value-border);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background: var(--color-surface);
+}

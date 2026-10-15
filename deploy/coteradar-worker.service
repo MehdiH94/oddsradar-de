@@ -1,0 +1,16 @@
+[Unit]
+Description=CoteRadar scraping worker
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/coteradar
+EnvironmentFile=/opt/coteradar/.env
+ExecStart=/usr/bin/node dist/worker/index.js
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

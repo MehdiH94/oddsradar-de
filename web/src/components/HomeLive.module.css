@@ -1,0 +1,165 @@
+/* The figures: two by two on a phone, all in a row from 768 px (--tiles of
+   them, set by LiveStats: a card can be left out). */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* An odd card out takes its row's whole width, rather than leaving a hole. */
+.tile:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.figure {
+  font-size: var(--text-hero);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-brand);
+}
+
+.label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.updated {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.previewTitle {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.cards {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The invented example alone: a card's width, not three columns'. */
+.single {
+  max-width: 28rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.competition {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* Said plainly, in words: nothing marks an invented card but this tag. */
+.tag {
+  display: inline-block;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.teams {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.teamsLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.teamsLink:hover {
+  text-decoration: underline;
+}
+
+.bet {
+  font-size: var(--text-sm);
+}
+
+.prices {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.prices > span:last-child {
+  margin-top: 0;
+}
+
+.explain {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* 44 px high, to tap. */
+.more,
+.allLink {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--space-1);
+  min-height: var(--tap);
+  font-weight: 600;
+  color: var(--color-brand);
+  text-decoration: none;
+}
+
+.more:hover,
+.allLink:hover {
+  color: var(--color-brand-hover);
+  text-decoration: underline;
+}
+
+.all {
+  margin-top: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .stats {
+    grid-template-columns: repeat(var(--tiles, 4), 1fr);
+    gap: var(--space-4);
+  }
+
+  .tile:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+
+  .single {
+    grid-template-columns: 1fr;
+  }
+}

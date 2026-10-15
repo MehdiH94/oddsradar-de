@@ -1,0 +1,126 @@
+.group {
+  margin: 0;
+  padding: var(--space-3) 0 var(--space-2);
+  border: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.group:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.legend {
+  float: left;
+  padding: 0;
+  width: 100%;
+  margin-bottom: var(--space-1);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.options {
+  clear: both;
+  display: flex;
+  flex-direction: column;
+}
+
+/* A whole row to tap, 48 px high: the name on the left, the control on the
+   right, under the thumb. */
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 3rem;
+  cursor: pointer;
+}
+
+.optionText {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: 500;
+}
+
+.option :global(.bookmaker-logo) {
+  border-radius: 4px;
+}
+
+.radio,
+.checkbox {
+  flex: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  margin: 0;
+  accent-color: var(--color-ink);
+  cursor: pointer;
+}
+
+.hint {
+  clear: both;
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.favorites {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-bottom: var(--space-2);
+}
+
+.favorite {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap);
+  padding: 0 var(--space-3) 0 var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.star {
+  color: var(--color-text-muted);
+}
+
+.favorite[aria-pressed="true"] {
+  border-color: var(--color-ink);
+}
+
+.favorite[aria-pressed="true"] .star {
+  color: var(--color-ink);
+  fill: currentColor;
+}
+
+.favorite:disabled {
+  opacity: 0.45;
+}
+
+.reset,
+.apply {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 3rem;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+}
+
+.reset {
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface);
+}
+
+.apply {
+  flex: 1;
+  border: 0;
+  background: var(--color-ink);
+  color: var(--color-on-ink);
+}

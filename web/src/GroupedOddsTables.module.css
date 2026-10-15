@@ -1,0 +1,51 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.section + .section {
+  margin-top: var(--space-6);
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-lg);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* On a phone the sport's chip, inked in at the top, already names the list:
+   its heading is for screen readers only, the odds come up a line sooner. */
+.sportHeading {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .section {
+    gap: var(--space-4);
+  }
+
+  .section + .section {
+    margin-top: var(--space-8);
+  }
+
+  .heading {
+    font-size: var(--text-xl);
+  }
+
+  .sportHeading {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+  }
+}

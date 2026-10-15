@@ -1,0 +1,118 @@
+/* The warning of the arrêté du 4 mars 2026 (annexe, III), for a gambling
+   site: a yellow band between the top of the page and its content, that
+   cannot scroll away and is at least a tenth of the screen high. Black
+   capitals in Roboto Bold, on two lines (more when the screen is narrow), the
+   last one a little smaller. The whole band links to the state's help service. */
+.banner {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  /* Installed on a phone, the yellow runs under the status bar. */
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  box-sizing: border-box;
+  max-width: var(--content-width);
+  /* The arrêté asks for 10 % of the screen's height at least. */
+  min-height: 10vh;
+  min-height: 10dvh;
+  margin: 0 auto;
+  /* The logo sits against the right edge of a phone's screen. */
+  padding: 0 0 0 var(--gutter);
+  color: inherit;
+  text-decoration: none;
+}
+
+.link:focus-visible {
+  outline-offset: -3px;
+  outline-color: var(--color-warning-text);
+}
+
+.text {
+  min-width: 0;
+  padding: var(--space-1) 0;
+  text-align: left;
+  font-family: var(--font-warning);
+  font-weight: 700;
+  /* Tight, so a phone's four or five lines stay near the tenth of the screen. */
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+/* The Government's logo, in a white rectangle, as the arrêté asks. */
+.logo {
+  display: flex;
+  flex: none;
+  align-items: center;
+  background: var(--color-warning-logo-bg);
+}
+
+.logo img {
+  display: block;
+  width: auto;
+  height: 2.25rem;
+}
+
+/* One line each; a narrow screen wraps them rather than cut the message. */
+.first,
+.last {
+  display: block;
+}
+
+/* On a phone the text follows the screen's width, so the band stays close to
+   the tenth of the screen the arrêté asks for (as the other sites' do). */
+.first {
+  font-size: clamp(0.625rem, 2.7vw, 0.8125rem);
+}
+
+.last {
+  font-size: clamp(0.5625rem, 2.45vw, 0.75rem);
+}
+
+/* The number never splits over two lines. */
+.nowrap {
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .link {
+    padding-right: var(--gutter);
+  }
+
+  .link {
+    gap: var(--space-3);
+  }
+
+  .text {
+    line-height: var(--leading);
+  }
+
+  .logo img {
+    height: 3.5rem;
+  }
+
+  .first {
+    font-size: 1rem;
+  }
+
+  .last {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .first {
+    font-size: 1.125rem;
+  }
+
+  .last {
+    font-size: 1rem;
+  }
+}

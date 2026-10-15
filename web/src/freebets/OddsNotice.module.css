@@ -1,0 +1,19 @@
+.notice {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.notice p {
+  margin: 0;
+}
+
+.notice strong {
+  color: var(--color-text);
+}

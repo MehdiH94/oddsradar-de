@@ -1,0 +1,157 @@
+/* Design tokens: every color, space, radius and type size the UI uses. The
+   components' CSS Modules only read these variables, so a theme is one block
+   below. Text colors keep WCAG AA contrast (4.5:1) on both backgrounds and
+   surfaces; borders and focus rings 3:1 where they carry meaning.
+
+   Mobile first: the values below are a phone's; the media queries at the end
+   only widen what a bigger screen has room for. */
+
+:root {
+  color-scheme: light;
+
+  /* Neutrals: a cool chalk background, white cards, navy ink. */
+  --color-bg: #eef1f5;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f3f5f8;
+  --color-border: #dde2ea;
+  --color-border-strong: #b9c2d0;
+  --color-text: #0f1b2d;
+  --color-text-muted: #4f5b6d;
+
+  /* Ink: what is chosen (a sport, a tab, a page) is filled with the text's
+     own navy, like a pen mark on a betting slip. */
+  --color-ink: #0f1b2d;
+  --color-on-ink: #ffffff;
+
+  /* Brand: the radar's blue, for links and the logo. Green stays for its
+     meaning, the best price, and amber for a value bet. */
+  --color-brand: #2446d8;
+  --color-brand-hover: #1a35ad;
+  --color-brand-soft: #e8edff;
+  --color-on-brand: #ffffff;
+  --color-focus: #2446d8;
+
+  /* Best price */
+  --color-best-bg: #dcf7e5;
+  --color-best-border: #7fcf9c;
+  --color-best-text: #0f5130;
+
+  /* Value bet: a price above the reference's fair odds. */
+  --color-value-bg: #fff3d6;
+  --color-value-border: #b45309;
+  --color-value-text: #8a3a06;
+
+  /* Status */
+  --color-danger-bg: #fdf0f0;
+  --color-danger-border: #f0b0b0;
+  --color-danger-text: #96161b;
+  --color-live: #12a150;
+
+  /* The gambling warning band, as the arrêté du 4 mars 2026 sets it: warm
+     yellow (C0 M10 J100 N0) and pure black type (N100), the same in both
+     themes. Its typeface is Roboto Bold. */
+  --color-warning-bg: #ffe600;
+  --color-warning-text: #000000;
+  --color-warning-logo-bg: #ffffff;
+  --font-warning: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Type: one family, Archivo, at two widths. Names and sentences at its
+     normal width; prices, times and rates condensed, so that a long row of
+     them stays readable on a phone. */
+  --font-sans: "Archivo Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --stretch-condensed: 78%;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-price: 1.375rem;
+  /* The home's headline, the only text above --text-xl. */
+  --text-hero: 2rem;
+  --leading: 1.45;
+
+  /* Space: a 4 px scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  /* The home's sections breathe more than the dashboard's lists. */
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Shape: the radius follows the object's size. */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 999px;
+  --shadow-sheet: 0 -8px 32px rgb(15 27 45 / 0.18);
+  --shadow-pop: 0 6px 20px rgb(15 27 45 / 0.14);
+
+  /* Layout. A finger needs 44 px at least (WCAG 2.5.5, Apple's HIG): every
+     control is that high on a phone. */
+  --content-width: 1200px;
+  --gutter: var(--space-4);
+  --control-height: 2.75rem;
+  --tap: 2.75rem;
+  /* The bottom bar on a phone (AppNav), and the home indicator under it. */
+  --nav-height: 3.75rem;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --transition: 150ms ease;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: var(--space-6);
+    --text-xl: 1.625rem;
+    --text-hero: 3rem;
+    /* A mouse is more precise: the controls can be a little lower. */
+    --control-height: 2.5rem;
+    --nav-height: 0px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --color-bg: #0a101b;
+    --color-surface: #121a28;
+    --color-surface-muted: #192334;
+    --color-border: #263248;
+    --color-border-strong: #3b4a66;
+    --color-text: #e8edf4;
+    --color-text-muted: #a2adc0;
+
+    --color-ink: #e8edf4;
+    --color-on-ink: #0a101b;
+
+    --color-brand: #93a8ff;
+    --color-brand-hover: #b9c7ff;
+    --color-brand-soft: #1b2550;
+    --color-on-brand: #0a101b;
+    --color-focus: #93a8ff;
+
+    --color-best-bg: #0f3520;
+    --color-best-border: #2b7a4b;
+    --color-best-text: #b8f5cd;
+
+    --color-value-bg: #3a2909;
+    --color-value-border: #f59e0b;
+    --color-value-text: #fcd34d;
+
+    --color-danger-bg: #3a1216;
+    --color-danger-border: #7f2a31;
+    --color-danger-text: #fecaca;
+    --color-live: #4ade80;
+
+    --color-warning-bg: #ffe600;
+    --color-warning-text: #000000;
+    --color-warning-logo-bg: #ffffff;
+
+    --shadow-sheet: 0 -8px 32px rgb(0 0 0 / 0.55);
+    --shadow-pop: 0 6px 20px rgb(0 0 0 / 0.5);
+  }
+}

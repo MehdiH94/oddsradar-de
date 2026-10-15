@@ -1,0 +1,141 @@
+# Tests every push to main, checks it went through staging, then deploys it
+# to the production VPS over SSH.
+# One-time setup (restricted SSH key, two secrets): README, "Deploiement
+# automatique".
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time, in push order: a newer pending run replaces an older
+# pending one, a running one is never cancelled halfway.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  DEPLOY_HOST: 141.94.244.108
+  DEPLOY_USER: ubuntu
+  # The site's public address, in the alerts' links and the health check
+  # after the deployment. The repository variable APP_URL overrides it.
+  APP_URL: ${{ vars.APP_URL || 'https://cote-radar.fr' }}
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+
+  # Production only gets what went through development and was deployed on
+  # staging: GitHub's branch protection would say so, but needs a paid plan,
+  # so this job does. A commit pushed straight to main fails here and is
+  # never deployed.
+  gate:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Check the commit went through development and staging
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git fetch --quiet origin development
+          # T: the development commit this main commit brings. The merge
+          # commit of a development pull request brings its second parent
+          # (sync-development later fast-forwards development onto that merge
+          # commit, which no staging run ever saw: it must not count as T).
+          # Any other commit of main must itself be a development commit.
+          if [ "$(git rev-list --parents -n 1 "$GITHUB_SHA" | wc -w)" -eq 3 ]; then
+            tested=$(git rev-parse "$GITHUB_SHA^2")
+            # Production runs exactly what ran on staging: main has nothing
+            # of its own, so the merge adds nothing to development's commit.
+            if [ "$(git rev-parse "$GITHUB_SHA^{tree}")" != "$(git rev-parse "$tested^{tree}")" ]; then
+              echo "::error::$GITHUB_SHA differs from the development commit ${tested:0:7} it merges: main holds changes development lacks. Not deployed; bring them through development."
+              exit 1
+            fi
+          elif git merge-base --is-ancestor "$GITHUB_SHA" origin/development; then
+            tested=$GITHUB_SHA
+          else
+            echo "::error::$GITHUB_SHA is neither a commit of development nor a merge of it: it was pushed straight to main. Not deployed; fix it through development (CONTRIBUTING.md)."
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor "$tested" origin/development; then
+            echo "::error::${tested:0:7} is not on development. Not deployed; merge it through development first."
+            exit 1
+          fi
+          # The latest staging deploy that succeeded (tests and health check
+          # included) must contain it: it was running on staging.
+          staged=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-staging.yml/runs?branch=development&status=success&per_page=1" --jq '.workflow_runs[0].head_sha // empty')
+          if [ -z "$staged" ] || ! git cat-file -e "$staged^{commit}" 2>/dev/null || ! git merge-base --is-ancestor "$tested" "$staged"; then
+            echo "::error::${tested:0:7} was never deployed successfully on staging (latest successful staging deploy: ${staged:0:7}). Not deployed; wait for the deploy-staging run of development, then re-run this one."
+            exit 1
+          fi
+          echo "${tested:0:7} was deployed on staging (${staged:0:7}): production can follow"
+
+  deploy:
+    needs: gate
+    # deploy.sh only accepts commits of main anyway; this keeps a manual run
+    # started from another branch from even trying.
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Deploy on the VPS
+        env:
+          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+          # Optional: the Discord channel's webhook for the gems' alerts
+          # (README, "Alertes Discord").
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          # The accounts' emails (confirmation, password reset): the web
+          # service refuses to start in production without SMTP_HOST and
+          # SMTP_FROM (README, "Comptes et HTTPS").
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+        run: |
+          if [ -z "$SSH_KEY" ] || [ -z "$KNOWN_HOSTS" ]; then
+            echo "::error::Secrets VPS_SSH_KEY / VPS_KNOWN_HOSTS manquants : voir la section Deploiement automatique du README."
+            exit 1
+          fi
+          install -m 700 -d ~/.ssh
+          # tr: a key pasted from a phone or Windows may carry CR line endings.
+          printf '%s\n' "$SSH_KEY" | tr -d '\r' > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
+          # The key's forced command runs deploy/deploy.sh, which reads the
+          # commit to deploy from this argument, and the VPS's settings from
+          # standard input (apply_settings: an empty one is removed).
+          {
+            printf 'DISCORD_WEBHOOK_URL=%s\nPUBLIC_URL=%s\n' "$(printf '%s' "$DISCORD_WEBHOOK_URL" | tr -d '[:space:]')" "$APP_URL"
+            printf 'SMTP_HOST=%s\nSMTP_PORT=%s\nSMTP_USER=%s\nSMTP_PASSWORD=%s\n' \
+              "$(printf '%s' "$SMTP_HOST" | tr -d '[:space:]')" "$(printf '%s' "$SMTP_PORT" | tr -d '[:space:]')" \
+              "$(printf '%s' "$SMTP_USER" | tr -d '[:space:]')" "$(printf '%s' "$SMTP_PASSWORD" | tr -d '\r\n')"
+            printf 'SMTP_FROM=%s\n' "$(printf '%s' "$SMTP_FROM" | tr -d '\r\n')"
+          } |
+            ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes \
+              "$DEPLOY_USER@$DEPLOY_HOST" "$GITHUB_SHA"
+      - name: Check the site answers from outside
+        run: |
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            if curl -fsS -o /dev/null --max-time 10 "$APP_URL/api/health"; then
+              echo "$APP_URL answers"
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "::error::$APP_URL does not answer"
+          exit 1

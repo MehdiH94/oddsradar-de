@@ -1,0 +1,262 @@
+.group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* The pinned chip, then the scrolling sports. Its own element rather than the
+   fieldset: a fieldset doesn't lay out as a flex container everywhere. The gap
+   adds up with the row's padding to the one between two chips. */
+.layout {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* Never shrinks, never scrolls: same padding as the row's, to line up. Flex,
+   like the row, so its chip is laid out as the row's are. */
+.pinned {
+  display: flex;
+  flex: none;
+  padding: var(--space-1) 0 var(--space-1) var(--space-1);
+}
+
+/* Anchors the ‹ › buttons at the row's ends: past the pinned chip. */
+.scroller {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Sideways scrolling. An edge fades out only while sports are hidden past it,
+   so the first and last chips show whole once scrolled to. */
+.row {
+  --fade-before: 0px;
+  --fade-after: 0px;
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* The row runs to the screen's edges on a phone (FilterBar): the first
+     chip lines up with the page's text, the last can be scrolled clear. */
+  padding: var(--space-1) var(--gutter);
+  scroll-padding-inline: var(--gutter);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--fade-before),
+    #000 calc(100% - var(--fade-after)),
+    transparent
+  );
+}
+
+.row[data-more-before] {
+  --fade-before: var(--space-8);
+}
+
+.row[data-more-after] {
+  --fade-after: var(--space-8);
+}
+
+.row::-webkit-scrollbar {
+  display: none;
+}
+
+/* A mouse drags the row (useSideScroll): the chips' text is not to be selected
+   along the way. The open hand shows between the chips while there is
+   something to drag to, the closed one all over once dragging. */
+.row {
+  user-select: none;
+}
+
+@media (hover: hover) {
+  .row[data-more-before],
+  .row[data-more-after] {
+    cursor: grab;
+  }
+}
+
+.row[data-dragging],
+.row[data-dragging] * {
+  cursor: grabbing;
+}
+
+/* A sport's chip and its star. Flex, like the row, so the chip is laid out as
+   the pinned one is. */
+.item {
+  position: relative;
+  display: flex;
+  flex: none;
+}
+
+/* The hidden radio is positioned absolutely: anchored here, it stays inside
+   the scrolling row instead of widening the whole page. */
+.chip {
+  position: relative;
+  flex: none;
+}
+
+.face {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--control-height);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.face:hover {
+  border-color: var(--color-border-strong);
+}
+
+/* The chosen sport is inked in. */
+input:checked + .face {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-on-ink);
+}
+
+.mark {
+  margin-left: calc(-1 * var(--space-1));
+  fill: currentColor;
+  opacity: 0.7;
+}
+
+input:focus-visible + .face {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Room inside the pill for the star, always: it appears on hover, and the chips
+   mustn't shift when it does. */
+.withStar .face {
+  padding-right: calc(var(--space-2) + 1.5rem + var(--space-1));
+}
+
+/* On the pill's right, over its padding. Outline when the sport isn't a
+   favorite, filled when it is. It takes the pill's own colors once the sport
+   is the chosen one: it sits on the ink then. */
+.star {
+  position: absolute;
+  top: 50%;
+  right: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text-muted);
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: opacity var(--transition), background var(--transition), color var(--transition);
+}
+
+.star:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 1px;
+}
+
+.star:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.item[data-favorite] .star {
+  color: var(--color-ink);
+}
+
+.item[data-favorite] .star svg {
+  fill: currentColor;
+}
+
+.item[data-selected] .star {
+  color: var(--color-on-ink);
+}
+
+.item[data-selected] .star:focus-visible {
+  outline-color: var(--color-on-ink);
+}
+
+/* With a mouse, the stars of the sports that are neither a favorite nor the
+   chosen one show up with the pointer; a touch screen has no pointer to wait
+   for, and keeps them all in sight. The hover colors are for a mouse too: on a
+   touch screen, a tap would leave the star lit. */
+@media (hover: hover) {
+  .item:not(:hover, [data-favorite], [data-selected]) .star:not(:focus-visible) {
+    opacity: 0;
+  }
+
+  .star:hover:not(:disabled) {
+    background: var(--color-brand-soft);
+    color: var(--color-brand);
+  }
+
+  .item[data-selected] .star:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--color-on-ink) 20%, transparent);
+    color: var(--color-on-ink);
+  }
+}
+
+/* Round buttons over the faded ends. Only with a mouse: a touch screen swipes
+   the row. */
+.arrow {
+  position: absolute;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-pop);
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.arrow:hover {
+  border-color: var(--color-brand);
+  background: var(--color-brand-soft);
+}
+
+.arrow[hidden] {
+  display: none;
+}
+
+.before {
+  left: 0;
+}
+
+.after {
+  right: 0;
+}
+
+@media (hover: none) {
+  .arrow {
+    display: none;
+  }
+}
+
+/* From 768 px the bar has its own margins (FilterBar). */
+@media (min-width: 768px) {
+  .row {
+    padding: var(--space-1);
+    scroll-padding-inline: 0;
+  }
+}

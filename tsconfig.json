@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*.ts"],
+  "ts-node": {
+    // ts-node's default program only contains the entry file's import graph,
+    // so an ambient .d.ts like src/scraper/socket.io-client.d.ts (nothing
+    // `import`s it -- it's picked up by tsc via "include" instead) is
+    // invisible to it and `import io from "socket.io-client"` fails to
+    // typecheck at runtime. "files: true" makes ts-node preload every file
+    // this tsconfig's "include" matches, same as a plain `tsc -p` build.
+    "files": true
+  }
+}

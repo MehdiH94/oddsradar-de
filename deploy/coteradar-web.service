@@ -1,0 +1,17 @@
+[Unit]
+Description=CoteRadar API + web
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/coteradar
+Environment=NODE_ENV=production
+EnvironmentFile=/opt/coteradar/.env
+ExecStart=/usr/bin/node dist/api/index.js
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

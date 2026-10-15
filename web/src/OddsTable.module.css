@@ -1,0 +1,374 @@
+/* --- A phone first: each match is a card ---
+   Its kick-off and TRJ on top, the teams, the best price of each outcome
+   side by side (BestPrice), then "Comparer" and "Tous les marchés". */
+
+.table {
+  display: block;
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+
+.table thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.table tbody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(var(--outcomes), minmax(0, 1fr));
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-3) 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.row > td {
+  padding: 0;
+  min-width: 0;
+}
+
+.start {
+  grid-row: 1;
+  grid-column: 1 / -2;
+  align-self: center;
+}
+
+.start time {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
+.time {
+  font-size: var(--text-md);
+  font-weight: 700;
+  font-stretch: var(--stretch-condensed);
+  font-variant-numeric: tabular-nums;
+}
+
+.day {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.trj {
+  grid-row: 1;
+  grid-column: -2 / -1;
+  justify-self: end;
+}
+
+.match {
+  grid-row: 2;
+  grid-column: 1 / -1;
+}
+
+.row > .match {
+  padding-bottom: var(--space-1);
+}
+
+.teams {
+  display: block;
+  font-size: var(--text-md);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* The teams lead to the match's page: they read as the title they are, and
+   underline on hover. */
+.teamsLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.teamsLink:hover,
+.teamsLink:focus-visible {
+  color: var(--color-brand);
+  text-decoration: underline;
+}
+
+.competition {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* No odds at all (no bookmaker ticked): the match takes the whole card. */
+.row > .start:nth-last-child(2) {
+  grid-column: 1 / -1;
+}
+
+.outcome {
+  grid-row: 3;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* "Comparer": every ticked bookmaker's price, under the best one. */
+.prices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.prices > * {
+  width: 100%;
+  min-width: 0;
+}
+
+/* The card's foot: two 44 px buttons, split by a rule. */
+.actions {
+  grid-row: 4;
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  margin: var(--space-1) calc(-1 * var(--space-3)) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.compare,
+.allMarkets {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--tap);
+  padding: 0 var(--space-3);
+  border: 0;
+  background: none;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.compare {
+  color: var(--color-text);
+}
+
+.chevron {
+  transition: transform var(--transition);
+}
+
+.compare[aria-expanded="true"] .chevron {
+  transform: rotate(180deg);
+}
+
+.allMarkets {
+  margin-left: auto;
+  color: var(--color-brand);
+}
+
+.compare:active,
+.allMarkets:active {
+  background: var(--color-surface-muted);
+}
+
+/* "Aujourd'hui", "Demain", "Samedi 4 octobre" when sorted by kick-off. */
+.dayRow {
+  display: block;
+}
+
+.dayRow th {
+  display: block;
+  padding: var(--space-3) 0 0;
+  font-size: var(--text-md);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.dayRow:first-child th {
+  padding-top: 0;
+}
+
+/* "+12 marchés", under the teams, from 768 px. */
+.more {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.5rem;
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-brand);
+  text-decoration: none;
+}
+
+.more:hover {
+  text-decoration: underline;
+}
+
+.startHead,
+.trjHead,
+.outcomeHead {
+  white-space: nowrap;
+}
+
+/* --- From 768 px: the cards two by two --- */
+
+@media (min-width: 768px) {
+  .table tbody {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .dayRow {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --- From 1024 px: a table, every bookmaker's price in sight --- */
+
+@media (min-width: 1024px) {
+  .table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    overflow: hidden;
+  }
+
+  .table thead {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    display: table-header-group;
+  }
+
+  .table tbody {
+    display: table-row-group;
+  }
+
+  .table th,
+  .table td {
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+  }
+
+  .table tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  .table thead th {
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    background: var(--color-surface-muted);
+  }
+
+  .row {
+    display: table-row;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    transition: background var(--transition);
+  }
+
+  .row:hover {
+    background: color-mix(in srgb, var(--color-surface-muted) 70%, transparent);
+  }
+
+  .table .row > td {
+    padding: var(--space-3);
+  }
+
+  .startHead {
+    width: 5.5rem;
+  }
+
+  .trjHead {
+    width: 6rem;
+    text-align: right;
+  }
+
+  .outcomeHead {
+    text-align: center;
+  }
+
+  .start time {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .day {
+    font-size: var(--text-xs);
+  }
+
+  .match {
+    min-width: 14rem;
+  }
+
+  .teams {
+    font-size: var(--text-md);
+  }
+
+  .competition {
+    font-size: var(--text-xs);
+  }
+
+  .trj {
+    text-align: right;
+  }
+
+  /* The prices wrap, two to a line, so that every bookmaker ticked fits the
+     screen without a sideways scroll: the outcome's cell is as wide as two
+     chips, no more (three to a line from 1120 px, below). */
+  .outcome {
+    display: table-cell;
+    width: 1%;
+    text-align: center;
+  }
+
+  .prices {
+    display: inline-grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    gap: var(--space-1);
+  }
+
+  /* A chip is never narrower than its icon and price: the phone's
+     `min-width: 0` (above) would let the grid squeeze it under them, the
+     chips overlapping one another. */
+  .prices > * {
+    width: auto;
+    min-width: auto;
+  }
+
+  .dayRow {
+    display: table-row;
+  }
+
+  .dayRow th {
+    display: table-cell;
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-surface-muted);
+    font-size: var(--text-sm);
+  }
+
+  .dayRow:first-child th {
+    padding-top: var(--space-2);
+  }
+}
+
+/* --- From 1120 px: the prices three to a line --- */
+
+@media (min-width: 1120px) {
+  .prices {
+    grid-template-columns: repeat(3, auto);
+  }
+}

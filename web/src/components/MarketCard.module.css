@@ -1,0 +1,309 @@
+/* --- A phone first ---
+   Each outcome on two lines: its name, then one price per bookmaker in equal
+   columns, so that the prices never run off the screen. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  /* Rounded corners, and a scroll rather than a cut if prices still overflow. */
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.badge {
+  flex: none;
+}
+
+.prices {
+  display: grid;
+  grid-template-columns: repeat(var(--bookmakers), minmax(0, 1fr));
+  gap: var(--space-1);
+}
+
+.prices > * {
+  min-width: 0;
+  width: 100%;
+}
+
+/* A market of over/under lines spans the page's width from 768 px, so that
+   its columns never squeeze its prices. */
+.wide {
+  grid-column: 1 / -1;
+}
+
+/* Outcomes one under another. */
+.list {
+  display: block;
+  width: 100%;
+}
+
+.list tbody {
+  display: block;
+}
+
+.list tr {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+}
+
+.list tr + tr {
+  border-top: 1px solid var(--color-border);
+}
+
+.list th,
+.list td {
+  padding: 0;
+  text-align: left;
+}
+
+/* A row header, but read as the outcome it is, not as a column title. */
+.outcome {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: left;
+}
+
+/* Over/under lines: the line on top, "Plus" and "Moins" under it, named. */
+.lines {
+  display: block;
+  width: 100%;
+}
+
+.lines thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.lines tbody {
+  display: block;
+}
+
+.lines tbody tr {
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+  padding: var(--space-2) var(--space-3);
+}
+
+.lines tbody tr + tr {
+  border-top: 1px solid var(--color-border);
+}
+
+.lines th,
+.lines td {
+  padding: 0;
+}
+
+.line {
+  grid-column: 1 / -1;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  font-stretch: var(--stretch-condensed);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+  text-align: left;
+}
+
+.lines td[data-label] {
+  display: contents;
+}
+
+.lines td[data-label]::before {
+  content: attr(data-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.trjHead,
+.trj {
+  text-align: right;
+}
+
+.lines .trj {
+  grid-column: 1 / -1;
+  text-align: left;
+}
+
+.filter {
+  margin: var(--space-3) var(--space-3) var(--space-1);
+  min-height: var(--control-height);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.filter:focus-visible {
+  outline: none;
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-focus) 35%, transparent);
+}
+
+.empty {
+  padding: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.more {
+  min-height: var(--tap);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  background: transparent;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-brand);
+  text-align: left;
+}
+
+.more:hover {
+  background: var(--color-brand-soft);
+}
+
+/* --- From 768 px: the name on the left, the prices on its right --- */
+
+@media (min-width: 768px) {
+  .header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .title {
+    font-size: var(--text-sm);
+  }
+
+  .prices {
+    display: inline-flex;
+    justify-content: flex-end;
+    white-space: nowrap;
+  }
+
+  .prices > * {
+    width: auto;
+  }
+
+  .list {
+    display: table;
+    border-collapse: collapse;
+  }
+
+  .list tbody {
+    display: table-row-group;
+  }
+
+  .list tr {
+    display: table-row;
+  }
+
+  .list th,
+  .list td {
+    padding: var(--space-2) var(--space-4);
+    vertical-align: middle;
+  }
+
+  .list tr + tr > * {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .list td {
+    text-align: right;
+  }
+
+  .outcome {
+    font-weight: 500;
+  }
+
+  .lines {
+    display: table;
+    border-collapse: collapse;
+  }
+
+  .lines thead {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    display: table-header-group;
+  }
+
+  .lines thead th {
+    padding: var(--space-2) var(--space-4);
+    background: var(--color-surface-muted);
+    text-align: left;
+  }
+
+  .lines tbody {
+    display: table-row-group;
+  }
+
+  .lines tbody tr {
+    display: table-row;
+    padding: 0;
+  }
+
+  .lines tbody tr + tr > * {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .lines th,
+  .lines td {
+    padding: var(--space-2) var(--space-4);
+    vertical-align: middle;
+  }
+
+  .lines td[data-label] {
+    display: table-cell;
+  }
+
+  .lines td[data-label]::before {
+    content: none;
+  }
+
+  /* Two prices per bookmaker in one row can outgrow the page: they wrap. */
+  .lines td .prices {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    white-space: normal;
+  }
+
+  .lines .trj {
+    text-align: right;
+  }
+
+  .filter {
+    margin: var(--space-3) var(--space-4) var(--space-1);
+  }
+
+  .more {
+    padding: var(--space-3) var(--space-4);
+  }
+}

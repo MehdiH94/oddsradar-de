@@ -1,0 +1,22 @@
+.results,
+.busy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* A new answer is on its way: the last one stays, dimmed. */
+.busy {
+  opacity: 0.6;
+  transition: opacity var(--transition);
+}
+
+.note {
+  margin: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--color-value-border);
+  border-radius: var(--radius-md);
+  background: var(--color-value-bg);
+  color: var(--color-value-text);
+  font-size: var(--text-sm);
+}

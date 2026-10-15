@@ -1,0 +1,36 @@
+# Tests every pull request, before it can be merged: feature and bug branches
+# into development, development into main. Nothing reaches main without
+# having been merged, tested and deployed on staging through development
+# (CONTRIBUTING.md, "Le parcours d'une modification").
+name: ci
+
+on:
+  pull_request:
+    branches: [development, main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+
+  # Only development is promoted to main. The branch protection that would
+  # enforce it needs a paid GitHub plan: this check fails the pull request
+  # instead, and deploy.yml's gate refuses to deploy what skipped development.
+  promotion-guard:
+    if: github.base_ref == 'main'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Only development goes into main
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          if [ "$HEAD_REF" != "development" ]; then
+            echo "::error::A pull request into main must come from development (this one comes from $HEAD_REF): open it into development first."
+            exit 1
+          fi

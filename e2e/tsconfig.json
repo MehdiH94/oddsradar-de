@@ -1,0 +1,8 @@
+{
+  // Types the end-to-end code, which reaches into src/ (hence the wider
+  // rootDir than the backend's); ts-node runs server.ts with it.
+  "extends": "../tsconfig.json",
+  "compilerOptions": { "rootDir": "..", "noEmit": true },
+  "include": ["./**/*.ts", "../src/**/*.ts"],
+  "ts-node": { "files": true }
+}

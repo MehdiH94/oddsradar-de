@@ -1,0 +1,18 @@
+/* The sport's icon: the tooltip is its name, so the cursor says there is one. */
+.icon {
+  cursor: help;
+}
+
+/* A title that is a link reads as the title it is, and underlines on hover. */
+.link {
+  /* A taller hit area for a finger, without moving the line. */
+  padding-block: 4px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--color-brand);
+  text-decoration: underline;
+}

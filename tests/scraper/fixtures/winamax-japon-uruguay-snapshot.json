@@ -1,0 +1,48 @@
+{
+  "sports": {
+    "1": {
+      "sportName": "Football"
+    }
+  },
+  "tournaments": {
+    "66": {
+      "tournamentName": "Matchs Amicaux"
+    }
+  },
+  "matches": {
+    "73685376": {
+      "sportId": 1,
+      "tournamentId": 66,
+      "mainBetId": 700910632,
+      "matchStart": 1790244300,
+      "competitor1Name": "Japon",
+      "competitor2Name": "Uruguay"
+    }
+  },
+  "bets": {
+    "700910632": {
+      "betTitle": "Résultat",
+      "outcomes": [
+        2175345843,
+        2175345844,
+        2175345845
+      ]
+    }
+  },
+  "outcomes": {
+    "2175345843": {
+      "label": "Japon"
+    },
+    "2175345844": {
+      "label": "Match nul"
+    },
+    "2175345845": {
+      "label": "Uruguay"
+    }
+  },
+  "odds": {
+    "2175345843": 1.84,
+    "2175345844": 3.4,
+    "2175345845": 3.75
+  }
+}

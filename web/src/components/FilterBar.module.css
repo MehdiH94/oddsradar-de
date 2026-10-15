@@ -1,0 +1,95 @@
+/* On a phone the bar dissolves (display: contents) so that its sports row
+   alone sticks to the top of the screen, and the search scrolls away with
+   the page; from 768 px up, the whole bar sticks. */
+.bar {
+  display: contents;
+}
+
+.sports {
+  position: sticky;
+  top: var(--banner-height, 0px);
+  z-index: 10;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.controls {
+  position: relative;
+  z-index: 5;
+}
+
+.inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--space-2) var(--gutter);
+}
+
+.sports .inner {
+  /* The sports' row runs to the screen's edges: a chip cut by the edge says
+     there are more to swipe to. */
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.controls .inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  padding-bottom: 0;
+}
+
+.reset {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: var(--control-height);
+  margin-left: auto;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-brand);
+}
+
+.reset:hover {
+  background: var(--color-brand-soft);
+}
+
+@media (min-width: 768px) {
+  .bar {
+    display: block;
+    position: sticky;
+    top: var(--banner-height, 0px);
+    z-index: 10;
+    border-bottom: 1px solid var(--color-border);
+    background: color-mix(in srgb, var(--color-bg) 94%, transparent);
+    backdrop-filter: blur(8px);
+  }
+
+  .sports,
+  .controls {
+    position: static;
+    border: 0;
+    background: none;
+  }
+
+  .sports .inner {
+    padding-right: var(--gutter);
+    padding-left: var(--gutter);
+  }
+
+  .controls .inner {
+    column-gap: var(--space-3);
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-3);
+  }
+
+  /* No sports' row above (the value bets): the same room as under one. */
+  .controls:first-child .inner {
+    padding-top: var(--space-3);
+  }
+}

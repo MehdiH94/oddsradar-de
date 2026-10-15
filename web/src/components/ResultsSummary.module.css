@@ -1,0 +1,9 @@
+.summary {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.summary strong {
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}

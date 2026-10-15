@@ -1,0 +1,413 @@
+import { DatabaseSync } from "node:sqlite";
+import { compareOutcomes, marketLabel, outcomeLabel, parseMarketKey, winnersOf } from "../markets/catalog";
+import { MARKET_1X2, MARKET_MATCH_WINNER, MARKET_OUTRIGHT } from "../scraper/canonical";
+import { Grid, mainOutcomeLabel, outrightRateOf, payoutRateOf } from "./marketGrid";
+import { inChunks } from "./playerReference";
+import { countMarkets, ListingOptions, loadEvents, marketsCutoff, matchingEventIds, oddsCutoff } from "./repository";
+
+// The surebets of the matches and races not started yet: every market whose
+// best prices guarantee a profit, whatever the outcome (the dashboard's
+// "Value bets" category, src/alerts/gems.ts). Three kinds:
+// - "bookmakers": Winamax's and Betclic's best prices, by the TRJ of a match's
+//   page (./marketGrid.ts): every outcome covered, the same ones at each;
+// - "exchange": the exchange's back prices too, net of its commission, where
+//   it prices every outcome with money on each;
+// - "lay": one outcome backed at a bookmaker and laid on the exchange (a
+//   player's market as well, which has no TRJ of its own).
+
+// The source of an exchange's leg, beside the bookmakers'.
+export const EXCHANGE = "exchange";
+// Its commission on a market's net winnings: 3% on Piwi247, as the account
+// pays it. The guest feed only shows the market's base rate (2%,
+// tests/reference/fixtures/exchange-search.json.gz), not what is charged.
+export const EXCHANGE_COMMISSION = 0.03;
+// The money an exchange's price must offer to be one leg, in euros (the
+// players' "shown" level, src/reference/exchange.ts).
+export const SUREBET_MIN_SIZE = 20;
+// A lay with less money than that is a "thin" surebet, shown with what it
+// offers (9/10/2026: Unibet's 2-2 of Kosovo F. - Autriche F. at 100 against a
+// lay at 85 with a few euros on it was only a value bet). Under it, the
+// exchange takes no bet.
+export const SUREBET_THIN_MIN_SIZE = 2;
+// Above it, a TRJ almost always comes from two bookmakers' different rules
+// or lines, or an old price: shown, to be checked.
+export const SUREBET_TO_VERIFY = 1.1;
+// What a surebet's stakes and profit are given for.
+const TOTAL_STAKE = 100;
+// The matches whose prices are read at once.
+const SUREBET_CHUNK = 500;
+
+export type SurebetKind = "bookmakers" | "exchange" | "lay";
+
+export interface SurebetLeg {
+  selection: string;
+  label: string;
+  // A bookmaker ("winamax", "vbet"...) or EXCHANGE.
+  source: string;
+  side: "back" | "lay";
+  // As the source shows it (the exchange's before its commission).
+  price: number;
+  // A back's stake out of TOTAL_STAKE; a lay's stake against the back's
+  // TOTAL_STAKE, and what it risks (`liability`).
+  stake: number;
+  liability?: number;
+  // A lay's money offered on the exchange, in euros (under SUREBET_MIN_SIZE,
+  // the surebet is thin: only that much can be laid).
+  size?: number;
+}
+
+export interface Surebet {
+  eventId: string;
+  sport: string;
+  competition: string;
+  startTime: string;
+  participants: string[];
+  marketCount: number;
+  market: string;
+  marketLabel: string;
+  kind: SurebetKind;
+  // Above 1: TOTAL_STAKE returns this many times itself, whatever happens.
+  payoutRate: number;
+  // The profit on TOTAL_STAKE, in euros.
+  profit: number;
+  toVerify: boolean;
+  // A leg has under SUREBET_MIN_SIZE on the exchange: the profit holds for
+  // what it offers only.
+  thin: boolean;
+  legs: SurebetLeg[];
+}
+
+export type SurebetSort = "value" | "start";
+
+export interface ExchangeOutcome {
+  back?: number;
+  backSize?: number;
+  lay?: number;
+  laySize?: number;
+}
+
+// The exchange's current prices of the given matches: event -> market ->
+// outcome. A football 1X2's (reference_odds), a tennis match's every market
+// and the other sports' main one (reference_markets), the players'
+// (reference_player_odds, by the bookmakers' names of the players).
+export function loadExchangeOutcomes(
+  db: DatabaseSync,
+  ids: readonly string[],
+  since: string
+): Map<string, Map<string, Map<string, ExchangeOutcome>>> {
+  const rows = [
+    ...inChunks(
+      db,
+      ids,
+      `SELECT event_id AS eventId, '${MARKET_1X2}' AS market, selection, back, lay, back_size AS backSize, lay_size AS laySize
+       FROM reference_odds WHERE event_id IN`,
+      { since },
+      "AND scraped_at >= @since"
+    ),
+    ...inChunks(
+      db,
+      ids,
+      `SELECT event_id AS eventId, market, selection, back, lay, back_size AS backSize, lay_size AS laySize
+       FROM reference_markets WHERE event_id IN`,
+      { since },
+      "AND scraped_at >= @since"
+    ),
+    ...inChunks(
+      db,
+      ids,
+      `SELECT event_id AS eventId, market, player AS selection, back, lay, back_size AS backSize, lay_size AS laySize
+       FROM reference_player_odds WHERE event_id IN`,
+      { since },
+      "AND player IS NOT NULL AND scraped_at >= @since"
+    ),
+  ] as {
+    eventId: string;
+    market: string;
+    selection: string;
+    back: number | null;
+    lay: number | null;
+    backSize: number | null;
+    laySize: number | null;
+  }[];
+  const byEvent = new Map<string, Map<string, Map<string, ExchangeOutcome>>>();
+  for (const r of rows) {
+    if (!byEvent.has(r.eventId)) byEvent.set(r.eventId, new Map());
+    const byMarket = byEvent.get(r.eventId)!;
+    if (!byMarket.has(r.market)) byMarket.set(r.market, new Map());
+    byMarket.get(r.market)!.set(r.selection, {
+      ...(r.back !== null ? { back: r.back } : {}),
+      ...(r.backSize !== null ? { backSize: r.backSize } : {}),
+      ...(r.lay !== null ? { lay: r.lay } : {}),
+      ...(r.laySize !== null ? { laySize: r.laySize } : {}),
+    });
+  }
+  return byEvent;
+}
+
+// A back price on the exchange, net of its commission on the winnings.
+export const netBack = (price: number) => 1 + (price - 1) * (1 - EXCHANGE_COMMISSION);
+
+// Backing at `back` and laying the same outcome at `lay`, the lay stake set
+// so that both cases pay the same: what the back stake returns, net of the
+// commission on the lay's winnings.
+export const backLayRate = (back: number, lay: number) => (back * (1 - EXCHANGE_COMMISSION)) / (lay - EXCHANGE_COMMISSION);
+
+function labelsOf(market: string, participants: string[]): { market: string; outcome: (key: string) => string } {
+  const parsed = parseMarketKey(market);
+  if (parsed.kind === "family") {
+    return {
+      market: marketLabel(parsed.family, participants, parsed.line),
+      outcome: (key) => outcomeLabel(parsed.family.key, key, participants, parsed.line),
+    };
+  }
+  if (market === MARKET_1X2) return { market: "Résultat du match", outcome: (key) => mainOutcomeLabel(key, participants) };
+  if (market === MARKET_MATCH_WINNER) return { market: MARKET_MATCH_WINNER, outcome: (key) => mainOutcomeLabel(key, participants) };
+  return { market, outcome: (key) => key };
+}
+
+// A market's TRJ, by the rule of its kind.
+function rateOf(market: string, grid: Grid): number | null {
+  return market === MARKET_OUTRIGHT ? outrightRateOf(grid) : payoutRateOf(parseMarketKey(market), grid);
+}
+
+// The legs of a TRJ above 1: each outcome at its best price (a bookmaker's
+// before the exchange's at the same net price), the stakes in proportion to
+// 1/price so that every outcome pays TOTAL_STAKE × rate.
+function backLegs(
+  market: string,
+  grid: Grid,
+  rate: number,
+  label: (key: string) => string,
+  exchangeRaw: Map<string, number>
+): SurebetLeg[] {
+  const legs = [...grid].map(([selection, prices]) => {
+    const [source, price] = [...prices].reduce((best, entry) =>
+      entry[1] > best[1] || (entry[1] === best[1] && best[0] === EXCHANGE) ? entry : best
+    );
+    return {
+      selection,
+      label: label(selection),
+      source,
+      side: "back" as const,
+      price: source === EXCHANGE ? exchangeRaw.get(selection)! : price,
+      stake: (TOTAL_STAKE * rate) / price,
+    };
+  });
+  // In the page's order: 1, X, 2, a family's own; a race's favourites first.
+  const parsed = parseMarketKey(market);
+  return legs.sort((a, b) =>
+    market === MARKET_OUTRIGHT
+      ? a.price - b.price || a.selection.localeCompare(b.selection, "fr")
+      : compareOutcomes(parsed.kind === "family" ? parsed.family.key : MARKET_1X2, a.selection, b.selection)
+  );
+}
+
+export function getSurebets(
+  db: DatabaseSync,
+  opts: { q?: string; sort?: SurebetSort; bookmakers?: readonly string[] } & ListingOptions = {}
+): Surebet[] {
+  const oddsSince = oddsCutoff(opts);
+  const marketsSince = marketsCutoff(opts);
+  const ids = matchingEventIds(db, undefined, opts.q, oddsSince);
+  const surebets: Surebet[] = [];
+  for (let start = 0; start < ids.length; start += SUREBET_CHUNK) {
+    const chunk = ids.slice(start, start + SUREBET_CHUNK);
+    for (const surebet of surebetsOf(db, chunk, oddsSince, marketsSince, opts.bookmakers)) surebets.push(surebet);
+  }
+  const counts = countMarkets(db, [...new Set(surebets.map((s) => s.eventId))], oddsSince, marketsSince);
+  for (const surebet of surebets) surebet.marketCount = counts.get(surebet.eventId) ?? 0;
+  return surebets.sort((a, b) =>
+    opts.sort === "start"
+      ? a.startTime.localeCompare(b.startTime) || b.payoutRate - a.payoutRate
+      : b.payoutRate - a.payoutRate || a.startTime.localeCompare(b.startTime)
+  );
+}
+
+// None when they fail, logged: the value bets beside them still show, and
+// still alert.
+export function surebetsOrNone(db: DatabaseSync, opts: Parameters<typeof getSurebets>[1]): Surebet[] {
+  try {
+    return getSurebets(db, opts);
+  } catch (err) {
+    console.error("[surebets]", err);
+    return [];
+  }
+}
+
+// An outcome's price at a bookmaker: a value bet's (src/db/repository.ts,
+// getValueBets).
+interface PricedOutcome {
+  eventId: string;
+  market: string;
+  selection: string;
+  price: number;
+}
+
+// Whether a surebet of its match's market already holds this price: laid at
+// a lay surebet's lay, it pays whatever happens too; in place of its
+// outcome's back in a surebet of every outcome, the TRJ stays above 100%.
+function heldBy(bet: PricedOutcome, surebet: Surebet): boolean {
+  if (surebet.kind === "lay") {
+    const lay = surebet.legs.find((l) => l.side === "lay" && l.selection === bet.selection);
+    return lay !== undefined && backLayRate(bet.price, lay.price) > 1;
+  }
+  const leg = surebet.legs.find((l) => l.selection === bet.selection);
+  if (!leg) return false;
+  // The stakes return TOTAL_STAKE × payoutRate whatever happens: the other
+  // outcomes' 1 / price add up to their share of the stakes over that.
+  const others = (1 - leg.stake / TOTAL_STAKE) / surebet.payoutRate;
+  return others + 1 / bet.price < 1;
+}
+
+// The value bets no surebet holds: a price that makes a surebet is shown as
+// that surebet only, on the site and in the alerts (6/10/2026, before which
+// it was both).
+export function withoutSurebets<T extends PricedOutcome>(bets: readonly T[], surebets: readonly Surebet[]): T[] {
+  const byMarket = new Map<string, Surebet[]>();
+  for (const s of surebets) {
+    const key = `${s.eventId}|${s.market}`;
+    byMarket.set(key, [...(byMarket.get(key) ?? []), s]);
+  }
+  return bets.filter((bet) => !(byMarket.get(`${bet.eventId}|${bet.market}`) ?? []).some((s) => heldBy(bet, s)));
+}
+
+// The surebets of the given matches, without their markets' count.
+function surebetsOf(
+  db: DatabaseSync,
+  ids: string[],
+  oddsSince: string,
+  marketsSince: string,
+  bookmakers: readonly string[] | undefined
+): Surebet[] {
+  const events = loadEvents(db, ids, oddsSince, marketsSince);
+  const exchange = loadExchangeOutcomes(db, ids, oddsSince);
+  const ticked = (bookmaker: string) => !bookmakers || bookmakers.includes(bookmaker);
+
+  // Every market's prices, the listing's main one and the markets cycle's.
+  const grids = new Map<string, Map<string, Grid>>();
+  const put = (eventId: string, bookmaker: string, market: string, selection: string, price: number) => {
+    if (!ticked(bookmaker)) return;
+    if (!grids.has(eventId)) grids.set(eventId, new Map());
+    const byMarket = grids.get(eventId)!;
+    if (!byMarket.has(market)) byMarket.set(market, new Map());
+    const grid = byMarket.get(market)!;
+    if (!grid.has(selection)) grid.set(selection, new Map());
+    grid.get(selection)!.set(bookmaker, price);
+  };
+  for (const event of events) {
+    for (const [bookmaker, { odds }] of Object.entries(event.byBookmaker)) {
+      for (const o of odds) put(event.id, bookmaker, o.market, o.selection, o.price);
+    }
+  }
+  // Of the markets cycle's, only those that paid above 100% when saved and
+  // those the exchange prices: all of them are a million prices.
+  const candidates = new Map<string, Set<string>>();
+  const rows = inChunks(db, ids, "SELECT event_id AS eventId, market FROM surebet_markets WHERE event_id IN", {}) as {
+    eventId: string;
+    market: string;
+  }[];
+  for (const r of rows) {
+    if (!candidates.has(r.eventId)) candidates.set(r.eventId, new Set());
+    candidates.get(r.eventId)!.add(r.market);
+  }
+  for (const [eventId, byMarket] of exchange) {
+    if (!candidates.has(eventId)) candidates.set(eventId, new Set());
+    for (const market of byMarket.keys()) candidates.get(eventId)!.add(market);
+  }
+  const select = db.prepare(
+    `SELECT bookmaker_id AS bookmaker, market, selection, price FROM event_market_odds
+     WHERE event_id = @eventId AND market IN (SELECT value FROM json_each(@markets)) AND scraped_at >= @marketsSince`
+  );
+  for (const [eventId, markets] of candidates) {
+    const rows = select.all({ eventId, markets: JSON.stringify([...markets]), marketsSince }) as {
+      bookmaker: string;
+      market: string;
+      selection: string;
+      price: number;
+    }[];
+    for (const r of rows) put(eventId, r.bookmaker, r.market, r.selection, r.price);
+  }
+
+  const surebets: Surebet[] = [];
+  for (const event of events) {
+    const match = {
+      eventId: event.id,
+      sport: event.sport,
+      competition: event.competition,
+      startTime: event.startTime,
+      participants: event.participants,
+      marketCount: 0,
+    };
+    const add = (market: string, label: string, kind: SurebetKind, payoutRate: number, legs: SurebetLeg[]) =>
+      surebets.push({
+        ...match,
+        market,
+        marketLabel: label,
+        kind,
+        payoutRate,
+        profit: TOTAL_STAKE * (payoutRate - 1),
+        // A market of several winners (a golf Top N) pays on a tie for its
+        // last place by each bookmaker's own rule: always to be checked.
+        toVerify: payoutRate > SUREBET_TO_VERIFY || (winnersOf(parseMarketKey(market)) ?? 1) > 1,
+        thin: legs.some((l) => l.size !== undefined && l.size < SUREBET_MIN_SIZE),
+        legs,
+      });
+
+    for (const [market, grid] of grids.get(event.id) ?? []) {
+      const labels = labelsOf(market, event.participants);
+      const onExchange = exchange.get(event.id)?.get(market);
+
+      // The bookmakers' best prices, and the exchange's back too when it
+      // prices every outcome with money on each.
+      let best: { grid: Grid; rate: number } | null = null;
+      const rate = rateOf(market, grid);
+      if (rate !== null && rate > 1) best = { grid, rate };
+      const exchangeRaw = new Map<string, number>();
+      const sized = (outcome: string) => (onExchange?.get(outcome)?.backSize ?? 0) >= SUREBET_MIN_SIZE;
+      // The winner among N players (a golf tournament's) and its Top N have no
+      // 20 EUR on every one of them: the exchange backs those that have it, the
+      // bookmakers the others.
+      const ofPlayers = market === MARKET_OUTRIGHT || winnersOf(parseMarketKey(market)) !== undefined;
+      if (onExchange && (ofPlayers ? [...grid.keys()].some(sized) : [...grid.keys()].every(sized))) {
+        const withExchange: Grid = new Map(
+          [...grid].map(([selection, prices]) => {
+            if (!sized(selection)) return [selection, prices];
+            const back = onExchange.get(selection)!.back!;
+            exchangeRaw.set(selection, back);
+            return [selection, new Map([...prices, [EXCHANGE, netBack(back)]])];
+          })
+        );
+        const mixed = rateOf(market, withExchange);
+        if (mixed !== null && mixed > 1 && mixed > (best?.rate ?? 0) + 1e-12) best = { grid: withExchange, rate: mixed };
+      }
+      if (best) {
+        const legs = backLegs(market, best.grid, best.rate, labels.outcome, exchangeRaw);
+        add(market, labels.market, legs.some((l) => l.source === EXCHANGE) ? "exchange" : "bookmakers", best.rate, legs);
+      }
+
+      // Each outcome backed at its best bookmaker and laid on the exchange.
+      for (const [selection, prices] of onExchange ? grid : []) {
+        const lay = onExchange!.get(selection);
+        if (!lay?.lay || (lay.laySize ?? 0) < SUREBET_THIN_MIN_SIZE || prices.size === 0) continue;
+        const [bookmaker, price] = [...prices].reduce((a, b) => (b[1] > a[1] ? b : a));
+        const layRate = backLayRate(price, lay.lay);
+        if (layRate <= 1) continue;
+        const layStake = (TOTAL_STAKE * price) / (lay.lay - EXCHANGE_COMMISSION);
+        add(market, labels.market, "lay", layRate, [
+          { selection, label: labels.outcome(selection), source: bookmaker, side: "back", price, stake: TOTAL_STAKE },
+          {
+            selection,
+            label: labels.outcome(selection),
+            source: EXCHANGE,
+            side: "lay",
+            price: lay.lay,
+            stake: layStake,
+            liability: layStake * (lay.lay - 1),
+            size: lay.laySize,
+          },
+        ]);
+      }
+    }
+  }
+  return surebets;
+}

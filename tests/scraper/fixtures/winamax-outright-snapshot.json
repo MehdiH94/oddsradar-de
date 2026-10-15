@@ -1,0 +1,177 @@
+{
+  "sports": {
+    "23": {
+      "sportName": "Volley-ball"
+    },
+    "5": {
+      "sportName": "Tennis"
+    },
+    "4": {
+      "sportName": "Hockey sur glace"
+    }
+  },
+  "tournaments": {
+    "900006760": {
+      "tournamentName": "Ch. d'Europe"
+    },
+    "179054": {
+      "tournamentName": "São Paulo"
+    },
+    "673": {
+      "tournamentName": "KHL"
+    }
+  },
+  "matches": {
+    "1000183635": {
+      "title": "Championnat d'Europe 2026",
+      "sportId": 23,
+      "tournamentId": 900006760,
+      "mainBetId": 647910359,
+      "matchStart": 1790380800,
+      "competitor1Name": null,
+      "competitor2Name": null
+    },
+    "74806976": {
+      "title": "Slovénie - Serbie",
+      "sportId": 23,
+      "tournamentId": 900006760,
+      "mainBetId": 700361713,
+      "matchStart": 1790017200,
+      "competitor1Name": "Slovénie",
+      "competitor2Name": "Serbie"
+    },
+    "74573914": {
+      "title": "Kaitlin Quevedo - Nadia Podoroska",
+      "sportId": 5,
+      "tournamentId": 179054,
+      "mainBetId": 701699823,
+      "matchStart": 1789999800,
+      "competitor1Name": "Kaitlin Quevedo",
+      "competitor2Name": "Nadia Podoroska"
+    },
+    "72166184": {
+      "title": "Amur Khabarovsk - Severstal Cherepovets",
+      "sportId": 4,
+      "tournamentId": 673,
+      "mainBetId": 700383576,
+      "matchStart": 1789981200,
+      "competitor1Name": "Amur Khabarovsk",
+      "competitor2Name": "Severstal Cherepovets"
+    }
+  },
+  "bets": {
+    "647910359": {
+      "betTitle": "Vainqueur",
+      "template": "ListOdd",
+      "outcomes": [
+        2017202848,
+        2017202852,
+        2017202837,
+        2017202849,
+        2017202855,
+        2017202841,
+        2017202842,
+        2017202853,
+        2017202843,
+        2017202851
+      ]
+    },
+    "700361713": {
+      "betTitle": "Vainqueur",
+      "template": "2way",
+      "outcomes": [
+        2173721852,
+        2173721853
+      ]
+    },
+    "701699823": {
+      "betTitle": "Vainqueur",
+      "template": "2way",
+      "outcomes": [
+        2177749670,
+        2177749671
+      ]
+    },
+    "700383576": {
+      "betTitle": "Résultat",
+      "template": "3way",
+      "outcomes": [
+        2173784056,
+        2173784057,
+        2173784058
+      ]
+    }
+  },
+  "outcomes": {
+    "2017202848": {
+      "label": "Pologne"
+    },
+    "2017202852": {
+      "label": "Italie"
+    },
+    "2017202837": {
+      "label": "France"
+    },
+    "2017202849": {
+      "label": "Allemagne"
+    },
+    "2017202855": {
+      "label": "Slovénie"
+    },
+    "2017202841": {
+      "label": "Belgique"
+    },
+    "2017202842": {
+      "label": "Finlande"
+    },
+    "2017202853": {
+      "label": "Serbie"
+    },
+    "2017202843": {
+      "label": "Roumanie"
+    },
+    "2017202851": {
+      "label": "République Tchèque"
+    },
+    "2173721852": {
+      "label": "Slovénie"
+    },
+    "2173721853": {
+      "label": "Serbie"
+    },
+    "2177749670": {
+      "label": "K. Quevedo"
+    },
+    "2177749671": {
+      "label": "N. Podoroska"
+    },
+    "2173784056": {
+      "label": "Khabarovsk"
+    },
+    "2173784057": {
+      "label": "Match nul"
+    },
+    "2173784058": {
+      "label": "Severstal Cherepovets"
+    }
+  },
+  "odds": {
+    "2017202848": 2.4,
+    "2017202852": 3,
+    "2017202837": 7,
+    "2017202849": 10,
+    "2017202855": 11,
+    "2017202841": 21,
+    "2017202842": 30,
+    "2017202853": 50,
+    "2017202843": 65,
+    "2017202851": 500,
+    "2173721852": 1.25,
+    "2173721853": 3.5,
+    "2177749670": 1.74,
+    "2177749671": 2.05,
+    "2173784056": 2.1,
+    "2173784057": 3.75,
+    "2173784058": 2.4
+  }
+}

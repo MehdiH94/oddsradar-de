@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+data/*.sqlite*
+.claude/worktrees/
+.claude/settings.local.json
+.worktrees/
+playwright-report/
+test-results/
+e2e/.tmp/

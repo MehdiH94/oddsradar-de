@@ -1,0 +1,8 @@
+/* What shows while the dashboard's code arrives: its placeholder rows, in the
+   column the dashboard itself uses. */
+.loading {
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--space-4) var(--gutter);
+}

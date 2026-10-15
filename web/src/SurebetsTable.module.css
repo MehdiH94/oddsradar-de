@@ -1,0 +1,340 @@
+/* --- A phone first: each surebet is a card ---
+   The kick-off and the TRJ on top, the match, its bets one under another,
+   the match's page at the foot. */
+
+.table {
+  display: block;
+  width: 100%;
+}
+
+.table thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.table tbody {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-3) 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.row > td {
+  padding: 0;
+  min-width: 0;
+}
+
+.row:not(:has(.actions)) {
+  padding-bottom: var(--space-3);
+}
+
+.start {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.start time {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
+.time {
+  font-weight: 700;
+  font-stretch: var(--stretch-condensed);
+  font-variant-numeric: tabular-nums;
+}
+
+.day {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.rate {
+  grid-row: 1;
+  grid-column: 2;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.match {
+  grid-row: 2;
+  grid-column: 1 / -1;
+}
+
+.legs {
+  grid-row: 3;
+  grid-column: 1 / -1;
+}
+
+.row > .legs {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-muted);
+}
+
+.legs::before {
+  content: attr(data-label);
+  display: block;
+  margin-bottom: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.teams {
+  display: block;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.market {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* "+12 marchés", under the match, from 768 px. */
+.more {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.5rem;
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-brand);
+  text-decoration: none;
+}
+
+.more:hover {
+  text-decoration: underline;
+}
+
+.actions {
+  grid-row: 4;
+  grid-column: 1 / -1;
+  display: flex;
+  margin: var(--space-1) calc(-1 * var(--space-3)) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.allMarkets {
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--tap);
+  padding: 0 var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-brand);
+  text-decoration: none;
+}
+
+.allMarkets:active {
+  background: var(--color-surface-muted);
+}
+
+/* Each bet on its own line: the outcome, where at what price, the stake. */
+.legList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.leg {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0 var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.legOutcome {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.lay {
+  font-weight: 700;
+  color: var(--color-brand);
+}
+
+.legSource {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  white-space: nowrap;
+}
+
+.exchange {
+  font-weight: 600;
+}
+
+.legPrice {
+  font-size: var(--text-md);
+  font-stretch: var(--stretch-condensed);
+  font-variant-numeric: tabular-nums;
+}
+
+.legStake {
+  grid-column: 1 / -1;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The TRJ in the best prices' green (PriceChip's). */
+.rateValue {
+  display: inline-block;
+  padding: 1px var(--space-2);
+  border: 1px solid var(--color-best-border);
+  border-radius: var(--radius-full);
+  background: var(--color-best-bg);
+  color: var(--color-best-text);
+  font-size: var(--text-md);
+  font-weight: 800;
+  font-stretch: var(--stretch-condensed);
+  font-variant-numeric: tabular-nums;
+}
+
+.profit,
+.kind {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.kind {
+  margin-top: 0;
+}
+
+/* Over 110 %: in the value bets' amber, like a suspect price. */
+.toVerify {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-value-text);
+}
+
+/* A lay with little money on the exchange: said beside its stake. */
+.thinSize {
+  color: var(--color-value-text);
+}
+
+/* --- From 768 px: a table --- */
+
+@media (min-width: 768px) {
+  .table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    overflow: hidden;
+  }
+
+  .table thead {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    display: table-header-group;
+  }
+
+  .table tbody {
+    display: table-row-group;
+  }
+
+  .row {
+    display: table-row;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  .row:hover {
+    background: color-mix(in srgb, var(--color-surface-muted) 70%, transparent);
+  }
+
+  .table th,
+  .table .row > td {
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+  }
+
+  .table tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  .table thead th {
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    background: var(--color-surface-muted);
+  }
+
+  .startHead {
+    width: 5.5rem;
+  }
+
+  .rateHead {
+    text-align: right;
+  }
+
+  .start time {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .day,
+  .market {
+    font-size: var(--text-xs);
+  }
+
+  .match {
+    min-width: 12rem;
+  }
+
+  .table .row > .legs {
+    background: none;
+    border-radius: 0;
+  }
+
+  .legs::before {
+    content: none;
+  }
+
+  .leg {
+    grid-template-columns: minmax(8rem, 1.4fr) minmax(7rem, 1fr) minmax(6rem, auto);
+  }
+
+  .legStake {
+    grid-column: auto;
+  }
+
+  .rateValue {
+    font-size: var(--text-sm);
+  }
+}

@@ -1,0 +1,84 @@
+# The checks every change goes through: called by ci.yml (pull requests),
+# deploy-staging.yml (development) and deploy.yml (main), so that the three
+# run exactly the same ones. CONTRIBUTING.md, section 5, runs them locally.
+# Two jobs: the unit tests and the build, then the end-to-end specs (e2e/) on
+# the critical paths. Their callers wait for the whole workflow, so a red
+# e2e blocks the pull request and the deployments alike.
+name: test
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+# The runner image is pinned: "ubuntu-latest" moves to Ubuntu 26 on 19/10/2026,
+# whose newer OpenSSH could change how the deploy job's key and host key are
+# accepted. Moving to 26.04 is a step of its own, to try on a manual run.
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            web/package-lock.json
+      - name: Backend
+        run: |
+          npm ci
+          npx tsc --noEmit -p .
+          npm test
+      - name: Web dashboard
+        working-directory: web
+        run: |
+          npm ci
+          npm run lint
+          npm test
+          npm run build
+
+  # A real browser on the real API and the built dashboard, over a seeded
+  # database (e2e/): the paths that must never break, listed in
+  # CONTRIBUTING.md, "Les chemins critiques".
+  e2e:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            web/package-lock.json
+      - name: Install
+        run: |
+          npm ci
+          npm ci --prefix web
+      # The browser is downloaded once per version of Playwright (package-lock).
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      # With the browser cached this only installs the system libraries it needs.
+      - name: Browser
+        run: npx playwright install --with-deps chromium
+      # Playwright does not check types: the specs and the test server are checked here.
+      - name: Types
+        run: npx tsc --noEmit -p e2e
+      - name: End-to-end specs
+        run: npm run e2e
+      - name: Report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

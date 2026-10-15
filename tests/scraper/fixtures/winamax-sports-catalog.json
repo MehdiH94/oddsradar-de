@@ -1,0 +1,98 @@
+{
+  "sportIds": [
+    1,
+    5,
+    2,
+    11,
+    3,
+    44,
+    10,
+    17,
+    16,
+    13,
+    40,
+    9,
+    6,
+    4,
+    117,
+    190,
+    12,
+    9992,
+    48,
+    43,
+    46,
+    19,
+    23
+  ],
+  "sports": {
+    "1": {
+      "sportName": "Football"
+    },
+    "2": {
+      "sportName": "Basketball"
+    },
+    "3": {
+      "sportName": "Baseball"
+    },
+    "4": {
+      "sportName": "Hockey sur glace"
+    },
+    "5": {
+      "sportName": "Tennis"
+    },
+    "6": {
+      "sportName": "Handball"
+    },
+    "9": {
+      "sportName": "Golf"
+    },
+    "10": {
+      "sportName": "Boxe"
+    },
+    "11": {
+      "sportName": "Automobile"
+    },
+    "12": {
+      "sportName": "Rugby à XV"
+    },
+    "13": {
+      "sportName": "Football australien"
+    },
+    "16": {
+      "sportName": "Football américain"
+    },
+    "17": {
+      "sportName": "Cyclisme"
+    },
+    "19": {
+      "sportName": "Snooker"
+    },
+    "23": {
+      "sportName": "Volley-ball"
+    },
+    "40": {
+      "sportName": "Formule 1"
+    },
+    "43": {
+      "sportName": "Ski alpin"
+    },
+    "44": {
+      "sportName": "Biathlon"
+    },
+    "46": {
+      "sportName": "Ski de fond"
+    },
+    "48": {
+      "sportName": "Saut à ski"
+    },
+    "117": {
+      "sportName": "MMA"
+    },
+    "190": {
+      "sportName": "Moto"
+    },
+    "9992": {
+      "sportName": "Rugby à XIII"
+    }
+  }
+}

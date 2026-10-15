@@ -62,7 +62,7 @@ describe("mergeInitialFilters", () => {
     });
   });
 
-  it.each(["?sport=golf", "?sort=value", "?bookmakers=winamax", "?players=1"])(
+  it.each(["?sport=golf", "?sort=value", "?bookmakers=merkurbets", "?players=1"])(
     "leaves the address alone when it has a filter of its own (%s)",
     (search) => {
       const merged = mergeInitialFilters(search, PREFS);

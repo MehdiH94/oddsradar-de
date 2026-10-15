@@ -33,7 +33,7 @@ const match = (id: string, participants: string[], prices: Record<string, [numbe
   ),
 });
 
-const PSG_OM = match("psg-om", ["PSG", "OM"], { leovegas: [1.5, 4.1, 6.2], winamax: [1.55, 4.0, 6.0] });
+const PSG_OM = match("psg-om", ["PSG", "OM"], { leovegas: [1.5, 4.1, 6.2], merkurbets: [1.55, 4.0, 6.0] });
 
 const BET = {
   eventId: "psg-om",
@@ -46,7 +46,7 @@ const BET = {
   marketLabel: "Résultat du match",
   selection: "1",
   label: "PSG",
-  bookmaker: "winamax",
+  bookmaker: "merkurbets",
   price: 1.6,
   basis: "fair",
   fair: 1.5,
@@ -97,7 +97,7 @@ describe("App on a phone", () => {
     expect(open).toHaveAttribute("aria-expanded", "true");
     expect(within(sheet).getByRole("radio", { name: "Best payout" })).toBeChecked();
     expect(within(sheet).getByRole("checkbox", { name: "LeoVegas" })).toBeChecked();
-    expect(within(sheet).getByRole("checkbox", { name: "Winamax" })).toBeChecked();
+    expect(within(sheet).getByRole("checkbox", { name: "Merkur Bets" })).toBeChecked();
     expect(within(sheet).getByRole("radio", { name: "With player markets" })).not.toBeChecked();
   });
 
@@ -120,7 +120,7 @@ describe("App on a phone", () => {
     expect(within(sheet).getByRole("radio", { name: "Best payout" })).toBeChecked();
     expect(within(sheet).queryByRole("button", { name: "Reset" })).not.toBeInTheDocument();
 
-    fireEvent.click(within(sheet).getByRole("checkbox", { name: "Winamax" }));
+    fireEvent.click(within(sheet).getByRole("checkbox", { name: "Merkur Bets" }));
     fireEvent.click(within(sheet).getByRole("button", { name: "Show the 50 results" }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Filters, 1 active" })).toBeInTheDocument();
@@ -206,8 +206,8 @@ describe("App on a phone", () => {
     render(<App />);
     await screen.findByText("PSG - OM");
 
-    // Winamax's 1,55 is the best "1"; LeoVegas's 1,50 shows only once compared.
-    expect(screen.getByText("PSG: 1.55 at Winamax")).toBeInTheDocument();
+    // Merkur Bets's 1,55 is the best "1"; LeoVegas's 1,50 shows only once compared.
+    expect(screen.getByText("PSG: 1.55 at Merkur Bets")).toBeInTheDocument();
     expect(screen.getByText("Draw: 4.10 at LeoVegas")).toBeInTheDocument();
     expect(screen.queryByText("1.50")).not.toBeInTheDocument();
 

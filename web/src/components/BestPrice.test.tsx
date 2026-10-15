@@ -13,17 +13,17 @@ describe("BestPrice", () => {
 
   it("frames a value bet and shows its edge, read out too", () => {
     const { container } = render(
-      <BestPrice label="1" name="PSG" price={1.66} bookmakers={["leovegas", "winamax"]} fair={1.62} edge={0.025} />
+      <BestPrice label="1" name="PSG" price={1.66} bookmakers={["leovegas", "merkurbets"]} fair={1.62} edge={0.025} />
     );
 
     expect(container.firstElementChild).toHaveAttribute("data-value");
-    expect(screen.getByText(/^PSG: 1.66 at LeoVegas and Winamax, value bet \+2.5/)).toBeInTheDocument();
+    expect(screen.getByText(/^PSG: 1.66 at LeoVegas and Merkur Bets, value bet \+2.5/)).toBeInTheDocument();
     // The second bookmaker at that price is counted, not shown.
     expect(screen.getByText("+1")).toBeInTheDocument();
   });
 
   it("shows the fair odds instead of the edge where the edge is shown elsewhere", () => {
-    render(<BestPrice label="Winamax" name="PSG" price={1.6} bookmakers={["winamax"]} fair={1.5} edge={0.067} showFair />);
+    render(<BestPrice label="Merkur Bets" name="PSG" price={1.6} bookmakers={["merkurbets"]} fair={1.5} edge={0.067} showFair />);
 
     expect(screen.getByText(/value bet \+6.7.*fair odds 1.50/)).toBeInTheDocument();
   });

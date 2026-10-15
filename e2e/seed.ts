@@ -27,7 +27,10 @@ export function seedOdds(db: DatabaseSync): void {
       competition: VALUE_MATCH.competition,
       startTime: hoursFromNow(3),
       participants: VALUE_MATCH.participants,
-      byBookmaker: { leovegas: oneXTwo(VALUE_MATCH.leovegas) },
+      byBookmaker: {
+        leovegas: oneXTwo(VALUE_MATCH.leovegas),
+        merkurbets: oneXTwo(VALUE_MATCH.merkurbets),
+      },
     },
     {
       id: SUREBET_MATCH.id,
@@ -35,7 +38,7 @@ export function seedOdds(db: DatabaseSync): void {
       competition: SUREBET_MATCH.competition,
       startTime: hoursFromNow(5),
       participants: SUREBET_MATCH.participants,
-      byBookmaker: { leovegas: oneXTwo(SUREBET_MATCH.leovegas) },
+      byBookmaker: { leovegas: oneXTwo(SUREBET_MATCH.leovegas), merkurbets: oneXTwo(SUREBET_MATCH.merkurbets) },
     },
     {
       id: SECOND_VALUE_MATCH.id,
@@ -43,7 +46,7 @@ export function seedOdds(db: DatabaseSync): void {
       competition: SECOND_VALUE_MATCH.competition,
       startTime: hoursFromNow(6),
       participants: SECOND_VALUE_MATCH.participants,
-      byBookmaker: { leovegas: oneXTwo(SECOND_VALUE_MATCH.leovegas) },
+      byBookmaker: { leovegas: oneXTwo(SECOND_VALUE_MATCH.leovegas), merkurbets: oneXTwo(SECOND_VALUE_MATCH.merkurbets) },
     },
     {
       id: TENNIS_MATCH.id,
@@ -51,7 +54,7 @@ export function seedOdds(db: DatabaseSync): void {
       competition: TENNIS_MATCH.competition,
       startTime: hoursFromNow(4),
       participants: TENNIS_MATCH.participants,
-      byBookmaker: { leovegas: winner(TENNIS_MATCH.leovegas) },
+      byBookmaker: { leovegas: winner(TENNIS_MATCH.leovegas), merkurbets: winner(TENNIS_MATCH.merkurbets) },
     },
     {
       id: EXCHANGE_MATCH.id,
@@ -59,7 +62,7 @@ export function seedOdds(db: DatabaseSync): void {
       competition: EXCHANGE_MATCH.competition,
       startTime: hoursFromNow(8),
       participants: EXCHANGE_MATCH.participants,
-      byBookmaker: { leovegas: oneXTwo(EXCHANGE_MATCH.leovegas) },
+      byBookmaker: { leovegas: oneXTwo(EXCHANGE_MATCH.leovegas), merkurbets: oneXTwo(EXCHANGE_MATCH.merkurbets) },
     },
     {
       // A competition's winner: one participant, its title, a season away.
@@ -68,7 +71,7 @@ export function seedOdds(db: DatabaseSync): void {
       competition: COMPETITION_WINNER.competition,
       startTime: hoursFromNow(24 * 200),
       participants: [COMPETITION_WINNER.title],
-      byBookmaker: { leovegas: outright(COMPETITION_WINNER.leovegas) },
+      byBookmaker: { leovegas: outright(COMPETITION_WINNER.leovegas), merkurbets: outright(COMPETITION_WINNER.merkurbets) },
     },
   ];
   upsertCanonicalEvents(db, events);
@@ -80,9 +83,6 @@ export function seedOdds(db: DatabaseSync): void {
   }
   // No back price on the exchange (without money to back there is no exchange
   // leg of a surebet), lay prices above the bookmakers' best with money on each.
-  // The exchange's back prices on the draw and the away side, with money on
-  // each: the surebet's legs beside LeoVegas's home side.
-  saveReferenceOdds(db, SUREBET_MATCH.id, { fair: SUREBET_MATCH.fair, back: SUREBET_MATCH.back, lay: SUREBET_MATCH.lay, backSize: SUREBET_MATCH.backSize, laySize: SUREBET_MATCH.laySize, matched: 5000 }, now);
   saveReferenceOdds(db, EXCHANGE_MATCH.id, { fair: EXCHANGE_MATCH.fair, back: EXCHANGE_MATCH.fair, lay: EXCHANGE_MATCH.lay, laySize: EXCHANGE_MATCH.laySize, matched: 5000 }, now);
   // A market beyond the main one, so that the match has a page of its own.
   for (const [bookmakerId, { over, under }] of Object.entries(VALUE_MATCH.totals)) {

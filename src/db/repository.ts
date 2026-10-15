@@ -28,7 +28,7 @@ const INSERT_ODDS = `
 const STORED_ID_LOOKBACK_MS = 24 * 60 * 60 * 1000;
 
 // The id of an event is the hash of the names of the bookmaker that seeds it
-// (matchEvents): the first seed bookmaker's that lists it (LeoVegas.de's, then
+// (matchEvents): the first seed bookmaker's that lists it (LeoVegas.de's, then Merkur Bets's,
 // then Betclic's...), else the first to list it. A cycle where the seed leaves a match out, or lists it late, gives the same match
 // another id, and with it another alert on Discord (an alert is sent once per
 // id) and another line on the dashboard until the first goes stale. A

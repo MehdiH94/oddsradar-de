@@ -121,7 +121,7 @@ export function canonicalMarketName(outcomeCount: number): string {
 
 // --- sports ------------------------------------------------------------------
 
-export type BookmakerId = "winamax" | "betclic" | "leovegas";
+export type BookmakerId = "winamax" | "betclic" | "leovegas" | "merkurbets";
 
 // The canonical key is the lowercased Winamax display name: the dashboard is in
 // French and renders the sport string as-is (section headings, the sport
@@ -143,36 +143,44 @@ const VERIFIED_SPORTS: ReadonlyArray<{
   // sports list (group.json), and for the winter sports the second step of an
   // event's path, as LeoVegas.de and PMU list them (11 and 15/10/2026).
   kambi?: string | string[];
+  // Merkur Bets's sport ids (./merkurbets.ts), as its odds service's filters
+  // list them (15/10/2026), for the sports it is read for.
+  merkurbets?: string;
 }> = [
   {
     canonical: "football",
     winamax: "Football",
     betclic: "football",
     kambi: "football",
+    merkurbets: "1",
   },
   {
     canonical: "tennis",
     winamax: "Tennis",
     betclic: "tennis",
     kambi: "tennis",
+    merkurbets: "2",
   },
   {
     canonical: "basketball",
     winamax: "Basketball",
     betclic: "basketball",
     kambi: "basketball",
+    merkurbets: "12",
   },
   {
     canonical: "hockey sur glace",
     winamax: "Hockey sur glace",
     betclic: "ice_hockey",
     kambi: "ice_hockey",
+    merkurbets: "10",
   },
   {
     canonical: "baseball",
     winamax: "Baseball",
     betclic: "baseball",
     kambi: "baseball",
+    merkurbets: "11",
   },
   {
     canonical: "biathlon",
@@ -197,6 +205,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     winamax: "Football américain",
     betclic: "american_football",
     kambi: "american_football",
+    merkurbets: "6",
   },
   {
     canonical: "football australien",
@@ -215,6 +224,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     winamax: "Handball",
     betclic: "handball",
     kambi: "handball",
+    merkurbets: "15",
   },
   {
     canonical: "golf",
@@ -227,6 +237,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     winamax: "Rugby à XV",
     betclic: "rugby_union",
     kambi: "rugby_union",
+    merkurbets: "18",
   },
   {
     canonical: "rugby à xiii",
@@ -245,6 +256,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     winamax: "Volley-ball",
     betclic: "volleyball",
     kambi: "volleyball",
+    merkurbets: "23",
   },
   {
     canonical: "ski alpin",
@@ -304,6 +316,7 @@ const CANONICAL_BY_BOOKMAKER: Record<BookmakerId, Map<string, string>> = {
   winamax: canonicalByName((s) => s.winamax),
   betclic: canonicalByName((s) => s.betclic),
   leovegas: canonicalByName((s) => s.kambi),
+  merkurbets: canonicalByName((s) => s.merkurbets),
 };
 
 // The Kambi term keys of the sports this project reads (./kambi.ts).

@@ -1,0 +1,1192 @@
+{
+ "games": [
+  {
+   "id": 3197709452,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 74998090
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 29667,
+     "name": "La Union",
+     "middleName": "La Union",
+     "shortName": "La Union",
+     "textId": 1099511752584
+    },
+    {
+     "order": 1,
+     "id": 294506,
+     "name": "Racing de Chivilcoy",
+     "middleName": "Racing de Chivilcoy",
+     "shortName": "Racing de Chivilcoy",
+     "textId": 1099512075075
+    }
+   ],
+   "startTime": "2026-10-16T00:00:00Z",
+   "type": 4,
+   "sport": 12,
+   "leagueInfo": {
+    "id": 48475,
+    "order": 13620,
+    "name": "Basketball - Argentina LNB",
+    "middleName": "LNB",
+    "shortName": "LNB",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 27,
+    "name": "Argentina",
+    "shortName": "ARG"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T00:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 21702,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Win (incl. OT)",
+     "textId": 5497558141050,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2170201,
+       "oddsId": 3197709452,
+       "text": "1",
+       "textId": 6597069771007,
+       "odds": 155
+      },
+      {
+       "id": 2170203,
+       "oddsId": 3197709452,
+       "text": "2",
+       "textId": 6597069771008,
+       "odds": 229
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 25
+  },
+  {
+   "id": 3197775622,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75596734
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 376038,
+     "name": "Unan Managua Baloncesto",
+     "middleName": "Unan Managua Baloncesto",
+     "shortName": "Unan Managua Baloncesto",
+     "textId": 1099512170792
+    },
+    {
+     "order": 1,
+     "id": 527978,
+     "name": "Tiburones de Granada",
+     "middleName": "Tiburones de Granada",
+     "shortName": "Tiburones de Granada",
+     "textId": 1099512356324
+    }
+   ],
+   "startTime": "2026-10-16T00:30:00Z",
+   "type": 4,
+   "sport": 12,
+   "leagueInfo": {
+    "id": 51578,
+    "order": 13709,
+    "name": "Basketball - Nicaragua LSB",
+    "middleName": "LSB",
+    "shortName": "LSB",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 376,
+    "name": "Nicaragua",
+    "shortName": "NIC"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T00:30:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 21702,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Win (incl. OT)",
+     "textId": 5497558141050,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2170201,
+       "oddsId": 3197775622,
+       "text": "1",
+       "textId": 6597069771007,
+       "odds": 240
+      },
+      {
+       "id": 2170203,
+       "oddsId": 3197775622,
+       "text": "2",
+       "textId": 6597069771008,
+       "odds": 148
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 6
+  },
+  {
+   "id": 3197757102,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75582768
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 43613,
+     "name": "Santos",
+     "middleName": "Santos",
+     "shortName": "Santos",
+     "textId": 1099511628206
+    },
+    {
+     "order": 1,
+     "id": 41451,
+     "name": "Abejas",
+     "middleName": "Abejas",
+     "shortName": "Abejas",
+     "textId": 1099511787481
+    }
+   ],
+   "startTime": "2026-10-16T02:00:00Z",
+   "type": 4,
+   "sport": 12,
+   "leagueInfo": {
+    "id": 53437,
+    "order": 13699,
+    "name": "Basketball - Mexico LNBP Playoffs",
+    "middleName": "LNBP Playoffs",
+    "shortName": "LNBP Playoffs",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 60,
+    "name": "Mexico",
+    "shortName": "MEX"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T02:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 21702,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Win (incl. OT)",
+     "textId": 5497558141050,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2170201,
+       "oddsId": 3197757102,
+       "text": "1",
+       "textId": 6597069771007,
+       "odds": 175
+      },
+      {
+       "id": 2170203,
+       "oddsId": 3197757102,
+       "text": "2",
+       "textId": 6597069771008,
+       "odds": 196
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 25
+  },
+  {
+   "id": 3197757112,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75582778
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 431753,
+     "name": "Diablos Rojos Del Mexico",
+     "middleName": "Diablos Rojos Del Mexico",
+     "shortName": "Diablos Rojos Del Mexico",
+     "textId": 1099512239510
+    },
+    {
+     "order": 1,
+     "id": 151842,
+     "name": "Mineros",
+     "middleName": "Mineros",
+     "shortName": "Mineros",
+     "textId": 1099511912813
+    }
+   ],
+   "startTime": "2026-10-16T02:15:00Z",
+   "type": 4,
+   "sport": 12,
+   "leagueInfo": {
+    "id": 53437,
+    "order": 13699,
+    "name": "Basketball - Mexico LNBP Playoffs",
+    "middleName": "LNBP Playoffs",
+    "shortName": "LNBP Playoffs",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 60,
+    "name": "Mexico",
+    "shortName": "MEX"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T02:15:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 21702,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Win (incl. OT)",
+     "textId": 5497558141050,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2170201,
+       "oddsId": 3197757112,
+       "text": "1",
+       "textId": 6597069771007,
+       "odds": 214
+      },
+      {
+       "id": 2170203,
+       "oddsId": 3197757112,
+       "text": "2",
+       "textId": 6597069771008,
+       "odds": 163
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 25
+  },
+  {
+   "id": 3197707902,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72627040
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 51494,
+     "name": "BB Olomouc",
+     "middleName": "BB Olomouc",
+     "shortName": "Olomouc",
+     "textId": 1099511798278
+    },
+    {
+     "order": 1,
+     "id": 80483,
+     "name": "Lok. Plzen",
+     "middleName": "Lok. Plzen",
+     "shortName": "Lok.Plzen",
+     "textId": 1099511830326
+    }
+   ],
+   "startTime": "2026-10-16T08:00:00Z",
+   "type": 4,
+   "sport": 12,
+   "leagueInfo": {
+    "id": 51956,
+    "order": 13030,
+    "name": "Basketball - Czech Republic NBL",
+    "middleName": "NBL",
+    "shortName": "NBL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 21,
+    "name": "Czech Republic",
+    "shortName": "CZE"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T08:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 21702,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Win (incl. OT)",
+     "textId": 5497558141050,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2170201,
+       "oddsId": 3197707902,
+       "text": "1",
+       "textId": 6597069771007,
+       "odds": 125
+      },
+      {
+       "id": 2170203,
+       "oddsId": 3197707902,
+       "text": "2",
+       "textId": 6597069771008,
+       "odds": 356
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 7
+  },
+  {
+   "id": 3197708652,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72704632
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 329909,
+     "name": "W Southside Flyers",
+     "middleName": "W Southside Flyers",
+     "shortName": "W Southside Flyers",
+     "textId": 1099512116348
+    },
+    {
+     "order": 1,
+     "id": 329912,
+     "name": "W Sydney Uni Flames",
+     "middleName": "W Sydney Uni Flames",
+     "shortName": "W Sydney Uni Flames",
+     "textId": 1099512116351
+    }
+   ],
+   "startTime": "2026-10-16T08:00:00Z",
+   "type": 4,
+   "sport": 12,
+   "leagueInfo": {
+    "id": 53611,
+    "order": 13420,
+    "name": "Basketball - Australia Women WNBL",
+    "middleName": "Women WNBL",
+    "shortName": "Women WNBL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 66,
+    "name": "Australia",
+    "shortName": "AUS"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T08:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 21702,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Win (incl. OT)",
+     "textId": 5497558141050,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2170201,
+       "oddsId": 3197708652,
+       "text": "1",
+       "textId": 6597069771007,
+       "odds": 183
+      },
+      {
+       "id": 2170203,
+       "oddsId": 3197708652,
+       "text": "2",
+       "textId": 6597069771008,
+       "odds": 187
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 7
+  },
+  {
+   "id": 3197707852,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72016822
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 322940,
+     "name": "Tasmania Jackjumpers",
+     "middleName": "Tasmania Jackjumpers",
+     "shortName": "Tasmania Jackjumpers",
+     "textId": 1099512108408
+    },
+    {
+     "order": 1,
+     "id": 29673,
+     "name": "Adelaide 36ers",
+     "middleName": "Adelaide",
+     "shortName": "Adelaide",
+     "textId": 1099511776078
+    }
+   ],
+   "startTime": "2026-10-16T08:30:00Z",
+   "type": 4,
+   "sport": 12,
+   "leagueInfo": {
+    "id": 54269,
+    "order": 13394,
+    "name": "Basketball - Australia NBL",
+    "middleName": "NBL",
+    "shortName": "NBL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 66,
+    "name": "Australia",
+    "shortName": "AUS"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T08:30:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 21672,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Win (incl. OT)",
+     "textId": 5497558141047,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2167201,
+       "oddsId": 3197707852,
+       "text": "1",
+       "textId": 6597069771001,
+       "odds": 161
+      },
+      {
+       "id": 2167203,
+       "oddsId": 3197707852,
+       "text": "2",
+       "textId": 6597069771002,
+       "odds": 217
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 24
+  },
+  {
+   "id": 3197708502,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 73657460
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 29641,
+     "name": "Orions Goyang",
+     "middleName": "Orions G.",
+     "shortName": "Orions G.",
+     "textId": 1099511776053
+    },
+    {
+     "order": 1,
+     "id": 29634,
+     "name": "Mobis Phoebus",
+     "middleName": "Mobis Phoebus",
+     "shortName": "Mobis Phoebus",
+     "textId": 1099511776046
+    }
+   ],
+   "startTime": "2026-10-16T10:00:00Z",
+   "type": 4,
+   "sport": 12,
+   "leagueInfo": {
+    "id": 48473,
+    "order": 13489,
+    "name": "Basketball - Republic of Korea KBL",
+    "middleName": "KBL",
+    "shortName": "KBL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 72,
+    "name": "South Korea",
+    "shortName": "KOR"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T10:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 21672,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Win (incl. OT)",
+     "textId": 5497558141047,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2167201,
+       "oddsId": 3197708502,
+       "text": "1",
+       "textId": 6597069771001,
+       "odds": 152
+      },
+      {
+       "id": 2167203,
+       "oddsId": 3197708502,
+       "text": "2",
+       "textId": 6597069771002,
+       "odds": 236
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 23
+  },
+  {
+   "id": 3197708002,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72696070
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 280777,
+     "name": "Saga Ballooners",
+     "middleName": "Saga Ballooners",
+     "shortName": "Saga Ballooners",
+     "textId": 1099512058912
+    },
+    {
+     "order": 1,
+     "id": 44477,
+     "name": "Levanga Hokkaido",
+     "middleName": "Levanga Hokkaido",
+     "shortName": "Levanga",
+     "textId": 1099511790735
+    }
+   ],
+   "startTime": "2026-10-16T10:05:00Z",
+   "type": 4,
+   "sport": 12,
+   "leagueInfo": {
+    "id": 49750,
+    "order": 13443,
+    "name": "Basketball - Japan B.League",
+    "middleName": "B.League",
+    "shortName": "B.League",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 33,
+    "name": "Japan",
+    "shortName": "JPN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T10:05:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 21702,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Win (incl. OT)",
+     "textId": 5497558141050,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2170201,
+       "oddsId": 3197708002,
+       "text": "1",
+       "textId": 6597069771007,
+       "odds": 321
+      },
+      {
+       "id": 2170203,
+       "oddsId": 3197708002,
+       "text": "2",
+       "textId": 6597069771008,
+       "odds": 130
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 25
+  },
+  {
+   "id": 3197708012,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72696066
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 44476,
+     "name": "Brave T. Kanagawa",
+     "middleName": "Brave T. Kanagawa",
+     "shortName": "Brave T.",
+     "textId": 1099511790734
+    },
+    {
+     "order": 1,
+     "id": 116193,
+     "name": "Ibaraki Robots",
+     "middleName": "Ibaraki Rob.",
+     "shortName": "Ibaraki.",
+     "textId": 1099511870820
+    }
+   ],
+   "startTime": "2026-10-16T10:05:00Z",
+   "type": 4,
+   "sport": 12,
+   "leagueInfo": {
+    "id": 49750,
+    "order": 13443,
+    "name": "Basketball - Japan B.League",
+    "middleName": "B.League",
+    "shortName": "B.League",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 33,
+    "name": "Japan",
+    "shortName": "JPN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T10:05:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 21702,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Win (incl. OT)",
+     "textId": 5497558141050,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2170201,
+       "oddsId": 3197708012,
+       "text": "1",
+       "textId": 6597069771007,
+       "odds": 155
+      },
+      {
+       "id": 2170203,
+       "oddsId": 3197708012,
+       "text": "2",
+       "textId": 6597069771008,
+       "odds": 230
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 25
+  },
+  {
+   "id": 3197708062,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72696068
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 44421,
+     "name": "Yokohama B Corsa.",
+     "middleName": "Yokohama B .",
+     "shortName": "Yokohama",
+     "textId": 1099511790676
+    },
+    {
+     "order": 1,
+     "id": 44418,
+     "name": "Ryukyu Gold King",
+     "middleName": "Ryukyu Gold",
+     "shortName": "Ryukyu GK",
+     "textId": 1099511790673
+    }
+   ],
+   "startTime": "2026-10-16T10:05:00Z",
+   "type": 4,
+   "sport": 12,
+   "leagueInfo": {
+    "id": 49750,
+    "order": 13443,
+    "name": "Basketball - Japan B.League",
+    "middleName": "B.League",
+    "shortName": "B.League",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 33,
+    "name": "Japan",
+    "shortName": "JPN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T10:05:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 21702,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Win (incl. OT)",
+     "textId": 5497558141050,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2170201,
+       "oddsId": 3197708062,
+       "text": "1",
+       "textId": 6597069771007,
+       "odds": 236
+      },
+      {
+       "id": 2170203,
+       "oddsId": 3197708062,
+       "text": "2",
+       "textId": 6597069771008,
+       "odds": 152
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 25
+  },
+  {
+   "id": 3197709532,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75019158
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 275643,
+     "name": "AS Ramat Hasharon",
+     "middleName": "AS Ramat Hasharon",
+     "shortName": "AS Ramat Hasharon",
+     "textId": 1099512053048
+    },
+    {
+     "order": 1,
+     "id": 453079,
+     "name": "BC Otef Darom",
+     "middleName": "BC Otef Darom",
+     "shortName": "BC Otef Darom",
+     "textId": 1099512263410
+    }
+   ],
+   "startTime": "2026-10-16T10:30:00Z",
+   "type": 4,
+   "sport": 12,
+   "leagueInfo": {
+    "id": 48503,
+    "order": 12839,
+    "name": "Basketball - Israel National League",
+    "middleName": "National League",
+    "shortName": "National League",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 47,
+    "name": "Israel",
+    "shortName": "ISR"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T10:30:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 21702,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Win (incl. OT)",
+     "textId": 5497558141050,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2170201,
+       "oddsId": 3197709532,
+       "text": "1",
+       "textId": 6597069771007,
+       "odds": 183
+      },
+      {
+       "id": 2170203,
+       "oddsId": 3197709532,
+       "text": "2",
+       "textId": 6597069771008,
+       "odds": 183
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 5
+  }
+ ]
+}

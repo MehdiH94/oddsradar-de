@@ -12,7 +12,7 @@ const event = (byBookmaker: EventWithOdds["byBookmaker"]): EventWithOdds => ({
   byBookmaker,
 });
 const race = event({
-  winamax: { scrapedAt: at, odds: [{ market: "Vainqueur", selection: "Russell", price: 4.5 }] },
+  merkurbets: { scrapedAt: at, odds: [{ market: "Vainqueur", selection: "Russell", price: 4.5 }] },
   leovegas: {
     scrapedAt: at,
     odds: [
@@ -31,14 +31,14 @@ describe("isOutright", () => {
 
 describe("outrightRows", () => {
   it("gives one row per competitor, favourite first, with each bookmaker's price and the best one", () => {
-    expect(outrightRows(race, ["leovegas", "winamax"])).toEqual([
+    expect(outrightRows(race, ["leovegas", "merkurbets"])).toEqual([
       { competitor: "Antonelli", prices: { leovegas: 2.25 }, best: 2.25 },
-      { competitor: "Russell", prices: { leovegas: 4.25, winamax: 4.5 }, best: 4.5 },
+      { competitor: "Russell", prices: { leovegas: 4.25, merkurbets: 4.5 }, best: 4.5 },
     ]);
   });
 
   it("leaves out the unticked bookmakers and the competitors only they price", () => {
-    expect(outrightRows(race, ["winamax"])).toEqual([{ competitor: "Russell", prices: { winamax: 4.5 }, best: 4.5 }]);
+    expect(outrightRows(race, ["merkurbets"])).toEqual([{ competitor: "Russell", prices: { merkurbets: 4.5 }, best: 4.5 }]);
     expect(outrightRows(race, [])).toEqual([]);
   });
 });

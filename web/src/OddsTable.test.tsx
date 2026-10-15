@@ -19,7 +19,7 @@ const events: EventWithOdds[] = [
           { market: "1X2", selection: "2", price: 5.0 },
         ],
       },
-      winamax: {
+      merkurbets: {
         scrapedAt: "2026-09-20T10:00:00.000Z",
         odds: [
           { market: "1X2", selection: "1", price: 1.65 },
@@ -80,7 +80,7 @@ describe("OddsTable", () => {
 
     expect(screen.getByText("1.50")).toBeInTheDocument();
     expect(screen.queryByText("1.65")).not.toBeInTheDocument();
-    expect(container.querySelector('[data-bookmaker="winamax"]')).toBeNull();
+    expect(container.querySelector('[data-bookmaker="merkurbets"]')).toBeNull();
   });
 
   it("shows the prices of the bookmakers that list the match only, each with its icon", () => {
@@ -88,7 +88,7 @@ describe("OddsTable", () => {
       ...events[0],
       byBookmaker: {
         leovegas: events[0].byBookmaker.leovegas,
-        winamax: {
+        merkurbets: {
           scrapedAt: "2026-09-20T10:00:00.000Z",
           odds: [
             { market: "1X2", selection: "1", price: 1.7 },
@@ -100,9 +100,9 @@ describe("OddsTable", () => {
     const { container } = render(<OddsTable events={[withoutDraw]} />);
 
     const home = [...container.querySelectorAll('td[data-label="1"] [data-bookmaker]')].map((c) => c.getAttribute("data-bookmaker"));
-    expect(home).toEqual(["leovegas", "winamax"]);
-    // Winamax lists the match but not its draw: a dash.
-    expect(text(chip("1.70"))).toBe("Winamax: 1.70 (best price)");
+    expect(home).toEqual(["leovegas", "merkurbets"]);
+    // Merkur Bets lists the match but not its draw: a dash.
+    expect(text(chip("1.70"))).toBe("Merkur Bets: 1.70 (best price)");
     expect(container.querySelectorAll('td[data-label="X"] [data-bookmaker]')).toHaveLength(2);
   });
 
@@ -111,7 +111,7 @@ describe("OddsTable", () => {
 
     expect(chip("1.50").querySelector("img")!.getAttribute("src")).toMatch(/leovegas/);
     expect(text(chip("1.50"))).toBe("LeoVegas: 1.50");
-    expect(text(chip("1.65"))).toBe("Winamax: 1.65 (best price)");
+    expect(text(chip("1.65"))).toBe("Merkur Bets: 1.65 (best price)");
   });
 
   it("highlights every bookmaker offering the best price, and only them", () => {
@@ -119,7 +119,7 @@ describe("OddsTable", () => {
       ...events[0],
       byBookmaker: {
         leovegas: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.72 }, { market: "1X2", selection: "X", price: 3.2 }] },
-        winamax: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.72 }, { market: "1X2", selection: "X", price: 3.1 }] },
+        merkurbets: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.72 }, { market: "1X2", selection: "X", price: 3.1 }] },
       },
     };
     render(<OddsTable events={[tie]} />);
@@ -132,7 +132,7 @@ describe("OddsTable", () => {
   });
 
   it("highlights the best price among only the given bookmakers", () => {
-    // winamax (1.65) is the real best price, but it's filtered out here, so
+    // merkurbets (1.65) is the real best price, but it's filtered out here, so
     // the sole remaining bookmaker's own price must be marked "best".
     render(<OddsTable events={events} bookmakers={["leovegas"]} />);
 
@@ -370,12 +370,12 @@ describe("OddsTable", () => {
           (price) => [...price.querySelectorAll(":scope > span")].find((span) => !span.classList.contains("visually-hidden"))?.textContent
         )
       );
-      // LeoVegas only, which lists this match (not Winamax), per outcome.
+      // LeoVegas only, which lists this match (not Merkur Bets), per outcome.
       expect(outcomes).toEqual([["1.80"], ["-"], ["2.05"]]);
     });
 
     it("keeps the N column when the only draw prices come from an unticked bookmaker", () => {
-      const betclicOnly: EventWithOdds = { ...events[0], byBookmaker: { winamax: events[0].byBookmaker.winamax } };
+      const betclicOnly: EventWithOdds = { ...events[0], byBookmaker: { merkurbets: events[0].byBookmaker.merkurbets } };
       render(<OddsTable events={[betclicOnly]} bookmakers={["leovegas"]} />);
 
       expect(outcomeHeaders()).toContain("X");
@@ -383,7 +383,7 @@ describe("OddsTable", () => {
   });
 
   describe("with the reference's fair odds", () => {
-    // Winamax's 1,65 on PSG is 6,5 % above the fair 1,55; LeoVegas's 3,20 on
+    // Merkur Bets's 1,65 on PSG is 6,5 % above the fair 1,55; LeoVegas's 3,20 on
     // the draw only 0,6 % above 3,18, under the 1 % of a value bet.
     const referenced: EventWithOdds[] = [
       {

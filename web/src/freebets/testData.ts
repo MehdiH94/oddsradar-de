@@ -28,10 +28,10 @@ export const PLAN_ONE: PlanView = {
   left: 3.1,
   exact: true,
   oddsAt: "2099-01-01T07:12:00.000Z",
-  matches: [match("psg-om", "Paris SG", "Marseille", { leovegas: [2.2, 3.1, 3.5], winamax: [2.0, 3.3, 3.7] })],
+  matches: [match("psg-om", "Paris SG", "Marseille", { leovegas: [2.2, 3.1, 3.5], merkurbets: [2.0, 3.3, 3.7] })],
   bookmakers: [
     { bookmaker: "leovegas", fb: 30, used: 28.4, bets: [bet("Paris SG", 2.2, 12.4), bet("Marseille", 3.5, 16)] },
-    { bookmaker: "winamax", fb: 25.5, used: 24, bets: [bet("Draw", 3.3, 24)] },
+    { bookmaker: "merkurbets", fb: 25.5, used: 24, bets: [bet("Draw", 3.3, 24)] },
   ],
 };
 
@@ -43,7 +43,7 @@ export const PLAN_TWO: PlanView = {
   rate: 0.5207,
   left: 0,
   exact: false,
-  matches: [match("lyon-lille", "Lyon", "Lille", { leovegas: [2.6, 3.0, 2.8], winamax: [2.2, 3.8, 3.0] })],
+  matches: [match("lyon-lille", "Lyon", "Lille", { leovegas: [2.6, 3.0, 2.8], merkurbets: [2.2, 3.8, 3.0] })],
 };
 
 export const PLAN_THREE: PlanView = {
@@ -53,13 +53,13 @@ export const PLAN_THREE: PlanView = {
   used: 40,
   rate: 0.503,
   left: 15.5,
-  matches: [match("nice-lens", "Nice", "Lens", { leovegas: [2.1, 3.2, 3.9], winamax: [2.0, 3.3, 3.8] })],
+  matches: [match("nice-lens", "Nice", "Lens", { leovegas: [2.1, 3.2, 3.9], merkurbets: [2.0, 3.3, 3.8] })],
 };
 
 export const BOOKMAKERS_ANSWER: BookmakersAnswer = {
   mode: "bookmakers",
   legs: 1,
-  bookmakers: ["leovegas", "winamax"],
+  bookmakers: ["leovegas", "merkurbets"],
   total: 55.5,
   eligibleSports: ["football", "tennis"],
   plans: [PLAN_ONE, PLAN_TWO, PLAN_THREE],
@@ -107,7 +107,7 @@ export const CHAIN: ChainView = {
 
 export const EXCHANGE_ANSWER: ExchangeAnswer = {
   mode: "exchange",
-  bookmaker: "winamax",
+  bookmaker: "merkurbets",
   fb: 30,
   commission: 0.03,
   eligibleSports: ["football"],

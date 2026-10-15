@@ -3,8 +3,8 @@ import { BASE_URL, EXCHANGE_MATCH, NEW_PASSWORD, SECOND_VALUE_MATCH, SUREBET_MAT
 import { createConfirmedAccount, logIn } from "./helpers";
 
 // The Freebets page: the account's freebets, saved with the account, and the conversions computed from the seeded
-// matches. LeoVegas's and Betway's prices on the seeded matches are fixtures.ts's; the figures below are what the
-// engine finds on them (a surebet, a value bet and a plain match are the three best single bets of 50 FB).
+// matches. LeoVegas's prices on the seeded matches are fixtures.ts's; the figures below are what the engine finds
+// on them. OddsRadar reads one bookmaker for now: its freebets go against the exchange, not between bookmakers.
 const teams = (match: { participants: string[] }) => match.participants.join(" – ");
 const wallet = (page: Page, bookmaker: string) => page.getByLabel(`${bookmaker} freebets in euros`);
 const saved = (page: Page) => expect(page.getByText("Saved to your account")).toBeVisible();
@@ -19,13 +19,14 @@ async function setWallet(page: Page, amounts: Record<string, number>): Promise<v
 // A radio button the site styles as a chip: its native input is hidden, so it is checked rather than clicked.
 const pick = (page: Page, name: string | RegExp) => page.getByRole("radio", { name }).check({ force: true });
 
-test("freebets at two bookmakers become the three best bets, with where to place each one, and the list copies", async ({ page, context }) => {
+// Between bookmakers needs freebets at two of them: back once OddsRadar reads a second one.
+test.skip("freebets at two bookmakers become the three best bets, with where to place each one, and the list copies", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin: BASE_URL });
   // Opened by its address, not reached from another page.
   await page.goto("/freebets");
   await expect(page).toHaveTitle(/Freebets/);
   await wallet(page, "LeoVegas").fill("30");
-  await wallet(page, "Betway").fill("20");
+  await wallet(page, "Second").fill("20");
   await saved(page);
 
   // Three bets on three different matches, the best guaranteed cash first.
@@ -45,8 +46,8 @@ test("freebets at two bookmakers become the three best bets, with where to place
   await expect(leovegas).toContainText("30.00 FB used of 30.00");
   await expect(leovegas.getByRole("listitem").nth(0)).toHaveText(/Lyon\s*20.69 FB/);
   await expect(leovegas.getByRole("listitem").nth(1)).toHaveText(/Lille\s*9.31 FB/);
-  const betway = page.getByRole("article", { name: "Betway" });
-  await expect(betway.getByRole("listitem")).toHaveText([/Draw\s*11.83 FB/, /Lille\s*8.17 FB/]);
+  const second = page.getByRole("article", { name: "Second" });
+  await expect(second.getByRole("listitem")).toHaveText([/Draw\s*11.83 FB/, /Lille\s*8.17 FB/]);
 
   // What the figures are worth: indicative prices, and stake limits the calculation does not know.
   await expect(page.getByRole("note")).toContainText("Indicative prices.");
@@ -65,15 +66,11 @@ test("freebets at two bookmakers become the three best bets, with where to place
 });
 
 test("the settings are kept in the address and the freebets in the account, whatever the page is reloaded with", async ({ page }) => {
-  await setWallet(page, { leovegas: 30, betway: 20 });
+  await setWallet(page, { leovegas: 30 });
   await page.goto("/freebets?mode=bookmakers&legs=2");
   await expect(page.getByRole("radio", { name: "2-match accumulator" })).toBeChecked();
   // The freebets are read back from the account.
   await expect(wallet(page, "LeoVegas")).toHaveValue("30");
-  await expect(wallet(page, "Betway")).toHaveValue("20");
-  // Two matches per bet, and a match in one combo only: with the five seeded matches there are two combos.
-  const combos = page.getByRole("region", { name: "Top conversions · 2-match accumulator" });
-  await expect(combos.getByRole("button")).toHaveCount(2);
 
   // What is not the default is in the address, what is the default is not.
   await expect(page).toHaveURL(/legs=2/);
@@ -87,7 +84,7 @@ test("the settings are kept in the address and the freebets in the account, what
 });
 
 test("against the exchange, one bookmaker's freebets are bet and laid, and each case shows what is left", async ({ page }) => {
-  await setWallet(page, { leovegas: 30, betway: 20 });
+  await setWallet(page, { leovegas: 30 });
   await page.goto("/freebets?mode=exchange&bookmaker=leovegas");
   // The only match with money to lay: Nantes to win, LeoVegas's 3.60 against the exchange's 3.70.
   await expect(page.getByRole("region", { name: /^Top conversions · LeoVegas · 30.00 FB$/ })).toContainText(teams(EXCHANGE_MATCH));
@@ -110,11 +107,6 @@ test("against the exchange, one bookmaker's freebets are bet and laid, and each 
   // The same warning on the prices, without the bookmakers' stake limits (the lay is the exchange's).
   await expect(page.getByRole("note")).toContainText("Indicative prices.");
   await expect(page.getByRole("note")).not.toContainText("minimum nor the maximum stakes");
-
-  // The other bookmaker's freebets, the choice kept in the address.
-  await pick(page, /Betway/);
-  await expect(page).toHaveURL(/bookmaker=betway/);
-  await expect(page.getByRole("region", { name: /^Top conversions · Betway · 20.00 FB$/ })).toContainText(teams(EXCHANGE_MATCH));
 });
 
 test("a new account is asked for its freebets, and with one bookmaker's only is offered the exchange", async ({ page, request }) => {
@@ -136,10 +128,9 @@ test("a new account is asked for its freebets, and with one bookmaker's only is 
   await expect(page).toHaveURL(/mode=exchange/);
   await expect(page.getByRole("region", { name: /^Top conversions · LeoVegas · 30.00 FB$/ })).toContainText(teams(EXCHANGE_MATCH));
 
-  // The freebets are the account's: they come back after a reload, and the seeded account's are not shown.
+  // The freebets are the account's: they come back after a reload.
   await page.reload();
   await expect(wallet(page, "LeoVegas")).toHaveValue("30");
-  await expect(wallet(page, "Betway")).toHaveValue("");
 });
 
 test.describe("signed out", () => {

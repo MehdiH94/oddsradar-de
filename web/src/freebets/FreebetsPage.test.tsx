@@ -37,7 +37,7 @@ interface Api {
 // The API as the page sees it: the wallet (read, then replaced), the conversions.
 function stubApi(over: Partial<Api> = {}) {
   const api: Api = {
-    wallet: { leovegas: 30, betway: 25.5 },
+    wallet: { leovegas: 30, winamax: 25.5 },
     answers: (url) => echo(url, api.wallet),
     ...over,
   };
@@ -88,7 +88,7 @@ describe("FreebetsPage", () => {
       renderPage();
       expect(await screen.findByDisplayValue("30")).toBeInTheDocument();
       expect(fb("LeoVegas")).toHaveValue("30");
-      expect(fb("Betway")).toHaveValue("25.5");
+      expect(fb("Winamax")).toHaveValue("25.5");
       expect(screen.getAllByRole("textbox")).toHaveLength(2);
       expect(screen.getByText(/Total to convert/)).toHaveTextContent("55.50 FB");
       expect(await screen.findByText("Saved to your account")).toBeInTheDocument();
@@ -118,7 +118,7 @@ describe("FreebetsPage", () => {
       expect(screen.getByText("Saving…")).toBeInTheDocument();
       // Nothing is sent while the visitor is still typing.
       expect(calls.saved).toEqual([]);
-      await waitFor(() => expect(calls.saved).toEqual([{ leovegas: 40.5, betway: 25.5 }]), { timeout: 3000 });
+      await waitFor(() => expect(calls.saved).toEqual([{ leovegas: 40.5, winamax: 25.5 }]), { timeout: 3000 });
       expect(await screen.findByText("Saved to your account")).toBeInTheDocument();
       // The server converts what it holds: asked again once it holds the new wallet.
       await waitFor(() => expect(calls.asked.length).toBe(2), { timeout: 3000 });
@@ -131,8 +131,8 @@ describe("FreebetsPage", () => {
       await screen.findByDisplayValue("30");
       fireEvent.change(fb("LeoVegas"), { target: { value: "1" } });
       fireEvent.change(fb("LeoVegas"), { target: { value: "12" } });
-      fireEvent.change(fb("Betway"), { target: { value: "7.25" } });
-      fireEvent.change(fb("Betway"), { target: { value: "" } });
+      fireEvent.change(fb("Winamax"), { target: { value: "7.25" } });
+      fireEvent.change(fb("Winamax"), { target: { value: "" } });
       await waitFor(() => expect(calls.saved).toHaveLength(1), { timeout: 3000 });
       expect(calls.saved[0]).toEqual({ leovegas: 12 });
     });
@@ -149,7 +149,7 @@ describe("FreebetsPage", () => {
       expect(calls.saved).toEqual([]);
       fireEvent.change(fb("LeoVegas"), { target: { value: "12" } });
       expect(fb("LeoVegas")).toHaveAttribute("aria-invalid", "false");
-      await waitFor(() => expect(calls.saved).toEqual([{ leovegas: 12, betway: 25.5 }]), { timeout: 3000 });
+      await waitFor(() => expect(calls.saved).toEqual([{ leovegas: 12, winamax: 25.5 }]), { timeout: 3000 });
     });
 
     it("keeps what is typed when the server refuses it, and tries again on request", async () => {
@@ -161,7 +161,7 @@ describe("FreebetsPage", () => {
       expect(fb("LeoVegas")).toHaveValue("8");
       api.saveFails = false;
       fireEvent.click(screen.getByRole("button", { name: "Try again" }));
-      await waitFor(() => expect(calls.saved).toEqual([{ leovegas: 8, betway: 25.5 }]), { timeout: 3000 });
+      await waitFor(() => expect(calls.saved).toEqual([{ leovegas: 8, winamax: 25.5 }]), { timeout: 3000 });
       expect(await screen.findByText("Saved to your account")).toBeInTheDocument();
     });
 
@@ -204,8 +204,8 @@ describe("FreebetsPage", () => {
       expect(leovegas.getByText("Paris SG")).toBeInTheDocument();
       expect(leovegas.getByText("12.40 FB")).toBeInTheDocument();
       expect(leovegas.getByText("28.40")).toBeInTheDocument();
-      const betway = within(screen.getByRole("article", { name: "Betway" }));
-      expect(betway.getByText("24.00 FB")).toBeInTheDocument();
+      const winamax = within(screen.getByRole("article", { name: "Winamax" }));
+      expect(winamax.getByText("24.00 FB")).toBeInTheDocument();
       expect(screen.getByText(/You have/)).toHaveTextContent("3.10 FB");
     });
 
@@ -272,7 +272,7 @@ describe("FreebetsPage", () => {
       renderPage();
       const info = (await screen.findByText(/Bookmakers used/)).closest("p")!;
       expect(info).toHaveTextContent("LeoVegas");
-      expect(info).toHaveTextContent("Betway");
+      expect(info).toHaveTextContent("Winamax");
       expect(info).toHaveTextContent("At least two are needed");
     });
   });
@@ -287,11 +287,11 @@ describe("FreebetsPage", () => {
     });
 
     it("sends freebets held at one bookmaker to the exchange", async () => {
-      stubApi({ wallet: { betway: 30 }, answers: (url) => (url.searchParams.get("mode") === "exchange" ? echo(url, { betway: 30 }) : reason("single_bookmaker")) });
+      stubApi({ wallet: { winamax: 30 }, answers: (url) => (url.searchParams.get("mode") === "exchange" ? echo(url, { winamax: 30 }) : reason("single_bookmaker")) });
       renderPage();
       expect(await screen.findByText(/converting between bookmakers takes at least two/)).toBeInTheDocument();
       fireEvent.click(screen.getByRole("button", { name: "Convert against the exchange" }));
-      expect(await screen.findByRole("heading", { name: /Top 3 conversions · Betway · 30.00 FB/ })).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: /Top 3 conversions · Winamax · 30.00 FB/ })).toBeInTheDocument();
       expect(screen.getByRole("radio", { name: "Against the exchange" })).toBeChecked();
       expect(window.location.search).toContain("mode=exchange");
     });
@@ -336,21 +336,21 @@ describe("FreebetsPage", () => {
   });
 
   describe("against the exchange", () => {
-    // LeoVegas holds 10 FB and comes first in the site's order: Betway's 30 FB are chosen.
+    // LeoVegas holds 10 FB and comes first in the site's order: Winamax's 30 FB are chosen.
     async function openExchange() {
-      const api = stubApi({ wallet: { leovegas: 10, betway: 30 } });
+      const api = stubApi({ wallet: { leovegas: 10, winamax: 30 } });
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
       fireEvent.click(screen.getByRole("radio", { name: "Against the exchange" }));
       await screen.findByRole("heading", { name: /LeoVegas · 10.00 FB/ });
-      fireEvent.click(screen.getByRole("radio", { name: /Betway, 30.00 FB/ }));
-      await screen.findByRole("heading", { name: /Betway · 30.00 FB/ });
+      fireEvent.click(screen.getByRole("radio", { name: /Winamax, 30.00 FB/ }));
+      await screen.findByRole("heading", { name: /Winamax · 30.00 FB/ });
       return api;
     }
 
     it("asks for the first bookmaker that holds freebets, and shows the chain as three cards, a bar and the first step", async () => {
       window.history.replaceState(null, "", "/freebets?mode=exchange");
-      const { calls } = stubApi({ wallet: { betway: 30, leovegas: 10 } });
+      const { calls } = stubApi({ wallet: { winamax: 30, leovegas: 10 } });
       renderPage();
       // LeoVegas comes first in the site's order.
       await waitFor(() => expect(calls.asked[0]).toBe("/api/freebets/conversions?mode=exchange&bookmaker=leovegas"));
@@ -369,14 +369,14 @@ describe("FreebetsPage", () => {
       expect(cards[2]).toHaveTextContent("Converts 3.71 FB · 0.00 FB left after");
 
       // The wallet as the chain shares it.
-      expect(screen.getByRole("img", { name: /Your Betway balance of 30.00 FB: conversion 1: 14.12 FB, conversion 2: 12.17 FB, conversion 3: 3.71 FB, not converted: 0.00 FB/ })).toBeInTheDocument();
+      expect(screen.getByRole("img", { name: /Your Winamax balance of 30.00 FB: conversion 1: 14.12 FB, conversion 2: 12.17 FB, conversion 3: 3.71 FB, not converted: 0.00 FB/ })).toBeInTheDocument();
       expect(screen.getByText(/Conversion 2:/)).toHaveTextContent("12.17 FB");
     });
 
     it("details a conversion: the freebet bet, the lay, the liquidity and what is left in each case", async () => {
       await openExchange();
       expect(screen.getByRole("heading", { name: "Conversion 1 · two bets to place" })).toBeInTheDocument();
-      const step1 = within(screen.getByRole("heading", { name: /Betway · as a freebet/ }).parentElement!);
+      const step1 = within(screen.getByRole("heading", { name: /Winamax · as a freebet/ }).parentElement!);
       expect(step1.getByText("14.12 FB")).toBeInTheDocument();
       expect(step1.getByText("4.60")).toBeInTheDocument();
       expect(step1.getByText(/If it wins, the freebet returns €50.83/)).toBeInTheDocument();
@@ -401,7 +401,7 @@ describe("FreebetsPage", () => {
       expect(screen.getByText(/If the match is not a draw/)).toBeInTheDocument();
       fireEvent.click(screen.getAllByRole("button", { pressed: false })[1]);
       expect(await screen.findByRole("heading", { name: "Conversion 3 · two bets to place" })).toBeInTheDocument();
-      expect(screen.getByText(/This conversion takes all the rest of your Betway balance \(3.71 FB\)/)).toBeInTheDocument();
+      expect(screen.getByText(/This conversion takes all the rest of your Winamax balance \(3.71 FB\)/)).toBeInTheDocument();
     });
 
     it("says 'at least' when the two cases leave different cents, and the amount alone when they leave the same", async () => {
@@ -414,35 +414,35 @@ describe("FreebetsPage", () => {
 
     describe("the chain's hint", () => {
       async function openChain(chain: Partial<typeof CHAIN>) {
-        window.history.replaceState(null, "", "/freebets?mode=exchange&bookmaker=betway");
+        window.history.replaceState(null, "", "/freebets?mode=exchange&bookmaker=winamax");
         stubApi({
-          wallet: { betway: 30 },
+          wallet: { winamax: 30 },
           answers: (url) => (url.searchParams.get("mode") === "exchange" ? { ...EXCHANGE_ANSWER, chain: { ...CHAIN, ...chain } } : BOOKMAKERS_ANSWER),
         });
         renderPage();
-        await screen.findByRole("heading", { name: /Betway · 30.00 FB/ });
+        await screen.findByRole("heading", { name: /Winamax · 30.00 FB/ });
       }
-      const hint = () => screen.getByRole("heading", { name: /Betway · 30.00 FB/ }).closest("section")!.querySelector("p")!;
+      const hint = () => screen.getByRole("heading", { name: /Winamax · 30.00 FB/ }).closest("section")!.querySelector("p")!;
 
       it("tells the conversions to chain, from the first to the last", async () => {
         await openChain({});
-        expect(hint()).toHaveTextContent("chain them, from no. 1 to no. 3, to convert all of your Betway balance.");
+        expect(hint()).toHaveTextContent("chain them, from no. 1 to no. 3, to convert all of your Winamax balance.");
       });
 
       it("does not ask to chain a single conversion", async () => {
         await openChain({ steps: [CHAIN.steps[2]], converted: 30, leftover: 0 });
-        expect(hint()).toHaveTextContent("A single conversion converts all of your Betway balance.");
+        expect(hint()).toHaveTextContent("A single conversion converts all of your Winamax balance.");
         expect(hint()).not.toHaveTextContent("chain them");
       });
 
       it("says what stays unconverted when the liquidity runs out", async () => {
         await openChain({ steps: [CHAIN.steps[0]], converted: 14.12, leftover: 15.88 });
-        expect(hint()).toHaveTextContent("Only one match is on offer and the exchange's liquidity limits it: 15.88 FB of your Betway balance will stay unconverted.");
+        expect(hint()).toHaveTextContent("Only one match is on offer and the exchange's liquidity limits it: 15.88 FB of your Winamax balance will stay unconverted.");
       });
 
       it("says it for a chain too short for the balance as well", async () => {
         await openChain({ steps: CHAIN.steps.slice(0, 2), converted: 26.29, leftover: 3.71 });
-        expect(hint()).toHaveTextContent("from no. 1 to no. 2. 3.71 FB of your Betway balance will stay unconverted.");
+        expect(hint()).toHaveTextContent("from no. 1 to no. 2. 3.71 FB of your Winamax balance will stay unconverted.");
       });
     });
 
@@ -493,9 +493,9 @@ describe("FreebetsPage", () => {
       stubApi();
       Object.defineProperty(navigator, "clipboard", { value: { writeText: () => Promise.reject(new Error("denied")) }, configurable: true });
       renderPage();
-      const betway = within(await screen.findByRole("article", { name: "Betway" }));
-      fireEvent.click(betway.getByRole("button", { name: "Copy the list" }));
-      expect(await betway.findByText(/Copy failed/)).toBeInTheDocument();
+      const winamax = within(await screen.findByRole("article", { name: "Winamax" }));
+      fireEvent.click(winamax.getByRole("button", { name: "Copy the list" }));
+      expect(await winamax.findByText(/Copy failed/)).toBeInTheDocument();
     });
   });
 
@@ -512,10 +512,10 @@ describe("FreebetsPage", () => {
     });
 
     it("says it against the exchange too, without the stake limits of the bookmakers", async () => {
-      window.history.replaceState(null, "", "/freebets?mode=exchange&bookmaker=betway");
-      stubApi({ wallet: { betway: 30 } });
+      window.history.replaceState(null, "", "/freebets?mode=exchange&bookmaker=winamax");
+      stubApi({ wallet: { winamax: 30 } });
       renderPage();
-      await screen.findByRole("heading", { name: /Betway · 30.00 FB/ });
+      await screen.findByRole("heading", { name: /Winamax · 30.00 FB/ });
       expect(note()).toHaveTextContent("Indicative prices. They move fast");
       expect(note()).not.toHaveTextContent("mises minimales");
       // The header of the detail says it as well.
@@ -551,7 +551,7 @@ describe("FreebetsPage", () => {
       await advance(SAVE_DELAY_MS - 100);
       expect(calls.saved).toEqual([]);
       await advance(200);
-      expect(calls.saved).toEqual([{ leovegas: 41, betway: 25.5 }]);
+      expect(calls.saved).toEqual([{ leovegas: 41, winamax: 25.5 }]);
     });
 
     it("asks only once the delay has passed since the last change of settings, and again every minute", async () => {
@@ -589,7 +589,7 @@ describe("FreebetsPage", () => {
       stubApi({
         answers: (url) => {
           if (slow && url.searchParams.get("legs") === "3") return new Promise((resolve) => (release = resolve));
-          return echo(url, { leovegas: 30, betway: 25.5 });
+          return echo(url, { leovegas: 30, winamax: 25.5 });
         },
       });
       renderPage();

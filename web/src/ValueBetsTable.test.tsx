@@ -14,7 +14,7 @@ const bet = (overrides: Partial<ValueBet>): ValueBet => ({
   marketLabel: "Résultat du match",
   selection: "1",
   label: "PSG",
-  bookmaker: "betway",
+  bookmaker: "winamax",
   price: 1.56,
   basis: "fair",
   fair: 1.5,
@@ -47,8 +47,8 @@ describe("ValueBetsTable", () => {
     expect(cells[0].querySelector("time")).toHaveAttribute("dateTime", "2099-01-01T20:00:00.000Z");
     expect(cells[1]).toHaveTextContent("⚽ PSG - OMLigue 1");
     expect(cells[2]).toHaveTextContent("PSGRésultat du match");
-    expect(cells[3].querySelector('[data-bookmaker="betway"]')).toHaveAttribute("data-value", "true");
-    expect(cells[3]).toHaveTextContent("Betway: 1.56 (value bet: +4.0% over the fair odds)");
+    expect(cells[3].querySelector('[data-bookmaker="winamax"]')).toHaveAttribute("data-value", "true");
+    expect(cells[3]).toHaveTextContent("Winamax: 1.56 (value bet: +4.0% over the fair odds)");
     expect(cells[4]).toHaveTextContent("1.50");
     expect(cells[5]).toHaveTextContent("+4.0%");
     expect(within(second).getAllByRole("cell")[2]).toHaveTextContent("Draw");
@@ -150,7 +150,7 @@ describe("ValueBetsTable", () => {
             price: 13,
             basis: "bookmaker",
             fair: 9,
-            referenceBookmaker: "betway",
+            referenceBookmaker: "winamax",
             edge: 13 / 9 - 1,
           }),
         ]}
@@ -164,8 +164,8 @@ describe("ValueBetsTable", () => {
 
     expect(suspect[2]).toHaveTextContent("LepaulPremier buteur · suspect price");
     expect(suspect[3]).toHaveTextContent("LeoVegas: 13.00 (suspect price: +44.4% over the other bookmaker)");
-    expect(suspect[4]).toHaveTextContent("9.00 at Betway");
-    expect(suspect[4]).toHaveAttribute("title", expect.stringMatching(/does not price this player; the price at Betway$/));
+    expect(suspect[4]).toHaveTextContent("9.00 at Winamax");
+    expect(suspect[4]).toHaveAttribute("title", expect.stringMatching(/does not price this player; the price at Winamax$/));
     expect(suspect[5]).toHaveTextContent("+44.4%");
   });
 });

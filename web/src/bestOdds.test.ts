@@ -10,13 +10,13 @@ const event: EventWithOdds = {
   participants: ["PSG", "OM"],
   byBookmaker: {
     leovegas: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.5 }] },
-    betway: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.65 }] },
+    winamax: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.65 }] },
   },
 };
 
 describe("getBestBookmakers", () => {
   it("returns the bookmaker with the highest price for the given market/selection", () => {
-    expect(getBestBookmakers(event, "1X2", "1")).toEqual(["betway"]);
+    expect(getBestBookmakers(event, "1X2", "1")).toEqual(["winamax"]);
   });
 
   it("returns every bookmaker offering that highest price", () => {
@@ -24,10 +24,10 @@ describe("getBestBookmakers", () => {
       ...event,
       byBookmaker: {
         leovegas: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.65 }] },
-        betway: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.65 }] },
+        winamax: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.65 }] },
       },
     };
-    expect(getBestBookmakers(tie, "1X2", "1")).toEqual(["leovegas", "betway"]);
+    expect(getBestBookmakers(tie, "1X2", "1")).toEqual(["leovegas", "winamax"]);
   });
 
   it("returns nobody when no bookmaker offers that market/selection", () => {
@@ -35,7 +35,7 @@ describe("getBestBookmakers", () => {
   });
 
   it("only considers bookmakers in the given filter list", () => {
-    // betway has the higher price (1.65) but is excluded from the filter,
+    // winamax has the higher price (1.65) but is excluded from the filter,
     // so the only remaining candidate, leovegas, must win by default.
     expect(getBestBookmakers(event, "1X2", "1", ["leovegas"])).toEqual(["leovegas"]);
   });

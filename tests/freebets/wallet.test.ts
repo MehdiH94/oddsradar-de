@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import request from "supertest";
 import { openDb } from "../../src/db/client";
 import { migrate, openAuthDb } from "../../src/auth/db";
@@ -8,7 +8,14 @@ import { createUser } from "../../src/auth/store";
 import { MAX_FREEBET, Wallet, getWallet, parseWallet, saveWallet } from "../../src/freebets/wallet";
 import { SITE, sessionCookie, testAuth } from "../auth/helpers";
 
-const WALLET: Wallet = { leovegas: 25, betway: 30.5 };
+// OddsRadar reads one bookmaker for now (LeoVegas.de); the freebets go between
+// two, so these tests know a second one.
+vi.mock("../../src/alerts/gems", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../../src/alerts/gems")>()),
+  ALL_BOOKMAKER_IDS: ["leovegas", "winamax"],
+}));
+
+const WALLET: Wallet = { leovegas: 25, winamax: 30.5 };
 
 describe("parseWallet", () => {
   it("keeps a valid wallet as it is", () => {
@@ -16,15 +23,15 @@ describe("parseWallet", () => {
   });
 
   it("rounds each amount to the cent", () => {
-    expect(parseWallet({ leovegas: 0.1 + 0.2, betway: 12.349 })).toEqual({ leovegas: 0.3, betway: 12.35 });
-    expect(parseWallet({ betway: 12.341 })).toEqual({ betway: 12.34 });
+    expect(parseWallet({ leovegas: 0.1 + 0.2, winamax: 12.349 })).toEqual({ leovegas: 0.3, winamax: 12.35 });
+    expect(parseWallet({ winamax: 12.341 })).toEqual({ winamax: 12.34 });
   });
 
   it("drops the zero amounts and the unknown bookmakers, and lists the rest in the site's order", () => {
-    const parsed = parseWallet({ betway: 5, nope: 9, leovegas: 2 });
-    expect(parsed).toEqual({ leovegas: 2, betway: 5 });
-    expect(Object.keys(parsed!)).toEqual(["leovegas", "betway"]);
-    expect(parseWallet({ betway: 5, leovegas: 0 })).toEqual({ betway: 5 });
+    const parsed = parseWallet({ winamax: 5, nope: 9, leovegas: 2 });
+    expect(parsed).toEqual({ leovegas: 2, winamax: 5 });
+    expect(Object.keys(parsed!)).toEqual(["leovegas", "winamax"]);
+    expect(parseWallet({ winamax: 5, leovegas: 0 })).toEqual({ winamax: 5 });
   });
 
   it("drops an amount that rounds to nothing", () => {
@@ -41,7 +48,7 @@ describe("parseWallet", () => {
 
   it("reads only the keys the body itself holds, never the ones it inherits", () => {
     expect(parseWallet(Object.create({ leovegas: 5 }))).toEqual({});
-    expect(parseWallet(JSON.parse('{"__proto__": {"leovegas": 99}, "betway": 3}'))).toEqual({ betway: 3 });
+    expect(parseWallet(JSON.parse('{"__proto__": {"leovegas": 99}, "winamax": 3}'))).toEqual({ winamax: 3 });
   });
 
   it("accepts exactly the cap", () => {
@@ -88,9 +95,9 @@ describe("the stored wallet", () => {
 
   it("keeps whole cents, with the time it was saved", () => {
     const { db, now, ada } = setup();
-    saveWallet(db, ada.id, { betway: 12.35 }, now);
+    saveWallet(db, ada.id, { winamax: 12.35 }, now);
     expect(db.prepare("SELECT bookmaker, amount_cents, updated_at FROM user_freebets").all()).toEqual([
-      { bookmaker: "betway", amount_cents: 1235, updated_at: "2026-10-11T10:00:00.000Z" },
+      { bookmaker: "winamax", amount_cents: 1235, updated_at: "2026-10-11T10:00:00.000Z" },
     ]);
   });
 
@@ -100,7 +107,7 @@ describe("the stored wallet", () => {
     saveWallet(db, ada.id, {}, now);
     expect(getWallet(db, ada.id)).toEqual({});
     saveWallet(db, ada.id, WALLET, now);
-    saveWallet(db, ada.id, { leovegas: 0, betway: 0 }, now);
+    saveWallet(db, ada.id, { leovegas: 0, winamax: 0 }, now);
     expect(getWallet(db, ada.id)).toEqual({});
     expect(rows(db)).toBe(0);
   });
@@ -109,25 +116,25 @@ describe("the stored wallet", () => {
     const { db, now, ada, bob } = setup();
     saveWallet(db, ada.id, WALLET, now);
     expect(getWallet(db, bob.id)).toEqual({});
-    saveWallet(db, bob.id, { betway: 7 }, now);
+    saveWallet(db, bob.id, { winamax: 7 }, now);
     expect(getWallet(db, ada.id)).toEqual(WALLET);
-    expect(getWallet(db, bob.id)).toEqual({ betway: 7 });
+    expect(getWallet(db, bob.id)).toEqual({ winamax: 7 });
   });
 
   it("goes with the account", () => {
     const { db, now, ada, bob } = setup();
     saveWallet(db, ada.id, WALLET, now);
-    saveWallet(db, bob.id, { betway: 7 }, now);
+    saveWallet(db, bob.id, { winamax: 7 }, now);
     db.prepare("DELETE FROM users WHERE id = ?").run(ada.id);
     expect(rows(db)).toBe(1);
-    expect(getWallet(db, bob.id)).toEqual({ betway: 7 });
+    expect(getWallet(db, bob.id)).toEqual({ winamax: 7 });
   });
 
   it("never half-saves: a failure leaves the previous wallet, and the database usable", () => {
     const { db, now, ada } = setup();
     db.exec("CREATE TRIGGER fail_on_boom BEFORE INSERT ON user_freebets WHEN NEW.bookmaker = 'boom' BEGIN SELECT RAISE(ABORT, 'boom'); END");
     saveWallet(db, ada.id, { leovegas: 25 }, now);
-    expect(() => saveWallet(db, ada.id, { betway: 5, boom: 7 } as unknown as Wallet, now)).toThrow("boom");
+    expect(() => saveWallet(db, ada.id, { winamax: 5, boom: 7 } as unknown as Wallet, now)).toThrow("boom");
     expect(getWallet(db, ada.id)).toEqual({ leovegas: 25 });
     // The failed transaction was rolled back: the next save is not nested in it.
     saveWallet(db, ada.id, { leovegas: 1 }, now);
@@ -213,10 +220,10 @@ describe("/api/freebets/wallet", () => {
   it("answers the wallet as it stored it: cents rounded, zeros and unknown bookmakers left out", async () => {
     const t = setup();
     const cookie = await sessionCookie(t);
-    const res = await t.put(cookie, { wallet: { betway: 12.349, nope: 3, leovegas: 0 } });
+    const res = await t.put(cookie, { wallet: { winamax: 12.349, nope: 3, leovegas: 0 } });
     expect(res.status).toBe(200);
-    expect(res.body).toEqual({ wallet: { betway: 12.35 } });
-    expect((await t.get(cookie)).body).toEqual({ wallet: { betway: 12.35 } });
+    expect(res.body).toEqual({ wallet: { winamax: 12.35 } });
+    expect((await t.get(cookie)).body).toEqual({ wallet: { winamax: 12.35 } });
   });
 
   it("replaces the whole wallet: a bookmaker left out goes back to nothing", async () => {
@@ -235,9 +242,9 @@ describe("/api/freebets/wallet", () => {
     const bob = await sessionCookie(t, "bob@example.com");
     await t.put(ada, { wallet: WALLET });
     expect((await t.get(bob)).body).toEqual({ wallet: {} });
-    await t.put(bob, { wallet: { betway: 7 } });
+    await t.put(bob, { wallet: { winamax: 7 } });
     expect((await t.get(ada)).body).toEqual({ wallet: WALLET });
-    expect((await t.get(bob)).body).toEqual({ wallet: { betway: 7 } });
+    expect((await t.get(bob)).body).toEqual({ wallet: { winamax: 7 } });
   });
 
   it.each([

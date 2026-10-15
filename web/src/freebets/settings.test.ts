@@ -9,7 +9,7 @@ describe("the settings in the address", () => {
   });
 
   it("reads every setting", () => {
-    expect(readSettings("?mode=exchange&bookmaker=betway&sports=football,tennis")).toEqual({ mode: "exchange", legs: 1, bookmaker: "betway", sports: ["football", "tennis"] });
+    expect(readSettings("?mode=exchange&bookmaker=winamax&sports=football,tennis")).toEqual({ mode: "exchange", legs: 1, bookmaker: "winamax", sports: ["football", "tennis"] });
     expect(readSettings("?legs=3")).toMatchObject({ mode: "bookmakers", legs: 3 });
     // Present and empty: no sport at all.
     expect(readSettings("?sports=").sports).toEqual([]);
@@ -18,7 +18,7 @@ describe("the settings in the address", () => {
   it("writes only what differs from the defaults", () => {
     expect(settingsQuery(DEFAULT_SETTINGS)).toBe("");
     expect(settingsQuery({ ...DEFAULT_SETTINGS, legs: 2 })).toBe("legs=2");
-    expect(settingsQuery({ mode: "exchange", legs: 3, bookmaker: "betway", sports: ["football"] })).toBe("mode=exchange&bookmaker=betway&sports=football");
+    expect(settingsQuery({ mode: "exchange", legs: 3, bookmaker: "winamax", sports: ["football"] })).toBe("mode=exchange&bookmaker=winamax&sports=football");
     expect(settingsQuery({ ...DEFAULT_SETTINGS, sports: [] })).toBe("sports=");
   });
 
@@ -39,10 +39,10 @@ describe("requestOf", () => {
   });
 
   it("asks for the chosen bookmaker against the exchange, else the first one that holds freebets, else nothing", () => {
-    const exchange: Settings = { mode: "exchange", legs: 1, bookmaker: "betway", sports: null };
-    expect(requestOf(exchange, ["leovegas", "betway"])).toEqual({ mode: "exchange", bookmaker: "betway" });
+    const exchange: Settings = { mode: "exchange", legs: 1, bookmaker: "winamax", sports: null };
+    expect(requestOf(exchange, ["leovegas", "winamax"])).toEqual({ mode: "exchange", bookmaker: "winamax" });
     expect(requestOf(exchange, ["leovegas"])).toEqual({ mode: "exchange", bookmaker: "leovegas" });
-    expect(requestOf({ ...exchange, bookmaker: null }, ["betway", "leovegas"])).toEqual({ mode: "exchange", bookmaker: "betway" });
+    expect(requestOf({ ...exchange, bookmaker: null }, ["winamax", "leovegas"])).toEqual({ mode: "exchange", bookmaker: "winamax" });
     expect(requestOf(exchange, [])).toBeNull();
   });
 });
@@ -50,8 +50,8 @@ describe("requestOf", () => {
 describe("conversionsUrl", () => {
   it("is the route's address for each request", () => {
     expect(conversionsUrl({ mode: "bookmakers", legs: 2 })).toBe("/api/freebets/conversions?mode=bookmakers&legs=2");
-    expect(conversionsUrl({ mode: "exchange", bookmaker: "betway", sports: ["football", "tennis"] })).toBe(
-      "/api/freebets/conversions?mode=exchange&bookmaker=betway&sports=football%2Ctennis"
+    expect(conversionsUrl({ mode: "exchange", bookmaker: "winamax", sports: ["football", "tennis"] })).toBe(
+      "/api/freebets/conversions?mode=exchange&bookmaker=winamax&sports=football%2Ctennis"
     );
     expect(conversionsUrl({ mode: "bookmakers", legs: 1, sports: [] })).toBe("/api/freebets/conversions?mode=bookmakers&legs=1&sports=");
   });

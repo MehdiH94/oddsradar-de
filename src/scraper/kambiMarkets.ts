@@ -1,6 +1,6 @@
 import { RawOdds } from "../types";
 import { golfBestOf, marketKey, parseMarketKey, playerMarketKey } from "../markets/catalog";
-import { KambiBetOffer, KambiEvent, KAMBI_QUERY, KAMBI_REQUEST_DELAY_MS, kambiGet, kambiOutcomePrice, KambiSite, sleep } from "./kambi";
+import { KambiBetOffer, KambiEvent, KAMBI_QUERY, KAMBI_REQUEST_DELAY_MS, kambiGet, kambiOutcomePrice, KambiSite, netOfTax, sleep } from "./kambi";
 import { pool } from "./pool";
 
 // The markets of a football, a tennis or a basketball match, and of a golf
@@ -439,7 +439,8 @@ export async function fetchKambiMarkets(site: KambiSite, ids: readonly string[])
     return readKambiMarkets(reply);
   });
   read.forEach((r, i) => {
-    if (r.status === "fulfilled") for (const [id, odds] of r.value) markets.set(id, odds);
+    // Net of the site's tax, like its listing's prices (./kambi.ts).
+    if (r.status === "fulfilled") for (const [id, odds] of r.value) markets.set(id, odds.map((o) => ({ ...o, price: netOfTax(site, o.price) })));
     else console.warn(`[markets:${site.id}] matches ${batches[i].join(",")} failed, skipping them:`, r.reason);
   });
   if (read.every((r) => r.status === "rejected")) throw new Error(`every ${site.id} request failed`);

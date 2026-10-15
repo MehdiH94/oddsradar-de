@@ -1,14 +1,14 @@
 [Unit]
-Description=CoteRadar API + web
+Description=OddsRadar API + web
 After=network.target
 
 [Service]
 Type=simple
-User=ubuntu
-Group=ubuntu
-WorkingDirectory=/opt/coteradar
+User=oddsradar
+Group=oddsradar
+WorkingDirectory=/opt/oddsradar
 Environment=NODE_ENV=production
-EnvironmentFile=/opt/coteradar/.env
+EnvironmentFile=/opt/oddsradar/.env
 ExecStart=/usr/bin/node dist/api/index.js
 Restart=on-failure
 RestartSec=10

@@ -1,11 +1,11 @@
 [Unit]
-Description=CoteRadar odds database backup
+Description=OddsRadar odds database backup
 
 [Service]
 Type=oneshot
-User=ubuntu
-Group=ubuntu
-WorkingDirectory=/opt/coteradar
+User=oddsradar
+Group=oddsradar
+WorkingDirectory=/opt/oddsradar
 # The odds are rebuilt by the worker, but the players' stats, their signals and
 # the alerts sent are not: a copy every week, kept 28 days (4 copies).
-ExecStart=/opt/coteradar/deploy/backup-db.sh data/coteradar.sqlite odds 28
+ExecStart=/opt/oddsradar/deploy/backup-db.sh data/coteradar.sqlite odds 28

@@ -1,13 +1,13 @@
 [Unit]
-Description=CoteRadar scraping worker
+Description=OddsRadar staging scraping worker
 After=network.target
 
 [Service]
 Type=simple
-User=ubuntu
-Group=ubuntu
-WorkingDirectory=/opt/coteradar
-EnvironmentFile=/opt/coteradar/.env
+User=oddsradar
+Group=oddsradar
+WorkingDirectory=/opt/oddsradar-staging
+EnvironmentFile=/opt/oddsradar-staging/.env
 ExecStart=/usr/bin/node dist/worker/index.js
 Restart=on-failure
 RestartSec=10

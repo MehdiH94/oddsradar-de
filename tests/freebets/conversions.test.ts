@@ -1,14 +1,7 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { FreebetMarket } from "../../src/db/freebets";
 import { chainView, eligibleSports, engineMatches, exchangeItems, freebetsByIndex, holdingBookmakers, parseRequest } from "../../src/freebets/conversions";
 import { convertAgainstExchange } from "../../src/freebets/engine/exchange";
-
-// OddsRadar reads one bookmaker for now (LeoVegas.de); the freebets go between
-// two, so these tests know a second one.
-vi.mock("../../src/alerts/gems", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("../../src/alerts/gems")>()),
-  ALL_BOOKMAKER_IDS: ["leovegas", "winamax"],
-}));
 
 function market(eventId: string, sport: string, prices: FreebetMarket["prices"], exchange: FreebetMarket["exchange"] = {}, outcomes: readonly string[] = ["1", "X", "2"]): FreebetMarket {
   return {
@@ -29,7 +22,7 @@ describe("parseRequest", () => {
   it("reads a mode, the size of the combo and the sports", () => {
     expect(parseRequest({ mode: "bookmakers" })).toEqual({ mode: "bookmakers", legs: 1 });
     expect(parseRequest({ mode: "bookmakers", legs: "3", sports: "tennis,football,football" })).toEqual({ mode: "bookmakers", legs: 3, sports: ["football", "tennis"] });
-    expect(parseRequest({ mode: "exchange", bookmaker: "winamax", sports: "football" })).toEqual({ mode: "exchange", bookmaker: "winamax", sports: ["football"] });
+    expect(parseRequest({ mode: "exchange", bookmaker: "merkurbets", sports: "football" })).toEqual({ mode: "exchange", bookmaker: "merkurbets", sports: ["football"] });
   });
 
   it("takes a sports list that is present and empty for no sport, and an absent one for every sport", () => {
@@ -57,20 +50,20 @@ describe("parseRequest", () => {
 });
 
 describe("what is asked of the engine", () => {
-  const wallet = { leovegas: 20, winamax: 15.5 };
+  const wallet = { leovegas: 20, merkurbets: 15.5 };
 
   it("puts the freebets by the site's order of bookmakers, 0 where there are none", () => {
     expect(freebetsByIndex(wallet)).toEqual([20, 15.5]);
-    expect(freebetsByIndex({ winamax: 15.5 })).toEqual([0, 15.5]);
-    expect(holdingBookmakers(wallet)).toEqual(["leovegas", "winamax"]);
+    expect(freebetsByIndex({ merkurbets: 15.5 })).toEqual([0, 15.5]);
+    expect(holdingBookmakers(wallet)).toEqual(["leovegas", "merkurbets"]);
     expect(holdingBookmakers({})).toEqual([]);
   });
 
   it("gives the engine the prices of the bookmakers that hold freebets only, and the matches two of them price", () => {
     const markets = [
-      market("both", "football", { leovegas: [2, 3, 4], winamax: [2.2, 3, 4] }),
+      market("both", "football", { leovegas: [2, 3, 4], merkurbets: [2.2, 3, 4] }),
       market("one", "football", { leovegas: [2, 3, 4] }),
-      market("tennis", "tennis", { leovegas: [1.8, 2.1], winamax: [1.7, 2.2] }, {}, ["1", "2"]),
+      market("tennis", "tennis", { leovegas: [1.8, 2.1], merkurbets: [1.7, 2.2] }, {}, ["1", "2"]),
     ];
     const matches = engineMatches(markets, freebetsByIndex(wallet));
     expect(matches.map((m) => [m.id, m.outcomes])).toEqual([["both", 3], ["tennis", 2]]);
@@ -83,11 +76,11 @@ describe("what is asked of the engine", () => {
   it("makes an item of each outcome the bookmaker prices and the exchange lays", () => {
     const items = exchangeItems(
       [
-        market("a", "football", { winamax: [2, 3.5, 4.6] }, { X: { lay: 3.6, laySize: 40 }, "2": { lay: 4.7, laySize: 11 } }),
+        market("a", "football", { merkurbets: [2, 3.5, 4.6] }, { X: { lay: 3.6, laySize: 40 }, "2": { lay: 4.7, laySize: 11 } }),
         market("b", "football", { leovegas: [2, 3, 4] }, { "1": { lay: 2.1, laySize: 50 } }),
-        market("c", "football", { winamax: [2, 3, 4] }, {}),
+        market("c", "football", { merkurbets: [2, 3, 4] }, {}),
       ],
-      "winamax"
+      "merkurbets"
     );
     expect(items).toEqual([
       { id: "a|X", matchId: "a", back: 3.5, lay: 3.6, laySize: 40 },
@@ -98,13 +91,13 @@ describe("what is asked of the engine", () => {
 
 describe("eligibleSports", () => {
   const markets = [
-    market("f", "football", { leovegas: [2, 3, 4], winamax: [2, 3, 4] }, { X: { lay: 3.1, laySize: 40 } }),
+    market("f", "football", { leovegas: [2, 3, 4], merkurbets: [2, 3, 4] }, { X: { lay: 3.1, laySize: 40 } }),
     market("t", "tennis", { leovegas: [1.8, 2.1] }, {}, ["1", "2"]),
     market("b", "basketball", { leovegas: [1.8, 2.1] }, { "1": { lay: 1.9, laySize: 30 } }, ["1", "2"]),
   ];
 
   it("between bookmakers, the sports two of the bookmakers holding freebets price", () => {
-    expect(eligibleSports(markets, { mode: "bookmakers", legs: 1 }, ["leovegas", "winamax"])).toEqual(["football"]);
+    expect(eligibleSports(markets, { mode: "bookmakers", legs: 1 }, ["leovegas", "merkurbets"])).toEqual(["football"]);
     expect(eligibleSports(markets, { mode: "bookmakers", legs: 1 }, ["leovegas"])).toEqual([]);
     // With no freebets yet, the page still shows which sports can be converted.
     expect(eligibleSports(markets, { mode: "bookmakers", legs: 1 }, [])).toEqual(["football"]);
@@ -112,7 +105,7 @@ describe("eligibleSports", () => {
 
   it("against the exchange, the sports the bookmaker prices and the exchange lays", () => {
     expect(eligibleSports(markets, { mode: "exchange", bookmaker: "leovegas" }, ["leovegas"])).toEqual(["basketball", "football"]);
-    expect(eligibleSports(markets, { mode: "exchange", bookmaker: "winamax" }, ["winamax"])).toEqual(["football"]);
+    expect(eligibleSports(markets, { mode: "exchange", bookmaker: "merkurbets" }, ["merkurbets"])).toEqual(["football"]);
   });
 });
 
@@ -124,9 +117,9 @@ describe("chainView", () => {
     { id: "augsburg|X", matchId: "augsburg", back: 3.9, lay: 3.95, laySize: 9 },
     { id: "lille|2", matchId: "lille", back: 3.85, lay: 3.9, laySize: 120 },
   ];
-  const markets = new Map(rows.map((r) => [r.matchId, market(r.matchId, "football", { winamax: [2, 3, 4] })]));
+  const markets = new Map(rows.map((r) => [r.matchId, market(r.matchId, "football", { merkurbets: [2, 3, 4] })]));
   const result = convertAgainstExchange(rows, 30, { commission: 0.03 });
-  const view = chainView(result, new Map(rows.map((r) => [r.id, r])), markets, "winamax", 30);
+  const view = chainView(result, new Map(rows.map((r) => [r.id, r])), markets, "merkurbets", 30);
 
   it("gives the three conversions of the mock-up, on whole cents", () => {
     expect(view.steps.map((s) => s.label)).toEqual(["Away", "Draw", "Away"]);
@@ -160,7 +153,7 @@ describe("chainView", () => {
   it("does not convert more than the wallet holds when the steps round up", () => {
     // Three steps of 14.11x, 12.16x and 3.71x round to 14.11 + 12.17 + 3.72 = 30.00 against a wallet of 29.99.
     const small = convertAgainstExchange(rows, 29.99, { commission: 0.03 });
-    const rounded = chainView(small, new Map(rows.map((r) => [r.id, r])), markets, "winamax", 29.99);
+    const rounded = chainView(small, new Map(rows.map((r) => [r.id, r])), markets, "merkurbets", 29.99);
     expect(rounded.converted).toBeLessThanOrEqual(29.99);
     expect(rounded.converted + rounded.leftover).toBeCloseTo(29.99, 9);
     expect(rounded.steps.reduce((sum, step) => sum + step.fb, 0)).toBeCloseTo(rounded.converted, 9);
@@ -169,13 +162,13 @@ describe("chainView", () => {
   it("never lays more than the exchange offers, even when rounding the stake to the cent would", () => {
     // 11.376 euros to lay: the stake that uses all of it, 11.3766 for 14.60 FB, rounds up to 11.38.
     const odd = [{ id: "brest|2", matchId: "brest", back: 4.6, lay: 4.65, laySize: 11.376 }];
-    const one = chainView(convertAgainstExchange(odd, 30, { commission: 0.03 }), new Map(odd.map((r) => [r.id, r])), markets, "winamax", 30);
+    const one = chainView(convertAgainstExchange(odd, 30, { commission: 0.03 }), new Map(odd.map((r) => [r.id, r])), markets, "merkurbets", 30);
     expect(one.steps[0].fb).toBe(14.6);
     expect(one.steps[0].layStake).toBe(11.37);
   });
 
   it("is empty for no step", () => {
-    const none = chainView(convertAgainstExchange([], 10, { commission: 0.03 }), new Map(), new Map(), "winamax", 10);
+    const none = chainView(convertAgainstExchange([], 10, { commission: 0.03 }), new Map(), new Map(), "merkurbets", 10);
     expect(none).toEqual({ converted: 0, leftover: 10, cash: 0, liability: 0, steps: [] });
   });
 });

@@ -1,0 +1,1276 @@
+{
+ "games": [
+  {
+   "id": 3197722542,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72909068
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 329973,
+     "name": "Toronto Maple Leafs",
+     "middleName": "Toronto Maple Leafs",
+     "shortName": "Toronto Maple Leafs",
+     "textId": 1099512116412
+    },
+    {
+     "order": 1,
+     "id": 931,
+     "name": "Buffalo Sabres",
+     "middleName": "Buffalo Sab.",
+     "shortName": "Buf.Sabs.",
+     "textId": 1099511628922
+    }
+   ],
+   "startTime": "2026-10-15T23:00:00Z",
+   "type": 4,
+   "sport": 10,
+   "leagueInfo": {
+    "id": 54501,
+    "order": 14000,
+    "name": "Ice Hockey - USA NHL",
+    "middleName": "NHL",
+    "shortName": "NHL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 6,
+    "name": "USA",
+    "shortName": "USA"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-15T23:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 53452,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the game?",
+     "textId": 5497558144225,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 5345201,
+       "oddsId": 3197722542,
+       "text": "1",
+       "textId": 6597069786628,
+       "odds": 231
+      },
+      {
+       "id": 5345202,
+       "oddsId": 3197722542,
+       "text": "X",
+       "textId": 6597069786629,
+       "odds": 420
+      },
+      {
+       "id": 5345203,
+       "oddsId": 3197722542,
+       "text": "2",
+       "textId": 6597069786630,
+       "odds": 245
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 51
+  },
+  {
+   "id": 3197722562,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72909070
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 934,
+     "name": "Ottawa Senators",
+     "middleName": "Ottawa Sena.",
+     "shortName": "Ott.Sens.",
+     "textId": 1099511628925
+    },
+    {
+     "order": 1,
+     "id": 929,
+     "name": "N.Y. Islanders",
+     "middleName": "N.Y. Island.",
+     "shortName": "NY Isla.",
+     "textId": 1099511628920
+    }
+   ],
+   "startTime": "2026-10-15T23:00:00Z",
+   "type": 4,
+   "sport": 10,
+   "leagueInfo": {
+    "id": 54501,
+    "order": 14000,
+    "name": "Ice Hockey - USA NHL",
+    "middleName": "NHL",
+    "shortName": "NHL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 6,
+    "name": "USA",
+    "shortName": "USA"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-15T23:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 53452,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the game?",
+     "textId": 5497558144225,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 5345201,
+       "oddsId": 3197722562,
+       "text": "1",
+       "textId": 6597069786628,
+       "odds": 197
+      },
+      {
+       "id": 5345202,
+       "oddsId": 3197722562,
+       "text": "X",
+       "textId": 6597069786629,
+       "odds": 415
+      },
+      {
+       "id": 5345203,
+       "oddsId": 3197722562,
+       "text": "2",
+       "textId": 6597069786630,
+       "odds": 302
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 51
+  },
+  {
+   "id": 3197722602,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72909076
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 936,
+     "name": "Florida Panthers",
+     "middleName": "Florida Pan.",
+     "shortName": "Flo.Pan.",
+     "textId": 1099511628927
+    },
+    {
+     "order": 1,
+     "id": 946,
+     "name": "Vancouver Canucks",
+     "middleName": "Vancouver Canucks",
+     "shortName": "Van.Canu.",
+     "textId": 1099511628937
+    }
+   ],
+   "startTime": "2026-10-15T23:00:00Z",
+   "type": 4,
+   "sport": 10,
+   "leagueInfo": {
+    "id": 54501,
+    "order": 14000,
+    "name": "Ice Hockey - USA NHL",
+    "middleName": "NHL",
+    "shortName": "NHL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 6,
+    "name": "USA",
+    "shortName": "USA"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-15T23:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 53452,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the game?",
+     "textId": 5497558144225,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 5345201,
+       "oddsId": 3197722602,
+       "text": "1",
+       "textId": 6597069786628,
+       "odds": 153
+      },
+      {
+       "id": 5345202,
+       "oddsId": 3197722602,
+       "text": "X",
+       "textId": 6597069786629,
+       "odds": 475
+      },
+      {
+       "id": 5345203,
+       "oddsId": 3197722602,
+       "text": "2",
+       "textId": 6597069786630,
+       "odds": 463
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 51
+  },
+  {
+   "id": 3197722642,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72909078
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 926,
+     "name": "New Jersey Devils",
+     "middleName": "N.J. Devils",
+     "shortName": "N.J.Devs.",
+     "textId": 1099511628917
+    },
+    {
+     "order": 1,
+     "id": 928,
+     "name": "N.Y. Rangers",
+     "middleName": "N.Y. Rangers",
+     "shortName": "NY Rang.",
+     "textId": 1099511628919
+    }
+   ],
+   "startTime": "2026-10-15T23:00:00Z",
+   "type": 4,
+   "sport": 10,
+   "leagueInfo": {
+    "id": 54501,
+    "order": 14000,
+    "name": "Ice Hockey - USA NHL",
+    "middleName": "NHL",
+    "shortName": "NHL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 6,
+    "name": "USA",
+    "shortName": "USA"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-15T23:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 53452,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the game?",
+     "textId": 5497558144225,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 5345201,
+       "oddsId": 3197722642,
+       "text": "1",
+       "textId": 6597069786628,
+       "odds": 217
+      },
+      {
+       "id": 5345202,
+       "oddsId": 3197722642,
+       "text": "X",
+       "textId": 6597069786629,
+       "odds": 420
+      },
+      {
+       "id": 5345203,
+       "oddsId": 3197722642,
+       "text": "2",
+       "textId": 6597069786630,
+       "odds": 262
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 51
+  },
+  {
+   "id": 3197722692,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72909074
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 329752,
+     "name": "Tampa Bay Lightning",
+     "middleName": "Tampa Bay Lightning",
+     "shortName": "Tampa Bay Lightning",
+     "textId": 1099512116188
+    },
+    {
+     "order": 1,
+     "id": 310927,
+     "name": "Seattle Kraken",
+     "middleName": "Seattle Kraken",
+     "shortName": "Seattle Kraken",
+     "textId": 1099512094781
+    }
+   ],
+   "startTime": "2026-10-15T23:00:00Z",
+   "type": 4,
+   "sport": 10,
+   "leagueInfo": {
+    "id": 54501,
+    "order": 14000,
+    "name": "Ice Hockey - USA NHL",
+    "middleName": "NHL",
+    "shortName": "NHL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 6,
+    "name": "USA",
+    "shortName": "USA"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-15T23:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 53452,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the game?",
+     "textId": 5497558144225,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 5345201,
+       "oddsId": 3197722692,
+       "text": "1",
+       "textId": 6597069786628,
+       "odds": 160
+      },
+      {
+       "id": 5345202,
+       "oddsId": 3197722692,
+       "text": "X",
+       "textId": 6597069786629,
+       "odds": 460
+      },
+      {
+       "id": 5345203,
+       "oddsId": 3197722692,
+       "text": "2",
+       "textId": 6597069786630,
+       "odds": 421
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 51
+  },
+  {
+   "id": 3197722522,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72909072
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 940,
+     "name": "Detroit Red Wings",
+     "middleName": "Detroit Red Wings",
+     "shortName": "Det.R.Wgs",
+     "textId": 1099511628931
+    },
+    {
+     "order": 1,
+     "id": 329749,
+     "name": "Philadelphia Flyers",
+     "middleName": "Philadelphia Flyers",
+     "shortName": "Philadelphia Flyers",
+     "textId": 1099512116185
+    }
+   ],
+   "startTime": "2026-10-15T23:30:00Z",
+   "type": 4,
+   "sport": 10,
+   "leagueInfo": {
+    "id": 54501,
+    "order": 14000,
+    "name": "Ice Hockey - USA NHL",
+    "middleName": "NHL",
+    "shortName": "NHL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 6,
+    "name": "USA",
+    "shortName": "USA"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-15T23:30:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 53452,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the game?",
+     "textId": 5497558144225,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 5345201,
+       "oddsId": 3197722522,
+       "text": "1",
+       "textId": 6597069786628,
+       "odds": 215
+      },
+      {
+       "id": 5345202,
+       "oddsId": 3197722522,
+       "text": "X",
+       "textId": 6597069786629,
+       "odds": 410
+      },
+      {
+       "id": 5345203,
+       "oddsId": 3197722522,
+       "text": "2",
+       "textId": 6597069786630,
+       "odds": 270
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 51
+  },
+  {
+   "id": 3197722482,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72909058
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 329735,
+     "name": "Chicago Blackhawks",
+     "middleName": "Chicago Blackhawks",
+     "shortName": "Chicago Blackhawks",
+     "textId": 1099512116171
+    },
+    {
+     "order": 1,
+     "id": 329786,
+     "name": "Winnipeg Jets",
+     "middleName": "Winnipeg Jets",
+     "shortName": "Winnipeg Jets",
+     "textId": 1099512116223
+    }
+   ],
+   "startTime": "2026-10-16T00:00:00Z",
+   "type": 4,
+   "sport": 10,
+   "leagueInfo": {
+    "id": 54501,
+    "order": 14000,
+    "name": "Ice Hockey - USA NHL",
+    "middleName": "NHL",
+    "shortName": "NHL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 6,
+    "name": "USA",
+    "shortName": "USA"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T00:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 53452,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the game?",
+     "textId": 5497558144225,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 5345201,
+       "oddsId": 3197722482,
+       "text": "1",
+       "textId": 6597069786628,
+       "odds": 270
+      },
+      {
+       "id": 5345202,
+       "oddsId": 3197722482,
+       "text": "X",
+       "textId": 6597069786629,
+       "odds": 410
+      },
+      {
+       "id": 5345203,
+       "oddsId": 3197722482,
+       "text": "2",
+       "textId": 6597069786630,
+       "odds": 215
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 51
+  },
+  {
+   "id": 3197722492,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72909062
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 945,
+     "name": "Minnesota Wild",
+     "middleName": "Minnesota Wild",
+     "shortName": "MinnWild.",
+     "textId": 1099511628936
+    },
+    {
+     "order": 1,
+     "id": 941,
+     "name": "St. Louis Blues",
+     "middleName": "St. Louis Blues",
+     "shortName": "St.L.Blus",
+     "textId": 1099511628932
+    }
+   ],
+   "startTime": "2026-10-16T00:00:00Z",
+   "type": 4,
+   "sport": 10,
+   "leagueInfo": {
+    "id": 54501,
+    "order": 14000,
+    "name": "Ice Hockey - USA NHL",
+    "middleName": "NHL",
+    "shortName": "NHL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 6,
+    "name": "USA",
+    "shortName": "USA"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T00:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 53452,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the game?",
+     "textId": 5497558144225,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 5345201,
+       "oddsId": 3197722492,
+       "text": "1",
+       "textId": 6597069786628,
+       "odds": 205
+      },
+      {
+       "id": 5345202,
+       "oddsId": 3197722492,
+       "text": "X",
+       "textId": 6597069786629,
+       "odds": 405
+      },
+      {
+       "id": 5345203,
+       "oddsId": 3197722492,
+       "text": "2",
+       "textId": 6597069786630,
+       "odds": 290
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 51
+  },
+  {
+   "id": 3197722502,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72909060
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 329746,
+     "name": "Nashville Predators",
+     "middleName": "Nashville Predators",
+     "shortName": "Nashville Predators",
+     "textId": 1099512116182
+    },
+    {
+     "order": 1,
+     "id": 954,
+     "name": "San Jose Sharks",
+     "middleName": "S.J. Sharks",
+     "shortName": "S.J.Shar.",
+     "textId": 1099511628945
+    }
+   ],
+   "startTime": "2026-10-16T00:00:00Z",
+   "type": 4,
+   "sport": 10,
+   "leagueInfo": {
+    "id": 54501,
+    "order": 14000,
+    "name": "Ice Hockey - USA NHL",
+    "middleName": "NHL",
+    "shortName": "NHL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 6,
+    "name": "USA",
+    "shortName": "USA"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T00:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 53452,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the game?",
+     "textId": 5497558144225,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 5345201,
+       "oddsId": 3197722502,
+       "text": "1",
+       "textId": 6597069786628,
+       "odds": 208
+      },
+      {
+       "id": 5345202,
+       "oddsId": 3197722502,
+       "text": "X",
+       "textId": 6597069786629,
+       "odds": 420
+      },
+      {
+       "id": 5345203,
+       "oddsId": 3197722502,
+       "text": "2",
+       "textId": 6597069786630,
+       "odds": 277
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 51
+  },
+  {
+   "id": 3197722662,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72909064
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 947,
+     "name": "Edmonton Oilers",
+     "middleName": "Edmonton Oilers",
+     "shortName": "Edm.Oil.",
+     "textId": 1099511628938
+    },
+    {
+     "order": 1,
+     "id": 435504,
+     "name": "Utah Mammoth",
+     "middleName": "Utah Mammoth",
+     "shortName": "Utah Mammoth",
+     "textId": 1099512244008
+    }
+   ],
+   "startTime": "2026-10-16T01:00:00Z",
+   "type": 4,
+   "sport": 10,
+   "leagueInfo": {
+    "id": 54501,
+    "order": 14000,
+    "name": "Ice Hockey - USA NHL",
+    "middleName": "NHL",
+    "shortName": "NHL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 6,
+    "name": "USA",
+    "shortName": "USA"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T01:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 53452,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the game?",
+     "textId": 5497558144225,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 5345201,
+       "oddsId": 3197722662,
+       "text": "1",
+       "textId": 6597069786628,
+       "odds": 235
+      },
+      {
+       "id": 5345202,
+       "oddsId": 3197722662,
+       "text": "X",
+       "textId": 6597069786629,
+       "odds": 425
+      },
+      {
+       "id": 5345203,
+       "oddsId": 3197722662,
+       "text": "2",
+       "textId": 6597069786630,
+       "odds": 239
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 51
+  },
+  {
+   "id": 3197722632,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72909066
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 329750,
+     "name": "Vegas Golden Knights",
+     "middleName": "Vegas Golden Knights",
+     "shortName": "Vegas Golden Knights",
+     "textId": 1099512116186
+    },
+    {
+     "order": 1,
+     "id": 949,
+     "name": "Calgary Flames",
+     "middleName": "Calgary Fla.",
+     "shortName": "Cal.Fla.",
+     "textId": 1099511628940
+    }
+   ],
+   "startTime": "2026-10-16T02:00:00Z",
+   "type": 4,
+   "sport": 10,
+   "leagueInfo": {
+    "id": 54501,
+    "order": 14000,
+    "name": "Ice Hockey - USA NHL",
+    "middleName": "NHL",
+    "shortName": "NHL",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 6,
+    "name": "USA",
+    "shortName": "USA"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T02:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 53452,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the game?",
+     "textId": 5497558144225,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 5345201,
+       "oddsId": 3197722632,
+       "text": "1",
+       "textId": 6597069786628,
+       "odds": 155
+      },
+      {
+       "id": 5345202,
+       "oddsId": 3197722632,
+       "text": "X",
+       "textId": 6597069786629,
+       "odds": 475
+      },
+      {
+       "id": 5345203,
+       "oddsId": 3197722632,
+       "text": "2",
+       "textId": 6597069786630,
+       "odds": 446
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 51
+  },
+  {
+   "id": 3197721782,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72019242
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 2673,
+     "name": "Trinec",
+     "middleName": "Trinec",
+     "shortName": "Trinec",
+     "textId": 1099511634487
+    },
+    {
+     "order": 1,
+     "id": 11901,
+     "name": "Mlada Boleslav",
+     "middleName": "Mlada Boles.",
+     "shortName": "Boleslav",
+     "textId": 1099511684287
+    }
+   ],
+   "startTime": "2026-10-16T15:00:00Z",
+   "type": 4,
+   "sport": 10,
+   "leagueInfo": {
+    "id": 52738,
+    "order": 14160,
+    "name": "Ice Hockey - Czech Republic Extraliga",
+    "middleName": "Extraliga",
+    "shortName": "Extraliga",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 21,
+    "name": "Czech Republic",
+    "shortName": "CZE"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T15:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 53452,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the game?",
+     "textId": 5497558144225,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 5345201,
+       "oddsId": 3197721782,
+       "text": "1",
+       "textId": 6597069786628,
+       "odds": 150
+      },
+      {
+       "id": 5345202,
+       "oddsId": 3197721782,
+       "text": "X",
+       "textId": 6597069786629,
+       "odds": 485
+      },
+      {
+       "id": 5345203,
+       "oddsId": 3197721782,
+       "text": "2",
+       "textId": 6597069786630,
+       "odds": 483
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 50
+  }
+ ]
+}

@@ -2,6 +2,7 @@ import { RawEvent, RawOdds } from "../types";
 import { BookmakerScraper } from "./run";
 import { BookmakerId, canonicalMarketName, canonicalSport, hasOutrights, kambiTermKeys, MARKET_OUTRIGHT } from "./canonical";
 import { pool } from "./pool";
+import { netOfStakeTax } from "./stakeTax";
 import { validateRawEvent } from "./validateRawEvent";
 
 // The prices of the sportsbooks on Kambi's platform (LeoVegas.de's), from the
@@ -29,10 +30,8 @@ export interface KambiSite {
 
 export const LEOVEGAS: KambiSite = { id: "leovegas", offering: "leode", origin: "https://www.leovegas.de", taxOnStake: 0.05 };
 
-// A price net of the site's tax on the stake, to the thousandth: 2.00 is 1.90
-// at 5%. A missing price stays missing.
-export const netOfTax = (site: KambiSite, price: number): number =>
-  Number.isFinite(price) ? Math.round(price * (1 - site.taxOnStake) * 1000) / 1000 : price;
+// A price net of the site's tax on the stake (./stakeTax.ts).
+export const netOfTax = (site: KambiSite, price: number): number => netOfStakeTax(price, site.taxOnStake);
 
 // The odds of the raw events, net of the site's tax.
 const eventsNetOfTax = (site: KambiSite, events: RawEvent[]): RawEvent[] =>

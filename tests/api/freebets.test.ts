@@ -14,17 +14,10 @@ import { addUser, testAuth, TestAuth, withCookie } from "../auth/helpers";
 import { genMatches, marginsFor } from "../freebets/engine/helpers";
 import { CanonicalEvent } from "../../src/types";
 
-// OddsRadar reads one bookmaker for now (LeoVegas.de); the freebets go between
-// two, so these tests know a second one.
-vi.mock("../../src/alerts/gems", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("../../src/alerts/gems")>()),
-  ALL_BOOKMAKER_IDS: ["leovegas", "winamax"],
-}));
-
 const hoursFromNow = (h: number) => new Date(Date.now() + h * 3600e3).toISOString();
 const now = () => new Date().toISOString();
 
-const BOOKMAKERS = ["leovegas", "winamax", "unibet"];
+const BOOKMAKERS = ["leovegas", "merkurbets", "unibet"];
 
 // Matches priced by three bookmakers: football 1X2 and tennis winners, the margins of real bookmakers.
 function events(count: number, seed: number): CanonicalEvent[] {
@@ -94,7 +87,7 @@ describe("GET /api/freebets/conversions", () => {
   const get = (app: Express, query: string) => request(app).get(`/api/freebets/conversions?${query}`);
 
   describe("between bookmakers", () => {
-    const wallet = { leovegas: 40, winamax: 25.5 };
+    const wallet = { leovegas: 40, merkurbets: 25.5 };
     beforeEach(() => {
       upsertCanonicalEvents(db, events(12, 5));
     });
@@ -104,7 +97,7 @@ describe("GET /api/freebets/conversions", () => {
       const res = await get(app, "mode=bookmakers&legs=1");
       expect(res.status).toBe(200);
       expect(res.headers["cache-control"]).toBe("no-store");
-      expect(res.body).toMatchObject({ mode: "bookmakers", legs: 1, bookmakers: ["leovegas", "winamax"], total: 65.5, reason: null, partial: false });
+      expect(res.body).toMatchObject({ mode: "bookmakers", legs: 1, bookmakers: ["leovegas", "merkurbets"], total: 65.5, reason: null, partial: false });
       const plans: PlanView[] = res.body.plans;
       expect(plans).toHaveLength(3);
       expect(plans.map((p) => p.rank)).toEqual([1, 2, 3]);
@@ -116,7 +109,7 @@ describe("GET /api/freebets/conversions", () => {
         expectConsistent(plan, wallet);
         expect(plan.cash).toBeGreaterThan(0);
         // Only the prices of the bookmakers holding freebets are shown.
-        expect(Object.keys(plan.matches[0].prices).sort()).toEqual(["leovegas", "winamax"]);
+        expect(Object.keys(plan.matches[0].prices).sort()).toEqual(["leovegas", "merkurbets"]);
         expect(plan.oddsAt).toMatch(/^\d{4}-\d{2}-\d{2}T/);
       }
       expect(res.body.eligibleSports).toEqual(["football", "tennis"]);
@@ -151,8 +144,8 @@ describe("GET /api/freebets/conversions", () => {
     it("says why there is nothing to convert: no freebets, or freebets at one bookmaker only", async () => {
       const empty = await signedIn(t, db, {}, {}, "empty@example.com");
       expect((await get(empty.app, "mode=bookmakers&legs=2")).body).toMatchObject({ plans: [], bookmakers: [], total: 0, reason: "empty_wallet", eligibleSports: ["football", "tennis"] });
-      const single = await signedIn(t, db, { winamax: 30 }, {}, "single@example.com");
-      expect((await get(single.app, "mode=bookmakers&legs=1")).body).toMatchObject({ plans: [], bookmakers: ["winamax"], total: 30, reason: "single_bookmaker" });
+      const single = await signedIn(t, db, { merkurbets: 30 }, {}, "single@example.com");
+      expect((await get(single.app, "mode=bookmakers&legs=1")).body).toMatchObject({ plans: [], bookmakers: ["merkurbets"], total: 30, reason: "single_bookmaker" });
     });
 
     it("never uses the prices of a bookmaker where the account holds no freebets", async () => {
@@ -164,8 +157,8 @@ describe("GET /api/freebets/conversions", () => {
 
     it("leaves out the matches that have started, the stale prices and the races", async () => {
       upsertCanonicalEvents(db, [
-        { id: "race", sport: "cycling", competition: "Tour", startTime: hoursFromNow(8), participants: ["Tour"], byBookmaker: { leovegas: [{ market: "Vainqueur", selection: "A", price: 3 }], winamax: [{ market: "Vainqueur", selection: "A", price: 3.2 }] } },
-        { id: "started", sport: "football", competition: "L1", startTime: hoursFromNow(-1), participants: ["X", "Y"], byBookmaker: { leovegas: [{ market: "1X2", selection: "1", price: 2 }, { market: "1X2", selection: "X", price: 3 }, { market: "1X2", selection: "2", price: 4 }], winamax: [{ market: "1X2", selection: "1", price: 2 }, { market: "1X2", selection: "X", price: 3 }, { market: "1X2", selection: "2", price: 4 }] } },
+        { id: "race", sport: "cycling", competition: "Tour", startTime: hoursFromNow(8), participants: ["Tour"], byBookmaker: { leovegas: [{ market: "Vainqueur", selection: "A", price: 3 }], merkurbets: [{ market: "Vainqueur", selection: "A", price: 3.2 }] } },
+        { id: "started", sport: "football", competition: "L1", startTime: hoursFromNow(-1), participants: ["X", "Y"], byBookmaker: { leovegas: [{ market: "1X2", selection: "1", price: 2 }, { market: "1X2", selection: "X", price: 3 }, { market: "1X2", selection: "2", price: 4 }], merkurbets: [{ market: "1X2", selection: "1", price: 2 }, { market: "1X2", selection: "X", price: 3 }, { market: "1X2", selection: "2", price: 4 }] } },
       ]);
       const { app } = await signedIn(t, db, wallet);
       const res = await get(app, "mode=bookmakers&legs=1");
@@ -193,7 +186,7 @@ describe("GET /api/freebets/conversions", () => {
           startTime: hoursFromNow(p.start),
           participants: p.teams,
           byBookmaker: {
-            winamax: ["1", "X", "2"].map((selection) => ({ market: "1X2", selection, price: selection === p.pick ? p.back : 2.5 })),
+            merkurbets: ["1", "X", "2"].map((selection) => ({ market: "1X2", selection, price: selection === p.pick ? p.back : 2.5 })),
             leovegas: ["1", "X", "2"].map((selection) => ({ market: "1X2", selection, price: 2.4 })),
           },
         }))
@@ -206,10 +199,10 @@ describe("GET /api/freebets/conversions", () => {
     });
 
     it("chains the conversions of one bookmaker's freebets, each limited by the exchange's money", async () => {
-      const { app } = await signedIn(t, db, { winamax: 30, leovegas: 10 });
-      const res = await get(app, "mode=exchange&bookmaker=winamax");
+      const { app } = await signedIn(t, db, { merkurbets: 30, leovegas: 10 });
+      const res = await get(app, "mode=exchange&bookmaker=merkurbets");
       expect(res.status).toBe(200);
-      expect(res.body).toMatchObject({ mode: "exchange", bookmaker: "winamax", fb: 30, reason: null, eligibleSports: ["football"] });
+      expect(res.body).toMatchObject({ mode: "exchange", bookmaker: "merkurbets", fb: 30, reason: null, eligibleSports: ["football"] });
       const chain = res.body.chain;
       expect(chain.steps.map((s: { eventId: string }) => s.eventId)).toEqual(["brest", "augsburg", "lille"]);
       expect(chain.steps.map((s: { label: string }) => s.label)).toEqual(["Auxerre", "Draw", "Lens"]);
@@ -222,8 +215,8 @@ describe("GET /api/freebets/conversions", () => {
     });
 
     it("converts a bookmaker's freebets only, whatever else the account holds", async () => {
-      const { app } = await signedIn(t, db, { winamax: 12, leovegas: 100 });
-      const res = await get(app, "mode=exchange&bookmaker=winamax");
+      const { app } = await signedIn(t, db, { merkurbets: 12, leovegas: 100 });
+      const res = await get(app, "mode=exchange&bookmaker=merkurbets");
       expect(res.body.fb).toBe(12);
       expect(res.body.chain.converted).toBeLessThanOrEqual(12);
       expect(res.body.chain.steps[0].fb).toBeCloseTo(12, 9);
@@ -231,15 +224,15 @@ describe("GET /api/freebets/conversions", () => {
     });
 
     it("says when the bookmaker holds no freebets, or when nothing can be converted there", async () => {
-      const { app } = await signedIn(t, db, { winamax: 30 });
+      const { app } = await signedIn(t, db, { merkurbets: 30 });
       expect((await get(app, "mode=exchange&bookmaker=leovegas")).body).toMatchObject({ chain: null, reason: "no_freebets", fb: 0 });
-      expect((await get(app, "mode=exchange&bookmaker=winamax&sports=tennis")).body).toMatchObject({ chain: null, reason: "no_match", eligibleSports: ["football"] });
+      expect((await get(app, "mode=exchange&bookmaker=merkurbets&sports=tennis")).body).toMatchObject({ chain: null, reason: "no_match", eligibleSports: ["football"] });
     });
   });
 
   describe("the request", () => {
     it.each(["", "mode=nope", "mode=bookmakers&legs=4", "mode=exchange", "mode=exchange&bookmaker=nobody", "mode=bookmakers&sports=a&sports=b"])("refuses %j", async (query) => {
-      const { app } = await signedIn(t, db, { winamax: 30 });
+      const { app } = await signedIn(t, db, { merkurbets: 30 });
       const res = await get(app, query);
       expect(res.status).toBe(400);
       expect(res.body).toMatchObject({ error: "invalid", message: expect.any(String) });
@@ -247,8 +240,8 @@ describe("GET /api/freebets/conversions", () => {
 
     it("reads the wallet of the account, never one from the request", async () => {
       upsertCanonicalEvents(db, events(12, 5));
-      const rich = await signedIn(t, db, { leovegas: 40, winamax: 25.5 });
-      const poor = await signedIn(t, db, { leovegas: 10, winamax: 10 }, {}, "grace@example.com");
+      const rich = await signedIn(t, db, { leovegas: 40, merkurbets: 25.5 });
+      const poor = await signedIn(t, db, { leovegas: 10, merkurbets: 10 }, {}, "grace@example.com");
       const query = "mode=bookmakers&legs=1&wallet=%7B%22betclic%22%3A9999%7D&fb=9999";
       const a = await get(rich.app, query);
       const b = await get(poor.app, query);
@@ -259,7 +252,7 @@ describe("GET /api/freebets/conversions", () => {
   });
 
   describe("the calculation", () => {
-    const wallet = { leovegas: 40, winamax: 25.5 };
+    const wallet = { leovegas: 40, merkurbets: 25.5 };
     const counting = (): ComputePool & { calls: number } => {
       const inner = createInlinePool();
       const pool = {
@@ -289,7 +282,7 @@ describe("GET /api/freebets/conversions", () => {
       await get(app, "mode=bookmakers&legs=1&sports=football,tennis");
       expect(pool.calls).toBe(3);
       // A new wallet is a new calculation.
-      saveWallet(t.auth.db, user.id, { leovegas: 40, winamax: 30 }, t.auth.now());
+      saveWallet(t.auth.db, user.id, { leovegas: 40, merkurbets: 30 }, t.auth.now());
       const changed = await get(app, "mode=bookmakers&legs=1");
       expect(pool.calls).toBe(4);
       expect(changed.body.total).toBe(70);
@@ -308,7 +301,7 @@ describe("GET /api/freebets/conversions", () => {
       expect(pool.calls).toBe(1);
       expect(b.body).toEqual(a.body);
       // And a different wallet is not served theirs.
-      saveWallet(t.auth.db, grace.id, { leovegas: 5, winamax: 5 }, t.auth.now());
+      saveWallet(t.auth.db, grace.id, { leovegas: 5, merkurbets: 5 }, t.auth.now());
       const c = await request(ada.raw).get("/api/freebets/conversions?mode=bookmakers&legs=1").set("Cookie", graceCookie);
       expect(pool.calls).toBe(2);
       expect(c.body.total).toBe(10);

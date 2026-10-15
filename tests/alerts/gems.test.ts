@@ -88,7 +88,7 @@ describe("what an alert is sent once for", () => {
   it("is a match, a market and an outcome, whoever offers the price", () => {
     const key = gemKey(tournament);
     // The same outcome at another bookmaker: the same alert.
-    expect(gemKey({ ...tournament, bookmaker: "winamax" })).toBe(key);
+    expect(gemKey({ ...tournament, bookmaker: "merkurbets" })).toBe(key);
     // The winner, the Top 5 and the Top 10 of a tournament: three alerts.
     const keys = ["Vainqueur", "golf_top|5", "golf_top|10"].map((market) => gemKey({ ...tournament, market }));
     expect(new Set(keys).size).toBe(3);
@@ -103,9 +103,9 @@ describe("what an alert is sent once for", () => {
   });
 
   it("is, for a surebet, its combination of bets", () => {
-    const surebet = { eventId: "e", market: "Vainqueur du match", selection: "surebet", bookmaker: "1@leovegas:back,2@winamax:back" };
+    const surebet = { eventId: "e", market: "Vainqueur du match", selection: "surebet", bookmaker: "1@leovegas:back,2@merkurbets:back" };
     expect(gemKey({ ...surebet })).toBe(gemKey({ ...surebet }));
-    expect(gemKey({ ...surebet, bookmaker: "1@winamax:back,2@winamax:back" })).not.toBe(gemKey(surebet));
+    expect(gemKey({ ...surebet, bookmaker: "1@merkurbets:back,2@merkurbets:back" })).not.toBe(gemKey(surebet));
   });
 });
 
@@ -154,7 +154,7 @@ describe("runGemAlerts", () => {
     db = openDb(":memory:");
     send = vi.fn(ok);
     // France - Italie: LeoVegas's 2.10 on "1" is 5% above the fair 2.00 (a
-    // gem), Winamax's 2.06 3% (a value bet only).
+    // gem), Merkur Bets's 2.06 3% (a value bet only).
     upsertCanonicalEvents(db, [
       {
         id: "fra-ita",
@@ -162,12 +162,12 @@ describe("runGemAlerts", () => {
         competition: "Ligue des Nations",
         startTime: KICK_OFF.toISOString(),
         participants: ["France", "Italie"],
-        byBookmaker: { leovegas: oneXTwo([2.1, 3.3, 3.8]), winamax: oneXTwo([2.06, 3.3, 3.8]) },
+        byBookmaker: { leovegas: oneXTwo([2.1, 3.3, 3.8]), merkurbets: oneXTwo([2.06, 3.3, 3.8]) },
       },
     ]);
     saveReferenceOdds(db, "fra-ita", { fair: { "1": 2, X: 3.4, "2": 4 }, back: { "1": 2, X: 3.4, "2": 4 }, lay: { "1": 2, X: 3.4, "2": 4 }, matched: 125000 }, new Date().toISOString());
     // Scorers: Mbappé's fair odds 2.00, LeoVegas's 2.30 15% above (a gem),
-    // Winamax's 2.20 10%, too little money on his lay for a surebet; Doué only
+    // Merkur Bets's 2.20 10%, too little money on his lay for a surebet; Doué only
     // a lay of 2.40, LeoVegas's 2.80 17% above it (a gem).
     savePlayerOdds(
       db,
@@ -191,7 +191,7 @@ describe("runGemAlerts", () => {
             { market: "anytime_scorer", selection: "Doué", price: 2.8 },
           ],
         },
-        { eventId: "fra-ita", bookmakerId: "winamax", odds: [{ market: "anytime_scorer", selection: "Mbappé", price: 2.2 }] },
+        { eventId: "fra-ita", bookmakerId: "merkurbets", odds: [{ market: "anytime_scorer", selection: "Mbappé", price: 2.2 }] },
       ],
       new Date().toISOString()
     );
@@ -214,7 +214,7 @@ describe("runGemAlerts", () => {
         "fair odds, or a player, games or sets bet 15% or more; and each surebet (payout over 100%, " +
         "those “to verify” flagged as such). A single alert per match, market and outcome." +
         "\n" +
-        `${SITE}/?sport=value-bets&sort=value&bookmakers=leovegas`
+        `${SITE}/?sport=value-bets&sort=value&bookmakers=leovegas,merkurbets`
     );
     // No one pinged by a name, ever.
     expect([hello.allowed_mentions, gems.allowed_mentions]).toEqual([{ parse: [] }, { parse: [] }]);
@@ -226,14 +226,14 @@ describe("runGemAlerts", () => {
     const kickOff = KICK_OFF.getTime() / 1000;
     expect(france).toEqual({
       title: "💎 +5.0%",
-      url: `${SITE}/?match=fra-ita&bookmakers=leovegas`,
+      url: `${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets`,
       color: 0xd97706,
       fields: [
         { name: "Match", value: "France - Italie · Ligue des Nations" },
         { name: "Kick-off", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
         {
           name: "Match page",
-          value: `[See the match on OddsRadar](${SITE}/?match=fra-ita&bookmakers=leovegas)`,
+          value: `[See the match on OddsRadar](${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets)`,
         },
       ],
     });
@@ -254,13 +254,13 @@ describe("runGemAlerts", () => {
       { market: "Vainqueur du match", selection: "1", price: one },
       { market: "Vainqueur du match", selection: "2", price: two },
     ];
-    const nba = (id: string, participants: string[], leovegas: RawOdds[], winamax: RawOdds[]) => ({
+    const nba = (id: string, participants: string[], leovegas: RawOdds[], merkurbets: RawOdds[]) => ({
       id,
       sport: "basketball",
       competition: "NBA",
       startTime: KICK_OFF.toISOString(),
       participants,
-      byBookmaker: { leovegas, winamax },
+      byBookmaker: { leovegas, merkurbets },
     });
     upsertCanonicalEvents(db, [
       // 1 / (1/2.2 + 1/2.1): 107.4 %.
@@ -289,7 +289,7 @@ describe("runGemAlerts", () => {
     expect([sure]).toEqual([
       {
         title: "⚖️ 107.4%",
-        url: `${SITE}/?match=lal-bos&bookmakers=leovegas`,
+        url: `${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets`,
         color: 0x16a34a,
         fields: [
           { name: "Match", value: "Lakers - Celtics · NBA" },
@@ -297,7 +297,7 @@ describe("runGemAlerts", () => {
           { name: "Profit", value: "+7.4%", inline: true },
           {
             name: "Match page",
-            value: `[See the match on OddsRadar](${SITE}/?match=lal-bos&bookmakers=leovegas)`,
+            value: `[See the match on OddsRadar](${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets)`,
           },
         ],
       },
@@ -306,7 +306,7 @@ describe("runGemAlerts", () => {
     // Nothing new: nothing sent.
     await run();
     expect(send).toHaveBeenCalledTimes(3);
-    // Winamax's Lakers up to 2.25: another combination, sent too.
+    // Merkur Bets's Lakers up to 2.25: another combination, sent too.
     upsertCanonicalEvents(db, [nba("lal-bos", ["Lakers", "Celtics"], winner(2.2, 1.7), winner(2.25, 2.1))]);
     await run();
     expect(send).toHaveBeenCalledTimes(4);
@@ -319,9 +319,9 @@ describe("runGemAlerts", () => {
         .sent.filter((g) => g.basis.startsWith("surebet"))
         .map((g) => [g.matchLabel, g.label])
     ).toEqual([
-      ["Lakers - Celtics", "Lakers @ Winamax 2.25 / Celtics @ Winamax 2.10"],
-      ["Bulls - Knicks", "Bulls @ LeoVegas 2.60 / Knicks @ Winamax 2.40"],
-      ["Lakers - Celtics", "Lakers @ LeoVegas 2.20 / Celtics @ Winamax 2.10"],
+      ["Lakers - Celtics", "Lakers @ Merkur Bets 2.25 / Celtics @ Merkur Bets 2.10"],
+      ["Bulls - Knicks", "Bulls @ LeoVegas 2.60 / Knicks @ Merkur Bets 2.40"],
+      ["Lakers - Celtics", "Lakers @ LeoVegas 2.20 / Celtics @ Merkur Bets 2.10"],
     ]);
   });
 
@@ -353,7 +353,7 @@ describe("runGemAlerts", () => {
 
   it("sends a value bet a surebet holds as that surebet only", async () => {
     // 50 EUR on Mbappé's lay at 2.20: LeoVegas's 2.30 laid there pays 103.4%
-    // whatever happens, a surebet; Winamax's 2.20 doesn't (98.9%).
+    // whatever happens, a surebet; Merkur Bets's 2.20 doesn't (98.9%).
     savePlayerOdds(
       db,
       "fra-ita",
@@ -378,10 +378,10 @@ describe("runGemAlerts", () => {
 
   it("sends a gem that appears later, alone, and greets a new webhook again", async () => {
     await run();
-    // Winamax's Mbappé goes up to 2.40, 20% above: already sent, at LeoVegas.
+    // Merkur Bets's Mbappé goes up to 2.40, 20% above: already sent, at LeoVegas.
     saveMarketOdds(
       db,
-      [{ eventId: "fra-ita", bookmakerId: "winamax", odds: [{ market: "anytime_scorer", selection: "Mbappé", price: 2.4 }] }],
+      [{ eventId: "fra-ita", bookmakerId: "merkurbets", odds: [{ market: "anytime_scorer", selection: "Mbappé", price: 2.4 }] }],
       new Date().toISOString()
     );
     await run();
@@ -434,10 +434,10 @@ describe("runGemAlerts", () => {
   });
 
   it("sends an outcome once, at the best bookmaker's price, not once per bookmaker", async () => {
-    // Mbappé at LeoVegas 2.30 (15%) and at Winamax 2.40 (20%): one alert, Winamax's.
+    // Mbappé at LeoVegas 2.30 (15%) and at Merkur Bets 2.40 (20%): one alert, Merkur Bets's.
     saveMarketOdds(
       db,
-      [{ eventId: "fra-ita", bookmakerId: "winamax", odds: [{ market: "anytime_scorer", selection: "Mbappé", price: 2.4 }] }],
+      [{ eventId: "fra-ita", bookmakerId: "merkurbets", odds: [{ market: "anytime_scorer", selection: "Mbappé", price: 2.4 }] }],
       new Date().toISOString()
     );
     await run();
@@ -642,7 +642,7 @@ describe("the link to the match", () => {
     thin: false,
     legs: [{ selection: "1", label: "PSG", source: "leovegas", side: "back", price: 2.1, stake: 100 }],
   } as unknown as Surebet;
-  const url = "https://cote-radar.fr/?match=psg-om&bookmakers=leovegas";
+  const url = "https://cote-radar.fr/?match=psg-om&bookmakers=leovegas,merkurbets";
 
   it("is the title's and a line of its own, on a gem and a surebet", () => {
     for (const embed of [gemEmbed(gem, "https://cote-radar.fr"), surebetEmbed(surebet, "https://cote-radar.fr")]) {
@@ -660,7 +660,7 @@ describe("the link to the match", () => {
       expect(embed.fields.map((f) => f.name)).toEqual(names);
     }
     const odd = gemEmbed({ ...gem, eventId: "a(b)c d" }, "https://cote-radar.fr");
-    expect(odd.url).toBe("https://cote-radar.fr/?match=a%28b%29c%20d&bookmakers=leovegas");
+    expect(odd.url).toBe("https://cote-radar.fr/?match=a%28b%29c%20d&bookmakers=leovegas,merkurbets");
     // One "(" and one ")": the link's own.
     const value = odd.fields.at(-1)!.value;
     expect([value.split("(").length - 1, value.split(")").length - 1]).toEqual([1, 1]);
@@ -688,7 +688,7 @@ describe("runGemAlerts, size and rate limit", () => {
         competition: "Ligue des Nations",
         startTime: KICK_OFF.toISOString(),
         participants: ["France", "Italie"],
-        byBookmaker: { leovegas: oneXTwo([2.1, 3.3, 3.8]), winamax: oneXTwo([2.06, 3.3, 3.8]) },
+        byBookmaker: { leovegas: oneXTwo([2.1, 3.3, 3.8]), merkurbets: oneXTwo([2.06, 3.3, 3.8]) },
       },
     ]);
     saveReferenceOdds(db, "fra-ita", { fair: { "1": 2, X: 3.4, "2": 4 }, back: { "1": 2, X: 3.4, "2": 4 }, lay: { "1": 2, X: 3.4, "2": 4 }, matched: 125000 }, new Date().toISOString());
@@ -748,7 +748,7 @@ describe("runGemAlerts, size and rate limit", () => {
         competition: "L".repeat(1500),
         startTime: KICK_OFF.toISOString(),
         participants: ["France", "Italie"],
-        byBookmaker: { leovegas: oneXTwo([2.1, 3.3, 3.8]), winamax: oneXTwo([2.06, 3.3, 3.8]) },
+        byBookmaker: { leovegas: oneXTwo([2.1, 3.3, 3.8]), merkurbets: oneXTwo([2.06, 3.3, 3.8]) },
       },
     ]);
     const players = Array.from({ length: 12 }, (_, i) => `Joueur ${String(i).padStart(2, "0")}`);

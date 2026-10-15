@@ -1,0 +1,1276 @@
+{
+ "games": [
+  {
+   "id": 3197685282,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 73265428
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 107824,
+     "name": "CA Huracan",
+     "middleName": "CA Huracan",
+     "shortName": "CA Hura.",
+     "textId": 1099511861457
+    },
+    {
+     "order": 1,
+     "id": 205,
+     "name": "Gimnasia LaPlata",
+     "middleName": "Gimnasia LP",
+     "shortName": "Gim. LP",
+     "textId": 1099511628182
+    }
+   ],
+   "startTime": "2026-10-15T23:00:00Z",
+   "type": 4,
+   "sport": 1,
+   "leagueInfo": {
+    "id": 119184,
+    "order": 7220,
+    "name": "Argentina Primera LPF Clausura",
+    "middleName": "Primera LPF Clausura",
+    "shortName": "Primera LPF Clausura",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 27,
+    "name": "Argentina",
+    "shortName": "ARG"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-15T23:00:00Z",
+   "isBetbuilderCapable": true,
+   "markets": [
+    {
+     "id": 22242,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141104,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2224201,
+       "oddsId": 3197685282,
+       "text": "1",
+       "textId": 6597069771651,
+       "odds": 215
+      },
+      {
+       "id": 2224202,
+       "oddsId": 3197685282,
+       "text": "X",
+       "textId": 6597069771652,
+       "odds": 300
+      },
+      {
+       "id": 2224203,
+       "oddsId": 3197685282,
+       "text": "2",
+       "textId": 6597069771653,
+       "odds": 332
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 50
+  },
+  {
+   "id": 3197669072,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 74702426
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 207851,
+     "name": "Internacional Palmira",
+     "middleName": "Internacional Palmira",
+     "shortName": "Internacional Palmira",
+     "textId": 1099511979366
+    },
+    {
+     "order": 1,
+     "id": 86700,
+     "name": "Orsomarso",
+     "middleName": "Orsomarso",
+     "shortName": "Orsomarso",
+     "textId": 1099511837456
+    }
+   ],
+   "startTime": "2026-10-15T23:00:00Z",
+   "type": 4,
+   "sport": 1,
+   "leagueInfo": {
+    "id": 26712,
+    "order": 7423,
+    "name": "Colombia Primera B Clausura",
+    "middleName": "Primera B Clausura",
+    "shortName": "Primera B Clausura",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 68,
+    "name": "Colombia",
+    "shortName": "COL"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-15T23:00:00Z",
+   "isBetbuilderCapable": true,
+   "markets": [
+    {
+     "id": 22242,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141104,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2224201,
+       "oddsId": 3197669072,
+       "text": "1",
+       "textId": 6597069771651,
+       "odds": 200
+      },
+      {
+       "id": 2224202,
+       "oddsId": 3197669072,
+       "text": "X",
+       "textId": 6597069771652,
+       "odds": 300
+      },
+      {
+       "id": 2224203,
+       "oddsId": 3197669072,
+       "text": "2",
+       "textId": 6597069771653,
+       "odds": 349
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 55
+  },
+  {
+   "id": 3197689332,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 74702438
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 10960,
+     "name": "Quindio",
+     "middleName": "Quindio",
+     "shortName": "Quindio",
+     "textId": 1099511679956
+    },
+    {
+     "order": 1,
+     "id": 14651,
+     "name": "Real Cartagena",
+     "middleName": "Cartagena",
+     "shortName": "R.Cartag.",
+     "textId": 1099511704038
+    }
+   ],
+   "startTime": "2026-10-16T01:00:00Z",
+   "type": 4,
+   "sport": 1,
+   "leagueInfo": {
+    "id": 26712,
+    "order": 7423,
+    "name": "Colombia Primera B Clausura",
+    "middleName": "Primera B Clausura",
+    "shortName": "Primera B Clausura",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 68,
+    "name": "Colombia",
+    "shortName": "COL"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T01:00:00Z",
+   "isBetbuilderCapable": true,
+   "markets": [
+    {
+     "id": 22242,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141104,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2224201,
+       "oddsId": 3197689332,
+       "text": "1",
+       "textId": 6597069771651,
+       "odds": 225
+      },
+      {
+       "id": 2224202,
+       "oddsId": 3197689332,
+       "text": "X",
+       "textId": 6597069771652,
+       "odds": 310
+      },
+      {
+       "id": 2224203,
+       "oddsId": 3197689332,
+       "text": "2",
+       "textId": 6597069771653,
+       "odds": 283
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 55
+  },
+  {
+   "id": 3197669132,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75371346
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 507123,
+     "name": "Internacional de Bogota.",
+     "middleName": "Internacional de Bogota.",
+     "shortName": "Internacional de Bogota.",
+     "textId": 1099512329639
+    },
+    {
+     "order": 1,
+     "id": 135039,
+     "name": "Llaneros FC",
+     "middleName": "Llaneros FC",
+     "shortName": "Llaneros",
+     "textId": 1099511893175
+    }
+   ],
+   "startTime": "2026-10-15T23:00:00Z",
+   "type": 4,
+   "sport": 1,
+   "leagueInfo": {
+    "id": 121539,
+    "order": 7437,
+    "name": "Colombia Copa KO-Stage",
+    "middleName": "Copa KO-Stage",
+    "shortName": "Copa KO-Stage",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 68,
+    "name": "Colombia",
+    "shortName": "COL"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-15T23:00:00Z",
+   "isBetbuilderCapable": true,
+   "markets": [
+    {
+     "id": 22242,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141104,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2224201,
+       "oddsId": 3197669132,
+       "text": "1",
+       "textId": 6597069771651,
+       "odds": 190
+      },
+      {
+       "id": 2224202,
+       "oddsId": 3197669132,
+       "text": "X",
+       "textId": 6597069771652,
+       "odds": 315
+      },
+      {
+       "id": 2224203,
+       "oddsId": 3197669132,
+       "text": "2",
+       "textId": 6597069771653,
+       "odds": 390
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 67
+  },
+  {
+   "id": 3197690452,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75179256
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 105298,
+     "name": "CD Marathon",
+     "middleName": "CD Marathon",
+     "shortName": "CD Mara.",
+     "textId": 1099511858711
+    },
+    {
+     "order": 1,
+     "id": 351882,
+     "name": "Olancho FC",
+     "middleName": "Olancho FC",
+     "shortName": "Olancho FC",
+     "textId": 1099512142833
+    }
+   ],
+   "startTime": "2026-10-15T23:15:00Z",
+   "type": 4,
+   "sport": 1,
+   "leagueInfo": {
+    "id": 8525,
+    "order": 7900,
+    "name": "Honduras Liga Nacional Apertura",
+    "middleName": "Liga Nacional Apertura",
+    "shortName": "Liga Nacional Apertura",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 89,
+    "name": "Honduras",
+    "shortName": "HND"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-15T23:15:00Z",
+   "isBetbuilderCapable": true,
+   "markets": [
+    {
+     "id": 22242,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141104,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2224201,
+       "oddsId": 3197690452,
+       "text": "1",
+       "textId": 6597069771651,
+       "odds": 165
+      },
+      {
+       "id": 2224202,
+       "oddsId": 3197690452,
+       "text": "X",
+       "textId": 6597069771652,
+       "odds": 350
+      },
+      {
+       "id": 2224203,
+       "oddsId": 3197690452,
+       "text": "2",
+       "textId": 6597069771653,
+       "odds": 420
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 8
+  },
+  {
+   "id": 3197690462,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75179262
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 14315,
+     "name": "C.D. Olimpia",
+     "middleName": "C.D. Olimpi.",
+     "shortName": "CD Olimp",
+     "textId": 1099511701789
+    },
+    {
+     "order": 1,
+     "id": 105294,
+     "name": "Real CD Espana",
+     "middleName": "Real CD Esp.",
+     "shortName": "Real CD.",
+     "textId": 1099511858707
+    }
+   ],
+   "startTime": "2026-10-16T01:30:00Z",
+   "type": 4,
+   "sport": 1,
+   "leagueInfo": {
+    "id": 8525,
+    "order": 7900,
+    "name": "Honduras Liga Nacional Apertura",
+    "middleName": "Liga Nacional Apertura",
+    "shortName": "Liga Nacional Apertura",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 89,
+    "name": "Honduras",
+    "shortName": "HND"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T01:30:00Z",
+   "isBetbuilderCapable": true,
+   "markets": [
+    {
+     "id": 22242,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141104,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2224201,
+       "oddsId": 3197690462,
+       "text": "1",
+       "textId": 6597069771651,
+       "odds": 185
+      },
+      {
+       "id": 2224202,
+       "oddsId": 3197690462,
+       "text": "X",
+       "textId": 6597069771652,
+       "odds": 325
+      },
+      {
+       "id": 2224203,
+       "oddsId": 3197690462,
+       "text": "2",
+       "textId": 6597069771653,
+       "odds": 355
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 8
+  },
+  {
+   "id": 3197191402,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 74808584
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 104874,
+     "name": "Estudiantes de La",
+     "middleName": "Estudiantes.",
+     "shortName": "Estudia.",
+     "textId": 1099511858242
+    },
+    {
+     "order": 1,
+     "id": 206730,
+     "name": "CR Flamengo RJ",
+     "middleName": "CR Flamengo RJ",
+     "shortName": "CR Flamengo RJ",
+     "textId": 1099511978128
+    }
+   ],
+   "startTime": "2026-10-16T00:30:00Z",
+   "type": 4,
+   "sport": 1,
+   "leagueInfo": {
+    "id": 2811,
+    "order": 5915,
+    "name": "Copa Libertadores Knockout Stage",
+    "middleName": "Copa Libertadores Knockout Stage",
+    "shortName": "Copa Libertadores Knockout Stage",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 4,
+    "name": "International",
+    "shortName": "INT"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T00:30:00Z",
+   "isBetbuilderCapable": true,
+   "markets": [
+    {
+     "id": 22242,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141104,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2224201,
+       "oddsId": 3197191402,
+       "text": "1",
+       "textId": 6597069771651,
+       "odds": 370
+      },
+      {
+       "id": 2224202,
+       "oddsId": 3197191402,
+       "text": "X",
+       "textId": 6597069771652,
+       "odds": 300
+      },
+      {
+       "id": 2224203,
+       "oddsId": 3197191402,
+       "text": "2",
+       "textId": 6597069771653,
+       "odds": 210
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 172
+  },
+  {
+   "id": 3197700022,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 73075344
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 106514,
+     "name": "L.a. Firpo",
+     "middleName": "L.a. Firpo",
+     "shortName": "L.a. Fi.",
+     "textId": 1099511860007
+    },
+    {
+     "order": 1,
+     "id": 399988,
+     "name": "CD Inca",
+     "middleName": "CD Inca",
+     "shortName": "CD Inca",
+     "textId": 1099512199518
+    }
+   ],
+   "startTime": "2026-10-16T01:00:00Z",
+   "type": 4,
+   "sport": 1,
+   "leagueInfo": {
+    "id": 9470,
+    "order": 7863,
+    "name": "El Salvador Primera Division Apertura",
+    "middleName": "Primera Division Apertura",
+    "shortName": "Primera Division Apertura",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 87,
+    "name": "El Salvador",
+    "shortName": "SLV"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T01:00:00Z",
+   "isBetbuilderCapable": true,
+   "markets": [
+    {
+     "id": 22242,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141104,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2224201,
+       "oddsId": 3197700022,
+       "text": "1",
+       "textId": 6597069771651,
+       "odds": 127
+      },
+      {
+       "id": 2224202,
+       "oddsId": 3197700022,
+       "text": "X",
+       "textId": 6597069771652,
+       "odds": 490
+      },
+      {
+       "id": 2224203,
+       "oddsId": 3197700022,
+       "text": "2",
+       "textId": 6597069771653,
+       "odds": 778
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 67
+  },
+  {
+   "id": 3197690472,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72475016
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 105350,
+     "name": "CD Suchitepequez",
+     "middleName": "CD Suchitep.",
+     "shortName": "CD Such.",
+     "textId": 1099511858767
+    },
+    {
+     "order": 1,
+     "id": 312414,
+     "name": "Deportivo San Pedro",
+     "middleName": "Deportivo San Pedro",
+     "shortName": "Deportivo San Pedro",
+     "textId": 1099512096338
+    }
+   ],
+   "startTime": "2026-10-16T01:00:00Z",
+   "type": 4,
+   "sport": 1,
+   "leagueInfo": {
+    "id": 6907,
+    "order": 7925,
+    "name": "Guatemala Liga Nacional Apertura",
+    "middleName": "Liga Nacional Apertura",
+    "shortName": "Liga Nacional Apertura",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 88,
+    "name": "Guatemala",
+    "shortName": "GTM"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T01:00:00Z",
+   "isBetbuilderCapable": true,
+   "markets": [
+    {
+     "id": 22242,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141104,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2224201,
+       "oddsId": 3197690472,
+       "text": "1",
+       "textId": 6597069771651,
+       "odds": 185
+      },
+      {
+       "id": 2224202,
+       "oddsId": 3197690472,
+       "text": "X",
+       "textId": 6597069771652,
+       "odds": 315
+      },
+      {
+       "id": 2224203,
+       "oddsId": 3197690472,
+       "text": "2",
+       "textId": 6597069771653,
+       "odds": 380
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 32
+  },
+  {
+   "id": 3197769222,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 74321154
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 84785,
+     "name": "Real Esteli",
+     "middleName": "Real Esteli",
+     "shortName": "RealEste.",
+     "textId": 1099511751246
+    },
+    {
+     "order": 1,
+     "id": 179839,
+     "name": "Art Municipal Jalapa",
+     "middleName": "Art Municipal Jalapa",
+     "shortName": "Art Municipal Jalapa",
+     "textId": 1099511945286
+    }
+   ],
+   "startTime": "2026-10-16T01:00:00Z",
+   "type": 4,
+   "sport": 1,
+   "leagueInfo": {
+    "id": 33592,
+    "order": 8006,
+    "name": "Nicaragua Primera Division Apertura",
+    "middleName": "Primera Division Apertura",
+    "shortName": "Primera Division Apertura",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 376,
+    "name": "Nicaragua",
+    "shortName": "NIC"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T01:00:00Z",
+   "isBetbuilderCapable": true,
+   "markets": [
+    {
+     "id": 22242,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141104,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2224201,
+       "oddsId": 3197769222,
+       "text": "1",
+       "textId": 6597069771651,
+       "odds": 120
+      },
+      {
+       "id": 2224202,
+       "oddsId": 3197769222,
+       "text": "X",
+       "textId": 6597069771652,
+       "odds": 565
+      },
+      {
+       "id": 2224203,
+       "oddsId": 3197769222,
+       "text": "2",
+       "textId": 6597069771653,
+       "odds": 912
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 9
+  },
+  {
+   "id": 3197669112,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 74458744
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 104765,
+     "name": "Independiente Sa.",
+     "middleName": "Independien.",
+     "shortName": "Indepen.",
+     "textId": 1099511858124
+    },
+    {
+     "order": 1,
+     "id": 45890,
+     "name": "Jaguares FC",
+     "middleName": "Jaguares FC",
+     "shortName": "Jaguares",
+     "textId": 1099511792161
+    }
+   ],
+   "startTime": "2026-10-16T01:05:00Z",
+   "type": 4,
+   "sport": 1,
+   "leagueInfo": {
+    "id": 23597,
+    "order": 7390,
+    "name": "Colombia Primera A Apertura",
+    "middleName": "Primera A Apertura",
+    "shortName": "Primera A Apertura",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 68,
+    "name": "Colombia",
+    "shortName": "COL"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T01:05:00Z",
+   "isBetbuilderCapable": true,
+   "markets": [
+    {
+     "id": 22242,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141104,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2224201,
+       "oddsId": 3197669112,
+       "text": "1",
+       "textId": 6597069771651,
+       "odds": 135
+      },
+      {
+       "id": 2224202,
+       "oddsId": 3197669112,
+       "text": "X",
+       "textId": 6597069771652,
+       "odds": 470
+      },
+      {
+       "id": 2224203,
+       "oddsId": 3197669112,
+       "text": "2",
+       "textId": 6597069771653,
+       "odds": 733
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 67
+  },
+  {
+   "id": 3197681562,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 72053648
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 104525,
+     "name": "Depotivo Saprissa",
+     "middleName": "Depotivo Saprissa",
+     "shortName": "Depotivo Saprissa",
+     "textId": 1099511857863
+    },
+    {
+     "order": 1,
+     "id": 176558,
+     "name": "Sporting FC",
+     "middleName": "Sporting FC",
+     "shortName": "Sporting FC",
+     "textId": 1099511941610
+    }
+   ],
+   "startTime": "2026-10-16T02:00:00Z",
+   "type": 4,
+   "sport": 1,
+   "leagueInfo": {
+    "id": 59449,
+    "order": 7813,
+    "name": "Costa Rica Primera Division Apertura",
+    "middleName": "Primera Division Apertura",
+    "shortName": "Primera Division Apertura",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 85,
+    "name": "Costa Rica",
+    "shortName": "CRI"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T02:00:00Z",
+   "isBetbuilderCapable": true,
+   "markets": [
+    {
+     "id": 22242,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141104,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2224201,
+       "oddsId": 3197681562,
+       "text": "1",
+       "textId": 6597069771651,
+       "odds": 180
+      },
+      {
+       "id": 2224202,
+       "oddsId": 3197681562,
+       "text": "X",
+       "textId": 6597069771652,
+       "odds": 350
+      },
+      {
+       "id": 2224203,
+       "oddsId": 3197681562,
+       "text": "2",
+       "textId": 6597069771653,
+       "odds": 359
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 67
+  }
+ ]
+}

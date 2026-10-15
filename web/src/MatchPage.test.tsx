@@ -21,7 +21,7 @@ const scorers: MarketDetail = {
       line: null,
       payoutRate: null,
       outcomes: Array.from({ length: 34 }, (_, i) =>
-        outcome(`p${i}`, i === 20 ? "Serhou Guirassy" : `Joueur ${i}`, { leovegas: 2 + i, winamax: 2.1 + i }, ["winamax"])
+        outcome(`p${i}`, i === 20 ? "Serhou Guirassy" : `Joueur ${i}`, { leovegas: 2 + i, merkurbets: 2.1 + i }, ["merkurbets"])
       ),
     },
   ],
@@ -51,8 +51,8 @@ const detail: EventDetail = {
               line: null,
               payoutRate: null,
               outcomes: [
-                outcome("1X", "Borussia Dortmund ou nul", { leovegas: 1.07, winamax: 1.08 }, ["winamax"]),
-                outcome("X2", "Nul ou Werder Brême", { winamax: 2.85 }),
+                outcome("1X", "Borussia Dortmund ou nul", { leovegas: 1.07, merkurbets: 1.08 }, ["merkurbets"]),
+                outcome("X2", "Nul ou Werder Brême", { merkurbets: 2.85 }),
               ],
             },
           ],
@@ -73,8 +73,8 @@ const detail: EventDetail = {
               line: 2.5,
               payoutRate: 1.012,
               outcomes: [
-                outcome("over", "Plus de 2.5", { leovegas: 1.3, winamax: 1.31 }, ["winamax"]),
-                outcome("under", "Moins de 2.5", { leovegas: 4.8, winamax: 2.67 }, ["leovegas"]),
+                outcome("over", "Plus de 2.5", { leovegas: 1.3, merkurbets: 1.31 }, ["merkurbets"]),
+                outcome("under", "Moins de 2.5", { leovegas: 4.8, merkurbets: 2.67 }, ["leovegas"]),
               ],
             },
             {
@@ -190,9 +190,9 @@ describe("MatchPage", () => {
 
   it("asks only for the ticked bookmakers' prices", async () => {
     const fetchMock = stubFetch(detail);
-    renderPage({ bookmakers: ["winamax"] });
+    renderPage({ bookmakers: ["merkurbets"] });
     await screen.findByRole("heading", { level: 2 });
-    expect(fetchMock).toHaveBeenCalledWith("/api/events/bvb?bookmakers=winamax");
+    expect(fetchMock).toHaveBeenCalledWith("/api/events/bvb?bookmakers=merkurbets");
   });
 
   it("sizes the markets' columns for the ticked bookmakers, so that no price is cut", async () => {
@@ -206,7 +206,7 @@ describe("MatchPage", () => {
     rerender(
       <MatchPage
         id="bvb"
-        bookmakers={["winamax"]}
+        bookmakers={["merkurbets"]}
         onBookmakersChange={() => {}}
         backHref="?sport=football&sort=trj"
         onBack={() => {}}
@@ -224,7 +224,7 @@ describe("MatchPage", () => {
     const card = await screen.findByRole("article", { name: "Double chance" });
     const row = within(card).getByRole("row", { name: /Borussia Dortmund ou nul/ });
     expect(row).toHaveTextContent("LeoVegas: 1.07");
-    expect(row).toHaveTextContent("Winamax: 1.08 (best price)");
+    expect(row).toHaveTextContent("Merkur Bets: 1.08 (best price)");
     // One bookmaker's price only: nothing to compare, no best.
     expect(within(card).getByRole("row", { name: /Nul ou Werder Brême/ })).not.toHaveTextContent("best price");
   });

@@ -32,10 +32,10 @@ export function linkIn(mail: Mail): string {
 
 // Signs in through the login page.
 export async function logIn(page: Page, email: string, password: string): Promise<void> {
-  await page.goto("/connexion");
-  await page.getByLabel("Adresse email").fill(email);
-  await page.getByLabel("Mot de passe", { exact: true }).fill(password);
-  await page.getByRole("button", { name: "Se connecter" }).click();
+  await page.goto("/login");
+  await page.getByLabel("Email address").fill(email);
+  await page.getByLabel("Password", { exact: true }).fill(password);
+  await page.getByRole("button", { name: "Log in" }).click();
 }
 
 // An account that exists and is confirmed, made the way a visitor does but
@@ -45,7 +45,7 @@ export async function createConfirmedAccount(request: APIRequestContext, email: 
   const headers = { Origin: BASE_URL };
   const registered = await request.post(`${BASE_URL}/api/auth/register`, { data: { email, password }, headers });
   expect(registered.ok()).toBe(true);
-  const mail = await waitForMail(request, email, "Confirmez");
+  const mail = await waitForMail(request, email, "Confirm your email");
   const token = new URL(linkIn(mail)).searchParams.get("token");
   const verified = await request.post(`${BASE_URL}/api/auth/verify-email`, { data: { token }, headers });
   expect(verified.ok()).toBe(true);

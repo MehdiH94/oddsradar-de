@@ -6,11 +6,11 @@ import { FairOdds } from "./FairOdds";
 import { PriceChip } from "./PriceChip";
 import styles from "./HomeLive.module.css";
 
-const TIME_FORMAT = new Intl.DateTimeFormat("fr-FR", { hour: "2-digit", minute: "2-digit" });
+const TIME_FORMAT = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit" });
 
 // A figure of the strip: "…" while it loads, a dash when it could not be read.
 function Figure({ value, loading }: { value: number | null; loading: boolean }) {
-  if (value !== null) return <>{value.toLocaleString("fr-FR")}</>;
+  if (value !== null) return <>{value.toLocaleString("en-GB")}</>;
   return (
     <>
       <span aria-hidden="true">{loading ? "…" : "–"}</span>
@@ -23,8 +23,8 @@ function Figure({ value, loading }: { value: number | null; loading: boolean }) 
 // not be read (null) stays, as a dash: it is not a zero.
 export function LiveStats({ stats }: { stats: HomeStats }) {
   const tiles: Array<{ label: string; value: number | null }> = [
-    { label: "Matchs suivis", value: stats.matches },
-    { label: "Bookmakers comparés", value: ALL_BOOKMAKERS.length },
+    { label: "Matches tracked", value: stats.matches },
+    { label: "Bookmakers compared", value: ALL_BOOKMAKERS.length },
     { label: "Sports", value: stats.sports === null ? null : stats.sports.length },
   ];
   return (
@@ -42,13 +42,13 @@ export function LiveStats({ stats }: { stats: HomeStats }) {
       </ul>
       <p className={styles.updated}>
         {stats.loading ? (
-          "Chargement des chiffres…"
+          "Loading the figures…"
         ) : stats.updatedAt ? (
           <>
-            Chiffres relevés à <span className="num">{TIME_FORMAT.format(stats.updatedAt)}</span>
+            Figures as of <span className="num">{TIME_FORMAT.format(stats.updatedAt)}</span>
           </>
         ) : (
-          "Chiffres indisponibles pour le moment."
+          "Figures unavailable for now."
         )}
       </p>
     </div>
@@ -57,10 +57,10 @@ export function LiveStats({ stats }: { stats: HomeStats }) {
 
 // A value bet, made up and said so (no bookmaker is named for a price that does not exist).
 const EXAMPLE = {
-  teams: "Équipe A - Équipe B",
-  competition: "Championnat fictif",
-  outcome: "Équipe A",
-  market: "Résultat du match",
+  teams: "Team A - Team B",
+  competition: "Made-up league",
+  outcome: "Team A",
+  market: "Match result",
   price: 2.1,
   fair: 2.0,
 };
@@ -70,19 +70,19 @@ function ExamplePick() {
   return (
     <li className={styles.card}>
       <p className={styles.competition}>
-        <span className={styles.tag}>Exemple</span> {EXAMPLE.competition}
+        <span className={styles.tag}>Example</span> {EXAMPLE.competition}
       </p>
       <h4 className={styles.teams}>{EXAMPLE.teams}</h4>
       <p className={styles.bet}>
         <strong>{EXAMPLE.outcome}</strong> · {EXAMPLE.market}
       </p>
       <div className={styles.prices}>
-        <PriceChip bookmaker="Un bookmaker" price={EXAMPLE.price} best={false} edge={edge} showLogo={false} />
+        <PriceChip bookmaker="A bookmaker" price={EXAMPLE.price} best={false} edge={edge} showLogo={false} />
         <FairOdds fair={EXAMPLE.fair} edge={edge} />
       </div>
       <p className={styles.explain}>
-        La cote ({formatPrice(EXAMPLE.price)}) paie {formatPercent(edge)} de plus que la cote juste ({formatPrice(EXAMPLE.fair)}) :
-        c'est un value bet.
+        The price ({formatPrice(EXAMPLE.price)}) pays {formatPercent(edge)} more than the fair odds ({formatPrice(EXAMPLE.fair)}):
+        it is a value bet.
       </p>
     </li>
   );
@@ -93,7 +93,7 @@ function ExamplePick() {
 export function LivePreview() {
   return (
     <div>
-      <h3 className={styles.previewTitle}>À quoi ressemble un value bet</h3>
+      <h3 className={styles.previewTitle}>What a value bet looks like</h3>
       <ol className={`${styles.cards} ${styles.single}`}>
         <ExamplePick />
       </ol>

@@ -27,19 +27,19 @@ const MAX_SPORT_LENGTH = 40;
 // and empty, none.
 export function parseRequest(query: Record<string, unknown>): ConversionRequest | { error: string } {
   const sports = parseSports(query.sports);
-  if (sports === null) return { error: "Liste de sports invalide." };
+  if (sports === null) return { error: "Invalid list of sports." };
   const withSports = sports === undefined ? {} : { sports };
   if (query.mode === "bookmakers") {
     const legs = query.legs === undefined ? 1 : Number(query.legs);
-    if (legs !== 1 && legs !== 2 && legs !== 3) return { error: "Un combiné compte 1, 2 ou 3 matchs." };
+    if (legs !== 1 && legs !== 2 && legs !== 3) return { error: "An accumulator has 1, 2 or 3 matches." };
     return { mode: "bookmakers", legs, ...withSports };
   }
   if (query.mode === "exchange") {
     const bookmaker = ALL_BOOKMAKER_IDS.find((id) => id === query.bookmaker);
-    if (!bookmaker) return { error: "Bookmaker inconnu." };
+    if (!bookmaker) return { error: "Unknown bookmaker." };
     return { mode: "exchange", bookmaker, ...withSports };
   }
-  return { error: "Mode de conversion inconnu." };
+  return { error: "Unknown conversion mode." };
 }
 
 function parseSports(value: unknown): string[] | undefined | null {

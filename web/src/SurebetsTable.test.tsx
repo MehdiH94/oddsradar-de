@@ -11,41 +11,41 @@ const surebet = (overrides: Partial<Surebet>): Surebet => ({
   participants: ["Alex De Minaur", "Hubert Hurkacz"],
   marketCount: 70,
   market: "player_aces@2|9.5",
-  marketLabel: "Aces réussis par Hubert Hurkacz (9,5 aces)",
+  marketLabel: "Aces réussis par Hubert Hurkacz (9.5 aces)",
   kind: "bookmakers",
   payoutRate: 1 / (1 / 2 + 1 / 2.2),
   profit: 100 * (1 / (1 / 2 + 1 / 2.2) - 1),
   toVerify: false,
   thin: false,
   legs: [
-    { selection: "over", label: "Plus de 9,5", source: "betclic", side: "back", price: 2, stake: 52.38 },
-    { selection: "under", label: "Moins de 9,5", source: "winamax", side: "back", price: 2.2, stake: 47.62 },
+    { selection: "over", label: "Plus de 9.5", source: "betclic", side: "back", price: 2, stake: 52.38 },
+    { selection: "under", label: "Moins de 9.5", source: "winamax", side: "back", price: 2.2, stake: 47.62 },
   ],
   ...overrides,
 });
 
 describe("SurebetsTable", () => {
-  it("shows one row per surebet: kick-off, match and market, each bet for 100 €, the TRJ and the profit", () => {
+  it("shows one row per surebet: kick-off, match and market, each bet for €100, the TRJ and the profit", () => {
     render(<SurebetsTable surebets={[surebet({})]} />);
     expect(screen.getByRole("heading", { level: 2, name: "Surebets" })).toBeInTheDocument();
     expect(screen.getAllByRole("columnheader").map((th) => th.textContent)).toEqual([
-      "Début",
+      "Kick-off",
       "Match",
-      "Paris pour 100 €",
-      "TRJ (taux de retour)",
+      "Bets for €100",
+      "Payout",
     ]);
     const cells = within(screen.getAllByRole("row")[1]).getAllByRole("cell");
     expect(cells[0].querySelector("time")).toHaveAttribute("dateTime", "2099-01-01T07:00:00.000Z");
-    expect(cells[1]).toHaveTextContent("🎾 Alex De Minaur - Hubert HurkaczAces réussis par Hubert Hurkacz (9,5 aces)");
+    expect(cells[1]).toHaveTextContent("🎾 Alex De Minaur - Hubert HurkaczAces réussis par Hubert Hurkacz (9.5 aces)");
     expect(within(cells[2]).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
-      "Plus de 9,5Betclic2,00mise 52,38 €",
-      "Moins de 9,5Winamax2,20mise 47,62 €",
+      "Plus de 9.5Betclic2.00stake €52.38",
+      "Moins de 9.5Winamax2.20stake €47.62",
     ]);
-    expect(cells[3]).toHaveTextContent("104,8 %+4,76 €");
-    expect(cells[3]).not.toHaveTextContent("à vérifier");
+    expect(cells[3]).toHaveTextContent("104.8%+€4.76");
+    expect(cells[3]).not.toHaveTextContent("to verify");
   });
 
-  it("reads a lay on the exchange, with what it risks, and marks a TRJ over 110 % to be checked", () => {
+  it("reads a lay on the exchange, with what it risks, and marks a TRJ over 110% to be checked", () => {
     render(
       <SurebetsTable
         surebets={[
@@ -68,14 +68,14 @@ describe("SurebetsTable", () => {
     );
     const cells = within(screen.getAllByRole("row")[1]).getAllByRole("cell");
     expect(within(cells[2]).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
-      "DembéléBetclic2,50mise 100,00 €",
-      "Lay DembéléExchange2,30mise 109,65 € (risque 142,54 €)",
+      "DembéléBetclic2.50stake €100.00",
+      "Lay DembéléExchange2.30stake €109.65 (liability €142.54)",
     ]);
-    expect(cells[3]).toHaveTextContent("112,0 %+12,00 €à vérifier");
-    expect(cells[3]).toHaveAttribute("title", expect.stringContaining("layée"));
+    expect(cells[3]).toHaveTextContent("112.0%+€12.00to verify");
+    expect(cells[3]).toHaveAttribute("title", expect.stringContaining("laid on the exchange"));
   });
 
-  it("says how little a lay offers when the exchange has under 20 € on it", () => {
+  it("says how little a lay offers when the exchange has under €20 on it", () => {
     render(
       <SurebetsTable
         surebets={[
@@ -97,15 +97,15 @@ describe("SurebetsTable", () => {
       />
     );
     const cells = within(screen.getAllByRole("row")[1]).getAllByRole("cell");
-    expect(within(cells[2]).getAllByRole("listitem")[1]).toHaveTextContent("seulement 4,50 € à layer");
-    expect(cells[3]).toHaveTextContent("114,0 %+14,00 €liquidité limitée");
-    expect(cells[3]).not.toHaveTextContent("à vérifier");
+    expect(within(cells[2]).getAllByRole("listitem")[1]).toHaveTextContent("only €4.50 to lay");
+    expect(cells[3]).toHaveTextContent("114.0%+€14.00limited liquidity");
+    expect(cells[3]).not.toHaveTextContent("to verify");
   });
 
   it("links a match to its every market", () => {
     const onOpenMatch = vi.fn();
     render(<SurebetsTable surebets={[surebet({})]} matchHref={(id) => `?match=${id}`} onOpenMatch={onOpenMatch} />);
-    const link = screen.getByRole("link", { name: "+69 marchés pour Alex De Minaur - Hubert Hurkacz" });
+    const link = screen.getByRole("link", { name: "+69 markets for Alex De Minaur - Hubert Hurkacz" });
     expect(link).toHaveAttribute("href", "?match=dmh");
     fireEvent.click(link);
     expect(onOpenMatch).toHaveBeenCalledWith("dmh");
@@ -147,9 +147,9 @@ describe("SurebetsTable", () => {
         sportHref={(sport, q) => `?sport=${sport}&q=${q}`}
       />
     );
-    expect(screen.getByRole("img", { name: "Ski de fond" })).toHaveTextContent("🎿");
+    expect(screen.getByRole("img", { name: "Cross-country skiing" })).toHaveTextContent("🎿");
     expect(screen.getByRole("link", { name: race })).toHaveAttribute("href", "?match=relais");
-    // Nothing more than its winner: no "+N marchés".
+    // Nothing more than its winner: no "+N markets".
     expect(screen.getAllByRole("link")).toHaveLength(1);
   });
 });

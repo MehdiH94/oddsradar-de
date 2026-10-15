@@ -10,14 +10,14 @@ import type { Settings } from "./settings";
 import styles from "./ConversionControls.module.css";
 
 const MODES = [
-  { value: "bookmakers", label: "Entre bookmakers" },
-  { value: "exchange", label: "Contre l'exchange" },
+  { value: "bookmakers", label: "Between bookmakers" },
+  { value: "exchange", label: "Against the exchange" },
 ] as const;
 
 const FORMATS = [
-  { value: "1", label: "Pari simple" },
-  { value: "2", label: "Combiné 2 matchs" },
-  { value: "3", label: "Combiné 3 matchs" },
+  { value: "1", label: "Single bet" },
+  { value: "2", label: "2-match accumulator" },
+  { value: "3", label: "3-match accumulator" },
 ] as const;
 
 // How the freebets are converted: between bookmakers (a bet or a combo of 2 or 3 matches) or one bookmaker's
@@ -50,12 +50,12 @@ export function ConversionControls({
   };
 
   return (
-    <Card id="controls-heading" title="Type de conversion">
+    <Card id="controls-heading" title="Type of conversion">
       <div className={styles.row}>
         <Segmented legend="Mode" name="mode" value={settings.mode} choices={[...MODES]} onChange={(mode) => onChange({ mode })} />
         {settings.mode === "bookmakers" ? (
           <Segmented
-            legend="Format des paris"
+            legend="Bet format"
             name="legs"
             value={String(settings.legs) as "1" | "2" | "3"}
             choices={[...FORMATS]}
@@ -63,7 +63,7 @@ export function ConversionControls({
           />
         ) : holding.length > 0 ? (
           <Segmented
-            legend="Bookmaker des freebets"
+            legend="Freebets bookmaker"
             name="bookmaker"
             value={bookmaker}
             choices={holding.map((id) => ({
@@ -79,16 +79,16 @@ export function ConversionControls({
             onChange={(id) => onChange({ bookmaker: id })}
           />
         ) : (
-          <p className={styles.hint}>Indiquez vos freebets ci-dessus : un seul bookmaker suffit pour les convertir contre l'exchange.</p>
+          <p className={styles.hint}>Enter your freebets above: one bookmaker is enough to convert them against the exchange.</p>
         )}
       </div>
 
       <fieldset className={styles.sports}>
-        <legend className={styles.legend}>Sports pris en compte</legend>
+        <legend className={styles.legend}>Sports taken into account</legend>
         {eligible === null ? (
-          <p className={styles.hint}>Recherche des sports…</p>
+          <p className={styles.hint}>Looking for sports…</p>
         ) : eligible.length === 0 ? (
-          <p className={styles.hint}>Aucun sport n'a de match à convertir pour le moment.</p>
+          <p className={styles.hint}>No sport has a match to convert for now.</p>
         ) : (
           <div className={styles.chips}>
             {eligible.map((sport) => (
@@ -101,23 +101,23 @@ export function ConversionControls({
         )}
         <p className={styles.hint}>
           {settings.mode === "bookmakers"
-            ? "Un combiné peut mélanger plusieurs sports : cochez ceux dont vous acceptez les matchs. Seuls les sports adaptés (un résultat à 2 ou 3 issues) sont proposés."
-            : "Les sports cotés sur l'exchange. Paris simples uniquement : l'exchange ne propose pas de combinés."}
+            ? "An accumulator can mix several sports: tick those whose matches you accept. Only the suitable sports (a result with 2 or 3 outcomes) are offered."
+            : "The sports priced on the exchange. Single bets only: the exchange offers no accumulators."}
         </p>
       </fieldset>
 
       {settings.mode === "bookmakers" && (
         <p className={styles.info}>
-          Bookmakers utilisés (ceux où vous avez des FB) :{" "}
+          Bookmakers used (those where you hold FB):{" "}
           {holding.length === 0
-            ? "aucun pour le moment. "
+            ? "none for now. "
             : holding.map((id) => (
                 <span key={id} className={styles.pill}>
                   <BookmakerLogo bookmaker={id} size={16} decorative />
                   {BOOKMAKER_BRANDING[id]?.name ?? id}
                 </span>
               ))}{" "}
-          Il en faut au moins deux.
+          At least two are needed.
         </p>
       )}
     </Card>

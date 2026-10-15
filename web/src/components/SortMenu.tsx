@@ -2,7 +2,7 @@ import type { EventSort } from "../api";
 import { Dropdown, MenuGroup, MenuOption } from "./Dropdown";
 import { SORT_LABELS } from "./filterOptions";
 
-// "Tri : Meilleur TRJ", opening on the given sort orders: "Meilleure value"
+// "Sort: Best payout", opening on the given sort orders: "Best value"
 // for the sports the reference prices, and first in the value bets' category.
 // A click on one picks it and closes the menu; the arrow keys go through them.
 export function SortMenu({
@@ -16,8 +16,8 @@ export function SortMenu({
 }) {
   const current = orders.includes(value) ? value : orders[0];
   return (
-    <Dropdown label="Tri" summary={SORT_LABELS[current]}>
-      <MenuGroup legend="Trier par">
+    <Dropdown label="Sort" summary={SORT_LABELS[current]}>
+      <MenuGroup legend="Sort by">
         {orders.map((order) => (
           <MenuOption
             key={order}

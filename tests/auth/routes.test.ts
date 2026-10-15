@@ -29,7 +29,7 @@ describe("sign-up and email confirmation", () => {
     expect(early.body.error).toBe("email_not_verified");
 
     const link = linkIn(sent[0]);
-    expect(link.startsWith(`${SITE}/confirmer-email?token=`)).toBe(true);
+    expect(link.startsWith(`${SITE}/verify-email?token=`)).toBe(true);
     expect((await post("/api/auth/verify-email", { token: tokenOf(link) })).status).toBe(200);
     expect((await post("/api/auth/verify-email", { token: tokenOf(link) })).status).toBe(400);
 

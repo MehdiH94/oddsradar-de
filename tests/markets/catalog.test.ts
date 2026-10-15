@@ -194,20 +194,20 @@ describe("basketball's markets", () => {
     expect(coversEveryCase("q2_1X2", ["1", "X", "2"])).toBe(true);
   });
 
-  it("names the markets in French, with points, and the handicaps by the margin", () => {
+  it("names the markets in English, with points, and the handicaps by the margin", () => {
     const teams = ["Barcelone", "Zalgiris"];
-    expect(marketLabel(familyOf("spread")!, teams, -6.5)).toBe("Handicap : Barcelone -6,5");
-    expect(marketLabel(familyOf("total_points")!, teams, 174.5)).toBe("Nombre de points (174,5 points)");
-    expect(marketLabel(familyOf("team_points@2")!, teams, 85.5)).toBe("Points de Zalgiris (85,5 points)");
-    expect(marketLabel(familyOf("q1_total_points")!, teams, 42.5)).toBe("Nombre de points du 1er quart-temps (42,5 points)");
-    expect(marketLabel(familyOf("q3_spread")!, teams, 0.5)).toBe("Handicap du 3e quart-temps : Barcelone +0,5");
-    expect(marketLabel(familyOf("2h_team_points@1")!, teams, 44.5)).toBe("Points de Barcelone en 2e mi-temps (44,5 points)");
-    expect(outcomeLabel("spread", "1", teams, -6.5)).toBe("Barcelone gagne par 7 points ou plus");
-    expect(outcomeLabel("spread", "2", teams, -6.5)).toBe("Zalgiris ne perd pas, ou perd par 6 points au plus");
-    expect(outcomeLabel("spread", "2", teams, 0.5)).toBe("Zalgiris gagne");
-    expect(outcomeLabel("total_points", "over", teams, 174.5)).toBe("Plus de 174,5");
-    expect(outcomeLabel("winner_total", "2&under", teams, 174.5)).toBe("Zalgiris & Moins de 174,5");
-    expect(outcomeLabel("overtime", "yes", teams)).toBe("Oui");
+    expect(marketLabel(familyOf("spread")!, teams, -6.5)).toBe("Handicap: Barcelone -6.5");
+    expect(marketLabel(familyOf("total_points")!, teams, 174.5)).toBe("Total points (174.5 points)");
+    expect(marketLabel(familyOf("team_points@2")!, teams, 85.5)).toBe("Zalgiris points (85.5 points)");
+    expect(marketLabel(familyOf("q1_total_points")!, teams, 42.5)).toBe("Total points of the 1st quarter (42.5 points)");
+    expect(marketLabel(familyOf("q3_spread")!, teams, 0.5)).toBe("Handicap of the 3rd quarter: Barcelone +0.5");
+    expect(marketLabel(familyOf("2h_team_points@1")!, teams, 44.5)).toBe("Barcelone points in the 2nd half (44.5 points)");
+    expect(outcomeLabel("spread", "1", teams, -6.5)).toBe("Barcelone wins by 7 points or more");
+    expect(outcomeLabel("spread", "2", teams, -6.5)).toBe("Zalgiris does not lose, or loses by at most 6 points");
+    expect(outcomeLabel("spread", "2", teams, 0.5)).toBe("Zalgiris wins");
+    expect(outcomeLabel("total_points", "over", teams, 174.5)).toBe("Over 174.5");
+    expect(outcomeLabel("winner_total", "2&under", teams, 174.5)).toBe("Zalgiris & Under 174.5");
+    expect(outcomeLabel("overtime", "yes", teams)).toBe("Yes");
   });
 
   it("gives a team's points to the other team, and turns a handicap and its line round", () => {
@@ -228,9 +228,9 @@ describe("basketball's markets", () => {
     expect(coversEveryCase("highest_quarter", ["q1", "q2", "q3", "q4", "tie"])).toBe(true);
     expect(coversEveryCase("highest_quarter", ["q1", "q2", "q3", "q4"])).toBe(false);
     expect(coversEveryCase("highest_half", ["1st", "2nd", "tie"])).toBe(true);
-    expect(outcomeLabel("highest_quarter", "q3", teams)).toBe("3e quart-temps");
-    expect(outcomeLabel("highest_quarter", "tie", teams)).toBe("Égalité");
-    expect(outcomeLabel("highest_half", "1st", teams)).toBe("1re mi-temps");
+    expect(outcomeLabel("highest_quarter", "q3", teams)).toBe("3rd quarter");
+    expect(outcomeLabel("highest_quarter", "tie", teams)).toBe("Tie");
+    expect(outcomeLabel("highest_half", "1st", teams)).toBe("1st half");
     const outcomes = ["tie", "q4", "q1", "q3", "q2"];
     expect(outcomes.sort((a, b) => compareOutcomes("highest_quarter", a, b))).toEqual(["q1", "q2", "q3", "q4", "tie"]);
   });
@@ -303,13 +303,13 @@ describe("basketball's players' markets", () => {
   });
 
   it("names a card after its player, in French", () => {
-    expect(marketLabel(familyOf("player_points")!, teams, undefined, "LeBron James")).toBe("Points de LeBron James");
-    expect(marketLabel(familyOf("player_rebounds")!, teams, undefined, "Joel Parra")).toBe("Rebonds de Joel Parra");
-    expect(marketLabel(familyOf("player_assists")!, teams, undefined, "Maodo Lo")).toBe("Passes décisives de Maodo Lo");
-    expect(marketLabel(familyOf("player_threes")!, teams, undefined, "Kevin Punter")).toBe("Paniers à 3 points de Kevin Punter");
-    expect(marketLabel(familyOf("player_pra")!, teams, undefined, "Kevin Punter")).toBe("Points + rebonds + passes de Kevin Punter");
-    expect(marketLabel(familyOf("player_points")!, teams, 27.5, "Kevin Punter")).toBe("Points de Kevin Punter (27,5 points)");
-    expect(outcomeLabel("player_points", "over", teams, 27.5)).toBe("Plus de 27,5");
+    expect(marketLabel(familyOf("player_points")!, teams, undefined, "LeBron James")).toBe("LeBron James points");
+    expect(marketLabel(familyOf("player_rebounds")!, teams, undefined, "Joel Parra")).toBe("Joel Parra rebounds");
+    expect(marketLabel(familyOf("player_assists")!, teams, undefined, "Maodo Lo")).toBe("Maodo Lo assists");
+    expect(marketLabel(familyOf("player_threes")!, teams, undefined, "Kevin Punter")).toBe("Kevin Punter three-pointers");
+    expect(marketLabel(familyOf("player_pra")!, teams, undefined, "Kevin Punter")).toBe("Kevin Punter points + rebounds + assists");
+    expect(marketLabel(familyOf("player_points")!, teams, 27.5, "Kevin Punter")).toBe("Kevin Punter points (27.5 points)");
+    expect(outcomeLabel("player_points", "over", teams, 27.5)).toBe("Over 27.5");
   });
 
   it("lists the best scorer and the double-double by player, with no TRJ", () => {
@@ -360,18 +360,18 @@ describe("golf's markets", () => {
   });
 
   it("names them in French, the players as they are", () => {
-    expect(marketLabel(familyOf("golf_top")!, ["Open d'Espagne 2026"], 5)).toBe("Dans le Top 5");
-    expect(marketLabel(familyOf("golf_top")!, ["Open d'Espagne 2026"], 20)).toBe("Dans le Top 20");
-    expect(marketLabel(familyOf("golf_round_leader")!, ["Open d'Espagne 2026"], 1)).toBe("Leader après le tour 1");
+    expect(marketLabel(familyOf("golf_top")!, ["Open d'Espagne 2026"], 5)).toBe("In the Top 5");
+    expect(marketLabel(familyOf("golf_top")!, ["Open d'Espagne 2026"], 20)).toBe("In the Top 20");
+    expect(marketLabel(familyOf("golf_round_leader")!, ["Open d'Espagne 2026"], 1)).toBe("Leader after round 1");
     expect(outcomeLabel("golf_top", "Xander Schauffele", ["Open d'Espagne 2026"], 5)).toBe("Xander Schauffele");
   });
 
   it("has a family per nationality for the best of it, one winner each, in a section of its own", () => {
     expect(sectionsOf("golf").map((s) => s.key)).toContain("g_nation");
     expect(familyOf("golf_best_americain")).toMatchObject({ sport: "golf", section: "g_nation", byPrice: true, winners: 1, hasLine: false });
-    expect(marketLabel(familyOf("golf_best_americain")!, ["Open"], undefined)).toBe("Meilleur Américain");
-    expect(marketLabel(familyOf("golf_best_sud_coreen")!, ["Open"], undefined)).toBe("Meilleur Sud-Coréen");
-    expect(marketLabel(familyOf("golf_best_grande_bretagne_irlande")!, ["Open"], undefined)).toBe("Meilleur Grande-Bretagne + Irlande");
+    expect(marketLabel(familyOf("golf_best_americain")!, ["Open"], undefined)).toBe("Best American");
+    expect(marketLabel(familyOf("golf_best_sud_coreen")!, ["Open"], undefined)).toBe("Best South Korean");
+    expect(marketLabel(familyOf("golf_best_grande_bretagne_irlande")!, ["Open"], undefined)).toBe("Best Great Britain & Ireland");
   });
 
   it("recognizes the best of a nationality under each bookmaker's title", () => {
@@ -415,49 +415,49 @@ describe("outcomes on the dashboard", () => {
     expect(sorted("header_goal", ["no@1", "none", "both", "2", "any", "1"])).toEqual(["1", "2", "any", "both", "none", "no@1"]);
   });
 
-  it("names teams, lines and scores in French", () => {
-    expect(outcomeLabel("double_chance", "X2", teams)).toBe("Nul ou Werder Brême");
-    expect(outcomeLabel("total_goals", "over", teams, 2.5)).toBe("Plus de 2,5");
-    expect(outcomeLabel("result_total", "1&under", teams, 3.5)).toBe("Borussia Dortmund & Moins de 3,5");
-    expect(outcomeLabel("winning_margin", "2:1", teams)).toBe("Werder Brême par 1 but");
-    expect(outcomeLabel("winning_margin", "1:3+", teams)).toBe("Borussia Dortmund par 3 buts ou plus");
-    expect(outcomeLabel("multi_score", "1-0,2-0,3-0", teams)).toBe("1 - 0, 2 - 0 ou 3 - 0");
-    expect(outcomeLabel("multi_score", "other@2", teams)).toBe("Werder Brême gagne (autre score)");
-    expect(outcomeLabel("first_goal_result", "2>X", teams)).toBe("Werder Brême marque en premier, nul");
-    expect(outcomeLabel("exact_goals", "6+", teams)).toBe("6 ou plus");
-    expect(outcomeLabel("btts", "no", teams)).toBe("Non");
-    expect(outcomeLabel("first_goal_minute_10", "1-10", teams)).toBe("1re à 10e minute");
-    expect(outcomeLabel("first_goal_minute_15", "76-90", teams)).toBe("76e à 90e minute");
-    expect(outcomeLabel("first_goal_minute_15", "none", teams)).toBe("Aucun but");
-    expect(outcomeLabel("goal_bands", "7+", teams)).toBe("7 ou plus");
-    expect(outcomeLabel("penalty_goal", "any", teams)).toBe("Au moins une équipe");
-    expect(outcomeLabel("penalty_goal", "none", teams)).toBe("Aucune équipe");
-    expect(outcomeLabel("header_goal", "no@1", teams)).toBe("Borussia Dortmund ne marque pas");
+  it("names teams, lines and scores in English", () => {
+    expect(outcomeLabel("double_chance", "X2", teams)).toBe("Draw or Werder Brême");
+    expect(outcomeLabel("total_goals", "over", teams, 2.5)).toBe("Over 2.5");
+    expect(outcomeLabel("result_total", "1&under", teams, 3.5)).toBe("Borussia Dortmund & Under 3.5");
+    expect(outcomeLabel("winning_margin", "2:1", teams)).toBe("Werder Brême by 1 goal");
+    expect(outcomeLabel("winning_margin", "1:3+", teams)).toBe("Borussia Dortmund by 3 goals or more");
+    expect(outcomeLabel("multi_score", "1-0,2-0,3-0", teams)).toBe("1 - 0, 2 - 0 or 3 - 0");
+    expect(outcomeLabel("multi_score", "other@2", teams)).toBe("Werder Brême wins (other score)");
+    expect(outcomeLabel("first_goal_result", "2>X", teams)).toBe("Werder Brême scores first, draw");
+    expect(outcomeLabel("exact_goals", "6+", teams)).toBe("6 or more");
+    expect(outcomeLabel("btts", "no", teams)).toBe("No");
+    expect(outcomeLabel("first_goal_minute_10", "1-10", teams)).toBe("1st to 10th minute");
+    expect(outcomeLabel("first_goal_minute_15", "76-90", teams)).toBe("76th to 90th minute");
+    expect(outcomeLabel("first_goal_minute_15", "none", teams)).toBe("No goal");
+    expect(outcomeLabel("goal_bands", "7+", teams)).toBe("7 or more");
+    expect(outcomeLabel("penalty_goal", "any", teams)).toBe("At least one team");
+    expect(outcomeLabel("penalty_goal", "none", teams)).toBe("No team");
+    expect(outcomeLabel("header_goal", "no@1", teams)).toBe("Borussia Dortmund does not score");
   });
 
   it("says in words what each side of a handicap needs", () => {
     // The line is the first team's handicap.
-    expect(outcomeLabel("handicap", "1", teams, -1.5)).toBe("Borussia Dortmund gagne par 2 buts ou plus");
-    expect(outcomeLabel("handicap", "2", teams, -1.5)).toBe("Werder Brême ne perd pas, ou perd par 1 but");
-    expect(outcomeLabel("handicap", "2", teams, -2.5)).toBe("Werder Brême ne perd pas, ou perd par 2 buts au plus");
-    expect(outcomeLabel("handicap", "1", teams, 1.5)).toBe("Borussia Dortmund ne perd pas, ou perd par 1 but");
-    expect(outcomeLabel("handicap", "1", teams, -0.5)).toBe("Borussia Dortmund gagne");
-    expect(outcomeLabel("handicap", "2", teams, -0.5)).toBe("Werder Brême ne perd pas");
+    expect(outcomeLabel("handicap", "1", teams, -1.5)).toBe("Borussia Dortmund wins by 2 goals or more");
+    expect(outcomeLabel("handicap", "2", teams, -1.5)).toBe("Werder Brême does not lose, or loses by 1 goal");
+    expect(outcomeLabel("handicap", "2", teams, -2.5)).toBe("Werder Brême does not lose, or loses by at most 2 goals");
+    expect(outcomeLabel("handicap", "1", teams, 1.5)).toBe("Borussia Dortmund does not lose, or loses by 1 goal");
+    expect(outcomeLabel("handicap", "1", teams, -0.5)).toBe("Borussia Dortmund wins");
+    expect(outcomeLabel("handicap", "2", teams, -0.5)).toBe("Werder Brême does not lose");
   });
 
   it("names the players of a pair with what they must do", () => {
-    expect(outcomeLabel("scorer_double_chance", "Gonçalo Ramos / João Félix", teams)).toBe("Gonçalo Ramos ou João Félix");
-    expect(outcomeLabel("scorers_both", "Gonçalo Ramos / João Félix", teams)).toBe("Gonçalo Ramos et João Félix");
+    expect(outcomeLabel("scorer_double_chance", "Gonçalo Ramos / João Félix", teams)).toBe("Gonçalo Ramos or João Félix");
+    expect(outcomeLabel("scorers_both", "Gonçalo Ramos / João Félix", teams)).toBe("Gonçalo Ramos and João Félix");
   });
 
   it("names a team's market after the team", () => {
-    expect(marketLabel(familyOf("clean_sheet@2")!, teams)).toBe("Werder Brême n'encaisse pas de but");
-    expect(marketLabel(familyOf("scorer_goals")!, teams, 2)).toBe("Marque au moins 2 buts");
-    expect(marketLabel(familyOf("result_total")!, teams, 2.5)).toBe("Résultat et nombre de buts (2,5 buts)");
-    expect(marketLabel(familyOf("handicap")!, teams, -1.5)).toBe("Handicap : Borussia Dortmund -1,5");
-    expect(marketLabel(familyOf("2h_handicap")!, teams, 0.5)).toBe("Handicap en 2e mi-temps : Borussia Dortmund +0,5");
-    expect(marketLabel(familyOf("duo_goals")!, teams, 2.5)).toBe("Le duo marque plus de 2,5 buts");
-    expect(marketLabel(familyOf("decisive_player_times")!, teams, 2)).toBe("Joueur décisif au moins 2 fois");
+    expect(marketLabel(familyOf("clean_sheet@2")!, teams)).toBe("Werder Brême clean sheet");
+    expect(marketLabel(familyOf("scorer_goals")!, teams, 2)).toBe("Scores at least 2 goals");
+    expect(marketLabel(familyOf("result_total")!, teams, 2.5)).toBe("Result and total goals (2.5 goals)");
+    expect(marketLabel(familyOf("handicap")!, teams, -1.5)).toBe("Handicap: Borussia Dortmund -1.5");
+    expect(marketLabel(familyOf("2h_handicap")!, teams, 0.5)).toBe("2nd half handicap: Borussia Dortmund +0.5");
+    expect(marketLabel(familyOf("duo_goals")!, teams, 2.5)).toBe("The duo scores more than 2.5 goals");
+    expect(marketLabel(familyOf("decisive_player_times")!, teams, 2)).toBe("Decisive player at least 2 times");
   });
 });
 
@@ -468,11 +468,11 @@ describe("tennis", () => {
     expect(sectionsOf("tennis").map((s) => s.label)).toEqual([
       "Match",
       "Sets",
-      "Jeux",
-      "Par set",
-      "Aces et breaks",
-      "Seulement chez Winamax",
-      "Seulement chez Betclic",
+      "Games",
+      "By set",
+      "Aces and breaks",
+      "Only at Winamax",
+      "Only at Betclic",
     ]);
     expect(mainSectionOf("tennis")).toBe("t_match");
     expect(mainSectionOf("football")).toBe("result");
@@ -481,21 +481,21 @@ describe("tennis", () => {
   });
 
   it("names the markets and outcomes in games, sets and aces", () => {
-    expect(marketLabel(familyOf("games_handicap")!, players, -3.5)).toBe("Handicap jeux : Alex De Minaur -3,5");
-    expect(outcomeLabel("games_handicap", "1", players, -3.5)).toBe("Alex De Minaur gagne par 4 jeux ou plus");
-    expect(outcomeLabel("games_handicap", "2", players, -3.5)).toBe("Hubert Hurkacz ne perd pas, ou perd par 3 jeux au plus");
-    expect(outcomeLabel("set_handicap", "2", players, -1.5)).toBe("Hubert Hurkacz ne perd pas, ou perd par 1 set");
-    expect(outcomeLabel("set_handicap", "1", players, -1.5)).toBe("Alex De Minaur gagne par 2 sets ou plus");
-    expect(marketLabel(familyOf("winner_total_games")!, players, 22.5)).toBe("Vainqueur et nombre de jeux (22,5 jeux)");
-    expect(outcomeLabel("winner_total_games", "2&under", players, 22.5)).toBe("Hubert Hurkacz & Moins de 22,5");
-    expect(marketLabel(familyOf("player_aces@2")!, players)).toBe("Aces réussis par Hubert Hurkacz");
-    expect(marketLabel(familyOf("player_games@1")!, players)).toBe("Jeux gagnés par Alex De Minaur");
+    expect(marketLabel(familyOf("games_handicap")!, players, -3.5)).toBe("Games handicap: Alex De Minaur -3.5");
+    expect(outcomeLabel("games_handicap", "1", players, -3.5)).toBe("Alex De Minaur wins by 4 games or more");
+    expect(outcomeLabel("games_handicap", "2", players, -3.5)).toBe("Hubert Hurkacz does not lose, or loses by at most 3 games");
+    expect(outcomeLabel("set_handicap", "2", players, -1.5)).toBe("Hubert Hurkacz does not lose, or loses by 1 set");
+    expect(outcomeLabel("set_handicap", "1", players, -1.5)).toBe("Alex De Minaur wins by 2 sets or more");
+    expect(marketLabel(familyOf("winner_total_games")!, players, 22.5)).toBe("Winner and total games (22.5 games)");
+    expect(outcomeLabel("winner_total_games", "2&under", players, 22.5)).toBe("Hubert Hurkacz & Under 22.5");
+    expect(marketLabel(familyOf("player_aces@2")!, players)).toBe("Aces by Hubert Hurkacz");
+    expect(marketLabel(familyOf("player_games@1")!, players)).toBe("Games won by Alex De Minaur");
     expect(outcomeLabel("exact_sets", "3", players)).toBe("3 sets");
-    expect(outcomeLabel("most_aces", "X", players)).toBe("Égalité");
+    expect(outcomeLabel("most_aces", "X", players)).toBe("Tie");
     expect(outcomeLabel("set1_match", "2/1", players)).toBe("Hubert Hurkacz / Alex De Minaur");
     expect(outcomeLabel("set_betting", "2-1", players)).toBe("2 - 1");
     // Football's stay in goals.
-    expect(outcomeLabel("handicap", "1", teams, -1.5)).toBe("Borussia Dortmund gagne par 2 buts ou plus");
+    expect(outcomeLabel("handicap", "1", teams, -1.5)).toBe("Borussia Dortmund wins by 2 goals or more");
   });
 
   it("turns a player's markets round like a team's", () => {
@@ -599,11 +599,11 @@ describe("ice hockey, American football, rugby union and handball", () => {
 
   it("names them in French, with the unit of the sport", () => {
     const teams = ["Washington Capitals", "Montréal Canadiens"];
-    expect(marketLabel(familyOf("ot_total_goals")!, teams, 5.5)).toBe("Nombre de buts, prolongations incluses (5,5 buts)");
-    expect(marketLabel(familyOf("ot_handicap")!, teams, -1.5)).toBe("Handicap, prolongations incluses : Washington Capitals -1,5");
-    expect(marketLabel(familyOf("p1_total_goals")!, teams, 1.5)).toBe("Nombre de buts de la 1re période (1,5 buts)");
-    expect(marketLabel(familyOf("p3_team_goals@2")!, teams, 0.5)).toBe("Buts de Montréal Canadiens à la 3e période (0,5 buts)");
-    expect(marketLabel(familyOf("q2_total_points")!, ["Denver", "Seattle"], 7.5)).toBe("Nombre de points du 2e quart-temps (7,5 points)");
+    expect(marketLabel(familyOf("ot_total_goals")!, teams, 5.5)).toBe("Total goals, overtime included (5.5 goals)");
+    expect(marketLabel(familyOf("ot_handicap")!, teams, -1.5)).toBe("Handicap, overtime included: Washington Capitals -1.5");
+    expect(marketLabel(familyOf("p1_total_goals")!, teams, 1.5)).toBe("Total goals of the 1st period (1.5 goals)");
+    expect(marketLabel(familyOf("p3_team_goals@2")!, teams, 0.5)).toBe("Montréal Canadiens goals in the 3rd period (0.5 goals)");
+    expect(marketLabel(familyOf("q2_total_points")!, ["Denver", "Seattle"], 7.5)).toBe("Total points of the 2nd quarter (7.5 points)");
   });
 
   it("covers every case of a period's result and of the overtime's totals", () => {

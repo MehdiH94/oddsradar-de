@@ -1,3 +1,4 @@
+import { APP_NAME } from "../brand";
 import nodemailer from "nodemailer";
 
 export interface Mail {
@@ -61,21 +62,21 @@ export function mailerFromEnv(env: NodeJS.ProcessEnv = process.env): Mailer {
   return logMailer;
 }
 
-// The emails. French, plain text: nothing to render, nothing to block.
+// The emails. English, plain text: nothing to render, nothing to block.
 export const mails = {
   verifyEmail: (to: string, link: string): Mail => ({
     to,
-    subject: "Confirmez votre adresse email · CoteRadar",
-    text: `Bienvenue sur CoteRadar.\n\nPour activer votre compte, confirmez votre adresse en ouvrant ce lien (valable 24 h) :\n${link}\n\nSi vous n'avez pas créé de compte, ignorez ce message.`,
+    subject: `Confirm your email address · ${APP_NAME}`,
+    text: `Welcome to ${APP_NAME}.\n\nTo activate your account, confirm your address by opening this link (valid for 24 hours):\n${link}\n\nIf you did not create an account, ignore this message.`,
   }),
   resetPassword: (to: string, link: string): Mail => ({
     to,
-    subject: "Réinitialisation de votre mot de passe · CoteRadar",
-    text: `Vous avez demandé à réinitialiser votre mot de passe CoteRadar.\n\nOuvrez ce lien pour en choisir un nouveau (valable 1 h) :\n${link}\n\nSi vous n'êtes pas à l'origine de cette demande, ignorez ce message : votre mot de passe reste inchangé.`,
+    subject: `Reset your password · ${APP_NAME}`,
+    text: `You asked to reset your ${APP_NAME} password.\n\nOpen this link to choose a new one (valid for 1 hour):\n${link}\n\nIf you did not ask for this, ignore this message: your password stays the same.`,
   }),
   alreadyRegistered: (to: string, link: string): Mail => ({
     to,
-    subject: "Vous avez déjà un compte · CoteRadar",
-    text: `Quelqu'un (peut-être vous) a essayé de créer un compte CoteRadar avec cette adresse, qui en a déjà un.\n\nMot de passe oublié ? Réinitialisez-le ici :\n${link}\n\nSi ce n'était pas vous, ignorez ce message.`,
+    subject: `You already have an account · ${APP_NAME}`,
+    text: `Someone (perhaps you) tried to create a ${APP_NAME} account with this address, which already has one.\n\nForgot your password? Reset it here:\n${link}\n\nIf it was not you, ignore this message.`,
   }),
 };

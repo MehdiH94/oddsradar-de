@@ -20,6 +20,7 @@ import {
   safeNext,
   VERIFY_PATH,
 } from "./routes";
+import { APP_NAME } from "./brand";
 import { Skeleton } from "./components/StatusViews";
 import styles from "./Root.module.css";
 
@@ -30,18 +31,18 @@ const AdminPage = lazy(() => import("./admin/AdminPage").then((module) => ({ def
 // The Freebets page, a chunk of its own too.
 const FreebetsPage = lazy(() => import("./freebets/FreebetsPage").then((module) => ({ default: module.FreebetsPage })));
 
-export const HOME_TITLE = "CoteRadar · Comparateur de cotes et value bets";
-export const ODDS_TITLE = "Cotes et value bets · CoteRadar";
-export const FREEBETS_TITLE = "Freebets · CoteRadar";
+export const HOME_TITLE = `${APP_NAME} · Odds comparison and value bets`;
+export const ODDS_TITLE = `Odds and value bets · ${APP_NAME}`;
+export const FREEBETS_TITLE = `Freebets · ${APP_NAME}`;
 
 const PAGE_TITLES: Record<string, string> = {
   [ODDS_PATH]: ODDS_TITLE,
-  [LOGIN_PATH]: "Connexion · CoteRadar",
-  [REGISTER_PATH]: "Créer un compte · CoteRadar",
-  [FORGOT_PATH]: "Mot de passe oublié · CoteRadar",
-  [RESET_PATH]: "Nouveau mot de passe · CoteRadar",
-  [VERIFY_PATH]: "Confirmation de l'email · CoteRadar",
-  [ADMIN_PATH]: "Administration · CoteRadar",
+  [LOGIN_PATH]: `Log in · ${APP_NAME}`,
+  [REGISTER_PATH]: `Create an account · ${APP_NAME}`,
+  [FORGOT_PATH]: `Forgot password · ${APP_NAME}`,
+  [RESET_PATH]: `New password · ${APP_NAME}`,
+  [VERIFY_PATH]: `Email confirmation · ${APP_NAME}`,
+  [ADMIN_PATH]: `Administration · ${APP_NAME}`,
   [FREEBETS_PATH]: FREEBETS_TITLE,
 };
 

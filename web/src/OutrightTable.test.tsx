@@ -49,9 +49,9 @@ describe("OutrightTable", () => {
     const card = screen.getByRole("article", { name: "Tour de France 2027" });
     const header = card.querySelector("header")!.textContent!.replace(/\u00a0/g, " ");
     expect(header).toContain("Tour de France 2027");
-    expect(header).toContain("dim. 25/07 18:00");
-    expect(header).toContain("87,4 %");
-    expect(screen.getByRole("columnheader", { name: "Concurrent" })).toBeInTheDocument();
+    expect(header).toContain("Sun 25/07, 18:00");
+    expect(header).toContain("87.4%");
+    expect(screen.getByRole("columnheader", { name: "Contender" })).toBeInTheDocument();
     expect(screen.getByRole("img", { name: "Winamax" })).toBeInTheDocument();
     expect(screen.getByRole("img", { name: "Betclic" })).toBeInTheDocument();
   });
@@ -61,28 +61,28 @@ describe("OutrightTable", () => {
 
     // Favourite first: the lowest best price. Columns: Winamax, then Betclic.
     expect(bodyRows().slice(0, 3)).toEqual([
-      ["1", "Rider 1", "3,00", "3,50"],
-      ["2", "Rider 2", "8,00", "7,00"],
-      ["3", "Rider 3", "13,00", "12,00"],
+      ["1", "Rider 1", "3.00", "3.50"],
+      ["2", "Rider 2", "8.00", "7.00"],
+      ["3", "Rider 3", "13.00", "12.00"],
     ]);
     expect(bodyRows()).toHaveLength(10);
 
-    fireEvent.click(screen.getByRole("button", { name: "Voir les 2 autres" }));
+    fireEvent.click(screen.getByRole("button", { name: "Show the 2 others" }));
     expect(bodyRows()).toHaveLength(12);
-    expect(bodyRows()[11]).toEqual(["12", "Rider 12", "58,00", "-"]);
+    expect(bodyRows()[11]).toEqual(["12", "Rider 12", "58.00", "-"]);
 
-    fireEvent.click(screen.getByRole("button", { name: "Réduire" }));
+    fireEvent.click(screen.getByRole("button", { name: "Show fewer" }));
     expect(bodyRows()).toHaveLength(10);
   });
 
   it("highlights each competitor's best price", () => {
     render(<OutrightTable events={[race]} />);
 
-    expect(chip("3,50")).toHaveAttribute("data-best");
-    expect(chip("3,00")).not.toHaveAttribute("data-best");
-    expect(chip("8,00")).toHaveAttribute("data-best");
+    expect(chip("3.50")).toHaveAttribute("data-best");
+    expect(chip("3.00")).not.toHaveAttribute("data-best");
+    expect(chip("8.00")).toHaveAttribute("data-best");
     // Priced by Winamax alone: nothing to compare, nothing highlighted.
-    expect(chip("18,00")).not.toHaveAttribute("data-best");
+    expect(chip("18.00")).not.toHaveAttribute("data-best");
   });
 
   it("highlights both bookmakers when they offer the same best price", () => {
@@ -95,10 +95,10 @@ describe("OutrightTable", () => {
     };
     render(<OutrightTable events={[tie]} />);
 
-    const tied = screen.getAllByText("3,50").map((price) => price.closest("[data-bookmaker]")!);
+    const tied = screen.getAllByText("3.50").map((price) => price.closest("[data-bookmaker]")!);
     expect(tied).toHaveLength(2);
     for (const cell of tied) expect(cell).toHaveAttribute("data-best");
-    expect(chip("6,00")).not.toHaveAttribute("data-best");
+    expect(chip("6.00")).not.toHaveAttribute("data-best");
   });
 
   it("shows only the ticked bookmakers, and the competitors they price", () => {
@@ -106,9 +106,9 @@ describe("OutrightTable", () => {
 
     expect(screen.queryByRole("img", { name: "Winamax" })).not.toBeInTheDocument();
     expect(bodyRows()).toEqual([
-      ["1", "Rider 1", "3,50"],
-      ["2", "Rider 2", "7,00"],
-      ["3", "Rider 3", "12,00"],
+      ["1", "Rider 1", "3.50"],
+      ["2", "Rider 2", "7.00"],
+      ["3", "Rider 3", "12.00"],
     ]);
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
@@ -126,20 +126,20 @@ describe("OutrightTable", () => {
 
     it("offers to find a competitor by name, beyond the 10 favourites", () => {
       render(<OutrightTable events={[peloton]} />);
-      const find = screen.getByRole("searchbox", { name: "Trouver un concurrent de Tour de France 2027" });
+      const find = screen.getByRole("searchbox", { name: "Find a contender of Tour de France 2027" });
 
       fireEvent.change(find, { target: { value: "vauq" } });
 
       // Only Winamax prices this race: no column of dashes for Betclic.
-      expect(bodyRows()).toEqual([["34", "Kévin Vauquelin", "36,00"]]);
-      expect(screen.queryByRole("button", { name: /Voir les/ })).not.toBeInTheDocument();
+      expect(bodyRows()).toEqual([["34", "Kévin Vauquelin", "36.00"]]);
+      expect(screen.queryByRole("button", { name: /Show the/ })).not.toBeInTheDocument();
 
       // Every competitor found shows, not just the first 10.
       fireEvent.change(find, { target: { value: "rider" } });
       expect(bodyRows()).toHaveLength(39);
 
       fireEvent.change(find, { target: { value: "nobody" } });
-      expect(screen.getByText("Aucun concurrent ne correspond.")).toBeInTheDocument();
+      expect(screen.getByText("No contender matches.")).toBeInTheDocument();
     });
 
     it("is the only one to get that field", () => {
@@ -175,27 +175,27 @@ describe("OutrightTable", () => {
     it("shows a player's fair odds under his name, and none for a player the exchange prices too loosely", () => {
       render(<OutrightTable events={[golf]} />);
 
-      expect(visibleText(row("Xander Schauffele"))).toContain("Juste 9,80");
-      expect(visibleText(row("Collin Morikawa"))).toContain("Juste 14,20");
-      expect(visibleText(row("Adam Scott"))).not.toContain("Juste");
+      expect(visibleText(row("Xander Schauffele"))).toContain("Fair 9.80");
+      expect(visibleText(row("Collin Morikawa"))).toContain("Fair 14.20");
+      expect(visibleText(row("Adam Scott"))).not.toContain("Fair");
     });
 
     it("frames a price 5% or more above the fair odds as a value bet, with the best edge, and no other", () => {
       render(<OutrightTable events={[golf]} />);
 
       // Morikawa: Winamax 15 is 5.6% above 14.2, Betclic 15.5 is 9.2%.
-      expect(within(row("Collin Morikawa")).getByText("15,00").closest("[data-bookmaker]")).toHaveAttribute("data-value", "true");
-      expect(within(row("Collin Morikawa")).getByText("15,50").closest("[data-bookmaker]")).toHaveAttribute("data-value", "true");
-      expect(visibleText(row("Collin Morikawa")).replace(/\u00a0/g, " ")).toContain("+9,2 %");
+      expect(within(row("Collin Morikawa")).getByText("15.00").closest("[data-bookmaker]")).toHaveAttribute("data-value", "true");
+      expect(within(row("Collin Morikawa")).getByText("15.50").closest("[data-bookmaker]")).toHaveAttribute("data-value", "true");
+      expect(visibleText(row("Collin Morikawa")).replace(/\u00a0/g, " ")).toContain("+9.2%");
       // Schauffele: Betclic 10 is only 2% above 9.8, under the 5% a golf winner needs.
-      expect(within(row("Xander Schauffele")).getByText("10,00").closest("[data-bookmaker]")).not.toHaveAttribute("data-value");
-      expect(within(row("Adam Scott")).getByText("24,00").closest("[data-bookmaker]")).not.toHaveAttribute("data-value");
+      expect(within(row("Xander Schauffele")).getByText("10.00").closest("[data-bookmaker]")).not.toHaveAttribute("data-value");
+      expect(within(row("Adam Scott")).getByText("24.00").closest("[data-bookmaker]")).not.toHaveAttribute("data-value");
     });
 
     it("compares a race to no fair odds when the reference prices another market", () => {
       render(<OutrightTable events={[{ ...golf, reference: { ...golf.reference!, market: "1X2" } }]} />);
 
-      expect(document.body.textContent).not.toContain("Juste");
+      expect(document.body.textContent).not.toContain("Fair");
     });
   });
   describe("the way to a tournament's other markets", () => {
@@ -205,22 +205,22 @@ describe("OutrightTable", () => {
     it("links the card to the tournament's page when it has other markets", () => {
       render(<OutrightTable events={[withMarkets]} matchHref={href} />);
 
-      const link = screen.getByRole("link", { name: "+4 marchés pour Tour de France 2027" });
+      const link = screen.getByRole("link", { name: "+4 markets for Tour de France 2027" });
       expect(link).toHaveAttribute("href", "?match=open");
-      expect(link).toHaveTextContent("+4 marchés");
+      expect(link).toHaveTextContent("+4 markets");
     });
 
     it("opens it in the page, not a new one, for a plain click", () => {
       const onOpenMatch = vi.fn();
       render(<OutrightTable events={[withMarkets]} matchHref={href} onOpenMatch={onOpenMatch} />);
 
-      fireEvent.click(screen.getByRole("link", { name: /marchés pour/ }));
+      fireEvent.click(screen.getByRole("link", { name: /markets for/ }));
       expect(onOpenMatch).toHaveBeenCalledWith("open");
-      fireEvent.click(screen.getByRole("link", { name: /marchés pour/ }), { ctrlKey: true });
+      fireEvent.click(screen.getByRole("link", { name: /markets for/ }), { ctrlKey: true });
       expect(onOpenMatch).toHaveBeenCalledTimes(1);
     });
 
-    it("leads the title of every race to its page, with no \"+N marchés\" for the winner market only", () => {
+    it("leads the title of every race to its page, with no \"+N markets\" for the winner market only", () => {
       const onOpenMatch = vi.fn();
       render(<OutrightTable events={[{ ...race, id: "winner", marketCount: 1 }]} matchHref={href} onOpenMatch={onOpenMatch} />);
 

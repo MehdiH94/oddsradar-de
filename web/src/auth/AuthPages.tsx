@@ -25,19 +25,19 @@ export function LoginPage() {
 
   return (
     <AuthLayout
-      title="Connexion"
+      title="Log in"
       footer={
         <>
-          Pas encore de compte ? <Link href={REGISTER_PATH}>Créer un compte</Link>
+          No account yet? <Link href={REGISTER_PATH}>Create an account</Link>
         </>
       }
     >
       <AuthForm
         fields={[
-          { name: "email", label: "Adresse email", type: "email", autoComplete: "email" },
-          { name: "password", label: "Mot de passe", type: "password", autoComplete: "current-password" },
+          { name: "email", label: "Email address", type: "email", autoComplete: "email" },
+          { name: "password", label: "Password", type: "password", autoComplete: "current-password" },
         ]}
-        submit="Se connecter"
+        submit="Log in"
         onSubmit={async ({ email, password }) => {
           try {
             setUnverified(null);
@@ -52,20 +52,20 @@ export function LoginPage() {
       {unverified && (
         <p className={styles.notice}>
           {resent ? (
-            "Un nouvel email vient de partir."
+            "A new email is on its way."
           ) : (
             <button
               type="button"
               className={styles.linkButton}
               onClick={() => resendVerification(unverified).then(() => setResent(true), () => {})}
             >
-              Renvoyer l'email de confirmation
+              Send the confirmation email again
             </button>
           )}
         </p>
       )}
       <p className={styles.aside}>
-        <Link href={FORGOT_PATH}>Mot de passe oublié ?</Link>
+        <Link href={FORGOT_PATH}>Forgot your password?</Link>
       </p>
     </AuthLayout>
   );
@@ -74,25 +74,25 @@ export function LoginPage() {
 export function RegisterPage() {
   return (
     <AuthLayout
-      title="Créer un compte"
-      intro="Un compte gratuit donne accès aux cotes, aux value bets et aux surebets."
+      title="Create an account"
+      intro="A free account gives access to the odds, the value bets and the surebets."
       footer={
         <>
-          Déjà inscrit ? <Link href={LOGIN_PATH}>Se connecter</Link>
+          Already have an account? <Link href={LOGIN_PATH}>Log in</Link>
         </>
       }
     >
       <AuthForm
         fields={[
-          { name: "email", label: "Adresse email", type: "email", autoComplete: "email" },
-          { name: "password", label: "Mot de passe", type: "password", autoComplete: "new-password", hint: PASSWORD_HINT, minLength: 12 },
+          { name: "email", label: "Email address", type: "email", autoComplete: "email" },
+          { name: "password", label: "Password", type: "password", autoComplete: "new-password", hint: PASSWORD_HINT, minLength: 12 },
         ]}
-        submit="Créer mon compte"
+        submit="Create my account"
         onSubmit={async ({ email, password }) => void (await register(email, password))}
         success={
           <Notice>
-            Presque fini ! Si cette adresse est valide, un email de confirmation vient de lui être envoyé. Ouvrez le lien qu'il
-            contient pour activer votre compte.
+            Almost done! If this address is valid, a confirmation email has just been sent to it. Open the link it contains to
+            activate your account.
           </Notice>
         }
       />
@@ -103,16 +103,16 @@ export function RegisterPage() {
 export function ForgotPasswordPage() {
   return (
     <AuthLayout
-      title="Mot de passe oublié"
-      intro="Indiquez l'adresse de votre compte : nous vous y envoyons un lien pour en choisir un nouveau."
-      footer={<Link href={LOGIN_PATH}>Retour à la connexion</Link>}
+      title="Forgot password"
+      intro="Enter your account's address: we will send you a link to choose a new one."
+      footer={<Link href={LOGIN_PATH}>Back to log in</Link>}
     >
       <AuthForm
-        fields={[{ name: "email", label: "Adresse email", type: "email", autoComplete: "email" }]}
-        submit="Envoyer le lien"
+        fields={[{ name: "email", label: "Email address", type: "email", autoComplete: "email" }]}
+        submit="Send the link"
         onSubmit={async ({ email }) => void (await forgotPassword(email))}
         success={
-          <Notice>Si un compte existe pour cette adresse, un email vient de lui être envoyé avec un lien valable une heure.</Notice>
+          <Notice>If an account exists for this address, an email has just been sent to it with a link valid for one hour.</Notice>
         }
       />
     </AuthLayout>
@@ -122,21 +122,21 @@ export function ForgotPasswordPage() {
 export function ResetPasswordPage() {
   const token = tokenParam();
   return (
-    <AuthLayout title="Nouveau mot de passe" footer={<Link href={LOGIN_PATH}>Retour à la connexion</Link>}>
+    <AuthLayout title="New password" footer={<Link href={LOGIN_PATH}>Back to log in</Link>}>
       {token ? (
         <AuthForm
-          fields={[{ name: "password", label: "Nouveau mot de passe", type: "password", autoComplete: "new-password", hint: PASSWORD_HINT, minLength: 12 }]}
-          submit="Changer le mot de passe"
+          fields={[{ name: "password", label: "New password", type: "password", autoComplete: "new-password", hint: PASSWORD_HINT, minLength: 12 }]}
+          submit="Change the password"
           onSubmit={async ({ password }) => void (await resetPassword(token, password))}
           success={
             <Notice>
-              Mot de passe modifié. Vos autres appareils ont été déconnectés. <Link href={LOGIN_PATH}>Se connecter</Link>
+              Password changed. Your other devices have been logged out. <Link href={LOGIN_PATH}>Log in</Link>
             </Notice>
           }
         />
       ) : (
         <p role="alert" className={styles.error}>
-          Ce lien est incomplet. <Link href={FORGOT_PATH}>Demander un nouveau lien</Link>
+          This link is incomplete. <Link href={FORGOT_PATH}>Ask for a new link</Link>
         </p>
       )}
     </AuthLayout>
@@ -161,16 +161,16 @@ export function VerifyEmailPage() {
   }, [token]);
 
   return (
-    <AuthLayout title="Confirmation de l'adresse email">
-      {state === "working" && <p role="status">Vérification du lien…</p>}
+    <AuthLayout title="Email address confirmation">
+      {state === "working" && <p role="status">Checking the link…</p>}
       {state === "ok" && (
         <Notice>
-          Adresse confirmée, votre compte est actif. <Link href={LOGIN_PATH}>Se connecter</Link>
+          Address confirmed, your account is active. <Link href={LOGIN_PATH}>Log in</Link>
         </Notice>
       )}
       {state === "failed" && (
         <p role="alert" className={styles.error}>
-          Ce lien de confirmation est invalide ou a expiré. <Link href={LOGIN_PATH}>Se connecter</Link> pour en recevoir un nouveau.
+          This confirmation link is invalid or has expired. <Link href={LOGIN_PATH}>Log in</Link> to get a new one.
         </p>
       )}
     </AuthLayout>

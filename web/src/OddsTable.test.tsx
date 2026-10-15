@@ -31,12 +31,12 @@ const events: EventWithOdds[] = [
   },
 ];
 
-// The price chip showing `price` (e.g. "1,65"), with its bookmaker and best-price flag.
+// The price chip showing `price` (e.g. "1.65"), with its bookmaker and best-price flag.
 const chip = (price: string) => screen.getByText(price).closest("[data-bookmaker]")!;
 const text = (el: Element | null) => (el?.textContent ?? "").replace(/\u00a0/g, " ");
 
 describe("OddsTable", () => {
-  // Start times read "21:00" today and "Demain 21:00" tomorrow: pin the
+  // Start times read "21:00" today and "Tomorrow 21:00" tomorrow: pin the
   // clock well before the fixtures' 21/09 so they show their full date.
   // Only Date is faked, not the timers React and Testing Library rely on.
   beforeEach(() => {
@@ -52,34 +52,34 @@ describe("OddsTable", () => {
 
     expect(screen.getByText("PSG - OM")).toBeInTheDocument();
     expect(screen.getByText("Ligue 1")).toBeInTheDocument();
-    expect(screen.getByText("1,50")).toBeInTheDocument();
-    expect(screen.getByText("1,65")).toBeInTheDocument();
+    expect(screen.getByText("1.50")).toBeInTheDocument();
+    expect(screen.getByText("1.65")).toBeInTheDocument();
   });
 
   it("highlights the best price of each outcome", () => {
     render(<OddsTable events={events} />);
 
-    expect(chip("1,65")).toHaveAttribute("data-best");
-    expect(chip("1,50")).not.toHaveAttribute("data-best");
-    expect(chip("5,00")).toHaveAttribute("data-best");
+    expect(chip("1.65")).toHaveAttribute("data-best");
+    expect(chip("1.50")).not.toHaveAttribute("data-best");
+    expect(chip("5.00")).toHaveAttribute("data-best");
   });
 
   it("renders odds for all three outcomes (1, N, 2), not just the first one", () => {
     render(<OddsTable events={events} />);
 
-    // Draw ("N")
-    expect(screen.getByText("3,20")).toBeInTheDocument();
-    expect(screen.getByText("3,10")).toBeInTheDocument();
+    // Draw ("X")
+    expect(screen.getByText("3.20")).toBeInTheDocument();
+    expect(screen.getByText("3.10")).toBeInTheDocument();
     // Away win ("2")
-    expect(screen.getByText("5,00")).toBeInTheDocument();
-    expect(screen.getByText("4,80")).toBeInTheDocument();
+    expect(screen.getByText("5.00")).toBeInTheDocument();
+    expect(screen.getByText("4.80")).toBeInTheDocument();
   });
 
   it("only renders prices for the given bookmakers", () => {
     const { container } = render(<OddsTable events={events} bookmakers={["winamax"]} />);
 
-    expect(screen.getByText("1,50")).toBeInTheDocument();
-    expect(screen.queryByText("1,65")).not.toBeInTheDocument();
+    expect(screen.getByText("1.50")).toBeInTheDocument();
+    expect(screen.queryByText("1.65")).not.toBeInTheDocument();
     expect(container.querySelector('[data-bookmaker="betclic"]')).toBeNull();
   });
 
@@ -102,16 +102,16 @@ describe("OddsTable", () => {
     const home = [...container.querySelectorAll('td[data-label="1"] [data-bookmaker]')].map((c) => c.getAttribute("data-bookmaker"));
     expect(home).toEqual(["winamax", "betclic"]);
     // Betclic lists the match but not its draw: a dash.
-    expect(text(chip("1,70"))).toBe("Betclic : 1,70 (meilleure cote)");
-    expect(container.querySelectorAll('td[data-label="N"] [data-bookmaker]')).toHaveLength(2);
+    expect(text(chip("1.70"))).toBe("Betclic: 1.70 (best price)");
+    expect(container.querySelectorAll('td[data-label="X"] [data-bookmaker]')).toHaveLength(2);
   });
 
   it("marks each price with its bookmaker's icon, and reads out its name and whether it is the best", () => {
     render(<OddsTable events={events} />);
 
-    expect(chip("1,50").querySelector("img")!.getAttribute("src")).toMatch(/winamax/);
-    expect(text(chip("1,50"))).toBe("Winamax : 1,50");
-    expect(text(chip("1,65"))).toBe("Betclic : 1,65 (meilleure cote)");
+    expect(chip("1.50").querySelector("img")!.getAttribute("src")).toMatch(/winamax/);
+    expect(text(chip("1.50"))).toBe("Winamax: 1.50");
+    expect(text(chip("1.65"))).toBe("Betclic: 1.65 (best price)");
   });
 
   it("highlights every bookmaker offering the best price, and only them", () => {
@@ -124,11 +124,11 @@ describe("OddsTable", () => {
     };
     render(<OddsTable events={[tie]} />);
 
-    const tied = screen.getAllByText("1,72").map((price) => price.closest("[data-bookmaker]")!);
+    const tied = screen.getAllByText("1.72").map((price) => price.closest("[data-bookmaker]")!);
     expect(tied).toHaveLength(2);
     for (const cell of tied) expect(cell).toHaveAttribute("data-best");
-    expect(chip("3,20")).toHaveAttribute("data-best");
-    expect(chip("3,10")).not.toHaveAttribute("data-best");
+    expect(chip("3.20")).toHaveAttribute("data-best");
+    expect(chip("3.10")).not.toHaveAttribute("data-best");
   });
 
   it("highlights the best price among only the given bookmakers", () => {
@@ -136,13 +136,13 @@ describe("OddsTable", () => {
     // the sole remaining bookmaker's own price must be marked "best".
     render(<OddsTable events={events} bookmakers={["winamax"]} />);
 
-    expect(chip("1,50")).toHaveAttribute("data-best");
+    expect(chip("1.50")).toHaveAttribute("data-best");
   });
 
   it("renders just the start and match columns when no bookmaker is selected", () => {
     const { container } = render(<OddsTable events={events} bookmakers={[]} />);
 
-    expect(screen.getAllByRole("columnheader").map((th) => th.textContent)).toEqual(["Début", "Match"]);
+    expect(screen.getAllByRole("columnheader").map((th) => th.textContent)).toEqual(["Kick-off", "Match"]);
     expect(screen.getByText("PSG - OM")).toBeInTheDocument();
     expect(container.querySelector("[data-bookmaker]")).toBeNull();
   });
@@ -155,15 +155,15 @@ describe("OddsTable", () => {
       // 19:00 UTC is 21:00 in Paris (summer time), the zone vite.config.ts pins.
       render(<OddsTable events={events} />);
 
-      expect(screen.getAllByRole("columnheader")[0].textContent).toBe("Début");
-      expect(startParts()).toEqual(["21:00", "lun. 21/09"]);
+      expect(screen.getAllByRole("columnheader")[0].textContent).toBe("Kick-off");
+      expect(startParts()).toEqual(["21:00", "Mon 21/09"]);
       expect(startCell().querySelector("time")!.getAttribute("datetime")).toBe("2026-09-21T19:00:00.000Z");
     });
 
     it("stays when no bookmaker is selected", () => {
       render(<OddsTable events={events} bookmakers={[]} />);
 
-      expect(startParts()).toEqual(["21:00", "lun. 21/09"]);
+      expect(startParts()).toEqual(["21:00", "Mon 21/09"]);
     });
 
     it("shows a dash instead of breaking the table on an unreadable date", () => {
@@ -180,28 +180,28 @@ describe("OddsTable", () => {
         return startParts();
       };
 
-      it("says Aujourd'hui for a match today", () => {
+      it("says Today for a match today", () => {
         // Now 10:00, kick-off 21:00 the same day.
-        expect(startAt("2026-09-21T08:00:00.000Z", "2026-09-21T19:00:00.000Z")).toEqual(["21:00", "Aujourd'hui"]);
+        expect(startAt("2026-09-21T08:00:00.000Z", "2026-09-21T19:00:00.000Z")).toEqual(["21:00", "Today"]);
       });
 
-      it("says Demain for a match tomorrow", () => {
-        expect(startAt("2026-09-21T08:00:00.000Z", "2026-09-22T19:00:00.000Z")).toEqual(["21:00", "Demain"]);
+      it("says Tomorrow for a match tomorrow", () => {
+        expect(startAt("2026-09-21T08:00:00.000Z", "2026-09-22T19:00:00.000Z")).toEqual(["21:00", "Tomorrow"]);
       });
 
       it("shows the date from the day after tomorrow on", () => {
-        expect(startAt("2026-09-21T08:00:00.000Z", "2026-09-23T19:00:00.000Z")).toEqual(["21:00", "mer. 23/09"]);
+        expect(startAt("2026-09-21T08:00:00.000Z", "2026-09-23T19:00:00.000Z")).toEqual(["21:00", "Wed 23/09"]);
       });
 
       it("counts days in local time, not UTC", () => {
         // Now 23:30 on the 21st, kick-off 00:30 on the 22nd: the same day in
         // UTC (21:30 and 22:30), but tomorrow in Paris.
-        expect(startAt("2026-09-21T21:30:00.000Z", "2026-09-21T22:30:00.000Z")).toEqual(["00:30", "Demain"]);
+        expect(startAt("2026-09-21T21:30:00.000Z", "2026-09-21T22:30:00.000Z")).toEqual(["00:30", "Tomorrow"]);
       });
 
       it("treats the small hours as today once past midnight", () => {
         // Now 01:00 on the 22nd in Paris, still 23:00 on the 21st in UTC.
-        expect(startAt("2026-09-21T23:00:00.000Z", "2026-09-22T19:00:00.000Z")).toEqual(["21:00", "Aujourd'hui"]);
+        expect(startAt("2026-09-21T23:00:00.000Z", "2026-09-22T19:00:00.000Z")).toEqual(["21:00", "Today"]);
       });
     });
   });
@@ -225,12 +225,12 @@ describe("OddsTable", () => {
 
       const rows = screen.getAllByRole("row").slice(1);
       expect(rows.map((row) => text(row.querySelector("th") ?? row.querySelector("td")))).toEqual([
-        "Aujourd'hui",
+        "Today",
         "19:00",
         "21:00",
-        "Demain",
+        "Tomorrow",
         "21:00",
-        "Samedi 26 septembre",
+        "Saturday 26 September",
         "15:00",
       ]);
     });
@@ -249,11 +249,11 @@ describe("OddsTable", () => {
       render(<OddsTable events={[{ ...events[0], payoutRate: 0.8943 }]} />);
 
       const headers = screen.getAllByRole("columnheader").map((th) => th.textContent);
-      expect(headers.slice(0, 3)).toEqual(["Début", "Match", "TRJ (taux de retour au joueur)"]);
-      expect(text(trjCell())).toBe("89,4 %");
+      expect(headers.slice(0, 3)).toEqual(["Kick-off", "Match", "Payout"]);
+      expect(text(trjCell())).toBe("89.4%");
     });
 
-    it("rates the TRJ, up to a surebet from 100 %", () => {
+    it("rates the TRJ, up to a surebet from 100%", () => {
       const tierOf = (payoutRate: number | null) => {
         const { unmount } = render(<OddsTable events={[{ ...events[0], payoutRate }]} />);
         const tier = trjCell().querySelector("[data-tier]")!.getAttribute("data-tier");
@@ -262,10 +262,10 @@ describe("OddsTable", () => {
         return [tier, label];
       };
 
-      expect(tierOf(0.874)).toEqual(["low", "87,4 %"]);
-      expect(tierOf(0.921)).toEqual(["mid", "92,1 %"]);
-      expect(tierOf(0.962)).toEqual(["high", "96,2 %"]);
-      expect(tierOf(1.013)).toEqual(["sure", "101,3 %Surebet"]);
+      expect(tierOf(0.874)).toEqual(["low", "87.4%"]);
+      expect(tierOf(0.921)).toEqual(["mid", "92.1%"]);
+      expect(tierOf(0.962)).toEqual(["high", "96.2%"]);
+      expect(tierOf(1.013)).toEqual(["sure", "101.3%Surebet"]);
       expect(tierOf(null)).toEqual(["none", "-"]);
     });
 
@@ -304,8 +304,8 @@ describe("OddsTable", () => {
       render(<OddsTable events={[twoWay("t1", ["Sinner", "Alcaraz"], [1.8, 2.05])]} />);
 
       expect(outcomeHeaders()).toEqual(["1", "2"]);
-      expect(screen.getByText("1,80")).toBeInTheDocument();
-      expect(screen.getByText("2,05")).toBeInTheDocument();
+      expect(screen.getByText("1.80")).toBeInTheDocument();
+      expect(screen.getByText("2.05")).toBeInTheDocument();
       // Start + Match + TRJ + 2 outcomes.
       expect(screen.getAllByRole("cell")).toHaveLength(5);
     });
@@ -313,7 +313,7 @@ describe("OddsTable", () => {
     it("keeps the N column for a sport with draws", () => {
       render(<OddsTable events={events} />);
 
-      expect(outcomeHeaders()).toEqual(["1", "N", "2"]);
+      expect(outcomeHeaders()).toEqual(["1", "X", "2"]);
     });
 
     // Unibet's list gives a basketball match's result in regular time, a 1X2
@@ -354,16 +354,16 @@ describe("OddsTable", () => {
       render(<OddsTable events={[basketball]} />);
 
       expect(outcomeHeaders()).toEqual(["1", "2"]);
-      expect(screen.getByText("1,72")).toBeInTheDocument();
-      expect(screen.getByText("1,98")).toBeInTheDocument();
-      expect(screen.queryByText("12,00")).not.toBeInTheDocument();
-      expect(screen.queryByText("1,77")).not.toBeInTheDocument();
+      expect(screen.getByText("1.72")).toBeInTheDocument();
+      expect(screen.getByText("1.98")).toBeInTheDocument();
+      expect(screen.queryByText("12.00")).not.toBeInTheDocument();
+      expect(screen.queryByText("1.77")).not.toBeInTheDocument();
     });
 
     it("keeps the N column when only some matches of the table have a draw, with dashes on the others", () => {
       render(<OddsTable events={[...events, twoWay("t1", ["Sinner", "Alcaraz"], [1.8, 2.05])]} />);
 
-      expect(outcomeHeaders()).toContain("N");
+      expect(outcomeHeaders()).toContain("X");
       const tennisRow = screen.getByText("Sinner - Alcaraz").closest("tr")!;
       const outcomes = [...tennisRow.querySelectorAll("td[data-label]")].map((td) =>
         [...td.querySelectorAll("[data-bookmaker]")].map(
@@ -371,14 +371,14 @@ describe("OddsTable", () => {
         )
       );
       // Winamax only, which lists this match (not Betclic), per outcome.
-      expect(outcomes).toEqual([["1,80"], ["-"], ["2,05"]]);
+      expect(outcomes).toEqual([["1.80"], ["-"], ["2.05"]]);
     });
 
     it("keeps the N column when the only draw prices come from an unticked bookmaker", () => {
       const betclicOnly: EventWithOdds = { ...events[0], byBookmaker: { betclic: events[0].byBookmaker.betclic } };
       render(<OddsTable events={[betclicOnly]} bookmakers={["winamax"]} />);
 
-      expect(outcomeHeaders()).toContain("N");
+      expect(outcomeHeaders()).toContain("X");
     });
   });
 
@@ -391,23 +391,23 @@ describe("OddsTable", () => {
         reference: { market: "1X2", fair: { "1": 1.55, X: 3.18, "2": 5.5 }, matched: 4200, scrapedAt: "2026-09-20T10:00:00.000Z" },
       },
     ];
-    const fairLines = (container: HTMLElement) => [...container.querySelectorAll('[title^="Cote juste"]')];
+    const fairLines = (container: HTMLElement) => [...container.querySelectorAll('[title^="Fair odds"]')];
 
     it("shows each outcome's fair odds under its prices", () => {
       const { container } = render(<OddsTable events={referenced} />);
       const lines = fairLines(container);
-      expect(lines.map((line) => line.querySelector("[class*=price]")?.textContent)).toEqual(["1,55", "3,18", "5,50"]);
-      expect(text(lines[0])).toContain("Cote juste : 1,55");
+      expect(lines.map((line) => line.querySelector("[class*=price]")?.textContent)).toEqual(["1.55", "3.18", "5.50"]);
+      expect(text(lines[0])).toContain("Fair odds: 1.55");
     });
 
     it("marks the value bets, and writes the best one's edge under the prices", () => {
       const { container } = render(<OddsTable events={referenced} />);
-      expect(chip("1,65")).toHaveAttribute("data-value", "true");
-      expect(text(chip("1,65"))).toContain("(value bet : +6,5 % sur la cote juste)");
-      expect(chip("1,50")).not.toHaveAttribute("data-value");
-      expect(chip("3,20")).not.toHaveAttribute("data-value");
+      expect(chip("1.65")).toHaveAttribute("data-value", "true");
+      expect(text(chip("1.65"))).toContain("(value bet: +6.5% over the fair odds)");
+      expect(chip("1.50")).not.toHaveAttribute("data-value");
+      expect(chip("3.20")).not.toHaveAttribute("data-value");
       const [one, draw] = fairLines(container);
-      expect(text(one)).toContain("+6,5 %");
+      expect(text(one)).toContain("+6.5%");
       expect(text(draw)).not.toContain("%");
     });
 
@@ -429,9 +429,9 @@ describe("OddsTable", () => {
         reference: { market: "Vainqueur du match", fair: { "1": 1.6, "2": 2.5 }, matched: 1200, scrapedAt: "2026-09-20T10:00:00.000Z" },
       };
       const { container } = render(<OddsTable events={[tennis]} />);
-      expect(fairLines(container).map((line) => line.querySelector("[class*=price]")?.textContent)).toEqual(["1,60", "2,50"]);
+      expect(fairLines(container).map((line) => line.querySelector("[class*=price]")?.textContent)).toEqual(["1.60", "2.50"]);
       // Winamax's 1.70 is 6.2% above the fair 1.60.
-      expect(container.querySelector("[data-value]")).toHaveTextContent("1,70");
+      expect(container.querySelector("[data-value]")).toHaveTextContent("1.70");
 
       const other: EventWithOdds = {
         ...tennis,
@@ -454,7 +454,7 @@ describe("OddsTable", () => {
     });
   });
 
-  it("links a match with more markets to its page from its name and from \"+N marchés\"", () => {
+  it("links a match with more markets to its page from its name and from \"+N markets\"", () => {
     const onOpenMatch = vi.fn();
     const more = { ...events[0], id: "more", marketCount: 12 };
     render(<OddsTable events={[more]} matchHref={(id) => `?match=${id}`} onOpenMatch={onOpenMatch} />);
@@ -462,13 +462,13 @@ describe("OddsTable", () => {
     const [name, extra] = screen.getAllByRole("link");
     expect(name).toHaveAccessibleName("PSG - OM");
     expect(name).toHaveAttribute("href", "?match=more");
-    expect(extra).toHaveAccessibleName("+11 marchés pour PSG - OM");
+    expect(extra).toHaveAccessibleName("+11 markets for PSG - OM");
     expect(extra).toHaveAttribute("href", "?match=more");
     extra.click();
     expect(onOpenMatch).toHaveBeenCalledWith("more");
   });
 
-  it("links the name of a match to its page even with nothing but its main market, and without \"+N marchés\"", () => {
+  it("links the name of a match to its page even with nothing but its main market, and without \"+N markets\"", () => {
     const onOpenMatch = vi.fn();
     const only = { ...events[0], id: "only", participants: ["Lens", "Lille"], marketCount: 1 };
     render(<OddsTable events={[only]} matchHref={(id) => `?match=${id}`} onOpenMatch={onOpenMatch} />);

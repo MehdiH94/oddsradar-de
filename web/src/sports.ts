@@ -28,13 +28,36 @@ export const hasReference = (sport: string) => SPORTS_WITH_REFERENCE.has(sport);
 export const VALUE_BETS = "value-bets";
 
 // How the UI names and pictures each sport. The API's sport keys are the
-// lowercased Winamax names (src/scraper/canonical.ts): "hockey sur glace",
-// "rugby à xv"... Displayed as-is they read like typos.
+// lowercased French Winamax names (src/scraper/canonical.ts): "hockey sur
+// glace", "rugby à xv"... kept as they are inside, and named in English here.
 
 const LABELS: Record<string, string> = {
-  "rugby à xv": "Rugby à XV",
-  "rugby à xiii": "Rugby à XIII",
+  football: "Football",
+  tennis: "Tennis",
+  basketball: "Basketball",
+  "hockey sur glace": "Ice hockey",
+  baseball: "Baseball",
+  biathlon: "Biathlon",
+  boxe: "Boxing",
+  cyclisme: "Cycling",
+  "football américain": "American football",
+  "football australien": "Australian football",
+  "formule 1": "Formula 1",
+  handball: "Handball",
+  golf: "Golf",
+  "rugby à xv": "Rugby union",
+  "rugby à xiii": "Rugby league",
+  snooker: "Snooker",
+  "volley-ball": "Volleyball",
+  "ski alpin": "Alpine skiing",
+  "ski de fond": "Cross-country skiing",
+  "saut à ski": "Ski jumping",
+  moto: "Motorcycling",
   mma: "MMA",
+  automobile: "Motorsport",
+  badminton: "Badminton",
+  "tennis de table": "Table tennis",
+  judo: "Judo",
   [VALUE_BETS]: "Value bets",
 };
 

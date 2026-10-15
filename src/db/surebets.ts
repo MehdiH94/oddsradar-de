@@ -160,8 +160,8 @@ function labelsOf(market: string, participants: string[]): { market: string; out
       outcome: (key) => outcomeLabel(parsed.family.key, key, participants, parsed.line),
     };
   }
-  if (market === MARKET_1X2) return { market: "Résultat du match", outcome: (key) => mainOutcomeLabel(key, participants) };
-  if (market === MARKET_MATCH_WINNER) return { market: MARKET_MATCH_WINNER, outcome: (key) => mainOutcomeLabel(key, participants) };
+  if (market === MARKET_1X2) return { market: "Match result", outcome: (key) => mainOutcomeLabel(key, participants) };
+  if (market === MARKET_MATCH_WINNER) return { market: "Match winner", outcome: (key) => mainOutcomeLabel(key, participants) };
   return { market, outcome: (key) => key };
 }
 

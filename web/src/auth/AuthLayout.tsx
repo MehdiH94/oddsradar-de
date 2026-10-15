@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { APP_NAME } from "../brand";
 import { AppFooter } from "../components/AppFooter";
 import { GamblingBanner } from "../components/GamblingBanner";
 import { Logo } from "../components/Logo";
@@ -13,9 +14,9 @@ export function AuthLayout({ title, intro, children, footer }: { title: string; 
       <GamblingBanner />
       <div className={styles.page}>
         <header className={styles.header}>
-          <a className={styles.brand} href={HOME_PATH} aria-label="CoteRadar, accueil">
+          <a className={styles.brand} href={HOME_PATH} aria-label={`${APP_NAME}, home`}>
             <Logo className={styles.logo} />
-            <span className={styles.name}>CoteRadar</span>
+            <span className={styles.name}>{APP_NAME}</span>
           </a>
         </header>
         <main className={styles.main}>

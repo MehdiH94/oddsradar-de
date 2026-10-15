@@ -16,11 +16,11 @@ describe("isDashboardQuery", () => {
 
 describe("links into the dashboard", () => {
   it("leads to the value bets' list, biggest edge first, with the default bookmakers", () => {
-    expect(valueBetsHref).toBe("/cotes?sport=value-bets&sort=value");
+    expect(valueBetsHref).toBe("/odds?sport=value-bets&sort=value");
   });
 
   it("opens a match from the value bets' list, so that its back link returns there", () => {
-    expect(matchHref("psg-om")).toBe("/cotes?sport=value-bets&sort=value&match=psg-om");
+    expect(matchHref("psg-om")).toBe("/odds?sport=value-bets&sort=value&match=psg-om");
   });
 });
 
@@ -35,18 +35,18 @@ describe("currentPath", () => {
     expect(window.location.search).toBe("?utm_source=newsletter");
   });
 
-  it("is the dashboard at /cotes, with or without a trailing slash", () => {
-    window.history.replaceState(null, "", "/cotes?sport=tennis");
+  it("is the dashboard at /odds, with or without a trailing slash", () => {
+    window.history.replaceState(null, "", "/odds?sport=tennis");
     expect(currentPath()).toBe(ODDS_PATH);
-    window.history.replaceState(null, "", "/cotes/");
+    window.history.replaceState(null, "", "/odds/");
     expect(currentPath()).toBe(ODDS_PATH);
   });
 
-  it("sends an old dashboard link at / to /cotes, keeping every filter, the match and the hash", () => {
+  it("sends an old dashboard link at / to /odds, keeping every filter, the match and the hash", () => {
     window.history.replaceState(null, "", "/?sport=tennis&match=abc&bookmakers=winamax%2Cbetclic#top");
     expect(currentPath()).toBe(ODDS_PATH);
     expect(window.location.pathname + window.location.search + window.location.hash).toBe(
-      "/cotes?sport=tennis&match=abc&bookmakers=winamax%2Cbetclic#top"
+      "/odds?sport=tennis&match=abc&bookmakers=winamax%2Cbetclic#top"
     );
   });
 
@@ -64,8 +64,8 @@ describe("navigate", () => {
   it("pushes a history entry and tells the listeners, until they stop", () => {
     const listener = vi.fn();
     const stop = onPathChange(listener);
-    navigate("/cotes?sport=value-bets");
-    expect(window.location.pathname + window.location.search).toBe("/cotes?sport=value-bets");
+    navigate("/odds?sport=value-bets");
+    expect(window.location.pathname + window.location.search).toBe("/odds?sport=value-bets");
     expect(listener).toHaveBeenCalledTimes(1);
 
     stop();
@@ -85,12 +85,12 @@ describe("navigate", () => {
 describe("safeNext", () => {
   it("keeps a path of this site, with its query", async () => {
     const { safeNext } = await import("./routes");
-    expect(safeNext("?next=%2Fcotes%3Fsport%3Dtennis")).toBe("/cotes?sport=tennis");
+    expect(safeNext("?next=%2Fodds%3Fsport%3Dtennis")).toBe("/odds?sport=tennis");
   });
 
   it("refuses anything that would leave the site or loop on the account pages", async () => {
     const { safeNext } = await import("./routes");
-    for (const next of ["https://evil.example", "//evil.example", "/\\evil.example", "javascript:alert(1)", "cotes", "/connexion", "/inscription?x=1"]) {
+    for (const next of ["https://evil.example", "//evil.example", "/\\evil.example", "javascript:alert(1)", "cotes", "/login", "/signup?x=1"]) {
       expect(safeNext(`?next=${encodeURIComponent(next)}`)).toBeNull();
     }
     expect(safeNext("")).toBeNull();

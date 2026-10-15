@@ -21,6 +21,14 @@ import { valueEdges } from "./value";
 import { Grid, isRemainder, mainOutcomeLabel, payoutRateOf, sameOutcomes } from "./marketGrid";
 import { MARKET_1X2, MARKET_MATCH_WINNER, MARKET_OUTRIGHT } from "../scraper/canonical";
 
+// The listing's main markets, whose keys are the French names they were stored
+// under, as the page names them. A bookmaker's own market ("wx:...") keeps its name.
+const MAIN_MARKET_LABELS: Readonly<Record<string, string>> = {
+  [MARKET_1X2]: "Match result",
+  [MARKET_MATCH_WINNER]: "Match winner",
+  [MARKET_OUTRIGHT]: "Winner",
+};
+
 // One match's page (GET /api/events/:id): every market with a current price,
 // in sections, each outcome with every requested bookmaker's price.
 
@@ -281,7 +289,7 @@ export function getEventDetail(
         label:
           parsed.kind === "family"
             ? marketLabel(parsed.family, participants, shared ? undefined : parsed.line, parsed.player)
-            : parsed.name,
+            : (MAIN_MARKET_LABELS[parsed.name] ?? parsed.name),
         kind: shared ? "lines" : "list",
         compared,
         lines: [line],

@@ -9,8 +9,8 @@ const bookmakerName = (bookmaker: string) => BOOKMAKER_BRANDING[bookmaker]?.name
 // showing a match (OddsTable): the outcome ("1", "N", "2"), where to bet (the
 // best bookmaker's icon, "+1" when two share it), the price in large figures,
 // and under it the value bet's edge, or else the fair odds. A value bet gets
-// the amber frame and corner of PriceChip. Read out in one go: "1 : 1,66 chez
-// Unibet, value bet +2,5 %".
+// the amber frame and corner of PriceChip. Read out in one go: "1: 1.66 at
+// Winamax, value bet +2.5%".
 export function BestPrice({
   label,
   name,
@@ -18,10 +18,10 @@ export function BestPrice({
   bookmakers,
   fair,
   edge,
-  fairLabel = "Juste",
+  fairLabel = "Fair",
   showFair = false,
 }: {
-  // As shown ("N") and as read out ("Match nul").
+  // As shown ("X") and as read out ("Draw").
   label: string;
   name: string;
   price: number | undefined;
@@ -29,7 +29,7 @@ export function BestPrice({
   bookmakers: readonly string[];
   fair?: number;
   edge?: number;
-  // "Juste", or "Juste ≤" for a lay's ceiling.
+  // "Fair", or "Fair ≤" for a lay's ceiling.
   fairLabel?: string;
   // Under the price, the fair odds even for a value bet (whose edge is shown
   // elsewhere, the value bets' list's).
@@ -37,7 +37,7 @@ export function BestPrice({
 }) {
   const noteIsEdge = edge !== undefined && !(showFair && fair !== undefined);
   const [first, ...others] = bookmakers;
-  const where = bookmakers.map(bookmakerName).join(" et ");
+  const where = bookmakers.map(bookmakerName).join(" and ");
   return (
     <span className={edge === undefined ? styles.tile : `${styles.tile} ${styles.value}`} data-value={edge !== undefined || undefined}>
       <span className={styles.top} aria-hidden="true">
@@ -50,9 +50,9 @@ export function BestPrice({
         )}
       </span>
       <span className="visually-hidden">
-        {name} : {price === undefined ? "pas de cote" : `${formatPrice(price)} chez ${where}`}
+        {name}: {price === undefined ? "no price" : `${formatPrice(price)} at ${where}`}
         {edge !== undefined && `, value bet ${formatEdge(edge)}`}
-        {fair !== undefined && (edge === undefined || showFair) && `, cote juste ${fairLabel === "Juste" ? "" : "au plus "}${formatPrice(fair)}`}
+        {fair !== undefined && (edge === undefined || showFair) && `, fair odds ${fairLabel === "Fair" ? "" : "at most "}${formatPrice(fair)}`}
       </span>
       <span className={`${styles.price} num`} aria-hidden="true">
         {price === undefined ? "-" : formatPrice(price)}

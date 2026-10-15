@@ -14,10 +14,10 @@ const PARTS = ["partOne", "partTwo", "partThree"] as const;
 // The wallet of the bookmaker, drawn as what each conversion takes of it.
 export function ChainBar({ chain, bookmaker, fb }: { chain: ChainView; bookmaker: BookmakerId; fb: number }) {
   const name = BOOKMAKER_BRANDING[bookmaker]?.name ?? bookmaker;
-  const parts = chain.steps.map((step) => `conversion ${step.rank} : ${formatFb(step.fb)} FB`);
-  const aria = `Votre solde ${name} de ${formatFb(fb)} FB : ${parts.join(", ")}, non converti : ${formatFb(chain.leftover)} FB`;
+  const parts = chain.steps.map((step) => `conversion ${step.rank}: ${formatFb(step.fb)} FB`);
+  const aria = `Your ${name} balance of ${formatFb(fb)} FB: ${parts.join(", ")}, not converted: ${formatFb(chain.leftover)} FB`;
   return (
-    <Card id="chain-heading" title={`Votre solde ${name} de ${formatFb(fb)} FB`}>
+    <Card id="chain-heading" title={`Your ${name} balance of ${formatFb(fb)} FB`}>
       <div className={styles.stack} role="img" aria-label={aria}>
         {chain.steps.map((step, i) => (
           <span key={step.rank} className={styles[PARTS[i]]} style={{ width: `${(step.fb / fb) * 100}%` }} />
@@ -27,24 +27,24 @@ export function ChainBar({ chain, bookmaker, fb }: { chain: ChainView; bookmaker
         {chain.steps.map((step, i) => (
           <span key={step.rank} className={styles.entry}>
             <i className={styles[`swatch${i + 1}` as "swatch1"]} aria-hidden="true" />
-            Conversion {step.rank} : <b className="num">{formatFb(step.fb)}</b> FB
+            Conversion {step.rank}: <b className="num">{formatFb(step.fb)}</b> FB
           </span>
         ))}
         <span className={styles.entry}>
-          Non converti : <b className="num">{formatFb(chain.leftover)}</b> FB
+          Not converted: <b className="num">{formatFb(chain.leftover)}</b> FB
         </span>
       </p>
     </Card>
   );
 }
 
-// What each case of the outcome is called: "Si Auxerre gagne" / "Si Auxerre ne gagne pas (Brest gagne ou match nul)".
+// What each case of the outcome is called: "If Auxerre wins" / "If Auxerre does not win (Brest wins or a draw)".
 function cases(step: StepView): { yes: string; no: string } {
-  if (step.selection === "X") return { yes: "Si le match est nul", no: `Si le match n'est pas nul (${step.participants.join(" ou ")} gagne)` };
+  if (step.selection === "X") return { yes: "If the match is a draw", no: `If the match is not a draw (${step.participants.join(" or ")} wins)` };
   const [home, away] = step.participants;
   const other = step.selection === "1" ? away : home;
-  const alternatives = step.market === "1X2" ? `${other} gagne ou match nul` : `${other} gagne`;
-  return { yes: `Si ${step.label} gagne`, no: `Si ${step.label} ne gagne pas (${alternatives})` };
+  const alternatives = step.market === "1X2" ? `${other} wins or a draw` : `${other} wins`;
+  return { yes: `If ${step.label} wins`, no: `If ${step.label} does not win (${alternatives})` };
 }
 
 const signed = (value: number) => `${value < 0 ? "−" : "+"}${formatEuro(Math.abs(value))}`;
@@ -61,15 +61,15 @@ export function StepDetail({ chain, step, bookmaker, fb, commission }: { chain: 
   return (
     <Card
       id="step-heading"
-      title={`Conversion ${step.rank} · deux paris à placer`}
-      aside={<>Cotes indicatives relevées à <span className="num">{readAt(step.oddsAt)}</span> · {step.participants.join(" – ")} · {formatStartTime(step.startTime)} · à vérifier avant de placer</>}
+      title={`Conversion ${step.rank} · two bets to place`}
+      aside={<>Indicative prices read at <span className="num">{readAt(step.oddsAt)}</span> · {step.participants.join(" – ")} · {formatStartTime(step.startTime)} · check before placing</>}
     >
       <Kpis
         items={[
-          { label: "Taux de conversion", value: formatRate(step.rate), note: "cash garanti / FB convertis", highlight: true },
-          { label: "Retour cash garanti", value: formatEuro(step.cash), note: "quel que soit le résultat" },
-          { label: "FB convertis", value: `${formatFb(step.fb)} / ${formatFb(fb)}`, note: `sur votre solde ${name}` },
-          { label: "À avancer sur l'exchange", value: formatEuro(step.liability), note: "le risque du lay, rendu après le match" },
+          { label: "Conversion rate", value: formatRate(step.rate), note: "guaranteed cash / FB converted", highlight: true },
+          { label: "Guaranteed cash return", value: formatEuro(step.cash), note: "whatever the result" },
+          { label: "FB converted", value: `${formatFb(step.fb)} / ${formatFb(fb)}`, note: `of your ${name} balance` },
+          { label: "To advance on the exchange", value: formatEuro(step.liability), note: "the lay's liability, returned after the match" },
         ]}
       />
       <div className={styles.steps}>
@@ -77,16 +77,16 @@ export function StepDetail({ chain, step, bookmaker, fb, commission }: { chain: 
           <h3 className={styles.stepHead}>
             <span className={`${styles.number} num`}>1</span>
             <BookmakerLogo bookmaker={bookmaker} size={20} decorative />
-            {name} · en freebet
+            {name} · as a freebet
           </h3>
           <p>
-            Parier <strong className="num">{formatFb(step.fb)} FB</strong> sur
+            Back <strong className="num">{formatFb(step.fb)} FB</strong> on
           </p>
           <p className={styles.pick}>{step.label}</p>
           <p>
-            à la cote <strong className="num">{step.back.toFixed(2).replace(".", ",")}</strong>
+            at odds of <strong className="num">{step.back.toFixed(2)}</strong>
           </p>
-          <small>S'il gagne, le freebet rapporte {formatEuro(step.ifWins.gain)} (la mise n'est pas rendue).</small>
+          <small>If it wins, the freebet returns {formatEuro(step.ifWins.gain)} (the stake is not returned).</small>
         </div>
         <div className={styles.step}>
           <h3 className={styles.stepHead}>
@@ -95,54 +95,54 @@ export function StepDetail({ chain, step, bookmaker, fb, commission }: { chain: 
             Lay
           </h3>
           <p>
-            Layer <strong className="num">{formatEuro(step.layStake)}</strong> sur
+            Lay <strong className="num">{formatEuro(step.layStake)}</strong> on
           </p>
           <p className={styles.pick}>{step.label}</p>
           <p>
-            à la cote <strong className="num">{step.lay.toFixed(2).replace(".", ",")}</strong> · commission {commissionText} sur les gains
+            at odds of <strong className="num">{step.lay.toFixed(2)}</strong> · {commissionText} commission on winnings
           </p>
           <div className={styles.liquidity}>
             <Gauge to={step.laySize > 0 ? step.layStake / step.laySize : 0} tone={step.limited ? "warning" : "brand"} />
             <span className={styles.liquidityText}>
-              Lay nécessaire <b className="num">{formatEuro(step.layStake)}</b> · disponible sur l'exchange <b className="num">{formatEuro(step.laySize)}</b>
+              Lay needed <b className="num">{formatEuro(step.layStake)}</b> · available on the exchange <b className="num">{formatEuro(step.laySize)}</b>
             </span>
           </div>
         </div>
       </div>
       <h3 className={styles.heading}>
-        Quel que soit le résultat, il vous reste {formatEuro(step.ifWins.net) === formatEuro(step.ifLoses.net) ? "" : "au moins "}
+        Whatever the result, you keep {formatEuro(step.ifWins.net) === formatEuro(step.ifLoses.net) ? "" : "at least "}
         {formatEuro(step.cash)}
       </h3>
       <div className={styles.scenarios}>
         <div className={styles.scenario}>
           <b>{yes}</b>
           <p>
-            <span>Votre freebet gagne</span> <span className="num">{signed(step.ifWins.gain)}</span>
+            <span>Your freebet wins</span> <span className="num">{signed(step.ifWins.gain)}</span>
           </p>
           <p>
-            <span>Vous payez sur l'exchange (votre lay perd)</span> <span className="num">{signed(-step.ifWins.pays)}</span>
+            <span>You pay on the exchange (your lay loses)</span> <span className="num">{signed(-step.ifWins.pays)}</span>
           </p>
           <p className={styles.sum}>
-            <span>Il vous reste</span> <span className="num">{signed(step.ifWins.net)}</span>
+            <span>You keep</span> <span className="num">{signed(step.ifWins.net)}</span>
           </p>
         </div>
         <div className={styles.scenario}>
           <b>{no}</b>
           <p>
-            <span>Votre freebet est perdu (il ne vous a rien coûté)</span> <span className="num">{formatEuro(0)}</span>
+            <span>Your freebet is lost (it cost you nothing)</span> <span className="num">{formatEuro(0)}</span>
           </p>
           <p>
-            <span>Vous gagnez sur l'exchange (votre lay gagne, moins {commissionText} de commission)</span> <span className="num">{signed(step.ifLoses.net)}</span>
+            <span>You win on the exchange (your lay wins, less {commissionText} commission)</span> <span className="num">{signed(step.ifLoses.net)}</span>
           </p>
           <p className={styles.sum}>
-            <span>Il vous reste</span> <span className="num">{signed(step.ifLoses.net)}</span>
+            <span>You keep</span> <span className="num">{signed(step.ifLoses.net)}</span>
           </p>
         </div>
       </div>
       <p className={step.limited ? styles.calloutWarning : styles.callout}>
         {step.limited
-          ? `Avec cette liquidité, seuls ${formatFb(step.fb)} FB sur ${formatFb(left)} FB peuvent être convertis ici.${next ? ` Passez à la conversion ${next.rank} pour les ${formatFb(after)} FB restants.` : ` Il restera ${formatFb(after)} FB à convertir autrement.`}`
-          : `Cette conversion absorbe tout le reste de votre solde ${name} (${formatFb(step.fb)} FB) : la liquidité de l'exchange suffit.`}
+          ? `With this liquidity, only ${formatFb(step.fb)} FB of ${formatFb(left)} FB can be converted here.${next ? ` Move on to conversion ${next.rank} for the remaining ${formatFb(after)} FB.` : ` ${formatFb(after)} FB will be left to convert another way.`}`
+          : `This conversion takes all the rest of your ${name} balance (${formatFb(step.fb)} FB): the exchange's liquidity is enough.`}
       </p>
     </Card>
   );

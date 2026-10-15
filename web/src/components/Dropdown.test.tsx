@@ -37,7 +37,7 @@ describe("Dropdown", () => {
   it("sums up the choice on a closed button", () => {
     render(<Colors />);
 
-    expect(menuButton()).toHaveAccessibleName("Couleur : vert");
+    expect(menuButton()).toHaveAccessibleName("Couleur: vert");
     expect(menuButton()).toHaveAttribute("aria-expanded", "false");
     expect(screen.queryByRole("radio")).not.toBeInTheDocument();
   });
@@ -112,7 +112,7 @@ describe("Dropdown", () => {
     fireEvent.click(screen.getByText("vert"));
     expect(onChange).toHaveBeenLastCalledWith("vert");
     expect(screen.queryByRole("radio")).not.toBeInTheDocument();
-    expect(menuButton()).toHaveAccessibleName("Couleur : vert");
+    expect(menuButton()).toHaveAccessibleName("Couleur: vert");
     expect(menuButton()).toHaveFocus();
   });
 

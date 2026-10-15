@@ -8,20 +8,20 @@ const open = () => fireEvent.click(screen.getByRole("button", { name: /^Bookmake
 describe("BookmakerMenu", () => {
   it("sums up the bookmakers ticked", () => {
     const { rerender } = render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers : Tous");
+    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers: All");
 
     rerender(<BookmakerMenu selected={["betclic"]} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers : Betclic");
+    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers: Betclic");
 
     rerender(<BookmakerMenu selected={[]} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers : Aucun");
+    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers: None");
   });
 
   it("renders every bookmaker checked when all are selected", () => {
     render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
     open();
 
-    expect(screen.getByRole("group", { name: "Bookmakers comparés" })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Bookmakers compared" })).toBeInTheDocument();
     for (const name of ["Winamax", "Betclic"]) {
       expect(screen.getByRole("checkbox", { name })).toBeChecked();
     }

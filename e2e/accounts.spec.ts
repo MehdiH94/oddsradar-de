@@ -12,58 +12,58 @@ const newEmail = (name: string) => `${name}-${Date.now()}@example.com`;
 test("a visitor signs up, confirms their address from the email, and signs in", async ({ page, request }) => {
   const email = newEmail("inscription");
 
-  await page.goto("/inscription");
-  await page.getByLabel("Adresse email").fill(email);
-  await page.getByLabel("Mot de passe", { exact: true }).fill(NEW_PASSWORD);
-  await page.getByRole("button", { name: "Créer mon compte" }).click();
-  await expect(page.getByRole("status")).toContainText("un email de confirmation vient de lui être envoyé");
+  await page.goto("/signup");
+  await page.getByLabel("Email address").fill(email);
+  await page.getByLabel("Password", { exact: true }).fill(NEW_PASSWORD);
+  await page.getByRole("button", { name: "Create my account" }).click();
+  await expect(page.getByRole("status")).toContainText("a confirmation email has just been sent to it");
 
   // Not signed in until the address is confirmed.
   await logIn(page, email, NEW_PASSWORD);
-  await expect(page.getByRole("button", { name: "Renvoyer l'email de confirmation" })).toBeVisible();
-  await expect(page).toHaveURL(/\/connexion/);
+  await expect(page.getByRole("button", { name: "Send the confirmation email again" })).toBeVisible();
+  await expect(page).toHaveURL(/\/login/);
 
   // The link in the email confirms it.
-  await page.goto(linkIn(await waitForMail(request, email, "Confirmez")));
-  await expect(page.getByRole("status")).toContainText("Adresse confirmée, votre compte est actif");
+  await page.goto(linkIn(await waitForMail(request, email, "Confirm your email")));
+  await expect(page.getByRole("status")).toContainText("Address confirmed, your account is active");
 
   await logIn(page, email, NEW_PASSWORD);
-  await expect(page).toHaveURL(/\/cotes/);
-  await expect(page.getByRole("button", { name: "Se déconnecter" })).toBeVisible();
+  await expect(page).toHaveURL(/\/odds/);
+  await expect(page.getByRole("button", { name: "Log out" })).toBeVisible();
 });
 
 test("a visitor who forgot their password chooses a new one from the email, and the old one stops working", async ({ page, request }) => {
   const email = newEmail("oubli");
   await createConfirmedAccount(request, email, NEW_PASSWORD);
 
-  await page.goto("/mot-de-passe-oublie");
-  await page.getByLabel("Adresse email").fill(email);
-  await page.getByRole("button", { name: "Envoyer le lien" }).click();
-  await expect(page.getByRole("status")).toContainText("un email vient de lui être envoyé");
+  await page.goto("/forgot-password");
+  await page.getByLabel("Email address").fill(email);
+  await page.getByRole("button", { name: "Send the link" }).click();
+  await expect(page.getByRole("status")).toContainText("an email has just been sent to it");
 
   const changed = "a brand new passphrase";
-  await page.goto(linkIn(await waitForMail(request, email, "Réinitialisation")));
-  await page.getByLabel("Nouveau mot de passe").fill(changed);
-  await page.getByRole("button", { name: "Changer le mot de passe" }).click();
-  await expect(page.getByRole("status")).toContainText("Mot de passe modifié");
+  await page.goto(linkIn(await waitForMail(request, email, "Reset your password")));
+  await page.getByLabel("New password").fill(changed);
+  await page.getByRole("button", { name: "Change the password" }).click();
+  await expect(page.getByRole("status")).toContainText("Password changed");
 
   // The old password is refused, the new one signs in.
   await logIn(page, email, NEW_PASSWORD);
   await expect(page.getByRole("alert")).toBeVisible();
-  await expect(page).toHaveURL(/\/connexion/);
+  await expect(page).toHaveURL(/\/login/);
 
   await logIn(page, email, changed);
-  await expect(page).toHaveURL(/\/cotes/);
+  await expect(page).toHaveURL(/\/odds/);
 });
 
 test("signing out closes the session: the dashboard and the API are shut again", async ({ page }) => {
   await logIn(page, SEEDED_USER.email, SEEDED_USER.password);
-  await expect(page).toHaveURL(/\/cotes/);
+  await expect(page).toHaveURL(/\/odds/);
   expect((await page.request.get("/api/events")).ok()).toBe(true);
 
-  await page.getByRole("button", { name: "Se déconnecter" }).click();
+  await page.getByRole("button", { name: "Log out" }).click();
 
   expect((await page.request.get("/api/events")).status()).toBe(401);
-  await page.goto("/cotes");
-  await expect(page).toHaveURL(/\/connexion\?next=/);
+  await page.goto("/odds");
+  await expect(page).toHaveURL(/\/login\?next=/);
 });

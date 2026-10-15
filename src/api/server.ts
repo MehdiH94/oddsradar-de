@@ -30,7 +30,7 @@ const WEB_DIST = path.join(__dirname, "../../web/dist");
 // the home's, whose script shows one or the other from the address. A reload
 // or a shared link on it must find the page rather than a 404. Listed one by
 // one, so that any other unknown path still is a 404.
-const SPA_PATHS = ["/cotes", "/connexion", "/inscription", "/mot-de-passe-oublie", "/reinitialiser-mot-de-passe", "/confirmer-email", "/admin", "/freebets"];
+const SPA_PATHS = ["/odds", "/login", "/signup", "/forgot-password", "/reset-password", "/verify-email", "/admin", "/freebets"];
 
 // The events listing's "kind": the winners of the competitions alone, or the
 // matches and the winners together; anything else is the matches.
@@ -157,7 +157,7 @@ export function createServer(
       typeof req.query.bookmakers === "string" ? req.query.bookmakers.split(",").filter(Boolean) : undefined;
     const detail = getEventDetail(db, req.params.id, { bookmakers, ...listing });
     if (!detail) {
-      res.status(404).json({ error: "match introuvable, commencé ou retiré" });
+      res.status(404).json({ error: "match not found, started or taken down" });
       return;
     }
     res.json(detail);

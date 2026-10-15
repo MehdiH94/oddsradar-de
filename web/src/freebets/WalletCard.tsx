@@ -12,28 +12,28 @@ function SaveStatus({ wallet }: { wallet: WalletState }) {
     case "saving":
       return (
         <>
-          <LoaderCircle size={16} aria-hidden="true" className={styles.spinning} /> Enregistrement…
+          <LoaderCircle size={16} aria-hidden="true" className={styles.spinning} /> Saving…
         </>
       );
     case "invalid":
       return (
         <>
-          <TriangleAlert size={16} aria-hidden="true" /> Corrigez les montants signalés pour les enregistrer
+          <TriangleAlert size={16} aria-hidden="true" /> Fix the amounts flagged to save them
         </>
       );
     case "failed":
       return (
         <>
-          <TriangleAlert size={16} aria-hidden="true" /> Enregistrement impossible.{" "}
+          <TriangleAlert size={16} aria-hidden="true" /> Saving failed.{" "}
           <button type="button" className={styles.link} onClick={wallet.retry}>
-            Réessayer
+            Try again
           </button>
         </>
       );
     default:
       return (
         <>
-          <Check size={16} aria-hidden="true" /> Enregistré sur votre compte
+          <Check size={16} aria-hidden="true" /> Saved to your account
         </>
       );
   }
@@ -44,20 +44,20 @@ function SaveStatus({ wallet }: { wallet: WalletState }) {
 export function WalletCard({ wallet }: { wallet: WalletState }) {
   const ready = wallet.status === "ready";
   return (
-    <Card id="wallet-heading" title="Mes freebets" aside={ready ? <span role="status" className={styles.save}><SaveStatus wallet={wallet} /></span> : undefined}>
+    <Card id="wallet-heading" title="My freebets" aside={ready ? <span role="status" className={styles.save}><SaveStatus wallet={wallet} /></span> : undefined}>
       <p className={styles.hint}>
-        Indiquez les freebets (FB) qu'il vous reste chez chaque bookmaker. 1 FB = 1 €. Vous les retrouvez sur tous vos appareils.
+        Enter the freebets (FB) you have left at each bookmaker. 1 FB = €1. You will find them on all your devices.
       </p>
       {wallet.status === "loading" && (
         <p className={styles.hint} aria-busy="true">
-          Chargement de vos freebets…
+          Loading your freebets…
         </p>
       )}
       {wallet.status === "failed" && (
         <p role="alert" className={styles.error}>
-          <TriangleAlert size={16} aria-hidden="true" /> Impossible de charger vos freebets.{" "}
+          <TriangleAlert size={16} aria-hidden="true" /> Your freebets could not be loaded.{" "}
           <button type="button" className={styles.link} onClick={wallet.retry}>
-            Réessayer
+            Try again
           </button>
         </p>
       )}
@@ -81,7 +81,7 @@ export function WalletCard({ wallet }: { wallet: WalletState }) {
                         autoComplete="off"
                         value={wallet.texts[id]}
                         placeholder="0"
-                        aria-label={`Freebets ${name} en euros`}
+                        aria-label={`${name} freebets in euros`}
                         aria-invalid={bad}
                         aria-describedby={bad ? `wallet-error-${id}` : undefined}
                         onChange={(event) => wallet.setText(id, event.target.value)}
@@ -92,7 +92,7 @@ export function WalletCard({ wallet }: { wallet: WalletState }) {
                   </label>
                   {bad && (
                     <p id={`wallet-error-${id}`} className={styles.invalid}>
-                      Montant invalide : un nombre de 0 à {MAX_FREEBET.toLocaleString("fr-FR")}.
+                      Invalid amount: a number from 0 to {MAX_FREEBET.toLocaleString("en-GB")}.
                     </p>
                   )}
                 </div>
@@ -100,7 +100,7 @@ export function WalletCard({ wallet }: { wallet: WalletState }) {
             })}
           </div>
           <p className={styles.total}>
-            Total à convertir <b className="num">{formatFb(wallet.total)} FB</b>
+            Total to convert <b className="num">{formatFb(wallet.total)} FB</b>
           </p>
         </>
       )}

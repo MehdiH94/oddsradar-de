@@ -672,12 +672,12 @@ export function getValueBets(
       bets.push({
         ...match,
         market: reference!.market,
-        marketLabel: outright ? "Vainqueur du tournoi" : reference!.market === MARKET_1X2 ? "Résultat du match" : MARKET_MATCH_WINNER,
+        marketLabel: outright ? "Tournament winner" : reference!.market === MARKET_1X2 ? "Match result" : "Match winner",
         selection: bet.selection,
         label: outright
           ? bet.selection
           : bet.selection === "X"
-            ? "Nul"
+            ? "Draw"
             : (event.participants[bet.selection === "1" ? 0 : 1] ?? bet.selection),
         bookmaker: bet.bookmaker,
         price: bet.price,

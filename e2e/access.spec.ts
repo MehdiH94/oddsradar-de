@@ -5,16 +5,16 @@ import { SEEDED_USER, TENNIS_MATCH, VALUE_MATCH } from "./fixtures";
 test.use({ storageState: { cookies: [], origins: [] } });
 
 test("a signed-out visitor on the dashboard is sent to the login page, and back to where they were after it", async ({ page }) => {
-  await page.goto("/cotes?sport=tennis&sort=trj");
-  await expect(page).toHaveURL(/\/connexion\?next=%2Fcotes%3Fsport%3Dtennis/);
-  await expect(page.getByRole("heading", { name: "Connexion", level: 1 })).toBeVisible();
+  await page.goto("/odds?sport=tennis&sort=trj");
+  await expect(page).toHaveURL(/\/login\?next=%2Fodds%3Fsport%3Dtennis/);
+  await expect(page.getByRole("heading", { name: "Log in", level: 1 })).toBeVisible();
 
-  await page.getByLabel("Adresse email").fill(SEEDED_USER.email);
-  await page.getByLabel("Mot de passe", { exact: true }).fill(SEEDED_USER.password);
-  await page.getByRole("button", { name: "Se connecter" }).click();
+  await page.getByLabel("Email address").fill(SEEDED_USER.email);
+  await page.getByLabel("Password", { exact: true }).fill(SEEDED_USER.password);
+  await page.getByRole("button", { name: "Log in" }).click();
 
   // Back on the dashboard, with the filter the link carried.
-  await expect(page).toHaveURL(/\/cotes\?sport=tennis/);
+  await expect(page).toHaveURL(/\/odds\?sport=tennis/);
   await expect(page.getByRole("region", { name: "Tennis" })).toContainText(TENNIS_MATCH.participants.join(" - "));
 });
 
@@ -34,10 +34,10 @@ test("the odds' API answers 401 without a session, and only the public routes an
 
 test("the site's pages load when opened or reloaded, not only when reached from another", async ({ page }) => {
   const pages = [
-    { path: "/", heading: /Les meilleures cotes des bookmakers/ },
-    { path: "/connexion", heading: "Connexion" },
-    { path: "/inscription", heading: "Créer un compte" },
-    { path: "/mot-de-passe-oublie", heading: "Mot de passe oublié" },
+    { path: "/", heading: /The best odds of the German bookmakers/ },
+    { path: "/login", heading: "Log in" },
+    { path: "/signup", heading: "Create an account" },
+    { path: "/forgot-password", heading: "Forgot password" },
   ];
   for (const { path, heading } of pages) {
     const response = await page.goto(path);

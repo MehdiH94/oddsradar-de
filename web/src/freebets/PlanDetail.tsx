@@ -8,8 +8,8 @@ import type { MatchView, PlanView } from "./freebetsApi";
 import { Kpis } from "./Kpis";
 import styles from "./PlanDetail.module.css";
 
-// What the match's outcomes are called in a row of prices: "1", "N", "2".
-const keyLabel = (key: string) => (key === "X" ? "N" : key);
+// What the match's outcomes are called in a row of prices: "1", "X", "2".
+const keyLabel = (key: string) => key;
 
 function MatchRow({ match, number }: { match: MatchView; number: number }) {
   return (
@@ -24,7 +24,7 @@ function MatchRow({ match, number }: { match: MatchView; number: number }) {
           {match.competition ? ` · ${match.competition}` : ""}
         </span>
       </div>
-      <ul className={styles.books} aria-label="Cotes des bookmakers où vous avez des FB">
+      <ul className={styles.books} aria-label="Prices at the bookmakers where you hold FB">
         {Object.entries(match.prices).map(([bookmaker, prices]) => (
           <li key={bookmaker} className={styles.book}>
             <BookmakerLogo bookmaker={bookmaker} size={18} />
@@ -32,7 +32,7 @@ function MatchRow({ match, number }: { match: MatchView; number: number }) {
               {prices!.map((price, i) => (
                 <span key={match.outcomes[i].key} className={styles.price}>
                   <small>{keyLabel(match.outcomes[i].key)}</small>
-                  <b className="num">{price.toFixed(2).replace(".", ",")}</b>
+                  <b className="num">{price.toFixed(2)}</b>
                 </span>
               ))}
             </span>
@@ -51,29 +51,29 @@ export function PlanDetail({ plan, total, legs }: { plan: PlanView; total: numbe
   return (
     <Card
       id="plan-heading"
-      title={`Conversion ${plan.rank} · les ${bets} paris à placer`}
-      aside={<>Cotes indicatives relevées à <span className="num">{readAt(plan.oddsAt)}</span> · à vérifier avant de placer</>}
+      title={`Conversion ${plan.rank} · the ${bets} bets to place`}
+      aside={<>Indicative prices read at <span className="num">{readAt(plan.oddsAt)}</span> · check before placing</>}
     >
       <Kpis
         items={[
-          { label: "Taux de conversion", value: formatRate(plan.rate), note: "cash garanti / FB convertis", highlight: true },
-          { label: "Retour cash garanti", value: formatEuro(plan.cash), note: "quel que soit le résultat" },
+          { label: "Conversion rate", value: formatRate(plan.rate), note: "guaranteed cash / FB converted", highlight: true },
+          { label: "Guaranteed cash return", value: formatEuro(plan.cash), note: "whatever the result" },
           {
-            label: "FB convertis",
+            label: "FB converted",
             value: `${formatFb(plan.used)} / ${formatFb(total)}`,
-            note: plan.left >= 0.01 ? `${formatFb(plan.left)} FB restants` : "tout le solde est converti",
+            note: plan.left >= 0.01 ? `${formatFb(plan.left)} FB left` : "the whole balance is converted",
           },
-          { label: "Paris à placer", value: String(bets), note: `${names.length} bookmaker${names.length > 1 ? "s" : ""}, 0 € de mise` },
+          { label: "Bets to place", value: String(bets), note: `${names.length} bookmaker${names.length === 1 ? "" : "s"}, €0 staked` },
         ]}
       />
       <p className={styles.same}>
-        Chacun des {bets} paris rapporte <strong>{formatEuro(plan.cash)}</strong> au moins s'il sort. Un seul sortira : le gain est le même, quel que soit
-        {legs > 1 ? ` le résultat des ${legs} matchs` : " le résultat du match"}.
+        Each of the {bets} bets returns at least <strong>{formatEuro(plan.cash)}</strong> if it comes in. Only one will: the profit is the same, whatever
+        {legs > 1 ? ` the result of the ${legs} matches` : " the result of the match"}.
       </p>
       {!plan.exact && (
-        <p className={styles.note}>La recherche a été interrompue pour ce plan : un meilleur plan existe peut-être.</p>
+        <p className={styles.note}>The search was cut short for this plan: a better one may exist.</p>
       )}
-      <h3 className={styles.heading}>{legs > 1 ? `Les ${legs} matchs` : "Le match"}</h3>
+      <h3 className={styles.heading}>{legs > 1 ? `The ${legs} matches` : "The match"}</h3>
       <ol className={styles.matches}>
         {plan.matches.map((match, i) => (
           <MatchRow key={match.eventId} match={match} number={i + 1} />

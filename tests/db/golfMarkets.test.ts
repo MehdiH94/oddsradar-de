@@ -52,9 +52,9 @@ describe("a golf tournament's markets of several winners", () => {
       const detail = getEventDetail(db, "open")!;
 
       expect(detail.sections.map((s) => [s.key, s.markets.map((m) => m.label)])).toEqual([
-        ["g_winner", ["Vainqueur"]],
-        ["g_top", ["Dans le Top 2", "Dans le Top 5"]],
-        ["g_round", ["Leader après le tour 1"]],
+        ["g_winner", ["Winner"]],
+        ["g_top", ["In the Top 2", "In the Top 5"]],
+        ["g_round", ["Leader after round 1"]],
       ]);
     });
 
@@ -98,7 +98,7 @@ describe("a golf tournament's markets of several winners", () => {
       save(top2(2, 1.4, 2.2, 2.2), top2(1.4, 2, 2.2, 2.2));
       const [surebet] = getSurebets(db).filter((s) => s.market === "golf_top|2");
 
-      expect(surebet).toMatchObject({ kind: "bookmakers", marketLabel: "Dans le Top 2", toVerify: true });
+      expect(surebet).toMatchObject({ kind: "bookmakers", marketLabel: "In the Top 2", toVerify: true });
       expect(surebet.payoutRate).toBeCloseTo(2 / (1 / 2 + 1 / 2 + 1 / 2.2 + 1 / 2.2), 10);
       // Each player's best price, the stakes in proportion to its inverse (C and
       // D are 2.20 at both bookmakers).

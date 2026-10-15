@@ -105,17 +105,17 @@ function OutrightCard({
               className={styles.more}
               href={matchHref(event.id)}
               // The visible text first, as heard: which tournament it is about.
-              aria-label={`+${(event.marketCount ?? 1) - 1} marchés pour ${title}`}
+              aria-label={`+${(event.marketCount ?? 1) - 1} markets for ${title}`}
               onClick={open}
             >
-              +{(event.marketCount ?? 1) - 1} marchés
+              +{(event.marketCount ?? 1) - 1} markets
             </a>
           )}
         </div>
         {bookmakers.length > 0 && (
-          <div className={styles.trj} title="Taux de retour au joueur, avec la meilleure cote de chaque concurrent">
+          <div className={styles.trj} title="Payout, with the best price of each contender">
             <span className={styles.trjLabel}>
-              TRJ<span className="visually-hidden"> (taux de retour au joueur)</span>
+              Payout
             </span>
             <PayoutBadge rate={event.payoutRate} />
           </div>
@@ -126,8 +126,8 @@ function OutrightCard({
         <input
           type="search"
           className={styles.filter}
-          aria-label={`Trouver un concurrent de ${title}`}
-          placeholder={`Trouver un concurrent parmi ${rows.length}…`}
+          aria-label={`Find a contender of ${title}`}
+          placeholder={`Find a contender among ${rows.length}…`}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         />
@@ -138,9 +138,9 @@ function OutrightCard({
           <tr>
             <th scope="col" className={styles.rankHead}>
               <span aria-hidden="true">#</span>
-              <span className="visually-hidden">Rang</span>
+              <span className="visually-hidden">Rank</span>
             </th>
-            <th scope="col">Concurrent</th>
+            <th scope="col">Contender</th>
             {bookmakers.map((bookmaker) => (
               <th key={bookmaker} scope="col" className={styles.bookmakerHead}>
                 <BookmakerLogo bookmaker={bookmaker} size={18} />
@@ -182,11 +182,11 @@ function OutrightCard({
           })}
         </tbody>
       </table>
-      {needle && matching.length === 0 && <p className={styles.empty}>Aucun concurrent ne correspond.</p>}
+      {needle && matching.length === 0 && <p className={styles.empty}>No contender matches.</p>}
 
       {!needle && hidden > 0 && (
         <button type="button" className={styles.more} onClick={() => setExpanded(!expanded)} aria-expanded={expanded}>
-          {expanded ? "Réduire" : `Voir les ${hidden} autres`}
+          {expanded ? "Show fewer" : `Show the ${hidden} others`}
         </button>
       )}
     </article>

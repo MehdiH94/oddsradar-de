@@ -56,7 +56,7 @@ describe("the data routes need an account", () => {
   it("leaves the pages' shell public (no data in it)", async () => {
     const app = createServer(openDb(":memory:"), {}, { auth: testAuth().auth, webDist: "/nonexistent" });
     // No build here: a 404, not a 401 -- the guard is on /api.
-    expect((await request(app).get("/cotes")).status).toBe(404);
+    expect((await request(app).get("/odds")).status).toBe(404);
   });
 
   it("answers the deploy's health check without an account", async () => {

@@ -18,7 +18,7 @@ const result: MarketDetail = {
       payoutRate: 0.95,
       outcomes: [
         { key: "1", label: "PSG", prices: { winamax: 2.2, betclic: 2 }, best: ["winamax"], fair: 2, edges: { winamax: 0.1 } },
-        { key: "X", label: "Nul", prices: { winamax: 3.2, betclic: 3.3 }, best: ["betclic"], fair: 3.4, edges: {} },
+        { key: "X", label: "Draw", prices: { winamax: 3.2, betclic: 3.3 }, best: ["betclic"], fair: 3.4, edges: {} },
         { key: "2", label: "OM", prices: { winamax: 3.6, betclic: 3.7 }, best: ["betclic"], fair: 4, edges: {} },
       ],
     },
@@ -28,13 +28,13 @@ const result: MarketDetail = {
 describe("MarketCard", () => {
   it("shows the 1X2's fair odds under each outcome's prices, and marks its value bets", () => {
     const { container } = render(<MarketCard market={result} bookmakers={["winamax", "betclic"]} />);
-    const lines = [...container.querySelectorAll('[title^="Cote juste"]')];
+    const lines = [...container.querySelectorAll('[title^="Fair odds"]')];
     expect(lines).toHaveLength(3);
-    expect(text(lines[0])).toContain("Cote juste : 2,00");
-    expect(text(lines[0])).toContain("+10,0 %");
+    expect(text(lines[0])).toContain("Fair odds: 2.00");
+    expect(text(lines[0])).toContain("+10.0%");
     expect(text(lines[1])).not.toContain("%");
 
-    const valueChip = screen.getByText("2,20").closest("[data-bookmaker]");
+    const valueChip = screen.getByText("2.20").closest("[data-bookmaker]");
     expect(valueChip).toHaveAttribute("data-value", "true");
     expect(container.querySelector('[data-bookmaker="betclic"]')).not.toHaveAttribute("data-value");
   });
@@ -54,7 +54,7 @@ describe("MarketCard", () => {
   it("leaves out an unticked bookmaker's value bet", () => {
     const { container } = render(<MarketCard market={result} bookmakers={["betclic"]} />);
     expect(container.querySelector("[data-value]")).toBeNull();
-    expect(text(container.querySelector('[title^="Cote juste"]'))).not.toContain("%");
+    expect(text(container.querySelector('[title^="Fair odds"]'))).not.toContain("%");
   });
 
   it("shows no fair odds on a market without them", () => {
@@ -64,7 +64,7 @@ describe("MarketCard", () => {
       lines: [{ ...result.lines[0], outcomes: result.lines[0].outcomes.map(({ fair: _f, edges: _e, ...o }) => o) }],
     };
     const { container } = render(<MarketCard market={plain} bookmakers={["winamax", "betclic"]} />);
-    expect(container.querySelector('[title^="Cote juste"]')).toBeNull();
+    expect(container.querySelector('[title^="Fair odds"]')).toBeNull();
   });
 
   it("shows a scorer's fair odds from the exchange the same way", () => {
@@ -85,11 +85,11 @@ describe("MarketCard", () => {
       ],
     };
     const { container } = render(<MarketCard market={scorers} bookmakers={["winamax", "betclic"]} />);
-    const fair = container.querySelectorAll('[title^="Cote juste"]');
+    const fair = container.querySelectorAll('[title^="Fair odds"]');
     expect(fair).toHaveLength(1);
-    expect(text(fair[0])).toContain("Cote juste : 2,00");
-    expect(text(fair[0])).toContain("+15,0 %");
-    expect(screen.getByText("2,30").closest("[data-bookmaker]")).toHaveAttribute("data-value", "true");
+    expect(text(fair[0])).toContain("Fair odds: 2.00");
+    expect(text(fair[0])).toContain("+15.0%");
+    expect(screen.getByText("2.30").closest("[data-bookmaker]")).toHaveAttribute("data-value", "true");
   });
 
   it("shows a loosely priced scorer's ceiling, and an unpriced one's suspect price", () => {
@@ -112,17 +112,17 @@ describe("MarketCard", () => {
       ],
     };
     const { container } = render(<MarketCard market={scorers} bookmakers={["winamax", "betclic"]} />);
-    const ceiling = container.querySelector('[title^="Cote juste au plus"]');
-    expect(text(ceiling)).toBe("Juste ≤ Cote juste : au plus 2,60 · , meilleure value : +7,7 %");
-    const suspect = container.querySelector('[title^="Cote suspecte"]');
-    expect(text(suspect)).toBe("Cote suspecte ·  : +44,4 % au-dessus de l'autre bookmaker");
-    const chip = screen.getByText("13,00").closest("[data-bookmaker]");
+    const ceiling = container.querySelector('[title^="Fair odds at most"]');
+    expect(text(ceiling)).toBe("Fair ≤ Fair odds: at most 2.60 · , best value: +7.7%");
+    const suspect = container.querySelector('[title^="Suspect price"]');
+    expect(text(suspect)).toBe("Suspect price · : +44.4% over the other bookmaker");
+    const chip = screen.getByText("13.00").closest("[data-bookmaker]");
     expect(chip).toHaveAttribute("data-value", "true");
-    expect(text(chip)).toContain("(cote suspecte : +44,4 % sur l'autre bookmaker)");
+    expect(text(chip)).toContain("(suspect price: +44.4% over the other bookmaker)");
 
     // Unticked, Winamax's suspect price goes, and its line with it.
     const { container: betclicOnly } = render(<MarketCard market={scorers} bookmakers={["betclic"]} />);
-    expect(betclicOnly.querySelector('[title^="Cote suspecte"]')).toBeNull();
+    expect(betclicOnly.querySelector('[title^="Suspect price"]')).toBeNull();
     expect(betclicOnly.querySelector("[data-value]")).toBeNull();
   });
 });

@@ -56,8 +56,8 @@ describe("GroupedOddsTables", () => {
 
     render(<GroupedOddsTables events={eventsWithOdds} bookmakers={["winamax"]} />);
 
-    expect(screen.getByText("1,50")).toBeInTheDocument();
-    expect(screen.queryByText("1,65")).not.toBeInTheDocument();
+    expect(screen.getByText("1.50")).toBeInTheDocument();
+    expect(screen.queryByText("1.65")).not.toBeInTheDocument();
   });
 
   it("shows a sport's matches in the table and its winner-among-N markets as cards", () => {
@@ -93,10 +93,10 @@ describe("GroupedOddsTables", () => {
       />
     );
 
-    expect(screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent)).toEqual(["🏎️ Formule 1"]);
+    expect(screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent)).toEqual(["🏎️ Formula 1"]);
     expect(screen.getByText("Verstappen - Norris")).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 3, name: "GP de Bahreïn" })).toBeInTheDocument();
-    expect(screen.getByRole("columnheader", { name: "Concurrent" })).toBeInTheDocument();
+    expect(screen.getByRole("columnheader", { name: "Contender" })).toBeInTheDocument();
     expect(screen.getByText("Antonelli")).toBeInTheDocument();
     // The race is a card, not a row of the match table.
     expect(screen.getByText("Verstappen - Norris").closest("table")).not.toBe(screen.getByText("Antonelli").closest("table"));
@@ -104,9 +104,9 @@ describe("GroupedOddsTables", () => {
 
   it("heads each day's matches when asked to group them by day", () => {
     const { rerender } = render(<GroupedOddsTables events={events} />);
-    expect(screen.queryByRole("columnheader", { name: /septembre/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("columnheader", { name: /September/ })).not.toBeInTheDocument();
 
     rerender(<GroupedOddsTables events={events} groupByDay />);
-    expect(screen.getAllByRole("columnheader", { name: /septembre/ }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("columnheader", { name: /September/ }).length).toBeGreaterThan(0);
   });
 });

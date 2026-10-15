@@ -71,7 +71,7 @@ function renderPage() {
   );
 }
 
-const fb = (name: string) => screen.getByRole("textbox", { name: `Freebets ${name} en euros` });
+const fb = (name: string) => screen.getByRole("textbox", { name: `${name} freebets in euros` });
 const lastAsked = (calls: { asked: string[] }) => calls.asked[calls.asked.length - 1];
 
 describe("FreebetsPage", () => {
@@ -88,10 +88,10 @@ describe("FreebetsPage", () => {
       renderPage();
       expect(await screen.findByDisplayValue("30")).toBeInTheDocument();
       expect(fb("Winamax")).toHaveValue("30");
-      expect(fb("Betclic")).toHaveValue("25,5");
+      expect(fb("Betclic")).toHaveValue("25.5");
       expect(screen.getAllByRole("textbox")).toHaveLength(2);
-      expect(screen.getByText(/Total à convertir/)).toHaveTextContent("55,50 FB");
-      expect(await screen.findByText("Enregistré sur votre compte")).toBeInTheDocument();
+      expect(screen.getByText(/Total to convert/)).toHaveTextContent("55.50 FB");
+      expect(await screen.findByText("Saved to your account")).toBeInTheDocument();
     });
 
     it("says when the wallet cannot be read, and reads it again", async () => {
@@ -102,9 +102,9 @@ describe("FreebetsPage", () => {
         return reply(BOOKMAKERS_ANSWER);
       });
       renderPage();
-      expect(await screen.findByText(/Impossible de charger vos freebets/)).toBeInTheDocument();
+      expect(await screen.findByText(/Your freebets could not be loaded/)).toBeInTheDocument();
       ok = true;
-      fireEvent.click(screen.getByRole("button", { name: "Réessayer" }));
+      fireEvent.click(screen.getByRole("button", { name: "Try again" }));
       expect(await screen.findByDisplayValue("5")).toBeInTheDocument();
     });
 
@@ -114,15 +114,15 @@ describe("FreebetsPage", () => {
       await screen.findByDisplayValue("30");
       await waitFor(() => expect(calls.asked.length).toBe(1));
 
-      fireEvent.change(fb("Winamax"), { target: { value: "40,5" } });
-      expect(screen.getByText("Enregistrement…")).toBeInTheDocument();
+      fireEvent.change(fb("Winamax"), { target: { value: "40.5" } });
+      expect(screen.getByText("Saving…")).toBeInTheDocument();
       // Nothing is sent while the visitor is still typing.
       expect(calls.saved).toEqual([]);
       await waitFor(() => expect(calls.saved).toEqual([{ winamax: 40.5, betclic: 25.5 }]), { timeout: 3000 });
-      expect(await screen.findByText("Enregistré sur votre compte")).toBeInTheDocument();
+      expect(await screen.findByText("Saved to your account")).toBeInTheDocument();
       // The server converts what it holds: asked again once it holds the new wallet.
       await waitFor(() => expect(calls.asked.length).toBe(2), { timeout: 3000 });
-      expect(screen.getByText(/Total à convertir/)).toHaveTextContent("66,00 FB");
+      expect(screen.getByText(/Total to convert/)).toHaveTextContent("66.00 FB");
     });
 
     it("sends the last of several quick changes only, and a cleared field as no freebets", async () => {
@@ -143,8 +143,8 @@ describe("FreebetsPage", () => {
       await screen.findByDisplayValue("30");
       fireEvent.change(fb("Winamax"), { target: { value: "douze" } });
       expect(fb("Winamax")).toHaveAttribute("aria-invalid", "true");
-      expect(screen.getByText(/Montant invalide/)).toBeInTheDocument();
-      expect(screen.getByText(/Corrigez les montants signalés/)).toBeInTheDocument();
+      expect(screen.getByText(/Invalid amount/)).toBeInTheDocument();
+      expect(screen.getByText(/Fix the amounts flagged/)).toBeInTheDocument();
       await new Promise((resolve) => setTimeout(resolve, 1000));
       expect(calls.saved).toEqual([]);
       fireEvent.change(fb("Winamax"), { target: { value: "12" } });
@@ -157,12 +157,12 @@ describe("FreebetsPage", () => {
       renderPage();
       await screen.findByDisplayValue("30");
       fireEvent.change(fb("Winamax"), { target: { value: "8" } });
-      expect(await screen.findByText(/Enregistrement impossible/, undefined, { timeout: 3000 })).toBeInTheDocument();
+      expect(await screen.findByText(/Saving failed/, undefined, { timeout: 3000 })).toBeInTheDocument();
       expect(fb("Winamax")).toHaveValue("8");
       api.saveFails = false;
-      fireEvent.click(screen.getByRole("button", { name: "Réessayer" }));
+      fireEvent.click(screen.getByRole("button", { name: "Try again" }));
       await waitFor(() => expect(calls.saved).toEqual([{ winamax: 8, betclic: 25.5 }]), { timeout: 3000 });
-      expect(await screen.findByText("Enregistré sur votre compte")).toBeInTheDocument();
+      expect(await screen.findByText("Saved to your account")).toBeInTheDocument();
     });
 
     it("writes a field back as an amount when it is left", async () => {
@@ -171,7 +171,7 @@ describe("FreebetsPage", () => {
       await screen.findByDisplayValue("30");
       fireEvent.change(fb("Winamax"), { target: { value: "12.50" } });
       fireEvent.blur(fb("Winamax"));
-      expect(fb("Winamax")).toHaveValue("12,5");
+      expect(fb("Winamax")).toHaveValue("12.5");
     });
   });
 
@@ -179,34 +179,34 @@ describe("FreebetsPage", () => {
     it("asks for the single bets first, and shows the three plans with the first one's detail and bets", async () => {
       const { calls } = stubApi();
       renderPage();
-      expect(await screen.findByRole("heading", { name: "Top 3 des conversions · pari simple" })).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: "Top 3 conversions · single bet" })).toBeInTheDocument();
       expect(calls.asked).toEqual(["/api/freebets/conversions?mode=bookmakers&legs=1"]);
 
       const cards = within(screen.getByRole("heading", { name: /Top 3/ }).closest("section")!).getAllByRole("button");
       expect(cards).toHaveLength(3);
       expect(cards[0]).toHaveAttribute("aria-pressed", "true");
-      expect(cards[0]).toHaveTextContent("59,5 %");
-      expect(cards[0]).toHaveTextContent("31,20 €");
-      expect(cards[0]).toHaveTextContent("Meilleur taux");
+      expect(cards[0]).toHaveTextContent("59.5%");
+      expect(cards[0]).toHaveTextContent("€31.20");
+      expect(cards[0]).toHaveTextContent("Best rate");
       expect(cards[1]).toHaveTextContent("Lyon – Lille");
 
-      expect(screen.getByRole("heading", { name: "Conversion 1 · les 3 paris à placer" })).toBeInTheDocument();
-      expect(screen.getByText(/Cotes indicatives relevées à/)).toHaveTextContent(/à vérifier avant de placer/);
+      expect(screen.getByRole("heading", { name: "Conversion 1 · the 3 bets to place" })).toBeInTheDocument();
+      expect(screen.getByText(/Indicative prices read at/)).toHaveTextContent(/check before placing/);
       // The figures, in the order of the page.
       const kpis = screen.getAllByRole("term").map((term) => term.textContent);
-      expect(kpis).toEqual(["Taux de conversion", "Retour cash garanti", "FB convertis", "Paris à placer"]);
-      expect(screen.getByText("52,40 / 55,50")).toBeInTheDocument();
-      expect(screen.getByText("3,10 FB restants")).toBeInTheDocument();
-      expect(screen.getByText("2 bookmakers, 0 € de mise")).toBeInTheDocument();
+      expect(kpis).toEqual(["Conversion rate", "Guaranteed cash return", "FB converted", "Bets to place"]);
+      expect(screen.getByText("52.40 / 55.50")).toBeInTheDocument();
+      expect(screen.getByText("3.10 FB left")).toBeInTheDocument();
+      expect(screen.getByText("2 bookmakers, €0 staked")).toBeInTheDocument();
 
       // Where to place them.
       const winamax = within(screen.getByRole("article", { name: "Winamax" }));
       expect(winamax.getByText("Paris SG")).toBeInTheDocument();
-      expect(winamax.getByText("12,40 FB")).toBeInTheDocument();
-      expect(winamax.getByText("28,40")).toBeInTheDocument();
+      expect(winamax.getByText("12.40 FB")).toBeInTheDocument();
+      expect(winamax.getByText("28.40")).toBeInTheDocument();
       const betclic = within(screen.getByRole("article", { name: "Betclic" }));
-      expect(betclic.getByText("24,00 FB")).toBeInTheDocument();
-      expect(screen.getByText(/Il vous reste/)).toHaveTextContent("3,10 FB");
+      expect(betclic.getByText("24.00 FB")).toBeInTheDocument();
+      expect(screen.getByText(/You have/)).toHaveTextContent("3.10 FB");
     });
 
     it("shows another plan when its card is chosen, and goes back to the first when the settings change", async () => {
@@ -214,21 +214,21 @@ describe("FreebetsPage", () => {
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
       fireEvent.click(screen.getByRole("button", { name: /Lyon – Lille/ }));
-      expect(await screen.findByRole("heading", { name: "Conversion 2 · les 3 paris à placer" })).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: "Conversion 2 · the 3 bets to place" })).toBeInTheDocument();
       expect(screen.getByRole("button", { name: /Lyon – Lille/ })).toHaveAttribute("aria-pressed", "true");
-      expect(screen.getByText(/La recherche a été interrompue pour ce plan/)).toBeInTheDocument();
-      fireEvent.click(screen.getByRole("radio", { name: "Combiné 2 matchs" }));
-      await waitFor(() => expect(screen.getByRole("heading", { name: "Conversion 1 · les 3 paris à placer" })).toBeInTheDocument());
+      expect(screen.getByText(/The search was cut short for this plan/)).toBeInTheDocument();
+      fireEvent.click(screen.getByRole("radio", { name: "2-match accumulator" }));
+      await waitFor(() => expect(screen.getByRole("heading", { name: "Conversion 1 · the 3 bets to place" })).toBeInTheDocument());
     });
 
     it("asks for the format chosen, and keeps it in the address", async () => {
       const { calls } = stubApi();
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
-      fireEvent.click(screen.getByRole("radio", { name: "Combiné 3 matchs" }));
+      fireEvent.click(screen.getByRole("radio", { name: "3-match accumulator" }));
       await waitFor(() => expect(lastAsked(calls)).toBe("/api/freebets/conversions?mode=bookmakers&legs=3"));
       expect(window.location.search).toBe("?legs=3");
-      expect(await screen.findByRole("heading", { name: "Top 3 des conversions · combiné 3 matchs" })).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: "Top 3 conversions · 3-match accumulator" })).toBeInTheDocument();
     });
 
     it("opens on the settings of the address", async () => {
@@ -237,7 +237,7 @@ describe("FreebetsPage", () => {
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
       expect(calls.asked[0]).toBe("/api/freebets/conversions?mode=bookmakers&legs=2&sports=tennis");
-      expect(screen.getByRole("radio", { name: "Combiné 2 matchs" })).toBeChecked();
+      expect(screen.getByRole("radio", { name: "2-match accumulator" })).toBeChecked();
     });
 
     it("offers the sports on offer, all ticked, and asks again for those left ticked", async () => {
@@ -261,8 +261,8 @@ describe("FreebetsPage", () => {
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
       const before = calls.asked.length;
-      fireEvent.click(screen.getByRole("radio", { name: "Combiné 2 matchs" }));
-      fireEvent.click(screen.getByRole("radio", { name: "Combiné 3 matchs" }));
+      fireEvent.click(screen.getByRole("radio", { name: "2-match accumulator" }));
+      fireEvent.click(screen.getByRole("radio", { name: "3-match accumulator" }));
       await waitFor(() => expect(calls.asked.length).toBe(before + 1));
       expect(lastAsked(calls)).toContain("legs=3");
     });
@@ -270,10 +270,10 @@ describe("FreebetsPage", () => {
     it("lists the bookmakers it uses", async () => {
       stubApi();
       renderPage();
-      const info = (await screen.findByText(/Bookmakers utilisés/)).closest("p")!;
+      const info = (await screen.findByText(/Bookmakers used/)).closest("p")!;
       expect(info).toHaveTextContent("Winamax");
       expect(info).toHaveTextContent("Betclic");
-      expect(info).toHaveTextContent("Il en faut au moins deux");
+      expect(info).toHaveTextContent("At least two are needed");
     });
   });
 
@@ -283,22 +283,22 @@ describe("FreebetsPage", () => {
     it("explains an empty wallet", async () => {
       stubApi({ wallet: {}, answers: () => reason("empty_wallet", { bookmakers: [], total: 0 }) });
       renderPage();
-      expect(await screen.findByText(/Indiquez vos freebets ci-dessus pour voir comment les convertir/)).toBeInTheDocument();
+      expect(await screen.findByText(/Enter your freebets above to see how to convert them/)).toBeInTheDocument();
     });
 
     it("sends freebets held at one bookmaker to the exchange", async () => {
       stubApi({ wallet: { betclic: 30 }, answers: (url) => (url.searchParams.get("mode") === "exchange" ? echo(url, { betclic: 30 }) : reason("single_bookmaker")) });
       renderPage();
-      expect(await screen.findByText(/il en faut au moins deux/)).toBeInTheDocument();
-      fireEvent.click(screen.getByRole("button", { name: "Convertir contre l'exchange" }));
-      expect(await screen.findByRole("heading", { name: /Top 3 des conversions · Betclic · 30,00 FB/ })).toBeInTheDocument();
-      expect(screen.getByRole("radio", { name: "Contre l'exchange" })).toBeChecked();
+      expect(await screen.findByText(/converting between bookmakers takes at least two/)).toBeInTheDocument();
+      fireEvent.click(screen.getByRole("button", { name: "Convert against the exchange" }));
+      expect(await screen.findByRole("heading", { name: /Top 3 conversions · Betclic · 30.00 FB/ })).toBeInTheDocument();
+      expect(screen.getByRole("radio", { name: "Against the exchange" })).toBeChecked();
       expect(window.location.search).toContain("mode=exchange");
     });
 
     it.each([
-      ["no_match", /Aucun match à convertir avec ces réglages/],
-      ["no_plan", /Aucune conversion garantie n'est possible avec ces matchs/],
+      ["no_match", /No match to convert with these settings/],
+      ["no_plan", /No guaranteed conversion is possible with these matches/],
     ])("explains %s", async (code, text) => {
       stubApi({ answers: () => reason(code) });
       renderPage();
@@ -308,29 +308,29 @@ describe("FreebetsPage", () => {
     it("says when the search ran out of time", async () => {
       stubApi({ answers: () => ({ ...BOOKMAKERS_ANSWER, partial: true }) });
       renderPage();
-      expect(await screen.findByText(/Le calcul a été interrompu faute de temps/)).toBeInTheDocument();
+      expect(await screen.findByText(/The calculation ran out of time/)).toBeInTheDocument();
     });
 
     it("shows the server's message when the calculation fails, and asks again on request", async () => {
       let fails = true;
-      stubApi({ answers: () => (fails ? reply({ message: "Le calcul n'a pas abouti. Réessayez dans un instant." }, 503) : BOOKMAKERS_ANSWER) });
+      stubApi({ answers: () => (fails ? reply({ message: "The calculation did not finish. Try again in a moment." }, 503) : BOOKMAKERS_ANSWER) });
       renderPage();
-      expect(await screen.findByRole("alert")).toHaveTextContent("Le calcul n'a pas abouti");
+      expect(await screen.findByRole("alert")).toHaveTextContent("The calculation did not finish");
       fails = false;
-      fireEvent.click(screen.getByRole("button", { name: "Réessayer" }));
+      fireEvent.click(screen.getByRole("button", { name: "Try again" }));
       expect(await screen.findByRole("heading", { name: /Top 3/ })).toBeInTheDocument();
       expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     });
 
     it("keeps the last answer on screen when a refresh fails", async () => {
       let fails = false;
-      const { calls } = stubApi({ answers: () => (fails ? reply({ message: "Occupé" }, 503) : BOOKMAKERS_ANSWER) });
+      const { calls } = stubApi({ answers: () => (fails ? reply({ message: "Busy" }, 503) : BOOKMAKERS_ANSWER) });
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
       fails = true;
-      fireEvent.click(screen.getByRole("button", { name: "Actualiser les cotes" }));
+      fireEvent.click(screen.getByRole("button", { name: "Refresh the odds" }));
       await waitFor(() => expect(calls.asked.length).toBe(2));
-      expect(await screen.findByRole("alert")).toHaveTextContent("Impossible d'actualiser les conversions : Occupé");
+      expect(await screen.findByRole("alert")).toHaveTextContent("The conversions could not be refreshed: Busy");
       expect(screen.getByRole("heading", { name: /Top 3/ })).toBeInTheDocument();
     });
   });
@@ -341,10 +341,10 @@ describe("FreebetsPage", () => {
       const api = stubApi({ wallet: { winamax: 10, betclic: 30 } });
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
-      fireEvent.click(screen.getByRole("radio", { name: "Contre l'exchange" }));
-      await screen.findByRole("heading", { name: /Winamax · 10,00 FB/ });
-      fireEvent.click(screen.getByRole("radio", { name: /Betclic, 30,00 FB/ }));
-      await screen.findByRole("heading", { name: /Betclic · 30,00 FB/ });
+      fireEvent.click(screen.getByRole("radio", { name: "Against the exchange" }));
+      await screen.findByRole("heading", { name: /Winamax · 10.00 FB/ });
+      fireEvent.click(screen.getByRole("radio", { name: /Betclic, 30.00 FB/ }));
+      await screen.findByRole("heading", { name: /Betclic · 30.00 FB/ });
       return api;
     }
 
@@ -361,55 +361,55 @@ describe("FreebetsPage", () => {
       const top = screen.getByRole("heading", { name: /Top 3/ }).closest("section")!;
       const cards = within(top).getAllByRole("button");
       expect(cards).toHaveLength(3);
-      expect(cards[0]).toHaveTextContent("Limitée par la liquidité");
-      expect(cards[0]).toHaveTextContent("75,6 %");
-      expect(cards[0]).toHaveTextContent("10,67 €");
-      expect(cards[0]).toHaveTextContent("Convertit 14,12 FB · 15,88 FB restants ensuite");
-      expect(cards[2]).toHaveTextContent("Convertit tout le reste");
-      expect(cards[2]).toHaveTextContent("Convertit 3,71 FB · 0,00 FB restants ensuite");
+      expect(cards[0]).toHaveTextContent("Limited by liquidity");
+      expect(cards[0]).toHaveTextContent("75.6%");
+      expect(cards[0]).toHaveTextContent("€10.67");
+      expect(cards[0]).toHaveTextContent("Converts 14.12 FB · 15.88 FB left after");
+      expect(cards[2]).toHaveTextContent("Converts all the rest");
+      expect(cards[2]).toHaveTextContent("Converts 3.71 FB · 0.00 FB left after");
 
       // The wallet as the chain shares it.
-      expect(screen.getByRole("img", { name: /Votre solde Betclic de 30,00 FB : conversion 1 : 14,12 FB, conversion 2 : 12,17 FB, conversion 3 : 3,71 FB, non converti : 0,00 FB/ })).toBeInTheDocument();
-      expect(screen.getByText(/Conversion 2 :/)).toHaveTextContent("12,17 FB");
+      expect(screen.getByRole("img", { name: /Your Betclic balance of 30.00 FB: conversion 1: 14.12 FB, conversion 2: 12.17 FB, conversion 3: 3.71 FB, not converted: 0.00 FB/ })).toBeInTheDocument();
+      expect(screen.getByText(/Conversion 2:/)).toHaveTextContent("12.17 FB");
     });
 
     it("details a conversion: the freebet bet, the lay, the liquidity and what is left in each case", async () => {
       await openExchange();
-      expect(screen.getByRole("heading", { name: "Conversion 1 · deux paris à placer" })).toBeInTheDocument();
-      const step1 = within(screen.getByRole("heading", { name: /Betclic · en freebet/ }).parentElement!);
-      expect(step1.getByText("14,12 FB")).toBeInTheDocument();
-      expect(step1.getByText("4,60")).toBeInTheDocument();
-      expect(step1.getByText(/S'il gagne, le freebet rapporte 50,83 €/)).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Conversion 1 · two bets to place" })).toBeInTheDocument();
+      const step1 = within(screen.getByRole("heading", { name: /Betclic · as a freebet/ }).parentElement!);
+      expect(step1.getByText("14.12 FB")).toBeInTheDocument();
+      expect(step1.getByText("4.60")).toBeInTheDocument();
+      expect(step1.getByText(/If it wins, the freebet returns €50.83/)).toBeInTheDocument();
       const step2 = within(screen.getByRole("heading", { name: /Lay/ }).parentElement!);
-      expect(step2.getByText(/Layer/)).toHaveTextContent("Layer 11,00 € sur");
-      expect(step2.getByText("4,65")).toBeInTheDocument();
-      expect(step2.getByText(/commission 3 % sur les gains/)).toBeInTheDocument();
-      expect(step2.getByText(/Lay nécessaire/)).toHaveTextContent("disponible sur l'exchange 11,00 €");
+      expect(step2.getByText(/^Lay on/)).toHaveTextContent("Lay €11.00 on");
+      expect(step2.getByText("4.65")).toBeInTheDocument();
+      expect(step2.getByText(/3% commission on winnings/)).toBeInTheDocument();
+      expect(step2.getByText(/Lay needed/)).toHaveTextContent("available on the exchange €11.00");
 
-      expect(screen.getByRole("heading", { name: "Quel que soit le résultat, il vous reste au moins 10,67 €" })).toBeInTheDocument();
-      expect(screen.getByText("Si Auxerre gagne")).toBeInTheDocument();
-      expect(screen.getByText("Si Auxerre ne gagne pas (Brest gagne ou match nul)")).toBeInTheDocument();
-      expect(screen.getByText(/votre lay perd/)).toBeInTheDocument();
-      expect(screen.getByText(/Avec cette liquidité, seuls 14,12 FB sur 30,00 FB peuvent être convertis ici. Passez à la conversion 2 pour les 15,88 FB restants/)).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Whatever the result, you keep at least €10.67" })).toBeInTheDocument();
+      expect(screen.getByText("If Auxerre wins")).toBeInTheDocument();
+      expect(screen.getByText("If Auxerre does not win (Brest wins or a draw)")).toBeInTheDocument();
+      expect(screen.getByText(/your lay loses/)).toBeInTheDocument();
+      expect(screen.getByText(/With this liquidity, only 14.12 FB of 30.00 FB can be converted here. Move on to conversion 2 for the remaining 15.88 FB/)).toBeInTheDocument();
     });
 
     it("details the other conversions: a draw, and the one that takes the rest", async () => {
       await openExchange();
       fireEvent.click(screen.getAllByRole("button", { pressed: false })[0]);
-      expect(await screen.findByRole("heading", { name: "Conversion 2 · deux paris à placer" })).toBeInTheDocument();
-      expect(screen.getByText("Si le match est nul")).toBeInTheDocument();
-      expect(screen.getByText(/Si le match n'est pas nul/)).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: "Conversion 2 · two bets to place" })).toBeInTheDocument();
+      expect(screen.getByText("If the match is a draw")).toBeInTheDocument();
+      expect(screen.getByText(/If the match is not a draw/)).toBeInTheDocument();
       fireEvent.click(screen.getAllByRole("button", { pressed: false })[1]);
-      expect(await screen.findByRole("heading", { name: "Conversion 3 · deux paris à placer" })).toBeInTheDocument();
-      expect(screen.getByText(/Cette conversion absorbe tout le reste de votre solde Betclic \(3,71 FB\)/)).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: "Conversion 3 · two bets to place" })).toBeInTheDocument();
+      expect(screen.getByText(/This conversion takes all the rest of your Betclic balance \(3.71 FB\)/)).toBeInTheDocument();
     });
 
     it("says 'at least' when the two cases leave different cents, and the amount alone when they leave the same", async () => {
       await openExchange();
       // The first conversion leaves 10,68 € or 10,67 € (the lay is rounded to the cent), the third 2,65 € either way.
-      expect(screen.getByRole("heading", { name: "Quel que soit le résultat, il vous reste au moins 10,67 €" })).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Whatever the result, you keep at least €10.67" })).toBeInTheDocument();
       fireEvent.click(screen.getAllByRole("button", { pressed: false })[1]);
-      expect(await screen.findByRole("heading", { name: "Quel que soit le résultat, il vous reste 2,65 €" })).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: "Whatever the result, you keep €2.65" })).toBeInTheDocument();
     });
 
     describe("the chain's hint", () => {
@@ -420,49 +420,49 @@ describe("FreebetsPage", () => {
           answers: (url) => (url.searchParams.get("mode") === "exchange" ? { ...EXCHANGE_ANSWER, chain: { ...CHAIN, ...chain } } : BOOKMAKERS_ANSWER),
         });
         renderPage();
-        await screen.findByRole("heading", { name: /Betclic · 30,00 FB/ });
+        await screen.findByRole("heading", { name: /Betclic · 30.00 FB/ });
       }
-      const hint = () => screen.getByRole("heading", { name: /Betclic · 30,00 FB/ }).closest("section")!.querySelector("p")!;
+      const hint = () => screen.getByRole("heading", { name: /Betclic · 30.00 FB/ }).closest("section")!.querySelector("p")!;
 
       it("tells the conversions to chain, from the first to the last", async () => {
         await openChain({});
-        expect(hint()).toHaveTextContent("enchaînez-les, du n°1 au n°3, pour convertir tout votre solde Betclic.");
+        expect(hint()).toHaveTextContent("chain them, from no. 1 to no. 3, to convert all of your Betclic balance.");
       });
 
       it("does not ask to chain a single conversion", async () => {
         await openChain({ steps: [CHAIN.steps[2]], converted: 30, leftover: 0 });
-        expect(hint()).toHaveTextContent("Une seule conversion suffit à convertir tout votre solde Betclic.");
-        expect(hint()).not.toHaveTextContent("enchaînez");
+        expect(hint()).toHaveTextContent("A single conversion converts all of your Betclic balance.");
+        expect(hint()).not.toHaveTextContent("chain them");
       });
 
       it("says what stays unconverted when the liquidity runs out", async () => {
         await openChain({ steps: [CHAIN.steps[0]], converted: 14.12, leftover: 15.88 });
-        expect(hint()).toHaveTextContent("Un seul match est proposé et la liquidité de l'exchange le limite : 15,88 FB de votre solde Betclic resteront non convertis.");
+        expect(hint()).toHaveTextContent("Only one match is on offer and the exchange's liquidity limits it: 15.88 FB of your Betclic balance will stay unconverted.");
       });
 
       it("says it for a chain too short for the balance as well", async () => {
         await openChain({ steps: CHAIN.steps.slice(0, 2), converted: 26.29, leftover: 3.71 });
-        expect(hint()).toHaveTextContent("du n°1 au n°2. 3,71 FB de votre solde Betclic resteront non convertis.");
+        expect(hint()).toHaveTextContent("from no. 1 to no. 2. 3.71 FB of your Betclic balance will stay unconverted.");
       });
     });
 
     it("lets the freebets of another bookmaker be chosen", async () => {
       const { calls } = await openExchange();
-      const choice = screen.getByRole("radio", { name: /Winamax, 10,00 FB/ });
+      const choice = screen.getByRole("radio", { name: /Winamax, 10.00 FB/ });
       fireEvent.click(choice);
       await waitFor(() => expect(lastAsked(calls)).toBe("/api/freebets/conversions?mode=exchange&bookmaker=winamax"));
       expect(window.location.search).toContain("bookmaker=winamax");
     });
 
     it.each([
-      ["no_freebets", /Vous n'avez pas de freebets chez ce bookmaker/],
-      ["no_match", /Aucun match de ce bookmaker n'a, pour le moment, d'argent à layer/],
-      ["no_plan", /Aucune conversion garantie n'est possible contre l'exchange/],
+      ["no_freebets", /You have no freebets at this bookmaker/],
+      ["no_match", /No match of this bookmaker has money to lay on the exchange/],
+      ["no_plan", /No guaranteed conversion is possible against the exchange/],
     ])("explains %s", async (code, text) => {
       stubApi({ answers: (url) => (url.searchParams.get("mode") === "exchange" ? { ...EXCHANGE_ANSWER, chain: null, reason: code as never } : BOOKMAKERS_ANSWER) });
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
-      fireEvent.click(screen.getByRole("radio", { name: "Contre l'exchange" }));
+      fireEvent.click(screen.getByRole("radio", { name: "Against the exchange" }));
       expect(await screen.findByText(text)).toBeInTheDocument();
     });
 
@@ -470,7 +470,7 @@ describe("FreebetsPage", () => {
       window.history.replaceState(null, "", "/freebets?mode=exchange");
       const { calls } = stubApi({ wallet: {} });
       renderPage();
-      expect((await screen.findAllByText(/un seul bookmaker suffit pour les convertir contre l'exchange/)).length).toBeGreaterThan(0);
+      expect((await screen.findAllByText(/one bookmaker is enough to convert them against the exchange/)).length).toBeGreaterThan(0);
       expect(calls.asked).toEqual([]);
     });
   });
@@ -484,9 +484,9 @@ describe("FreebetsPage", () => {
       Object.defineProperty(navigator, "clipboard", { value: { writeText }, configurable: true });
       renderPage();
       const winamax = within(await screen.findByRole("article", { name: "Winamax" }));
-      fireEvent.click(winamax.getByRole("button", { name: "Copier la liste" }));
-      await waitFor(() => expect(writeText).toHaveBeenCalledWith("Winamax : 2 paris en freebet\n- Paris SG : 12,40 FB\n- Marseille : 16,00 FB"));
-      expect(await winamax.findByText("Liste copiée")).toBeInTheDocument();
+      fireEvent.click(winamax.getByRole("button", { name: "Copy the list" }));
+      await waitFor(() => expect(writeText).toHaveBeenCalledWith("Winamax: 2 freebet bets\n- Paris SG: 12.40 FB\n- Marseille: 16.00 FB"));
+      expect(await winamax.findByText("List copied")).toBeInTheDocument();
     });
 
     it("says when the list cannot be copied", async () => {
@@ -494,8 +494,8 @@ describe("FreebetsPage", () => {
       Object.defineProperty(navigator, "clipboard", { value: { writeText: () => Promise.reject(new Error("denied")) }, configurable: true });
       renderPage();
       const betclic = within(await screen.findByRole("article", { name: "Betclic" }));
-      fireEvent.click(betclic.getByRole("button", { name: "Copier la liste" }));
-      expect(await betclic.findByText(/Copie impossible/)).toBeInTheDocument();
+      fireEvent.click(betclic.getByRole("button", { name: "Copy the list" }));
+      expect(await betclic.findByText(/Copy failed/)).toBeInTheDocument();
     });
   });
 
@@ -505,27 +505,27 @@ describe("FreebetsPage", () => {
     it("says between bookmakers that the prices are indicative and that the bookmakers' stake limits are unknown", async () => {
       stubApi();
       renderPage();
-      await screen.findByRole("heading", { name: "Top 3 des conversions · pari simple" });
-      expect(note()).toHaveTextContent("Cotes indicatives. Elles bougent vite : vérifiez la cote de chaque pari");
-      expect(note()).toHaveTextContent("l'argent disponible à layer");
-      expect(note()).toHaveTextContent("Le calcul ne connaît ni les mises minimales ni les mises maximales de chaque bookmaker, surtout sur les combinés.");
+      await screen.findByRole("heading", { name: "Top 3 conversions · single bet" });
+      expect(note()).toHaveTextContent("Indicative prices. They move fast: check the price of each bet");
+      expect(note()).toHaveTextContent("the money available to lay");
+      expect(note()).toHaveTextContent("The calculation knows neither the minimum nor the maximum stakes of each bookmaker, especially on accumulators.");
     });
 
     it("says it against the exchange too, without the stake limits of the bookmakers", async () => {
       window.history.replaceState(null, "", "/freebets?mode=exchange&bookmaker=betclic");
       stubApi({ wallet: { betclic: 30 } });
       renderPage();
-      await screen.findByRole("heading", { name: /Betclic · 30,00 FB/ });
-      expect(note()).toHaveTextContent("Cotes indicatives. Elles bougent vite");
+      await screen.findByRole("heading", { name: /Betclic · 30.00 FB/ });
+      expect(note()).toHaveTextContent("Indicative prices. They move fast");
       expect(note()).not.toHaveTextContent("mises minimales");
       // The header of the detail says it as well.
-      expect(screen.getByText(/Cotes indicatives relevées à/)).toHaveTextContent(/Brest – Auxerre.*à vérifier avant de placer/);
+      expect(screen.getByText(/Indicative prices read at/)).toHaveTextContent(/Brest – Auxerre.*check before placing/);
     });
 
     it("is not shown when there is nothing to place", async () => {
       stubApi({ wallet: {}, answers: () => ({ ...BOOKMAKERS_ANSWER, plans: [], bookmakers: [], total: 0, reason: "empty_wallet" }) });
       renderPage();
-      await screen.findByText(/Indiquez vos freebets ci-dessus/);
+      await screen.findByText(/Enter your freebets above/);
       expect(note()).toBeNull();
     });
   });
@@ -559,7 +559,7 @@ describe("FreebetsPage", () => {
       renderPage();
       await opened();
       expect(calls.asked).toHaveLength(1);
-      fireEvent.click(screen.getByRole("radio", { name: "Combiné 2 matchs" }));
+      fireEvent.click(screen.getByRole("radio", { name: "2-match accumulator" }));
       await advance(ASK_DELAY_MS - 50);
       expect(calls.asked).toHaveLength(1);
       await advance(100);
@@ -594,19 +594,19 @@ describe("FreebetsPage", () => {
       });
       renderPage();
       await opened();
-      expect(screen.getByRole("heading", { name: "Top 3 des conversions · pari simple" })).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Top 3 conversions · single bet" })).toBeInTheDocument();
       slow = true;
-      fireEvent.click(screen.getByRole("radio", { name: "Combiné 3 matchs" }));
+      fireEvent.click(screen.getByRole("radio", { name: "3-match accumulator" }));
       await advance(ASK_DELAY_MS + 10);
       // The single bets' plans are not the combos': they are not shown as such.
       expect(screen.queryByRole("heading", { name: /pari simple/ })).not.toBeInTheDocument();
       // A fourth change replaces the slow question; its late answer arrives after.
-      fireEvent.click(screen.getByRole("radio", { name: "Combiné 2 matchs" }));
+      fireEvent.click(screen.getByRole("radio", { name: "2-match accumulator" }));
       await advance(ASK_DELAY_MS + 10);
-      expect(screen.getByRole("heading", { name: "Top 3 des conversions · combiné 2 matchs" })).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Top 3 conversions · 2-match accumulator" })).toBeInTheDocument();
       await act(async () => release(reply({ ...BOOKMAKERS_ANSWER, legs: 3 })));
-      expect(screen.getByRole("heading", { name: "Top 3 des conversions · combiné 2 matchs" })).toBeInTheDocument();
-      expect(screen.queryByRole("heading", { name: /combiné 3 matchs/ })).not.toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Top 3 conversions · 2-match accumulator" })).toBeInTheDocument();
+      expect(screen.queryByRole("heading", { name: /3-match accumulator/ })).not.toBeInTheDocument();
     });
   });
 
@@ -615,7 +615,7 @@ describe("FreebetsPage", () => {
       stubApi();
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
-      const views = within(screen.getByRole("group", { name: "Afficher" })).getAllByRole("radio");
+      const views = within(screen.getByRole("group", { name: "Show" })).getAllByRole("radio");
       expect(views.map((radio) => radio.getAttribute("value"))).toEqual(["value-bets", "matches", "freebets"]);
       expect(screen.getByRole("radio", { name: "Freebets" })).toBeChecked();
       expect(screen.getByRole("heading", { level: 1, name: "Freebets" })).toBeInTheDocument();
@@ -626,7 +626,7 @@ describe("FreebetsPage", () => {
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
       fireEvent.click(screen.getByRole("radio", { name: "Value bets" }));
-      expect(window.location.pathname).toBe("/cotes");
+      expect(window.location.pathname).toBe("/odds");
       expect(window.location.search).toContain("sport=value-bets");
     });
 
@@ -634,7 +634,7 @@ describe("FreebetsPage", () => {
       stubApi();
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
-      expect(await screen.findByText(/Mis à jour à/)).toBeInTheDocument();
+      expect(await screen.findByText(/Updated at/)).toBeInTheDocument();
     });
 
     it("lays out for a phone, with the bar at the bottom and the bets one under the other", async () => {
@@ -642,7 +642,7 @@ describe("FreebetsPage", () => {
       stubApi();
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
-      expect(screen.getByRole("navigation", { name: "Navigation principale" })).toBeInTheDocument();
+      expect(screen.getByRole("navigation", { name: "Main navigation" })).toBeInTheDocument();
       expect(screen.getByRole("radio", { name: "Freebets" })).toBeChecked();
     });
 
@@ -652,8 +652,8 @@ describe("FreebetsPage", () => {
       await screen.findByRole("heading", { name: /Top 3/ });
       const rules = { rules: { "color-contrast": { enabled: false } } };
       expect((await axe.run(page.container, rules)).violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.html).join(" | ")}`)).toEqual([]);
-      fireEvent.click(screen.getByRole("radio", { name: "Contre l'exchange" }));
-      await screen.findByRole("heading", { name: /Winamax · 30,00 FB/ });
+      fireEvent.click(screen.getByRole("radio", { name: "Against the exchange" }));
+      await screen.findByRole("heading", { name: /Winamax · 30.00 FB/ });
       expect((await axe.run(page.container, rules)).violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.html).join(" | ")}`)).toEqual([]);
     });
   });

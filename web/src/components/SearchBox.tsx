@@ -35,8 +35,8 @@ export function SearchBox({
         ref={inputRef}
         type="search"
         className={styles.input}
-        aria-label="Rechercher un match"
-        placeholder="Équipe, joueur, course…"
+        aria-label="Search for a match"
+        placeholder="Team, player, race…"
         list="event-suggestions"
         autoComplete="off"
         value={value}
@@ -46,7 +46,7 @@ export function SearchBox({
         <button
           type="button"
           className={styles.clear}
-          aria-label="Effacer la recherche"
+          aria-label="Clear the search"
           onClick={() => {
             onChange("");
             inputRef.current?.focus();
@@ -55,7 +55,7 @@ export function SearchBox({
           <X size={16} aria-hidden="true" />
         </button>
       ) : (
-        <kbd className={styles.shortcut} title="Appuyez sur / pour rechercher">
+        <kbd className={styles.shortcut} title="Press / to search">
           /
         </kbd>
       )}

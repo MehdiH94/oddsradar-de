@@ -13,13 +13,13 @@ describe("SearchBox", () => {
   it("clears the search with its button, shown only when there is something to clear", () => {
     const onChange = vi.fn();
     const { rerender } = render(<SearchBox value="" suggestions={[]} onChange={onChange} />);
-    expect(screen.queryByRole("button", { name: "Effacer la recherche" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Clear the search" })).not.toBeInTheDocument();
 
     rerender(<SearchBox value="psg" suggestions={[]} onChange={onChange} />);
-    fireEvent.click(screen.getByRole("button", { name: "Effacer la recherche" }));
+    fireEvent.click(screen.getByRole("button", { name: "Clear the search" }));
 
     expect(onChange).toHaveBeenCalledWith("");
-    expect(screen.getByRole("combobox", { name: "Rechercher un match" })).toHaveFocus();
+    expect(screen.getByRole("combobox", { name: "Search for a match" })).toHaveFocus();
   });
 
   it("jumps to the search with /, but not while typing elsewhere", () => {
@@ -29,7 +29,7 @@ describe("SearchBox", () => {
         <SearchBox value="" suggestions={[]} onChange={() => {}} />
       </>
     );
-    const search = screen.getByRole("combobox", { name: "Rechercher un match" });
+    const search = screen.getByRole("combobox", { name: "Search for a match" });
 
     fireEvent.keyDown(screen.getByLabelText("Autre champ"), { key: "/" });
     expect(search).not.toHaveFocus();

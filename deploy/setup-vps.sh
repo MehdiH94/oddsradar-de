@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# First setup of a fresh Hetzner Cloud server (Ubuntu 24.04), run once as root
+# First setup of a fresh server (Ubuntu 24.04), run once as root
 # from a machine holding the server's SSH key:
 #
-#   ssh root@<ip> 'bash -s' < deploy/setup-vps.sh
+#   ssh root@<ip> 'bash -s' < deploy/setup-vps.sh             (Hetzner)
+#   ssh ubuntu@<ip> 'sudo bash -s' < deploy/setup-vps.sh      (OVH)
 #
 # It installs what the two services need (Node.js 24, git, sqlite3 for the
 # backups, Caddy for HTTPS), creates their user (oddsradar, who logs in with
@@ -25,8 +26,14 @@ log() { echo "[setup] $*"; }
   echo "[setup] run as root" >&2
   exit 1
 }
-[[ -s /root/.ssh/authorized_keys ]] || {
-  echo "[setup] /root/.ssh/authorized_keys is empty: add the SSH key when creating the server" >&2
+# The keys that may log in: root's (Hetzner), or those of the user who ran
+# this through sudo (OVH's "ubuntu": ssh ubuntu@<ip> 'sudo bash -s' < ...).
+KEYS=/root/.ssh/authorized_keys
+if [[ -n "${SUDO_USER:-}" && -s "/home/$SUDO_USER/.ssh/authorized_keys" ]]; then
+  KEYS="/home/$SUDO_USER/.ssh/authorized_keys"
+fi
+[[ -s "$KEYS" ]] || {
+  echo "[setup] no SSH key in $KEYS: add the SSH key when creating the server" >&2
   exit 1
 }
 export DEBIAN_FRONTEND=noninteractive
@@ -67,7 +74,7 @@ log "user ${APP_USER} and ${APP_DIR}"
 id "$APP_USER" >/dev/null 2>&1 || adduser --disabled-password --gecos "" "$APP_USER"
 install -d -m 700 -o "$APP_USER" -g "$APP_USER" "/home/$APP_USER/.ssh"
 if [[ ! -s "/home/$APP_USER/.ssh/authorized_keys" ]]; then
-  install -m 600 -o "$APP_USER" -g "$APP_USER" /root/.ssh/authorized_keys "/home/$APP_USER/.ssh/authorized_keys"
+  install -m 600 -o "$APP_USER" -g "$APP_USER" "$KEYS" "/home/$APP_USER/.ssh/authorized_keys"
 fi
 install -d -m 755 -o "$APP_USER" -g "$APP_USER" "$APP_DIR"
 

@@ -8,21 +8,21 @@ describe("readUrlFilters", () => {
       sport: "football",
       sort: "trj",
       q: "",
-      bookmakers: ["winamax", "betclic"],
+      bookmakers: ["leovegas", "betway"],
       page: 1,
     });
   });
 
   it("reads all the bookmakers only when they are all named", () => {
-    expect(readUrlFilters("?bookmakers=betclic,winamax").bookmakers).toEqual([...ALL_BOOKMAKERS]);
+    expect(readUrlFilters("?bookmakers=betway,leovegas").bookmakers).toEqual([...ALL_BOOKMAKERS]);
   });
 
   it("reads every filter", () => {
-    expect(readUrlFilters("?sport=tennis&sort=start&q=nadal&bookmakers=betclic&page=3")).toEqual({
+    expect(readUrlFilters("?sport=tennis&sort=start&q=nadal&bookmakers=betway&page=3")).toEqual({
       sport: "tennis",
       sort: "start",
       q: "nadal",
-      bookmakers: ["betclic"],
+      bookmakers: ["betway"],
       page: 3,
     });
   });
@@ -36,11 +36,11 @@ describe("readUrlFilters", () => {
   it("corrects invalid values", () => {
     expect(readUrlFilters("?sort=price").sort).toBe("trj");
     for (const page of ["0", "-3", "abc", "1.5"]) expect(readUrlFilters(`?page=${page}`).page).toBe(1);
-    expect(readUrlFilters("?bookmakers=bwin,betclic").bookmakers).toEqual(["betclic"]);
+    expect(readUrlFilters("?bookmakers=bwin,betway").bookmakers).toEqual(["betway"]);
   });
 
   it("keeps the bookmakers in their usual order", () => {
-    expect(readUrlFilters("?bookmakers=betclic,winamax").bookmakers).toEqual(["winamax", "betclic"]);
+    expect(readUrlFilters("?bookmakers=betway,leovegas").bookmakers).toEqual(["leovegas", "betway"]);
   });
 
   it("reads an empty bookmakers list as none ticked", () => {
@@ -68,14 +68,14 @@ describe("readUrlFilters", () => {
 
 describe("urlFiltersQuery", () => {
   it("writes the competition only when there is one", () => {
-    const base = { sport: "football", sort: "trj" as const, q: "", bookmakers: ["winamax", "betclic"], page: 1 };
+    const base = { sport: "football", sort: "trj" as const, q: "", bookmakers: ["leovegas", "betway"], page: 1 };
     expect(urlFiltersQuery({ ...base, competition: "Ligue 1" })).toBe("sport=football&sort=trj&competition=Ligue+1");
     expect(urlFiltersQuery({ ...base, competition: "" })).toBe("sport=football&sort=trj");
   });
 
   it("writes the sport and the sort, and leaves out the other defaults", () => {
     expect(
-      urlFiltersQuery({ sport: "football", sort: "trj", q: "", bookmakers: ["winamax", "betclic"], page: 1 })
+      urlFiltersQuery({ sport: "football", sort: "trj", q: "", bookmakers: ["leovegas", "betway"], page: 1 })
     ).toBe("sport=football&sort=trj");
   });
 
@@ -84,27 +84,27 @@ describe("urlFiltersQuery", () => {
   });
 
   it("writes what differs from the defaults", () => {
-    expect(urlFiltersQuery({ sport: "tennis", sort: "start", q: "nadal", bookmakers: ["betclic"], page: 2 })).toBe(
-      "sport=tennis&sort=start&q=nadal&bookmakers=betclic&page=2"
+    expect(urlFiltersQuery({ sport: "tennis", sort: "start", q: "nadal", bookmakers: ["betway"], page: 2 })).toBe(
+      "sport=tennis&sort=start&q=nadal&bookmakers=betway&page=2"
     );
     expect(urlFiltersQuery({ sport: "football", sort: "trj", q: "", bookmakers: [], page: 1 })).toBe(
       "sport=football&sort=trj&bookmakers="
     );
-    expect(urlFiltersQuery({ sport: "football", sort: "trj", q: "", bookmakers: ["winamax"], page: 1 })).toBe(
-      "sport=football&sort=trj&bookmakers=winamax"
+    expect(urlFiltersQuery({ sport: "football", sort: "trj", q: "", bookmakers: ["leovegas"], page: 1 })).toBe(
+      "sport=football&sort=trj&bookmakers=leovegas"
     );
     expect(
       urlFiltersQuery({
         sport: "football",
         sort: "trj",
         q: "",
-        bookmakers: ["winamax", "betclic"],
+        bookmakers: ["leovegas", "betway"],
         players: true,
         page: 2,
       })
     ).toBe("sport=football&sort=trj&players=1&page=2");
     expect(
-      urlFiltersQuery({ sport: "value-bets", sort: "value", q: "", bookmakers: ["winamax", "betclic"], page: 1 })
+      urlFiltersQuery({ sport: "value-bets", sort: "value", q: "", bookmakers: ["leovegas", "betway"], page: 1 })
     ).toBe("sport=value-bets&sort=value");
   });
 

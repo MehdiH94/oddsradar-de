@@ -85,7 +85,7 @@ describe("App", () => {
       startTime: "2026-09-24T18:00:00.000Z",
       participants,
       byBookmaker: {
-        winamax: { scrapedAt: "2026-09-23T18:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.5 }] },
+        leovegas: { scrapedAt: "2026-09-23T18:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.5 }] },
       },
     });
     const pageOf = (events: unknown[]) => ({
@@ -339,15 +339,15 @@ describe("App", () => {
       render(<App />);
       await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/events?sport=football&sort=trj&kind=all&page=1"));
 
-      toggleBookmaker("Winamax");
+      toggleBookmaker("LeoVegas");
 
       await waitFor(() =>
-        expect(fetchMock).toHaveBeenCalledWith("/api/events?sport=football&sort=trj&bookmakers=betclic&kind=all&page=1")
+        expect(fetchMock).toHaveBeenCalledWith("/api/events?sport=football&sort=trj&bookmakers=betway&kind=all&page=1")
       );
 
       // Every bookmaker ticked again: the default, sent as no filter.
       fetchMock.mockClear();
-      toggleBookmaker("Winamax");
+      toggleBookmaker("LeoVegas");
 
       await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/events?sport=football&sort=trj&kind=all&page=1"));
     });
@@ -374,8 +374,8 @@ describe("App", () => {
       matched: 4200,
     });
     const BETS = [
-      bet("psg-om", ["PSG", "OM"], "1", "betclic", 1.6, 1.5),
-      bet("lens-lille", ["Lens", "Lille"], "X", "winamax", 3.5, 3.4),
+      bet("psg-om", ["PSG", "OM"], "1", "betway", 1.6, 1.5),
+      bet("lens-lille", ["Lens", "Lille"], "X", "leovegas", 3.5, 3.4),
     ];
     const stubFetch = (bets: unknown[] = BETS, surebets: unknown[] = []) => {
       const fetchMock = vi.fn((url: string) => {
@@ -401,7 +401,7 @@ describe("App", () => {
 
     it("shows the surebets above the value bets, even without a value bet", async () => {
       const surebet = {
-        ...bet("nba", ["Lakers", "Celtics"], "1", "winamax", 2.2, 2),
+        ...bet("nba", ["Lakers", "Celtics"], "1", "leovegas", 2.2, 2),
         market: "Vainqueur du match",
         marketLabel: "Vainqueur du match",
         kind: "bookmakers",
@@ -409,8 +409,8 @@ describe("App", () => {
         profit: 7.45,
         toVerify: false,
         legs: [
-          { selection: "1", label: "Lakers", source: "winamax", side: "back", price: 2.2, stake: 48.84 },
-          { selection: "2", label: "Celtics", source: "betclic", side: "back", price: 2.1, stake: 51.16 },
+          { selection: "1", label: "Lakers", source: "leovegas", side: "back", price: 2.2, stake: 48.84 },
+          { selection: "2", label: "Celtics", source: "betway", side: "back", price: 2.1, stake: 51.16 },
         ],
       };
       stubFetch([], [surebet]);
@@ -425,7 +425,7 @@ describe("App", () => {
     it("leads the title of a surebet or a value bet with a single market to its page, keeping the bookmakers", async () => {
       const race = "Femmes - Classement Général Relais 2026/2027";
       const surebet = {
-        ...bet("relais", [race], "1", "winamax", 2.2, 2),
+        ...bet("relais", [race], "1", "leovegas", 2.2, 2),
         sport: "ski de fond",
         marketCount: 1,
         market: "Vainqueur",
@@ -435,27 +435,27 @@ describe("App", () => {
         profit: 7.45,
         toVerify: false,
         legs: [
-          { selection: "1", label: "Norvège", source: "winamax", side: "back", price: 2.2, stake: 48.84 },
-          { selection: "2", label: "Suède", source: "betclic", side: "back", price: 2.1, stake: 51.16 },
+          { selection: "1", label: "Norvège", source: "leovegas", side: "back", price: 2.2, stake: 48.84 },
+          { selection: "2", label: "Suède", source: "betway", side: "back", price: 2.1, stake: 51.16 },
         ],
       };
-      const single = { ...bet("lens-lille", ["Lens", "Lille"], "X", "betclic", 3.5, 3.4), sport: "tennis", marketCount: 1 };
-      window.history.replaceState(null, "", "/?sport=value-bets&sort=value&bookmakers=betclic");
+      const single = { ...bet("lens-lille", ["Lens", "Lille"], "X", "betway", 3.5, 3.4), sport: "tennis", marketCount: 1 };
+      window.history.replaceState(null, "", "/?sport=value-bets&sort=value&bookmakers=betway");
       stubFetch([BETS[0], single], [surebet]);
       render(<App />);
 
       expect(await screen.findByRole("link", { name: race })).toHaveAttribute(
         "href",
-        "?sport=value-bets&sort=value&bookmakers=betclic&match=relais"
+        "?sport=value-bets&sort=value&bookmakers=betway&match=relais"
       );
       expect(screen.getByRole("img", { name: "Cross-country skiing" })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: "Lens - Lille" })).toHaveAttribute(
         "href",
-        "?sport=value-bets&sort=value&bookmakers=betclic&match=lens-lille"
+        "?sport=value-bets&sort=value&bookmakers=betway&match=lens-lille"
       );
       // Whatever its number of markets, an event opens its page, in place.
       const psg = screen.getByRole("link", { name: "PSG - OM" });
-      expect(psg).toHaveAttribute("href", "?sport=value-bets&sort=value&bookmakers=betclic&match=psg-om");
+      expect(psg).toHaveAttribute("href", "?sport=value-bets&sort=value&bookmakers=betway&match=psg-om");
       fireEvent.click(psg);
       await waitFor(() => expect(urlParams().match).toBe("psg-om"));
     });
@@ -512,11 +512,11 @@ describe("App", () => {
       fireEvent.click(byStart);
       await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/value-bets?sort=start"));
 
-      toggleBookmaker("Winamax");
-      await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/value-bets?sort=start&bookmakers=betclic"));
+      toggleBookmaker("LeoVegas");
+      await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/value-bets?sort=start&bookmakers=betway"));
 
       fireEvent.change(screen.getByRole("combobox", { name: "Search for a match" }), { target: { value: "ps" } });
-      await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/value-bets?q=ps&sort=start&bookmakers=betclic"));
+      await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/value-bets?q=ps&sort=start&bookmakers=betway"));
       // The suggestions are the matches of the bets found.
       await waitFor(() =>
         expect([...document.querySelectorAll("#event-suggestions option")].map((o) => o.getAttribute("value"))).toEqual([
@@ -524,7 +524,7 @@ describe("App", () => {
         ])
       );
       expect(fetchMock.mock.calls.some(([url]) => url.startsWith("/api/events/suggestions"))).toBe(false);
-      expect(urlParams()).toEqual({ sport: "value-bets", sort: "start", q: "ps", bookmakers: "betclic" });
+      expect(urlParams()).toEqual({ sport: "value-bets", sort: "start", q: "ps", bookmakers: "betway" });
     });
 
     it("says when there is no value bet, and leads back to the matches", async () => {
@@ -630,7 +630,7 @@ describe("App", () => {
 
     it("shows every bet on one page, whatever the URL's page", async () => {
       window.history.replaceState(null, "", "/?sport=value-bets&sort=value&page=3");
-      stubFetch(Array.from({ length: 25 }, (_, i) => bet(`m${i}`, [`Home ${i}`, `Away ${i}`], "1", "betclic", 2, 1.9)));
+      stubFetch(Array.from({ length: 25 }, (_, i) => bet(`m${i}`, [`Home ${i}`, `Away ${i}`], "1", "betway", 2, 1.9)));
       render(<App />);
 
       expect(await screen.findByText("Home 24 - Away 24")).toBeInTheDocument();
@@ -876,19 +876,19 @@ describe("App", () => {
     const urlParams = () => Object.fromEntries(new URLSearchParams(window.location.search));
 
     it("starts from the filters and the page in the URL", async () => {
-      window.history.replaceState(null, "", "/?sport=tennis&sort=start&q=psg&bookmakers=betclic&page=2");
+      window.history.replaceState(null, "", "/?sport=tennis&sort=start&q=psg&bookmakers=betway&page=2");
       const fetchMock = stubFetch(["football", "tennis"]);
       render(<App />);
 
       await waitFor(() => expect(screen.getByRole("radio", { name: "Tennis" })).toBeInTheDocument());
       // The very first request already has them all, page included.
       expect(fetchMock.mock.calls.find(([url]) => url.startsWith("/api/events?"))?.[0]).toBe(
-        "/api/events?sport=tennis&q=psg&sort=start&bookmakers=betclic&kind=all&page=2"
+        "/api/events?sport=tennis&q=psg&sort=start&bookmakers=betway&kind=all&page=2"
       );
       expect(screen.getByRole("radio", { name: "Tennis" })).toBeChecked();
       expect(screen.getByRole("button", { name: "Sort: Kick-off time" })).toBeInTheDocument();
       expect(screen.getByRole("combobox", { name: "Search for a match" })).toHaveValue("psg");
-      expect(screen.getByRole("button", { name: "Bookmakers: Betclic" })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Bookmakers: Betway" })).toBeInTheDocument();
       await waitFor(() => expect(screen.getByText(/Page 2 \/ 3/)).toBeInTheDocument());
       // Still page 2 once the debounced search has settled.
       await new Promise((resolve) => setTimeout(resolve, 300));
@@ -907,13 +907,13 @@ describe("App", () => {
       pickSort("Kick-off time");
       await waitFor(() => expect(urlParams()).toEqual({ sport: "football", sort: "start" }));
 
-      toggleBookmaker("Winamax");
-      await waitFor(() => expect(urlParams().bookmakers).toBe("betclic"));
+      toggleBookmaker("LeoVegas");
+      await waitFor(() => expect(urlParams().bookmakers).toBe("betway"));
 
       fireEvent.click(screen.getByRole("radio", { name: "Tennis" }));
       fireEvent.change(screen.getByRole("combobox", { name: "Search for a match" }), { target: { value: " nadal " } });
       await waitFor(() =>
-        expect(urlParams()).toEqual({ sport: "tennis", sort: "start", q: "nadal", bookmakers: "betclic" })
+        expect(urlParams()).toEqual({ sport: "tennis", sort: "start", q: "nadal", bookmakers: "betway" })
       );
     });
 
@@ -965,7 +965,7 @@ describe("App", () => {
         competition: "Ligue 1",
         startTime: "2099-01-01T20:00:00.000Z",
         participants: ["PSG", "OM"],
-        byBookmaker: { winamax: { scrapedAt: "", odds: [{ market: "1X2", selection: "1", price: 1.6 }] } },
+        byBookmaker: { leovegas: { scrapedAt: "", odds: [{ market: "1X2", selection: "1", price: 1.6 }] } },
         reference: { market: "1X2", fair: { "1": 1.55, X: 3.3, "2": 5.5 }, matched: 100, scrapedAt: "" },
       };
       vi.stubGlobal(
@@ -993,7 +993,7 @@ describe("App", () => {
 
   describe("filters kept with the account", () => {
     const reply = (body: unknown) => Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(body) });
-    const SAVED = { sport: "tennis", sort: "start" as const, bookmakers: ["betclic"], players: false, favoriteSports: ["tennis"] };
+    const SAVED = { sport: "tennis", sort: "start" as const, bookmakers: ["betway"], players: false, favoriteSports: ["tennis"] };
     const stubFetch = (sports: string[]) => {
       const fetchMock = vi.fn((url: string, init?: RequestInit) => {
         if (url.startsWith("/api/competitions")) return emptyList();
@@ -1016,10 +1016,10 @@ describe("App", () => {
 
       await waitFor(() => expect(screen.getByRole("radio", { name: "Tennis" })).toBeChecked());
       expect(fetchMock.mock.calls.find(([url]) => url.startsWith("/api/events?"))?.[0]).toBe(
-        "/api/events?sport=tennis&sort=start&bookmakers=betclic&kind=all&page=1"
+        "/api/events?sport=tennis&sort=start&bookmakers=betway&kind=all&page=1"
       );
       expect(screen.getByRole("button", { name: "Sort: Kick-off time" })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "Bookmakers: Betclic" })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Bookmakers: Betway" })).toBeInTheDocument();
     });
 
     it("lets the address win over the saved filters", async () => {
@@ -1062,7 +1062,7 @@ describe("App", () => {
       await waitFor(() => expect(screen.getByRole("radio", { name: "Football" })).toBeChecked());
 
       pickSort("Kick-off time");
-      toggleBookmaker("Winamax");
+      toggleBookmaker("LeoVegas");
 
       await waitFor(() => expect(puts(fetchMock)).toHaveLength(1), { timeout: 3000 });
       const [url, init] = puts(fetchMock)[0];
@@ -1070,7 +1070,7 @@ describe("App", () => {
       expect(JSON.parse(init!.body as string)).toEqual({
         sport: "football",
         sort: "start",
-        bookmakers: ["betclic"],
+        bookmakers: ["betway"],
         players: false,
         favoriteSports: [],
       });
@@ -1184,7 +1184,7 @@ describe("App", () => {
       render(<App />);
       await waitFor(() => expect(screen.getByText("results", { exact: false })).toBeInTheDocument());
 
-      for (const name of ["Winamax", "Betclic"]) toggleBookmaker(name);
+      for (const name of ["LeoVegas", "Betway"]) toggleBookmaker(name);
       await waitFor(() => expect(screen.getByText("Tick at least one bookmaker to compare the odds.")).toBeInTheDocument());
       fireEvent.click(screen.getByRole("button", { name: "Tick every bookmaker" }));
 
@@ -1258,14 +1258,14 @@ describe("App", () => {
 
       fireEvent.click(screen.getByRole("radio", { name: "Tennis" }));
       pickSort("Kick-off time");
-      toggleBookmaker("Winamax");
+      toggleBookmaker("LeoVegas");
       fireEvent.change(screen.getByRole("combobox", { name: "Search for a match" }), { target: { value: "nadal" } });
       fireEvent.click(screen.getByRole("button", { name: "Reset the filters" }));
 
       expect(screen.getByRole("radio", { name: "Football" })).toBeChecked();
       expect(screen.getByRole("button", { name: "Sort: Best payout" })).toBeInTheDocument();
       expect(screen.getByRole("button", { name: "Bookmakers: All" })).toBeInTheDocument();
-      expect(screen.getByRole("checkbox", { name: "Winamax" })).toBeChecked();
+      expect(screen.getByRole("checkbox", { name: "LeoVegas" })).toBeChecked();
       expect(screen.getByRole("combobox", { name: "Search for a match" })).toHaveValue("");
       expect(screen.queryByRole("button", { name: "Reset the filters" })).not.toBeInTheDocument();
       await waitFor(() => expect(urlParams()).toEqual({ sport: "football", sort: "trj" }));
@@ -1277,12 +1277,12 @@ describe("App", () => {
       await waitFor(() => expect(screen.getByRole("radio", { name: "Football" })).toBeInTheDocument());
 
       fireEvent.click(screen.getByRole("button", { name: "Bookmakers: All" }));
-      for (const name of ["Winamax", "Betclic"]) expect(screen.getByRole("checkbox", { name })).toBeChecked();
+      for (const name of ["LeoVegas", "Betway"]) expect(screen.getByRole("checkbox", { name })).toBeChecked();
       expect(screen.queryByRole("button", { name: "Reset the filters" })).not.toBeInTheDocument();
 
-      toggleBookmaker("Betclic");
-      expect(screen.getByRole("button", { name: "Bookmakers: Winamax" })).toBeInTheDocument();
-      await waitFor(() => expect(urlParams().bookmakers).toBe("winamax"));
+      toggleBookmaker("Betway");
+      expect(screen.getByRole("button", { name: "Bookmakers: LeoVegas" })).toBeInTheDocument();
+      await waitFor(() => expect(urlParams().bookmakers).toBe("leovegas"));
 
       fireEvent.click(screen.getByRole("button", { name: "Reset the filters" }));
 
@@ -1372,7 +1372,7 @@ describe("App", () => {
       startTime: new Date(Date.now() + 5 * 3600e3).toISOString(),
       participants: ["Borussia Dortmund", "Werder Brême"],
       byBookmaker: {
-        winamax: {
+        leovegas: {
           scrapedAt: new Date().toISOString(),
           odds: [
             { market: "1X2", selection: "1", price: 1.29 },
@@ -1408,8 +1408,8 @@ describe("App", () => {
                   line: null,
                   payoutRate: 0.88,
                   outcomes: [
-                    { key: "yes", label: "Oui", prices: { winamax: 1.5, betclic: 1.52 }, best: ["betclic"] },
-                    { key: "no", label: "Non", prices: { winamax: 2.05, betclic: 2.07 }, best: ["betclic"] },
+                    { key: "yes", label: "Oui", prices: { leovegas: 1.5, betway: 1.52 }, best: ["betway"] },
+                    { key: "no", label: "Non", prices: { leovegas: 2.05, betway: 2.07 }, best: ["betway"] },
                   ],
                 },
               ],
@@ -1455,23 +1455,23 @@ describe("App", () => {
     });
 
     it("leads from its competition to the matches' list narrowed to it, and Back returns to the match", async () => {
-      window.history.replaceState(null, "", "/?sport=football&sort=start&bookmakers=betclic");
+      window.history.replaceState(null, "", "/?sport=football&sort=start&bookmakers=betway");
       const fetchMock = stubFetch();
       render(<App />);
 
       fireEvent.click(await screen.findByRole("link", { name: "+41 markets for Borussia Dortmund - Werder Brême" }));
       const link = await screen.findByRole("link", { name: "Show the matches: Bundesliga" });
-      expect(link).toHaveAttribute("href", "?sport=football&sort=trj&bookmakers=betclic&competition=Bundesliga");
+      expect(link).toHaveAttribute("href", "?sport=football&sort=trj&bookmakers=betway&competition=Bundesliga");
 
       fireEvent.click(link);
       await waitFor(() =>
         expect(fetchMock).toHaveBeenCalledWith(
-          "/api/events?sport=football&sort=trj&bookmakers=betclic&kind=all&competition=Bundesliga&page=1"
+          "/api/events?sport=football&sort=trj&bookmakers=betway&kind=all&competition=Bundesliga&page=1"
         )
       );
       expect(await screen.findByRole("button", { name: "Competition: Bundesliga" })).toBeInTheDocument();
       expect(screen.queryByRole("heading", { level: 2, name: "Borussia Dortmund – Werder Brême" })).not.toBeInTheDocument();
-      expect(urlParams()).toEqual({ sport: "football", sort: "trj", bookmakers: "betclic", competition: "Bundesliga" });
+      expect(urlParams()).toEqual({ sport: "football", sort: "trj", bookmakers: "betway", competition: "Bundesliga" });
       expect(screen.getByRole("radio", { name: "Matches" })).toBeChecked();
 
       window.history.back();

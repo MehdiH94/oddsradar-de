@@ -18,8 +18,8 @@ const surebet = (overrides: Partial<Surebet>): Surebet => ({
   toVerify: false,
   thin: false,
   legs: [
-    { selection: "over", label: "Plus de 9.5", source: "betclic", side: "back", price: 2, stake: 52.38 },
-    { selection: "under", label: "Moins de 9.5", source: "winamax", side: "back", price: 2.2, stake: 47.62 },
+    { selection: "over", label: "Plus de 9.5", source: "betway", side: "back", price: 2, stake: 52.38 },
+    { selection: "under", label: "Moins de 9.5", source: "leovegas", side: "back", price: 2.2, stake: 47.62 },
   ],
   ...overrides,
 });
@@ -38,8 +38,8 @@ describe("SurebetsTable", () => {
     expect(cells[0].querySelector("time")).toHaveAttribute("dateTime", "2099-01-01T07:00:00.000Z");
     expect(cells[1]).toHaveTextContent("🎾 Alex De Minaur - Hubert HurkaczAces réussis par Hubert Hurkacz (9.5 aces)");
     expect(within(cells[2]).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
-      "Plus de 9.5Betclic2.00stake €52.38",
-      "Moins de 9.5Winamax2.20stake €47.62",
+      "Plus de 9.5Betway2.00stake €52.38",
+      "Moins de 9.5LeoVegas2.20stake €47.62",
     ]);
     expect(cells[3]).toHaveTextContent("104.8%+€4.76");
     expect(cells[3]).not.toHaveTextContent("to verify");
@@ -59,7 +59,7 @@ describe("SurebetsTable", () => {
             profit: 12,
             toVerify: true,
             legs: [
-              { selection: "Dembélé", label: "Dembélé", source: "betclic", side: "back", price: 2.5, stake: 100 },
+              { selection: "Dembélé", label: "Dembélé", source: "betway", side: "back", price: 2.5, stake: 100 },
               { selection: "Dembélé", label: "Dembélé", source: "exchange", side: "lay", price: 2.3, stake: 109.65, liability: 142.54 },
             ],
           }),
@@ -68,7 +68,7 @@ describe("SurebetsTable", () => {
     );
     const cells = within(screen.getAllByRole("row")[1]).getAllByRole("cell");
     expect(within(cells[2]).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
-      "DembéléBetclic2.50stake €100.00",
+      "DembéléBetway2.50stake €100.00",
       "Lay DembéléExchange2.30stake €109.65 (liability €142.54)",
     ]);
     expect(cells[3]).toHaveTextContent("112.0%+€12.00to verify");

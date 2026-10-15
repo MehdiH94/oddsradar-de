@@ -1,0 +1,2775 @@
+{
+ "filters": [
+  "triplet-coupon-basketball",
+  "either-win-draw-win",
+  "either-test-winner",
+  "either-handicap",
+  "either-total-points"
+ ],
+ "eventIds": [
+  17355422,
+  17355430,
+  17354604,
+  17355647,
+  17355762,
+  17347851,
+  17347817,
+  17357581
+ ],
+ "events": {
+  "MethodName": "Events",
+  "MethodResult": "OK",
+  "CorrelationId": "594a3a47-9728-427a-aeea-81d336fc9fbf",
+  "Events": [
+   {
+    "Version": 4,
+    "Id": 17355422,
+    "GroupName": "LNB",
+    "SubCategoryName": "Chile",
+    "CategoryCName": "basketball",
+    "CategoryName": "Basketball",
+    "HomeTeamName": "Puerto Montt",
+    "AwayTeamName": "Mun. Puente Alto",
+    "EventName": "Puerto Montt - Mun. Puente Alto",
+    "Milliseconds": 1792105200000,
+    "Date": "10/15/2026",
+    "Time": "23:00",
+    "MarketCount": 0,
+    "Markets": [
+     648835309,
+     648928004,
+     648931455
+    ],
+    "CouponMarketId": 648835309,
+    "FilterMarkets": {
+     "triplet-coupon-basketball": 0
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": null,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       648835309,
+       648928004,
+       648931455
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "puerto-montt",
+    "AwayTeamCName": "mun-puente-alto",
+    "GroupCName": "lnb",
+    "SubCategoryCName": "chile",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": "quarters",
+    "SportVariationName": "Quarters",
+    "SportsRadarId": null,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": false
+   },
+   {
+    "Version": 4,
+    "Id": 17355430,
+    "GroupName": "LNB",
+    "SubCategoryName": "Chile",
+    "CategoryCName": "basketball",
+    "CategoryName": "Basketball",
+    "HomeTeamName": "ABA Ancud",
+    "AwayTeamName": "Universidad de Concepcion",
+    "EventName": "ABA Ancud - Universidad de Concepcion",
+    "Milliseconds": 1792107000000,
+    "Date": "10/15/2026",
+    "Time": "23:30",
+    "MarketCount": 0,
+    "Markets": [
+     648835551,
+     648940043,
+     648940215
+    ],
+    "CouponMarketId": 648835551,
+    "FilterMarkets": {
+     "triplet-coupon-basketball": 0
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": null,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       648835551,
+       648940043,
+       648940215
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "aba-ancud",
+    "AwayTeamCName": "universidad-de-concepcion",
+    "GroupCName": "lnb",
+    "SubCategoryCName": "chile",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": "quarters",
+    "SportVariationName": "Quarters",
+    "SportsRadarId": null,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": false
+   },
+   {
+    "Version": 4,
+    "Id": 17354604,
+    "GroupName": "LNB",
+    "SubCategoryName": "Argentinien",
+    "CategoryCName": "basketball",
+    "CategoryName": "Basketball",
+    "HomeTeamName": "Union de Formosa",
+    "AwayTeamName": "Racing de Chivilcoy",
+    "EventName": "Union de Formosa - Racing de Chivilcoy",
+    "Milliseconds": 1792108800000,
+    "Date": "10/16/2026",
+    "Time": "00:00",
+    "MarketCount": 0,
+    "Markets": [
+     648780161,
+     648780402,
+     648780409
+    ],
+    "CouponMarketId": 648780161,
+    "FilterMarkets": {
+     "triplet-coupon-basketball": 0
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": null,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       648780161,
+       648780402,
+       648780409
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "union-de-formosa",
+    "AwayTeamCName": "racing-de-chivilcoy",
+    "GroupCName": "lnb",
+    "SubCategoryCName": "argentina",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": "quarters",
+    "SportVariationName": "Quarters",
+    "SportsRadarId": null,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": false
+   },
+   {
+    "Version": 5,
+    "Id": 17355647,
+    "GroupName": "LNBP",
+    "SubCategoryName": "Mexiko",
+    "CategoryCName": "basketball",
+    "CategoryName": "Basketball",
+    "HomeTeamName": "Santos de San Luis",
+    "AwayTeamName": "Abejas de Leon",
+    "EventName": "Santos de San Luis - Abejas de Leon",
+    "Milliseconds": 1792116000000,
+    "Date": "10/16/2026",
+    "Time": "02:00",
+    "MarketCount": 0,
+    "Markets": [
+     648846257,
+     648846619,
+     648846621
+    ],
+    "CouponMarketId": 648846257,
+    "FilterMarkets": {
+     "triplet-coupon-basketball": 0
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 75582768,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       648846257,
+       648846619,
+       648846621
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "santos-de-san-luis",
+    "AwayTeamCName": "abejas-de-leon",
+    "GroupCName": "lnbp",
+    "SubCategoryCName": "mexico",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": null,
+    "SportVariationName": "",
+    "SportsRadarId": 75582768,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": false
+   },
+   {
+    "Version": 5,
+    "Id": 17355762,
+    "GroupName": "LNBP",
+    "SubCategoryName": "Mexiko",
+    "CategoryCName": "basketball",
+    "CategoryName": "Basketball",
+    "HomeTeamName": "Diablos Rojos del Mexico",
+    "AwayTeamName": "Mineros de Zacatecas",
+    "EventName": "Diablos Rojos del Mexico - Mineros de Zacatecas",
+    "Milliseconds": 1792116900000,
+    "Date": "10/16/2026",
+    "Time": "02:15",
+    "MarketCount": 0,
+    "Markets": [
+     648852406,
+     648852658,
+     648852659
+    ],
+    "CouponMarketId": 648852406,
+    "FilterMarkets": {
+     "triplet-coupon-basketball": 0
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 75582778,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       648852406,
+       648852658,
+       648852659
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "diablos-rojos-del-mexico",
+    "AwayTeamCName": "mineros-de-zacatecas",
+    "GroupCName": "lnbp",
+    "SubCategoryCName": "mexico",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": null,
+    "SportVariationName": "",
+    "SportsRadarId": 75582778,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": false
+   },
+   {
+    "Version": 7,
+    "Id": 17347851,
+    "GroupName": "WNBL",
+    "SubCategoryName": "Australien",
+    "CategoryCName": "basketball",
+    "CategoryName": "Basketball",
+    "HomeTeamName": "Southside Flyers Frauen",
+    "AwayTeamName": "Sydney Uni Flames Frauen",
+    "EventName": "Southside Flyers Frauen - Sydney Uni Flames Frauen",
+    "Milliseconds": 1792137600000,
+    "Date": "10/16/2026",
+    "Time": "08:00",
+    "MarketCount": 0,
+    "Markets": [
+     648095220,
+     648606890,
+     648606889
+    ],
+    "CouponMarketId": 648095220,
+    "FilterMarkets": {
+     "triplet-coupon-basketball": 0
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 72704632,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       648095220,
+       648606890,
+       648606889
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "southside-flyers-women",
+    "AwayTeamCName": "sydney-uni-flames-women",
+    "GroupCName": "wnbl",
+    "SubCategoryCName": "australia",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": "quarters",
+    "SportVariationName": "Quarters",
+    "SportsRadarId": 72704632,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": false
+   },
+   {
+    "Version": 5,
+    "Id": 17347817,
+    "GroupName": "NBL",
+    "SubCategoryName": "Australien",
+    "CategoryCName": "basketball",
+    "CategoryName": "Basketball",
+    "HomeTeamName": "Tasmania JackJumpers",
+    "AwayTeamName": "Adelaide 36ers",
+    "EventName": "Tasmania JackJumpers - Adelaide 36ers",
+    "Milliseconds": 1792139400000,
+    "Date": "10/16/2026",
+    "Time": "08:30",
+    "MarketCount": 0,
+    "Markets": [
+     648091542,
+     648092495,
+     648092480
+    ],
+    "CouponMarketId": 648091542,
+    "FilterMarkets": {
+     "triplet-coupon-basketball": 0
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 72016822,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       648091542,
+       648092495,
+       648092480
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "tasmania-jackjumpers",
+    "AwayTeamCName": "adelaide-36ers",
+    "GroupCName": "nbl",
+    "SubCategoryCName": "australia",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": null,
+    "SportVariationName": "",
+    "SportsRadarId": 72016822,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": false
+   },
+   {
+    "Version": 5,
+    "Id": 17357581,
+    "GroupName": "KBL",
+    "SubCategoryName": "Südkorea",
+    "CategoryCName": "basketball",
+    "CategoryName": "Basketball",
+    "HomeTeamName": "Goyang Sky Gunners",
+    "AwayTeamName": "Mobis Phoebus",
+    "EventName": "Goyang Sky Gunners - Mobis Phoebus",
+    "Milliseconds": 1792144800000,
+    "Date": "10/16/2026",
+    "Time": "10:00",
+    "MarketCount": 0,
+    "Markets": [
+     649001612,
+     649002064,
+     649002012
+    ],
+    "CouponMarketId": 649001612,
+    "FilterMarkets": {
+     "triplet-coupon-basketball": 0
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 73657460,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       649001612,
+       649002064,
+       649002012
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "goyang-sky-gunners",
+    "AwayTeamCName": "mobis-phoebus",
+    "GroupCName": "kbl",
+    "SubCategoryCName": "south-korea",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": null,
+    "SportVariationName": "",
+    "SportsRadarId": 73657460,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": false
+   }
+  ],
+  "Markets": [
+   {
+    "Version": 3,
+    "Id": 648835309,
+    "Title": "Gewinner des Spiels",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Puerto Montt",
+     "Mun. Puente Alto"
+    ],
+    "Outcomes": [
+     [
+      2669505953,
+      2669505954
+     ]
+    ],
+    "EventId": 17355422,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669505953
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669505954
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "basketball-match-winner"
+   },
+   {
+    "Version": 11,
+    "Id": 648928004,
+    "Title": "Punkte-Handicap",
+    "IsSuspended": false,
+    "Handicap": -1.5,
+    "Headers": [
+     "Puerto Montt",
+     "Mun. Puente Alto"
+    ],
+    "Outcomes": [
+     [
+      2669790421,
+      2669790422
+     ]
+    ],
+    "EventId": 17355422,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669790421
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669790422
+      ]
+     }
+    },
+    "TypeCName": "handicap",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-basketball-handicap---0"
+   },
+   {
+    "Version": 23,
+    "Id": 648931455,
+    "Title": "Gesamtpunkte",
+    "IsSuspended": false,
+    "Handicap": 155.5,
+    "Headers": [
+     "Über",
+     "Unter"
+    ],
+    "Outcomes": [
+     [
+      2669804923,
+      2669804924
+     ]
+    ],
+    "EventId": 17355422,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "yes": {
+      "outcomes": [
+       2669804923
+      ]
+     },
+     "no": {
+      "outcomes": [
+       2669804924
+      ]
+     }
+    },
+    "TypeCName": "handicap-goals-over",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Über",
+     "Unter"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-total-points---0"
+   },
+   {
+    "Version": 7,
+    "Id": 648835551,
+    "Title": "Gewinner des Spiels",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "ABA Ancud",
+     "Universidad de Concepcion"
+    ],
+    "Outcomes": [
+     [
+      2669506627,
+      2669506628
+     ]
+    ],
+    "EventId": 17355430,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669506627
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669506628
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "basketball-match-winner"
+   },
+   {
+    "Version": 29,
+    "Id": 648940043,
+    "Title": "Punkte-Handicap",
+    "IsSuspended": false,
+    "Handicap": 7.5,
+    "Headers": [
+     "ABA Ancud",
+     "Universidad de Concepcion"
+    ],
+    "Outcomes": [
+     [
+      2669831093,
+      2669831094
+     ]
+    ],
+    "EventId": 17355430,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669831093
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669831094
+      ]
+     }
+    },
+    "TypeCName": "handicap",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-basketball-handicap---0"
+   },
+   {
+    "Version": 14,
+    "Id": 648940215,
+    "Title": "Gesamtpunkte",
+    "IsSuspended": false,
+    "Handicap": 162.5,
+    "Headers": [
+     "Über",
+     "Unter"
+    ],
+    "Outcomes": [
+     [
+      2669831472,
+      2669831473
+     ]
+    ],
+    "EventId": 17355430,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "yes": {
+      "outcomes": [
+       2669831472
+      ]
+     },
+     "no": {
+      "outcomes": [
+       2669831473
+      ]
+     }
+    },
+    "TypeCName": "handicap-goals-over",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Über",
+     "Unter"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-total-points---0"
+   },
+   {
+    "Version": 3,
+    "Id": 648780161,
+    "Title": "Gewinner des Spiels",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Union de Formosa",
+     "Racing de Chivilcoy"
+    ],
+    "Outcomes": [
+     [
+      2669333702,
+      2669333703
+     ]
+    ],
+    "EventId": 17354604,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669333702
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669333703
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "basketball-match-winner"
+   },
+   {
+    "Version": 17,
+    "Id": 648780402,
+    "Title": "Punkte-Handicap",
+    "IsSuspended": false,
+    "Handicap": -3.5,
+    "Headers": [
+     "Union de Formosa",
+     "Racing de Chivilcoy"
+    ],
+    "Outcomes": [
+     [
+      2669334374,
+      2669334376
+     ]
+    ],
+    "EventId": 17354604,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669334374
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669334376
+      ]
+     }
+    },
+    "TypeCName": "handicap",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-basketball-handicap---0"
+   },
+   {
+    "Version": 7,
+    "Id": 648780409,
+    "Title": "Gesamtpunkte",
+    "IsSuspended": false,
+    "Handicap": 163.5,
+    "Headers": [
+     "Über",
+     "Unter"
+    ],
+    "Outcomes": [
+     [
+      2669334388,
+      2669334389
+     ]
+    ],
+    "EventId": 17354604,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "yes": {
+      "outcomes": [
+       2669334388
+      ]
+     },
+     "no": {
+      "outcomes": [
+       2669334389
+      ]
+     }
+    },
+    "TypeCName": "handicap-goals-over",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Über",
+     "Unter"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-total-points---0"
+   },
+   {
+    "Version": 3,
+    "Id": 648846257,
+    "Title": "Gewinner des Spiels",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Santos de San Luis",
+     "Abejas de Leon"
+    ],
+    "Outcomes": [
+     [
+      2669535179,
+      2669535180
+     ]
+    ],
+    "EventId": 17355647,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669535179
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669535180
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "basketball-match-winner"
+   },
+   {
+    "Version": 3,
+    "Id": 648846619,
+    "Title": "Punkte-Handicap",
+    "IsSuspended": false,
+    "Handicap": -1.5,
+    "Headers": [
+     "Santos de San Luis",
+     "Abejas de Leon"
+    ],
+    "Outcomes": [
+     [
+      2669536210,
+      2669536213
+     ]
+    ],
+    "EventId": 17355647,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669536210
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669536213
+      ]
+     }
+    },
+    "TypeCName": "handicap",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-basketball-handicap---0"
+   },
+   {
+    "Version": 2,
+    "Id": 648846621,
+    "Title": "Gesamtpunkte",
+    "IsSuspended": false,
+    "Handicap": 174.5,
+    "Headers": [
+     "Über",
+     "Unter"
+    ],
+    "Outcomes": [
+     [
+      2669536216,
+      2669536217
+     ]
+    ],
+    "EventId": 17355647,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "yes": {
+      "outcomes": [
+       2669536216
+      ]
+     },
+     "no": {
+      "outcomes": [
+       2669536217
+      ]
+     }
+    },
+    "TypeCName": "handicap-goals-over",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Über",
+     "Unter"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-total-points---0"
+   },
+   {
+    "Version": 3,
+    "Id": 648852406,
+    "Title": "Gewinner des Spiels",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Diablos Rojos del Mexico",
+     "Mineros de Zacatecas"
+    ],
+    "Outcomes": [
+     [
+      2669553222,
+      2669553223
+     ]
+    ],
+    "EventId": 17355762,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669553222
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669553223
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "basketball-match-winner"
+   },
+   {
+    "Version": 9,
+    "Id": 648852658,
+    "Title": "Punkte-Handicap",
+    "IsSuspended": false,
+    "Handicap": 2.5,
+    "Headers": [
+     "Diablos Rojos del Mexico",
+     "Mineros de Zacatecas"
+    ],
+    "Outcomes": [
+     [
+      2669553885,
+      2669553888
+     ]
+    ],
+    "EventId": 17355762,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669553885
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669553888
+      ]
+     }
+    },
+    "TypeCName": "handicap",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-basketball-handicap---0"
+   },
+   {
+    "Version": 8,
+    "Id": 648852659,
+    "Title": "Gesamtpunkte",
+    "IsSuspended": false,
+    "Handicap": 172.5,
+    "Headers": [
+     "Über",
+     "Unter"
+    ],
+    "Outcomes": [
+     [
+      2669553886,
+      2669553889
+     ]
+    ],
+    "EventId": 17355762,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "yes": {
+      "outcomes": [
+       2669553886
+      ]
+     },
+     "no": {
+      "outcomes": [
+       2669553889
+      ]
+     }
+    },
+    "TypeCName": "handicap-goals-over",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Über",
+     "Unter"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-total-points---0"
+   },
+   {
+    "Version": 3,
+    "Id": 648095220,
+    "Title": "Gewinner des Spiels",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Southside Flyers Frauen",
+     "Sydney Uni Flames Frauen"
+    ],
+    "Outcomes": [
+     [
+      2667169254,
+      2667169255
+     ]
+    ],
+    "EventId": 17347851,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2667169254
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2667169255
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "basketball-match-winner"
+   },
+   {
+    "Version": 15,
+    "Id": 648606890,
+    "Title": "Punkte-Handicap",
+    "IsSuspended": false,
+    "Handicap": -1.5,
+    "Headers": [
+     "Southside Flyers Frauen",
+     "Sydney Uni Flames Frauen"
+    ],
+    "Outcomes": [
+     [
+      2668793522,
+      2668793524
+     ]
+    ],
+    "EventId": 17347851,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2668793522
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2668793524
+      ]
+     }
+    },
+    "TypeCName": "handicap",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-basketball-handicap---0"
+   },
+   {
+    "Version": 34,
+    "Id": 648606889,
+    "Title": "Gesamtpunkte",
+    "IsSuspended": false,
+    "Handicap": 159.5,
+    "Headers": [
+     "Über",
+     "Unter"
+    ],
+    "Outcomes": [
+     [
+      2668793521,
+      2668793523
+     ]
+    ],
+    "EventId": 17347851,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "yes": {
+      "outcomes": [
+       2668793521
+      ]
+     },
+     "no": {
+      "outcomes": [
+       2668793523
+      ]
+     }
+    },
+    "TypeCName": "handicap-goals-over",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Über",
+     "Unter"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-total-points---0"
+   },
+   {
+    "Version": 3,
+    "Id": 648091542,
+    "Title": "Gewinner des Spiels",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Tasmania JackJumpers",
+     "Adelaide 36ers"
+    ],
+    "Outcomes": [
+     [
+      2667158591,
+      2667158592
+     ]
+    ],
+    "EventId": 17347817,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2667158591
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2667158592
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "basketball-match-winner"
+   },
+   {
+    "Version": 10,
+    "Id": 648092495,
+    "Title": "Punkte-Handicap",
+    "IsSuspended": false,
+    "Handicap": -2.5,
+    "Headers": [
+     "Tasmania JackJumpers",
+     "Adelaide 36ers"
+    ],
+    "Outcomes": [
+     [
+      2667161685,
+      2667161686
+     ]
+    ],
+    "EventId": 17347817,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2667161685
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2667161686
+      ]
+     }
+    },
+    "TypeCName": "handicap",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-basketball-handicap---0"
+   },
+   {
+    "Version": 6,
+    "Id": 648092480,
+    "Title": "Gesamtpunkte",
+    "IsSuspended": false,
+    "Handicap": 182.5,
+    "Headers": [
+     "Über",
+     "Unter"
+    ],
+    "Outcomes": [
+     [
+      2667161655,
+      2667161656
+     ]
+    ],
+    "EventId": 17347817,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "yes": {
+      "outcomes": [
+       2667161655
+      ]
+     },
+     "no": {
+      "outcomes": [
+       2667161656
+      ]
+     }
+    },
+    "TypeCName": "handicap-goals-over",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Über",
+     "Unter"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-total-points---0"
+   },
+   {
+    "Version": 3,
+    "Id": 649001612,
+    "Title": "Gewinner des Spiels",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Goyang Sky Gunners",
+     "Mobis Phoebus"
+    ],
+    "Outcomes": [
+     [
+      2670039395,
+      2670039396
+     ]
+    ],
+    "EventId": 17357581,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2670039395
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2670039396
+      ]
+     }
+    },
+    "TypeCName": "to-win",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "basketball-match-winner"
+   },
+   {
+    "Version": 2,
+    "Id": 649002064,
+    "Title": "Punkte-Handicap",
+    "IsSuspended": false,
+    "Handicap": -3.5,
+    "Headers": [
+     "Goyang Sky Gunners",
+     "Mobis Phoebus"
+    ],
+    "Outcomes": [
+     [
+      2670040623,
+      2670040625
+     ]
+    ],
+    "EventId": 17357581,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2670040623
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2670040625
+      ]
+     }
+    },
+    "TypeCName": "handicap",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-basketball-handicap---0"
+   },
+   {
+    "Version": 3,
+    "Id": 649002012,
+    "Title": "Gesamtpunkte",
+    "IsSuspended": false,
+    "Handicap": 171.5,
+    "Headers": [
+     "Über",
+     "Unter"
+    ],
+    "Outcomes": [
+     [
+      2670040505,
+      2670040507
+     ]
+    ],
+    "EventId": 17357581,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "yes": {
+      "outcomes": [
+       2670040505
+      ]
+     },
+     "no": {
+      "outcomes": [
+       2670040507
+      ]
+     }
+    },
+    "TypeCName": "handicap-goals-over",
+    "TemplateId": 2,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": false,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Über",
+     "Unter"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": false,
+    "MarketCName": "-total-points---0"
+   }
+  ],
+  "Outcomes": [
+   {
+    "Version": 7,
+    "PriceVersion": 7,
+    "OutcomeVersion": 1,
+    "Id": 2669505953,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.7,
+    "OddsDecimalDisplay": "1.70",
+    "OddsNum": 7,
+    "OddsDen": 10,
+    "EventId": 17355422,
+    "MarketId": 648835309,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Puerto Montt",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 7,
+    "PriceVersion": 7,
+    "OutcomeVersion": 1,
+    "Id": 2669505954,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.05,
+    "OddsDecimalDisplay": "2.05",
+    "OddsNum": 21,
+    "OddsDen": 20,
+    "EventId": 17355422,
+    "MarketId": 648835309,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Mun. Puente Alto",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 34,
+    "PriceVersion": 34,
+    "OutcomeVersion": 1,
+    "Id": 2669790421,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.85,
+    "OddsDecimalDisplay": "1.85",
+    "OddsNum": 17,
+    "OddsDen": 20,
+    "EventId": 17355422,
+    "MarketId": 648928004,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Puerto Montt",
+    "CouponName": "Heim",
+    "HandicapDisplay": "-1.5",
+    "Handicap": -1.5,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 34,
+    "PriceVersion": 34,
+    "OutcomeVersion": 1,
+    "Id": 2669790422,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.85,
+    "OddsDecimalDisplay": "1.85",
+    "OddsNum": 17,
+    "OddsDen": 20,
+    "EventId": 17355422,
+    "MarketId": 648928004,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Mun. Puente Alto",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "+1.5",
+    "Handicap": 1.5,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 32,
+    "PriceVersion": 32,
+    "OutcomeVersion": 1,
+    "Id": 2669804923,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.8,
+    "OddsDecimalDisplay": "1.80",
+    "OddsNum": 4,
+    "OddsDen": 5,
+    "EventId": 17355422,
+    "MarketId": 648931455,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Über",
+    "CouponName": "Über",
+    "HandicapDisplay": "155.5",
+    "Handicap": 155.5,
+    "SortIndex": 1,
+    "TeamCName": "over"
+   },
+   {
+    "Version": 32,
+    "PriceVersion": 32,
+    "OutcomeVersion": 1,
+    "Id": 2669804924,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.909,
+    "OddsDecimalDisplay": "1.90",
+    "OddsNum": 10,
+    "OddsDen": 11,
+    "EventId": 17355422,
+    "MarketId": 648931455,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unter",
+    "CouponName": "Unter",
+    "HandicapDisplay": "155.5",
+    "Handicap": 155.5,
+    "SortIndex": 2,
+    "TeamCName": "under"
+   },
+   {
+    "Version": 24,
+    "PriceVersion": 24,
+    "OutcomeVersion": 1,
+    "Id": 2669506627,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.25,
+    "OddsDecimalDisplay": "3.25",
+    "OddsNum": 9,
+    "OddsDen": 4,
+    "EventId": 17355430,
+    "MarketId": 648835551,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "ABA Ancud",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 24,
+    "PriceVersion": 24,
+    "OutcomeVersion": 1,
+    "Id": 2669506628,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.286,
+    "OddsDecimalDisplay": "1.28",
+    "OddsNum": 2,
+    "OddsDen": 7,
+    "EventId": 17355430,
+    "MarketId": 648835551,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Universidad de Concepcion",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 52,
+    "PriceVersion": 52,
+    "OutcomeVersion": 1,
+    "Id": 2669831093,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.909,
+    "OddsDecimalDisplay": "1.90",
+    "OddsNum": 10,
+    "OddsDen": 11,
+    "EventId": 17355430,
+    "MarketId": 648940043,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "ABA Ancud",
+    "CouponName": "Heim",
+    "HandicapDisplay": "+7.5",
+    "Handicap": 7.5,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 52,
+    "PriceVersion": 52,
+    "OutcomeVersion": 1,
+    "Id": 2669831094,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.8,
+    "OddsDecimalDisplay": "1.80",
+    "OddsNum": 4,
+    "OddsDen": 5,
+    "EventId": 17355430,
+    "MarketId": 648940043,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Universidad de Concepcion",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "-7.5",
+    "Handicap": -7.5,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 43,
+    "PriceVersion": 43,
+    "OutcomeVersion": 1,
+    "Id": 2669831472,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.85,
+    "OddsDecimalDisplay": "1.85",
+    "OddsNum": 17,
+    "OddsDen": 20,
+    "EventId": 17355430,
+    "MarketId": 648940215,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Über",
+    "CouponName": "Über",
+    "HandicapDisplay": "162.5",
+    "Handicap": 162.5,
+    "SortIndex": 1,
+    "TeamCName": "over"
+   },
+   {
+    "Version": 43,
+    "PriceVersion": 43,
+    "OutcomeVersion": 1,
+    "Id": 2669831473,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.85,
+    "OddsDecimalDisplay": "1.85",
+    "OddsNum": 17,
+    "OddsDen": 20,
+    "EventId": 17355430,
+    "MarketId": 648940215,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unter",
+    "CouponName": "Unter",
+    "HandicapDisplay": "162.5",
+    "Handicap": 162.5,
+    "SortIndex": 2,
+    "TeamCName": "under"
+   },
+   {
+    "Version": 3,
+    "PriceVersion": 3,
+    "OutcomeVersion": 1,
+    "Id": 2669333702,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.55,
+    "OddsDecimalDisplay": "1.55",
+    "OddsNum": 11,
+    "OddsDen": 20,
+    "EventId": 17354604,
+    "MarketId": 648780161,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Union de Formosa",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 3,
+    "PriceVersion": 3,
+    "OutcomeVersion": 1,
+    "Id": 2669333703,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.3,
+    "OddsDecimalDisplay": "2.30",
+    "OddsNum": 13,
+    "OddsDen": 10,
+    "EventId": 17354604,
+    "MarketId": 648780161,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Racing de Chivilcoy",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 77,
+    "PriceVersion": 77,
+    "OutcomeVersion": 1,
+    "Id": 2669334374,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.8,
+    "OddsDecimalDisplay": "1.80",
+    "OddsNum": 4,
+    "OddsDen": 5,
+    "EventId": 17354604,
+    "MarketId": 648780402,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Union de Formosa",
+    "CouponName": "Heim",
+    "HandicapDisplay": "-3.5",
+    "Handicap": -3.5,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 77,
+    "PriceVersion": 77,
+    "OutcomeVersion": 1,
+    "Id": 2669334376,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.909,
+    "OddsDecimalDisplay": "1.90",
+    "OddsNum": 10,
+    "OddsDen": 11,
+    "EventId": 17354604,
+    "MarketId": 648780402,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Racing de Chivilcoy",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "+3.5",
+    "Handicap": 3.5,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 32,
+    "PriceVersion": 32,
+    "OutcomeVersion": 1,
+    "Id": 2669334388,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.85,
+    "OddsDecimalDisplay": "1.85",
+    "OddsNum": 17,
+    "OddsDen": 20,
+    "EventId": 17354604,
+    "MarketId": 648780409,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Über",
+    "CouponName": "Über",
+    "HandicapDisplay": "163.5",
+    "Handicap": 163.5,
+    "SortIndex": 1,
+    "TeamCName": "over"
+   },
+   {
+    "Version": 32,
+    "PriceVersion": 32,
+    "OutcomeVersion": 1,
+    "Id": 2669334389,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.85,
+    "OddsDecimalDisplay": "1.85",
+    "OddsNum": 17,
+    "OddsDen": 20,
+    "EventId": 17354604,
+    "MarketId": 648780409,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unter",
+    "CouponName": "Unter",
+    "HandicapDisplay": "163.5",
+    "Handicap": 163.5,
+    "SortIndex": 2,
+    "TeamCName": "under"
+   },
+   {
+    "Version": 5,
+    "PriceVersion": 5,
+    "OutcomeVersion": 1,
+    "Id": 2669535179,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.769,
+    "OddsDecimalDisplay": "1.76",
+    "OddsNum": 10,
+    "OddsDen": 13,
+    "EventId": 17355647,
+    "MarketId": 648846257,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Santos de San Luis",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 5,
+    "PriceVersion": 5,
+    "OutcomeVersion": 1,
+    "Id": 2669535180,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.952,
+    "OddsDecimalDisplay": "1.95",
+    "OddsNum": 20,
+    "OddsDen": 21,
+    "EventId": 17355647,
+    "MarketId": 648846257,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Abejas de Leon",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 8,
+    "PriceVersion": 8,
+    "OutcomeVersion": 1,
+    "Id": 2669536210,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.87,
+    "OddsDecimalDisplay": "1.87",
+    "OddsNum": 20,
+    "OddsDen": 23,
+    "EventId": 17355647,
+    "MarketId": 648846619,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Santos de San Luis",
+    "CouponName": "Heim",
+    "HandicapDisplay": "-1.5",
+    "Handicap": -1.5,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 8,
+    "PriceVersion": 8,
+    "OutcomeVersion": 1,
+    "Id": 2669536213,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.87,
+    "OddsDecimalDisplay": "1.87",
+    "OddsNum": 20,
+    "OddsDen": 23,
+    "EventId": 17355647,
+    "MarketId": 648846619,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Abejas de Leon",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "+1.5",
+    "Handicap": 1.5,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 1,
+    "PriceVersion": 1,
+    "OutcomeVersion": 1,
+    "Id": 2669536216,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.833,
+    "OddsDecimalDisplay": "1.83",
+    "OddsNum": 5,
+    "OddsDen": 6,
+    "EventId": 17355647,
+    "MarketId": 648846621,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Über",
+    "CouponName": "Über",
+    "HandicapDisplay": "174.5",
+    "Handicap": 174.5,
+    "SortIndex": 1,
+    "TeamCName": "over"
+   },
+   {
+    "Version": 1,
+    "PriceVersion": 1,
+    "OutcomeVersion": 1,
+    "Id": 2669536217,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.87,
+    "OddsDecimalDisplay": "1.87",
+    "OddsNum": 20,
+    "OddsDen": 23,
+    "EventId": 17355647,
+    "MarketId": 648846621,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unter",
+    "CouponName": "Unter",
+    "HandicapDisplay": "174.5",
+    "Handicap": 174.5,
+    "SortIndex": 2,
+    "TeamCName": "under"
+   },
+   {
+    "Version": 28,
+    "PriceVersion": 28,
+    "OutcomeVersion": 1,
+    "Id": 2669553222,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.1,
+    "OddsDecimalDisplay": "2.10",
+    "OddsNum": 11,
+    "OddsDen": 10,
+    "EventId": 17355762,
+    "MarketId": 648852406,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Diablos Rojos del Mexico",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 26,
+    "PriceVersion": 26,
+    "OutcomeVersion": 1,
+    "Id": 2669553223,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.69,
+    "OddsDecimalDisplay": "1.69",
+    "OddsNum": 20,
+    "OddsDen": 29,
+    "EventId": 17355762,
+    "MarketId": 648852406,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Mineros de Zacatecas",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 27,
+    "PriceVersion": 27,
+    "OutcomeVersion": 1,
+    "Id": 2669553885,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.833,
+    "OddsDecimalDisplay": "1.83",
+    "OddsNum": 5,
+    "OddsDen": 6,
+    "EventId": 17355762,
+    "MarketId": 648852658,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Diablos Rojos del Mexico",
+    "CouponName": "Heim",
+    "HandicapDisplay": "+2.5",
+    "Handicap": 2.5,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 27,
+    "PriceVersion": 27,
+    "OutcomeVersion": 1,
+    "Id": 2669553888,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.87,
+    "OddsDecimalDisplay": "1.87",
+    "OddsNum": 20,
+    "OddsDen": 23,
+    "EventId": 17355762,
+    "MarketId": 648852658,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Mineros de Zacatecas",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "-2.5",
+    "Handicap": -2.5,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 13,
+    "PriceVersion": 13,
+    "OutcomeVersion": 1,
+    "Id": 2669553886,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.8,
+    "OddsDecimalDisplay": "1.80",
+    "OddsNum": 4,
+    "OddsDen": 5,
+    "EventId": 17355762,
+    "MarketId": 648852659,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Über",
+    "CouponName": "Über",
+    "HandicapDisplay": "172.5",
+    "Handicap": 172.5,
+    "SortIndex": 1,
+    "TeamCName": "over"
+   },
+   {
+    "Version": 13,
+    "PriceVersion": 13,
+    "OutcomeVersion": 1,
+    "Id": 2669553889,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.909,
+    "OddsDecimalDisplay": "1.90",
+    "OddsNum": 10,
+    "OddsDen": 11,
+    "EventId": 17355762,
+    "MarketId": 648852659,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unter",
+    "CouponName": "Unter",
+    "HandicapDisplay": "172.5",
+    "Handicap": 172.5,
+    "SortIndex": 2,
+    "TeamCName": "under"
+   },
+   {
+    "Version": 8,
+    "PriceVersion": 8,
+    "OutcomeVersion": 1,
+    "Id": 2667169254,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.8,
+    "OddsDecimalDisplay": "1.80",
+    "OddsNum": 4,
+    "OddsDen": 5,
+    "EventId": 17347851,
+    "MarketId": 648095220,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Southside Flyers Frauen",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 8,
+    "PriceVersion": 8,
+    "OutcomeVersion": 1,
+    "Id": 2667169255,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.909,
+    "OddsDecimalDisplay": "1.90",
+    "OddsNum": 10,
+    "OddsDen": 11,
+    "EventId": 17347851,
+    "MarketId": 648095220,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Sydney Uni Flames Frauen",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 84,
+    "PriceVersion": 84,
+    "OutcomeVersion": 1,
+    "Id": 2668793522,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.85,
+    "OddsDecimalDisplay": "1.85",
+    "OddsNum": 17,
+    "OddsDen": 20,
+    "EventId": 17347851,
+    "MarketId": 648606890,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Southside Flyers Frauen",
+    "CouponName": "Heim",
+    "HandicapDisplay": "-1.5",
+    "Handicap": -1.5,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 84,
+    "PriceVersion": 84,
+    "OutcomeVersion": 1,
+    "Id": 2668793524,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.85,
+    "OddsDecimalDisplay": "1.85",
+    "OddsNum": 17,
+    "OddsDen": 20,
+    "EventId": 17347851,
+    "MarketId": 648606890,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Sydney Uni Flames Frauen",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "+1.5",
+    "Handicap": 1.5,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 62,
+    "PriceVersion": 62,
+    "OutcomeVersion": 1,
+    "Id": 2668793521,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.85,
+    "OddsDecimalDisplay": "1.85",
+    "OddsNum": 17,
+    "OddsDen": 20,
+    "EventId": 17347851,
+    "MarketId": 648606889,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Über",
+    "CouponName": "Über",
+    "HandicapDisplay": "159.5",
+    "Handicap": 159.5,
+    "SortIndex": 1,
+    "TeamCName": "over"
+   },
+   {
+    "Version": 62,
+    "PriceVersion": 62,
+    "OutcomeVersion": 1,
+    "Id": 2668793523,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.85,
+    "OddsDecimalDisplay": "1.85",
+    "OddsNum": 17,
+    "OddsDen": 20,
+    "EventId": 17347851,
+    "MarketId": 648606889,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unter",
+    "CouponName": "Unter",
+    "HandicapDisplay": "159.5",
+    "Handicap": 159.5,
+    "SortIndex": 2,
+    "TeamCName": "under"
+   },
+   {
+    "Version": 16,
+    "PriceVersion": 16,
+    "OutcomeVersion": 1,
+    "Id": 2667158591,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.667,
+    "OddsDecimalDisplay": "1.66",
+    "OddsNum": 4,
+    "OddsDen": 6,
+    "EventId": 17347817,
+    "MarketId": 648091542,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Tasmania JackJumpers",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 10,
+    "PriceVersion": 10,
+    "OutcomeVersion": 1,
+    "Id": 2667158592,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.1,
+    "OddsDecimalDisplay": "2.10",
+    "OddsNum": 11,
+    "OddsDen": 10,
+    "EventId": 17347817,
+    "MarketId": 648091542,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Adelaide 36ers",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 24,
+    "PriceVersion": 24,
+    "OutcomeVersion": 1,
+    "Id": 2667161685,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.833,
+    "OddsDecimalDisplay": "1.83",
+    "OddsNum": 5,
+    "OddsDen": 6,
+    "EventId": 17347817,
+    "MarketId": 648092495,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Tasmania JackJumpers",
+    "CouponName": "Heim",
+    "HandicapDisplay": "-2.5",
+    "Handicap": -2.5,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 22,
+    "PriceVersion": 22,
+    "OutcomeVersion": 1,
+    "Id": 2667161686,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.87,
+    "OddsDecimalDisplay": "1.87",
+    "OddsNum": 20,
+    "OddsDen": 23,
+    "EventId": 17347817,
+    "MarketId": 648092495,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Adelaide 36ers",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "+2.5",
+    "Handicap": 2.5,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 12,
+    "PriceVersion": 12,
+    "OutcomeVersion": 1,
+    "Id": 2667161655,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.833,
+    "OddsDecimalDisplay": "1.83",
+    "OddsNum": 5,
+    "OddsDen": 6,
+    "EventId": 17347817,
+    "MarketId": 648092480,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Über",
+    "CouponName": "Über",
+    "HandicapDisplay": "182.5",
+    "Handicap": 182.5,
+    "SortIndex": 1,
+    "TeamCName": "over"
+   },
+   {
+    "Version": 12,
+    "PriceVersion": 12,
+    "OutcomeVersion": 1,
+    "Id": 2667161656,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.87,
+    "OddsDecimalDisplay": "1.87",
+    "OddsNum": 20,
+    "OddsDen": 23,
+    "EventId": 17347817,
+    "MarketId": 648092480,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unter",
+    "CouponName": "Unter",
+    "HandicapDisplay": "182.5",
+    "Handicap": 182.5,
+    "SortIndex": 2,
+    "TeamCName": "under"
+   },
+   {
+    "Version": 5,
+    "PriceVersion": 5,
+    "OutcomeVersion": 1,
+    "Id": 2670039395,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.526,
+    "OddsDecimalDisplay": "1.52",
+    "OddsNum": 10,
+    "OddsDen": 19,
+    "EventId": 17357581,
+    "MarketId": 649001612,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Goyang Sky Gunners",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 6,
+    "PriceVersion": 6,
+    "OutcomeVersion": 1,
+    "Id": 2670039396,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.4,
+    "OddsDecimalDisplay": "2.40",
+    "OddsNum": 7,
+    "OddsDen": 5,
+    "EventId": 17357581,
+    "MarketId": 649001612,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Mobis Phoebus",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 6,
+    "PriceVersion": 6,
+    "OutcomeVersion": 1,
+    "Id": 2670040623,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.8,
+    "OddsDecimalDisplay": "1.80",
+    "OddsNum": 4,
+    "OddsDen": 5,
+    "EventId": 17357581,
+    "MarketId": 649002064,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Goyang Sky Gunners",
+    "CouponName": "Heim",
+    "HandicapDisplay": "-3.5",
+    "Handicap": -3.5,
+    "SortIndex": 1,
+    "TeamCName": "--home-team-"
+   },
+   {
+    "Version": 6,
+    "PriceVersion": 6,
+    "OutcomeVersion": 1,
+    "Id": 2670040625,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.909,
+    "OddsDecimalDisplay": "1.90",
+    "OddsNum": 10,
+    "OddsDen": 11,
+    "EventId": 17357581,
+    "MarketId": 649002064,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Mobis Phoebus",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "+3.5",
+    "Handicap": 3.5,
+    "SortIndex": 2,
+    "TeamCName": "--away-team-"
+   },
+   {
+    "Version": 2,
+    "PriceVersion": 2,
+    "OutcomeVersion": 1,
+    "Id": 2670040505,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.87,
+    "OddsDecimalDisplay": "1.87",
+    "OddsNum": 20,
+    "OddsDen": 23,
+    "EventId": 17357581,
+    "MarketId": 649002012,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Über",
+    "CouponName": "Über",
+    "HandicapDisplay": "171.5",
+    "Handicap": 171.5,
+    "SortIndex": 1,
+    "TeamCName": "over"
+   },
+   {
+    "Version": 2,
+    "PriceVersion": 2,
+    "OutcomeVersion": 1,
+    "Id": 2670040507,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.87,
+    "OddsDecimalDisplay": "1.87",
+    "OddsNum": 20,
+    "OddsDen": 23,
+    "EventId": 17357581,
+    "MarketId": 649002012,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unter",
+    "CouponName": "Unter",
+    "HandicapDisplay": "171.5",
+    "Handicap": 171.5,
+    "SortIndex": 2,
+    "TeamCName": "under"
+   }
+  ],
+  "Success": true
+ }
+}

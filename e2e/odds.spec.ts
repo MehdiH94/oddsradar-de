@@ -18,9 +18,9 @@ test("the dashboard lists the matches with each outcome's best price, and keeps 
   for (const match of [VALUE_MATCH, SUREBET_MATCH, SECOND_VALUE_MATCH]) await expect(football).toContainText(teams(match));
   await expect(football).not.toContainText(teams(TENNIS_MATCH));
   const row = football.getByRole("row", { name: new RegExp(teams(VALUE_MATCH)) });
-  await expect(row).toContainText("Winamax: 2.20 (best price)");
-  await expect(row).toContainText("Betclic: 3.30 (best price)");
-  await expect(row).toContainText("Betclic: 3.70 (best price)");
+  await expect(row).toContainText("LeoVegas: 2.20 (best price)");
+  await expect(row).toContainText("Betway: 3.30 (best price)");
+  await expect(row).toContainText("Betway: 3.70 (best price)");
 
   // The sport filter swaps the list, and the address says so.
   await pick(page, "Tennis");
@@ -44,10 +44,10 @@ test("the dashboard lists the matches with each outcome's best price, and keeps 
 });
 
 test("the bookmakers ticked in the address are the ones whose prices are compared", async ({ page }) => {
-  await page.goto("/odds?sport=football&sort=trj&bookmakers=winamax");
+  await page.goto("/odds?sport=football&sort=trj&bookmakers=leovegas");
   const row = page.getByRole("region", { name: "Football" }).getByRole("row", { name: new RegExp(teams(VALUE_MATCH)) });
-  await expect(row).toContainText("Winamax: 2.20");
-  await expect(row).not.toContainText("Betclic :");
+  await expect(row).toContainText("LeoVegas: 2.20");
+  await expect(row).not.toContainText("Betway :");
 });
 
 test("the value bets list shows each bet's price against the fair odds, the biggest edge first", async ({ page }) => {
@@ -58,10 +58,10 @@ test("the value bets list shows each bet's price against the fair odds, the bigg
   const bets = page.getByRole("region", { name: "Value bets" });
   const rows = bets.getByRole("row").filter({ hasNot: page.getByRole("columnheader") });
   await expect(rows).toHaveCount(2);
-  // The home side at Winamax, 2.20 against the fair 2.00: +10%; then Nice's 2.10 against 2.00: +5%.
+  // The home side at LeoVegas, 2.20 against the fair 2.00: +10%; then Nice's 2.10 against 2.00: +5%.
   await expect(rows.nth(0)).toContainText(teams(VALUE_MATCH));
   await expect(rows.nth(0)).toContainText("Paris SG");
-  await expect(rows.nth(0)).toContainText("Winamax: 2.20");
+  await expect(rows.nth(0)).toContainText("LeoVegas: 2.20");
   await expect(rows.nth(0)).toContainText("2.00");
   await expect(rows.nth(0)).toContainText("+10.0%");
   await expect(rows.nth(1)).toContainText(teams(SECOND_VALUE_MATCH));
@@ -77,7 +77,7 @@ test("a match opens from the value bets with all its markets, and its back link 
   // Its main market, with the TRJ of the best prices, and a market of its own.
   const result = page.getByRole("article", { name: "Match result" });
   await expect(result).toContainText("97.3%");
-  await expect(result).toContainText("Winamax: 2.20 (best price)");
+  await expect(result).toContainText("LeoVegas: 2.20 (best price)");
   await expect(page.getByRole("article", { name: "Total goals" })).toContainText("2.5");
 
   await page.getByRole("link", { name: "All value bets" }).click();
@@ -92,7 +92,7 @@ test("a match's name opens its page from the odds list, even with nothing but it
 
   await expect(page).toHaveURL(/match=e2e-weber-ruiz/);
   await expect(page.getByRole("heading", { name: "Jonas Weber – Mateo Ruiz", level: 2 })).toBeVisible();
-  await expect(page.getByRole("article", { name: "Match winner" })).toContainText("Betclic");
+  await expect(page.getByRole("article", { name: "Match winner" })).toContainText("Betway");
 
   await page.getByRole("link", { name: "All matches" }).click();
   await expect(page).not.toHaveURL(/match=/);
@@ -124,9 +124,9 @@ test("a surebet shows each leg's bookmaker, price and stake, and what it earns",
   // One leg per outcome: who to bet with, at what price, and how much of the 100 EUR.
   const legs = surebets.getByRole("listitem");
   await expect(legs).toHaveCount(3);
-  await expect(legs.nth(0)).toHaveText(/Lyon\s*Winamax\s*2.60\s*stake €39.20/);
-  await expect(legs.nth(1)).toHaveText(/Draw\s*Betclic\s*3.80\s*stake €26.82/);
-  await expect(legs.nth(2)).toHaveText(/Lille\s*Betclic\s*3.00\s*stake €33.98/);
+  await expect(legs.nth(0)).toHaveText(/Lyon\s*LeoVegas\s*2.60\s*stake €39.20/);
+  await expect(legs.nth(1)).toHaveText(/Draw\s*Betway\s*3.80\s*stake €26.82/);
+  await expect(legs.nth(2)).toHaveText(/Lille\s*Betway\s*3.00\s*stake €33.98/);
   await expect(surebets).toContainText("101.9%");
   await expect(surebets).toContainText("+€1.93");
 });
@@ -160,9 +160,9 @@ test("the winners of the competitions are listed with the matches, each with its
   await page.goto("/odds?sport=football&sort=trj");
   const card = page.getByRole("article", { name: COMPETITION_WINNER.title });
   await expect(card).toBeVisible();
-  await expect(card.getByRole("row", { name: /Paris Saint-Germain/ })).toContainText("Winamax: 1.50 (best price)");
-  await expect(card.getByRole("row", { name: /Olympique de Marseille/ })).toContainText("Betclic: 3.40 (best price)");
-  await expect(card.getByRole("row", { name: /AS Monaco/ })).toContainText("Betclic: 4.20 (best price)");
+  await expect(card.getByRole("row", { name: /Paris Saint-Germain/ })).toContainText("LeoVegas: 1.50 (best price)");
+  await expect(card.getByRole("row", { name: /Olympique de Marseille/ })).toContainText("Betway: 3.40 (best price)");
+  await expect(card.getByRole("row", { name: /AS Monaco/ })).toContainText("Betway: 4.20 (best price)");
 
   // Not in the other sports' lists.
   await pick(page, "Tennis");

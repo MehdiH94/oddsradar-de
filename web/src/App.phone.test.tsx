@@ -33,7 +33,7 @@ const match = (id: string, participants: string[], prices: Record<string, [numbe
   ),
 });
 
-const PSG_OM = match("psg-om", ["PSG", "OM"], { winamax: [1.5, 4.1, 6.2], betclic: [1.55, 4.0, 6.0] });
+const PSG_OM = match("psg-om", ["PSG", "OM"], { leovegas: [1.5, 4.1, 6.2], betway: [1.55, 4.0, 6.0] });
 
 const BET = {
   eventId: "psg-om",
@@ -46,7 +46,7 @@ const BET = {
   marketLabel: "Résultat du match",
   selection: "1",
   label: "PSG",
-  bookmaker: "betclic",
+  bookmaker: "betway",
   price: 1.6,
   basis: "fair",
   fair: 1.5,
@@ -96,8 +96,8 @@ describe("App on a phone", () => {
     const sheet = screen.getByRole("dialog", { name: "Filters" });
     expect(open).toHaveAttribute("aria-expanded", "true");
     expect(within(sheet).getByRole("radio", { name: "Best payout" })).toBeChecked();
-    expect(within(sheet).getByRole("checkbox", { name: "Winamax" })).toBeChecked();
-    expect(within(sheet).getByRole("checkbox", { name: "Betclic" })).toBeChecked();
+    expect(within(sheet).getByRole("checkbox", { name: "LeoVegas" })).toBeChecked();
+    expect(within(sheet).getByRole("checkbox", { name: "Betway" })).toBeChecked();
     expect(within(sheet).getByRole("radio", { name: "With player markets" })).not.toBeChecked();
   });
 
@@ -120,7 +120,7 @@ describe("App on a phone", () => {
     expect(within(sheet).getByRole("radio", { name: "Best payout" })).toBeChecked();
     expect(within(sheet).queryByRole("button", { name: "Reset" })).not.toBeInTheDocument();
 
-    fireEvent.click(within(sheet).getByRole("checkbox", { name: "Betclic" }));
+    fireEvent.click(within(sheet).getByRole("checkbox", { name: "Betway" }));
     fireEvent.click(within(sheet).getByRole("button", { name: "Show the 50 results" }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Filters, 1 active" })).toBeInTheDocument();
@@ -206,16 +206,16 @@ describe("App on a phone", () => {
     render(<App />);
     await screen.findByText("PSG - OM");
 
-    // Betclic's 1,55 is the best "1"; Winamax's 1,50 shows only once compared.
-    expect(screen.getByText("PSG: 1.55 at Betclic")).toBeInTheDocument();
-    expect(screen.getByText("Draw: 4.10 at Winamax")).toBeInTheDocument();
+    // Betway's 1,55 is the best "1"; LeoVegas's 1,50 shows only once compared.
+    expect(screen.getByText("PSG: 1.55 at Betway")).toBeInTheDocument();
+    expect(screen.getByText("Draw: 4.10 at LeoVegas")).toBeInTheDocument();
     expect(screen.queryByText("1.50")).not.toBeInTheDocument();
 
     const compare = screen.getByRole("button", { name: /^Compare the prices of 2 bookmakers for PSG - OM/ });
     expect(compare).toHaveAttribute("aria-expanded", "false");
     fireEvent.click(compare);
     expect(compare).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByText("1.50").closest("[data-bookmaker]")).toHaveAttribute("data-bookmaker", "winamax");
+    expect(screen.getByText("1.50").closest("[data-bookmaker]")).toHaveAttribute("data-bookmaker", "leovegas");
 
     expect(screen.getByRole("link", { name: "+41 markets for PSG - OM" })).toHaveAttribute(
       "href",

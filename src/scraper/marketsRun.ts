@@ -7,6 +7,8 @@ import { MARKET_MATCH_WINNER } from "./canonical";
 import { EventMarketOdds, forgetOldStats, forgetStartedEvents, getMarketTargets, MarketTarget, saveMarketOdds } from "../db/repository";
 import { fetchWinamaxMarkets } from "./winamaxMarkets";
 import { fetchBetclicMarkets } from "./betclicMarkets";
+import { fetchKambiMarkets } from "./kambiMarkets";
+import { LEOVEGAS } from "./kambi";
 
 // The second cycle of the worker: every market of the matches starting soon,
 // on top of the listing's main market (./run.ts). Its bookmakers are asked by
@@ -18,18 +20,25 @@ export type MarketsFetcher = (sourceIds: readonly string[]) => Promise<Map<strin
 
 export const MARKET_FETCHERS: Record<string, MarketsFetcher> = {
   winamax: fetchWinamaxMarkets,
-  // Kept as the engine's second bookmaker until Tipico takes its place; the
-  // worker no longer lists Betclic (betclic.fr refuses connections from outside
-  // France), so it is never asked.
+  // Winamax's and Betclic's readers stay for their real captures, which many
+  // tests read; the worker no longer lists them (their sites refuse a German
+  // server), so they are never asked.
   betclic: fetchBetclicMarkets,
+  // LeoVegas.de's: every market a family covers of a match of the sports Kambi's
+  // reader has a table for, and a golf tournament's Top N, round leaders and best
+  // of a nationality (./kambiMarkets.ts).
+  leovegas: (ids) => fetchKambiMarkets(LEOVEGAS, ids),
 };
 
 // The sports each bookmaker's markets are read for. A bookmaker not listed
 // here is asked for every sport of the catalog (the fetchers a test gives).
 const BASE_SPORTS = ["football", "tennis", "basketball", "golf"];
+// The sports beyond the base that Kambi's reader has a table for (./kambiMarkets.ts).
+const MORE_SPORTS = ["football américain", "rugby à xv", "hockey sur glace", "handball"];
 export const MARKETS_BY_BOOKMAKER: Readonly<Record<string, ReadonlySet<string>>> = {
   winamax: new Set(BASE_SPORTS),
   betclic: new Set(BASE_SPORTS),
+  leovegas: new Set([...BASE_SPORTS, ...MORE_SPORTS]),
 };
 const asksFor = (bookmaker: string, sport: string): boolean => MARKETS_BY_BOOKMAKER[bookmaker]?.has(sport) ?? true;
 

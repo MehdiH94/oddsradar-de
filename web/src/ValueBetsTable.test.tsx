@@ -14,7 +14,7 @@ const bet = (overrides: Partial<ValueBet>): ValueBet => ({
   marketLabel: "Résultat du match",
   selection: "1",
   label: "PSG",
-  bookmaker: "betclic",
+  bookmaker: "betway",
   price: 1.56,
   basis: "fair",
   fair: 1.5,
@@ -29,7 +29,7 @@ describe("ValueBetsTable", () => {
       <ValueBetsTable
         bets={[
           bet({}),
-          bet({ selection: "X", label: "Draw", bookmaker: "winamax", price: 4.4, fair: 4.2, edge: 4.4 / 4.2 - 1 }),
+          bet({ selection: "X", label: "Draw", bookmaker: "leovegas", price: 4.4, fair: 4.2, edge: 4.4 / 4.2 - 1 }),
         ]}
       />
     );
@@ -47,12 +47,12 @@ describe("ValueBetsTable", () => {
     expect(cells[0].querySelector("time")).toHaveAttribute("dateTime", "2099-01-01T20:00:00.000Z");
     expect(cells[1]).toHaveTextContent("⚽ PSG - OMLigue 1");
     expect(cells[2]).toHaveTextContent("PSGRésultat du match");
-    expect(cells[3].querySelector('[data-bookmaker="betclic"]')).toHaveAttribute("data-value", "true");
-    expect(cells[3]).toHaveTextContent("Betclic: 1.56 (value bet: +4.0% over the fair odds)");
+    expect(cells[3].querySelector('[data-bookmaker="betway"]')).toHaveAttribute("data-value", "true");
+    expect(cells[3]).toHaveTextContent("Betway: 1.56 (value bet: +4.0% over the fair odds)");
     expect(cells[4]).toHaveTextContent("1.50");
     expect(cells[5]).toHaveTextContent("+4.0%");
     expect(within(second).getAllByRole("cell")[2]).toHaveTextContent("Draw");
-    expect(within(second).getAllByRole("cell")[3]).toHaveTextContent("Winamax: 4.40");
+    expect(within(second).getAllByRole("cell")[3]).toHaveTextContent("LeoVegas: 4.40");
   });
 
   it("links each bet to its match's every market, opened in place on a plain click", () => {
@@ -140,17 +140,17 @@ describe("ValueBetsTable", () => {
     render(
       <ValueBetsTable
         bets={[
-          bet({ market: "anytime_scorer", marketLabel: "Buteur", selection: "Doué", label: "Doué", bookmaker: "winamax", price: 2.8, basis: "lay", fair: 2.6, edge: 2.8 / 2.6 - 1 }),
+          bet({ market: "anytime_scorer", marketLabel: "Buteur", selection: "Doué", label: "Doué", bookmaker: "leovegas", price: 2.8, basis: "lay", fair: 2.6, edge: 2.8 / 2.6 - 1 }),
           bet({
             market: "first_scorer",
             marketLabel: "Premier buteur",
             selection: "Lepaul",
             label: "Lepaul",
-            bookmaker: "winamax",
+            bookmaker: "leovegas",
             price: 13,
             basis: "bookmaker",
             fair: 9,
-            referenceBookmaker: "betclic",
+            referenceBookmaker: "betway",
             edge: 13 / 9 - 1,
           }),
         ]}
@@ -163,9 +163,9 @@ describe("ValueBetsTable", () => {
     expect(lay[3]).toHaveTextContent("(value bet: +7.7% over the fair odds)");
 
     expect(suspect[2]).toHaveTextContent("LepaulPremier buteur · suspect price");
-    expect(suspect[3]).toHaveTextContent("Winamax: 13.00 (suspect price: +44.4% over the other bookmaker)");
-    expect(suspect[4]).toHaveTextContent("9.00 at Betclic");
-    expect(suspect[4]).toHaveAttribute("title", expect.stringMatching(/does not price this player; the price at Betclic$/));
+    expect(suspect[3]).toHaveTextContent("LeoVegas: 13.00 (suspect price: +44.4% over the other bookmaker)");
+    expect(suspect[4]).toHaveTextContent("9.00 at Betway");
+    expect(suspect[4]).toHaveAttribute("title", expect.stringMatching(/does not price this player; the price at Betway$/));
     expect(suspect[5]).toHaveTextContent("+44.4%");
   });
 });

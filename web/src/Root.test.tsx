@@ -24,7 +24,7 @@ const USER = { id: "u1", email: "ada@example.com", role: "user" };
 
 // The API as seen from Root: whether /api/auth/me knows a session, and what
 // the login and logout calls answer. The home reads the public totals.
-const SAVED = { sport: "tennis", sort: "start", bookmakers: ["winamax"], players: false, favoriteSports: [] };
+const SAVED = { sport: "tennis", sort: "start", bookmakers: ["leovegas"], players: false, favoriteSports: [] };
 
 function stubApi({
   signedIn = true,
@@ -94,10 +94,10 @@ describe("Root", () => {
 
   it("opens an old dashboard link at / on the dashboard, at its new address", async () => {
     stubApi();
-    window.history.replaceState(null, "", "/?match=abc&bookmakers=winamax");
+    window.history.replaceState(null, "", "/?match=abc&bookmakers=leovegas");
     render(<Root />);
     expect(await screen.findByRole("heading", { level: 1, name: "Le dashboard" })).toBeInTheDocument();
-    expect(address()).toBe("/odds?match=abc&bookmakers=winamax");
+    expect(address()).toBe("/odds?match=abc&bookmakers=leovegas");
   });
 
   it("keeps a campaign's link (?utm_source=...) on the home", () => {

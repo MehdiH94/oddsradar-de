@@ -1,16 +1,16 @@
-import betclicLogo from "./assets/bookmakers/betclic.png";
-import winamaxLogo from "./assets/bookmakers/winamax.png";
+import betwayLogo from "./assets/bookmakers/betway.png";
+import leovegasLogo from "./assets/bookmakers/leovegas.ico";
 
-// The fixed set of bookmakers this project scrapes (src/scraper/winamax.ts;
-// Betclic holds the second place until Tipico takes it). Unlike sports there is no
+// The fixed set of bookmakers this project scrapes (src/scraper/kambi.ts for
+// LeoVegas.de, betway.ts). Unlike sports there is no
 // /api/bookmakers endpoint -- they are hardcoded scrapers, so the frontend's
 // list mirrors that directly rather than being derived from a fetched response.
 // The order is the filter's, and everywhere the bookmakers are listed.
-export const ALL_BOOKMAKERS = ["winamax", "betclic"] as const;
+export const ALL_BOOKMAKERS = ["leovegas", "betway"] as const;
 
 // What the filter shows ticked when the URL doesn't say. Not "all": the API's
 // own default (no `bookmakers` parameter) still is every bookmaker.
-export const DEFAULT_BOOKMAKERS: readonly string[] = ["winamax", "betclic"];
+export const DEFAULT_BOOKMAKERS: readonly string[] = ["leovegas", "betway"];
 
 // Whether the selection is the default one. A selection is always in
 // ALL_BOOKMAKERS' order (BookmakerMenu, readUrlFilters), so comparing in
@@ -19,15 +19,15 @@ export function isDefaultBookmakers(selected: readonly string[]): boolean {
   return selected.length === DEFAULT_BOOKMAKERS.length && selected.every((b, i) => b === DEFAULT_BOOKMAKERS[i]);
 }
 
-// How the UI shows each bookmaker: its own site icon (winamax.fr's
-// apple-touch-icon, Betclic's favicon), with the name as alt text and
+// How the UI shows each bookmaker: its own site icon (LeoVegas.de's favicon,
+// Betway.de's apple-touch-icon), with the name as alt text and
 // tooltip (BookmakerLogo). A bookmaker without an icon (yet) shows its name in
 // its place.
 export const BOOKMAKER_BRANDING: Record<string, { name: string; logo?: string } | undefined> = {
-  winamax: { name: "Winamax", logo: winamaxLogo },
-  betclic: { name: "Betclic", logo: betclicLogo },
+  leovegas: { name: "LeoVegas", logo: leovegasLogo },
+  betway: { name: "Betway", logo: betwayLogo },
 };
 
-// Every bookmaker's name, for the texts that list them all: "Winamax and Betclic".
+// Every bookmaker's name, for the texts that list them all: "LeoVegas and Betway".
 export const ALL_BOOKMAKER_NAMES = ALL_BOOKMAKERS.map((id) => BOOKMAKER_BRANDING[id]?.name ?? id);
 export const ALL_BOOKMAKERS_SENTENCE = `${ALL_BOOKMAKER_NAMES.slice(0, -1).join(", ")} and ${ALL_BOOKMAKER_NAMES[ALL_BOOKMAKER_NAMES.length - 1]}`;

@@ -1,0 +1,1489 @@
+{
+ "filters": [
+  "win-draw-win",
+  "total-goals",
+  "total-goals-1-5",
+  "total-goals-2-5",
+  "total-goals-3-5",
+  "double-chance",
+  "both-teams-to-score"
+ ],
+ "eventIds": [
+  17345363,
+  17345285,
+  17345376,
+  17345410,
+  17351509,
+  17355382,
+  17345475,
+  17345513
+ ],
+ "events": {
+  "MethodName": "Events",
+  "MethodResult": "OK",
+  "CorrelationId": "4e843534-5b85-47df-9efa-03206f039d4c",
+  "Events": [
+   {
+    "Version": 8,
+    "Id": 17345363,
+    "GroupName": "Primera B",
+    "SubCategoryName": "Kolumbien",
+    "CategoryCName": "soccer",
+    "CategoryName": "Fußball",
+    "HomeTeamName": "B.F.C.",
+    "AwayTeamName": "Tigres FC",
+    "EventName": "B.F.C. - Tigres FC",
+    "Milliseconds": 1792098000000,
+    "Date": "10/15/2026",
+    "Time": "21:00",
+    "MarketCount": 0,
+    "Markets": [
+     647887655
+    ],
+    "CouponMarketId": 647887655,
+    "FilterMarkets": {
+     "win-draw-win": 647887655
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 74565602,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       647887655
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "barranquilla-fc",
+    "AwayTeamCName": "tigres-fc",
+    "GroupCName": "primera-b",
+    "SubCategoryCName": "colombia",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": null,
+    "SportVariationName": "",
+    "SportsRadarId": 74565602,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   },
+   {
+    "Version": 7,
+    "Id": 17345285,
+    "GroupName": "Liga Nacional",
+    "SubCategoryName": "Guatemala",
+    "CategoryCName": "soccer",
+    "CategoryName": "Fußball",
+    "HomeTeamName": "Coban Imperial",
+    "AwayTeamName": "CSD Municipal",
+    "EventName": "Coban Imperial - CSD Municipal",
+    "Milliseconds": 1792098000000,
+    "Date": "10/15/2026",
+    "Time": "21:00",
+    "MarketCount": 0,
+    "Markets": [
+     647879850
+    ],
+    "CouponMarketId": 647879850,
+    "FilterMarkets": {
+     "win-draw-win": 647879850
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 72475018,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       647879850
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "coban-imperial",
+    "AwayTeamCName": "csd-municipal",
+    "GroupCName": "liga-nacional",
+    "SubCategoryCName": "guatemala",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": null,
+    "SportVariationName": "",
+    "SportsRadarId": 72475018,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   },
+   {
+    "Version": 7,
+    "Id": 17345376,
+    "GroupName": "Primera B",
+    "SubCategoryName": "Kolumbien",
+    "CategoryCName": "soccer",
+    "CategoryName": "Fußball",
+    "HomeTeamName": "Union Magdalena",
+    "AwayTeamName": "Independiente Yumbo",
+    "EventName": "Union Magdalena - Independiente Yumbo",
+    "Milliseconds": 1792101600000,
+    "Date": "10/15/2026",
+    "Time": "22:00",
+    "MarketCount": 0,
+    "Markets": [
+     647888997
+    ],
+    "CouponMarketId": 647888997,
+    "FilterMarkets": {
+     "win-draw-win": 647888997
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 74702402,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       647888997
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "union-magdalena",
+    "AwayTeamCName": "independiente-yumbo",
+    "GroupCName": "primera-b",
+    "SubCategoryCName": "colombia",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": null,
+    "SportVariationName": "",
+    "SportsRadarId": 74702402,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   },
+   {
+    "Version": 7,
+    "Id": 17345410,
+    "GroupName": "Primera B",
+    "SubCategoryName": "Kolumbien",
+    "CategoryCName": "soccer",
+    "CategoryName": "Fußball",
+    "HomeTeamName": "Leones FC",
+    "AwayTeamName": "Boyaca Patriotas",
+    "EventName": "Leones FC - Boyaca Patriotas",
+    "Milliseconds": 1792102500000,
+    "Date": "10/15/2026",
+    "Time": "22:15",
+    "MarketCount": 0,
+    "Markets": [
+     647891260
+    ],
+    "CouponMarketId": 647891260,
+    "FilterMarkets": {
+     "win-draw-win": 647891260
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 74702412,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       647891260
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "leones-fc",
+    "AwayTeamCName": "boyaca-patriotas",
+    "GroupCName": "primera-b",
+    "SubCategoryCName": "colombia",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": null,
+    "SportVariationName": "",
+    "SportsRadarId": 74702412,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   },
+   {
+    "Version": 6,
+    "Id": 17351509,
+    "GroupName": "Primera Division",
+    "SubCategoryName": "Argentinien",
+    "CategoryCName": "soccer",
+    "CategoryName": "Fußball",
+    "HomeTeamName": "CA Huracan",
+    "AwayTeamName": "Gimnasia de La Plata",
+    "EventName": "CA Huracan - Gimnasia de La Plata",
+    "Milliseconds": 1792105200000,
+    "Date": "10/15/2026",
+    "Time": "23:00",
+    "MarketCount": 0,
+    "Markets": [
+     648447244
+    ],
+    "CouponMarketId": 648447244,
+    "FilterMarkets": {
+     "win-draw-win": 648447244
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 73265428,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       648447244
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "ca-huracan",
+    "AwayTeamCName": "gimnasia-de-la-plata",
+    "GroupCName": "primera-division",
+    "SubCategoryCName": "argentina",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": null,
+    "SportVariationName": "",
+    "SportsRadarId": 73265428,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   },
+   {
+    "Version": 7,
+    "Id": 17355382,
+    "GroupName": "Pokal",
+    "SubCategoryName": "Kolumbien",
+    "CategoryCName": "soccer",
+    "CategoryName": "Fußball",
+    "HomeTeamName": "Internacional de Bogota",
+    "AwayTeamName": "Llaneros FC",
+    "EventName": "Internacional de Bogota - Llaneros FC",
+    "Milliseconds": 1792105200000,
+    "Date": "10/15/2026",
+    "Time": "23:00",
+    "MarketCount": 0,
+    "Markets": [
+     648833940
+    ],
+    "CouponMarketId": 648833940,
+    "FilterMarkets": {
+     "win-draw-win": 648833940
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 75371346,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       648833940
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "internacional-de-bogota",
+    "AwayTeamCName": "llaneros-fc",
+    "GroupCName": "cup",
+    "SubCategoryCName": "colombia",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": null,
+    "SportVariationName": "",
+    "SportsRadarId": 75371346,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   },
+   {
+    "Version": 7,
+    "Id": 17345475,
+    "GroupName": "Primera B",
+    "SubCategoryName": "Kolumbien",
+    "CategoryCName": "soccer",
+    "CategoryName": "Fußball",
+    "HomeTeamName": "Internacional de Palmira",
+    "AwayTeamName": "Orsomarso",
+    "EventName": "Internacional de Palmira - Orsomarso",
+    "Milliseconds": 1792105200000,
+    "Date": "10/15/2026",
+    "Time": "23:00",
+    "MarketCount": 0,
+    "Markets": [
+     647899325
+    ],
+    "CouponMarketId": 647899325,
+    "FilterMarkets": {
+     "win-draw-win": 647899325
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 74702426,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       647899325
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "internacional-de-palmira",
+    "AwayTeamCName": "orsomarso",
+    "GroupCName": "primera-b",
+    "SubCategoryCName": "colombia",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": null,
+    "SportVariationName": "",
+    "SportsRadarId": 74702426,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   },
+   {
+    "Version": 7,
+    "Id": 17345513,
+    "GroupName": "Liga Nacional",
+    "SubCategoryName": "Honduras",
+    "CategoryCName": "soccer",
+    "CategoryName": "Fußball",
+    "HomeTeamName": "CD Marathon",
+    "AwayTeamName": "Olancho FC",
+    "EventName": "CD Marathon - Olancho FC",
+    "Milliseconds": 1792106100000,
+    "Date": "10/15/2026",
+    "Time": "23:15",
+    "MarketCount": 0,
+    "Markets": [
+     647902048
+    ],
+    "CouponMarketId": 647902048,
+    "FilterMarkets": {
+     "win-draw-win": 647902048
+    },
+    "IsSuspended": false,
+    "LiveStreamingMobileStatus": null,
+    "LiveStreamingProviderType": null,
+    "LiveStreamingDesktopStatus": null,
+    "IsOutright": false,
+    "FeedId": 75179256,
+    "SuperTournamentCName": null,
+    "SuperTournamentName": null,
+    "MarketGroups": {
+     "main-markets": {
+      "GroupName": "Wichtige Märkte",
+      "MarketIds": [
+       647902048
+      ]
+     }
+    },
+    "IsLive": false,
+    "IsPremium": false,
+    "HomeTeamCName": "cd-marathon",
+    "AwayTeamCName": "olancho-fc",
+    "GroupCName": "liga-nacional",
+    "SubCategoryCName": "honduras",
+    "VenueTime": null,
+    "Venue": "",
+    "Title": null,
+    "IsLiveTraded": true,
+    "AmericanFormat": false,
+    "NeutralVenue": false,
+    "SurfaceCName": null,
+    "SurfaceName": "",
+    "SportVariationCName": null,
+    "SportVariationName": "",
+    "SportsRadarId": 75179256,
+    "IsVirtual": false,
+    "IsBetBuilderSupported": true
+   }
+  ],
+  "Markets": [
+   {
+    "Version": 4,
+    "Id": 647887655,
+    "Title": "1/X/2",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "B.F.C.",
+     "Unentschieden",
+     "Tigres FC"
+    ],
+    "Outcomes": [
+     [
+      2666543416,
+      2666543417,
+      2666543418
+     ]
+    ],
+    "EventId": 17345363,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2666543416
+      ]
+     },
+     "draw": {
+      "outcomes": [
+       2666543417
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2666543418
+      ]
+     }
+    },
+    "TypeCName": "win-draw-win",
+    "TemplateId": 1,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Remis",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "win-draw-win"
+   },
+   {
+    "Version": 4,
+    "Id": 647879850,
+    "Title": "1/X/2",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Coban Imperial",
+     "Unentschieden",
+     "CSD Municipal"
+    ],
+    "Outcomes": [
+     [
+      2666522168,
+      2666522169,
+      2666522170
+     ]
+    ],
+    "EventId": 17345285,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2666522168
+      ]
+     },
+     "draw": {
+      "outcomes": [
+       2666522169
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2666522170
+      ]
+     }
+    },
+    "TypeCName": "win-draw-win",
+    "TemplateId": 1,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Remis",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "win-draw-win"
+   },
+   {
+    "Version": 6,
+    "Id": 647888997,
+    "Title": "1/X/2",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Union Magdalena",
+     "Unentschieden",
+     "Independiente Yumbo"
+    ],
+    "Outcomes": [
+     [
+      2666548067,
+      2666548068,
+      2666548069
+     ]
+    ],
+    "EventId": 17345376,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2666548067
+      ]
+     },
+     "draw": {
+      "outcomes": [
+       2666548068
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2666548069
+      ]
+     }
+    },
+    "TypeCName": "win-draw-win",
+    "TemplateId": 1,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Remis",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "win-draw-win"
+   },
+   {
+    "Version": 4,
+    "Id": 647891260,
+    "Title": "1/X/2",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Leones FC",
+     "Unentschieden",
+     "Boyaca Patriotas"
+    ],
+    "Outcomes": [
+     [
+      2666556368,
+      2666556369,
+      2666556370
+     ]
+    ],
+    "EventId": 17345410,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2666556368
+      ]
+     },
+     "draw": {
+      "outcomes": [
+       2666556369
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2666556370
+      ]
+     }
+    },
+    "TypeCName": "win-draw-win",
+    "TemplateId": 1,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Remis",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "win-draw-win"
+   },
+   {
+    "Version": 4,
+    "Id": 648447244,
+    "Title": "1/X/2",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "CA Huracan",
+     "Unentschieden",
+     "Gimnasia de La Plata"
+    ],
+    "Outcomes": [
+     [
+      2668227874,
+      2668227875,
+      2668227876
+     ]
+    ],
+    "EventId": 17351509,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2668227874
+      ]
+     },
+     "draw": {
+      "outcomes": [
+       2668227875
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2668227876
+      ]
+     }
+    },
+    "TypeCName": "win-draw-win",
+    "TemplateId": 1,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Remis",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "win-draw-win"
+   },
+   {
+    "Version": 4,
+    "Id": 648833940,
+    "Title": "1/X/2",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Internacional de Bogota",
+     "Unentschieden",
+     "Llaneros FC"
+    ],
+    "Outcomes": [
+     [
+      2669501663,
+      2669501664,
+      2669501665
+     ]
+    ],
+    "EventId": 17355382,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2669501663
+      ]
+     },
+     "draw": {
+      "outcomes": [
+       2669501664
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2669501665
+      ]
+     }
+    },
+    "TypeCName": "win-draw-win",
+    "TemplateId": 1,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Remis",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "win-draw-win"
+   },
+   {
+    "Version": 8,
+    "Id": 647899325,
+    "Title": "1/X/2",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "Internacional de Palmira",
+     "Unentschieden",
+     "Orsomarso"
+    ],
+    "Outcomes": [
+     [
+      2666580676,
+      2666580677,
+      2666580678
+     ]
+    ],
+    "EventId": 17345475,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2666580676
+      ]
+     },
+     "draw": {
+      "outcomes": [
+       2666580677
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2666580678
+      ]
+     }
+    },
+    "TypeCName": "win-draw-win",
+    "TemplateId": 1,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Remis",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "win-draw-win"
+   },
+   {
+    "Version": 6,
+    "Id": 647902048,
+    "Title": "1/X/2",
+    "IsSuspended": false,
+    "Handicap": 0.0,
+    "Headers": [
+     "CD Marathon",
+     "Unentschieden",
+     "Olancho FC"
+    ],
+    "Outcomes": [
+     [
+      2666588345,
+      2666588346,
+      2666588347
+     ]
+    ],
+    "EventId": 17345513,
+    "EachWayActive": false,
+    "EachWayFractionDen": 1,
+    "EachWayPosition": 1,
+    "OutcomeGroups": {
+     "home": {
+      "outcomes": [
+       2666588345
+      ]
+     },
+     "draw": {
+      "outcomes": [
+       2666588346
+      ]
+     },
+     "away": {
+      "outcomes": [
+       2666588347
+      ]
+     }
+    },
+    "TypeCName": "win-draw-win",
+    "TemplateId": 1,
+    "MarketGroupCName": "main-markets",
+    "MarketGroupName": "Wichtige Märkte",
+    "CashOutActive": true,
+    "FixedPriceAvailable": true,
+    "StartingPriceAvailable": false,
+    "AmericanFormat": false,
+    "CouponHeaders": [
+     "Heim",
+     "Remis",
+     "Auswärts"
+    ],
+    "SituationIndex": null,
+    "IsBetBuilderSupported": true,
+    "MarketCName": "win-draw-win"
+   }
+  ],
+  "Outcomes": [
+   {
+    "Version": 5,
+    "PriceVersion": 5,
+    "OutcomeVersion": 1,
+    "Id": 2666543416,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.4,
+    "OddsDecimalDisplay": "2.40",
+    "OddsNum": 7,
+    "OddsDen": 5,
+    "EventId": 17345363,
+    "MarketId": 647887655,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "B.F.C.",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 6,
+    "PriceVersion": 6,
+    "OutcomeVersion": 1,
+    "Id": 2666543417,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.0,
+    "OddsDecimalDisplay": "3.00",
+    "OddsNum": 2,
+    "OddsDen": 1,
+    "EventId": 17345363,
+    "MarketId": 647887655,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unentschieden",
+    "CouponName": "Remis",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "x"
+   },
+   {
+    "Version": 15,
+    "PriceVersion": 15,
+    "OutcomeVersion": 1,
+    "Id": 2666543418,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.875,
+    "OddsDecimalDisplay": "2.87",
+    "OddsNum": 15,
+    "OddsDen": 8,
+    "EventId": 17345363,
+    "MarketId": 647887655,
+    "ColumnId": 2,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Tigres FC",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 3,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 6,
+    "PriceVersion": 6,
+    "OutcomeVersion": 1,
+    "Id": 2666522168,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.9,
+    "OddsDecimalDisplay": "2.90",
+    "OddsNum": 19,
+    "OddsDen": 10,
+    "EventId": 17345285,
+    "MarketId": 647879850,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Coban Imperial",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 7,
+    "PriceVersion": 7,
+    "OutcomeVersion": 1,
+    "Id": 2666522169,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.1,
+    "OddsDecimalDisplay": "3.10",
+    "OddsNum": 21,
+    "OddsDen": 10,
+    "EventId": 17345285,
+    "MarketId": 647879850,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unentschieden",
+    "CouponName": "Remis",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "x"
+   },
+   {
+    "Version": 7,
+    "PriceVersion": 7,
+    "OutcomeVersion": 1,
+    "Id": 2666522170,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.25,
+    "OddsDecimalDisplay": "2.25",
+    "OddsNum": 5,
+    "OddsDen": 4,
+    "EventId": 17345285,
+    "MarketId": 647879850,
+    "ColumnId": 2,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "CSD Municipal",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 3,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 43,
+    "PriceVersion": 43,
+    "OutcomeVersion": 1,
+    "Id": 2666548067,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.875,
+    "OddsDecimalDisplay": "1.87",
+    "OddsNum": 35,
+    "OddsDen": 40,
+    "EventId": 17345376,
+    "MarketId": 647888997,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Union Magdalena",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 43,
+    "PriceVersion": 43,
+    "OutcomeVersion": 1,
+    "Id": 2666548068,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.3,
+    "OddsDecimalDisplay": "3.30",
+    "OddsNum": 23,
+    "OddsDen": 10,
+    "EventId": 17345376,
+    "MarketId": 647888997,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unentschieden",
+    "CouponName": "Remis",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "x"
+   },
+   {
+    "Version": 37,
+    "PriceVersion": 37,
+    "OutcomeVersion": 1,
+    "Id": 2666548069,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.8,
+    "OddsDecimalDisplay": "3.80",
+    "OddsNum": 14,
+    "OddsDen": 5,
+    "EventId": 17345376,
+    "MarketId": 647888997,
+    "ColumnId": 2,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Independiente Yumbo",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 3,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 8,
+    "PriceVersion": 8,
+    "OutcomeVersion": 1,
+    "Id": 2666556368,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.1,
+    "OddsDecimalDisplay": "3.10",
+    "OddsNum": 21,
+    "OddsDen": 10,
+    "EventId": 17345410,
+    "MarketId": 647891260,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Leones FC",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 7,
+    "PriceVersion": 7,
+    "OutcomeVersion": 1,
+    "Id": 2666556369,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.0,
+    "OddsDecimalDisplay": "3.00",
+    "OddsNum": 2,
+    "OddsDen": 1,
+    "EventId": 17345410,
+    "MarketId": 647891260,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unentschieden",
+    "CouponName": "Remis",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "x"
+   },
+   {
+    "Version": 3,
+    "PriceVersion": 3,
+    "OutcomeVersion": 1,
+    "Id": 2666556370,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.25,
+    "OddsDecimalDisplay": "2.25",
+    "OddsNum": 5,
+    "OddsDen": 4,
+    "EventId": 17345410,
+    "MarketId": 647891260,
+    "ColumnId": 2,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Boyaca Patriotas",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 3,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 25,
+    "PriceVersion": 25,
+    "OutcomeVersion": 1,
+    "Id": 2668227874,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.375,
+    "OddsDecimalDisplay": "2.37",
+    "OddsNum": 11,
+    "OddsDen": 8,
+    "EventId": 17351509,
+    "MarketId": 648447244,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "CA Huracan",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 30,
+    "PriceVersion": 30,
+    "OutcomeVersion": 1,
+    "Id": 2668227875,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.0,
+    "OddsDecimalDisplay": "3.00",
+    "OddsNum": 2,
+    "OddsDen": 1,
+    "EventId": 17351509,
+    "MarketId": 648447244,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unentschieden",
+    "CouponName": "Remis",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "x"
+   },
+   {
+    "Version": 27,
+    "PriceVersion": 27,
+    "OutcomeVersion": 1,
+    "Id": 2668227876,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.2,
+    "OddsDecimalDisplay": "3.20",
+    "OddsNum": 11,
+    "OddsDen": 5,
+    "EventId": 17351509,
+    "MarketId": 648447244,
+    "ColumnId": 2,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Gimnasia de La Plata",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 3,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 6,
+    "PriceVersion": 6,
+    "OutcomeVersion": 1,
+    "Id": 2669501663,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.909,
+    "OddsDecimalDisplay": "1.90",
+    "OddsNum": 10,
+    "OddsDen": 11,
+    "EventId": 17355382,
+    "MarketId": 648833940,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Internacional de Bogota",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 7,
+    "PriceVersion": 7,
+    "OutcomeVersion": 1,
+    "Id": 2669501664,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.2,
+    "OddsDecimalDisplay": "3.20",
+    "OddsNum": 11,
+    "OddsDen": 5,
+    "EventId": 17355382,
+    "MarketId": 648833940,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unentschieden",
+    "CouponName": "Remis",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "x"
+   },
+   {
+    "Version": 5,
+    "PriceVersion": 5,
+    "OutcomeVersion": 1,
+    "Id": 2669501665,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 4.0,
+    "OddsDecimalDisplay": "4.00",
+    "OddsNum": 3,
+    "OddsDen": 1,
+    "EventId": 17355382,
+    "MarketId": 648833940,
+    "ColumnId": 2,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Llaneros FC",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 3,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 26,
+    "PriceVersion": 26,
+    "OutcomeVersion": 1,
+    "Id": 2666580676,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 2.0,
+    "OddsDecimalDisplay": "2.00",
+    "OddsNum": 1,
+    "OddsDen": 1,
+    "EventId": 17345475,
+    "MarketId": 647899325,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Internacional de Palmira",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 23,
+    "PriceVersion": 23,
+    "OutcomeVersion": 1,
+    "Id": 2666580677,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.0,
+    "OddsDecimalDisplay": "3.00",
+    "OddsNum": 2,
+    "OddsDen": 1,
+    "EventId": 17345475,
+    "MarketId": 647899325,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unentschieden",
+    "CouponName": "Remis",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "x"
+   },
+   {
+    "Version": 19,
+    "PriceVersion": 19,
+    "OutcomeVersion": 1,
+    "Id": 2666580678,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.75,
+    "OddsDecimalDisplay": "3.75",
+    "OddsNum": 11,
+    "OddsDen": 4,
+    "EventId": 17345475,
+    "MarketId": 647899325,
+    "ColumnId": 2,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Orsomarso",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 3,
+    "TeamCName": "2"
+   },
+   {
+    "Version": 6,
+    "PriceVersion": 6,
+    "OutcomeVersion": 1,
+    "Id": 2666588345,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 1.667,
+    "OddsDecimalDisplay": "1.66",
+    "OddsNum": 4,
+    "OddsDen": 6,
+    "EventId": 17345513,
+    "MarketId": 647902048,
+    "ColumnId": 0,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "CD Marathon",
+    "CouponName": "Heim",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 1,
+    "TeamCName": "1"
+   },
+   {
+    "Version": 5,
+    "PriceVersion": 5,
+    "OutcomeVersion": 1,
+    "Id": 2666588346,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 3.6,
+    "OddsDecimalDisplay": "3.60",
+    "OddsNum": 13,
+    "OddsDen": 5,
+    "EventId": 17345513,
+    "MarketId": 647902048,
+    "ColumnId": 1,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Unentschieden",
+    "CouponName": "Remis",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 2,
+    "TeamCName": "x"
+   },
+   {
+    "Version": 14,
+    "PriceVersion": 14,
+    "OutcomeVersion": 1,
+    "Id": 2666588347,
+    "IsDisplay": true,
+    "IsActive": true,
+    "OddsDecimal": 4.5,
+    "OddsDecimalDisplay": "4.50",
+    "OddsNum": 7,
+    "OddsDen": 2,
+    "EventId": 17345513,
+    "MarketId": 647902048,
+    "ColumnId": 2,
+    "RowId": 0,
+    "GroupCName": null,
+    "BetName": "Olancho FC",
+    "CouponName": "Auswärts",
+    "HandicapDisplay": "",
+    "Handicap": null,
+    "SortIndex": 3,
+    "TeamCName": "2"
+   }
+  ],
+  "Success": true
+ }
+}

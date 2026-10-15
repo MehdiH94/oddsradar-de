@@ -10,7 +10,7 @@ import { SITE, sessionCookie, testAuth } from "./helpers";
 const PREFS: Preferences = {
   sport: "tennis",
   sort: "start",
-  bookmakers: ["winamax", "betclic"],
+  bookmakers: ["leovegas", "betway"],
   players: true,
   favoriteSports: ["tennis", "football"],
 };
@@ -21,9 +21,9 @@ describe("parsePreferences", () => {
   });
 
   it("falls back to the default sort, and drops unknown bookmakers, in the filter's order", () => {
-    const parsed = parsePreferences({ ...PREFS, sort: "random", bookmakers: ["betclic", "nope", "winamax", "betclic"] });
+    const parsed = parsePreferences({ ...PREFS, sort: "random", bookmakers: ["betway", "nope", "leovegas", "betway"] });
     expect(parsed?.sort).toBe("trj");
-    expect(parsed?.bookmakers).toEqual(["winamax", "betclic"]);
+    expect(parsed?.bookmakers).toEqual(["leovegas", "betway"]);
   });
 
   it("keeps an empty selection of bookmakers: it means none, not the defaults", () => {
@@ -42,7 +42,7 @@ describe("parsePreferences", () => {
     ["a sport that is not a name", { ...PREFS, sport: "../etc" }],
     ["an empty sport", { ...PREFS, sport: "" }],
     ["a sport too long", { ...PREFS, sport: "a".repeat(65) }],
-    ["bookmakers that are not a list", { ...PREFS, bookmakers: "winamax" }],
+    ["bookmakers that are not a list", { ...PREFS, bookmakers: "leovegas" }],
     ["players that is not a boolean", { ...PREFS, players: "yes" }],
     ["a favorite that is not a name", { ...PREFS, favoriteSports: ["<script>"] }],
     ["favorites that are not a list", { ...PREFS, favoriteSports: "football" }],

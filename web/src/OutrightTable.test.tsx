@@ -7,7 +7,7 @@ const at = "2026-09-20T10:00:00.000Z";
 const prices = (byCompetitor: Record<string, number>): RawOdds[] =>
   Object.entries(byCompetitor).map(([selection, price]) => ({ market: "Vainqueur", selection, price }));
 
-// LeoVegas lists the whole field, Betway its 3 favourites (as live, 2026-09-29).
+// LeoVegas lists the whole field, Winamax its 3 favourites (as live, 2026-09-29).
 const field = Object.fromEntries(Array.from({ length: 12 }, (_, i) => [`Rider ${i + 1}`, 3 + i * 5]));
 const race: EventWithOdds = {
   id: "tdf",
@@ -17,7 +17,7 @@ const race: EventWithOdds = {
   participants: ["Tour de France 2027"],
   payoutRate: 0.874,
   byBookmaker: {
-    betway: { scrapedAt: at, odds: prices({ "Rider 1": 3.5, "Rider 2": 7, "Rider 3": 12 }) },
+    winamax: { scrapedAt: at, odds: prices({ "Rider 1": 3.5, "Rider 2": 7, "Rider 3": 12 }) },
     leovegas: { scrapedAt: at, odds: prices(field) },
   },
 };
@@ -53,13 +53,13 @@ describe("OutrightTable", () => {
     expect(header).toContain("87.4%");
     expect(screen.getByRole("columnheader", { name: "Contender" })).toBeInTheDocument();
     expect(screen.getByRole("img", { name: "LeoVegas" })).toBeInTheDocument();
-    expect(screen.getByRole("img", { name: "Betway" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "Winamax" })).toBeInTheDocument();
   });
 
   it("lists the 10 favourites first, ranked, then unfolds and folds the rest", () => {
     render(<OutrightTable events={[race]} />);
 
-    // Favourite first: the lowest best price. Columns: LeoVegas, then Betway.
+    // Favourite first: the lowest best price. Columns: LeoVegas, then Winamax.
     expect(bodyRows().slice(0, 3)).toEqual([
       ["1", "Rider 1", "3.00", "3.50"],
       ["2", "Rider 2", "8.00", "7.00"],
@@ -89,7 +89,7 @@ describe("OutrightTable", () => {
     const tie: EventWithOdds = {
       ...race,
       byBookmaker: {
-        betway: { scrapedAt: at, odds: prices({ "Rider 1": 3.5, "Rider 2": 7 }) },
+        winamax: { scrapedAt: at, odds: prices({ "Rider 1": 3.5, "Rider 2": 7 }) },
         leovegas: { scrapedAt: at, odds: prices({ "Rider 1": 3.5, "Rider 2": 6 }) },
       },
     };
@@ -102,7 +102,7 @@ describe("OutrightTable", () => {
   });
 
   it("shows only the ticked bookmakers, and the competitors they price", () => {
-    render(<OutrightTable events={[race]} bookmakers={["betway"]} />);
+    render(<OutrightTable events={[race]} bookmakers={["winamax"]} />);
 
     expect(screen.queryByRole("img", { name: "LeoVegas" })).not.toBeInTheDocument();
     expect(bodyRows()).toEqual([
@@ -130,7 +130,7 @@ describe("OutrightTable", () => {
 
       fireEvent.change(find, { target: { value: "vauq" } });
 
-      // Only LeoVegas prices this race: no column of dashes for Betway.
+      // Only LeoVegas prices this race: no column of dashes for Winamax.
       expect(bodyRows()).toEqual([["34", "Kévin Vauquelin", "36.00"]]);
       expect(screen.queryByRole("button", { name: /Show the/ })).not.toBeInTheDocument();
 
@@ -160,7 +160,7 @@ describe("OutrightTable", () => {
       payoutRate: 0.7,
       byBookmaker: {
         leovegas: { scrapedAt: at, odds: prices({ "Xander Schauffele": 9.5, "Collin Morikawa": 15, "Adam Scott": 25 }) },
-        betway: { scrapedAt: at, odds: prices({ "Xander Schauffele": 10, "Collin Morikawa": 15.5, "Adam Scott": 24 }) },
+        winamax: { scrapedAt: at, odds: prices({ "Xander Schauffele": 10, "Collin Morikawa": 15.5, "Adam Scott": 24 }) },
       },
       reference: {
         market: "Vainqueur",
@@ -183,11 +183,11 @@ describe("OutrightTable", () => {
     it("frames a price 5% or more above the fair odds as a value bet, with the best edge, and no other", () => {
       render(<OutrightTable events={[golf]} />);
 
-      // Morikawa: LeoVegas 15 is 5.6% above 14.2, Betway 15.5 is 9.2%.
+      // Morikawa: LeoVegas 15 is 5.6% above 14.2, Winamax 15.5 is 9.2%.
       expect(within(row("Collin Morikawa")).getByText("15.00").closest("[data-bookmaker]")).toHaveAttribute("data-value", "true");
       expect(within(row("Collin Morikawa")).getByText("15.50").closest("[data-bookmaker]")).toHaveAttribute("data-value", "true");
       expect(visibleText(row("Collin Morikawa")).replace(/\u00a0/g, " ")).toContain("+9.2%");
-      // Schauffele: Betway 10 is only 2% above 9.8, under the 5% a golf winner needs.
+      // Schauffele: Winamax 10 is only 2% above 9.8, under the 5% a golf winner needs.
       expect(within(row("Xander Schauffele")).getByText("10.00").closest("[data-bookmaker]")).not.toHaveAttribute("data-value");
       expect(within(row("Adam Scott")).getByText("24.00").closest("[data-bookmaker]")).not.toHaveAttribute("data-value");
     });

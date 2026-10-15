@@ -49,7 +49,7 @@ describe("GroupedOddsTables", () => {
         participants: ["PSG", "OM"],
         byBookmaker: {
           leovegas: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.5 }] },
-          betway: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.65 }] },
+          winamax: { scrapedAt: "2026-09-20T10:00:00.000Z", odds: [{ market: "1X2", selection: "1", price: 1.65 }] },
         },
       },
     ];

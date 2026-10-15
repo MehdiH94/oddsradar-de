@@ -17,9 +17,9 @@ const result: MarketDetail = {
       line: null,
       payoutRate: 0.95,
       outcomes: [
-        { key: "1", label: "PSG", prices: { leovegas: 2.2, betway: 2 }, best: ["leovegas"], fair: 2, edges: { leovegas: 0.1 } },
-        { key: "X", label: "Draw", prices: { leovegas: 3.2, betway: 3.3 }, best: ["betway"], fair: 3.4, edges: {} },
-        { key: "2", label: "OM", prices: { leovegas: 3.6, betway: 3.7 }, best: ["betway"], fair: 4, edges: {} },
+        { key: "1", label: "PSG", prices: { leovegas: 2.2, winamax: 2 }, best: ["leovegas"], fair: 2, edges: { leovegas: 0.1 } },
+        { key: "X", label: "Draw", prices: { leovegas: 3.2, winamax: 3.3 }, best: ["winamax"], fair: 3.4, edges: {} },
+        { key: "2", label: "OM", prices: { leovegas: 3.6, winamax: 3.7 }, best: ["winamax"], fair: 4, edges: {} },
       ],
     },
   ],
@@ -27,7 +27,7 @@ const result: MarketDetail = {
 
 describe("MarketCard", () => {
   it("shows the 1X2's fair odds under each outcome's prices, and marks its value bets", () => {
-    const { container } = render(<MarketCard market={result} bookmakers={["leovegas", "betway"]} />);
+    const { container } = render(<MarketCard market={result} bookmakers={["leovegas", "winamax"]} />);
     const lines = [...container.querySelectorAll('[title^="Fair odds"]')];
     expect(lines).toHaveLength(3);
     expect(text(lines[0])).toContain("Fair odds: 2.00");
@@ -36,15 +36,15 @@ describe("MarketCard", () => {
 
     const valueChip = screen.getByText("2.20").closest("[data-bookmaker]");
     expect(valueChip).toHaveAttribute("data-value", "true");
-    expect(container.querySelector('[data-bookmaker="betway"]')).not.toHaveAttribute("data-value");
+    expect(container.querySelector('[data-bookmaker="winamax"]')).not.toHaveAttribute("data-value");
   });
 
   it("stacks the icon over the price once many bookmakers share a phone's width", () => {
-    const few = render(<MarketCard market={result} bookmakers={["leovegas", "betway"]} />);
+    const few = render(<MarketCard market={result} bookmakers={["leovegas", "winamax"]} />);
     expect(few.container.querySelector("[data-bookmaker]")?.className).not.toContain("compact");
     few.unmount();
 
-    const many = ["leovegas", "betway", "unibet", "pmu", "netbet", "zebet", "betsson"];
+    const many = ["leovegas", "winamax", "unibet", "pmu", "netbet", "zebet", "betsson"];
     const { container } = render(<MarketCard market={result} bookmakers={many} />);
     const chips = [...container.querySelectorAll("[data-bookmaker]")];
     expect(chips).toHaveLength(many.length * 3);
@@ -52,7 +52,7 @@ describe("MarketCard", () => {
   });
 
   it("leaves out an unticked bookmaker's value bet", () => {
-    const { container } = render(<MarketCard market={result} bookmakers={["betway"]} />);
+    const { container } = render(<MarketCard market={result} bookmakers={["winamax"]} />);
     expect(container.querySelector("[data-value]")).toBeNull();
     expect(text(container.querySelector('[title^="Fair odds"]'))).not.toContain("%");
   });
@@ -63,7 +63,7 @@ describe("MarketCard", () => {
       key: "double_chance",
       lines: [{ ...result.lines[0], outcomes: result.lines[0].outcomes.map(({ fair: _f, edges: _e, ...o }) => o) }],
     };
-    const { container } = render(<MarketCard market={plain} bookmakers={["leovegas", "betway"]} />);
+    const { container } = render(<MarketCard market={plain} bookmakers={["leovegas", "winamax"]} />);
     expect(container.querySelector('[title^="Fair odds"]')).toBeNull();
   });
 
@@ -78,13 +78,13 @@ describe("MarketCard", () => {
           line: null,
           payoutRate: null,
           outcomes: [
-            { key: "Mbappé", label: "Mbappé", prices: { leovegas: 2.3, betway: 1.9 }, best: ["leovegas"], fair: 2, edges: { leovegas: 0.15 } },
-            { key: "Kolo", label: "Kolo", prices: { leovegas: 6, betway: 5.5 }, best: ["leovegas"] },
+            { key: "Mbappé", label: "Mbappé", prices: { leovegas: 2.3, winamax: 1.9 }, best: ["leovegas"], fair: 2, edges: { leovegas: 0.15 } },
+            { key: "Kolo", label: "Kolo", prices: { leovegas: 6, winamax: 5.5 }, best: ["leovegas"] },
           ],
         },
       ],
     };
-    const { container } = render(<MarketCard market={scorers} bookmakers={["leovegas", "betway"]} />);
+    const { container } = render(<MarketCard market={scorers} bookmakers={["leovegas", "winamax"]} />);
     const fair = container.querySelectorAll('[title^="Fair odds"]');
     expect(fair).toHaveLength(1);
     expect(text(fair[0])).toContain("Fair odds: 2.00");
@@ -104,14 +104,14 @@ describe("MarketCard", () => {
           payoutRate: null,
           outcomes: [
             // The exchange's lay, 2,60: LeoVegas's 2,80 is 7,7 % above it.
-            { key: "Doué", label: "Doué", prices: { leovegas: 2.8, betway: 2.5 }, best: ["leovegas"], fair: 2.6, fairIsCeiling: true, edges: { leovegas: 2.8 / 2.6 - 1 } },
-            // Not on the exchange: LeoVegas's 13 is 44 % above Betway's 9.
-            { key: "Lepaul", label: "Lepaul", prices: { leovegas: 13, betway: 9 }, best: ["leovegas"], suspects: { leovegas: 13 / 9 - 1 } },
+            { key: "Doué", label: "Doué", prices: { leovegas: 2.8, winamax: 2.5 }, best: ["leovegas"], fair: 2.6, fairIsCeiling: true, edges: { leovegas: 2.8 / 2.6 - 1 } },
+            // Not on the exchange: LeoVegas's 13 is 44 % above Winamax's 9.
+            { key: "Lepaul", label: "Lepaul", prices: { leovegas: 13, winamax: 9 }, best: ["leovegas"], suspects: { leovegas: 13 / 9 - 1 } },
           ],
         },
       ],
     };
-    const { container } = render(<MarketCard market={scorers} bookmakers={["leovegas", "betway"]} />);
+    const { container } = render(<MarketCard market={scorers} bookmakers={["leovegas", "winamax"]} />);
     const ceiling = container.querySelector('[title^="Fair odds at most"]');
     expect(text(ceiling)).toBe("Fair ≤ Fair odds: at most 2.60 · , best value: +7.7%");
     const suspect = container.querySelector('[title^="Suspect price"]');
@@ -121,7 +121,7 @@ describe("MarketCard", () => {
     expect(text(chip)).toContain("(suspect price: +44.4% over the other bookmaker)");
 
     // Unticked, LeoVegas's suspect price goes, and its line with it.
-    const { container: betclicOnly } = render(<MarketCard market={scorers} bookmakers={["betway"]} />);
+    const { container: betclicOnly } = render(<MarketCard market={scorers} bookmakers={["winamax"]} />);
     expect(betclicOnly.querySelector('[title^="Suspect price"]')).toBeNull();
     expect(betclicOnly.querySelector("[data-value]")).toBeNull();
   });

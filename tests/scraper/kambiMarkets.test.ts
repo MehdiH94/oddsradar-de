@@ -502,8 +502,9 @@ describe("fetchKambiMarkets", () => {
       expect(url).toContain("client_id=200");
       expect(idsOf(url).length).toBeLessThanOrEqual(10);
     }
-    expect(price(markets.get(FOOTBALL_ID)!, "total_goals|2.5", "over")).toBe(1.61);
-    expect(price(markets.get(TENNIS_ID)!, "total_games|22.5", "over")).toBe(2.48);
+    // Net of LeoVegas.de's 5% tax on the stake: 1.61 and 2.48 as read.
+    expect(price(markets.get(FOOTBALL_ID)!, "total_goals|2.5", "over")).toBe(1.53);
+    expect(price(markets.get(TENNIS_ID)!, "total_games|22.5", "over")).toBe(2.356);
   });
 
   it("asks for nothing when there is no match", async () => {
@@ -517,7 +518,7 @@ describe("fetchKambiMarkets", () => {
     // The first request holds ten of them, the second the last one.
     const ids = [FOOTBALL_ID, ...Array.from({ length: 9 }, (_, i) => String(9000 + i)), "9010"];
     const markets = await run(api((asked) => (asked.includes("9010") ? json({}, 500) : undefined)), ids);
-    expect(price(markets.get(FOOTBALL_ID)!, "total_goals|2.5", "over")).toBe(1.61);
+    expect(price(markets.get(FOOTBALL_ID)!, "total_goals|2.5", "over")).toBe(1.53);
     expect(markets.has("9010")).toBe(false);
     warn.mockRestore();
   });

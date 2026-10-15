@@ -13,7 +13,6 @@ import { GEM_MIN_EDGE, runGemAlerts } from "../alerts/gems";
 import { marketsMaxAgeForInterval, oddsMaxAgeForPollInterval } from "../db/repository";
 import { startScheduler } from "./scheduler";
 import { leovegasScraper } from "../scraper/kambi";
-import { betwayScraper } from "../scraper/betway";
 
 const dbPath = process.env.DB_PATH ?? "./data/coteradar.sqlite";
 const intervalMinutes = Number(process.env.POLL_INTERVAL_MINUTES ?? "5");
@@ -22,8 +21,8 @@ const intervalMinutes = Number(process.env.POLL_INTERVAL_MINUTES ?? "5");
 const marketsIntervalMinutes = Number(process.env.MARKETS_INTERVAL_MINUTES ?? "15");
 
 const db = openDb(dbPath);
-// The German bookmakers: LeoVegas.de (Kambi) and Betway.de.
-const scrapers = [leovegasScraper, betwayScraper];
+// The German bookmaker: LeoVegas.de (Kambi).
+const scrapers = [leovegasScraper];
 
 console.log(`[worker] starting, polling every ${intervalMinutes} min, db=${dbPath}`);
 startScheduler(intervalMinutes, () => runScrapeCycle(db, scrapers));

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { KambiListEntry, LEOVEGAS, parseKambiEvents, kambiOddsToDecimal, leovegasScraper } from "../../src/scraper/kambi";
+import { KambiListEntry, LEOVEGAS, netOfTax, parseKambiEvents, kambiOddsToDecimal, leovegasScraper } from "../../src/scraper/kambi";
 
 // Real captures of Kambi's offering API (the format of every operator of the
 // platform: these are PMU's, eu.offering-api.kambicdn.com/offering/v2018/pmusportsfr, 11/10/2026),
@@ -230,6 +230,15 @@ describe("LeoVegas.de's German offer", () => {
   });
 });
 
+describe("netOfTax", () => {
+  it("takes LeoVegas.de's 5% tax off what a price pays for the stake bet, to the thousandth", () => {
+    expect(LEOVEGAS.taxOnStake).toBe(0.05);
+    expect(netOfTax(LEOVEGAS, 2)).toBe(1.9);
+    expect(netOfTax(LEOVEGAS, 3.55)).toBe(3.372);
+    expect(netOfTax(LEOVEGAS, NaN)).toBeNaN();
+  });
+});
+
 describe("leovegasScraper.fetch", () => {
   const BASE = "https://eu.offering-api.kambicdn.com/offering/v2018/leode";
   const json = (body: unknown, status = 200) =>
@@ -266,6 +275,8 @@ describe("leovegasScraper.fetch", () => {
   it("reads the sports list, then the list of each verified sport", async () => {
     const fetchMock = api();
     const events = await run(fetchMock);
+    // The prices stored are net of the tax: Quito's 1.47 as read.
+    expect(events.find((e) => e.participants[0] === "LDU Quito")?.odds[0].price).toBe(1.396);
 
     const urls = fetchMock.mock.calls.map(([url]) => url);
     expect(urls[0]).toContain(`${BASE}/group.json`);

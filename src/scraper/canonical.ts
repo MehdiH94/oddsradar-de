@@ -121,7 +121,7 @@ export function canonicalMarketName(outcomeCount: number): string {
 
 // --- sports ------------------------------------------------------------------
 
-export type BookmakerId = "winamax" | "betclic" | "leovegas" | "betway";
+export type BookmakerId = "winamax" | "betclic" | "leovegas";
 
 // The canonical key is the lowercased Winamax display name: the dashboard is in
 // French and renders the sport string as-is (section headings, the sport
@@ -143,37 +143,30 @@ const VERIFIED_SPORTS: ReadonlyArray<{
   // sports list (group.json), and for the winter sports the second step of an
   // event's path, as LeoVegas.de and PMU list them (11 and 15/10/2026).
   kambi?: string | string[];
-  // Betway.de's category names (./betway.ts), as getCategories lists them
-  // (15/10/2026), for the sports it is read for.
-  betway?: string | string[];
 }> = [
   {
     canonical: "football",
     winamax: "Football",
     betclic: "football",
     kambi: "football",
-    betway: "soccer",
   },
   {
     canonical: "tennis",
     winamax: "Tennis",
     betclic: "tennis",
     kambi: "tennis",
-    betway: "tennis",
   },
   {
     canonical: "basketball",
     winamax: "Basketball",
     betclic: "basketball",
     kambi: "basketball",
-    betway: "basketball",
   },
   {
     canonical: "hockey sur glace",
     winamax: "Hockey sur glace",
     betclic: "ice_hockey",
     kambi: "ice_hockey",
-    betway: "ice-hockey",
   },
   {
     canonical: "baseball",
@@ -311,7 +304,6 @@ const CANONICAL_BY_BOOKMAKER: Record<BookmakerId, Map<string, string>> = {
   winamax: canonicalByName((s) => s.winamax),
   betclic: canonicalByName((s) => s.betclic),
   leovegas: canonicalByName((s) => s.kambi),
-  betway: canonicalByName((s) => s.betway),
 };
 
 // The Kambi term keys of the sports this project reads (./kambi.ts).

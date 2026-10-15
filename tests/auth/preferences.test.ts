@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import request from "supertest";
 import { openDb } from "../../src/db/client";
 import { openAuthDb } from "../../src/auth/db";
@@ -7,10 +7,17 @@ import { getPreferences, parsePreferences, Preferences, savePreferences } from "
 import { createUser } from "../../src/auth/store";
 import { SITE, sessionCookie, testAuth } from "./helpers";
 
+// OddsRadar reads one bookmaker for now (LeoVegas.de); the freebets go between
+// two, so these tests know a second one.
+vi.mock("../../src/alerts/gems", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../../src/alerts/gems")>()),
+  ALL_BOOKMAKER_IDS: ["leovegas", "winamax"],
+}));
+
 const PREFS: Preferences = {
   sport: "tennis",
   sort: "start",
-  bookmakers: ["leovegas", "betway"],
+  bookmakers: ["leovegas", "winamax"],
   players: true,
   favoriteSports: ["tennis", "football"],
 };
@@ -21,9 +28,9 @@ describe("parsePreferences", () => {
   });
 
   it("falls back to the default sort, and drops unknown bookmakers, in the filter's order", () => {
-    const parsed = parsePreferences({ ...PREFS, sort: "random", bookmakers: ["betway", "nope", "leovegas", "betway"] });
+    const parsed = parsePreferences({ ...PREFS, sort: "random", bookmakers: ["winamax", "nope", "leovegas", "winamax"] });
     expect(parsed?.sort).toBe("trj");
-    expect(parsed?.bookmakers).toEqual(["leovegas", "betway"]);
+    expect(parsed?.bookmakers).toEqual(["leovegas", "winamax"]);
   });
 
   it("keeps an empty selection of bookmakers: it means none, not the defaults", () => {

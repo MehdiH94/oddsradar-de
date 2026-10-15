@@ -10,8 +10,8 @@ describe("BookmakerMenu", () => {
     const { rerender } = render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
     expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers: All");
 
-    rerender(<BookmakerMenu selected={["betway"]} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers: Betway");
+    rerender(<BookmakerMenu selected={["winamax"]} onChange={() => {}} />);
+    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers: Winamax");
 
     rerender(<BookmakerMenu selected={[]} onChange={() => {}} />);
     expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers: None");
@@ -22,7 +22,7 @@ describe("BookmakerMenu", () => {
     open();
 
     expect(screen.getByRole("group", { name: "Bookmakers compared" })).toBeInTheDocument();
-    for (const name of ["LeoVegas", "Betway"]) {
+    for (const name of ["LeoVegas", "Winamax"]) {
       expect(screen.getByRole("checkbox", { name })).toBeChecked();
     }
   });
@@ -31,14 +31,14 @@ describe("BookmakerMenu", () => {
     render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
     open();
 
-    expect(screen.getAllByRole("checkbox").map((box) => box.closest("label")?.textContent)).toEqual(["LeoVegas", "Betway"]);
+    expect(screen.getAllByRole("checkbox").map((box) => box.closest("label")?.textContent)).toEqual(["LeoVegas", "Winamax"]);
   });
 
   it("shows each bookmaker's icon and name, read once", () => {
     const { container } = render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
     open();
 
-    for (const name of ["LeoVegas", "Betway"]) expect(screen.getByText(name)).toBeInTheDocument();
+    for (const name of ["LeoVegas", "Winamax"]) expect(screen.getByText(name)).toBeInTheDocument();
     // The icons sit next to the names: decorative, not read a second time.
     // One per bookmaker that has an icon; the others show their name alone.
     const withIcon = ALL_BOOKMAKERS.filter((id) => BOOKMAKER_BRANDING[id]?.logo).length;
@@ -52,7 +52,7 @@ describe("BookmakerMenu", () => {
     open();
 
     expect(screen.getByRole("checkbox", { name: "LeoVegas" })).toBeChecked();
-    expect(screen.getByRole("checkbox", { name: "Betway" })).not.toBeChecked();
+    expect(screen.getByRole("checkbox", { name: "Winamax" })).not.toBeChecked();
   });
 
   it("unchecking a bookmaker removes it from the emitted list, and stays open for another", () => {
@@ -63,17 +63,17 @@ describe("BookmakerMenu", () => {
     fireEvent.pointerDown(screen.getByText("LeoVegas"));
     fireEvent.click(screen.getByText("LeoVegas"));
 
-    expect(onChange).toHaveBeenCalledWith(["betway"]);
-    expect(screen.getByRole("checkbox", { name: "Betway" })).toBeInTheDocument();
+    expect(onChange).toHaveBeenCalledWith(["winamax"]);
+    expect(screen.getByRole("checkbox", { name: "Winamax" })).toBeInTheDocument();
   });
 
   it("re-checking a bookmaker restores ALL_BOOKMAKERS order regardless of click order", () => {
     const onChange = vi.fn();
-    render(<BookmakerMenu selected={["betway"]} onChange={onChange} />);
+    render(<BookmakerMenu selected={["winamax"]} onChange={onChange} />);
     open();
 
     fireEvent.click(screen.getByRole("checkbox", { name: "LeoVegas" }));
 
-    expect(onChange).toHaveBeenCalledWith(["leovegas", "betway"]);
+    expect(onChange).toHaveBeenCalledWith(["leovegas", "winamax"]);
   });
 });

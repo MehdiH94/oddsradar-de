@@ -146,7 +146,7 @@ check() {
   code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 -x "http://$NS_IP:$PROXY_PORT" \
     -H 'Accept: application/json' 'https://exch.piwi247.com/customer/api/event/search?query=bayern' || true)
   log "exchange search through the proxy: HTTP $code"
-  code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 -x "http://$NS_IP:$PROXY_PORT" https://www.betway.de/ || true)
+  code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 -x "http://$NS_IP:$PROXY_PORT" https://www.leovegas.de/ || true)
   log "another host through the proxy (must be refused): HTTP $code"
 }
 

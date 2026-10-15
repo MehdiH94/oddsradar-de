@@ -21,9 +21,22 @@ export interface KambiSite {
   offering: string;
   // Sent as the site's front does.
   origin: string;
+  // The German betting tax the operator takes off the stake (0.05: 5%), so
+  // that a price pays price × (1 - tax) for the stake bet: the prices are
+  // stored net of it (netOfTax), the ones every comparison is about.
+  taxOnStake: number;
 }
 
-export const LEOVEGAS: KambiSite = { id: "leovegas", offering: "leode", origin: "https://www.leovegas.de" };
+export const LEOVEGAS: KambiSite = { id: "leovegas", offering: "leode", origin: "https://www.leovegas.de", taxOnStake: 0.05 };
+
+// A price net of the site's tax on the stake, to the thousandth: 2.00 is 1.90
+// at 5%. A missing price stays missing.
+export const netOfTax = (site: KambiSite, price: number): number =>
+  Number.isFinite(price) ? Math.round(price * (1 - site.taxOnStake) * 1000) / 1000 : price;
+
+// The odds of the raw events, net of the site's tax.
+const eventsNetOfTax = (site: KambiSite, events: RawEvent[]): RawEvent[] =>
+  events.map((e) => ({ ...e, odds: e.odds.map((o) => ({ ...o, price: netOfTax(site, o.price) })) }));
 
 const KAMBI_BASE_URL = "https://eu.offering-api.kambicdn.com/offering/v2018";
 // The German market's offer, the names in English (the dashboard's language,
@@ -212,7 +225,7 @@ export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve
 async function fetchSport(site: KambiSite, termKey: string): Promise<RawEvent[]> {
   const reply = await kambiGet<{ events?: KambiListEntry[] }>(site, `listView/${termKey}.json?${KAMBI_QUERY}&useCombined=true`);
   await sleep(KAMBI_REQUEST_DELAY_MS);
-  return parseKambiEvents(site, reply.events ?? [], termKey);
+  return eventsNetOfTax(site, parseKambiEvents(site, reply.events ?? [], termKey));
 }
 
 export async function fetchKambi(site: KambiSite): Promise<RawEvent[]> {

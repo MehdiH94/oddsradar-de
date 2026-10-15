@@ -24,6 +24,16 @@ describe("matchEvents", () => {
     expect(Object.keys(result[0].byBookmaker).sort()).toEqual(["betclic", "winamax"]);
   });
 
+  it("merges German names written with their umlauts and with the digraphs that stand for them", () => {
+    const result = matchEvents({
+      winamax: [event({ competition: "Bundesliga 2", participants: ["1. FC Köln", "SpVgg Greuther Fürth"] })],
+      betclic: [event({ competition: "2. Bundesliga", participants: ["Koeln", "Greuther Fuerth"] })],
+    });
+
+    expect(result).toHaveLength(1);
+    expect(Object.keys(result[0].byBookmaker).sort()).toEqual(["betclic", "winamax"]);
+  });
+
   it("keeps genuinely different events separate", () => {
     const result = matchEvents({
       winamax: [event({ participants: ["Real Madrid", "Real Sociedad"] })],

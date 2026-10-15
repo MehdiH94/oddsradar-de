@@ -121,7 +121,7 @@ export function canonicalMarketName(outcomeCount: number): string {
 
 // --- sports ------------------------------------------------------------------
 
-export type BookmakerId = "winamax" | "betclic";
+export type BookmakerId = "winamax" | "betclic" | "leovegas" | "betway";
 
 // The canonical key is the lowercased Winamax display name: the dashboard is in
 // French and renders the sport string as-is (section headings, the sport
@@ -139,96 +139,120 @@ const VERIFIED_SPORTS: ReadonlyArray<{
   canonical: string;
   winamax: string;
   betclic: string | string[];
+  // Kambi's term keys (./kambi.ts), the same at every operator: those of its
+  // sports list (group.json), and for the winter sports the second step of an
+  // event's path, as LeoVegas.de and PMU list them (11 and 15/10/2026).
+  kambi?: string | string[];
+  // Betway.de's sport names (./betway.ts).
+  betway?: string | string[];
 }> = [
   {
     canonical: "football",
     winamax: "Football",
     betclic: "football",
+    kambi: "football",
   },
   {
     canonical: "tennis",
     winamax: "Tennis",
     betclic: "tennis",
+    kambi: "tennis",
   },
   {
     canonical: "basketball",
     winamax: "Basketball",
     betclic: "basketball",
+    kambi: "basketball",
   },
   {
     canonical: "hockey sur glace",
     winamax: "Hockey sur glace",
     betclic: "ice_hockey",
+    kambi: "ice_hockey",
   },
   {
     canonical: "baseball",
     winamax: "Baseball",
     betclic: "baseball",
+    kambi: "baseball",
   },
   {
     canonical: "biathlon",
     winamax: "Biathlon",
     betclic: "biathlon",
+    kambi: "biathlon",
   },
   {
     canonical: "boxe",
     winamax: "Boxe",
     betclic: "boxing",
+    kambi: "boxing",
   },
   {
     canonical: "cyclisme",
     winamax: "Cyclisme",
     betclic: "cycling",
+    kambi: "cycling",
   },
   {
     canonical: "football américain",
     winamax: "Football américain",
     betclic: "american_football",
+    kambi: "american_football",
   },
   {
     canonical: "football australien",
     winamax: "Football australien",
     betclic: "australian_rules",
+    kambi: "australian_rules",
   },
   {
     canonical: "formule 1",
     winamax: "Formule 1",
     betclic: "formula_1",
+    kambi: "formula_1",
   },
   {
     canonical: "handball",
     winamax: "Handball",
     betclic: "handball",
+    kambi: "handball",
   },
   {
     canonical: "golf",
     winamax: "Golf",
     betclic: "golf",
+    kambi: "golf",
   },
   {
     canonical: "rugby à xv",
     winamax: "Rugby à XV",
     betclic: "rugby_union",
+    kambi: "rugby_union",
   },
   {
     canonical: "rugby à xiii",
     winamax: "Rugby à XIII",
     betclic: "rugby_league",
+    kambi: "rugby_league",
   },
   {
     canonical: "snooker",
     winamax: "Snooker",
     betclic: "snooker",
+    kambi: "snooker",
   },
   {
     canonical: "volley-ball",
     winamax: "Volley-ball",
     betclic: "volleyball",
+    kambi: "volleyball",
   },
   {
     canonical: "ski alpin",
     winamax: "Ski alpin",
     betclic: "alpine_skiing",
+    kambi: "alpine_skiing",
   },
   {
     canonical: "ski de fond",
@@ -245,6 +269,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     canonical: "mma",
     winamax: "MMA",
     betclic: "martial_arts",
+    kambi: "ufc_mma",
   },
   {
     canonical: "automobile",
@@ -262,6 +287,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     canonical: "tennis de table",
     winamax: "Tennis de table",
     betclic: "table_tennis",
+    kambi: "table_tennis",
   },
   // Judo has no head-to-head here: only its championships' winners.
   { canonical: "judo", winamax: "Judo", betclic: "judo" },
@@ -279,7 +305,12 @@ const canonicalByName = (names: (s: (typeof VERIFIED_SPORTS)[number]) => string 
 const CANONICAL_BY_BOOKMAKER: Record<BookmakerId, Map<string, string>> = {
   winamax: canonicalByName((s) => s.winamax),
   betclic: canonicalByName((s) => s.betclic),
+  leovegas: canonicalByName((s) => s.kambi),
+  betway: canonicalByName((s) => s.betway),
 };
+
+// The Kambi term keys of the sports this project reads (./kambi.ts).
+export const kambiTermKeys = (): string[] => VERIFIED_SPORTS.flatMap((s) => s.kambi ?? []);
 
 const warnedUnmappedSports = new Set<string>();
 

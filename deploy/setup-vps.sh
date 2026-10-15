@@ -31,6 +31,17 @@ log() { echo "[setup] $*"; }
 }
 export DEBIAN_FRONTEND=noninteractive
 
+# The smallest servers have 1 GB of memory: the builds (tsc, vite) of a deploy
+# can need more. A 2 GB swap file takes the peaks.
+if ! swapon --show | grep -q /swapfile; then
+  log "2 GB swap"
+  fallocate -l 2G /swapfile
+  chmod 600 /swapfile
+  mkswap /swapfile >/dev/null
+  swapon /swapfile
+  grep -q '^/swapfile ' /etc/fstab || echo '/swapfile none swap sw 0 0' >>/etc/fstab
+fi
+
 log "system packages"
 apt-get update -q
 apt-get upgrade -y -q

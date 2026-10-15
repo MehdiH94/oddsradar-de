@@ -342,7 +342,7 @@ describe("App", () => {
       toggleBookmaker("LeoVegas");
 
       await waitFor(() =>
-        expect(fetchMock).toHaveBeenCalledWith("/api/events?sport=football&sort=trj&bookmakers=merkurbets&kind=all&page=1")
+        expect(fetchMock).toHaveBeenCalledWith("/api/events?sport=football&sort=trj&bookmakers=merkurbets%2Ctwentybet&kind=all&page=1")
       );
 
       // Every bookmaker ticked again: the default, sent as no filter.
@@ -513,10 +513,10 @@ describe("App", () => {
       await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/value-bets?sort=start"));
 
       toggleBookmaker("LeoVegas");
-      await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/value-bets?sort=start&bookmakers=merkurbets"));
+      await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/value-bets?sort=start&bookmakers=merkurbets%2Ctwentybet"));
 
       fireEvent.change(screen.getByRole("combobox", { name: "Search for a match" }), { target: { value: "ps" } });
-      await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/value-bets?q=ps&sort=start&bookmakers=merkurbets"));
+      await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/value-bets?q=ps&sort=start&bookmakers=merkurbets%2Ctwentybet"));
       // The suggestions are the matches of the bets found.
       await waitFor(() =>
         expect([...document.querySelectorAll("#event-suggestions option")].map((o) => o.getAttribute("value"))).toEqual([
@@ -524,7 +524,7 @@ describe("App", () => {
         ])
       );
       expect(fetchMock.mock.calls.some(([url]) => url.startsWith("/api/events/suggestions"))).toBe(false);
-      expect(urlParams()).toEqual({ sport: "value-bets", sort: "start", q: "ps", bookmakers: "merkurbets" });
+      expect(urlParams()).toEqual({ sport: "value-bets", sort: "start", q: "ps", bookmakers: "merkurbets,twentybet" });
     });
 
     it("says when there is no value bet, and leads back to the matches", async () => {
@@ -908,12 +908,12 @@ describe("App", () => {
       await waitFor(() => expect(urlParams()).toEqual({ sport: "football", sort: "start" }));
 
       toggleBookmaker("LeoVegas");
-      await waitFor(() => expect(urlParams().bookmakers).toBe("merkurbets"));
+      await waitFor(() => expect(urlParams().bookmakers).toBe("merkurbets,twentybet"));
 
       fireEvent.click(screen.getByRole("radio", { name: "Tennis" }));
       fireEvent.change(screen.getByRole("combobox", { name: "Search for a match" }), { target: { value: " nadal " } });
       await waitFor(() =>
-        expect(urlParams()).toEqual({ sport: "tennis", sort: "start", q: "nadal", bookmakers: "merkurbets" })
+        expect(urlParams()).toEqual({ sport: "tennis", sort: "start", q: "nadal", bookmakers: "merkurbets,twentybet" })
       );
     });
 
@@ -1070,7 +1070,7 @@ describe("App", () => {
       expect(JSON.parse(init!.body as string)).toEqual({
         sport: "football",
         sort: "start",
-        bookmakers: ["merkurbets"],
+        bookmakers: ["merkurbets", "twentybet"],
         players: false,
         favoriteSports: [],
       });
@@ -1184,7 +1184,7 @@ describe("App", () => {
       render(<App />);
       await waitFor(() => expect(screen.getByText("results", { exact: false })).toBeInTheDocument());
 
-      for (const name of ["LeoVegas", "Merkur Bets"]) toggleBookmaker(name);
+      for (const name of ["LeoVegas", "Merkur Bets", "20bet"]) toggleBookmaker(name);
       await waitFor(() => expect(screen.getByText("Tick at least one bookmaker to compare the odds.")).toBeInTheDocument());
       fireEvent.click(screen.getByRole("button", { name: "Tick every bookmaker" }));
 
@@ -1277,12 +1277,12 @@ describe("App", () => {
       await waitFor(() => expect(screen.getByRole("radio", { name: "Football" })).toBeInTheDocument());
 
       fireEvent.click(screen.getByRole("button", { name: "Bookmakers: All" }));
-      for (const name of ["LeoVegas", "Merkur Bets"]) expect(screen.getByRole("checkbox", { name })).toBeChecked();
+      for (const name of ["LeoVegas", "Merkur Bets", "20bet"]) expect(screen.getByRole("checkbox", { name })).toBeChecked();
       expect(screen.queryByRole("button", { name: "Reset the filters" })).not.toBeInTheDocument();
 
       toggleBookmaker("Merkur Bets");
-      expect(screen.getByRole("button", { name: "Bookmakers: LeoVegas" })).toBeInTheDocument();
-      await waitFor(() => expect(urlParams().bookmakers).toBe("leovegas"));
+      expect(screen.getByRole("button", { name: "Bookmakers: 2 of 3" })).toBeInTheDocument();
+      await waitFor(() => expect(urlParams().bookmakers).toBe("leovegas,twentybet"));
 
       fireEvent.click(screen.getByRole("button", { name: "Reset the filters" }));
 

@@ -2,7 +2,7 @@ import { announceUnauthorized } from "../auth/session";
 
 // The ids the server knows (BookmakerId in src/scraper/canonical.ts), the ones
 // it reads now (ALL_BOOKMAKERS) among them.
-export type BookmakerId = "leovegas" | "merkurbets" | "winamax" | "betclic";
+export type BookmakerId = "leovegas" | "merkurbets" | "twentybet" | "winamax" | "betclic";
 
 // The freebets an account holds, by bookmaker, in FB (1 FB is 1 euro): a bookmaker
 // where it holds nothing is absent (src/freebets/wallet.ts).

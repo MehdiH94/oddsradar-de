@@ -89,7 +89,8 @@ describe("FreebetsPage", () => {
       expect(await screen.findByDisplayValue("30")).toBeInTheDocument();
       expect(fb("LeoVegas")).toHaveValue("30");
       expect(fb("Merkur Bets")).toHaveValue("25.5");
-      expect(screen.getAllByRole("textbox")).toHaveLength(2);
+      expect(fb("20bet")).toHaveValue("");
+      expect(screen.getAllByRole("textbox")).toHaveLength(3);
       expect(screen.getByText(/Total to convert/)).toHaveTextContent("55.50 FB");
       expect(await screen.findByText("Saved to your account")).toBeInTheDocument();
     });

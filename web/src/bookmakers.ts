@@ -28,6 +28,6 @@ export const BOOKMAKER_BRANDING: Record<string, { name: string; logo?: string } 
   betclic: { name: "Betclic", logo: betclicLogo },
 };
 
-// Every bookmaker's name, for the texts that list them all: "Winamax et Betclic".
+// Every bookmaker's name, for the texts that list them all: "Winamax and Betclic".
 export const ALL_BOOKMAKER_NAMES = ALL_BOOKMAKERS.map((id) => BOOKMAKER_BRANDING[id]?.name ?? id);
-export const ALL_BOOKMAKERS_SENTENCE = `${ALL_BOOKMAKER_NAMES.slice(0, -1).join(", ")} et ${ALL_BOOKMAKER_NAMES[ALL_BOOKMAKER_NAMES.length - 1]}`;
+export const ALL_BOOKMAKERS_SENTENCE = `${ALL_BOOKMAKER_NAMES.slice(0, -1).join(", ")} and ${ALL_BOOKMAKER_NAMES[ALL_BOOKMAKER_NAMES.length - 1]}`;

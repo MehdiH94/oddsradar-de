@@ -3,11 +3,11 @@ import { amountText, formatEuro, formatFb, formatRate, MAX_FREEBET, parseAmount,
 
 describe("the amounts' formats", () => {
   it("writes freebets, euros and rates the French way, a figure and its unit held together", () => {
-    expect(formatFb(14.1)).toBe("14,10");
-    expect(formatFb(0)).toBe("0,00");
-    expect(formatEuro(10.67)).toBe("10,67 €");
-    expect(formatRate(0.7558)).toBe("75,6 %");
-    expect(formatEuro(1234.5)).toBe("1234,50 €");
+    expect(formatFb(14.1)).toBe("14.10");
+    expect(formatFb(0)).toBe("0.00");
+    expect(formatEuro(10.67)).toBe("€10.67");
+    expect(formatRate(0.7558)).toBe("75.6%");
+    expect(formatEuro(1234.5)).toBe("€1234.50");
   });
 
   it("writes the time a price was read at, and a dash for none", () => {
@@ -20,11 +20,11 @@ describe("the amounts' formats", () => {
 describe("what a field holds", () => {
   it.each([
     ["12", 12],
-    ["12,5", 12.5],
+    ["12.5", 12.5],
     ["12.5", 12.5],
     ["  7 ", 7],
     ["1 000", 1000],
-    ["0,125", 0.13],
+    ["0.125", 0.13],
     [".5", 0.5],
     ["5.", 5],
     ["", 0],
@@ -39,7 +39,7 @@ describe("what a field holds", () => {
   });
 
   it("writes an amount back as a field shows it: a comma, nothing for none", () => {
-    expect(amountText(12.5)).toBe("12,5");
+    expect(amountText(12.5)).toBe("12.5");
     expect(amountText(30)).toBe("30");
     expect(amountText(undefined)).toBe("");
     expect(amountText(0)).toBe("");

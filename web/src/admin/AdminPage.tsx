@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { APP_NAME } from "../brand";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 import { useAuth } from "../auth/useAuth";
 import { Logo } from "../components/Logo";
@@ -6,7 +7,7 @@ import { ODDS_PATH } from "../routes";
 import { AdminError, fetchAdminUsers, updateAdminUser, type AdminUser, type AdminUserChange } from "./adminApi";
 import styles from "./AdminPage.module.css";
 
-const DATE_FORMAT = new Intl.DateTimeFormat("fr-FR", { dateStyle: "short" });
+const DATE_FORMAT = new Intl.DateTimeFormat("en-GB", { dateStyle: "short" });
 const formatDate = (iso: string | null) => (iso ? DATE_FORMAT.format(new Date(iso)) : "—");
 
 // The administration, for accounts with the admin role (the server answers 403
@@ -17,12 +18,12 @@ export function AdminPage() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <a className={styles.brand} href={ODDS_PATH} aria-label="CoteRadar, retour aux cotes">
+        <a className={styles.brand} href={ODDS_PATH} aria-label={`${APP_NAME}, back to the odds`}>
           <Logo className={styles.logo} />
-          <span className={styles.name}>CoteRadar</span>
+          <span className={styles.name}>{APP_NAME}</span>
         </a>
         <a className={styles.back} href={ODDS_PATH}>
-          <ArrowLeft size={16} aria-hidden="true" /> Retour aux cotes
+          <ArrowLeft size={16} aria-hidden="true" /> Back to the odds
         </a>
       </header>
       <main className={styles.main}>
@@ -31,7 +32,7 @@ export function AdminPage() {
         </h1>
         <div role="tablist" aria-label="Sections" className={styles.tabs}>
           <button type="button" role="tab" aria-selected="true" aria-controls="admin-users" id="tab-users" className={styles.tab}>
-            Utilisateurs
+            Users
           </button>
         </div>
         <section id="admin-users" role="tabpanel" aria-labelledby="tab-users">
@@ -53,7 +54,7 @@ function UsersTab() {
     setError(null);
     return fetchAdminUsers()
       .then(setUsers)
-      .catch((err) => setError(err instanceof AdminError ? err.message : "Une erreur est survenue."));
+      .catch((err) => setError(err instanceof AdminError ? err.message : "Something went wrong."));
   }, []);
   useEffect(() => {
     void load();
@@ -67,7 +68,7 @@ function UsersTab() {
       const updated = await updateAdminUser(target.id, change);
       setUsers((list) => list && list.map((u) => (u.id === updated.id ? updated : u)));
     } catch (err) {
-      setError(err instanceof AdminError ? err.message : "Une erreur est survenue.");
+      setError(err instanceof AdminError ? err.message : "Something went wrong.");
     } finally {
       setBusyId(null);
     }
@@ -78,12 +79,12 @@ function UsersTab() {
       <p role="alert" className={styles.error}>
         {error}{" "}
         <button type="button" className={styles.linkButton} onClick={() => void load()}>
-          Réessayer
+          Try again
         </button>
       </p>
     ) : (
       <p aria-busy="true" className={styles.muted}>
-        Chargement des utilisateurs…
+        Loading the users…
       </p>
     );
   }
@@ -91,7 +92,7 @@ function UsersTab() {
   return (
     <>
       <p className={styles.muted}>
-        {users.length} compte{users.length > 1 ? "s" : ""}
+        {users.length} account{users.length === 1 ? "" : "s"}
       </p>
       {error && (
         <p role="alert" className={styles.error}>
@@ -100,15 +101,15 @@ function UsersTab() {
       )}
       <div className={styles.scroll}>
         <table className={styles.table}>
-          <caption className="visually-hidden">Les comptes</caption>
+          <caption className="visually-hidden">The accounts</caption>
           <thead>
             <tr>
               <th scope="col">Email</th>
-              <th scope="col">Compte</th>
-              <th scope="col">Abonnement</th>
-              <th scope="col">Rôle</th>
-              <th scope="col">Statut</th>
-              <th scope="col">Inscrit le</th>
+              <th scope="col">Account</th>
+              <th scope="col">Subscription</th>
+              <th scope="col">Role</th>
+              <th scope="col">Status</th>
+              <th scope="col">Signed up</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -121,13 +122,13 @@ function UsersTab() {
                 <tr key={u.id}>
                   <th scope="row" className={styles.email}>
                     {u.email}
-                    {own && <span className={styles.you}> (vous)</span>}
+                    {own && <span className={styles.you}> (you)</span>}
                   </th>
-                  <td>{u.emailVerifiedAt ? "Validé" : "Non validé"}</td>
-                  <td>{u.subscriptionStatus === "active" ? "Abonné" : "Aucun abonnement"}</td>
-                  <td>{u.role === "admin" ? "Admin" : "Utilisateur"}</td>
+                  <td>{u.emailVerifiedAt ? "Confirmed" : "Not confirmed"}</td>
+                  <td>{u.subscriptionStatus === "active" ? "Subscribed" : "No subscription"}</td>
+                  <td>{u.role === "admin" ? "Admin" : "User"}</td>
                   <td>
-                    <span className={blocked ? styles.blocked : styles.active}>{blocked ? "Bloqué" : "Actif"}</span>
+                    <span className={blocked ? styles.blocked : styles.active}>{blocked ? "Blocked" : "Active"}</span>
                   </td>
                   <td>{formatDate(u.createdAt)}</td>
                   <td>
@@ -137,10 +138,10 @@ function UsersTab() {
                         className={styles.action}
                         disabled={own || busy}
                         onClick={() =>
-                          change(u, { status: blocked ? "active" : "disabled" }, blocked ? null : `Bloquer ${u.email} ? Ce compte sera déconnecté et ne pourra plus se connecter.`)
+                          change(u, { status: blocked ? "active" : "disabled" }, blocked ? null : `Block ${u.email}? This account will be logged out and will no longer be able to log in.`)
                         }
                       >
-                        {blocked ? "Débloquer" : "Bloquer"}
+                        {blocked ? "Unblock" : "Block"}
                         <span className="visually-hidden"> {u.email}</span>
                       </button>
                       <button
@@ -151,11 +152,11 @@ function UsersTab() {
                           change(
                             u,
                             { role: u.role === "admin" ? "user" : "admin" },
-                            u.role === "admin" ? null : `Nommer ${u.email} administrateur ? Ce compte aura accès à cette page.`
+                            u.role === "admin" ? null : `Make ${u.email} an administrator? This account will have access to this page.`
                           )
                         }
                       >
-                        {u.role === "admin" ? "Retirer admin" : "Nommer admin"}
+                        {u.role === "admin" ? "Remove admin" : "Make admin"}
                         <span className="visually-hidden"> {u.email}</span>
                       </button>
                     </div>

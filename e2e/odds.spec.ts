@@ -10,7 +10,7 @@ const teams = (match: { participants: string[] }) => match.participants.join(" -
 const pick = (page: Page, name: string) => page.getByRole("radio", { name, exact: true }).check({ force: true });
 
 test("the dashboard lists the matches with each outcome's best price, and keeps its filters in the address", async ({ page }) => {
-  await page.goto("/cotes");
+  await page.goto("/odds");
   const football = page.getByRole("region", { name: "Football" });
 
   // Every football match, none of the tennis; the best price of an outcome is
@@ -44,14 +44,14 @@ test("the dashboard lists the matches with each outcome's best price, and keeps 
 });
 
 test("the bookmakers ticked in the address are the ones whose prices are compared", async ({ page }) => {
-  await page.goto("/cotes?sport=football&sort=trj&bookmakers=winamax");
+  await page.goto("/odds?sport=football&sort=trj&bookmakers=winamax");
   const row = page.getByRole("region", { name: "Football" }).getByRole("row", { name: new RegExp(teams(VALUE_MATCH)) });
   await expect(row).toContainText("Winamax : 2,20");
   await expect(row).not.toContainText("Betclic :");
 });
 
 test("the value bets list shows each bet's price against the fair odds, the biggest edge first", async ({ page }) => {
-  await page.goto("/cotes");
+  await page.goto("/odds");
   await page.getByRole("navigation", { name: "Navigation principale" }).getByText("Value bets", { exact: true }).click();
   await expect(page).toHaveURL(/sport=value-bets/);
 
@@ -69,7 +69,7 @@ test("the value bets list shows each bet's price against the fair odds, the bigg
 });
 
 test("a match opens from the value bets with all its markets, and its back link returns to the list", async ({ page }) => {
-  await page.goto("/cotes?sport=value-bets&sort=value");
+  await page.goto("/odds?sport=value-bets&sort=value");
   await page.getByRole("region", { name: "Value bets" }).getByRole("link", { name: teams(VALUE_MATCH), exact: true }).click();
 
   await expect(page.getByRole("heading", { name: "Paris SG – Marseille", level: 2 })).toBeVisible();
@@ -87,7 +87,7 @@ test("a match opens from the value bets with all its markets, and its back link 
 });
 
 test("a match's name opens its page from the odds list, even with nothing but its main market", async ({ page }) => {
-  await page.goto("/cotes?sport=tennis");
+  await page.goto("/odds?sport=tennis");
   await page.getByRole("region", { name: "Tennis" }).getByRole("link", { name: teams(TENNIS_MATCH), exact: true }).click();
 
   await expect(page).toHaveURL(/match=e2e-weber-ruiz/);
@@ -100,7 +100,7 @@ test("a match's name opens its page from the odds list, even with nothing but it
 });
 
 test("a match's competition leads to the matches of that competition, and Back returns to the match", async ({ page }) => {
-  await page.goto("/cotes?sport=football");
+  await page.goto("/odds?sport=football");
   await page.getByRole("region", { name: "Football" }).getByRole("link", { name: teams(VALUE_MATCH), exact: true }).click();
   await expect(page.getByRole("heading", { name: teams(VALUE_MATCH).replace(" - ", " – "), level: 2 })).toBeVisible();
 
@@ -118,7 +118,7 @@ test("a match's competition leads to the matches of that competition, and Back r
 });
 
 test("a surebet shows each leg's bookmaker, price and stake, and what it earns", async ({ page }) => {
-  await page.goto("/cotes?sport=value-bets&sort=value");
+  await page.goto("/odds?sport=value-bets&sort=value");
   const surebets = page.getByRole("region", { name: "Surebets" });
   await expect(surebets).toContainText(teams(SUREBET_MATCH));
   // One leg per outcome: who to bet with, at what price, and how much of the 100 EUR.
@@ -133,7 +133,7 @@ test("a surebet shows each leg's bookmaker, price and stake, and what it earns",
 
 test("a match page keeps every ticked bookmaker's price in view on a desktop", async ({ page }) => {
   // Every bookmaker ticked (the default).
-  await page.goto(`/cotes?match=${VALUE_MATCH.id}`);
+  await page.goto(`/odds?match=${VALUE_MATCH.id}`);
 
   for (const name of ["Résultat du match", "Nombre de buts"]) {
     const card = page.getByRole("article", { name });
@@ -150,14 +150,14 @@ test("a match page keeps every ticked bookmaker's price in view on a desktop", a
 
 test("the winners of the competitions are listed with the matches, each with its contenders' best price", async ({ page }) => {
   // In the football list, beside its matches: there is no list of their own.
-  await page.goto("/cotes");
+  await page.goto("/odds");
   const football = page.getByRole("region", { name: "Football" });
   await expect(football.getByRole("article", { name: COMPETITION_WINNER.title })).toBeVisible();
   await expect(football).toContainText(teams(VALUE_MATCH));
   await expect(page.getByRole("navigation", { name: "Navigation principale" }).getByText("Vainqueurs", { exact: true })).toHaveCount(0);
 
   // The best price of each contender, whichever of the two bookmakers has it.
-  await page.goto("/cotes?sport=football&sort=trj");
+  await page.goto("/odds?sport=football&sort=trj");
   const card = page.getByRole("article", { name: COMPETITION_WINNER.title });
   await expect(card).toBeVisible();
   await expect(card.getByRole("row", { name: /Paris Saint-Germain/ })).toContainText("Winamax : 1,50 (meilleure cote)");
@@ -171,7 +171,7 @@ test("the winners of the competitions are listed with the matches, each with its
 });
 
 test("a competition narrows the list to its matches and its winner, season left out, and the address keeps it", async ({ page }) => {
-  await page.goto("/cotes");
+  await page.goto("/odds");
   const football = page.getByRole("region", { name: "Football" });
   await page.getByRole("button", { name: "Compétition : Toutes" }).click();
   // « Ligue 1 2026/2027 » is « Ligue 1 »: one entry for the matches and the winner.
@@ -198,7 +198,7 @@ test("a competition narrows the list to its matches and its winner, season left 
 });
 
 test("an old link to the winners' list opens the football matches", async ({ page }) => {
-  await page.goto("/cotes?sport=vainqueurs&sort=trj");
+  await page.goto("/odds?sport=vainqueurs&sort=trj");
   await expect(page).toHaveURL(/sport=football/);
   await expect(page.getByRole("region", { name: "Football" })).toContainText(teams(VALUE_MATCH));
 });

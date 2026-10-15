@@ -18,4 +18,4 @@ export function valueEdge(
 }
 
 // Where the fair odds come from, for their tooltips and explanations.
-export const REFERENCE_SOURCE = "l'exchange Betfair (via Piwi247)";
+export const REFERENCE_SOURCE = "the Betfair exchange (via Piwi247)";

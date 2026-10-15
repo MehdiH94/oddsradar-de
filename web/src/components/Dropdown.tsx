@@ -66,7 +66,7 @@ export function Dropdown({ label, summary, children }: { label: string; summary:
         aria-controls={open ? panelId : undefined}
         onClick={() => setOpen(!open)}
       >
-        {label} : <span className={styles.summary}>{summary}</span>
+        {label}: <span className={styles.summary}>{summary}</span>
         <ChevronDown size={16} className={styles.chevron} aria-hidden="true" />
       </button>
       {open && (

@@ -32,7 +32,7 @@ export function linkIn(mail: Mail): string {
 
 // Signs in through the login page.
 export async function logIn(page: Page, email: string, password: string): Promise<void> {
-  await page.goto("/connexion");
+  await page.goto("/login");
   await page.getByLabel("Adresse email").fill(email);
   await page.getByLabel("Mot de passe", { exact: true }).fill(password);
   await page.getByRole("button", { name: "Se connecter" }).click();

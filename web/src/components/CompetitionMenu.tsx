@@ -18,8 +18,8 @@ export function CompetitionMenu({
   onChange: (competition: string) => void;
 }) {
   return (
-    <Dropdown label="Compétition" summary={value || "Toutes"}>
-      <MenuGroup legend="Compétition">
+    <Dropdown label="Competition" summary={value || "All"}>
+      <MenuGroup legend="Competition">
         <CompetitionPicker
           sport={sport}
           value={value}

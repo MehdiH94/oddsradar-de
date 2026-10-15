@@ -121,11 +121,11 @@ async function call<T>(url: string, init?: RequestInit): Promise<T> {
   } catch (err) {
     // A request the page itself gave up on (a newer one replaced it) is not a failure to report.
     if (err instanceof DOMException && err.name === "AbortError") throw err;
-    throw new FreebetsError("Connexion impossible. Vérifiez votre réseau et réessayez.", 0);
+    throw new FreebetsError("Could not connect. Check your network and try again.", 0);
   }
   if (res.status === 401) announceUnauthorized();
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new FreebetsError(data.message ?? "Une erreur est survenue. Réessayez dans un instant.", res.status);
+  if (!res.ok) throw new FreebetsError(data.message ?? "Something went wrong. Try again in a moment.", res.status);
   return data as T;
 }
 

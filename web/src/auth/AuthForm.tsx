@@ -50,7 +50,7 @@ export function AuthForm({
       await onSubmit(values);
       setDone(true);
     } catch (err) {
-      setError(err instanceof AuthError ? err.message : "Une erreur est survenue. Réessayez dans un instant.");
+      setError(err instanceof AuthError ? err.message : "Something went wrong. Try again in a moment.");
     } finally {
       setBusy(false);
     }
@@ -88,7 +88,7 @@ export function AuthForm({
                 <button
                   type="button"
                   className={styles.reveal}
-                  aria-label="Afficher le mot de passe"
+                  aria-label="Show the password"
                   aria-pressed={visible}
                   aria-controls={inputId}
                   onClick={() => setShown((s) => ({ ...s, [f.name]: !visible }))}
@@ -111,10 +111,10 @@ export function AuthForm({
         {error}
       </div>
       <button type="submit" className={styles.submit} disabled={busy}>
-        {busy ? "Patientez…" : submit}
+        {busy ? "Please wait…" : submit}
       </button>
     </form>
   );
 }
 
-export const PASSWORD_HINT = "12 caractères au minimum. Une phrase de passe fait très bien l'affaire.";
+export const PASSWORD_HINT = "At least 12 characters. A passphrase does the job very well.";

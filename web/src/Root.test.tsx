@@ -9,7 +9,7 @@ vi.mock("./App", () => ({
   App: ({ preferences }: { preferences?: { sport: string } | null }) => (
     <>
       <h1>Le dashboard</h1>
-      <p>Réglages : {preferences?.sport ?? "aucun"}</p>
+      <p>Settings: {preferences?.sport ?? "none"}</p>
     </>
   ),
 }));
@@ -57,13 +57,13 @@ describe("Root", () => {
   it("shows the home at /, with its own title", () => {
     stubApi({ signedIn: false });
     render(<Root />);
-    expect(screen.getByRole("heading", { level: 1, name: /Les meilleures cotes/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: /The best odds/ })).toBeInTheDocument();
     expect(document.title).toBe(HOME_TITLE);
   });
 
-  it("shows the dashboard at /cotes to someone signed in, with its own title", async () => {
+  it("shows the dashboard at /odds to someone signed in, with its own title", async () => {
     stubApi();
-    window.history.replaceState(null, "", "/cotes?sport=football");
+    window.history.replaceState(null, "", "/odds?sport=football");
     render(<Root />);
     expect(await screen.findByRole("heading", { level: 1, name: "Le dashboard" })).toBeInTheDocument();
     expect(document.title).toBe(ODDS_TITLE);
@@ -71,24 +71,24 @@ describe("Root", () => {
 
   it("hands the dashboard the account's saved filters", async () => {
     stubApi({ preferences: reply({ preferences: SAVED }) });
-    window.history.replaceState(null, "", "/cotes");
+    window.history.replaceState(null, "", "/odds");
     render(<Root />);
-    expect(await screen.findByText("Réglages : tennis")).toBeInTheDocument();
+    expect(await screen.findByText("Settings: tennis")).toBeInTheDocument();
   });
 
   it("opens the dashboard all the same when the saved filters can't be fetched", async () => {
     stubApi({ preferences: reply({ error: "boom" }, 500) });
-    window.history.replaceState(null, "", "/cotes");
+    window.history.replaceState(null, "", "/odds");
     render(<Root />);
-    expect(await screen.findByText("Réglages : aucun")).toBeInTheDocument();
+    expect(await screen.findByText("Settings: none")).toBeInTheDocument();
   });
 
   it("sends someone signed out from the dashboard to the login, remembering the page", async () => {
     stubApi({ signedIn: false });
-    window.history.replaceState(null, "", "/cotes?sport=tennis&match=abc");
+    window.history.replaceState(null, "", "/odds?sport=tennis&match=abc");
     render(<Root />);
-    expect(await screen.findByRole("heading", { level: 1, name: "Connexion" })).toBeInTheDocument();
-    expect(address()).toBe("/connexion?next=%2Fcotes%3Fsport%3Dtennis%26match%3Dabc");
+    expect(await screen.findByRole("heading", { level: 1, name: "Log in" })).toBeInTheDocument();
+    expect(address()).toBe("/login?next=%2Fodds%3Fsport%3Dtennis%26match%3Dabc");
     expect(screen.queryByText("Le dashboard")).not.toBeInTheDocument();
   });
 
@@ -97,14 +97,14 @@ describe("Root", () => {
     window.history.replaceState(null, "", "/?match=abc&bookmakers=winamax");
     render(<Root />);
     expect(await screen.findByRole("heading", { level: 1, name: "Le dashboard" })).toBeInTheDocument();
-    expect(address()).toBe("/cotes?match=abc&bookmakers=winamax");
+    expect(address()).toBe("/odds?match=abc&bookmakers=winamax");
   });
 
   it("keeps a campaign's link (?utm_source=...) on the home", () => {
     stubApi({ signedIn: false });
     window.history.replaceState(null, "", "/?utm_source=newsletter");
     render(<Root />);
-    expect(screen.getByRole("heading", { level: 1, name: /Les meilleures cotes/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: /The best odds/ })).toBeInTheDocument();
     expect(address()).toBe("/?utm_source=newsletter");
   });
 
@@ -112,13 +112,13 @@ describe("Root", () => {
     stubApi();
     render(<Root />);
 
-    fireEvent.click(screen.getAllByRole("link", { name: "Voir les value bets" })[0]);
+    fireEvent.click(screen.getAllByRole("link", { name: "See the value bets" })[0]);
     expect(await screen.findByRole("heading", { level: 1, name: "Le dashboard" })).toBeInTheDocument();
-    expect(address()).toBe("/cotes?sport=value-bets&sort=value");
+    expect(address()).toBe("/odds?sport=value-bets&sort=value");
 
     // jsdom's history.back() is asynchronous: wait for its popstate.
     act(() => window.history.back());
-    await waitFor(() => expect(screen.getByRole("heading", { level: 1, name: /Les meilleures cotes/ })).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByRole("heading", { level: 1, name: /The best odds/ })).toBeInTheDocument());
     expect(address()).toBe("/");
     expect(document.title).toBe(HOME_TITLE);
   });
@@ -135,7 +135,7 @@ describe("the administration page", () => {
     window.history.replaceState(null, "", "/admin");
     render(<Root />);
     expect(await screen.findByRole("heading", { level: 1, name: "Administration" })).toBeInTheDocument();
-    expect(document.title).toBe("Administration · CoteRadar");
+    expect(document.title).toBe("Administration · OddsRadar");
   });
 
   it("sends an ordinary account to the odds, without showing it the page", async () => {
@@ -143,7 +143,7 @@ describe("the administration page", () => {
     window.history.replaceState(null, "", "/admin");
     render(<Root />);
     expect(await screen.findByRole("heading", { level: 1, name: "Le dashboard" })).toBeInTheDocument();
-    expect(address()).toBe("/cotes");
+    expect(address()).toBe("/odds");
     expect(screen.queryByRole("heading", { name: "Administration" })).not.toBeInTheDocument();
   });
 
@@ -151,8 +151,8 @@ describe("the administration page", () => {
     stubApi({ signedIn: false });
     window.history.replaceState(null, "", "/admin");
     render(<Root />);
-    expect(await screen.findByRole("heading", { level: 1, name: "Connexion" })).toBeInTheDocument();
-    expect(address()).toBe("/connexion?next=%2Fadmin");
+    expect(await screen.findByRole("heading", { level: 1, name: "Log in" })).toBeInTheDocument();
+    expect(address()).toBe("/login?next=%2Fadmin");
   });
 });
 
@@ -182,8 +182,8 @@ describe("the Freebets page", () => {
     stubApi({ signedIn: false });
     window.history.replaceState(null, "", "/freebets?legs=2");
     render(<Root />);
-    expect(await screen.findByRole("heading", { level: 1, name: "Connexion" })).toBeInTheDocument();
-    expect(address()).toBe("/connexion?next=%2Ffreebets%3Flegs%3D2");
+    expect(await screen.findByRole("heading", { level: 1, name: "Log in" })).toBeInTheDocument();
+    expect(address()).toBe("/login?next=%2Ffreebets%3Flegs%3D2");
   });
 });
 
@@ -198,50 +198,50 @@ describe("the account pages", () => {
 
   it("logs in and goes back to the page that asked, then the dashboard answers", async () => {
     stubApi({ signedIn: false });
-    window.history.replaceState(null, "", "/connexion?next=%2Fcotes%3Fsport%3Dtennis");
+    window.history.replaceState(null, "", "/login?next=%2Fodds%3Fsport%3Dtennis");
     render(<Root />);
 
-    await fill("Adresse email", "ada@example.com");
-    await fill("Mot de passe", "correct horse battery");
-    fireEvent.click(screen.getByRole("button", { name: "Se connecter" }));
+    await fill("Email address", "ada@example.com");
+    await fill("Password", "correct horse battery");
+    fireEvent.click(screen.getByRole("button", { name: "Log in" }));
 
     expect(await screen.findByRole("heading", { level: 1, name: "Le dashboard" })).toBeInTheDocument();
-    expect(address()).toBe("/cotes?sport=tennis");
+    expect(address()).toBe("/odds?sport=tennis");
     expect(document.title).toBe(ODDS_TITLE);
   });
 
   it("shows the server's message when the login is refused, and stays on the page", async () => {
-    stubApi({ signedIn: false, loginAnswer: reply({ error: "invalid_credentials", message: "Email ou mot de passe incorrect." }, 401) });
-    window.history.replaceState(null, "", "/connexion");
+    stubApi({ signedIn: false, loginAnswer: reply({ error: "invalid_credentials", message: "Wrong email or password." }, 401) });
+    window.history.replaceState(null, "", "/login");
     render(<Root />);
 
-    await fill("Adresse email", "ada@example.com");
-    await fill("Mot de passe", "wrong wrong wrong");
-    fireEvent.click(screen.getByRole("button", { name: "Se connecter" }));
+    await fill("Email address", "ada@example.com");
+    await fill("Password", "wrong wrong wrong");
+    fireEvent.click(screen.getByRole("button", { name: "Log in" }));
 
-    expect(await screen.findByRole("alert")).toHaveTextContent("Email ou mot de passe incorrect.");
-    expect(address()).toBe("/connexion");
+    expect(await screen.findByRole("alert")).toHaveTextContent("Wrong email or password.");
+    expect(address()).toBe("/login");
   });
 
   it("never follows a ?next= that leaves the site", async () => {
     stubApi({ signedIn: false });
-    window.history.replaceState(null, "", "/connexion?next=https%3A%2F%2Fevil.example");
+    window.history.replaceState(null, "", "/login?next=https%3A%2F%2Fevil.example");
     render(<Root />);
 
-    await fill("Adresse email", "ada@example.com");
-    await fill("Mot de passe", "correct horse battery");
-    fireEvent.click(screen.getByRole("button", { name: "Se connecter" }));
+    await fill("Email address", "ada@example.com");
+    await fill("Password", "correct horse battery");
+    fireEvent.click(screen.getByRole("button", { name: "Log in" }));
 
     await screen.findByRole("heading", { level: 1, name: "Le dashboard" });
-    expect(address()).toBe("/cotes");
+    expect(address()).toBe("/odds");
   });
 
   it("sends someone already signed in away from the login page", async () => {
     stubApi();
-    window.history.replaceState(null, "", "/connexion");
+    window.history.replaceState(null, "", "/login");
     render(<Root />);
     expect(await screen.findByRole("heading", { level: 1, name: "Le dashboard" })).toBeInTheDocument();
-    expect(address()).toBe("/cotes");
+    expect(address()).toBe("/odds");
   });
 
   it("asks for an email, then says the same thing whoever it is", async () => {
@@ -249,14 +249,14 @@ describe("the account pages", () => {
     fetchMock.mockImplementation((url: string) =>
       url === "/api/auth/me" ? reply({ user: null }) : reply({ message: "Si cette adresse est valide…" }, 202)
     );
-    window.history.replaceState(null, "", "/inscription");
+    window.history.replaceState(null, "", "/signup");
     render(<Root />);
 
-    await fill("Adresse email", "ada@example.com");
-    await fill("Mot de passe", "correct horse battery");
-    fireEvent.click(screen.getByRole("button", { name: "Créer mon compte" }));
+    await fill("Email address", "ada@example.com");
+    await fill("Password", "correct horse battery");
+    fireEvent.click(screen.getByRole("button", { name: "Create my account" }));
 
-    expect(await screen.findByRole("status")).toHaveTextContent(/email de confirmation/);
+    expect(await screen.findByRole("status")).toHaveTextContent(/confirmation email/);
     const call = fetchMock.mock.calls.find(([url]) => url === "/api/auth/register")!;
     expect(JSON.parse(call[1]!.body as string)).toEqual({ email: "ada@example.com", password: "correct horse battery" });
   });
@@ -264,12 +264,12 @@ describe("the account pages", () => {
   it("confirms the email from the link by posting its token", async () => {
     const fetchMock = stubApi({ signedIn: false });
     fetchMock.mockImplementation((url: string) =>
-      url === "/api/auth/me" ? reply({ user: null }) : reply({ message: "Adresse confirmée." })
+      url === "/api/auth/me" ? reply({ user: null }) : reply({ message: "Address confirmed." })
     );
-    window.history.replaceState(null, "", "/confirmer-email?token=abc123");
+    window.history.replaceState(null, "", "/verify-email?token=abc123");
     render(<Root />);
 
-    expect(await screen.findByText(/Adresse confirmée, votre compte est actif/)).toBeInTheDocument();
+    expect(await screen.findByText(/Address confirmed, your account is active/)).toBeInTheDocument();
     const call = fetchMock.mock.calls.find(([url]) => url === "/api/auth/verify-email")!;
     expect(call[1]!.method).toBe("POST");
     expect(JSON.parse(call[1]!.body as string)).toEqual({ token: "abc123" });
@@ -278,16 +278,16 @@ describe("the account pages", () => {
   it("sets a new password from the reset link, and says an incomplete link is one", async () => {
     const fetchMock = stubApi({ signedIn: false });
     fetchMock.mockImplementation((url: string) =>
-      url === "/api/auth/me" ? reply({ user: null }) : reply({ message: "Mot de passe modifié." })
+      url === "/api/auth/me" ? reply({ user: null }) : reply({ message: "Password changed." })
     );
-    window.history.replaceState(null, "", "/reinitialiser-mot-de-passe?token=tok");
+    window.history.replaceState(null, "", "/reset-password?token=tok");
     const page = render(<Root />);
-    await fill("Nouveau mot de passe", "a brand new secret");
-    fireEvent.click(screen.getByRole("button", { name: "Changer le mot de passe" }));
-    expect(await screen.findByText(/Mot de passe modifié/)).toBeInTheDocument();
+    await fill("New password", "a brand new secret");
+    fireEvent.click(screen.getByRole("button", { name: "Change the password" }));
+    expect(await screen.findByText(/Password changed/)).toBeInTheDocument();
     page.unmount();
 
-    window.history.replaceState(null, "", "/reinitialiser-mot-de-passe");
+    window.history.replaceState(null, "", "/reset-password");
     render(<Root />);
     expect(await screen.findByRole("alert")).toHaveTextContent(/incomplet/);
   });
@@ -297,24 +297,24 @@ describe("the account pages", () => {
       signedIn: false,
       loginAnswer: reply({ error: "email_not_verified", message: "Confirmez d'abord votre adresse email." }, 403),
     });
-    window.history.replaceState(null, "", "/connexion");
+    window.history.replaceState(null, "", "/login");
     render(<Root />);
-    await fill("Adresse email", "ada@example.com");
-    await fill("Mot de passe", "correct horse battery");
-    fireEvent.click(screen.getByRole("button", { name: "Se connecter" }));
+    await fill("Email address", "ada@example.com");
+    await fill("Password", "correct horse battery");
+    fireEvent.click(screen.getByRole("button", { name: "Log in" }));
 
-    fireEvent.click(await screen.findByRole("button", { name: "Renvoyer l'email de confirmation" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Send the confirmation email again" }));
     await waitFor(() => expect(fetchMock.mock.calls.some(([url]) => url === "/api/auth/resend-verification")).toBe(true));
   });
 
   it("shows and hides the typed password, and hides it again when the form is sent", async () => {
-    stubApi({ signedIn: false, loginAnswer: reply({ error: "invalid_credentials", message: "Email ou mot de passe incorrect." }, 401) });
-    window.history.replaceState(null, "", "/connexion");
+    stubApi({ signedIn: false, loginAnswer: reply({ error: "invalid_credentials", message: "Wrong email or password." }, 401) });
+    window.history.replaceState(null, "", "/login");
     render(<Root />);
-    await fill("Adresse email", "ada@example.com");
-    await fill("Mot de passe", "correct horse battery");
-    const password = screen.getByLabelText("Mot de passe");
-    const toggle = screen.getByRole("button", { name: "Afficher le mot de passe" });
+    await fill("Email address", "ada@example.com");
+    await fill("Password", "correct horse battery");
+    const password = screen.getByLabelText("Password");
+    const toggle = screen.getByRole("button", { name: "Show the password" });
     expect(password).toHaveAttribute("type", "password");
     expect(toggle).toHaveAttribute("aria-pressed", "false");
 
@@ -327,14 +327,14 @@ describe("the account pages", () => {
     expect(password).toHaveAttribute("type", "password");
 
     fireEvent.click(toggle);
-    fireEvent.click(screen.getByRole("button", { name: "Se connecter" }));
-    expect(await screen.findByText("Email ou mot de passe incorrect.")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Log in" }));
+    expect(await screen.findByText("Wrong email or password.")).toBeInTheDocument();
     expect(password).toHaveAttribute("type", "password");
     expect(toggle).toHaveAttribute("aria-pressed", "false");
   });
 
   it("has no accessibility violation axe can find on the forms", async () => {
-    for (const path of ["/connexion", "/inscription", "/mot-de-passe-oublie", "/reinitialiser-mot-de-passe?token=t"]) {
+    for (const path of ["/login", "/signup", "/forgot-password", "/reset-password?token=t"]) {
       stubApi({ signedIn: false });
       window.history.replaceState(null, "", path);
       const page = render(<Root />);

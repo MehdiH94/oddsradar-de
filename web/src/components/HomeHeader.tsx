@@ -1,3 +1,4 @@
+import { APP_NAME } from "../brand";
 import { Logo } from "./Logo";
 import { Link } from "./Link";
 import { useAuth } from "../auth/useAuth";
@@ -11,18 +12,18 @@ export function HomeHeader() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <a className={styles.brand} href={HOME_PATH} aria-label="CoteRadar, accueil">
+        <a className={styles.brand} href={HOME_PATH} aria-label={`${APP_NAME}, home`}>
           <Logo className={styles.logo} />
-          <span className={styles.name}>CoteRadar</span>
+          <span className={styles.name}>{APP_NAME}</span>
         </a>
-        <nav aria-label="Navigation principale">
+        <nav aria-label="Main navigation">
           {status === "authenticated" ? (
             <Link href={oddsHref} className={styles.enter}>
-              Voir les cotes
+              See the odds
             </Link>
           ) : (
             <Link href={LOGIN_PATH} className={styles.enter}>
-              Se connecter
+              Log in
             </Link>
           )}
         </nav>

@@ -54,19 +54,19 @@ function OutcomeFairOdds({ outcome, bookmakers }: { outcome: OutcomeDetail; book
   );
 }
 
-// Over/under lines: one row per line, "Plus" and "Moins" side by side.
+// Over/under lines: one row per line, "Over" and "Under" side by side.
 function LinesTable({ market, bookmakers }: { market: MarketDetail; bookmakers: readonly string[] }) {
   const hasPayout = market.lines.some((l) => l.payoutRate !== null);
   return (
     <table className={styles.lines}>
       <thead>
         <tr>
-          <th scope="col">Ligne</th>
-          <th scope="col">Plus</th>
-          <th scope="col">Moins</th>
+          <th scope="col">Line</th>
+          <th scope="col">Over</th>
+          <th scope="col">Under</th>
           {hasPayout && (
             <th scope="col" className={styles.trjHead}>
-              TRJ<span className="visually-hidden"> (taux de retour au joueur)</span>
+              Payout
             </th>
           )}
         </tr>
@@ -112,8 +112,8 @@ function OutcomeList({ market, line, bookmakers }: { market: MarketDetail; line:
         <input
           type="search"
           className={styles.filter}
-          aria-label={`Chercher dans ${market.label}`}
-          placeholder={`Chercher parmi ${line.outcomes.length}…`}
+          aria-label={`Search in ${market.label}`}
+          placeholder={`Search among ${line.outcomes.length}…`}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         />
@@ -136,7 +136,7 @@ function OutcomeList({ market, line, bookmakers }: { market: MarketDetail; line:
       {needle && matching.length === 0 && <p className={styles.empty}>Rien ne correspond.</p>}
       {folds && !needle && (
         <button type="button" className={styles.more} onClick={() => setExpanded(!expanded)} aria-expanded={expanded}>
-          {expanded ? "Réduire" : `Voir les ${hidden} autres`}
+          {expanded ? "Show fewer" : `Show the ${hidden} others`}
         </button>
       )}
     </>
@@ -157,8 +157,8 @@ export function MarketCard({ market, bookmakers }: { market: MarketDetail; bookm
       <header className={styles.header}>
         <h4 className={styles.title}>{market.label}</h4>
         {single && single.payoutRate !== null && (
-          <span className={styles.badge} title="Taux de retour au joueur, avec la meilleure cote de chaque issue">
-            <span className="visually-hidden">TRJ (taux de retour au joueur) : </span>
+          <span className={styles.badge} title="Payout, with the best price of each outcome">
+            <span className="visually-hidden">Payout: </span>
             <PayoutBadge rate={single.payoutRate} />
           </span>
         )}

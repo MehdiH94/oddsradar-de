@@ -40,7 +40,7 @@ const POLL_MS = 30_000;
 const SEARCH_DEBOUNCE_MS = 250;
 const MIN_SUGGESTION_QUERY_LENGTH = 2;
 const MAX_SUGGESTIONS = 10;
-const TIME_FORMAT = new Intl.DateTimeFormat("fr-FR", { hour: "2-digit", minute: "2-digit" });
+const TIME_FORMAT = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit" });
 // The phone's list grows by this many with "Voir plus", up to the API's last.
 const MAX_SHOWN = 500;
 const FILTER_SHEET_ID = "filter-sheet";
@@ -457,11 +457,8 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
       }
     />
   );
-  const resultsLabel = !loaded
-    ? "Voir les résultats"
-    : isValueBets
-      ? `Voir ${total + surebets.length > 1 ? "les " : "le "}${total + surebets.length} résultat${total + surebets.length > 1 ? "s" : ""}`
-      : `Voir ${total > 1 ? "les " : "le "}${total} résultat${total > 1 ? "s" : ""}`;
+  const shownCount = isValueBets ? total + surebets.length : total;
+  const resultsLabel = !loaded ? "Show the results" : shownCount === 1 ? "Show the 1 result" : `Show the ${shownCount} results`;
 
   return (
     <div className={wide ? styles.app : `${styles.app} ${styles.withBar}`}>
@@ -525,14 +522,14 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
       )}
 
       <main className={styles.main} ref={resultsRef} aria-busy={busy}>
-        <h1 className="visually-hidden">Comparateur de cotes et value bets</h1>
+        <h1 className="visually-hidden">Odds comparison and value bets</h1>
         {matchId ? (
           <MatchPage
             id={matchId}
             bookmakers={bookmakers}
             onBookmakersChange={setBookmakers}
             backHref={listHref}
-            backLabel={isValueBets ? "Tous les value bets" : undefined}
+            backLabel={isValueBets ? "All value bets" : undefined}
             onBack={closeMatch}
             competitionHref={competitionHref}
             onOpenCompetition={openCompetition}
@@ -544,8 +541,8 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
             {loadFailed && (
               <ErrorBanner onRetry={reload}>
                 {!loaded || lastUpdated === null
-                  ? "Impossible de charger les cotes."
-                  : `Impossible d'actualiser les cotes : celles affichées datent de ${TIME_FORMAT.format(lastUpdated)}.`}
+                  ? "The odds could not be loaded."
+                  : `The odds could not be refreshed: the ones shown are from ${TIME_FORMAT.format(lastUpdated)}.`}
               </ErrorBanner>
             )}
             {!loaded ? (
@@ -566,34 +563,34 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
                   )}
                 </div>
                 {bookmakers.length === 0 ? (
-                  <EmptyState action={{ label: "Cocher tous les bookmakers", onClick: () => setBookmakers([...ALL_BOOKMAKERS]) }}>
-                    Cochez au moins un bookmaker pour comparer les cotes.
+                  <EmptyState action={{ label: "Tick every bookmaker", onClick: () => setBookmakers([...ALL_BOOKMAKERS]) }}>
+                    Tick at least one bookmaker to compare the odds.
                   </EmptyState>
                 ) : total === 0 && !(isValueBets && surebets.length > 0) ? (
                   query ? (
                     <EmptyState
                       action={{
-                        label: isValueBets ? "Voir tous les value bets" : "Voir tous les matchs",
+                        label: isValueBets ? "Show every value bet" : "Show every match",
                         onClick: () => setSearch(""),
                       }}
                     >
-                      Aucun {isValueBets ? "value bet" : "match"} ne correspond à « {query} ».
+                      No {isValueBets ? "value bet" : "match"} matches “{query}”.
                     </EmptyState>
                   ) : isValueBets ? (
-                    <EmptyState action={{ label: "Voir les matchs", onClick: () => changeView("matches") }}>
-                      Aucun value bet pour le moment : aucune cote ne dépasse assez la cote juste de l'exchange (de 1 %, de 5 % sur les joueurs).
+                    <EmptyState action={{ label: "Show the matches", onClick: () => changeView("matches") }}>
+                      No value bet for now: no price is far enough above the exchange's fair odds (by 1%, by 5% on players).
                     </EmptyState>
                   ) : competitionFilter ? (
-                    <EmptyState action={{ label: "Toutes les compétitions", onClick: () => setCompetition("") }}>
-                      Aucune cote disponible pour {competitionFilter} pour le moment.
+                    <EmptyState action={{ label: "All competitions", onClick: () => setCompetition("") }}>
+                      No odds available for {competitionFilter} for now.
                     </EmptyState>
                   ) : playersFilter ? (
-                    <EmptyState action={{ label: "Voir tous les matchs", onClick: () => setPlayers(false) }}>
-                      Aucun match avec des marchés joueurs pour le moment : les bookmakers les proposent en général la veille ou
-                      le jour du match.
+                    <EmptyState action={{ label: "Show every match", onClick: () => setPlayers(false) }}>
+                      No match with player markets for now: bookmakers usually offer them the day before or on the day of the
+                      match.
                     </EmptyState>
                   ) : (
-                    <EmptyState>Aucune cote disponible pour ce sport pour le moment.</EmptyState>
+                    <EmptyState>No odds available for this sport for now.</EmptyState>
                   )
                 ) : isValueBets ? (
                   <>

@@ -122,7 +122,7 @@ test("a new account is asked for its freebets, and with one bookmaker's only is 
   await createConfirmedAccount(request, email, NEW_PASSWORD);
   await page.context().clearCookies();
   await logIn(page, email, NEW_PASSWORD);
-  await expect(page).toHaveURL(/\/cotes/);
+  await expect(page).toHaveURL(/\/odds/);
 
   await page.getByRole("navigation", { name: "Navigation principale" }).getByText("Freebets", { exact: true }).click();
   await expect(page).toHaveURL(/\/freebets/);
@@ -147,7 +147,7 @@ test.describe("signed out", () => {
 
   test("a visitor is sent to the login page and back to the freebets, and the API is closed to them", async ({ page, request }) => {
     await page.goto("/freebets?mode=exchange");
-    await expect(page).toHaveURL(/\/connexion\?next=%2Ffreebets%3Fmode%3Dexchange/);
+    await expect(page).toHaveURL(/\/login\?next=%2Ffreebets%3Fmode%3Dexchange/);
     for (const path of ["/api/freebets/wallet", "/api/freebets/conversions?mode=bookmakers&legs=1"]) {
       expect((await request.get(path)).status(), path).toBe(401);
     }

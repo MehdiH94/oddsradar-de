@@ -26,14 +26,14 @@ async function post<T>(path: string, body: unknown = {}): Promise<T> {
       body: JSON.stringify(body),
     });
   } catch {
-    throw new AuthError("network", "Connexion impossible. Vérifiez votre réseau et réessayez.", 0);
+    throw new AuthError("network", "Could not connect. Check your network and try again.", 0);
   }
   if (res.status === 204) return undefined as T;
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
     throw new AuthError(
       data.error ?? "unknown",
-      data.message ?? "Une erreur est survenue. Réessayez dans un instant.",
+      data.message ?? "Something went wrong. Try again in a moment.",
       res.status
     );
   }

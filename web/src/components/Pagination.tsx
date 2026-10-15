@@ -21,12 +21,12 @@ export function Pagination({
   return (
     <nav className={styles.pagination} aria-label="Pagination">
       <p className={styles.range}>
-        {from}–{to} sur {total}
+        {from}–{to} of {total}
       </p>
       <div className={styles.controls}>
         <button type="button" className={styles.step} onClick={() => onChange(page - 1)} disabled={page <= 1}>
           <ChevronLeft size={16} aria-hidden="true" />
-          <span className={styles.stepLabel}>Précédent</span>
+          <span className={styles.stepLabel}>Previous</span>
         </button>
         <ol className={styles.pages}>
           {pageWindow(page, lastPage).map((item, i) =>
@@ -53,7 +53,7 @@ export function Pagination({
           Page {page} / {lastPage}
         </span>
         <button type="button" className={styles.step} onClick={() => onChange(page + 1)} disabled={page >= lastPage}>
-          <span className={styles.stepLabel}>Suivant</span>
+          <span className={styles.stepLabel}>Next</span>
           <ChevronRight size={16} aria-hidden="true" />
         </button>
       </div>

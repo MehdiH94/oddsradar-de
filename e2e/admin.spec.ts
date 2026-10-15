@@ -9,13 +9,13 @@ const newEmail = (name: string) => `${name}-${Date.now()}@example.com`;
 
 test("a visitor and an ordinary account cannot get into the administration", async ({ page }) => {
   await page.goto("/admin");
-  await expect(page).toHaveURL(/\/connexion\?next=%2Fadmin/);
+  await expect(page).toHaveURL(/\/login\?next=%2Fadmin/);
 
   await logIn(page, SEEDED_USER.email, SEEDED_USER.password);
   // Back on /admin, which is not for them: the odds instead.
-  await expect(page).toHaveURL(/\/cotes/);
+  await expect(page).toHaveURL(/\/odds/);
   await page.goto("/admin");
-  await expect(page).toHaveURL(/\/cotes/);
+  await expect(page).toHaveURL(/\/odds/);
   await expect(page.getByRole("link", { name: "Administration" })).toHaveCount(0);
 
   expect((await page.request.get("/api/admin/users")).status()).toBe(403);
@@ -31,7 +31,7 @@ test("an admin lists the accounts, blocks one that is then locked out, and makes
   const other = await browser.newContext();
   const otherPage = await other.newPage();
   await logIn(otherPage, blocked, NEW_PASSWORD);
-  await expect(otherPage).toHaveURL(/\/cotes/);
+  await expect(otherPage).toHaveURL(/\/odds/);
 
   await logIn(page, SEEDED_ADMIN.email, SEEDED_ADMIN.password);
   await page.getByRole("link", { name: "Administration" }).click();

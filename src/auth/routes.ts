@@ -63,12 +63,12 @@ export function authRouter(auth: AuthContext): Router {
 
   async function sendVerification(userId: string, email: string): Promise<void> {
     const token = createAuthToken(db, userId, "verify_email", auth.now());
-    await auth.mailer.send(mails.verifyEmail(email, `${auth.publicUrl}/confirmer-email?token=${encodeURIComponent(token)}`));
+    await auth.mailer.send(mails.verifyEmail(email, `${auth.publicUrl}/verify-email?token=${encodeURIComponent(token)}`));
   }
 
   async function sendReset(userId: string, email: string): Promise<void> {
     const token = createAuthToken(db, userId, "reset_password", auth.now());
-    await auth.mailer.send(mails.resetPassword(email, `${auth.publicUrl}/reinitialiser-mot-de-passe?token=${encodeURIComponent(token)}`));
+    await auth.mailer.send(mails.resetPassword(email, `${auth.publicUrl}/reset-password?token=${encodeURIComponent(token)}`));
   }
 
   // A mail that cannot be sent must not tell the caller whether the account
@@ -107,7 +107,7 @@ export function authRouter(auth: AuthContext): Router {
       if (auth.limiter.hit(`verify:email:${existing.id}`, 3, HOUR) === 0) await trySend(sendVerification(existing.id, existing.email));
     } else if (auth.limiter.hit(`verify:email:${existing.id}`, 3, HOUR) === 0) {
       const token = createAuthToken(db, existing.id, "reset_password", auth.now());
-      await trySend(auth.mailer.send(mails.alreadyRegistered(existing.email, `${auth.publicUrl}/reinitialiser-mot-de-passe?token=${encodeURIComponent(token)}`)));
+      await trySend(auth.mailer.send(mails.alreadyRegistered(existing.email, `${auth.publicUrl}/reset-password?token=${encodeURIComponent(token)}`)));
     }
     res.status(202).json(REGISTERED);
   });

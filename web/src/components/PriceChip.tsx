@@ -36,19 +36,19 @@ export function PriceChip({
   return (
     <span className={className} data-bookmaker={bookmaker} data-best={best || undefined} data-value={edge !== undefined || undefined}>
       {showLogo && <BookmakerLogo bookmaker={bookmaker} size={16} decorative />}
-      <span className="visually-hidden">{name} : </span>
+      <span className="visually-hidden">{name}: </span>
       <span className={styles.price}>{price === undefined ? "-" : formatPrice(price)}</span>
       {best && (
         <>
           <Check size={12} strokeWidth={3} className={styles.check} aria-hidden="true" />
-          <span className="visually-hidden"> (meilleure cote)</span>
+          <span className="visually-hidden"> (best price)</span>
         </>
       )}
       {edge !== undefined && (
         <span className="visually-hidden">
           {suspect
-            ? ` (cote suspecte : ${formatEdge(edge)} sur l'autre bookmaker)`
-            : ` (value bet : ${formatEdge(edge)} sur la cote juste)`}
+            ? ` (suspect price: ${formatEdge(edge)} over the other bookmaker)`
+            : ` (value bet: ${formatEdge(edge)} over the fair odds)`}
         </span>
       )}
     </span>

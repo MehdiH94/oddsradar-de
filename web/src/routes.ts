@@ -7,14 +7,14 @@ import { urlFiltersQuery } from "./urlFilters";
 // answers the dashboard's path with the same index.html as the home's
 // (SPA_PATHS in src/api/server.ts): change both together.
 export const HOME_PATH = "/";
-export const ODDS_PATH = "/cotes";
+export const ODDS_PATH = "/odds";
 
 // The account pages. Each is also listed in SPA_PATHS (src/api/server.ts).
-export const LOGIN_PATH = "/connexion";
-export const REGISTER_PATH = "/inscription";
-export const FORGOT_PATH = "/mot-de-passe-oublie";
-export const RESET_PATH = "/reinitialiser-mot-de-passe";
-export const VERIFY_PATH = "/confirmer-email";
+export const LOGIN_PATH = "/login";
+export const REGISTER_PATH = "/signup";
+export const FORGOT_PATH = "/forgot-password";
+export const RESET_PATH = "/reset-password";
+export const VERIFY_PATH = "/verify-email";
 // The administration, for admins only. Also listed in SPA_PATHS.
 export const ADMIN_PATH = "/admin";
 // The freebets' conversions, for accounts. Also listed in SPA_PATHS.
@@ -102,6 +102,6 @@ export function currentPath(): string {
     window.history.replaceState(window.history.state, "", `${ODDS_PATH}${search}${hash}`);
     return ODDS_PATH;
   }
-  // "/cotes/" is the dashboard too.
+  // "/odds/" is the dashboard too.
   return pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
 }

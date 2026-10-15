@@ -135,12 +135,12 @@ Le site a deux pages : une page d'accueil (`/`) qui presente le produit
 (ce qu'il compare, ce qu'est un value bet, la conversion de freebets (une
 section et le lien vers `/freebets`), quelques vrais value bets du
 moment et les chiffres de l'API, avec un exemple et des chiffres vides quand
-l'API ne repond pas) et mene au dashboard, a `/cotes`. Les anciens liens du
+l'API ne repond pas) et mene au dashboard, a `/odds`. Les anciens liens du
 dashboard, `/?sport=...` ou `/?match=...` (les alertes Discord, les liens
-partages), sont rediriges vers `/cotes` avec les memes parametres ; un `/` avec
+partages), sont rediriges vers `/odds` avec les memes parametres ; un `/` avec
 une autre query (`?utm_source=...`) reste sur l'accueil. Le serveur renvoie le
-meme `index.html` pour `/` et `/cotes` (`SPA_PATHS`, `src/api/server.ts`),
-si bien qu'un rechargement de `/cotes` ne tombe pas sur une 404.
+meme `index.html` pour `/` et `/odds` (`SPA_PATHS`, `src/api/server.ts`),
+si bien qu'un rechargement de `/odds` ne tombe pas sur une 404.
 
 Le dashboard montre, par sport (football par defaut) :
 
@@ -675,13 +675,13 @@ deploiement. En developpement, mettre `DISCORD_WEBHOOK_URL` dans son `.env`.
 Les cotes, les value bets, les surebets et les pages de match sont reserves
 aux comptes : toute route `/api/*` (sauf `/api/auth/*`, `/api/health` et
 `/api/public/home`, des totaux sans aucune cote) repond 401 sans session, et
-`/cotes` renvoie vers `/connexion`. Une route ajoutee plus tard sous `/api` est
+`/odds` renvoie vers `/login`. Une route ajoutee plus tard sous `/api` est
 protegee d'office. La page d'accueil reste publique et ne montre qu'un exemple
 de value bet.
 
-- **Parcours** : inscription (`/inscription`), email de confirmation
-  (`/confirmer-email?token=...`, valable 24 h), connexion (`/connexion`), mot de
-  passe oublie (`/mot-de-passe-oublie`, lien de `/reinitialiser-mot-de-passe`
+- **Parcours** : inscription (`/signup`), email de confirmation
+  (`/verify-email?token=...`, valable 24 h), connexion (`/login`), mot de
+  passe oublie (`/forgot-password`, lien de `/reset-password`
   valable 1 h). Un compte non confirme ne peut pas se connecter.
 - **Securite** (`src/auth/`) : mots de passe haches en scrypt (12 caracteres au
   moins, pas de regle de composition) ; session = jeton aleatoire dans un

@@ -31,9 +31,9 @@ export function CompetitionSearch({
         ref={inputRef}
         type="search"
         className={styles.input}
-        aria-label="Rechercher une compétition"
+        aria-label="Search for a competition"
         aria-controls={controls}
-        placeholder="Rechercher une compétition"
+        placeholder="Search for a competition"
         autoComplete="off"
         value={value}
         onChange={(event) => onChange(event.target.value)}
@@ -53,7 +53,7 @@ export function CompetitionSearch({
         <button
           type="button"
           className={styles.clear}
-          aria-label="Effacer la recherche de compétition"
+          aria-label="Clear the competition search"
           onClick={() => {
             onChange("");
             inputRef.current?.focus();

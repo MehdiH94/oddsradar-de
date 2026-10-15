@@ -7,6 +7,6 @@ import { logIn } from "./helpers";
 // limited, and its own path is what accounts.spec.ts checks).
 setup("sign in the seeded account", async ({ page }) => {
   await logIn(page, SEEDED_USER.email, SEEDED_USER.password);
-  await expect(page).toHaveURL(/\/cotes/);
+  await expect(page).toHaveURL(/\/odds/);
   await page.context().storageState({ path: SESSION });
 });

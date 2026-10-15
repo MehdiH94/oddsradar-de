@@ -20,7 +20,7 @@ const FOOTBALL = [
 describe("competitionList", () => {
   it("puts the favorites first, in order, then the others alphabetically", () => {
     const list = competitionList({ ...base, competitions: FOOTBALL, expanded: true });
-    expect(list.favorites).toEqual(["Ligue 1", "Serie A", "LaLiga", "Bundesliga", "Premier League", "Ligue des Champions"]);
+    expect(list.favorites).toEqual(["Bundesliga", "Ligue des Champions", "Premier League", "LaLiga", "Serie A", "Ligue 1"]);
     expect(list.others).toEqual(["Bundesliga 2", "Championship", "Coupe de France", "Eredivisie", "Ligue 2", "Super Lig"]);
     expect(list.total).toBe(12);
   });
@@ -65,7 +65,7 @@ describe("competitionList", () => {
     const list = competitionList({ ...base, competitions: FOOTBALL, query: "LIGUE" });
     expect(list.searching).toBe(true);
     expect(list.foldable).toBe(false);
-    expect(list.favorites).toEqual(["Ligue 1", "Ligue des Champions"]);
+    expect(list.favorites).toEqual(["Ligue des Champions", "Ligue 1"]);
     expect(list.others).toEqual(["Ligue 2"]);
     expect(competitionList({ ...base, competitions: ["Coupe de l'Épée"], query: "epee" }).others).toEqual(["Coupe de l'Épée"]);
     expect(competitionList({ ...base, competitions: FOOTBALL, query: "zzz" })).toMatchObject({ favorites: [], others: [] });

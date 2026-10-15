@@ -21,13 +21,13 @@ export function LoadMore({
   return (
     <div className={styles.more}>
       <p className={styles.count} aria-live="polite">
-        <span className="num">{shown}</span> sur <span className="num">{total}</span> matchs affichés
+        <span className="num">{shown}</span> of <span className="num">{total}</span> matches shown
       </p>
       {shown >= max ? (
-        <p className={styles.hint}>Cherchez une équipe pour trouver les autres matchs.</p>
+        <p className={styles.hint}>Search for a team to find the other matches.</p>
       ) : (
         <button type="button" className={styles.button} onClick={onMore} disabled={loading}>
-          {loading ? "Chargement…" : `Voir ${next} match${next > 1 ? "s" : ""} de plus`}
+          {loading ? "Loading…" : `Show ${next} more match${next === 1 ? "" : "es"}`}
         </button>
       )}
     </div>

@@ -13,14 +13,14 @@ export function exchangeCards(chain: ChainView, fb: number): TopCard[] {
     return {
       key: step.eventId + step.selection,
       rank: step.rank,
-      badge: step.limited ? { text: "Limitée par la liquidité", tone: "warning" } : { text: "Convertit tout le reste", tone: "good" },
+      badge: step.limited ? { text: "Limited by liquidity", tone: "warning" } : { text: "Converts all the rest", tone: "good" },
       rate: formatRate(step.rate),
       cash: formatEuro(step.cash),
       from: (fb - left) / fb,
       to: (fb - left + step.fb) / fb,
       caption: (
         <>
-          Convertit <b className="num">{formatFb(step.fb)}</b> FB · <span className="num">{formatFb(Math.round((left - step.fb) * 100) / 100)}</span> FB restants ensuite
+          Converts <b className="num">{formatFb(step.fb)}</b> FB · <span className="num">{formatFb(Math.round((left - step.fb) * 100) / 100)}</span> FB left after
         </>
       ),
       lines: [step.label, `${step.participants.join(" – ")} · ${formatStartTime(step.startTime)}`],
@@ -36,13 +36,13 @@ export function planCards(answer: BookmakersAnswer): TopCard[] {
   return answer.plans.map((plan) => ({
     key: plan.matches.map((m) => m.eventId).join("+"),
     rank: plan.rank,
-    badge: answer.plans.length > 1 && unique && plan.rate === best ? { text: "Meilleur taux", tone: "good" } : undefined,
+    badge: answer.plans.length > 1 && unique && plan.rate === best ? { text: "Best rate", tone: "good" } : undefined,
     rate: formatRate(plan.rate),
     cash: formatEuro(plan.cash),
     to: answer.total > 0 ? plan.used / answer.total : 0,
     caption: (
       <>
-        <b className="num">{formatFb(plan.used)}</b> FB convertis sur <span className="num">{formatFb(answer.total)}</span>
+        <b className="num">{formatFb(plan.used)}</b> FB converted of <span className="num">{formatFb(answer.total)}</span>
       </>
     ),
     lines: plan.matches.map((match) => match.participants.join(" – ")),

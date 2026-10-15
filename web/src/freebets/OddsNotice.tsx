@@ -6,9 +6,9 @@ export function OddsNotice({ mode }: { mode: "bookmakers" | "exchange" }) {
   return (
     <div role="note" className={styles.notice}>
       <p>
-        <strong>Cotes indicatives.</strong> Elles bougent vite : vérifiez la cote de chaque pari (et, contre l'exchange, l'argent disponible à layer) avant de le placer.
+        <strong>Indicative prices.</strong> They move fast: check the price of each bet (and, against the exchange, the money available to lay) before placing it.
       </p>
-      {mode === "bookmakers" && <p>Le calcul ne connaît ni les mises minimales ni les mises maximales de chaque bookmaker, surtout sur les combinés.</p>}
+      {mode === "bookmakers" && <p>The calculation knows neither the minimum nor the maximum stakes of each bookmaker, especially on accumulators.</p>}
     </div>
   );
 }

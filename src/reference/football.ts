@@ -1,4 +1,5 @@
 import { marketKey } from "../markets/catalog";
+import { exchangeFetch } from "./exchangeProxy";
 import { TennisMarket, TennisPoint, TennisRunner } from "./tennis";
 
 // The reference for a football match's other markets than its 1X2 (./run.ts)
@@ -68,7 +69,7 @@ export function parseFootballMarkets(body: unknown): FootballMarkets | undefined
 }
 
 export async function fetchFootballMarkets(eventId: string): Promise<FootballMarkets | undefined> {
-  const res = await fetch(`${API}event/details/${encodeURIComponent(eventId)}`, {
+  const res = await exchangeFetch(`${API}event/details/${encodeURIComponent(eventId)}`, {
     headers: HEADERS,
     signal: AbortSignal.timeout(15_000),
   });

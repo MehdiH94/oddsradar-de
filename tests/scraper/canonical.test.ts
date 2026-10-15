@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { readFileSync } from "node:fs";
-import { gunzipSync } from "node:zlib";
 import { join } from "node:path";
 import {
   canonicalMarketName,
@@ -11,7 +10,6 @@ import {
   MARKET_1X2,
   MARKET_MATCH_WINNER,
   OUTRIGHT_SPORTS,
-  verifiedSportNames,
 } from "../../src/scraper/canonical";
 import { BETCLIC_SPORT_SLUGS } from "../../src/scraper/betclic";
 
@@ -114,153 +112,9 @@ describe("canonicalSport", () => {
     expect(canonicalSport("betclic", "australian_rules")).toBe("football australien");
   });
 
-  it("maps Unibet's own sport names onto the same keys as Winamax's", () => {
-    // Names from its sports menu and its feed (7/10/2026): its rugby is
-    // "Rugby" (the union's), its automobile is two sports, Nascar and the F2.
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    const pairs: Array<[string, number]> = [
-      ["Rugby", 12],
-      ["Nascar", 11],
-      ["Formule 2", 11],
-      ["Cyclisme", 17],
-      ["Formule 1", 40],
-      ["Ski Alpin", 43],
-      ["Ski de Fond", 46],
-      ["Biathlon", 44],
-      ["Moto", 190],
-      ["Basketball", 2],
-    ];
-    for (const [unibet, sportId] of pairs) {
-      expect(canonicalSport("unibet", unibet), unibet).toBe(canonicalSport("winamax", winamaxSportName(sportId)));
-    }
-    // Verified sports are silent.
-    expect(warn).not.toHaveBeenCalled();
-  });
-
-  it("maps Betsson's sports menu names onto the same keys as Winamax's", () => {
-    // Names from its sports menu (boNavigationList 1355/top, 8/10/2026), the
-    // way ./betsson.ts asks for a sport: its events call American football
-    // "American Football", its menu "Foot US".
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    const pairs: Array<[string, number]> = [
-      ["Football", 1],
-      ["Tennis", 5],
-      ["Basketball", 2],
-      ["Hockey sur glace", 4],
-      ["Baseball", 3],
-      ["Boxe", 10],
-      ["Foot US", 16],
-      ["Football Australien", 13],
-      ["Handball", 6],
-      ["Rugby à XV", 12],
-      ["Rugby à XIII", 9992],
-      ["Snooker", 19],
-      ["Volley-ball", 23],
-      ["MMA", 117],
-      // The sports without head-to-heads.
-      ["Formule 1", 40],
-      ["Moto", 190],
-      ["Golf", 9],
-      ["Cyclisme", 17],
-    ];
-    for (const [betsson, sportId] of pairs) {
-      expect(canonicalSport("betsson", betsson), betsson).toBe(canonicalSport("winamax", winamaxSportName(sportId)));
-    }
-    // Every sport it is read for is covered, and verified sports are silent.
-    expect([...pairs.map(([name]) => name), "Badminton", "Tennis de table"].sort()).toEqual(
-      [...verifiedSportNames("betsson")].sort()
-    );
-    expect(warn).not.toHaveBeenCalled();
-  });
-
-  it("maps PMU's sports list names onto the same keys as Winamax's", () => {
-    // Names from its sports list (group.json of the offering API its site reads,
-    // 11/10/2026, ./pmu.ts); the winter sports are named by the events' path.
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    const pairs: Array<[string, number]> = [
-      ["Football", 1],
-      ["Tennis", 5],
-      ["Basketball", 2],
-      ["Hockey sur glace", 4],
-      ["Baseball", 3],
-      ["Boxe", 10],
-      ["Football américain", 16],
-      ["Football australien", 13],
-      ["Handball", 6],
-      ["Rugby à XV", 12],
-      ["Rugby à XIII", 9992],
-      ["Snooker", 19],
-      ["Volley-ball", 23],
-      ["UFC/MMA", 117],
-      // The sports without head-to-heads.
-      ["Formule 1", 40],
-      ["Golf", 9],
-      ["Cyclisme", 17],
-      ["Ski Alpin", 43],
-      ["Biathlon", 44],
-    ];
-    for (const [pmu, sportId] of pairs) {
-      expect(canonicalSport("pmu", pmu), pmu).toBe(canonicalSport("winamax", winamaxSportName(sportId)));
-    }
-    // Every sport it is read for is covered, and verified sports are silent.
-    expect(pairs.map(([name]) => name).sort()).toEqual([...verifiedSportNames("pmu")].sort());
-    expect(warn).not.toHaveBeenCalled();
-  });
-
-  it("maps Genybet's pages onto the same keys as NetBet's, which share a platform", () => {
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    for (const page of verifiedSportNames("sportnco")) {
-      expect(canonicalSport("genybet", page), page).toBe(canonicalSport("netbet", page));
-    }
-    expect(warn).not.toHaveBeenCalled();
-  });
-
-  it("maps CircusBet's and DAZN Bet's sports like Vbet's, on the same Swarm server", () => {
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    for (const alias of verifiedSportNames("vbet")) {
-      expect(canonicalSport("circusbet", alias), alias).toBe(canonicalSport("vbet", alias));
-      expect(canonicalSport("daznbet", alias), alias).toBe(canonicalSport("vbet", alias));
-    }
-    expect(warn).not.toHaveBeenCalled();
-  });
-
-  it("maps Betify's sport names, lower case ones included, onto the shared keys, silently", () => {
-    // The names of Betby's feed (14/10/2026), in the case it writes them.
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    const sports: Array<[betify: string, canonical: string]> = [
-      ["Football", "football"],
-      ["tennis", "tennis"],
-      ["Basketball", "basketball"],
-      ["Hockey sur glace", "hockey sur glace"],
-      ["baseball", "baseball"],
-      ["Football américain", "football américain"],
-      ["Football Australien", "football australien"],
-      ["Arts martiaux mixtes", "mma"],
-      ["Rugby à 13", "rugby à xiii"],
-      ["Rugby à XV", "rugby à xv"],
-      ["badminton", "badminton"],
-      // The races: its sports of races are the canonical ones, Nascar and the F2 an automobile.
-      ["Cyclisme", "cyclisme"],
-      ["course de motos", "moto"],
-      ["Nascar", "automobile"],
-      ["Formule 2", "automobile"],
-      ["course de voitures de tourisme", "automobile"],
-      ["Cross-country", "ski de fond"],
-      ["Saut à ski", "saut à ski"],
-      ["Golf", "golf"],
-      // The sports only it lists, under the lower case of its own name.
-      ["Echecs", "echecs"],
-      ["Fléchettes", "fléchettes"],
-      ["Tennis de padel", "tennis de padel"],
-    ];
-    for (const [betify, canonical] of sports) expect(canonicalSport("betify", betify), betify).toBe(canonical);
-    for (const name of verifiedSportNames("betify")) expect(canonicalSport("betify", name), name).toBeTruthy();
-    expect(warn).not.toHaveBeenCalled();
-  });
-
   it("puts the sports that only some bookmakers list under one key each, silently", () => {
     // Badminton and table tennis (Winamax ids 31 and 20, which its catalog
-    // fixture predates), judo's winner, volleyball at NetBet (8/10/2026).
+    // fixture predates) and judo's winner.
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     const sports: Array<[canonical: string, names: Array<[Parameters<typeof canonicalSport>[0], string]>]> = [
       [
@@ -268,10 +122,6 @@ describe("canonicalSport", () => {
         [
           ["winamax", "Badminton"],
           ["betclic", "badminton"],
-          ["vbet", "Badminton"],
-          ["netbet", "/badminton"],
-          ["unibet", "Badminton"],
-          ["betsson", "Badminton"],
         ],
       ],
       [
@@ -279,10 +129,6 @@ describe("canonicalSport", () => {
         [
           ["winamax", "Tennis de table"],
           ["betclic", "table_tennis"],
-          ["vbet", "TableTennis"],
-          ["netbet", "/tennis-de-table"],
-          ["unibet", "Tennis de Table"],
-          ["betsson", "Tennis de table"],
         ],
       ],
       [
@@ -290,10 +136,8 @@ describe("canonicalSport", () => {
         [
           ["winamax", "Judo"],
           ["betclic", "judo"],
-          ["unibet", "Judo"],
         ],
       ],
-      ["volley-ball", [["netbet", "/volleyball"]]],
     ];
     for (const [canonical, names] of sports) {
       for (const [bookmaker, name] of names) expect(canonicalSport(bookmaker, name), `${bookmaker} ${name}`).toBe(canonical);
@@ -301,25 +145,6 @@ describe("canonicalSport", () => {
     expect(warn).not.toHaveBeenCalled();
     expect(OUTRIGHT_SPORTS.has("judo")).toBe(true);
     expect(OUTRIGHT_SPORTS.has("badminton")).toBe(false);
-  });
-
-  it("puts the winners of the sports without head-to-heads that Vbet and NetBet list under the shared keys", () => {
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    const winamax = (id: number) => canonicalSport("winamax", winamaxSportName(id));
-    expect(canonicalSport("vbet", "Cycling")).toBe(winamax(17));
-    expect(canonicalSport("vbet", "Biathlon")).toBe(winamax(44));
-    // Nascar and the Formula 2 are Winamax's "Automobile".
-    expect(canonicalSport("vbet", "Nascar")).toBe(winamax(11));
-    expect(canonicalSport("vbet", "AutoRacing")).toBe(winamax(11));
-    expect(canonicalSport("netbet", "/cyclisme")).toBe(winamax(17));
-    expect(canonicalSport("netbet", "/moto")).toBe(winamax(190));
-    expect(canonicalSport("netbet", "/ski-alpin")).toBe(winamax(43));
-    expect(canonicalSport("netbet", "/biathlon")).toBe(winamax(44));
-    // /sport-automobile is the F1's, the F2's and Nascar's page: the Formula 1
-    // is told apart by its section (src/scraper/sportnco.ts).
-    expect(canonicalSport("netbet", "/sport-automobile")).toBe(winamax(11));
-    expect(canonicalSport("netbet", "/formule-1")).toBe(winamax(40));
-    expect(warn).not.toHaveBeenCalled();
   });
 
   it("keeps an unmapped sport's own lowercased value instead of dropping it, and warns once per value", () => {
@@ -388,26 +213,4 @@ describe("competition winners", () => {
     }
   });
 
-  it("keep every competition Vbet lists but its NBA division, conference and extra markets", () => {
-    // The ~80 games without a second team of Vbet's football, tennis and basketball (5 to 9/10/2026).
-    const titles: string[] = [];
-    for (const alias of ["Soccer", "Tennis", "Basketball"]) {
-      const reply = JSON.parse(gunzipSync(readFileSync(join(__dirname, `fixtures/vbet-${alias}.json.gz`))).toString());
-      for (const sport of Object.values<any>(reply.data.data.sport)) {
-        for (const region of Object.values<any>(sport.region)) {
-          for (const competition of Object.values<any>(region.competition)) {
-            for (const game of Object.values<any>(competition.game ?? {})) {
-              if (!game.team2_name) titles.push(String(game.team1_name).trim());
-            }
-          }
-        }
-      }
-    }
-    expect(titles.length).toBeGreaterThan(70);
-    expect(titles.filter((title) => !isCompetitionWinnerTitle(title)).sort()).toEqual([
-      "NBA 2026/2027. Marchés supplémentaires",
-      "NBA 2026/2027. Vainqueur de la Conférence",
-      "NBA 2026/2027. Vainqueur de la division",
-    ]);
-  });
 });

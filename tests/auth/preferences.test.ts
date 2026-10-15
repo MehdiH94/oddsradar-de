@@ -10,7 +10,7 @@ import { SITE, sessionCookie, testAuth } from "./helpers";
 const PREFS: Preferences = {
   sport: "tennis",
   sort: "start",
-  bookmakers: ["winamax", "vbet"],
+  bookmakers: ["winamax", "betclic"],
   players: true,
   favoriteSports: ["tennis", "football"],
 };
@@ -21,9 +21,9 @@ describe("parsePreferences", () => {
   });
 
   it("falls back to the default sort, and drops unknown bookmakers, in the filter's order", () => {
-    const parsed = parsePreferences({ ...PREFS, sort: "random", bookmakers: ["vbet", "nope", "winamax", "vbet"] });
+    const parsed = parsePreferences({ ...PREFS, sort: "random", bookmakers: ["betclic", "nope", "winamax", "betclic"] });
     expect(parsed?.sort).toBe("trj");
-    expect(parsed?.bookmakers).toEqual(["winamax", "vbet"]);
+    expect(parsed?.bookmakers).toEqual(["winamax", "betclic"]);
   });
 
   it("keeps an empty selection of bookmakers: it means none, not the defaults", () => {

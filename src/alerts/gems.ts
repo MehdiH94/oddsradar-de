@@ -90,21 +90,13 @@ const SUREBET_COLOR = 0x16a34a;
 const BOOKMAKER_NAMES: Record<string, string> = {
   winamax: "Winamax",
   betclic: "Betclic",
-  vbet: "Vbet",
-  circusbet: "CircusBet",
-  daznbet: "DAZN Bet",
-  netbet: "NetBet",
-  genybet: "Genybet",
-  unibet: "Unibet",
-  betsson: "Betsson",
-  pmu: "PMU",
-  betify: "Betify",
   [EXCHANGE]: "Exchange",
 };
 const bookmakerName = (id: string) => BOOKMAKER_NAMES[id] ?? id;
-// The site opens on three bookmakers when its address doesn't say: an alert's
-// links name them all, or a gem at VBet or NetBet would be hidden when opened.
-export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = ["winamax", "betclic", "unibet", "pmu", "netbet", "genybet", "vbet", "circusbet", "daznbet", "betsson", "betify"];
+// Every bookmaker the site lists: an alert's links name them all, so that a gem
+// is never hidden by the site's default selection when opened. Betclic holds
+// the second bookmaker's place until Tipico takes it.
+export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = ["winamax", "betclic"];
 const ALL_BOOKMAKERS_QUERY = `bookmakers=${ALL_BOOKMAKER_IDS.join(",")}`;
 // A match's page on the site (none without PUBLIC_URL). Parentheses are
 // escaped: the address ends a Markdown link in the "Page du match" field.

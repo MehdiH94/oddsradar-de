@@ -70,12 +70,13 @@ describe("loadFreebetMarkets", () => {
         winamax: main("1X2", { "1": 2.3, X: 3.2, "2": 3.5 }),
         // Its draw is suspended.
         betclic: main("1X2", { "1": 2.25, "2": 3.4 }),
-        unibet: main("1X2", { "1": 2.2, X: 3.1, "2": 3.6 }),
-        pmu: main("1X2", { "1": 1, X: 3.1, "2": 3.6 }),
+      }),
+      event("ol", "football", ["OL", "OM"], {
+        winamax: main("1X2", { "1": 2.3, X: 3.2, "2": 3.5 }),
+        betclic: main("1X2", { "1": 1, X: 3.1, "2": 3.6 }),
       }),
     ]);
-    const [market] = loadFreebetMarkets(db);
-    expect(Object.keys(market.prices).sort()).toEqual(["unibet", "winamax"]);
+    for (const market of loadFreebetMarkets(db)) expect(Object.keys(market.prices)).toEqual(["winamax"]);
   });
 
   it("needs two bookmakers, or one of them and the exchange", () => {

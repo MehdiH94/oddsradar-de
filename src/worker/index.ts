@@ -13,13 +13,6 @@ import { GEM_MIN_EDGE, runGemAlerts } from "../alerts/gems";
 import { marketsMaxAgeForInterval, oddsMaxAgeForPollInterval } from "../db/repository";
 import { startScheduler } from "./scheduler";
 import { winamaxScraper } from "../scraper/winamax";
-import { betclicScraper } from "../scraper/betclic";
-import { circusbetScraper, daznbetScraper, vbetScraper } from "../scraper/vbet";
-import { genybetScraper, netbetScraper } from "../scraper/sportnco";
-import { unibetScraper } from "../scraper/unibet";
-import { betssonScraper } from "../scraper/betsson";
-import { pmuScraper } from "../scraper/pmu";
-import { betifyScraper } from "../scraper/betby";
 
 const dbPath = process.env.DB_PATH ?? "./data/coteradar.sqlite";
 const intervalMinutes = Number(process.env.POLL_INTERVAL_MINUTES ?? "5");
@@ -28,7 +21,8 @@ const intervalMinutes = Number(process.env.POLL_INTERVAL_MINUTES ?? "5");
 const marketsIntervalMinutes = Number(process.env.MARKETS_INTERVAL_MINUTES ?? "15");
 
 const db = openDb(dbPath);
-const scrapers = [winamaxScraper, betclicScraper, vbetScraper, circusbetScraper, daznbetScraper, netbetScraper, genybetScraper, unibetScraper, betssonScraper, pmuScraper, betifyScraper];
+// The German bookmakers (Tipico joins in its own change).
+const scrapers = [winamaxScraper];
 
 console.log(`[worker] starting, polling every ${intervalMinutes} min, db=${dbPath}`);
 startScheduler(intervalMinutes, () => runScrapeCycle(db, scrapers));

@@ -29,7 +29,6 @@ export const VALUE_MATCH = {
   competition: "Ligue 1",
   winamax: { "1": 2.2, X: 3.1, "2": 3.5 },
   betclic: { "1": 2.0, X: 3.3, "2": 3.7 },
-  unibet: { "1": 1.9, X: 3.2, "2": 3.6 },
   fair: { "1": 2.0, X: 3.4, "2": 4.0 },
   // Goals over / under 2.5, from two bookmakers: the match has more than its
   // main market, so its page opens.
@@ -66,16 +65,15 @@ export const SECOND_VALUE_MATCH = {
   fair: { "1": 2.0, X: 3.5, "2": 4.2 },
 };
 
-// The winner of a league, which Unibet and Vbet price: a competition, listed in the
-// category of the winners and not among the football matches. Three clubs each
-// price add up to over 100% at either bookmaker, and the best prices of the two
-// (1.5 and 3.4, 4.2) leave it a TRJ of 83%.
+// The winner of a league, which Winamax and Betclic price: a competition, listed
+// with the football matches. Three clubs each price add up to over 100% at either
+// bookmaker, and the best prices of the two (1.5 and 3.4, 4.2) leave it a TRJ of 83%.
 export const COMPETITION_WINNER = {
   id: "e2e-ligue-1-winner",
   title: "Ligue 1 2026/2027",
   competition: "Ligue 1 McDonald's®",
-  unibet: { "Paris Saint-Germain": 1.5, "Olympique de Marseille": 3.2, "AS Monaco": 4 },
-  vbet: { "Paris Saint-Germain": 1.45, "Olympique de Marseille": 3.4, "AS Monaco": 4.2 },
+  winamax: { "Paris Saint-Germain": 1.5, "Olympique de Marseille": 3.2, "AS Monaco": 4 },
+  betclic: { "Paris Saint-Germain": 1.45, "Olympique de Marseille": 3.4, "AS Monaco": 4.2 },
 };
 
 // Ligue 1, in 8 hours: the match the freebets spec converts against the exchange.

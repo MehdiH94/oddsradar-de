@@ -97,7 +97,7 @@ describe("App on a phone", () => {
     expect(open).toHaveAttribute("aria-expanded", "true");
     expect(within(sheet).getByRole("radio", { name: "Meilleur TRJ" })).toBeChecked();
     expect(within(sheet).getByRole("checkbox", { name: "Winamax" })).toBeChecked();
-    expect(within(sheet).getByRole("checkbox", { name: "Vbet" })).not.toBeChecked();
+    expect(within(sheet).getByRole("checkbox", { name: "Betclic" })).toBeChecked();
     expect(within(sheet).getByRole("radio", { name: "Avec marchés joueurs" })).not.toBeChecked();
   });
 
@@ -111,7 +111,7 @@ describe("App on a phone", () => {
     fireEvent.click(within(sheet).getByRole("radio", { name: "Date de début" }));
     await waitFor(() =>
       expect(fetchMock).toHaveBeenCalledWith(
-        "/api/events?sport=football&sort=start&bookmakers=winamax%2Cbetclic%2Cunibet&kind=all&page=1&pageSize=20"
+        "/api/events?sport=football&sort=start&kind=all&page=1&pageSize=20"
       )
     );
     expect(urlParams().sort).toBe("start");
@@ -120,7 +120,7 @@ describe("App on a phone", () => {
     expect(within(sheet).getByRole("radio", { name: "Meilleur TRJ" })).toBeChecked();
     expect(within(sheet).queryByRole("button", { name: "Réinitialiser" })).not.toBeInTheDocument();
 
-    fireEvent.click(within(sheet).getByRole("checkbox", { name: "Vbet" }));
+    fireEvent.click(within(sheet).getByRole("checkbox", { name: "Betclic" }));
     fireEvent.click(within(sheet).getByRole("button", { name: "Voir les 50 résultats" }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Filtres, 1 actif" })).toBeInTheDocument();
@@ -137,7 +137,7 @@ describe("App on a phone", () => {
     fireEvent.click(within(sheet).getByRole("radio", { name: "Ligue 1" }));
     await waitFor(() =>
       expect(fetchMock).toHaveBeenCalledWith(
-        "/api/events?sport=football&sort=trj&bookmakers=winamax%2Cbetclic%2Cunibet&kind=all&competition=Ligue+1&page=1&pageSize=20"
+        "/api/events?sport=football&sort=trj&kind=all&competition=Ligue+1&page=1&pageSize=20"
       )
     );
     expect(urlParams().competition).toBe("Ligue 1");
@@ -182,7 +182,7 @@ describe("App on a phone", () => {
     fireEvent.click(within(sheet).getByRole("radio", { name: "Super Lig" }));
     await waitFor(() =>
       expect(fetchMock).toHaveBeenCalledWith(
-        "/api/events?sport=football&sort=trj&bookmakers=winamax%2Cbetclic%2Cunibet&kind=all&competition=Super+Lig&page=1&pageSize=20"
+        "/api/events?sport=football&sort=trj&kind=all&competition=Super+Lig&page=1&pageSize=20"
       )
     );
   });
@@ -232,7 +232,7 @@ describe("App on a phone", () => {
     fireEvent.click(screen.getByRole("button", { name: "Voir 20 matchs de plus" }));
     await waitFor(() =>
       expect(fetchMock).toHaveBeenCalledWith(
-        "/api/events?sport=football&sort=trj&bookmakers=winamax%2Cbetclic%2Cunibet&kind=all&page=1&pageSize=40"
+        "/api/events?sport=football&sort=trj&kind=all&page=1&pageSize=40"
       )
     );
     // A phone's URL keeps no page.
@@ -248,7 +248,7 @@ describe("App on a phone", () => {
 
     const nav = screen.getByRole("navigation", { name: "Navigation principale" });
     fireEvent.click(within(nav).getByRole("radio", { name: "Value bets" }));
-    await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/value-bets?sort=value&bookmakers=winamax%2Cbetclic%2Cunibet"));
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/value-bets?sort=value"));
     expect(screen.queryByRole("group", { name: "Sport" })).not.toBeInTheDocument();
     expect(await screen.findByRole("link", { name: "Tous les marchés du match PSG - OM" })).toBeInTheDocument();
 

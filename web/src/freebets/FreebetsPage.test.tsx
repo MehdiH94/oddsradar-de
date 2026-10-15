@@ -89,8 +89,7 @@ describe("FreebetsPage", () => {
       expect(await screen.findByDisplayValue("30")).toBeInTheDocument();
       expect(fb("Winamax")).toHaveValue("30");
       expect(fb("Betclic")).toHaveValue("25,5");
-      expect(fb("Unibet")).toHaveValue("");
-      expect(screen.getAllByRole("textbox")).toHaveLength(11);
+      expect(screen.getAllByRole("textbox")).toHaveLength(2);
       expect(screen.getByText(/Total à convertir/)).toHaveTextContent("55,50 FB");
       expect(await screen.findByText("Enregistré sur votre compte")).toBeInTheDocument();
     });
@@ -132,10 +131,10 @@ describe("FreebetsPage", () => {
       await screen.findByDisplayValue("30");
       fireEvent.change(fb("Winamax"), { target: { value: "1" } });
       fireEvent.change(fb("Winamax"), { target: { value: "12" } });
+      fireEvent.change(fb("Betclic"), { target: { value: "7.25" } });
       fireEvent.change(fb("Betclic"), { target: { value: "" } });
-      fireEvent.change(fb("Vbet"), { target: { value: "7.25" } });
       await waitFor(() => expect(calls.saved).toHaveLength(1), { timeout: 3000 });
-      expect(calls.saved[0]).toEqual({ winamax: 12, vbet: 7.25 });
+      expect(calls.saved[0]).toEqual({ winamax: 12 });
     });
 
     it("flags a field that is not an amount, sends nothing, and goes on once it is corrected", async () => {

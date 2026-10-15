@@ -213,7 +213,7 @@ describe("runGemAlerts", () => {
         "d'un match (foot, tennis, basket, baseball, football américain, hockey, rugby, MMA) 5 % ou plus au-dessus de la " +
         "cote juste, ou un pari joueur, jeux ou sets 15 % ou plus ; et chaque surebet (TRJ au-dessus de 100 %, " +
         "ceux « à vérifier » signalés comme tels). Une seule alerte par match, marché et issue.\n" +
-        `${SITE}/?sport=value-bets&sort=value&bookmakers=winamax,betclic,unibet,pmu,netbet,genybet,vbet,circusbet,daznbet,betsson,betify`
+        `${SITE}/?sport=value-bets&sort=value&bookmakers=winamax,betclic`
     );
     // No one pinged by a name, ever.
     expect([hello.allowed_mentions, gems.allowed_mentions]).toEqual([{ parse: [] }, { parse: [] }]);
@@ -225,14 +225,14 @@ describe("runGemAlerts", () => {
     const kickOff = KICK_OFF.getTime() / 1000;
     expect(france).toEqual({
       title: "💎 +5,0 %",
-      url: `${SITE}/?match=fra-ita&bookmakers=winamax,betclic,unibet,pmu,netbet,genybet,vbet,circusbet,daznbet,betsson,betify`,
+      url: `${SITE}/?match=fra-ita&bookmakers=winamax,betclic`,
       color: 0xd97706,
       fields: [
         { name: "Match", value: "France - Italie · Ligue des Nations" },
         { name: "Coup d'envoi", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
         {
           name: "Page du match",
-          value: `[Voir le match sur CoteRadar](${SITE}/?match=fra-ita&bookmakers=winamax,betclic,unibet,pmu,netbet,genybet,vbet,circusbet,daznbet,betsson,betify)`,
+          value: `[Voir le match sur CoteRadar](${SITE}/?match=fra-ita&bookmakers=winamax,betclic)`,
         },
       ],
     });
@@ -288,7 +288,7 @@ describe("runGemAlerts", () => {
     expect([sure]).toEqual([
       {
         title: "⚖️ 107,4 %",
-        url: `${SITE}/?match=lal-bos&bookmakers=winamax,betclic,unibet,pmu,netbet,genybet,vbet,circusbet,daznbet,betsson,betify`,
+        url: `${SITE}/?match=lal-bos&bookmakers=winamax,betclic`,
         color: 0x16a34a,
         fields: [
           { name: "Match", value: "Lakers - Celtics · NBA" },
@@ -296,7 +296,7 @@ describe("runGemAlerts", () => {
           { name: "Gain", value: "+7,4 %", inline: true },
           {
             name: "Page du match",
-            value: `[Voir le match sur CoteRadar](${SITE}/?match=lal-bos&bookmakers=winamax,betclic,unibet,pmu,netbet,genybet,vbet,circusbet,daznbet,betsson,betify)`,
+            value: `[Voir le match sur CoteRadar](${SITE}/?match=lal-bos&bookmakers=winamax,betclic)`,
           },
         ],
       },
@@ -641,7 +641,7 @@ describe("the link to the match", () => {
     thin: false,
     legs: [{ selection: "1", label: "PSG", source: "winamax", side: "back", price: 2.1, stake: 100 }],
   } as unknown as Surebet;
-  const url = "https://cote-radar.fr/?match=psg-om&bookmakers=winamax,betclic,unibet,pmu,netbet,genybet,vbet,circusbet,daznbet,betsson,betify";
+  const url = "https://cote-radar.fr/?match=psg-om&bookmakers=winamax,betclic";
 
   it("is the title's and a line of its own, on a gem and a surebet", () => {
     for (const embed of [gemEmbed(gem, "https://cote-radar.fr"), surebetEmbed(surebet, "https://cote-radar.fr")]) {
@@ -659,7 +659,7 @@ describe("the link to the match", () => {
       expect(embed.fields.map((f) => f.name)).toEqual(names);
     }
     const odd = gemEmbed({ ...gem, eventId: "a(b)c d" }, "https://cote-radar.fr");
-    expect(odd.url).toBe("https://cote-radar.fr/?match=a%28b%29c%20d&bookmakers=winamax,betclic,unibet,pmu,netbet,genybet,vbet,circusbet,daznbet,betsson,betify");
+    expect(odd.url).toBe("https://cote-radar.fr/?match=a%28b%29c%20d&bookmakers=winamax,betclic");
     // One "(" and one ")": the link's own.
     const value = odd.fields.at(-1)!.value;
     expect([value.split("(").length - 1, value.split(")").length - 1]).toEqual([1, 1]);

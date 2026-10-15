@@ -20,7 +20,7 @@ permissions:
 
 env:
   DEPLOY_HOST: 141.94.244.108
-  DEPLOY_USER: ubuntu
+  DEPLOY_USER: oddsradar
   # The site's public address, in the alerts' links and the health check
   # after the deployment. The repository variable APP_URL overrides it.
   APP_URL: ${{ vars.APP_URL || 'https://cote-radar.fr' }}

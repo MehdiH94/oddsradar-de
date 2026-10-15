@@ -1,11 +1,11 @@
-# Reverse proxy HTTPS devant l'API (coteradar-web, sur 127.0.0.1:3000).
+# Reverse proxy HTTPS devant l'API (oddsradar-web, sur 127.0.0.1:3000).
 # Caddy obtient et renouvelle seul le certificat Let's Encrypt : il faut que
 # le nom de domaine pointe vers le VPS et que les ports 80 et 443 soient
-# ouverts. Remplacer coteradar.example.com par le domaine, puis :
+# ouverts. Remplacer oddsradar.example.com par le domaine, puis :
 #   sudo cp deploy/Caddyfile /etc/caddy/Caddyfile && sudo systemctl reload caddy
-# Et dans /opt/coteradar/.env : TRUST_PROXY=1, HOST=127.0.0.1 et
-# PUBLIC_URL=https://coteradar.example.com (README, "Comptes et HTTPS").
-coteradar.example.com {
+# Et dans /opt/oddsradar/.env : TRUST_PROXY=1, HOST=127.0.0.1 et
+# PUBLIC_URL=https://oddsradar.example.com (README, "Comptes et HTTPS").
+oddsradar.example.com {
 	encode zstd gzip
 	reverse_proxy 127.0.0.1:3000
 }

@@ -1,5 +1,5 @@
 [Unit]
-Description=Weekly backup of the CoteRadar odds database
+Description=Weekly backup of the OddsRadar odds database
 
 [Timer]
 OnCalendar=Sun *-*-* 04:00:00

@@ -111,6 +111,19 @@ function sportOf(sportId: string, competition: string): string {
   return canonicalSport("twentybet", sportId);
 }
 
+// A team's name with its side's marker, which 20bet leaves to the league's
+// name: its youth teams play under the club's name alone ("Bern" against
+// "Lausanne Academy" in the "Switzerland Championship U21", 16/10/2026), which
+// the matcher reads as the first team, and paired with the first team's match
+// on the exchange. The age ("Bern U21") or "(W)" for a women's league, as the
+// other bookmakers write them, unless the name already says so.
+export function teamName(name: string, competition: string): string {
+  const age = /\bU[- ]?(\d{2})\b/i.exec(competition)?.[1];
+  if (age && !/\bU[- ]?\d{2}\b/i.test(name)) return `${name} U${age}`;
+  if (/\bwomen\b/i.test(competition) && !/\b(women|ladies)\b|\(w\)/i.test(name)) return `${name} (W)`;
+  return name;
+}
+
 // A page of a sport's events as raw events: each event not yet started with
 // its main market, labelled with the teams' names and "Draw" (the matcher
 // reads them as 1, X and 2). A market closed, or with outcomes it does not
@@ -128,9 +141,11 @@ export function parseTwentybetEvents(reply: TwentybetListReply, sportId: string)
   for (const event of reply.data?.items ?? []) {
     try {
       if (event.status !== PRE_MATCH || String(event.sportId) !== sportId || !event.time) continue;
-      const home = competitors.get(event.competitor1Id ?? -1);
-      const away = competitors.get(event.competitor2Id ?? -1);
-      if (!home || !away) continue;
+      const competition = leagues.get(event.leagueId ?? -1) ?? "";
+      const homeName = competitors.get(event.competitor1Id ?? -1);
+      const awayName = competitors.get(event.competitor2Id ?? -1);
+      if (!homeName || !awayName) continue;
+      const [home, away] = [teamName(homeName, competition), teamName(awayName, competition)];
       const market = (relations.odds?.[String(event.id)] ?? []).find((m) => m.vendorMarketId === config.market && !m.specifiers);
       const outcomes = market?.outcomes ?? [];
       if (!market || market.status !== 1 || outcomes.length !== expected) continue;
@@ -141,7 +156,6 @@ export function parseTwentybetEvents(reply: TwentybetListReply, sportId: string)
         if (!side) throw new Error(`unexpected outcome "${o.vendorOutcomeId}"`);
         return { market: marketName, selection: names[side], price: o.active === 1 && typeof o.odds === "number" ? o.odds : NaN };
       });
-      const competition = leagues.get(event.leagueId ?? -1) ?? "";
       const raw: RawEvent = {
         sport: sportOf(sportId, competition),
         competition,

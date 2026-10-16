@@ -15,6 +15,7 @@ import { startScheduler } from "./scheduler";
 import { leovegasScraper } from "../scraper/kambi";
 import { merkurbetsScraper } from "../scraper/merkurbets";
 import { twentybetScraper } from "../scraper/twentybet";
+import { admiralbetScraper } from "../scraper/admiralbet";
 
 const dbPath = process.env.DB_PATH ?? "./data/coteradar.sqlite";
 const intervalMinutes = Number(process.env.POLL_INTERVAL_MINUTES ?? "5");
@@ -23,9 +24,9 @@ const intervalMinutes = Number(process.env.POLL_INTERVAL_MINUTES ?? "5");
 const marketsIntervalMinutes = Number(process.env.MARKETS_INTERVAL_MINUTES ?? "15");
 
 const db = openDb(dbPath);
-// The bookmakers: LeoVegas.de (Kambi) and Merkur Bets, German; 20bet
-// (a Curaçao licence, src/scraper/twentybet.ts).
-const scrapers = [leovegasScraper, merkurbetsScraper, twentybetScraper];
+// The bookmakers: LeoVegas.de (Kambi), Merkur Bets and Admiralbet, German;
+// 20bet (a Curaçao licence, src/scraper/twentybet.ts).
+const scrapers = [leovegasScraper, merkurbetsScraper, twentybetScraper, admiralbetScraper];
 
 console.log(`[worker] starting, polling every ${intervalMinutes} min, db=${dbPath}`);
 startScheduler(intervalMinutes, () => runScrapeCycle(db, scrapers));

@@ -209,7 +209,7 @@ describe("runGemAlerts", () => {
     expect(send.mock.calls.every(([url, init]) => url === WEBHOOK && init.method === "POST")).toBe(true);
     const [hello, gems] = bodies();
     expect(hello.content).toBe(
-      "✅ OddsRadar is connected to this channel. An alert will come here for each new gem: a 1X2 or match winner " +
+      "✅ OddsBlitzer is connected to this channel. An alert will come here for each new gem: a 1X2 or match winner " +
         "value bet (football, tennis, basketball, baseball, American football, hockey, rugby, MMA) 5% or more above the " +
         "fair odds, or a player, games or sets bet 15% or more; and each surebet (payout over 100%, " +
         "those “to verify” flagged as such). A single alert per match, market and outcome." +
@@ -233,7 +233,7 @@ describe("runGemAlerts", () => {
         { name: "Kick-off", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
         {
           name: "Match page",
-          value: `[See the match on OddsRadar](${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet)`,
+          value: `[See the match on OddsBlitzer](${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet)`,
         },
       ],
     });
@@ -297,7 +297,7 @@ describe("runGemAlerts", () => {
           { name: "Profit", value: "+7.4%", inline: true },
           {
             name: "Match page",
-            value: `[See the match on OddsRadar](${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet)`,
+            value: `[See the match on OddsBlitzer](${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet)`,
           },
         ],
       },
@@ -424,13 +424,13 @@ describe("runGemAlerts", () => {
     await run(other);
     expect(send).toHaveBeenCalledTimes(4);
     expect(send.mock.calls[3][0]).toBe(other);
-    expect(bodies()[3].content).toMatch(/^✅ OddsRadar is connected/);
+    expect(bodies()[3].content).toMatch(/^✅ OddsBlitzer is connected/);
 
     // Removed, then put back: greeted again.
     await run(null);
     await run(other);
     expect(send).toHaveBeenCalledTimes(5);
-    expect(bodies()[4].content).toMatch(/^✅ OddsRadar is connected/);
+    expect(bodies()[4].content).toMatch(/^✅ OddsBlitzer is connected/);
   });
 
   it("sends an outcome once, at the best bookmaker's price, not once per bookmaker", async () => {
@@ -647,7 +647,7 @@ describe("the link to the match", () => {
   it("is the title's and a line of its own, on a gem and a surebet", () => {
     for (const embed of [gemEmbed(gem, "https://cote-radar.fr"), surebetEmbed(surebet, "https://cote-radar.fr")]) {
       expect(embed.url).toBe(url);
-      expect(embed.fields.at(-1)).toEqual({ name: "Match page", value: `[See the match on OddsRadar](${url})` });
+      expect(embed.fields.at(-1)).toEqual({ name: "Match page", value: `[See the match on OddsBlitzer](${url})` });
     }
   });
 

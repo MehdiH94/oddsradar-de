@@ -76,8 +76,8 @@ describe("deploy.sh's SMTP settings", () => {
 
   it("writes the mail settings, and refuses a value that systemd or dotenv would read differently", () => {
     writeFileSync(env, "PORT=3000\n");
-    expect(apply("SMTP_HOST=smtp.example.com\nSMTP_PORT=587\nSMTP_USER=apikey\nSMTP_PASSWORD=s3cret-Pass_word!\nSMTP_FROM=OddsRadar <no-reply@example.com>\n").status).toBe(0);
-    expect(readFileSync(env, "utf8")).toContain("SMTP_FROM=OddsRadar <no-reply@example.com>\n");
+    expect(apply("SMTP_HOST=smtp.example.com\nSMTP_PORT=587\nSMTP_USER=apikey\nSMTP_PASSWORD=s3cret-Pass_word!\nSMTP_FROM=OddsBlitzer <no-reply@example.com>\n").status).toBe(0);
+    expect(readFileSync(env, "utf8")).toContain("SMTP_FROM=OddsBlitzer <no-reply@example.com>\n");
     for (const bad of ['SMTP_PASSWORD=has space', 'SMTP_PASSWORD=has"quote', "SMTP_PASSWORD=has$dollar", "SMTP_HOST=host;reboot", "SMTP_PORT=abc"]) {
       expect(apply(`${bad}\n`).status).not.toBe(0);
     }

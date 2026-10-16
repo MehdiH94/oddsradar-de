@@ -85,7 +85,7 @@ describe("HomePage", () => {
     const fetchMock = stubApi(LIVE);
     render(<HomePage />);
 
-    const live = screen.getByRole("region", { name: "Right now on OddsRadar" });
+    const live = screen.getByRole("region", { name: "Right now on OddsBlitzer" });
     await waitFor(() => expect(within(live).getByText("312")).toBeInTheDocument());
     // Nothing of the accounts' data: no events, no value bets.
     expect(fetchMock.mock.calls.map(([url]) => url)).toEqual(["/api/public/home"]);
@@ -124,7 +124,7 @@ describe("HomePage", () => {
     expect(await screen.findByText("Figures unavailable for now.")).toBeInTheDocument();
     expect(screen.getByText("Example")).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: "See the value bets" })).not.toHaveLength(0);
-    expect(screen.getByRole("region", { name: "What OddsRadar changes" })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "What OddsBlitzer changes" })).toBeInTheDocument();
     expect(screen.getByRole("region", { name: "How it works" })).toBeInTheDocument();
     vi.restoreAllMocks();
   });
@@ -140,11 +140,11 @@ describe("HomePage", () => {
       "Where do the fair odds come from?",
       "What is a surebet?",
       "What is a freebet, and how do you turn it into cash?",
-      "Do I need an account? Can I bet on OddsRadar?",
+      "Do I need an account? Can I bet on OddsBlitzer?",
     ]);
     expect(faq).toHaveTextContent("a free account");
     expect(faq).toHaveTextContent("the surebets and the freebet conversions");
-    expect(faq).toHaveTextContent("OddsRadar takes no bets");
+    expect(faq).toHaveTextContent("OddsBlitzer takes no bets");
     expect(faq).toHaveTextContent("a bet above the fair odds can lose");
   });
 

@@ -1,11 +1,21 @@
-# Reverse proxy HTTPS devant l'API (oddsradar-web, sur 127.0.0.1:3000).
-# Caddy obtient et renouvelle seul le certificat Let's Encrypt : il faut que
-# le nom de domaine pointe vers le VPS et que les ports 80 et 443 soient
-# ouverts. Remplacer oddsradar.example.com par le domaine, puis :
+# /etc/caddy/Caddyfile: the HTTPS reverse proxy in front of the API
+# (oddsradar-web, on 127.0.0.1:3000). Caddy gets and renews the Let's Encrypt
+# certificates by itself: the names must point to the VPS (A records only, no
+# AAAA to another host) and ports 80 and 443 be open. Then:
 #   sudo cp deploy/Caddyfile /etc/caddy/Caddyfile && sudo systemctl reload caddy
-# Et dans /opt/oddsradar/.env : TRUST_PROXY=1, HOST=127.0.0.1 et
-# PUBLIC_URL=https://oddsradar.example.com (README, "Comptes et HTTPS").
-oddsradar.example.com {
+# And in /opt/oddsradar/.env: TRUST_PROXY=1, HOST=127.0.0.1 and
+# PUBLIC_URL=https://odds-blitzer.de (README, "Comptes et HTTPS").
+odds-blitzer.de {
 	encode zstd gzip
 	reverse_proxy 127.0.0.1:3000
 }
+
+# The other names lead to the site's own, the path and query kept: www, and the
+# server's sslip.io name, the site's address before it had its domain (links
+# of old alerts and emails).
+www.odds-blitzer.de, 141-95-86-176.sslip.io {
+	redir https://odds-blitzer.de{uri} permanent
+}
+
+# The staging site (deploy/staging/Caddyfile.snippet).
+import /etc/caddy/staging.caddy

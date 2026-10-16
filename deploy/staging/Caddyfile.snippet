@@ -1,10 +1,15 @@
-# Bloc à ajouter à /etc/caddy/Caddyfile, à côté de celui du site de production
-# (deploy/Caddyfile) : le site de test, servi par oddsradar-staging-web sur
-# 127.0.0.1:3001. Le DNS de staging.cote-radar.fr doit pointer vers le VPS.
-# Puis : sudo systemctl reload caddy
-staging.cote-radar.fr {
+# /etc/caddy/staging.caddy, imported by /etc/caddy/Caddyfile (deploy/Caddyfile):
+# the staging site, served by oddsradar-staging-web on 127.0.0.1:3001. The DNS
+# of staging.odds-blitzer.de must point to the VPS. Then:
+#   sudo systemctl reload caddy
+staging.odds-blitzer.de {
 	encode zstd gzip
-	# Le site de test ne doit pas apparaître dans les moteurs de recherche.
+	# The staging site must not show up in search engines.
 	header X-Robots-Tag "noindex, nofollow"
 	reverse_proxy 127.0.0.1:3001
+}
+
+# Its sslip.io name, before the site had its domain.
+staging.141-95-86-176.sslip.io {
+	redir https://staging.odds-blitzer.de{uri} permanent
 }

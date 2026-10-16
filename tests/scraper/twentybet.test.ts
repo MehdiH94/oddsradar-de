@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { fetchTwentybet, parseTwentybetEvents, teamName, TWENTYBET_SPORTS, twentybetListUrl, TwentybetListReply } from "../../src/scraper/twentybet";
+import { fetchTwentybet, parseTwentybetEvents, retryAfterMs, teamName, TWENTYBET_SPORTS, twentybetListUrl, TwentybetListReply } from "../../src/scraper/twentybet";
 
 // Real answers of 20bet's event list (platform.20bet.com/api/event/list, from
 // a German IP, 15/10/2026): each sport's first 6 events, their markets trimmed
@@ -144,6 +144,30 @@ describe("fetchTwentybet", () => {
     expect(urls[0]).toBe(twentybetListUrl("1", 1));
     expect(urls[1]).toBe(twentybetListUrl("1", 2));
     expect(urls[0]).toContain("https://platform.20bet.com/api/event/list?lang=en&main=1&status_in[]=0&oddsExists_eq=1&sportId_eq=1");
+  });
+
+  it("waits as long as a 429 asks, then asks again once", async () => {
+    let calls = 0;
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string) => {
+        calls++;
+        if (calls === 1) return new Response("", { status: 429, headers: { "retry-after": "2" } });
+        const sport = new URL(url).searchParams.get("sportId_eq");
+        const answer = sport === "1" ? { data: { ...FOOTBALL.data, page: 1, lastPage: 1 } } : { data: { page: 1, lastPage: 1, items: [] } };
+        return new Response(JSON.stringify(answer), { status: 200 });
+      })
+    );
+    const waits: number[] = [];
+    vi.spyOn(globalThis, "setTimeout").mockImplementation(((fn: () => void, ms: number) => {
+      waits.push(ms);
+      fn();
+      return 0;
+    }) as unknown as typeof setTimeout);
+    expect(await fetchTwentybet()).toHaveLength(6);
+    expect(waits[0]).toBe(2000);
+    expect(retryAfterMs(null)).toBe(10_000);
+    expect(retryAfterMs("600")).toBe(30_000);
   });
 
   it("fails when every sport fails, so that the cycle retries it", async () => {

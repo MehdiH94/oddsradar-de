@@ -135,7 +135,7 @@ describe("the administration page", () => {
     window.history.replaceState(null, "", "/admin");
     render(<Root />);
     expect(await screen.findByRole("heading", { level: 1, name: "Administration" })).toBeInTheDocument();
-    expect(document.title).toBe("Administration · OddsRadar");
+    expect(document.title).toBe("Administration · OddsBlitzer");
   });
 
   it("sends an ordinary account to the odds, without showing it the page", async () => {

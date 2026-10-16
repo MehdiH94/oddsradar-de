@@ -244,6 +244,14 @@ describe("runReferenceCycle", () => {
     expect(fair["2"]).toBeCloseTo(5.409, 3);
   });
 
+  it("places an exchange's match on one of our matches only, the first one it finds", async () => {
+    // A second match of the same names 15 minutes later (a youth side under its
+    // club's name, 16/10/2026): the exchange's match is the first one's.
+    upsertCanonicalEvents(db, [event("pol-later", ["Pologne (U21)", "Suède (U21)"], POLAND_U21 + 15 * 60_000)]);
+    await runReferenceCycle(db, { playerMarkets: noPlayers, search: searcher(), prices: pricer(), now: NOW, searchedAt });
+    expect(Object.keys(sources(db)).sort()).toEqual(["paris", "pol"]);
+  });
+
   it("only looks at football matches starting within 48 h", async () => {
     upsertCanonicalEvents(db, [{ ...event("tennis", ["Pologne", "Suède"], POLAND_U21), sport: "tennis" }]);
     const search = searcher();

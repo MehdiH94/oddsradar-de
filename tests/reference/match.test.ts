@@ -76,6 +76,21 @@ describe("findOnExchange", () => {
     ).toBeNull();
   });
 
+  it("tells apart two clubs of one city by the exchange's initial: Tokyo V, the Verdy, and FC Tokyo", () => {
+    // The exchange's derby of 17/10/2026, its runners as it listed them.
+    const derby = {
+      eventId: "36179287",
+      participants: ["Tokyo V", "FC Tokyo"] as [string, string],
+      startTime: "2026-10-17T05:00:00.000Z",
+      marketId: "1.263678294",
+      runners: { home: 350849, away: 263080, draw: 58805 },
+    };
+    const found = findOnExchange({ eventId: "e1", participants: ["Tokyo Verdy", "FC Tokyo"], startTime: derby.startTime }, [derby]);
+    expect(found?.selections).toEqual({ "1": 350849, X: 58805, "2": 263080 });
+    const reversed = findOnExchange({ eventId: "e1", participants: ["FC Tokyo", "Tokyo Verdy"], startTime: derby.startTime }, [derby]);
+    expect(reversed?.selections).toEqual({ "1": 263080, X: 58805, "2": 350849 });
+  });
+
   it("finds nothing among no candidates", () => {
     expect(findOnExchange({ eventId: "e1", participants: ["Arsenal", "Leeds"], startTime: at(1791631800000) }, [])).toBeNull();
   });

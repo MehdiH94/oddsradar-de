@@ -61,6 +61,10 @@ async function findNewTargets(
   const results = new Map<string, ExchangeMatch[]>();
   let searches = 0;
   let found = 0;
+  // An exchange's match is one of ours only: a match already placed is no
+  // candidate for another (16/10/2026, a U21 game 15 minutes after its first
+  // team's, the same club names, took that match's prices).
+  const taken = new Set(targets.flatMap((t) => (t.source ? [t.source.exchangeEventId] : [])));
   for (const target of targets) {
     if (target.source || now - (searchedAt.get(target.eventId) ?? 0) < RETRY_NOT_FOUND_MS) continue;
     if (searches >= MAX_SEARCHES_PER_CYCLE) break;
@@ -78,7 +82,7 @@ async function findNewTargets(
           results.set(term, []);
         }
       }
-      candidates.push(...(results.get(term) ?? []));
+      candidates.push(...(results.get(term) ?? []).filter((c) => !taken.has(c.eventId)));
       const match = findOnExchange(target, candidates);
       if (match) {
         target.source = {
@@ -88,6 +92,7 @@ async function findNewTargets(
           participants: target.participants,
         };
         saveReferenceSource(db, target.eventId, target.source, new Date(now).toISOString());
+        taken.add(match.match.eventId);
         found++;
         break;
       }

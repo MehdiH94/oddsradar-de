@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { fetchTwentybet, parseTwentybetEvents, TWENTYBET_SPORTS, twentybetListUrl, TwentybetListReply } from "../../src/scraper/twentybet";
+import { fetchTwentybet, parseTwentybetEvents, teamName, TWENTYBET_SPORTS, twentybetListUrl, TwentybetListReply } from "../../src/scraper/twentybet";
 
 // Real answers of 20bet's event list (platform.20bet.com/api/event/list, from
 // a German IP, 15/10/2026): each sport's first 6 events, their markets trimmed
@@ -96,6 +96,20 @@ describe("parseTwentybetEvents", () => {
       });
     expect(parseTwentybetEvents(rugby("European Champions Cup"), "13")[0].sport).toBe("rugby à xv");
     expect(parseTwentybetEvents(rugby("Rugby League World Cup. 2026"), "13")[0].sport).toBe("rugby à xiii");
+  });
+
+  it("marks a youth or a women's team by its league, which 20bet leaves out of the name", () => {
+    expect(teamName("Bern", "Switzerland Championship U21")).toBe("Bern U21");
+    expect(teamName("Lausanne Academy", "Switzerland Championship U21")).toBe("Lausanne Academy U21");
+    expect(teamName("Poland U21", "UEFA European Championship U21. Qualification")).toBe("Poland U21");
+    expect(teamName("Arsenal", "England. Women's Super League")).toBe("Arsenal (W)");
+    expect(teamName("Arsenal (W)", "England. Women's Super League")).toBe("Arsenal (W)");
+    expect(teamName("SC Bern", "Switzerland National League")).toBe("SC Bern");
+
+    const youth = changed(ICE_HOCKEY, (c) => {
+      c.data!.relations!.league = c.data!.relations!.league!.map((l) => ({ ...l, name: "Switzerland Championship U21" }));
+    });
+    expect(parseTwentybetEvents(youth, "4")[0].participants.every((p) => p.endsWith(" U21"))).toBe(true);
   });
 
   it("drops an event whose outcomes it cannot name, and keeps the others", () => {

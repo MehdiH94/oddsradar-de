@@ -77,6 +77,10 @@ async function findNew(
   const answers = new Map<string, unknown>();
   let searches = 0;
   let found = 0;
+  // An exchange's match is one of ours only: a match already placed is no
+  // candidate for another (16/10/2026, a U21 game 15 minutes after its first
+  // team's, the same club names, took that match's prices).
+  const taken = new Set(targets.flatMap((t) => (t.source ? [t.source.exchangeEventId] : [])));
   for (const target of targets) {
     if (target.source || now - (searchedAt.get(target.eventId) ?? 0) < RETRY_NOT_FOUND_MS) continue;
     if (searches >= MAX_SEARCHES_PER_CYCLE) break;
@@ -93,7 +97,7 @@ async function findNew(
           answers.set(term, null);
         }
       }
-      candidates.push(...parseSportSearch(answers.get(term), EXCHANGE_SPORTS[target.sport]));
+      candidates.push(...parseSportSearch(answers.get(term), EXCHANGE_SPORTS[target.sport]).filter((c) => !taken.has(c.eventId)));
       const placed = placeSportEvent(target.sport, target, candidates);
       if (placed) {
         target.source = {
@@ -103,6 +107,7 @@ async function findNew(
           participants: target.participants,
         };
         saveReferenceSource(db, target.eventId, target.source, new Date(now).toISOString());
+        taken.add(placed.event.eventId);
         found++;
         break;
       }

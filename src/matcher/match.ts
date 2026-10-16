@@ -217,6 +217,11 @@ const sameWords = (a: string[], b: string[]) => [...a].sort().join(" ") === [...
 // A word cut short with a full stop, the others identical: real production
 // case, Unibet "West. Sydney" for Betclic "Western Sydney". Needs a stop and two
 // letters, so "K." for a first name stays isInitialLastNameMatch's business.
+// The last word may also be its initial alone, without a stop, after a word
+// both names share: the exchange's "Tokyo V" for "Tokyo Verdy" (16/10/2026),
+// told apart from "FC Tokyo" in their derby only this way. Never the initial of
+// a word marking a club's other side ("Arsenal W" is not "Arsenal Women"'s
+// abbreviation here: referenceName spells it out).
 function isAbbreviatedName(a: string, b: string): boolean {
   const wordsA = a.split(/\s+/).filter(Boolean);
   const wordsB = b.split(/\s+/).filter(Boolean);
@@ -226,7 +231,13 @@ function isAbbreviatedName(a: string, b: string): boolean {
     const [x, y] = [normalizeName(wordsA[i]), normalizeName(wordsB[i])];
     if (x === y) continue;
     const [cut, full] = wordsA[i].endsWith(".") ? [x, y] : wordsB[i].endsWith(".") ? [y, x] : ["", ""];
-    if (cut.length < 2 || !full.startsWith(cut)) return false;
+    if (cut.length >= 2 && full.startsWith(cut)) {
+      abbreviated = true;
+      continue;
+    }
+    const last = i === wordsA.length - 1 && i > 0;
+    const [initial, word] = x.length === 1 ? [x, y] : y.length === 1 ? [y, x] : ["", ""];
+    if (!last || !initial || word.length < 3 || !word.startsWith(initial) || TEAM_VARIANT_WORD.test(word)) return false;
     abbreviated = true;
   }
   return abbreviated;

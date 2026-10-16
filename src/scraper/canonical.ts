@@ -121,18 +121,7 @@ export function canonicalMarketName(outcomeCount: number): string {
 
 // --- sports ------------------------------------------------------------------
 
-export type BookmakerId =
-  | "winamax"
-  | "betclic"
-  | "vbet"
-  | "circusbet"
-  | "daznbet"
-  | "netbet"
-  | "genybet"
-  | "unibet"
-  | "betsson"
-  | "pmu"
-  | "betify";
+export type BookmakerId = "winamax" | "betclic" | "leovegas" | "merkurbets" | "twentybet";
 
 // The canonical key is the lowercased Winamax display name: the dashboard is in
 // French and renders the sport string as-is (section headings, the sport
@@ -144,260 +133,170 @@ export type BookmakerId =
 // tests/scraper/fixtures/winamax-sports-catalog.json). Betclic slugs:
 // BETCLIC_SPORT_SLUGS in ./betclic.ts -- every one has a Winamax counterpart
 // below. Betclic splits Winamax's "Automobile" per series, hence a list.
-// Vbet's sport aliases: its live sports list (5/10/2026), for the head-to-head
-// sports it is read for (./vbet.ts). SportNCo's sport pages, NetBet's
-// (its live sports list, 5/10/2026, ./sportnco.ts). Unibet's names, from a full
-// capture of its upcoming-matches feed (./unibet.ts) and its sports menu
-// (7/10/2026), are matched case-insensitively. A name that is the canonical
-// key itself ("Football", "Tennis"...) works unlisted, with a warning; the ones
-// listed are those that differ from it ("Foot américain", "Volley Ball",
-// "UFC/MMA", "Rugby") and the sports without head-to-heads it is read for.
-// Betsson's names are those of its sports menu (boNavigationList 1355/top,
-// 8/10/2026), the way ./betsson.ts asks for a sport: its events call a few of
-// them otherwise ("American Football" for "Foot US", "MotoGp" for "Moto"). Of
-// the sports without head-to-heads, only those of its menu with a code of their
-// own are listed: golf and cycling had no event on 8/10/2026, and the skiing and
-// biathlon nodes were empty (code "0"), so the ones read are Formula 1 and
-// MotoGP's, the others waiting for their season.
-// Betify's names are those of the sports its prematch feed lists (Betby's,
-// 14/10/2026, ./betby.ts), in French, a few of them in
-// lower case ("tennis", "badminton", "baseball"): the lookup ignores the case.
-// PMU's names are those of its sports list (group.json of the offering API its
-// sports site reads, 11/10/2026, ./pmu.ts), French display names that mostly
-// are the canonical key; "Ski Alpin" and "Biathlon" are not in that list but
-// under its "Sports d'hiver", and are the names of the events' own path.
+// Winamax.de's German names join in their own change (the scraper reads
+// the French site's for now).
 const VERIFIED_SPORTS: ReadonlyArray<{
   canonical: string;
   winamax: string;
   betclic: string | string[];
-  vbet?: string | string[];
-  sportnco?: string;
-  unibet?: string | string[];
-  betsson?: string | string[];
-  pmu?: string | string[];
-  betify?: string | string[];
+  // Kambi's term keys (./kambi.ts), the same at every operator: those of its
+  // sports list (group.json), and for the winter sports the second step of an
+  // event's path, as LeoVegas.de and PMU list them (11 and 15/10/2026).
+  kambi?: string | string[];
+  // Merkur Bets's sport ids (./merkurbets.ts), as its odds service's filters
+  // list them (15/10/2026), for the sports it is read for.
+  merkurbets?: string;
+  // 20bet's sport ids (./twentybet.ts), as its menu lists them (15/10/2026),
+  // for the sports it is read for.
+  twentybet?: string;
 }> = [
   {
     canonical: "football",
     winamax: "Football",
     betclic: "football",
-    vbet: "Soccer",
-    sportnco: "/football",
-    betsson: "Football",
-    pmu: "Football",
-    betify: "Football",
+    kambi: "football",
+    merkurbets: "1",
+    twentybet: "1",
   },
   {
     canonical: "tennis",
     winamax: "Tennis",
     betclic: "tennis",
-    vbet: "Tennis",
-    sportnco: "/tennis",
-    betsson: "Tennis",
-    pmu: "Tennis",
-    betify: "tennis",
+    kambi: "tennis",
+    merkurbets: "2",
+    twentybet: "3",
   },
   {
     canonical: "basketball",
     winamax: "Basketball",
     betclic: "basketball",
-    vbet: "Basketball",
-    sportnco: "/basketball",
-    unibet: "Basketball",
-    betsson: "Basketball",
-    pmu: "Basketball",
-    betify: "Basketball",
+    kambi: "basketball",
+    merkurbets: "12",
+    twentybet: "2",
   },
   {
     canonical: "hockey sur glace",
     winamax: "Hockey sur glace",
     betclic: "ice_hockey",
-    vbet: "IceHockey",
-    sportnco: "/hockey-glace",
-    betsson: "Hockey sur glace",
-    pmu: "Hockey sur glace",
-    betify: "Hockey sur glace",
+    kambi: "ice_hockey",
+    merkurbets: "10",
+    twentybet: "4",
   },
   {
     canonical: "baseball",
     winamax: "Baseball",
     betclic: "baseball",
-    vbet: "Baseball",
-    sportnco: "/baseball",
-    betsson: "Baseball",
-    pmu: "Baseball",
-    betify: "baseball",
+    kambi: "baseball",
+    merkurbets: "11",
+    twentybet: "5",
   },
   {
     canonical: "biathlon",
     winamax: "Biathlon",
     betclic: "biathlon",
-    vbet: "Biathlon",
-    sportnco: "/biathlon",
-    unibet: "Biathlon",
-    pmu: "Biathlon",
-    betify: "Biathlon",
+    kambi: "biathlon",
   },
   {
     canonical: "boxe",
     winamax: "Boxe",
     betclic: "boxing",
-    vbet: "Boxing",
-    sportnco: "/boxe",
-    betsson: "Boxe",
-    pmu: "Boxe",
-    betify: "Boxe",
+    kambi: "boxing",
   },
   {
     canonical: "cyclisme",
     winamax: "Cyclisme",
     betclic: "cycling",
-    vbet: "Cycling",
-    sportnco: "/cyclisme",
-    unibet: "Cyclisme",
-    betsson: "Cyclisme",
-    pmu: "Cyclisme",
-    betify: "Cyclisme",
+    kambi: "cycling",
   },
   {
     canonical: "football américain",
     winamax: "Football américain",
     betclic: "american_football",
-    vbet: "AmericanFootball",
-    sportnco: "/foot-us",
-    unibet: "Foot américain",
-    betsson: "Foot US",
-    pmu: "Football américain",
-    betify: "Football américain",
+    kambi: "american_football",
+    merkurbets: "6",
+    twentybet: "17",
   },
   {
     canonical: "football australien",
     winamax: "Football australien",
     betclic: "australian_rules",
-    betsson: "Football Australien",
-    pmu: "Football australien",
-    betify: "Football Australien",
+    kambi: "australian_rules",
   },
   {
     canonical: "formule 1",
     winamax: "Formule 1",
     betclic: "formula_1",
-    // NetBet's Formula 1 is a section of its /sport-automobile page, not a page.
-    sportnco: "/formule-1",
-    unibet: "Formule 1",
-    betsson: "Formule 1",
-    pmu: "Formule 1",
-    betify: "Formule 1",
+    kambi: "formula_1",
   },
   {
     canonical: "handball",
     winamax: "Handball",
     betclic: "handball",
-    vbet: "Handball",
-    sportnco: "/handball",
-    betsson: "Handball",
-    pmu: "Handball",
-    betify: "Handball",
+    kambi: "handball",
+    merkurbets: "15",
+    twentybet: "10",
   },
   {
     canonical: "golf",
     winamax: "Golf",
     betclic: "golf",
-    vbet: "Golf",
-    sportnco: "/golf",
-    unibet: "Golf",
-    betsson: "Golf",
-    pmu: "Golf",
-    betify: "Golf",
+    kambi: "golf",
   },
   {
     canonical: "rugby à xv",
     winamax: "Rugby à XV",
     betclic: "rugby_union",
-    vbet: "RugbyUnion",
-    sportnco: "/rugby",
-    unibet: "Rugby",
-    betsson: "Rugby à XV",
-    pmu: "Rugby à XV",
-    betify: "Rugby à XV",
+    kambi: "rugby_union",
+    merkurbets: "18",
+    twentybet: "13",
   },
   {
     canonical: "rugby à xiii",
     winamax: "Rugby à XIII",
     betclic: "rugby_league",
-    vbet: "RugbyLeague",
-    sportnco: "/rugby-a-xiii",
-    betsson: "Rugby à XIII",
-    pmu: "Rugby à XIII",
-    betify: "Rugby à 13",
+    kambi: "rugby_league",
   },
   {
     canonical: "snooker",
     winamax: "Snooker",
     betclic: "snooker",
-    vbet: "Snooker",
-    sportnco: "/snooker",
-    betsson: "Snooker",
-    pmu: "Snooker",
-    betify: "Snooker",
+    kambi: "snooker",
   },
   {
     canonical: "volley-ball",
     winamax: "Volley-ball",
     betclic: "volleyball",
-    vbet: "Volleyball",
-    sportnco: "/volleyball",
-    unibet: "Volley Ball",
-    betsson: "Volley-ball",
-    pmu: "Volley-ball",
-    betify: "Volley-ball",
+    kambi: "volleyball",
+    merkurbets: "23",
+    twentybet: "7",
   },
   {
     canonical: "ski alpin",
     winamax: "Ski alpin",
     betclic: "alpine_skiing",
-    sportnco: "/ski-alpin",
-    unibet: "Ski Alpin",
-    pmu: "Ski Alpin",
-    betify: "Ski alpin",
+    kambi: "alpine_skiing",
   },
   {
     canonical: "ski de fond",
     winamax: "Ski de fond",
     betclic: "cross_country_skiing",
-    unibet: "Ski de Fond",
-    betify: "Cross-country",
   },
-  { canonical: "saut à ski", winamax: "Saut à ski", betclic: "ski_jumping", betify: "Saut à ski" },
+  { canonical: "saut à ski", winamax: "Saut à ski", betclic: "ski_jumping" },
   {
     canonical: "moto",
     winamax: "Moto",
     betclic: "motorcycling",
-    sportnco: "/moto",
-    unibet: "Moto",
-    betsson: "Moto",
-    betify: "course de motos",
   },
   {
     canonical: "mma",
     winamax: "MMA",
     betclic: "martial_arts",
-    vbet: "Mma",
-    sportnco: "/mma",
-    unibet: "UFC/MMA",
-    betsson: "MMA",
-    pmu: "UFC/MMA",
-    betify: "Arts martiaux mixtes",
+    kambi: "ufc_mma",
   },
   {
     canonical: "automobile",
     winamax: "Automobile",
     betclic: ["rally", "nascar", "formula_2"],
-    vbet: ["Nascar", "AutoRacing"],
-    // NetBet's page of the F1, the F2 and Nascar alike.
-    sportnco: "/sport-automobile",
-    unibet: ["Nascar", "Formule 2"],
-    betify: ["Nascar", "Formule 2", "course de voitures de tourisme"],
   },
   // Badminton and table tennis: Winamax's ids 31 and 20, which its catalog
   // fixture predates (8/10/2026); doubles are listed with the singles.
@@ -405,43 +304,15 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     canonical: "badminton",
     winamax: "Badminton",
     betclic: "badminton",
-    vbet: "Badminton",
-    sportnco: "/badminton",
-    unibet: "Badminton",
-    betsson: "Badminton",
-    betify: "badminton",
   },
   {
     canonical: "tennis de table",
     winamax: "Tennis de table",
     betclic: "table_tennis",
-    vbet: "TableTennis",
-    sportnco: "/tennis-de-table",
-    unibet: "Tennis de Table",
-    betsson: "Tennis de table",
-    betify: "Tennis de table",
+    kambi: "table_tennis",
   },
   // Judo has no head-to-head here: only its championships' winners.
-  { canonical: "judo", winamax: "Judo", betclic: "judo", unibet: "Judo" },
-];
-
-// The sports only Betify's feed lists of those it reads, under the lower case of
-// its own French name, which is what the other bookmakers' unlisted sports get
-// (canonicalSport): chess, padel, darts, floorball, cricket... The e-sports and
-// the virtual sports are not sports this compares.
-const BETIFY_ONLY_SPORTS: readonly string[] = [
-  "Echecs",
-  "Tennis de padel",
-  "Fléchettes",
-  "Floorball",
-  "cricket",
-  "Basket-ball à trois",
-  "squash",
-  "water-polo",
-  "futsal",
-  "Natation",
-  "sumo",
-  "Kabaddi",
+  { canonical: "judo", winamax: "Judo", betclic: "judo" },
 ];
 
 function lookupKey(raw: string): string {
@@ -456,28 +327,13 @@ const canonicalByName = (names: (s: (typeof VERIFIED_SPORTS)[number]) => string 
 const CANONICAL_BY_BOOKMAKER: Record<BookmakerId, Map<string, string>> = {
   winamax: canonicalByName((s) => s.winamax),
   betclic: canonicalByName((s) => s.betclic),
-  vbet: canonicalByName((s) => s.vbet),
-  // CircusBet and DAZN Bet are on Vbet's Swarm server: the same sport aliases.
-  circusbet: canonicalByName((s) => s.vbet),
-  daznbet: canonicalByName((s) => s.vbet),
-  netbet: canonicalByName((s) => s.sportnco),
-  // Genybet is on NetBet's platform: the same pages.
-  genybet: canonicalByName((s) => s.sportnco),
-  unibet: canonicalByName((s) => s.unibet),
-  betsson: canonicalByName((s) => s.betsson),
-  pmu: canonicalByName((s) => s.pmu),
-  betify: new Map([
-    ...canonicalByName((s) => s.betify),
-    ...BETIFY_ONLY_SPORTS.map((name): [string, string] => [lookupKey(name), lookupKey(name)]),
-  ]),
+  leovegas: canonicalByName((s) => s.kambi),
+  merkurbets: canonicalByName((s) => s.merkurbets),
+  twentybet: canonicalByName((s) => s.twentybet),
 };
 
-// The sports a bookmaker is read for, by its own names (./vbet.ts,
-// ./sportnco.ts, ./betsson.ts, ./pmu.ts, ./betby.ts).
-export function verifiedSportNames(bookmaker: "vbet" | "sportnco" | "betsson" | "pmu" | "betify"): string[] {
-  const names = VERIFIED_SPORTS.flatMap((s) => s[bookmaker] ?? []);
-  return bookmaker === "betify" ? [...names, ...BETIFY_ONLY_SPORTS] : names;
-}
+// The Kambi term keys of the sports this project reads (./kambi.ts).
+export const kambiTermKeys = (): string[] => VERIFIED_SPORTS.flatMap((s) => s.kambi ?? []);
 
 const warnedUnmappedSports = new Set<string>();
 

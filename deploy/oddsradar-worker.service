@@ -1,0 +1,16 @@
+[Unit]
+Description=OddsRadar scraping worker
+After=network.target
+
+[Service]
+Type=simple
+User=oddsradar
+Group=oddsradar
+WorkingDirectory=/opt/oddsradar
+EnvironmentFile=/opt/oddsradar/.env
+ExecStart=/usr/bin/node dist/worker/index.js
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

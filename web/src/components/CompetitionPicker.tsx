@@ -58,18 +58,18 @@ export function CompetitionPicker({
       <div id={listId}>
         {!list.searching && renderOption({ value: "", label: ALL_COMPETITIONS_LABEL })}
         {list.favorites.length > 0 && (
-          <div role="group" aria-label="Compétitions phares">
+          <div role="group" aria-label="Top competitions">
             <p className={styles.heading} aria-hidden="true">
-              Compétitions phares
+              Top competitions
             </p>
             {list.favorites.map((name) => renderOption(choice(name)))}
           </div>
         )}
         {list.others.length > 0 && (
-          <div role="group" aria-label={list.favorites.length > 0 ? "Autres compétitions" : "Compétitions"}>
+          <div role="group" aria-label={list.favorites.length > 0 ? "Other competitions" : "Competitions"}>
             {list.favorites.length > 0 && (
               <p className={styles.heading} aria-hidden="true">
-                Autres compétitions
+                Other competitions
               </p>
             )}
             {list.others.map((name) => renderOption(choice(name)))}
@@ -77,13 +77,13 @@ export function CompetitionPicker({
         )}
         {none && (
           <p className={styles.none} role="status">
-            Aucune compétition ne correspond à « {query.trim()} ».
+            No competition matches “{query.trim()}”.
           </p>
         )}
       </div>
       {list.foldable && (
         <button type="button" className={styles.toggle} aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>
-          {expanded ? "Réduire la liste" : `Afficher les ${list.total} compétitions`}
+          {expanded ? "Show fewer" : `Show all ${list.total} competitions`}
         </button>
       )}
     </div>

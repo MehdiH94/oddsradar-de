@@ -9,11 +9,11 @@ describe("planCards", () => {
     // The figures keep their unit with a non-breaking space.
     const plain = (text: string) => text.replace(/\u00a0/g, " ");
     expect(cards.map((c) => [c.rank, plain(c.rate), plain(c.cash)])).toEqual([
-      [1, "59,5 %", "31,20 €"],
-      [2, "52,1 %", "28,90 €"],
-      [3, "50,3 %", "20,10 €"],
+      [1, "59.5%", "€31.20"],
+      [2, "52.1%", "€28.90"],
+      [3, "50.3%", "€20.10"],
     ]);
-    expect(cards.map((c) => c.badge?.text)).toEqual(["Meilleur taux", undefined, undefined]);
+    expect(cards.map((c) => c.badge?.text)).toEqual(["Best rate", undefined, undefined]);
     expect(cards[0].lines).toEqual(["Paris SG – Marseille"]);
     // The part of the wallet it uses.
     expect(cards[0].to).toBeCloseTo(52.4 / 55.5, 9);
@@ -27,21 +27,21 @@ describe("planCards", () => {
 
   it("says how much of the wallet a plan converts", () => {
     const { container } = render(<>{planCards(BOOKMAKERS_ANSWER)[0].caption}</>);
-    expect(container).toHaveTextContent("52,40 FB convertis sur 55,50");
+    expect(container).toHaveTextContent("52.40 FB converted of 55.50");
   });
 });
 
 describe("exchangeCards", () => {
   it("draws each conversion after the ones before it, and says what is left", () => {
     const cards = exchangeCards(CHAIN, 30);
-    expect(cards.map((c) => c.badge?.text)).toEqual(["Limitée par la liquidité", "Limitée par la liquidité", "Convertit tout le reste"]);
+    expect(cards.map((c) => c.badge?.text)).toEqual(["Limited by liquidity", "Limited by liquidity", "Converts all the rest"]);
     expect(cards.map((c) => c.badge?.tone)).toEqual(["warning", "warning", "good"]);
     expect(cards[0].from).toBe(0);
     expect(cards[0].to).toBeCloseTo(14.12 / 30, 9);
     expect(cards[1].from).toBeCloseTo(14.12 / 30, 9);
     expect(cards[2].to).toBeCloseTo(1, 9);
     expect(cards[0].lines[0]).toBe("Auxerre");
-    expect(render(<>{cards[1].caption}</>).container).toHaveTextContent("Convertit 12,17 FB · 3,71 FB restants ensuite");
+    expect(render(<>{cards[1].caption}</>).container).toHaveTextContent("Converts 12.17 FB · 3.71 FB left after");
   });
 });
 

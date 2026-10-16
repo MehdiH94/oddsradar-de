@@ -28,8 +28,8 @@ const INSERT_ODDS = `
 const STORED_ID_LOOKBACK_MS = 24 * 60 * 60 * 1000;
 
 // The id of an event is the hash of the names of the bookmaker that seeds it
-// (matchEvents): Betclic's, else Winamax's, else the first to list it. A cycle
-// where Betclic leaves a match out, or lists it late, gives the same match
+// (matchEvents): the first seed bookmaker's that lists it (LeoVegas.de's, then Merkur Bets's,
+// then Betclic's...), else the first to list it. A cycle where the seed leaves a match out, or lists it late, gives the same match
 // another id, and with it another alert on Discord (an alert is sent once per
 // id) and another line on the dashboard until the first goes stale. A
 // bookmaker's own id for the match tells it is the same one, so an event that
@@ -672,12 +672,12 @@ export function getValueBets(
       bets.push({
         ...match,
         market: reference!.market,
-        marketLabel: outright ? "Vainqueur du tournoi" : reference!.market === MARKET_1X2 ? "Résultat du match" : MARKET_MATCH_WINNER,
+        marketLabel: outright ? "Tournament winner" : reference!.market === MARKET_1X2 ? "Match result" : "Match winner",
         selection: bet.selection,
         label: outright
           ? bet.selection
           : bet.selection === "X"
-            ? "Nul"
+            ? "Draw"
             : (event.participants[bet.selection === "1" ? 0 : 1] ?? bet.selection),
         bookmaker: bet.bookmaker,
         price: bet.price,

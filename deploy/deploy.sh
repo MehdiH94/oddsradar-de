@@ -2,7 +2,7 @@
 # Deploys a commit of origin/main on this machine: check it out, build both
 # packages, restart the systemd services, check they answer.
 #
-# The staging checkout (/opt/coteradar-staging) runs this same script for
+# The staging checkout (/opt/oddsradar-staging) runs this same script for
 # origin/development and its own services: its SSH key's forced command sets
 # DEPLOY_BRANCH and DEPLOY_SERVICES (README, "Environnement de test").
 #
@@ -24,7 +24,7 @@ DEPLOY_BRANCH=${DEPLOY_BRANCH:-main}
   echo "[deploy] ERROR: invalid DEPLOY_BRANCH" >&2
   exit 1
 }
-read -r -a SERVICES <<<"${DEPLOY_SERVICES:-coteradar-worker coteradar-web}"
+read -r -a SERVICES <<<"${DEPLOY_SERVICES:-oddsradar-worker oddsradar-web}"
 HEALTH_TIMEOUT_S=${DEPLOY_HEALTH_TIMEOUT_S:-30}
 
 log() { echo "[deploy] $*"; }

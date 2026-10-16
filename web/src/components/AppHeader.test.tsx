@@ -7,24 +7,24 @@ describe("AppHeader", () => {
   it("says when the odds were last updated", () => {
     render(<AppHeader lastUpdated={new Date(2026, 8, 29, 10, 42)} refreshing={false} failed={false} onRefresh={() => {}} />);
 
-    expect(screen.getByRole("status")).toHaveTextContent("Mis à jour à 10:42");
+    expect(screen.getByRole("status")).toHaveTextContent("Updated at 10:42");
   });
 
   it("says so when the last update failed", () => {
     render(<AppHeader lastUpdated={new Date(2026, 8, 29, 10, 42)} refreshing={false} failed onRefresh={() => {}} />);
 
-    expect(screen.getByRole("status")).toHaveTextContent("Actualisation impossible");
+    expect(screen.getByRole("status")).toHaveTextContent("Refresh failed");
   });
 
   it("asks for fresh odds, except while some are already on their way", () => {
     const onRefresh = vi.fn();
     const { rerender } = render(<AppHeader lastUpdated={null} refreshing={false} failed={false} onRefresh={onRefresh} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Actualiser les cotes" }));
+    fireEvent.click(screen.getByRole("button", { name: "Refresh the odds" }));
     expect(onRefresh).toHaveBeenCalledTimes(1);
 
     rerender(<AppHeader lastUpdated={null} refreshing failed={false} onRefresh={onRefresh} />);
-    expect(screen.getByRole("button", { name: "Actualiser les cotes" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Refresh the odds" })).toBeDisabled();
   });
 
   describe("the administration link", () => {

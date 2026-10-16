@@ -78,7 +78,7 @@ export function FilterSheet({
   id: string;
   open: boolean;
   onClose: () => void;
-  // "Voir les 412 résultats".
+  // "Show the 412 results".
   resultsLabel: string;
   sort: EventSort;
   sortOrders: readonly EventSort[];
@@ -108,7 +108,7 @@ export function FilterSheet({
   return (
     <Sheet
       id={id}
-      title="Filtres"
+      title="Filters"
       open={open}
       onClose={onClose}
       footer={
@@ -116,7 +116,7 @@ export function FilterSheet({
           {onReset && (
             <button type="button" className={styles.reset} onClick={onReset}>
               <RotateCcw size={16} aria-hidden="true" />
-              Réinitialiser
+              Reset
             </button>
           )}
           <button type="button" className={styles.apply} onClick={onClose}>
@@ -125,7 +125,7 @@ export function FilterSheet({
         </>
       }
     >
-      <Group legend="Trier par">
+      <Group legend="Sort by">
         {sortOrders.map((order) => (
           <Option key={order} type="radio" name="sheet-sort" checked={order === sort} onChange={() => onSortChange(order)}>
             {SORT_LABELS[order]}
@@ -134,7 +134,7 @@ export function FilterSheet({
       </Group>
 
       {competitions && onCompetitionChange && (
-        <Group legend="Compétition">
+        <Group legend="Competition">
           <CompetitionPicker
             sport={sport ?? ""}
             value={competition}
@@ -155,7 +155,7 @@ export function FilterSheet({
         </Group>
       )}
 
-      <Group legend="Bookmakers comparés">
+      <Group legend="Bookmakers compared">
         {ALL_BOOKMAKERS.map((bookmaker) => (
           <Option
             key={bookmaker}
@@ -170,7 +170,7 @@ export function FilterSheet({
       </Group>
 
       {onPlayersChange && (
-        <Group legend="Matchs affichés">
+        <Group legend="Matches shown">
           {MARKETS_OPTIONS.map((option) => (
             <Option
               key={option.label}
@@ -187,9 +187,9 @@ export function FilterSheet({
 
       {sports && sports.length > 0 && onToggleFavoriteSport && (
         <fieldset className={styles.group}>
-          <legend className={styles.legend}>Sports favoris</legend>
+          <legend className={styles.legend}>Favourite sports</legend>
           <p className={styles.hint}>
-            Jusqu'à {MAX_FAVORITES}, en tête de la liste des sports.
+            Up to {MAX_FAVORITES}, first in the list of sports.
           </p>
           <div className={styles.favorites}>
             {sports.map((sport) => {
@@ -200,7 +200,7 @@ export function FilterSheet({
                   type="button"
                   className={styles.favorite}
                   aria-pressed={favorite}
-                  aria-label={`Favori : ${sportLabel(sport)}`}
+                  aria-label={`Favourite: ${sportLabel(sport)}`}
                   disabled={!favorite && !canAddFavoriteSport}
                   onClick={() => onToggleFavoriteSport(sport)}
                 >

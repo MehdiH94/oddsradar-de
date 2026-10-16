@@ -8,13 +8,13 @@ afterEach(() => {
 });
 
 describe("GamblingBanner", () => {
-  it("shows the warning of the arrêté du 4 mars 2026, word for word", () => {
+  it("shows the responsible gambling notice", () => {
     render(<GamblingBanner />);
 
-    const banner = screen.getByRole("complementary", { name: "Prévention des jeux d'argent" });
+    const banner = screen.getByRole("complementary", { name: "Responsible gambling" });
     expect(banner).toHaveTextContent(
-      "Les jeux d'argent et de hasard peuvent être dangereux : pertes d'argent, conflits familiaux, addiction… " +
-        "Nos conseils sur joueurs-info-service.fr (09-74-75-13-13 - appel non surtaxé)",
+      "18+. Gambling can be addictive: losing money, family conflicts, addiction… " +
+        "Help at check-dein-spiel.de (BZgA, free hotline 0800 1 37 27 00)",
     );
   });
 
@@ -22,22 +22,16 @@ describe("GamblingBanner", () => {
     render(<GamblingBanner sportsBetting />);
 
     expect(screen.getByRole("complementary")).toHaveTextContent(
-      "Parce qu'un parieur doit savoir quand quitter le jeu. " +
-        "Rendez-vous sur joueurs-info-service.fr (09-74-75-13-13 - appel non surtaxé)",
+      "18+. Sports betting can be addictive: know when to stop. " +
+        "Help at check-dein-spiel.de (BZgA, free hotline 0800 1 37 27 00)",
     );
   });
 
-  it("carries the Government's logo", () => {
+  it("links the whole message to the federal help on gambling addiction", () => {
     render(<GamblingBanner />);
 
-    expect(screen.getByAltText(/Gouvernement/)).toBeInTheDocument();
-  });
-
-  it("links the whole message to Joueurs Info Service", () => {
-    render(<GamblingBanner />);
-
-    const link = screen.getByRole("link", { name: /jeux d'argent et de hasard peuvent être dangereux/ });
-    expect(link).toHaveAttribute("href", "https://www.joueurs-info-service.fr");
+    const link = screen.getByRole("link", { name: /Gambling can be addictive/ });
+    expect(link).toHaveAttribute("href", "https://www.check-dein-spiel.de");
     expect(link).toHaveAttribute("rel", "noopener noreferrer");
   });
 

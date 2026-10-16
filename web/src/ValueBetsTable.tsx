@@ -12,11 +12,11 @@ import { sportEmoji, sportLabel, VALUE_BETS } from "./sports";
 import groupStyles from "./GroupedOddsTables.module.css";
 import styles from "./ValueBetsTable.module.css";
 
-const FAIR_TITLE = `Cote juste : la cote de ${REFERENCE_SOURCE}, sans sa marge`;
+const FAIR_TITLE = `Fair odds: the price at ${REFERENCE_SOURCE}, without its margin`;
 const bookmakerName = (id: string) => BOOKMAKER_BRANDING[id]?.name ?? id;
 
-// What a bet's price is weighed against, in its "Juste" column: the fair odds;
-// the exchange's lay as their ceiling, "≤ 2,40", when it prices the player too
+// What a bet's price is weighed against, in its "Fair" column: the fair odds;
+// the exchange's lay as their ceiling, "≤ 2.40", when it prices the player too
 // loosely for them; or, when it doesn't price them, the other bookmaker's
 // price, named.
 function Reference({ bet }: { bet: ValueBet }) {
@@ -24,7 +24,7 @@ function Reference({ bet }: { bet: ValueBet }) {
     return (
       <>
         <span aria-hidden="true">≤ </span>
-        <span className="visually-hidden">au plus </span>
+        <span className="visually-hidden">at most </span>
         {formatPrice(bet.fair)}
       </>
     );
@@ -35,7 +35,7 @@ function Reference({ bet }: { bet: ValueBet }) {
         {formatPrice(bet.fair)}
         {bet.referenceBookmaker && (
           <span className={styles.referenceBookmaker}>
-            <span className="visually-hidden"> chez </span>
+            <span className="visually-hidden"> at </span>
             {bookmakerName(bet.referenceBookmaker)}
           </span>
         )}
@@ -47,11 +47,11 @@ function Reference({ bet }: { bet: ValueBet }) {
 
 function referenceTitle(bet: ValueBet): string {
   if (bet.basis === "lay") {
-    return `Cote juste au plus : la cote de lay de ${REFERENCE_SOURCE}, qui cote ce joueur de trop loin pour en donner une`;
+    return `Fair odds at most: the lay price at ${REFERENCE_SOURCE}, which prices this player too loosely to give fair odds`;
   }
   if (bet.basis === "bookmaker") {
-    const other = bet.referenceBookmaker ? bookmakerName(bet.referenceBookmaker) : "l'autre bookmaker";
-    return `Cote suspecte : ${REFERENCE_SOURCE} ne cote pas ce joueur ; la cote de ${other}`;
+    const other = bet.referenceBookmaker ? bookmakerName(bet.referenceBookmaker) : "the other bookmaker";
+    return `Suspect price: ${REFERENCE_SOURCE} does not price this player; the price at ${other}`;
   }
   return FAIR_TITLE;
 }
@@ -87,18 +87,18 @@ export function ValueBetsTable({
         <thead>
           <tr>
             <th scope="col" className={styles.startHead}>
-              Début
+              Kick-off
             </th>
             <th scope="col">Match</th>
-            <th scope="col">Pari</th>
+            <th scope="col">Bet</th>
             <th scope="col" className={styles.priceHead}>
-              Cote
+              Price
             </th>
             <th scope="col" className={styles.fairHead} title={FAIR_TITLE}>
-              Juste<span className="visually-hidden"> (cote juste)</span>
+              Fair<span className="visually-hidden"> (fair odds)</span>
             </th>
             <th scope="col" className={styles.edgeHead}>
-              Écart<span className="visually-hidden"> avec la cote juste</span>
+              Edge<span className="visually-hidden"> over the fair odds</span>
             </th>
           </tr>
         </thead>
@@ -141,23 +141,23 @@ export function ValueBetsTable({
                     <a
                       className={styles.more}
                       href={matchHref(bet.eventId)}
-                      aria-label={`+${bet.marketCount - 1} marchés pour ${teams}`}
+                      aria-label={`+${bet.marketCount - 1} markets for ${teams}`}
                       onClick={open}
                     >
-                      +{bet.marketCount - 1} marchés
+                      +{bet.marketCount - 1} markets
                     </a>
                   )}
                 </td>
-                <td className={styles.bet} data-label="Pari">
+                <td className={styles.bet} data-label="Bet">
                   <span className={styles.outcome}>{bet.label}</span>
                   <span className={styles.market}>
                     {bet.marketLabel}
-                    {bet.basis === "bookmaker" && <span className={styles.suspect}> · cote suspecte</span>}
+                    {bet.basis === "bookmaker" && <span className={styles.suspect}> · suspect price</span>}
                   </span>
                 </td>
                 {wide ? (
                   <>
-                    <td className={styles.price} data-label="Cote">
+                    <td className={styles.price} data-label="Price">
                       <PriceChip
                         bookmaker={bet.bookmaker}
                         price={bet.price}
@@ -166,7 +166,7 @@ export function ValueBetsTable({
                         suspect={bet.basis === "bookmaker"}
                       />
                     </td>
-                    <td className={styles.fair} data-label="Juste" title={referenceTitle(bet)}>
+                    <td className={styles.fair} data-label="Fair" title={referenceTitle(bet)}>
                       <Reference bet={bet} />
                     </td>
                   </>
@@ -182,22 +182,22 @@ export function ValueBetsTable({
                       showFair
                       fairLabel={
                         bet.basis === "lay"
-                          ? "Juste ≤"
+                          ? "Fair ≤"
                           : bet.basis === "bookmaker"
-                            ? (bet.referenceBookmaker ? bookmakerName(bet.referenceBookmaker) : "Autre")
-                            : "Juste"
+                            ? (bet.referenceBookmaker ? bookmakerName(bet.referenceBookmaker) : "Other")
+                            : "Fair"
                       }
                     />
                   </td>
                 )}
-                <td className={styles.edge} data-label="Écart">
+                <td className={styles.edge} data-label="Edge">
                   <strong className={styles.edgeValue}>{formatEdge(bet.edge)}</strong>
                 </td>
                 {!wide && hasPage && (
                   <td className={styles.actions}>
                     <a className={styles.allMarkets} href={matchHref(bet.eventId)} onClick={open}>
                       <span>
-                        Tous les marchés du match{" "}
+                        Every market of the match{" "}
                         <span className="visually-hidden">{teams}</span>
                       </span>
                       <ChevronRight size={16} aria-hidden="true" />

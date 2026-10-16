@@ -1,3 +1,4 @@
+import { APP_NAME } from "../brand";
 import { createHash } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import { getValueBets, ListingOptions, ValueBet } from "../db/repository";
@@ -74,11 +75,11 @@ export function fitMessage<T>(items: readonly T[], embedOf: (item: T) => Embed):
 export function assertSendable(message: Pick<DiscordMessage, "content" | "embeds">): void {
   const embeds = message.embeds ?? [];
   const chars = embeds.reduce((sum, e) => sum + embedChars(e), 0);
-  if (embeds.length > DISCORD_LIMITS.embeds) throw new Error(`message trop long pour Discord : ${embeds.length} cartes, ${DISCORD_LIMITS.embeds} au plus`);
-  if (chars > DISCORD_LIMITS.embedChars) throw new Error(`message trop long pour Discord : ${chars} caractères, ${DISCORD_LIMITS.embedChars} au plus`);
+  if (embeds.length > DISCORD_LIMITS.embeds) throw new Error(`message too long for Discord: ${embeds.length} cards, ${DISCORD_LIMITS.embeds} at most`);
+  if (chars > DISCORD_LIMITS.embedChars) throw new Error(`message too long for Discord: ${chars} characters, ${DISCORD_LIMITS.embedChars} at most`);
   const tooLong = embeds.find((e) => (e.description?.length ?? 0) > 4096 || e.title.length > 256 || e.fields.some((f) => f.value.length > 1024));
-  if (tooLong) throw new Error(`message trop long pour Discord : la carte « ${tooLong.title.slice(0, 40)} » dépasse une limite de Discord`);
-  if (message.content.length > DISCORD_LIMITS.content) throw new Error(`message trop long pour Discord : texte de ${message.content.length} caractères, ${DISCORD_LIMITS.content} au plus`);
+  if (tooLong) throw new Error(`message too long for Discord: the card “${tooLong.title.slice(0, 40)}” goes over a Discord limit`);
+  if (message.content.length > DISCORD_LIMITS.content) throw new Error(`message too long for Discord: text of ${message.content.length} characters, ${DISCORD_LIMITS.content} at most`);
 }
 
 // A field's value holds 1024 characters at most.
@@ -90,21 +91,15 @@ const SUREBET_COLOR = 0x16a34a;
 const BOOKMAKER_NAMES: Record<string, string> = {
   winamax: "Winamax",
   betclic: "Betclic",
-  vbet: "Vbet",
-  circusbet: "CircusBet",
-  daznbet: "DAZN Bet",
-  netbet: "NetBet",
-  genybet: "Genybet",
-  unibet: "Unibet",
-  betsson: "Betsson",
-  pmu: "PMU",
-  betify: "Betify",
+  leovegas: "LeoVegas",
+  merkurbets: "Merkur Bets",
+  twentybet: "20bet",
   [EXCHANGE]: "Exchange",
 };
 const bookmakerName = (id: string) => BOOKMAKER_NAMES[id] ?? id;
-// The site opens on three bookmakers when its address doesn't say: an alert's
-// links name them all, or a gem at VBet or NetBet would be hidden when opened.
-export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = ["winamax", "betclic", "unibet", "pmu", "netbet", "genybet", "vbet", "circusbet", "daznbet", "betsson", "betify"];
+// Every bookmaker the site lists: an alert's links name them all, so that a gem
+// is never hidden by the site's default selection when opened.
+export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = ["leovegas", "merkurbets", "twentybet"];
 const ALL_BOOKMAKERS_QUERY = `bookmakers=${ALL_BOOKMAKER_IDS.join(",")}`;
 // A match's page on the site (none without PUBLIC_URL). Parentheses are
 // escaped: the address ends a Markdown link in the "Page du match" field.
@@ -113,11 +108,11 @@ const matchUrl = (eventId: string, publicUrl?: string) =>
     ? `${publicUrl}/?match=${encodeURIComponent(eventId).replace(/\(/g, "%28").replace(/\)/g, "%29")}&${ALL_BOOKMAKERS_QUERY}`
     : undefined;
 // The embed's last field: the title is a link too, but a quiet one.
-const matchLinkFields = (url?: string) => (url ? [{ name: "Page du match", value: `[Voir le match sur CoteRadar](${url})` }] : []);
-const formatPrice = (price: number) => price.toFixed(2).replace(".", ",");
-const formatEdge = (edge: number) => `+${(edge * 100).toFixed(1).replace(".", ",")} %`;
-const formatPercent = (rate: number) => `${Math.round(rate * 100)} %`;
-const formatRate = (rate: number) => `${(rate * 100).toFixed(1).replace(".", ",")} %`;
+const matchLinkFields = (url?: string) => (url ? [{ name: "Match page", value: `[See the match on ${APP_NAME}](${url})` }] : []);
+const formatPrice = (price: number) => price.toFixed(2);
+const formatEdge = (edge: number) => `+${(edge * 100).toFixed(1)}%`;
+const formatPercent = (rate: number) => `${Math.round(rate * 100)}%`;
+const formatRate = (rate: number) => `${(rate * 100).toFixed(1)}%`;
 
 type Send = (
   url: string,
@@ -137,14 +132,14 @@ export interface GemAlertOptions extends ListingOptions {
 export function helloMessage(publicUrl?: string): DiscordMessage {
   const link = publicUrl ? `\n${publicUrl}/?sport=value-bets&sort=value&${ALL_BOOKMAKERS_QUERY}` : "";
   return {
-    username: "CoteRadar",
+    username: APP_NAME,
     allowed_mentions: { parse: [] },
     content:
-      `✅ CoteRadar est connecté à ce salon. Une alerte arrivera ici à chaque nouvelle gem : un value bet 1N2 ` +
-      `ou vainqueur d'un match (foot, tennis, basket, baseball, football américain, hockey, rugby, MMA) ` +
-      `${formatPercent(GEM_MIN_EDGE.match)} ou plus au-dessus de la cote juste, ` +
-      `ou un pari joueur, jeux ou sets ${formatPercent(GEM_MIN_EDGE.players)} ou plus ; et chaque surebet (TRJ au-dessus ` +
-      `de 100 %, ceux « à vérifier » signalés comme tels). Une seule alerte par match, marché et issue.${link}`,
+      `✅ ${APP_NAME} is connected to this channel. An alert will come here for each new gem: a 1X2 ` +
+      `or match winner value bet (football, tennis, basketball, baseball, American football, hockey, rugby, MMA) ` +
+      `${formatPercent(GEM_MIN_EDGE.match)} or more above the fair odds, ` +
+      `or a player, games or sets bet ${formatPercent(GEM_MIN_EDGE.players)} or more; and each surebet (payout over ` +
+      `100%, those “to verify” flagged as such). A single alert per match, market and outcome.${link}`,
   };
 }
 
@@ -161,7 +156,7 @@ export function gemEmbed(gem: ValueBet, publicUrl?: string): Embed {
     color: GEM_COLOR,
     fields: [
       { name: "Match", value: fieldValue(`${gem.participants.join(" - ")}${gem.competition ? ` · ${gem.competition}` : ""}`) },
-      { name: "Coup d'envoi", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
+      { name: "Kick-off", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
       ...matchLinkFields(link),
     ],
   };
@@ -169,9 +164,9 @@ export function gemEmbed(gem: ValueBet, publicUrl?: string): Embed {
 
 export function gemsMessage(gems: readonly ValueBet[], publicUrl?: string): DiscordMessage {
   return {
-    username: "CoteRadar",
+    username: APP_NAME,
     allowed_mentions: { parse: [] },
-    content: gems.length === 1 ? "💎 Nouvelle gem" : `💎 ${gems.length} nouvelles gems`,
+    content: gems.length === 1 ? "💎 New gem" : `💎 ${gems.length} new gems`,
     embeds: gems.map((gem) => gemEmbed(gem, publicUrl)),
   };
 }
@@ -196,12 +191,12 @@ function onePerAlert<T extends Pick<SentGem, "eventId" | "market" | "selection" 
 // Why a surebet is "to be checked" (src/db/surebets.ts), as the alert says it.
 function toVerifyReason(s: Surebet): string {
   if (s.payoutRate > SUREBET_TO_VERIFY) {
-    return `TRJ au-dessus de ${formatPercent(SUREBET_TO_VERIFY)} : le plus souvent deux règles ou deux lignes différentes, ou une cote périmée. À vérifier chez les bookmakers avant de parier.`;
+    return `Payout over ${formatPercent(SUREBET_TO_VERIFY)}: most often two different rules or lines, or an old price. Check at the bookmakers before betting.`;
   }
   if ((winnersOf(parseMarketKey(s.market)) ?? 1) > 1) {
-    return "Marché à plusieurs gagnants : chaque bookmaker applique sa règle en cas d'égalité à la dernière place. À vérifier avant de parier.";
+    return "Market with several winners: each bookmaker applies its own rule on a tie for the last place. Check before betting.";
   }
-  return "À vérifier avant de parier.";
+  return "Check before betting.";
 }
 
 // One embed per surebet: its TRJ, the match, its kick-off and the profit as a
@@ -212,14 +207,14 @@ export function surebetEmbed(s: Surebet, publicUrl?: string): Embed {
   const link = matchUrl(s.eventId, publicUrl);
   const kickOff = Math.floor(Date.parse(s.startTime) / 1000);
   return {
-    title: `⚖️ ${s.toVerify ? "À vérifier · " : ""}${formatRate(s.payoutRate)}`,
+    title: `⚖️ ${s.toVerify ? "To verify · " : ""}${formatRate(s.payoutRate)}`,
     ...(link ? { url: link } : {}),
     color: SUREBET_COLOR,
     fields: [
       { name: "Match", value: fieldValue(`${s.participants.join(" - ")}${s.competition ? ` · ${s.competition}` : ""}`) },
-      { name: "Coup d'envoi", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
-      { name: "Gain", value: formatEdge(s.payoutRate - 1), inline: true },
-      ...(s.toVerify ? [{ name: "⚠️ À vérifier", value: toVerifyReason(s) }] : []),
+      { name: "Kick-off", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
+      { name: "Profit", value: formatEdge(s.payoutRate - 1), inline: true },
+      ...(s.toVerify ? [{ name: "⚠️ To verify", value: toVerifyReason(s) }] : []),
       ...matchLinkFields(link),
     ],
   };
@@ -227,9 +222,9 @@ export function surebetEmbed(s: Surebet, publicUrl?: string): Embed {
 
 export function surebetsMessage(surebets: readonly Surebet[], publicUrl?: string): DiscordMessage {
   return {
-    username: "CoteRadar",
+    username: APP_NAME,
     allowed_mentions: { parse: [] },
-    content: surebets.length === 1 ? "⚖️ Nouveau surebet" : `⚖️ ${surebets.length} nouveaux surebets`,
+    content: surebets.length === 1 ? "⚖️ New surebet" : `⚖️ ${surebets.length} new surebets`,
     embeds: surebets.map((s) => surebetEmbed(s, publicUrl)),
   };
 }
@@ -240,7 +235,7 @@ export function surebetsMessage(surebets: readonly Surebet[], publicUrl?: string
 // next cycle, nothing being marked sent until Discord has taken it.
 export const RATE_LIMIT_MAX_WAIT_MS = 10_000;
 export const RATE_LIMIT_RETRIES = 2;
-const RATE_LIMIT_MESSAGE = "HTTP 429 : Discord limite les envois, nouvel essai au prochain cycle";
+const RATE_LIMIT_MESSAGE = "HTTP 429: Discord limits the sending, next try at the next cycle";
 
 function retryAfterMs(res: { headers?: { get(name: string): string | null } }): number | undefined {
   const seconds = Number.parseFloat(res.headers?.get("retry-after") ?? "");

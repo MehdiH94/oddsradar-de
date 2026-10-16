@@ -5,7 +5,7 @@ export type View = "value-bets" | "matches" | "freebets";
 
 const VIEWS: ReadonlyArray<{ value: View; label: string; Icon: typeof Gem }> = [
   { value: "value-bets", label: "Value bets", Icon: Gem },
-  { value: "matches", label: "Matchs", Icon: ListOrdered },
+  { value: "matches", label: "Matches", Icon: ListOrdered },
   { value: "freebets", label: "Freebets", Icon: Gift },
 ];
 
@@ -25,14 +25,14 @@ export function AppNav({
   view: View;
   onChange: (view: View) => void;
   placement: "bar" | "header";
-  // The phone's "Filtres" button: how many filters differ from their default,
+  // The phone's "Filters" button: how many filters differ from their default,
   // and the sheet it opens (FilterSheet).
   filters?: { count: number; open: boolean; onOpen: () => void; controls: string };
 }) {
   return (
-    <nav className={placement === "bar" ? styles.bar : styles.header} aria-label="Navigation principale">
+    <nav className={placement === "bar" ? styles.bar : styles.header} aria-label="Main navigation">
       <fieldset className={styles.group}>
-        <legend className="visually-hidden">Afficher</legend>
+        <legend className="visually-hidden">Show</legend>
         {VIEWS.map(({ value, label, Icon }) => (
           <label key={value} className={styles.item}>
             <input
@@ -57,15 +57,15 @@ export function AppNav({
           aria-haspopup="dialog"
           aria-expanded={filters.open}
           aria-controls={filters.controls}
-          // The badge's count, read out: "Filtres, 2 actifs".
+          // The badge's count, read out: "Filters, 2 active".
           aria-label={
-            filters.count > 0 ? `Filtres, ${filters.count} actif${filters.count > 1 ? "s" : ""}` : undefined
+            filters.count > 0 ? `Filters, ${filters.count} active` : undefined
           }
           onClick={filters.onOpen}
         >
           <span className={styles.face}>
             <SlidersHorizontal size={20} aria-hidden="true" className={styles.icon} />
-            Filtres
+            Filters
             {filters.count > 0 && (
               <span className={styles.badge} aria-hidden="true">
                 {filters.count}

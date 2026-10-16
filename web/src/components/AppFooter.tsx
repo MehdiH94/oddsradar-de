@@ -6,10 +6,10 @@ export function AppFooter() {
     <footer className={styles.footer}>
       <div className={styles.inner}>
         <p>
-          Cotes relevées sur {ALL_BOOKMAKERS_SENTENCE} à intervalles réguliers. Vérifiez toujours la cote chez le
-          bookmaker avant de parier.
+          Odds read from {ALL_BOOKMAKERS_SENTENCE} at regular intervals. Always check the price at the bookmaker before
+          betting.
         </p>
-        <p className={styles.responsible}>Interdit aux moins de 18 ans.</p>
+        <p className={styles.responsible}>Gambling is for adults only (18+).</p>
       </div>
     </footer>
   );

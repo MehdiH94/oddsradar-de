@@ -49,7 +49,7 @@ export function FreebetsPage() {
       <main className={styles.main}>
         <div className={styles.intro}>
           <h1 className={styles.title}>Freebets</h1>
-          <p className={styles.subtitle}>Transformez vos freebets en argent réel, entre bookmakers ou contre l'exchange.</p>
+          <p className={styles.subtitle}>Turn your freebets into real money, between bookmakers or against the exchange.</p>
         </div>
         <div className={styles.stack}>
           <Wallet wallet={wallet} />

@@ -76,8 +76,8 @@ describe("deploy.sh's SMTP settings", () => {
 
   it("writes the mail settings, and refuses a value that systemd or dotenv would read differently", () => {
     writeFileSync(env, "PORT=3000\n");
-    expect(apply("SMTP_HOST=smtp.example.com\nSMTP_PORT=587\nSMTP_USER=apikey\nSMTP_PASSWORD=s3cret-Pass_word!\nSMTP_FROM=CoteRadar <no-reply@example.com>\n").status).toBe(0);
-    expect(readFileSync(env, "utf8")).toContain("SMTP_FROM=CoteRadar <no-reply@example.com>\n");
+    expect(apply("SMTP_HOST=smtp.example.com\nSMTP_PORT=587\nSMTP_USER=apikey\nSMTP_PASSWORD=s3cret-Pass_word!\nSMTP_FROM=OddsBlitzer <no-reply@example.com>\n").status).toBe(0);
+    expect(readFileSync(env, "utf8")).toContain("SMTP_FROM=OddsBlitzer <no-reply@example.com>\n");
     for (const bad of ['SMTP_PASSWORD=has space', 'SMTP_PASSWORD=has"quote', "SMTP_PASSWORD=has$dollar", "SMTP_HOST=host;reboot", "SMTP_PORT=abc"]) {
       expect(apply(`${bad}\n`).status).not.toBe(0);
     }
@@ -124,15 +124,15 @@ describe("deploy.sh's branch and services", () => {
     expect(run("checkout ''", {}).status).toBe(0);
     expect(sha("HEAD")).toBe(main);
     expect(run(`checkout ${dev}`, {}).stderr).toContain(`${dev} is not a commit of origin/main`);
-    expect(run('echo "${SERVICES[*]}"', {}).stdout.trim()).toBe("coteradar-worker coteradar-web");
+    expect(run('echo "${SERVICES[*]}"', {}).stdout.trim()).toBe("oddsradar-worker oddsradar-web");
   });
 
   it("deploys development to the staging services when the forced command says so", () => {
     const dev = sha("origin/development");
-    const staging = { DEPLOY_BRANCH: "development", DEPLOY_SERVICES: "coteradar-staging-worker coteradar-staging-web" };
+    const staging = { DEPLOY_BRANCH: "development", DEPLOY_SERVICES: "oddsradar-staging-worker oddsradar-staging-web" };
     expect(run(`checkout ${dev}`, staging).status).toBe(0);
     expect(sha("HEAD")).toBe(dev);
-    expect(run('echo "${SERVICES[*]}"', staging).stdout.trim()).toBe("coteradar-staging-worker coteradar-staging-web");
+    expect(run('echo "${SERVICES[*]}"', staging).stdout.trim()).toBe("oddsradar-staging-worker oddsradar-staging-web");
   });
 
   it("refuses a branch name that isn't one", () => {

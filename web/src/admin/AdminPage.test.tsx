@@ -53,51 +53,51 @@ describe("AdminPage", () => {
 
   it("lists the accounts with their confirmation, subscription, role and status", async () => {
     renderPage([ME, ADA, PENDING]);
-    expect(await screen.findByText("3 comptes")).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: "Utilisateurs", selected: true })).toBeInTheDocument();
+    expect(await screen.findByText("3 accounts")).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Users", selected: true })).toBeInTheDocument();
 
     const ada = within(rowOf("ada@example.com"));
-    expect(ada.getByText("Validé")).toBeInTheDocument();
-    expect(ada.getByText("Aucun abonnement")).toBeInTheDocument();
-    expect(ada.getByText("Utilisateur")).toBeInTheDocument();
-    expect(ada.getByText("Actif")).toBeInTheDocument();
-    expect(within(rowOf("pending@example.com")).getByText("Non validé")).toBeInTheDocument();
+    expect(ada.getByText("Confirmed")).toBeInTheDocument();
+    expect(ada.getByText("No subscription")).toBeInTheDocument();
+    expect(ada.getByText("User")).toBeInTheDocument();
+    expect(ada.getByText("Active")).toBeInTheDocument();
+    expect(within(rowOf("pending@example.com")).getByText("Not confirmed")).toBeInTheDocument();
     expect(within(rowOf("root@example.com")).getByText("Admin")).toBeInTheDocument();
   });
 
   it("leaves the signed-in admin's own account alone", async () => {
     renderPage([ME, ADA]);
     const own = within(await screen.findByRole("row", { name: /root@example.com/ }));
-    expect(own.getByText("(vous)")).toBeInTheDocument();
-    expect(own.getByRole("button", { name: /Bloquer/ })).toBeDisabled();
-    expect(own.getByRole("button", { name: /Retirer admin/ })).toBeDisabled();
-    expect(within(rowOf("ada@example.com")).getByRole("button", { name: /Bloquer/ })).toBeEnabled();
+    expect(own.getByText("(you)")).toBeInTheDocument();
+    expect(own.getByRole("button", { name: /Block/ })).toBeDisabled();
+    expect(own.getByRole("button", { name: /Remove admin/ })).toBeDisabled();
+    expect(within(rowOf("ada@example.com")).getByRole("button", { name: /Block/ })).toBeEnabled();
   });
 
   it("blocks an account after a confirmation, and shows it blocked", async () => {
     vi.spyOn(window, "confirm").mockReturnValue(true);
     const fetchMock = renderPage([ME, ADA], () => reply({ user: { ...ADA, status: "disabled" } }));
-    fireEvent.click(await within(await screen.findByRole("row", { name: /ada@example.com/ })).findByRole("button", { name: /Bloquer/ }));
+    fireEvent.click(await within(await screen.findByRole("row", { name: /ada@example.com/ })).findByRole("button", { name: /Block/ }));
 
-    await waitFor(() => expect(within(rowOf("ada@example.com")).getByText("Bloqué")).toBeInTheDocument());
+    await waitFor(() => expect(within(rowOf("ada@example.com")).getByText("Blocked")).toBeInTheDocument());
     expect(window.confirm).toHaveBeenCalledWith(expect.stringContaining("ada@example.com"));
     const [url, init] = fetchMock.mock.calls.find(([, i]) => i?.method === "PATCH")!;
     expect(url).toBe("/api/admin/users/u1");
     expect(JSON.parse(String(init?.body))).toEqual({ status: "disabled" });
-    expect(within(rowOf("ada@example.com")).getByRole("button", { name: /Débloquer/ })).toBeInTheDocument();
+    expect(within(rowOf("ada@example.com")).getByRole("button", { name: /Unblock/ })).toBeInTheDocument();
   });
 
   it("does nothing when the confirmation is declined", async () => {
     vi.spyOn(window, "confirm").mockReturnValue(false);
     const fetchMock = renderPage([ME, ADA]);
-    fireEvent.click(await within(await screen.findByRole("row", { name: /ada@example.com/ })).findByRole("button", { name: /Bloquer/ }));
+    fireEvent.click(await within(await screen.findByRole("row", { name: /ada@example.com/ })).findByRole("button", { name: /Block/ }));
     expect(fetchMock.mock.calls.some(([, i]) => i?.method === "PATCH")).toBe(false);
   });
 
   it("makes an account an admin", async () => {
     vi.spyOn(window, "confirm").mockReturnValue(true);
     const fetchMock = renderPage([ME, ADA], () => reply({ user: { ...ADA, role: "admin" } }));
-    fireEvent.click(await within(await screen.findByRole("row", { name: /ada@example.com/ })).findByRole("button", { name: /Nommer admin/ }));
+    fireEvent.click(await within(await screen.findByRole("row", { name: /ada@example.com/ })).findByRole("button", { name: /Make admin/ }));
 
     await waitFor(() => expect(within(rowOf("ada@example.com")).getByText("Admin")).toBeInTheDocument());
     const [, init] = fetchMock.mock.calls.find(([, i]) => i?.method === "PATCH")!;
@@ -106,22 +106,22 @@ describe("AdminPage", () => {
 
   it("shows the server's message when a change is refused", async () => {
     vi.spyOn(window, "confirm").mockReturnValue(true);
-    renderPage([ME, ADA], () => reply({ error: "self", message: "Vous ne pouvez pas modifier votre propre compte." }, 409));
-    fireEvent.click(await within(await screen.findByRole("row", { name: /ada@example.com/ })).findByRole("button", { name: /Bloquer/ }));
-    expect(await screen.findByRole("alert")).toHaveTextContent("Vous ne pouvez pas modifier votre propre compte.");
-    expect(within(rowOf("ada@example.com")).getByText("Actif")).toBeInTheDocument();
+    renderPage([ME, ADA], () => reply({ error: "self", message: "You cannot change your own account." }, 409));
+    fireEvent.click(await within(await screen.findByRole("row", { name: /ada@example.com/ })).findByRole("button", { name: /Block/ }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("You cannot change your own account.");
+    expect(within(rowOf("ada@example.com")).getByText("Active")).toBeInTheDocument();
   });
 
   it("says so when the list can't be loaded, and tries again on request", async () => {
-    const fetchMock = vi.fn().mockReturnValueOnce(reply({ message: "Accès refusé." }, 403)).mockReturnValue(reply({ users: [ME] }));
+    const fetchMock = vi.fn().mockReturnValueOnce(reply({ message: "Access denied." }, 403)).mockReturnValue(reply({ users: [ME] }));
     vi.stubGlobal("fetch", fetchMock);
     render(
       <AuthContext.Provider value={auth}>
         <AdminPage />
       </AuthContext.Provider>
     );
-    expect(await screen.findByRole("alert")).toHaveTextContent("Accès refusé.");
-    fireEvent.click(screen.getByRole("button", { name: "Réessayer" }));
-    expect(await screen.findByText("1 compte")).toBeInTheDocument();
+    expect(await screen.findByRole("alert")).toHaveTextContent("Access denied.");
+    fireEvent.click(screen.getByRole("button", { name: "Try again" }));
+    expect(await screen.findByText("1 account")).toBeInTheDocument();
   });
 });

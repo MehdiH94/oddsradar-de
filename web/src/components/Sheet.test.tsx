@@ -5,9 +5,9 @@ import { Sheet } from "./Sheet";
 describe("Sheet", () => {
   const renderSheet = (onClose = vi.fn()) =>
     render(
-      <Sheet id="s" title="Filtres" open onClose={onClose} footer={<button type="button">Voir</button>}>
+      <Sheet id="s" title="Filters" open onClose={onClose} footer={<button type="button">Show</button>}>
         <label>
-          <input type="checkbox" /> Winamax
+          <input type="checkbox" /> LeoVegas
         </label>
       </Sheet>
     );
@@ -15,7 +15,7 @@ describe("Sheet", () => {
   it("is a modal dialog named by its title, and takes the focus", () => {
     renderSheet();
 
-    const dialog = screen.getByRole("dialog", { name: "Filtres" });
+    const dialog = screen.getByRole("dialog", { name: "Filters" });
     expect(dialog).toHaveAttribute("aria-modal", "true");
     expect(dialog).toHaveFocus();
     expect(document.body.style.overflow).toBe("hidden");
@@ -24,7 +24,7 @@ describe("Sheet", () => {
   it("keeps Tab inside it", () => {
     renderSheet();
     const close = screen.getByRole("button", { name: "Fermer" });
-    const last = screen.getByRole("button", { name: "Voir" });
+    const last = screen.getByRole("button", { name: "Show" });
 
     last.focus();
     fireEvent.keyDown(document, { key: "Tab" });
@@ -46,7 +46,7 @@ describe("Sheet", () => {
 
   it("renders nothing while closed", () => {
     render(
-      <Sheet id="s" title="Filtres" open={false} onClose={() => {}}>
+      <Sheet id="s" title="Filters" open={false} onClose={() => {}}>
         x
       </Sheet>
     );

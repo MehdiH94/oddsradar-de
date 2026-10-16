@@ -67,7 +67,7 @@ export function FilterBar({
   onReset?: () => void;
 }) {
   return (
-    <div className={styles.bar} role="search" aria-label="Filtres">
+    <div className={styles.bar} role="search" aria-label="Filters">
       {sports && (
         <div className={styles.sports}>
           <div className={styles.inner}>
@@ -96,7 +96,7 @@ export function FilterBar({
               {onReset && (
                 <button type="button" className={styles.reset} onClick={onReset}>
                   <RotateCcw size={14} aria-hidden="true" />
-                  Réinitialiser les filtres
+                  Reset the filters
                 </button>
               )}
             </>

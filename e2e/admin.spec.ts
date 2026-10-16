@@ -9,13 +9,13 @@ const newEmail = (name: string) => `${name}-${Date.now()}@example.com`;
 
 test("a visitor and an ordinary account cannot get into the administration", async ({ page }) => {
   await page.goto("/admin");
-  await expect(page).toHaveURL(/\/connexion\?next=%2Fadmin/);
+  await expect(page).toHaveURL(/\/login\?next=%2Fadmin/);
 
   await logIn(page, SEEDED_USER.email, SEEDED_USER.password);
   // Back on /admin, which is not for them: the odds instead.
-  await expect(page).toHaveURL(/\/cotes/);
+  await expect(page).toHaveURL(/\/odds/);
   await page.goto("/admin");
-  await expect(page).toHaveURL(/\/cotes/);
+  await expect(page).toHaveURL(/\/odds/);
   await expect(page.getByRole("link", { name: "Administration" })).toHaveCount(0);
 
   expect((await page.request.get("/api/admin/users")).status()).toBe(403);
@@ -31,7 +31,7 @@ test("an admin lists the accounts, blocks one that is then locked out, and makes
   const other = await browser.newContext();
   const otherPage = await other.newPage();
   await logIn(otherPage, blocked, NEW_PASSWORD);
-  await expect(otherPage).toHaveURL(/\/cotes/);
+  await expect(otherPage).toHaveURL(/\/odds/);
 
   await logIn(page, SEEDED_ADMIN.email, SEEDED_ADMIN.password);
   await page.getByRole("link", { name: "Administration" }).click();
@@ -39,28 +39,28 @@ test("an admin lists the accounts, blocks one that is then locked out, and makes
   await expect(page.getByRole("heading", { name: "Administration", level: 1 })).toBeVisible();
 
   const row = (email: string) => page.getByRole("row", { name: new RegExp(email) });
-  await expect(row(blocked)).toContainText("Validé");
-  await expect(row(blocked)).toContainText("Aucun abonnement");
+  await expect(row(blocked)).toContainText("Confirmed");
+  await expect(row(blocked)).toContainText("No subscription");
   await expect(row(SEEDED_ADMIN.email)).toContainText("Admin");
 
   page.on("dialog", (dialog) => void dialog.accept());
-  await row(blocked).getByRole("button", { name: /Bloquer/ }).click();
-  await expect(row(blocked)).toContainText("Bloqué");
+  await row(blocked).getByRole("button", { name: /Block/ }).click();
+  await expect(row(blocked)).toContainText("Blocked");
 
   // Signed out at once, and refused at the login.
   expect((await otherPage.request.get("/api/events")).status()).toBe(401);
   await logIn(otherPage, blocked, NEW_PASSWORD);
-  await expect(otherPage.getByRole("alert")).toContainText("Ce compte est désactivé");
+  await expect(otherPage.getByRole("alert")).toContainText("This account is disabled");
   await other.close();
 
-  await row(promoted).getByRole("button", { name: /Nommer admin/ }).click();
+  await row(promoted).getByRole("button", { name: /Make admin/ }).click();
   await expect(row(promoted)).toContainText("Admin");
-  await expect(row(promoted).getByRole("button", { name: /Retirer admin/ })).toBeVisible();
+  await expect(row(promoted).getByRole("button", { name: /Remove admin/ })).toBeVisible();
 
   // An admin does not act on their own account.
-  await expect(row(SEEDED_ADMIN.email).getByRole("button", { name: /Bloquer/ })).toBeDisabled();
+  await expect(row(SEEDED_ADMIN.email).getByRole("button", { name: /Block/ })).toBeDisabled();
 
   // The page reloads on its own address.
   await page.reload();
-  await expect(row(blocked)).toContainText("Bloqué");
+  await expect(row(blocked)).toContainText("Blocked");
 });

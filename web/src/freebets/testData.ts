@@ -12,7 +12,7 @@ const match = (id: string, home: string, away: string, prices: MatchView["prices
   market: "1X2",
   outcomes: [
     { key: "1", label: home },
-    { key: "X", label: "Nul" },
+    { key: "X", label: "Draw" },
     { key: "2", label: away },
   ],
   prices,
@@ -28,10 +28,10 @@ export const PLAN_ONE: PlanView = {
   left: 3.1,
   exact: true,
   oddsAt: "2099-01-01T07:12:00.000Z",
-  matches: [match("psg-om", "Paris SG", "Marseille", { winamax: [2.2, 3.1, 3.5], betclic: [2.0, 3.3, 3.7] })],
+  matches: [match("psg-om", "Paris SG", "Marseille", { leovegas: [2.2, 3.1, 3.5], merkurbets: [2.0, 3.3, 3.7] })],
   bookmakers: [
-    { bookmaker: "winamax", fb: 30, used: 28.4, bets: [bet("Paris SG", 2.2, 12.4), bet("Marseille", 3.5, 16)] },
-    { bookmaker: "betclic", fb: 25.5, used: 24, bets: [bet("Nul", 3.3, 24)] },
+    { bookmaker: "leovegas", fb: 30, used: 28.4, bets: [bet("Paris SG", 2.2, 12.4), bet("Marseille", 3.5, 16)] },
+    { bookmaker: "merkurbets", fb: 25.5, used: 24, bets: [bet("Draw", 3.3, 24)] },
   ],
 };
 
@@ -43,7 +43,7 @@ export const PLAN_TWO: PlanView = {
   rate: 0.5207,
   left: 0,
   exact: false,
-  matches: [match("lyon-lille", "Lyon", "Lille", { winamax: [2.6, 3.0, 2.8], betclic: [2.2, 3.8, 3.0] })],
+  matches: [match("lyon-lille", "Lyon", "Lille", { leovegas: [2.6, 3.0, 2.8], merkurbets: [2.2, 3.8, 3.0] })],
 };
 
 export const PLAN_THREE: PlanView = {
@@ -53,13 +53,13 @@ export const PLAN_THREE: PlanView = {
   used: 40,
   rate: 0.503,
   left: 15.5,
-  matches: [match("nice-lens", "Nice", "Lens", { winamax: [2.1, 3.2, 3.9], betclic: [2.0, 3.3, 3.8] })],
+  matches: [match("nice-lens", "Nice", "Lens", { leovegas: [2.1, 3.2, 3.9], merkurbets: [2.0, 3.3, 3.8] })],
 };
 
 export const BOOKMAKERS_ANSWER: BookmakersAnswer = {
   mode: "bookmakers",
   legs: 1,
-  bookmakers: ["winamax", "betclic"],
+  bookmakers: ["leovegas", "merkurbets"],
   total: 55.5,
   eligibleSports: ["football", "tennis"],
   plans: [PLAN_ONE, PLAN_TWO, PLAN_THREE],
@@ -100,14 +100,14 @@ export const CHAIN: ChainView = {
   liability: 74.62,
   steps: [
     step(1, {}),
-    step(2, { participants: ["Augsbourg", "Hambourg"], selection: "X", label: "Nul", back: 3.9, lay: 3.95, laySize: 9, fb: 12.17, layStake: 9, cash: 8.73, rate: 0.7173, liability: 26.55, ifWins: { gain: 35.29, pays: 26.55, net: 8.74 }, ifLoses: { net: 8.73 } }),
+    step(2, { participants: ["Augsbourg", "Hambourg"], selection: "X", label: "Draw", back: 3.9, lay: 3.95, laySize: 9, fb: 12.17, layStake: 9, cash: 8.73, rate: 0.7173, liability: 26.55, ifWins: { gain: 35.29, pays: 26.55, net: 8.74 }, ifLoses: { net: 8.73 } }),
     step(3, { participants: ["Lille", "Lens"], label: "Lens", back: 3.85, lay: 3.9, laySize: 120, fb: 3.71, layStake: 2.73, cash: 2.65, rate: 0.7143, liability: 7.92, ifWins: { gain: 10.57, pays: 7.92, net: 2.65 }, ifLoses: { net: 2.65 }, limited: false }),
   ],
 };
 
 export const EXCHANGE_ANSWER: ExchangeAnswer = {
   mode: "exchange",
-  bookmaker: "betclic",
+  bookmaker: "merkurbets",
   fb: 30,
   commission: 0.03,
   eligibleSports: ["football"],

@@ -23,8 +23,8 @@ describe("loadFreebetMarkets", () => {
 
   it("lists a 1X2 and a winner with each bookmaker's price on every outcome, soonest first", () => {
     upsertCanonicalEvents(db, [
-      event("tennis", "tennis", ["Ada", "Bob"], { winamax: main("Vainqueur du match", { "1": 1.8, "2": 2.1 }), betclic: main("Vainqueur du match", { "1": 1.75, "2": 2.2 }) }, hoursFromNow(30)),
-      event("psg", "football", ["PSG", "OM"], { winamax: main("1X2", { "1": 2.3, X: 3.2, "2": 3.5 }), betclic: main("1X2", { "1": 2.25, X: 3.3, "2": 3.4 }) }),
+      event("tennis", "tennis", ["Ada", "Bob"], { leovegas: main("Vainqueur du match", { "1": 1.8, "2": 2.1 }), merkurbets: main("Vainqueur du match", { "1": 1.75, "2": 2.2 }) }, hoursFromNow(30)),
+      event("psg", "football", ["PSG", "OM"], { leovegas: main("1X2", { "1": 2.3, X: 3.2, "2": 3.5 }), merkurbets: main("1X2", { "1": 2.25, X: 3.3, "2": 3.4 }) }),
     ]);
     const markets = loadFreebetMarkets(db);
     expect(markets.map((m) => m.eventId)).toEqual(["psg", "tennis"]);
@@ -34,15 +34,15 @@ describe("loadFreebetMarkets", () => {
       participants: ["PSG", "OM"],
       market: "1X2",
       outcomes: ["1", "X", "2"],
-      prices: { winamax: [2.3, 3.2, 3.5], betclic: [2.25, 3.3, 3.4] },
+      prices: { leovegas: [2.3, 3.2, 3.5], merkurbets: [2.25, 3.3, 3.4] },
       exchange: {},
     });
-    expect(markets[0].scrapedAt.winamax).toMatch(/^\d{4}-\d{2}-\d{2}T/);
-    expect(markets[1]).toMatchObject({ market: "Vainqueur du match", outcomes: ["1", "2"], prices: { winamax: [1.8, 2.1], betclic: [1.75, 2.2] } });
+    expect(markets[0].scrapedAt.leovegas).toMatch(/^\d{4}-\d{2}-\d{2}T/);
+    expect(markets[1]).toMatchObject({ market: "Vainqueur du match", outcomes: ["1", "2"], prices: { leovegas: [1.8, 2.1], merkurbets: [1.75, 2.2] } });
   });
 
   it("leaves out a match that has started, one beyond the week, and one whose prices are stale", () => {
-    const both = (a: number) => ({ winamax: main("1X2", { "1": a, X: 3, "2": 3 }), betclic: main("1X2", { "1": a, X: 3, "2": 3 }) });
+    const both = (a: number) => ({ leovegas: main("1X2", { "1": a, X: 3, "2": 3 }), merkurbets: main("1X2", { "1": a, X: 3, "2": 3 }) });
     upsertCanonicalEvents(db, [
       event("ok", "football", ["A", "B"], both(2)),
       event("started", "football", ["C", "D"], both(2), hoursFromNow(-1)),
@@ -58,8 +58,8 @@ describe("loadFreebetMarkets", () => {
 
   it("leaves out a race, whose winner is one among many", () => {
     upsertCanonicalEvents(db, [
-      event("race", "cycling", ["Tour"], { winamax: main("Vainqueur", { A: 3, B: 4, C: 5 }), betclic: main("Vainqueur", { A: 3.1, B: 4.2, C: 5.5 }) }),
-      event("ok", "football", ["A", "B"], { winamax: main("1X2", { "1": 2, X: 3, "2": 3 }), betclic: main("1X2", { "1": 2, X: 3, "2": 3 }) }),
+      event("race", "cycling", ["Tour"], { leovegas: main("Vainqueur", { A: 3, B: 4, C: 5 }), merkurbets: main("Vainqueur", { A: 3.1, B: 4.2, C: 5.5 }) }),
+      event("ok", "football", ["A", "B"], { leovegas: main("1X2", { "1": 2, X: 3, "2": 3 }), merkurbets: main("1X2", { "1": 2, X: 3, "2": 3 }) }),
     ]);
     expect(loadFreebetMarkets(db).map((m) => m.eventId)).toEqual(["ok"]);
   });
@@ -67,21 +67,22 @@ describe("loadFreebetMarkets", () => {
   it("does not use a bookmaker that does not price every outcome, nor a price of 1 or less", () => {
     upsertCanonicalEvents(db, [
       event("psg", "football", ["PSG", "OM"], {
-        winamax: main("1X2", { "1": 2.3, X: 3.2, "2": 3.5 }),
+        leovegas: main("1X2", { "1": 2.3, X: 3.2, "2": 3.5 }),
         // Its draw is suspended.
-        betclic: main("1X2", { "1": 2.25, "2": 3.4 }),
-        unibet: main("1X2", { "1": 2.2, X: 3.1, "2": 3.6 }),
-        pmu: main("1X2", { "1": 1, X: 3.1, "2": 3.6 }),
+        merkurbets: main("1X2", { "1": 2.25, "2": 3.4 }),
+      }),
+      event("ol", "football", ["OL", "OM"], {
+        leovegas: main("1X2", { "1": 2.3, X: 3.2, "2": 3.5 }),
+        merkurbets: main("1X2", { "1": 1, X: 3.1, "2": 3.6 }),
       }),
     ]);
-    const [market] = loadFreebetMarkets(db);
-    expect(Object.keys(market.prices).sort()).toEqual(["unibet", "winamax"]);
+    for (const market of loadFreebetMarkets(db)) expect(Object.keys(market.prices)).toEqual(["leovegas"]);
   });
 
   it("needs two bookmakers, or one of them and the exchange", () => {
     upsertCanonicalEvents(db, [
-      event("one", "football", ["A", "B"], { winamax: main("1X2", { "1": 2, X: 3, "2": 3 }) }),
-      event("two", "football", ["C", "D"], { winamax: main("1X2", { "1": 2, X: 3, "2": 3 }) }),
+      event("one", "football", ["A", "B"], { leovegas: main("1X2", { "1": 2, X: 3, "2": 3 }) }),
+      event("two", "football", ["C", "D"], { leovegas: main("1X2", { "1": 2, X: 3, "2": 3 }) }),
     ]);
     saveReferenceOdds(
       db,
@@ -95,8 +96,8 @@ describe("loadFreebetMarkets", () => {
   describe("the exchange's lay prices", () => {
     beforeEach(() => {
       upsertCanonicalEvents(db, [
-        event("psg", "football", ["PSG", "OM"], { winamax: main("1X2", { "1": 2.3, X: 3.2, "2": 3.5 }), betclic: main("1X2", { "1": 2.25, X: 3.3, "2": 3.4 }) }),
-        event("nba", "basketball", ["Lakers", "Celtics"], { winamax: main("Vainqueur du match", { "1": 2.3, "2": 1.6 }), betclic: main("Vainqueur du match", { "1": 2.2, "2": 1.65 }) }),
+        event("psg", "football", ["PSG", "OM"], { leovegas: main("1X2", { "1": 2.3, X: 3.2, "2": 3.5 }), merkurbets: main("1X2", { "1": 2.25, X: 3.3, "2": 3.4 }) }),
+        event("nba", "basketball", ["Lakers", "Celtics"], { leovegas: main("Vainqueur du match", { "1": 2.3, "2": 1.6 }), merkurbets: main("Vainqueur du match", { "1": 2.2, "2": 1.65 }) }),
       ]);
     });
     const football = (laySize: Record<string, number>, scrapedAt = now()) =>

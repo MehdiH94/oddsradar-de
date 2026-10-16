@@ -1,0 +1,1364 @@
+{
+ "status": "ok",
+ "code": 200,
+ "data": {
+  "page": 1,
+  "firstPage": 1,
+  "lastPage": 41,
+  "totalCount": 242,
+  "limit": 6,
+  "items": [
+   {
+    "id": 11648643,
+    "sbEventId": 11648643,
+    "vendorId": 1,
+    "vendorEventId": "sr:match:72909078",
+    "sportId": 4,
+    "sportCategoryId": 390,
+    "leagueId": 1013499,
+    "roundId": 1018448,
+    "isTop": 1,
+    "isTopLive": 1,
+    "status": 2,
+    "team1": "",
+    "team2": "",
+    "competitor1Id": 88255,
+    "competitor2Id": 88258,
+    "time": "2026-10-15 23:00:00",
+    "translationSlug": "new-jersey-devils-new-york-rangers",
+    "defaultSlug": "new-jersey-devils-new-york-rangers",
+    "liveMatchTracker": "https://ws-cdn001.akamaized.net/sportradar/en/standalone/match.lmtPlus#matchId=72909078",
+    "roundType": null,
+    "cupLevel": null,
+    "isCashoutAvailable": true,
+    "backgroundImage": null,
+    "statistic_exists": 0,
+    "hasBetBuilder": false,
+    "oddsBooster": false,
+    "isHomeAwayReversed": false
+   },
+   {
+    "id": 11649020,
+    "sbEventId": 11649020,
+    "vendorId": 1,
+    "vendorEventId": "sr:match:72909068",
+    "sportId": 4,
+    "sportCategoryId": 390,
+    "leagueId": 1013499,
+    "roundId": 1018448,
+    "isTop": 1,
+    "isTopLive": 1,
+    "status": 2,
+    "team1": "",
+    "team2": "",
+    "competitor1Id": 88187,
+    "competitor2Id": 88275,
+    "time": "2026-10-15 23:00:00",
+    "translationSlug": "toronto-maple-leafs-buffalo-sabres",
+    "defaultSlug": "toronto-maple-leafs-buffalo-sabres",
+    "liveMatchTracker": "https://ws-cdn001.akamaized.net/sportradar/en/standalone/match.lmtPlus#matchId=72909068",
+    "roundType": null,
+    "cupLevel": null,
+    "isCashoutAvailable": true,
+    "backgroundImage": null,
+    "statistic_exists": 0,
+    "hasBetBuilder": false,
+    "oddsBooster": false,
+    "isHomeAwayReversed": false
+   },
+   {
+    "id": 11649005,
+    "sbEventId": 11649005,
+    "vendorId": 1,
+    "vendorEventId": "sr:match:72909074",
+    "sportId": 4,
+    "sportCategoryId": 390,
+    "leagueId": 1013499,
+    "roundId": 1018448,
+    "isTop": 1,
+    "isTopLive": 1,
+    "status": 2,
+    "team1": "",
+    "team2": "",
+    "competitor1Id": 33195,
+    "competitor2Id": 137014,
+    "time": "2026-10-15 23:00:00",
+    "translationSlug": "tampa-bay-lightning-seattle-kraken",
+    "defaultSlug": "tampa-bay-lightning-seattle-kraken",
+    "liveMatchTracker": "https://ws-cdn001.akamaized.net/sportradar/en/standalone/match.lmtPlus#matchId=72909074",
+    "roundType": null,
+    "cupLevel": null,
+    "isCashoutAvailable": true,
+    "backgroundImage": null,
+    "statistic_exists": 0,
+    "hasBetBuilder": false,
+    "oddsBooster": false,
+    "isHomeAwayReversed": false
+   },
+   {
+    "id": 11648902,
+    "sbEventId": 11648902,
+    "vendorId": 1,
+    "vendorEventId": "sr:match:72909070",
+    "sportId": 4,
+    "sportCategoryId": 390,
+    "leagueId": 1013499,
+    "roundId": 1018448,
+    "isTop": 1,
+    "isTopLive": 1,
+    "status": 2,
+    "team1": "",
+    "team2": "",
+    "competitor1Id": 89779,
+    "competitor2Id": 88262,
+    "time": "2026-10-15 23:00:00",
+    "translationSlug": "ottawa-senators-new-york-islanders",
+    "defaultSlug": "ottawa-senators-new-york-islanders",
+    "liveMatchTracker": "https://ws-cdn001.akamaized.net/sportradar/en/standalone/match.lmtPlus#matchId=72909070",
+    "roundType": null,
+    "cupLevel": null,
+    "isCashoutAvailable": true,
+    "backgroundImage": null,
+    "statistic_exists": 0,
+    "hasBetBuilder": false,
+    "oddsBooster": false,
+    "isHomeAwayReversed": false
+   },
+   {
+    "id": 11648521,
+    "sbEventId": 11648521,
+    "vendorId": 1,
+    "vendorEventId": "sr:match:72909076",
+    "sportId": 4,
+    "sportCategoryId": 390,
+    "leagueId": 1013499,
+    "roundId": 1018448,
+    "isTop": 1,
+    "isTopLive": 1,
+    "status": 2,
+    "team1": "",
+    "team2": "",
+    "competitor1Id": 88270,
+    "competitor2Id": 88184,
+    "time": "2026-10-15 23:00:00",
+    "translationSlug": "florida-panthers-vancouver-canucks",
+    "defaultSlug": "florida-panthers-vancouver-canucks",
+    "liveMatchTracker": "https://ws-cdn001.akamaized.net/sportradar/en/standalone/match.lmtPlus#matchId=72909076",
+    "roundType": null,
+    "cupLevel": null,
+    "isCashoutAvailable": true,
+    "backgroundImage": null,
+    "statistic_exists": 0,
+    "hasBetBuilder": false,
+    "oddsBooster": false,
+    "isHomeAwayReversed": false
+   },
+   {
+    "id": 11648402,
+    "sbEventId": 11648402,
+    "vendorId": 1,
+    "vendorEventId": "sr:match:72909072",
+    "sportId": 4,
+    "sportCategoryId": 390,
+    "leagueId": 1013499,
+    "roundId": 1018448,
+    "isTop": 1,
+    "isTopLive": 1,
+    "status": 0,
+    "team1": "",
+    "team2": "",
+    "competitor1Id": 88260,
+    "competitor2Id": 88192,
+    "time": "2026-10-15 23:30:00",
+    "translationSlug": "detroit-red-wings-philadelphia-flyers",
+    "defaultSlug": "detroit-red-wings-philadelphia-flyers",
+    "liveMatchTracker": "https://ws-cdn001.akamaized.net/sportradar/en/standalone/match.lmtPlus#matchId=72909072",
+    "roundType": null,
+    "cupLevel": null,
+    "isCashoutAvailable": true,
+    "backgroundImage": null,
+    "statistic_exists": 0,
+    "hasBetBuilder": false,
+    "oddsBooster": false,
+    "isHomeAwayReversed": false
+   }
+  ],
+  "relations": {
+   "attributes": {},
+   "competitors": [
+    {
+     "id": 33195,
+     "countryId": 237,
+     "name": "Tampa Bay Lightning",
+     "abbreviation": "TB",
+     "gender": 1,
+     "logo": "https://d1wfowvne3d4em.cloudfront.net/competitors/3694.png",
+     "players": [
+      904016,
+      147503
+     ],
+     "ageGroup": null
+    },
+    {
+     "id": 88184,
+     "countryId": 41,
+     "name": "Vancouver Canucks",
+     "abbreviation": "VAN",
+     "gender": 1,
+     "logo": "https://d1wfowvne3d4em.cloudfront.net/competitors/3692.png",
+     "players": [
+      852960,
+      940388
+     ],
+     "ageGroup": null
+    },
+    {
+     "id": 88187,
+     "countryId": 41,
+     "name": "Toronto Maple Leafs",
+     "abbreviation": "TOR",
+     "gender": 1,
+     "logo": "https://d1wfowvne3d4em.cloudfront.net/competitors/3693.png",
+     "players": [
+      353318,
+      47945
+     ],
+     "ageGroup": null
+    },
+    {
+     "id": 88192,
+     "countryId": 237,
+     "name": "Philadelphia Flyers",
+     "abbreviation": "PHI",
+     "gender": 1,
+     "logo": "https://d1wfowvne3d4em.cloudfront.net/competitors/3699.png",
+     "players": [
+      899388,
+      180841
+     ],
+     "ageGroup": null
+    },
+    {
+     "id": 88255,
+     "countryId": 237,
+     "name": "New Jersey Devils",
+     "abbreviation": "NJ",
+     "gender": 1,
+     "logo": "https://d1wfowvne3d4em.cloudfront.net/competitors/3704.png",
+     "players": [
+      820502,
+      1980395
+     ],
+     "ageGroup": null
+    },
+    {
+     "id": 88262,
+     "countryId": 237,
+     "name": "New York Islanders",
+     "abbreviation": "NYI",
+     "gender": 1,
+     "logo": "https://d1wfowvne3d4em.cloudfront.net/competitors/3703.png",
+     "players": [
+      323191,
+      223504
+     ],
+     "ageGroup": null
+    },
+    {
+     "id": 137014,
+     "countryId": 237,
+     "name": "Seattle Kraken",
+     "abbreviation": "SEA",
+     "gender": 1,
+     "logo": "https://d1wfowvne3d4em.cloudfront.net/competitors/794340.png",
+     "players": [
+      89494,
+      2056459
+     ],
+     "ageGroup": null
+    },
+    {
+     "id": 88258,
+     "countryId": 237,
+     "name": "New York Rangers",
+     "abbreviation": "NYR",
+     "gender": 1,
+     "logo": "https://d1wfowvne3d4em.cloudfront.net/competitors/3701.png",
+     "players": [
+      1654151,
+      145201
+     ],
+     "ageGroup": null
+    },
+    {
+     "id": 88260,
+     "countryId": 237,
+     "name": "Detroit Red Wings",
+     "abbreviation": "DET",
+     "gender": 1,
+     "logo": "https://d1wfowvne3d4em.cloudfront.net/competitors/3685.png",
+     "players": [
+      1590860,
+      1598328
+     ],
+     "ageGroup": null
+    },
+    {
+     "id": 88270,
+     "countryId": 237,
+     "name": "Florida Panthers",
+     "abbreviation": "FLA",
+     "gender": 1,
+     "logo": "https://d1wfowvne3d4em.cloudfront.net/competitors/3687.png",
+     "players": [
+      904656,
+      1083694
+     ],
+     "ageGroup": null
+    },
+    {
+     "id": 88275,
+     "countryId": 237,
+     "name": "Buffalo Sabres",
+     "abbreviation": "BUF",
+     "gender": 1,
+     "logo": "https://d1wfowvne3d4em.cloudfront.net/competitors/3678.png",
+     "players": [
+      2066981,
+      1650185
+     ],
+     "ageGroup": null
+    },
+    {
+     "id": 89779,
+     "countryId": 41,
+     "name": "Ottawa Senators",
+     "abbreviation": "OTT",
+     "gender": 1,
+     "logo": "https://d1wfowvne3d4em.cloudfront.net/competitors/3700.png",
+     "players": [
+      1869842,
+      905318
+     ],
+     "ageGroup": null
+    }
+   ],
+   "league": [
+    {
+     "countryCode": "NHL",
+     "defaultSlug": "nhl",
+     "description": "[]",
+     "endDate": "1-01-00",
+     "express": 1,
+     "flagCode": "NHL",
+     "flagURL": "https://d1wfowvne3d4em.cloudfront.net/flags/nhl.svg",
+     "hasLiveEvents": true,
+     "hasOutrights": true,
+     "hasPrematchEvents": true,
+     "id": 1013499,
+     "isOutright": false,
+     "name": "NHL",
+     "order": 19,
+     "sportCategoryId": 390,
+     "sportId": 4,
+     "startDate": "1-01-00",
+     "top": 1,
+     "topLive": 1,
+     "translationSlug": "nhl",
+     "type": 0
+    }
+   ],
+   "odds": {
+    "11648402": [
+     {
+      "connectionId": 103,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 621,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1,
+        "odds": 2.17,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.445453,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 2,
+        "odds": 4.2,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.226902,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "2"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 3,
+        "odds": 2.95,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.327646,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "3"
+       }
+      ],
+      "product": 3,
+      "specifiers": null,
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 1
+     },
+     {
+      "connectionId": 103,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 289,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 12,
+        "odds": 6.8,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.1207802,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "12"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 13,
+        "odds": 1.11,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.87921995,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "13"
+       }
+      ],
+      "product": 3,
+      "specifiers": "total=8.5",
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 18
+     },
+     {
+      "connectionId": 103,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 131,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 12,
+        "odds": 2.05,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.463653,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "12"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 13,
+        "odds": 1.78,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.536347,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "13"
+       }
+      ],
+      "product": 3,
+      "specifiers": "total=6",
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 412
+     }
+    ],
+    "11648521": [
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": 1,
+      "id": 621,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1,
+        "odds": 1.57,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.60780275,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 2,
+        "odds": 4.6,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.19668016,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "2"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 3,
+        "odds": 4.65,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.19551682,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "3"
+       }
+      ],
+      "product": 1,
+      "specifiers": null,
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 1
+     },
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 289,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 12,
+        "odds": 1.12,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.8587865,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "12"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 13,
+        "odds": 5.8,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.14121346,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "13"
+       }
+      ],
+      "product": 1,
+      "specifiers": "total=3.5",
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 18
+     },
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 131,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 13,
+        "odds": 2.15,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.4391523,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "13"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 12,
+        "odds": 1.7,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.5608477,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "12"
+       }
+      ],
+      "product": 1,
+      "specifiers": "total=5.5",
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 412
+     }
+    ],
+    "11648643": [
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": 1,
+      "id": 621,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1,
+        "odds": 2.2,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.4276404,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 2,
+        "odds": 4.05,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.22744255,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "2"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 3,
+        "odds": 2.7,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.34491664,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "3"
+       }
+      ],
+      "product": 1,
+      "specifiers": null,
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 1
+     },
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 557,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1714,
+        "odds": 2.85,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.32038194,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1714"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1715,
+        "odds": 1.42,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.67961806,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1715"
+       }
+      ],
+      "product": 1,
+      "specifiers": "hcp=-1.5",
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 16
+     },
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 131,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 13,
+        "odds": 4.1,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.21244396,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "13"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 12,
+        "odds": 1.22,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.78755605,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "12"
+       }
+      ],
+      "product": 1,
+      "specifiers": "total=4.5",
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 412
+     }
+    ],
+    "11648902": [
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": 1,
+      "id": 621,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1,
+        "odds": 2,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.47531155,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 2,
+        "odds": 4.05,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.22788341,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "2"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 3,
+        "odds": 3.15,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.29680482,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "3"
+       }
+      ],
+      "product": 1,
+      "specifiers": null,
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 1
+     },
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": 1,
+      "id": 545,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 9,
+        "odds": 1.35,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.703195,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "9"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 10,
+        "odds": 1.22,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.77211636,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "10"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 11,
+        "odds": 1.75,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.52468824,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "11"
+       }
+      ],
+      "product": 1,
+      "specifiers": null,
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 10
+     },
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 557,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1714,
+        "odds": 3.6,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.24749172,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1714"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1715,
+        "odds": 1.27,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.7525083,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1715"
+       }
+      ],
+      "product": 1,
+      "specifiers": "hcp=-2.5",
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 16
+     }
+    ],
+    "11649005": [
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": 1,
+      "id": 621,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1,
+        "odds": 1.65,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.5769703,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 2,
+        "odds": 4.55,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.19953768,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "2"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 3,
+        "odds": 4.1,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.22349182,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "3"
+       }
+      ],
+      "product": 1,
+      "specifiers": null,
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 1
+     },
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": 1,
+      "id": 557,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1714,
+        "odds": 2,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.47039154,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1714"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1715,
+        "odds": 1.8,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.5296085,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1715"
+       }
+      ],
+      "product": 1,
+      "specifiers": "hcp=-1.5",
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 16
+     },
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": 1,
+      "id": 131,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 13,
+        "odds": 1.8,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.52875835,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "13"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 12,
+        "odds": 2,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.47124162,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "12"
+       }
+      ],
+      "product": 1,
+      "specifiers": "total=6.5",
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 412
+     }
+    ],
+    "11649020": [
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": 1,
+      "id": 621,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1,
+        "odds": 2.25,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.41371936,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 2,
+        "odds": 4.15,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.22224239,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "2"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 3,
+        "odds": 2.55,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.36403725,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "3"
+       }
+      ],
+      "product": 1,
+      "specifiers": null,
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 1
+     },
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 557,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1714,
+        "odds": 1.05,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.9265059,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1714"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 1715,
+        "odds": 9.25,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.07349406,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "1715"
+       }
+      ],
+      "product": 1,
+      "specifiers": "hcp=3.5",
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 16
+     },
+     {
+      "connectionId": 101,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 289,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 12,
+        "odds": 2.75,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.3340393,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "12"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 13,
+        "odds": 1.45,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": 0.66596067,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "13"
+       }
+      ],
+      "product": 1,
+      "specifiers": "total=7.5",
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 1,
+      "vendorMarketId": 18
+     }
+    ]
+   },
+   "tips": null,
+   "variants": [
+    {
+     "id": 96,
+     "name": "1:0"
+    },
+    {
+     "id": 119,
+     "name": "5:1"
+    },
+    {
+     "id": 105,
+     "name": "2:2"
+    },
+    {
+     "id": 101,
+     "name": "1:5"
+    },
+    {
+     "id": 102,
+     "name": "1:6"
+    },
+    {
+     "id": 110,
+     "name": "3:1"
+    },
+    {
+     "id": 118,
+     "name": "5:0"
+    },
+    {
+     "id": 100,
+     "name": "1:4"
+    },
+    {
+     "id": 121,
+     "name": "6:0"
+    },
+    {
+     "id": 89,
+     "name": "0:1"
+    },
+    {
+     "id": 111,
+     "name": "3:2"
+    },
+    {
+     "id": 91,
+     "name": "0:3"
+    },
+    {
+     "id": 116,
+     "name": "4:2"
+    },
+    {
+     "id": 108,
+     "name": "2:5"
+    },
+    {
+     "id": 115,
+     "name": "4:1"
+    },
+    {
+     "id": 124,
+     "name": "other"
+    },
+    {
+     "id": 106,
+     "name": "2:3"
+    },
+    {
+     "id": 114,
+     "name": "4:0"
+    },
+    {
+     "id": 90,
+     "name": "0:2"
+    },
+    {
+     "id": 103,
+     "name": "2:0"
+    },
+    {
+     "id": 123,
+     "name": "7:0"
+    },
+    {
+     "id": 197,
+     "name": "other"
+    },
+    {
+     "id": 94,
+     "name": "0:6"
+    },
+    {
+     "id": 95,
+     "name": "0:7"
+    },
+    {
+     "id": 88,
+     "name": "0:0"
+    },
+    {
+     "id": 107,
+     "name": "2:4"
+    },
+    {
+     "id": 97,
+     "name": "1:1"
+    },
+    {
+     "id": 99,
+     "name": "1:3"
+    },
+    {
+     "id": 122,
+     "name": "6:1"
+    },
+    {
+     "id": 109,
+     "name": "3:0"
+    },
+    {
+     "id": 98,
+     "name": "1:2"
+    },
+    {
+     "id": 92,
+     "name": "0:4"
+    },
+    {
+     "id": 120,
+     "name": "5:2"
+    },
+    {
+     "id": 117,
+     "name": "4:3"
+    },
+    {
+     "id": 93,
+     "name": "0:5"
+    },
+    {
+     "id": 112,
+     "name": "3:3"
+    },
+    {
+     "id": 113,
+     "name": "3:4"
+    },
+    {
+     "id": 104,
+     "name": "2:1"
+    }
+   ]
+  }
+ }
+}

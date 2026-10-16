@@ -182,7 +182,7 @@ describe("the golf reference cycle", () => {
 
       const bets = getValueBets(db, LONG).bets.filter((b) => b.market === "golf_top|5");
       expect(bets).toHaveLength(1);
-      expect(bets[0]).toMatchObject({ marketLabel: "Dans le Top 5", label: player, bookmaker: "betclic", basis: "fair", fair });
+      expect(bets[0]).toMatchObject({ marketLabel: "In the Top 5", label: player, bookmaker: "betclic", basis: "fair", fair });
       expect(bets[0].edge).toBeCloseTo(0.3, 9);
     });
   });
@@ -208,7 +208,7 @@ describe("the golf reference cycle", () => {
       expect(bets).toHaveLength(1);
       expect(bets[0]).toMatchObject({
         market: "Vainqueur",
-        marketLabel: "Vainqueur du tournoi",
+        marketLabel: "Tournament winner",
         selection: one.selection,
         label: one.selection,
         bookmaker: "betclic",

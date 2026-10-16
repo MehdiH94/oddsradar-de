@@ -1,0 +1,1192 @@
+{
+ "games": [
+  {
+   "id": 3197781242,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75373620
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 286707,
+     "name": "Shnaider, Diana",
+     "middleName": "Shnaider, D.",
+     "shortName": "Shnaider",
+     "textId": 1099512065544
+    },
+    {
+     "order": 1,
+     "id": 50765,
+     "name": "Ostapenko, Jelena",
+     "middleName": "Ostapen., J.",
+     "shortName": "Ostapen.",
+     "textId": 1099511797465
+    }
+   ],
+   "startTime": "2026-10-16T03:00:00Z",
+   "type": 4,
+   "sport": 2,
+   "leagueInfo": {
+    "id": 132798,
+    "order": 25530,
+    "name": "Tennis - WTA Wuhan",
+    "middleName": "WTA Wuhan",
+    "shortName": "WTA Wuhan",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 84,
+    "name": "China",
+    "shortName": "CHN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T03:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 24692,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141349,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2469201,
+       "oddsId": 3197781242,
+       "text": "1",
+       "textId": 6597069771666,
+       "odds": 140
+      },
+      {
+       "id": 2469203,
+       "oddsId": 3197781242,
+       "text": "2",
+       "textId": 6597069771667,
+       "odds": 273
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 7
+  },
+  {
+   "id": 3197781372,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75373604
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 84098,
+     "name": "Svitolina, Elina",
+     "middleName": "Svitoli., E.",
+     "shortName": "Svitoli.",
+     "textId": 1099511834548
+    },
+    {
+     "order": 1,
+     "id": 231002,
+     "name": "Kartal, Sonay",
+     "middleName": "Kartal, Sonay",
+     "shortName": "Kartal, Sonay",
+     "textId": 1099512004572
+    }
+   ],
+   "startTime": "2026-10-16T04:30:00Z",
+   "type": 4,
+   "sport": 2,
+   "leagueInfo": {
+    "id": 132798,
+    "order": 25530,
+    "name": "Tennis - WTA Wuhan",
+    "middleName": "WTA Wuhan",
+    "shortName": "WTA Wuhan",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 84,
+    "name": "China",
+    "shortName": "CHN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T04:30:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 24692,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141349,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2469201,
+       "oddsId": 3197781372,
+       "text": "1",
+       "textId": 6597069771666,
+       "odds": 142
+      },
+      {
+       "id": 2469203,
+       "oddsId": 3197781372,
+       "text": "2",
+       "textId": 6597069771667,
+       "odds": 265
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 7
+  },
+  {
+   "id": 3197781022,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75373602
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 80512,
+     "name": "Chwalinska, M",
+     "middleName": "Chwalinska, M",
+     "shortName": "Chwalinska, M",
+     "textId": 1099511830361
+    },
+    {
+     "order": 1,
+     "id": 47170,
+     "name": "Sakkari, Maria",
+     "middleName": "Sakkari, Ma.",
+     "shortName": "Sakkari",
+     "textId": 1099511793688
+    }
+   ],
+   "startTime": "2026-10-16T05:40:00Z",
+   "type": 4,
+   "sport": 2,
+   "leagueInfo": {
+    "id": 132798,
+    "order": 25530,
+    "name": "Tennis - WTA Wuhan",
+    "middleName": "WTA Wuhan",
+    "shortName": "WTA Wuhan",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 84,
+    "name": "China",
+    "shortName": "CHN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T05:40:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 24692,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141349,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2469201,
+       "oddsId": 3197781022,
+       "text": "1",
+       "textId": 6597069771666,
+       "odds": 212
+      },
+      {
+       "id": 2469203,
+       "oddsId": 3197781022,
+       "text": "2",
+       "textId": 6597069771667,
+       "odds": 164
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 7
+  },
+  {
+   "id": 3197758622,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75240494
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 496761,
+     "name": "Arribage T / Olivetti A",
+     "middleName": "Arribage T / Olivetti A",
+     "shortName": "Arribage T / Olivetti A",
+     "textId": 1099512316297
+    },
+    {
+     "order": 1,
+     "id": 522655,
+     "name": "Cabral F/Tracy J",
+     "middleName": "Cabral F/Tracy J",
+     "shortName": "Cabral F/Tracy J",
+     "textId": 1099512349255
+    }
+   ],
+   "startTime": "2026-10-16T04:00:00Z",
+   "type": 4,
+   "sport": 2,
+   "leagueInfo": {
+    "id": 132717,
+    "order": 25100,
+    "name": "Tennis - ATP Shanghai Doubles",
+    "middleName": "ATP Shanghai Doubles",
+    "shortName": "ATP Shanghai Doubles",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 84,
+    "name": "China",
+    "shortName": "CHN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T04:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 24692,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141349,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2469201,
+       "oddsId": 3197758622,
+       "text": "1",
+       "textId": 6597069771666,
+       "odds": 172
+      },
+      {
+       "id": 2469203,
+       "oddsId": 3197758622,
+       "text": "2",
+       "textId": 6597069771667,
+       "odds": 200
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 3
+  },
+  {
+   "id": 3197780662,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75371550
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 182673,
+     "name": "Mochizuki, Shintaro",
+     "middleName": "Mochizu., S.",
+     "shortName": "Mochizu.",
+     "textId": 1099511948752
+    },
+    {
+     "order": 1,
+     "id": 61499,
+     "name": "Watanuki, Yosuke",
+     "middleName": "Watanuki, Y.",
+     "shortName": "Watanuki",
+     "textId": 1099511809452
+    }
+   ],
+   "startTime": "2026-10-16T04:00:00Z",
+   "type": 4,
+   "sport": 2,
+   "leagueInfo": {
+    "id": 132800,
+    "order": 26230,
+    "name": "Tennis - Challenger Jinan",
+    "middleName": "Challenger Jinan",
+    "shortName": "Challenger Jinan",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 84,
+    "name": "China",
+    "shortName": "CHN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T04:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 24692,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141349,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2469201,
+       "oddsId": 3197780662,
+       "text": "1",
+       "textId": 6597069771666,
+       "odds": 210
+      },
+      {
+       "id": 2469203,
+       "oddsId": 3197780662,
+       "text": "2",
+       "textId": 6597069771667,
+       "odds": 165
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 1
+  },
+  {
+   "id": 3197781012,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75371564
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 146306,
+     "name": "Shevchenko, Alexander",
+     "middleName": "Shevche., A.",
+     "shortName": "Shevche.",
+     "textId": 1099511906185
+    },
+    {
+     "order": 1,
+     "id": 177567,
+     "name": "Bellucci, Mattia",
+     "middleName": "Bellucci, M.",
+     "shortName": "Bellucci",
+     "textId": 1099511942712
+    }
+   ],
+   "startTime": "2026-10-16T04:00:00Z",
+   "type": 4,
+   "sport": 2,
+   "leagueInfo": {
+    "id": 132800,
+    "order": 26230,
+    "name": "Tennis - Challenger Jinan",
+    "middleName": "Challenger Jinan",
+    "shortName": "Challenger Jinan",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 84,
+    "name": "China",
+    "shortName": "CHN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T04:00:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 24692,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141349,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2469201,
+       "oddsId": 3197781012,
+       "text": "1",
+       "textId": 6597069771666,
+       "odds": 277
+      },
+      {
+       "id": 2469203,
+       "oddsId": 3197781012,
+       "text": "2",
+       "textId": 6597069771667,
+       "odds": 139
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 1
+  },
+  {
+   "id": 3197758602,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75371552
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 363068,
+     "name": "Landaluce, Martin",
+     "middleName": "Landalu., M.",
+     "shortName": "Landalu.",
+     "textId": 1099512155483
+    },
+    {
+     "order": 1,
+     "id": 114417,
+     "name": "Smith, Keegan",
+     "middleName": "Smith, Keeg.",
+     "shortName": "Smith",
+     "textId": 1099511868755
+    }
+   ],
+   "startTime": "2026-10-16T05:10:00Z",
+   "type": 4,
+   "sport": 2,
+   "leagueInfo": {
+    "id": 132800,
+    "order": 26230,
+    "name": "Tennis - Challenger Jinan",
+    "middleName": "Challenger Jinan",
+    "shortName": "Challenger Jinan",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 84,
+    "name": "China",
+    "shortName": "CHN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T05:10:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 24692,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141349,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2469201,
+       "oddsId": 3197758602,
+       "text": "1",
+       "textId": 6597069771666,
+       "odds": 127
+      },
+      {
+       "id": 2469203,
+       "oddsId": 3197758602,
+       "text": "2",
+       "textId": 6597069771667,
+       "odds": 341
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 1
+  },
+  {
+   "id": 3197781352,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75371554
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 122386,
+     "name": "Machac, Tomas",
+     "middleName": "Machac, Tom.",
+     "shortName": "Machac",
+     "textId": 1099511878044
+    },
+    {
+     "order": 1,
+     "id": 98610,
+     "name": "Draxl, Liam",
+     "middleName": "Draxl, Liam",
+     "shortName": "Draxl",
+     "textId": 1099511851133
+    }
+   ],
+   "startTime": "2026-10-16T05:10:00Z",
+   "type": 4,
+   "sport": 2,
+   "leagueInfo": {
+    "id": 132800,
+    "order": 26230,
+    "name": "Tennis - Challenger Jinan",
+    "middleName": "Challenger Jinan",
+    "shortName": "Challenger Jinan",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 84,
+    "name": "China",
+    "shortName": "CHN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T05:10:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 24692,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141349,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2469201,
+       "oddsId": 3197781352,
+       "text": "1",
+       "textId": 6597069771666,
+       "odds": 135
+      },
+      {
+       "id": 2469203,
+       "oddsId": 3197781352,
+       "text": "2",
+       "textId": 6597069771667,
+       "odds": 294
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 1
+  },
+  {
+   "id": 3197781422,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75373722
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 281052,
+     "name": "Dabrowski, G / Stefani, L",
+     "middleName": "Dabro./Stef.",
+     "shortName": "Dab./St.",
+     "textId": 1099512059235
+    },
+    {
+     "order": 1,
+     "id": 519280,
+     "name": "Neel I/Olmos G",
+     "middleName": "Neel I/Olmos G",
+     "shortName": "Neel I/Olmos G",
+     "textId": 1099512344819
+    }
+   ],
+   "startTime": "2026-10-16T04:30:00Z",
+   "type": 4,
+   "sport": 2,
+   "leagueInfo": {
+    "id": 132799,
+    "order": 25500,
+    "name": "Tennis - WTA Wuhan Doubles",
+    "middleName": "WTA Wuhan Doubles",
+    "shortName": "WTA Wuhan Doubles",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 84,
+    "name": "China",
+    "shortName": "CHN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T04:30:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 24692,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141349,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2469201,
+       "oddsId": 3197781422,
+       "text": "1",
+       "textId": 6597069771666,
+       "odds": 114
+      },
+      {
+       "id": 2469203,
+       "oddsId": 3197781422,
+       "text": "2",
+       "textId": 6597069771667,
+       "odds": 491
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 3
+  },
+  {
+   "id": 3197781292,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75373710
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 506130,
+     "name": "Guo H/Mladenovic K",
+     "middleName": "Guo H/Mladenovic K",
+     "shortName": "Guo H/Mladenovic K",
+     "textId": 1099512328371
+    },
+    {
+     "order": 1,
+     "id": 339327,
+     "name": "Hunter S/Siniakova K",
+     "middleName": "Hunter S/Siniakova K",
+     "shortName": "Hunter S/Siniakova K",
+     "textId": 1099512127939
+    }
+   ],
+   "startTime": "2026-10-16T05:40:00Z",
+   "type": 4,
+   "sport": 2,
+   "leagueInfo": {
+    "id": 132799,
+    "order": 25500,
+    "name": "Tennis - WTA Wuhan Doubles",
+    "middleName": "WTA Wuhan Doubles",
+    "shortName": "WTA Wuhan Doubles",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 84,
+    "name": "China",
+    "shortName": "CHN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T05:40:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 24692,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141349,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2469201,
+       "oddsId": 3197781292,
+       "text": "1",
+       "textId": 6597069771666,
+       "odds": 235
+      },
+      {
+       "id": 2469203,
+       "oddsId": 3197781292,
+       "text": "2",
+       "textId": 6597069771667,
+       "odds": 153
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 3
+  },
+  {
+   "id": 3197781382,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75371574
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 527670,
+     "name": "King E/Seggerman R",
+     "middleName": "King E/Seggerman R",
+     "shortName": "King E/Seggerman R",
+     "textId": 1099512355954
+    },
+    {
+     "order": 1,
+     "id": 527669,
+     "name": "Friend J/Ho R",
+     "middleName": "Friend J/Ho R",
+     "shortName": "Friend J/Ho R",
+     "textId": 1099512355953
+    }
+   ],
+   "startTime": "2026-10-16T06:20:00Z",
+   "type": 4,
+   "sport": 2,
+   "leagueInfo": {
+    "id": 132820,
+    "order": 26240,
+    "name": "Tennis - Challenger Jinan Doubles",
+    "middleName": "Challenger Jinan Doubles",
+    "shortName": "Challenger Jinan Doubles",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 84,
+    "name": "China",
+    "shortName": "CHN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T06:20:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 24692,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141349,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2469201,
+       "oddsId": 3197781382,
+       "text": "1",
+       "textId": 6597069771666,
+       "odds": 148
+      },
+      {
+       "id": 2469203,
+       "oddsId": 3197781382,
+       "text": "2",
+       "textId": 6597069771667,
+       "odds": 240
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 1
+  },
+  {
+   "id": 3197781622,
+   "follows": 0,
+   "alternativeIds": {
+    "previousKeys": []
+   },
+   "agencyIds": {
+    "betradar": 75371576
+   },
+   "isTopGame": false,
+   "hasVideo": false,
+   "teams": [
+    {
+     "order": 0,
+     "id": 520422,
+     "name": "Loof T / Uesugi K",
+     "middleName": "Loof T / Uesugi K",
+     "shortName": "Loof T / Uesugi K",
+     "textId": 1099512346331
+    },
+    {
+     "order": 1,
+     "id": 514299,
+     "name": "Rojer J-J/Winegar T",
+     "middleName": "Rojer J-J/Winegar T",
+     "shortName": "Rojer J-J/Winegar T",
+     "textId": 1099512338598
+    }
+   ],
+   "startTime": "2026-10-16T06:20:00Z",
+   "type": 4,
+   "sport": 2,
+   "leagueInfo": {
+    "id": 132820,
+    "order": 26240,
+    "name": "Tennis - Challenger Jinan Doubles",
+    "middleName": "Challenger Jinan Doubles",
+    "shortName": "Challenger Jinan Doubles",
+    "longTerm": false
+   },
+   "countryInfo": {
+    "id": 84,
+    "name": "China",
+    "shortName": "CHN"
+   },
+   "gameInfo": {
+    "score": "",
+    "standings": [],
+    "penalties": [],
+    "timings": {
+     "clock": 0,
+     "unit": ""
+    },
+    "legInfos": {
+     "count": 0,
+     "current": 0,
+     "hasOvertimeLeg": false
+    }
+   },
+   "bettingAllowedUntil": "2026-10-16T06:20:00Z",
+   "isBetbuilderCapable": false,
+   "markets": [
+    {
+     "id": 24692,
+     "follows": 0,
+     "alternativeIds": [],
+     "categoryIds": [
+      1
+     ],
+     "subcategoryIds": [
+      1
+     ],
+     "text": "Who will win the match?",
+     "textId": 5497558141349,
+     "isPrimary": true,
+     "isRunningEvent": false,
+     "hasSubgroups": false,
+     "combiCat": 0,
+     "tips": [
+      {
+       "id": 2469201,
+       "oddsId": 3197781622,
+       "text": "1",
+       "textId": 6597069771666,
+       "odds": 222
+      },
+      {
+       "id": 2469203,
+       "oddsId": 3197781622,
+       "text": "2",
+       "textId": 6597069771667,
+       "odds": 156
+      }
+     ],
+     "placeholders": []
+    }
+   ],
+   "availableMarkets": 1
+  }
+ ]
+}

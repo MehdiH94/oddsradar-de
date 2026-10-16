@@ -6,7 +6,7 @@ import { join, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 
 // deploy/backup-db.sh, run from a temporary "checkout" as the backup units
-// run it from /opt/coteradar. The sqlite3 command line tool is replaced by a
+// run it from /opt/oddsradar. The sqlite3 command line tool is replaced by a
 // stand-in on PATH made of node:sqlite (the tool is not installed everywhere
 // the tests run): `.backup 'file'` is a VACUUM INTO, any other argument is a
 // query whose first column is printed.
@@ -23,7 +23,7 @@ else for (const row of db.prepare(command).all()) console.log(Object.values(row)
 describe("deploy/backup-db.sh", () => {
   let dir: string;
   beforeEach(() => {
-    dir = mkdtempSync(join(tmpdir(), "coteradar-backup-"));
+    dir = mkdtempSync(join(tmpdir(), "oddsradar-backup-"));
     mkdirSync(join(dir, "bin"));
     mkdirSync(join(dir, "data"));
     writeFileSync(join(dir, "bin", "sqlite3"), FAKE_SQLITE3);

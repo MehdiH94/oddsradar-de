@@ -29,11 +29,11 @@ async function call<T>(url: string, init?: RequestInit): Promise<T> {
   try {
     res = await fetch(url, init);
   } catch {
-    throw new AdminError("Connexion impossible. Vérifiez votre réseau et réessayez.", 0);
+    throw new AdminError("Could not connect. Check your network and try again.", 0);
   }
   if (res.status === 401) announceUnauthorized();
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new AdminError(data.message ?? "Une erreur est survenue. Réessayez dans un instant.", res.status);
+  if (!res.ok) throw new AdminError(data.message ?? "Something went wrong. Try again in a moment.", res.status);
   return data as T;
 }
 

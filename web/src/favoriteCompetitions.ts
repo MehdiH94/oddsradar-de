@@ -28,12 +28,12 @@ interface Favorite {
 }
 
 export const FAVORITE_COMPETITIONS: readonly Favorite[] = [
-  { label: "Ligue 1", start: /^ligue 1\b/ },
-  { label: "Serie A", start: /^serie a\b/ },
-  { label: "Liga", start: /^la ?liga\b/ },
   { label: "Bundesliga", start: /^bundesliga\b/ },
+  { label: "Champions League", start: /^(uefa )?(ligue des champions|champions league)\b/ },
   { label: "Premier League", start: /^premier league\b/ },
-  { label: "Ligue des champions", start: /^(uefa )?(ligue des champions|champions league)\b/ },
+  { label: "La Liga", start: /^la ?liga\b/ },
+  { label: "Serie A", start: /^serie a\b/ },
+  { label: "Ligue 1", start: /^ligue 1\b/ },
 ];
 
 // The place of a competition among the favorites (0 for the first), or null

@@ -29,16 +29,16 @@ export function adminRouter(auth: AuthContext): Router {
     const validStatus = status === undefined || status === "active" || status === "disabled";
     const validRole = role === undefined || role === "user" || role === "admin";
     if (!validStatus || !validRole || (status === undefined && role === undefined)) {
-      res.status(400).json({ error: "invalid", message: "Modification invalide." });
+      res.status(400).json({ error: "invalid", message: "Invalid change." });
       return;
     }
     const target = findUserById(db, req.params.id);
     if (!target) {
-      res.status(404).json({ error: "not_found", message: "Compte introuvable." });
+      res.status(404).json({ error: "not_found", message: "Account not found." });
       return;
     }
     if (target.id === req.user!.id) {
-      res.status(409).json({ error: "self", message: "Vous ne pouvez pas modifier votre propre compte." });
+      res.status(409).json({ error: "self", message: "You cannot change your own account." });
       return;
     }
 

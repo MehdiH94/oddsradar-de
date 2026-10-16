@@ -82,10 +82,10 @@ describe("getEventDetail", () => {
 
     expect(detail.participants).toEqual(["Borussia Dortmund", "Werder Brême"]);
     expect(detail.sections.map((s) => [s.label, s.markets.map((m) => m.label)])).toEqual([
-      ["Résultat", ["Résultat du match", "Double chance"]],
-      ["Buts", ["Les deux équipes marquent"]],
-      ["Buteurs et passeurs", ["Buteur"]],
-      ["Seulement chez Winamax", ["Remplaçant buteur"]],
+      ["Result", ["Match result", "Double chance"]],
+      ["Goals", ["Both teams to score"]],
+      ["Scorers and assists", ["Anytime scorer"]],
+      ["Only at Winamax", ["Remplaçant buteur"]],
     ]);
   });
 
@@ -100,9 +100,9 @@ describe("getEventDetail", () => {
 
     expect(market.compared).toBe(true);
     expect(market.lines[0].outcomes).toEqual([
-      { key: "1X", label: "Borussia Dortmund ou nul", prices: { betclic: 1.08, winamax: 1.08 }, best: ["betclic", "winamax"] },
+      { key: "1X", label: "Borussia Dortmund or draw", prices: { betclic: 1.08, winamax: 1.08 }, best: ["betclic", "winamax"] },
       // Priced by one bookmaker only: nothing to compare, so no best.
-      { key: "X2", label: "Nul ou Werder Brême", prices: { betclic: 2.85 }, best: [] },
+      { key: "X2", label: "Draw or Werder Brême", prices: { betclic: 2.85 }, best: [] },
     ]);
   });
 
@@ -122,7 +122,7 @@ describe("getEventDetail", () => {
     const goals = getEventDetail(db, "bvb")!.sections.find((s) => s.key === "goals")!.markets;
 
     expect(goals).toHaveLength(1);
-    expect(goals[0]).toMatchObject({ label: "Nombre de buts", kind: "lines" });
+    expect(goals[0]).toMatchObject({ label: "Total goals", kind: "lines" });
     expect(goals[0].lines.map((l) => l.line)).toEqual([2.5, 3.5]);
     expect(goals[0].lines[0].payoutRate).toBeCloseTo(1 / (1 / 1.31 + 1 / 2.7));
     // Winamax prices only one side of 3.5: its over is still the same bet as
@@ -159,7 +159,7 @@ describe("getEventDetail", () => {
     ]);
 
     const detail = getEventDetail(db, "bvb")!;
-    const all = detail.sections.flatMap((s) => s.markets).filter((m) => m.label !== "Résultat du match");
+    const all = detail.sections.flatMap((s) => s.markets).filter((m) => m.label !== "Match result");
 
     expect(all.map((m) => m.lines[0].payoutRate)).toEqual([null, null]);
   });
@@ -179,13 +179,13 @@ describe("getEventDetail", () => {
     // In the order of their lines.
     const [minus25, minus15] = result.filter((m) => m.key.startsWith("handicap"));
 
-    expect(minus15).toMatchObject({ label: "Handicap : Borussia Dortmund -1,5", kind: "list", compared: true });
+    expect(minus15).toMatchObject({ label: "Handicap: Borussia Dortmund -1.5", kind: "list", compared: true });
     expect(minus15.lines[0].outcomes.map((o) => [o.label, o.best])).toEqual([
-      ["Borussia Dortmund gagne par 2 buts ou plus", ["betclic"]],
-      ["Werder Brême ne perd pas, ou perd par 1 but", ["betclic"]],
+      ["Borussia Dortmund wins by 2 goals or more", ["betclic"]],
+      ["Werder Brême does not lose, or loses by 1 goal", ["betclic"]],
     ]);
     expect(minus15.lines[0].payoutRate).toBeCloseTo(1 / (1 / 1.81 + 1 / 1.75));
-    expect(minus25.label).toBe("Handicap : Borussia Dortmund -2,5");
+    expect(minus25.label).toBe("Handicap: Borussia Dortmund -2.5");
   });
 
   it("files the second half in its own section", () => {
@@ -197,10 +197,10 @@ describe("getEventDetail", () => {
 
     const section = getEventDetail(db, "bvb")!.sections.find((s) => s.key === "second_half")!;
 
-    expect(section.label).toBe("2e mi-temps");
+    expect(section.label).toBe("2nd half");
     expect(section.markets.map((m) => [m.label, m.kind])).toEqual([
-      ["Résultat de la 2e mi-temps", "list"],
-      ["Nombre de buts en 2e mi-temps", "lines"],
+      ["2nd half result", "list"],
+      ["2nd half total goals", "lines"],
     ]);
   });
 
@@ -246,7 +246,7 @@ describe("getEventDetail", () => {
     const detail = getEventDetail(db, "bvb", { bookmakers: ["betclic"] })!;
     const markets = detail.sections.flatMap((s) => s.markets);
 
-    expect(markets.map((m) => m.label)).toEqual(["Résultat du match", "Werder Brême n'encaisse pas de but"]);
+    expect(markets.map((m) => m.label)).toEqual(["Match result", "Werder Brême clean sheet"]);
     expect(markets[0].lines[0].outcomes.map((o) => Object.keys(o.prices))).toEqual([["betclic"], ["betclic"], ["betclic"]]);
   });
 
@@ -342,16 +342,16 @@ describe("a tennis match's page", () => {
     );
     const detail = getEventDetail(db, "dm-hh")!;
     expect(detail.sections.map((s) => [s.label, s.markets.map((m) => m.label)])).toEqual([
-      ["Match", ["Vainqueur du match", "Handicap jeux : Alex De Minaur -1,5"]],
-      ["Jeux", ["Nombre de jeux"]],
-      ["Aces et breaks", ["Aces réussis par Hubert Hurkacz"]],
-      ["Seulement chez Winamax", ["Résultat après 4 jeux"]],
+      ["Match", ["Match winner", "Games handicap: Alex De Minaur -1.5"]],
+      ["Games", ["Total games"]],
+      ["Aces and breaks", ["Aces by Hubert Hurkacz"]],
+      ["Only at Winamax", ["Résultat après 4 jeux"]],
     ]);
     const [winner, handicap] = detail.sections[0].markets;
     expect(winner.lines[0].outcomes.map((o) => o.label)).toEqual(["Alex De Minaur", "Hubert Hurkacz"]);
     expect(handicap.lines[0].outcomes.map((o) => [o.label, o.best])).toEqual([
-      ["Alex De Minaur gagne par 2 jeux ou plus", ["winamax"]],
-      ["Hubert Hurkacz ne perd pas, ou perd par 1 jeu", ["betclic", "winamax"]],
+      ["Alex De Minaur wins by 2 games or more", ["winamax"]],
+      ["Hubert Hurkacz does not lose, or loses by 1 game", ["betclic", "winamax"]],
     ]);
     // Both sides of every line: a TRJ; Betclic's aces over only: none.
     const games = detail.sections[1].markets[0];
@@ -397,15 +397,15 @@ describe("getEventDetail, a basketball match", () => {
     const detail = getEventDetail(db, "barca")!;
 
     expect(detail.sections.map((s) => [s.label, s.markets.map((m) => m.label)])).toEqual([
-      ["Résultat", ["Vainqueur du match", "Résultat du match"]],
+      ["Result", ["Match winner", "Match result"]],
     ]);
-    expect(card("Vainqueur du match").lines[0].outcomes.map((o) => [o.label, o.prices])).toEqual([
+    expect(card("Match winner").lines[0].outcomes.map((o) => [o.label, o.prices])).toEqual([
       ["Barcelone", { unibet: 1.69, winamax: 1.72 }],
       ["Zalgiris", { unibet: 1.94, winamax: 1.98 }],
     ]);
-    expect(card("Résultat du match").lines[0].outcomes.map((o) => [o.label, Object.keys(o.prices)])).toEqual([
+    expect(card("Match result").lines[0].outcomes.map((o) => [o.label, Object.keys(o.prices)])).toEqual([
       ["Barcelone", ["betclic", "unibet"]],
-      ["Nul", ["betclic", "unibet"]],
+      ["Draw", ["betclic", "unibet"]],
       ["Zalgiris", ["betclic", "unibet"]],
     ]);
   });
@@ -433,13 +433,13 @@ describe("getEventDetail, a basketball match", () => {
     const rebounds = detail.sections.find((s) => s.key === "p_rebounds")!;
 
     expect(detail.sections.map((s) => s.label)).toEqual(
-      expect.arrayContaining(["Résultat", "Points des joueurs", "Rebonds des joueurs"])
+      expect.arrayContaining(["Result", "Player points", "Player rebounds"])
     );
     expect(points.markets.map((m) => [m.label, m.kind, m.lines.map((l) => l.line)])).toEqual([
-      ["Points de Kevin Punter", "lines", [22.5, 24.5]],
-      ["Points de Maodo Lo", "lines", [9.5]],
+      ["Kevin Punter points", "lines", [22.5, 24.5]],
+      ["Maodo Lo points", "lines", [9.5]],
     ]);
-    expect(rebounds.markets.map((m) => m.label)).toEqual(["Rebonds de Joel Parra"]);
+    expect(rebounds.markets.map((m) => m.label)).toEqual(["Joel Parra rebounds"]);
     const punter = points.markets[0];
     expect(punter.compared).toBe(true);
     // 22.5: Unibet's over 1.6 against Winamax's under 2.2 and Unibet's own 2.1: a TRJ of both sides.
@@ -468,7 +468,7 @@ describe("getEventDetail, a basketball match", () => {
 
     const best = getEventDetail(db, "barca")!.sections.find((s) => s.key === "p_best")!;
 
-    expect(best.markets.map((m) => m.label)).toEqual(["Meilleur marqueur"]);
+    expect(best.markets.map((m) => m.label)).toEqual(["Top scorer"]);
     // By their best price, the lowest first.
     expect(best.markets[0].lines[0].outcomes.map((o) => [o.label, o.best])).toEqual([
       ["Carsen Edwards", ["betclic"]],
@@ -481,7 +481,7 @@ describe("getEventDetail, a basketball match", () => {
     // The listing's 1.77, refreshed every 5 minutes, over the markets' 1.8.
     saveBarca("unibet", result(1.8, 12.5, 2), minutesAgo(10));
 
-    expect(card("Résultat du match").lines[0].outcomes.map((o) => o.prices.unibet)).toEqual([1.77, 12, 2.05]);
+    expect(card("Match result").lines[0].outcomes.map((o) => o.prices.unibet)).toEqual([1.77, 12, 2.05]);
   });
 });
 
@@ -529,9 +529,9 @@ describe("getEventDetail, an ice hockey match", () => {
     const detail = getEventDetail(db, "caps")!;
 
     expect(detail.sections.map((s) => [s.label, s.markets.map((m) => m.label)])).toEqual([
-      ["Résultat", ["Résultat du match"]],
-      ["Buts", ["Nombre de buts", "Nombre de buts, prolongations incluses"]],
-      ["Périodes", ["Résultat de la 1re période", "Nombre de buts de la 1re période"]],
+      ["Result", ["Match result"]],
+      ["Goals", ["Total goals", "Total goals, overtime included"]],
+      ["Periods", ["Result of the 1st period", "Total goals of the 1st period"]],
     ]);
     const goals = detail.sections[1].markets[0].lines[0];
     expect(goals.line).toBe(5.5);

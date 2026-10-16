@@ -1,8 +1,9 @@
 # Tests every push to development, then deploys it to the staging site over
-# SSH. Same VPS as production, other checkout (/opt/coteradar-staging), other
+# SSH. Same VPS as production, other checkout (/opt/oddsradar-staging), other
 # services, other databases. One-time setup: README, "Environnement de test".
 name: deploy-staging
 
+# OddsBlitzer's own server, the OVH VPS (never CoteRadar's).
 on:
   push:
     branches: [development]
@@ -18,10 +19,10 @@ permissions:
   contents: read
 
 env:
-  DEPLOY_HOST: 141.94.244.108
-  DEPLOY_USER: ubuntu
+  DEPLOY_HOST: 141.95.86.176
+  DEPLOY_USER: oddsradar
   # The staging site's public address: the repository variable STAGING_URL.
-  STAGING_URL: ${{ vars.STAGING_URL || 'https://staging.cote-radar.fr' }}
+  STAGING_URL: ${{ vars.STAGING_URL || 'https://staging.141-95-86-176.sslip.io' }}
 
 jobs:
   test:

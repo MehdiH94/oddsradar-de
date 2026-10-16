@@ -22,29 +22,29 @@ describe("HomePage", () => {
     stubApi(LIVE);
     render(<HomePage />);
 
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Les meilleures cotes des bookmakers français/);
-    const hero = screen.getByRole("region", { name: /Les meilleures cotes/ });
-    expect(within(hero).getByRole("link", { name: "Voir les value bets" })).toHaveAttribute(
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/The best odds of the German bookmakers/);
+    const hero = screen.getByRole("region", { name: /The best odds/ });
+    expect(within(hero).getByRole("link", { name: "See the value bets" })).toHaveAttribute(
       "href",
-      "/cotes?sport=value-bets&sort=value"
+      "/odds?sport=value-bets&sort=value"
     );
-    expect(within(hero).getByRole("link", { name: "Comparer les cotes" })).toHaveAttribute("href", "/cotes");
+    expect(within(hero).getByRole("link", { name: "Compare the odds" })).toHaveAttribute("href", "/odds");
     // The freebets are one of the ways in, at the level of the two others.
-    expect(within(hero).getByRole("link", { name: "Convertir mes freebets" })).toHaveAttribute("href", "/freebets");
+    expect(within(hero).getByRole("link", { name: "Convert my freebets" })).toHaveAttribute("href", "/freebets");
     // Signed out: the way in is the login page.
-    expect(screen.getByRole("navigation", { name: "Navigation principale" })).toHaveTextContent("Se connecter");
-    expect(screen.getByRole("link", { name: "Se connecter" })).toHaveAttribute("href", "/connexion");
+    expect(screen.getByRole("navigation", { name: "Main navigation" })).toHaveTextContent("Log in");
+    expect(screen.getByRole("link", { name: "Log in" })).toHaveAttribute("href", "/login");
   });
 
   it("tells from the first screen that it converts freebets, and that an account is needed", () => {
     stubApi(LIVE);
     render(<HomePage />);
 
-    const hero = screen.getByRole("region", { name: /Les meilleures cotes/ });
-    expect(hero).toHaveTextContent("Comparateur de cotes · value bets · freebets");
-    expect(hero).toHaveTextContent("Elle convertit aussi vos freebets en cash garanti.");
+    const hero = screen.getByRole("region", { name: /The best odds/ });
+    expect(hero).toHaveTextContent("Odds comparison · value bets · freebets");
+    expect(hero).toHaveTextContent("It also turns your freebets into guaranteed cash.");
     // An account is needed to see the odds: the page never says otherwise.
-    expect(hero).toHaveTextContent("Compte gratuit · cotes actualisées toutes les quelques minutes");
+    expect(hero).toHaveTextContent("Free account · odds refreshed every few minutes");
     expect(document.body.textContent).not.toMatch(/sans inscription/i);
   });
 
@@ -52,75 +52,63 @@ describe("HomePage", () => {
     stubApi(LIVE);
     render(<HomePage />);
 
-    const section = screen.getByRole("region", { name: "Vos freebets, convertis en cash" });
-    expect(section).toHaveTextContent("la mise n'est pas rendue");
+    const section = screen.getByRole("region", { name: "Your freebets, turned into cash" });
+    expect(section).toHaveTextContent("the stake is not returned");
     const ways = within(section).getAllByRole("listitem");
-    expect(ways.map((way) => within(way).getByRole("heading", { level: 3 }).textContent)).toEqual(["Entre bookmakers", "Contre l'exchange"]);
+    expect(ways.map((way) => within(way).getByRole("heading", { level: 3 }).textContent)).toEqual(["Between bookmakers", "Against the exchange"]);
     // What each way asks: no real money between bookmakers, the lay advanced against the exchange.
-    expect(ways[0]).toHaveTextContent("Aucune mise d'argent réel");
-    expect(ways[1]).toHaveTextContent("La mise du lay est avancée, puis rendue après le match");
-    expect(section).toHaveTextContent("Les cotes sont indicatives : vérifiez-les avant de placer vos paris");
+    expect(ways[0]).toHaveTextContent("No real money staked");
+    expect(ways[1]).toHaveTextContent("The lay's liability is advanced, then returned after the match");
+    expect(section).toHaveTextContent("The prices are a guide: check them before placing your bets");
     // The way in is the group of buttons of the hero and of the end of the page, not a button of its own.
-    expect(within(section).queryByRole("link", { name: "Convertir mes freebets" })).not.toBeInTheDocument();
-    expect(section).toHaveTextContent("Un compte gratuit suffit");
+    expect(within(section).queryByRole("link", { name: "Convert my freebets" })).not.toBeInTheDocument();
+    expect(section).toHaveTextContent("A free account is all it takes");
   });
 
   it("opens with the gambling warning, the generic one of a home page", () => {
     stubApi(LIVE);
     render(<HomePage />);
 
-    expect(screen.getByRole("complementary", { name: "Prévention des jeux d'argent" })).toHaveTextContent(
-      "Les jeux d'argent et de hasard peuvent être dangereux"
+    expect(screen.getByRole("complementary", { name: "Responsible gambling" })).toHaveTextContent(
+      "Gambling can be addictive"
     );
   });
 
-  it("names the eleven bookmakers it compares", () => {
+  it("names the bookmakers it compares", () => {
     stubApi(LIVE);
     render(<HomePage />);
-    const list = screen.getByRole("list", { name: "Bookmakers comparés" });
-    expect(within(list).getAllByRole("listitem").map((item) => item.textContent)).toEqual([
-      "Winamax",
-      "Betclic",
-      "Unibet",
-      "PMU",
-      "NetBet",
-      "Genybet",
-      "Vbet",
-      "CircusBet",
-      "DAZN Bet",
-      "Betsson",
-      "Betify",
-    ]);
+    const list = screen.getByRole("list", { name: "Bookmakers compared" });
+    expect(within(list).getAllByRole("listitem").map((item) => item.textContent)).toEqual(["LeoVegas", "Merkur Bets", "20bet"]);
   });
 
   it("asks the API for the public totals only, and shows its figures", async () => {
     const fetchMock = stubApi(LIVE);
     render(<HomePage />);
 
-    const live = screen.getByRole("region", { name: "En ce moment sur CoteRadar" });
+    const live = screen.getByRole("region", { name: "Right now on OddsBlitzer" });
     await waitFor(() => expect(within(live).getByText("312")).toBeInTheDocument());
     // Nothing of the accounts' data: no events, no value bets.
     expect(fetchMock.mock.calls.map(([url]) => url)).toEqual(["/api/public/home"]);
 
     const tiles = within(live).getAllByRole("listitem").slice(0, 3);
-    expect(tiles.map((tile) => tile.textContent)).toEqual(["312Matchs suivis", "11Bookmakers comparés", "3Sports"]);
-    expect(within(live).getByText(/Chiffres relevés à/)).toBeInTheDocument();
+    expect(tiles.map((tile) => tile.textContent)).toEqual(["312Matches tracked", "3Bookmakers compared", "3Sports"]);
+    expect(within(live).getByText(/Figures as of/)).toBeInTheDocument();
   });
 
   it("shows a made-up example of a value bet, said to be one, never a real one", async () => {
     stubApi(LIVE);
     render(<HomePage />);
 
-    expect(await screen.findByRole("heading", { name: "À quoi ressemble un value bet" })).toBeInTheDocument();
-    expect(screen.getByText("Exemple")).toBeInTheDocument();
-    expect(screen.getByText(/c'est un value bet/)).toBeInTheDocument();
-    expect(screen.queryByRole("link", { name: /Tous les marchés du match/ })).not.toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "What a value bet looks like" })).toBeInTheDocument();
+    expect(screen.getByText("Example")).toBeInTheDocument();
+    expect(screen.getByText(/it is a value bet/)).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /Every market of the match/ })).not.toBeInTheDocument();
   });
 
   it("lists the sports that have matches", async () => {
     stubApi(LIVE);
     render(<HomePage />);
-    const sports = await screen.findByRole("region", { name: "Les sports couverts" });
+    const sports = await screen.findByRole("region", { name: "The sports covered" });
     expect(within(sports).getAllByRole("listitem").map((item) => item.textContent)).toEqual([
       "⚽ Football",
       "🎾 Tennis",
@@ -133,11 +121,11 @@ describe("HomePage", () => {
     stubApi();
     render(<HomePage />);
 
-    expect(await screen.findByText("Chiffres indisponibles pour le moment.")).toBeInTheDocument();
-    expect(screen.getByText("Exemple")).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "Voir les value bets" })).not.toHaveLength(0);
-    expect(screen.getByRole("region", { name: "Ce que CoteRadar change" })).toBeInTheDocument();
-    expect(screen.getByRole("region", { name: "Comment ça marche" })).toBeInTheDocument();
+    expect(await screen.findByText("Figures unavailable for now.")).toBeInTheDocument();
+    expect(screen.getByText("Example")).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: "See the value bets" })).not.toHaveLength(0);
+    expect(screen.getByRole("region", { name: "What OddsBlitzer changes" })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "How it works" })).toBeInTheDocument();
     vi.restoreAllMocks();
   });
 
@@ -145,35 +133,35 @@ describe("HomePage", () => {
     stubApi(LIVE);
     render(<HomePage />);
 
-    const faq = screen.getByRole("region", { name: "Questions fréquentes" });
+    const faq = screen.getByRole("region", { name: "Frequently asked questions" });
     const questions = [...faq.querySelectorAll("summary")].map((summary) => summary.textContent);
     expect(questions).toEqual([
-      "C'est quoi un value bet ?",
-      "D'où vient la cote juste ?",
-      "Qu'est-ce qu'un surebet ?",
-      "C'est quoi un freebet, et comment le convertir en cash ?",
-      "Faut-il un compte ? Peut-on parier sur CoteRadar ?",
+      "What is a value bet?",
+      "Where do the fair odds come from?",
+      "What is a surebet?",
+      "What is a freebet, and how do you turn it into cash?",
+      "Do I need an account? Can I bet on OddsBlitzer?",
     ]);
-    expect(faq).toHaveTextContent("un compte gratuit");
-    expect(faq).toHaveTextContent("aux surebets et à la conversion de freebets");
-    expect(faq).toHaveTextContent("CoteRadar ne prend aucun pari");
-    expect(faq).toHaveTextContent("un pari au-dessus de la cote juste peut perdre");
+    expect(faq).toHaveTextContent("a free account");
+    expect(faq).toHaveTextContent("the surebets and the freebet conversions");
+    expect(faq).toHaveTextContent("OddsBlitzer takes no bets");
+    expect(faq).toHaveTextContent("a bet above the fair odds can lose");
   });
 
   it("closes on the responsible gambling notice, and on the way in once more", () => {
     stubApi(LIVE);
     render(<HomePage />);
-    expect(screen.getByText(/Interdit aux moins de 18 ans/)).toBeInTheDocument();
-    const closing = screen.getByRole("region", { name: "Les cotes du jour sont à un clic." });
-    expect(within(closing).getByRole("link", { name: "Voir les value bets" })).toBeInTheDocument();
-    expect(within(closing).getByRole("link", { name: "Convertir mes freebets" })).toHaveAttribute("href", "/freebets");
+    expect(screen.getByText(/Gambling is for adults only/)).toBeInTheDocument();
+    const closing = screen.getByRole("region", { name: "Today's odds are one click away." });
+    expect(within(closing).getByRole("link", { name: "See the value bets" })).toBeInTheDocument();
+    expect(within(closing).getByRole("link", { name: "Convert my freebets" })).toHaveAttribute("href", "/freebets");
   });
 
   it("puts the three ways in side by side: the same group, in the same order, at the start and at the end", () => {
     stubApi(LIVE);
     render(<HomePage />);
-    const names = ["Voir les value bets", "Comparer les cotes", "Convertir mes freebets"];
-    for (const region of [screen.getByRole("region", { name: /Les meilleures cotes/ }), screen.getByRole("region", { name: "Les cotes du jour sont à un clic." })]) {
+    const names = ["See the value bets", "Compare the odds", "Convert my freebets"];
+    for (const region of [screen.getByRole("region", { name: /The best odds/ }), screen.getByRole("region", { name: "Today's odds are one click away." })]) {
       const links = names.map((name) => within(region).getByRole("link", { name }));
       // One group: the three share their parent, whatever its class.
       expect(new Set(links.map((link) => link.parentElement)).size).toBe(1);
@@ -184,7 +172,7 @@ describe("HomePage", () => {
   it("has no accessibility violation axe can find, with the API's answers and without", async () => {
     stubApi(LIVE);
     const live = render(<HomePage />);
-    await screen.findByRole("region", { name: "Les sports couverts" });
+    await screen.findByRole("region", { name: "The sports covered" });
     // jsdom renders no pixels: contrast is checked on real pages instead.
     const rules = { rules: { "color-contrast": { enabled: false } } };
     const results = await axe.run(live.container, rules);
@@ -194,7 +182,7 @@ describe("HomePage", () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
     stubApi();
     const down = render(<HomePage />);
-    await screen.findByText("Chiffres indisponibles pour le moment.");
+    await screen.findByText("Figures unavailable for now.");
     const downResults = await axe.run(down.container, rules);
     expect(downResults.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(", ")}`)).toEqual([]);
     vi.restoreAllMocks();

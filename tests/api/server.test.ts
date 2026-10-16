@@ -284,9 +284,9 @@ describe("GET /api/events", () => {
 
     afterEach(() => rmSync(webDist, { recursive: true, force: true }));
 
-    it("serves index.html at /, and at /cotes so that a reload or a shared link finds the dashboard", async () => {
+    it("serves index.html at /, and at /odds so that a reload or a shared link finds the dashboard", async () => {
       const app = createServer(db, {}, { webDist });
-      for (const url of ["/", "/cotes", "/cotes/", "/cotes?sport=value-bets&sort=value"]) {
+      for (const url of ["/", "/odds", "/odds/", "/odds?sport=value-bets&sort=value"]) {
         const res = await request(app).get(url);
         expect(res.status, url).toBe(200);
         expect(res.headers["content-type"], url).toMatch(/text\/html/);
@@ -306,12 +306,12 @@ describe("GET /api/events", () => {
     it("still 404s on any other path, and on an unknown API route", async () => {
       const app = createServer(db, {}, { webDist });
       expect((await request(app).get("/definitely-not-a-page")).status).toBe(404);
-      expect((await request(app).get("/cotes/other")).status).toBe(404);
+      expect((await request(app).get("/odds/other")).status).toBe(404);
       expect((await request(app).get("/api/definitely-not-a-route")).status).toBe(404);
     });
 
-    it("404s at /cotes when the frontend build is absent", async () => {
-      const res = await request(createServer(db, {}, { webDist: path.join(webDist, "missing") })).get("/cotes");
+    it("404s at /odds when the frontend build is absent", async () => {
+      const res = await request(createServer(db, {}, { webDist: path.join(webDist, "missing") })).get("/odds");
       expect(res.status).toBe(404);
     });
   });

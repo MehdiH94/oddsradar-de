@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { BookmakerLogo } from "./BookmakerLogo";
-import { BOOKMAKER_BRANDING } from "./bookmakers";
+import { ALL_BOOKMAKERS, BOOKMAKER_BRANDING } from "./bookmakers";
 
 describe("BookmakerLogo", () => {
   afterEach(() => {
@@ -9,8 +9,8 @@ describe("BookmakerLogo", () => {
   });
 
   it("shows a bookmaker's icon, with its name as alt text", () => {
-    render(<BookmakerLogo bookmaker="winamax" />);
-    expect(screen.getByRole("img", { name: "Winamax" })).toBeInTheDocument();
+    render(<BookmakerLogo bookmaker="leovegas" />);
+    expect(screen.getByRole("img", { name: "LeoVegas" })).toBeInTheDocument();
   });
 
   it("shows the name of a bookmaker that has no icon, and nothing beside a written name", () => {
@@ -28,8 +28,8 @@ describe("BookmakerLogo", () => {
     expect(screen.getByText("unknown")).toBeInTheDocument();
   });
 
-  it("names every bookmaker, with an icon found by its file name when there is one", () => {
-    for (const id of ["genybet", "circusbet", "daznbet", "betify"]) {
+  it("names every bookmaker, with its icon when there is one", () => {
+    for (const id of ALL_BOOKMAKERS) {
       const brand = BOOKMAKER_BRANDING[id];
       expect(brand?.name).toBeTruthy();
       expect(brand?.logo === undefined || typeof brand.logo === "string").toBe(true);

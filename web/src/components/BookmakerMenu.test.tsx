@@ -8,21 +8,21 @@ const open = () => fireEvent.click(screen.getByRole("button", { name: /^Bookmake
 describe("BookmakerMenu", () => {
   it("sums up the bookmakers ticked", () => {
     const { rerender } = render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers : Tous");
+    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers: All");
 
-    rerender(<BookmakerMenu selected={["betclic"]} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers : Betclic");
+    rerender(<BookmakerMenu selected={["merkurbets"]} onChange={() => {}} />);
+    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers: Merkur Bets");
 
     rerender(<BookmakerMenu selected={[]} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers : Aucun");
+    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers: None");
   });
 
   it("renders every bookmaker checked when all are selected", () => {
     render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
     open();
 
-    expect(screen.getByRole("group", { name: "Bookmakers comparés" })).toBeInTheDocument();
-    for (const name of ["Winamax", "Betclic", "Unibet", "PMU", "NetBet", "Genybet", "Vbet", "CircusBet", "DAZN Bet", "Betsson"]) {
+    expect(screen.getByRole("group", { name: "Bookmakers compared" })).toBeInTheDocument();
+    for (const name of ["LeoVegas", "Merkur Bets"]) {
       expect(screen.getByRole("checkbox", { name })).toBeChecked();
     }
   });
@@ -31,40 +31,28 @@ describe("BookmakerMenu", () => {
     render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
     open();
 
-    expect(screen.getAllByRole("checkbox").map((box) => box.closest("label")?.textContent)).toEqual([
-      "Winamax",
-      "Betclic",
-      "Unibet",
-      "PMU",
-      "NetBet",
-      "Genybet",
-      "Vbet",
-      "CircusBet",
-      "DAZN Bet",
-      "Betsson",
-      "Betify",
-    ]);
+    expect(screen.getAllByRole("checkbox").map((box) => box.closest("label")?.textContent)).toEqual(["LeoVegas", "Merkur Bets", "20bet"]);
   });
 
   it("shows each bookmaker's icon and name, read once", () => {
     const { container } = render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
     open();
 
-    for (const name of ["Winamax", "Betclic", "Unibet", "PMU", "NetBet", "Genybet", "Vbet", "CircusBet", "DAZN Bet", "Betsson", "Betify"]) expect(screen.getByText(name)).toBeInTheDocument();
+    for (const name of ["LeoVegas", "Merkur Bets", "20bet"]) expect(screen.getByText(name)).toBeInTheDocument();
     // The icons sit next to the names: decorative, not read a second time.
     // One per bookmaker that has an icon; the others show their name alone.
     const withIcon = ALL_BOOKMAKERS.filter((id) => BOOKMAKER_BRANDING[id]?.logo).length;
-    expect(withIcon).toBeGreaterThanOrEqual(7);
+    expect(withIcon).toBe(3);
     expect(container.querySelectorAll("img.bookmaker-logo")).toHaveLength(withIcon);
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
 
   it("renders an unselected bookmaker unchecked", () => {
-    render(<BookmakerMenu selected={["winamax"]} onChange={() => {}} />);
+    render(<BookmakerMenu selected={["leovegas"]} onChange={() => {}} />);
     open();
 
-    expect(screen.getByRole("checkbox", { name: "Winamax" })).toBeChecked();
-    expect(screen.getByRole("checkbox", { name: "Betclic" })).not.toBeChecked();
+    expect(screen.getByRole("checkbox", { name: "LeoVegas" })).toBeChecked();
+    expect(screen.getByRole("checkbox", { name: "Merkur Bets" })).not.toBeChecked();
   });
 
   it("unchecking a bookmaker removes it from the emitted list, and stays open for another", () => {
@@ -72,20 +60,20 @@ describe("BookmakerMenu", () => {
     render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={onChange} />);
     open();
 
-    fireEvent.pointerDown(screen.getByText("Winamax"));
-    fireEvent.click(screen.getByText("Winamax"));
+    fireEvent.pointerDown(screen.getByText("LeoVegas"));
+    fireEvent.click(screen.getByText("LeoVegas"));
 
-    expect(onChange).toHaveBeenCalledWith(["betclic", "unibet", "pmu", "netbet", "genybet", "vbet", "circusbet", "daznbet", "betsson", "betify"]);
-    expect(screen.getByRole("checkbox", { name: "Betclic" })).toBeInTheDocument();
+    expect(onChange).toHaveBeenCalledWith(["merkurbets", "twentybet"]);
+    expect(screen.getByRole("checkbox", { name: "Merkur Bets" })).toBeInTheDocument();
   });
 
   it("re-checking a bookmaker restores ALL_BOOKMAKERS order regardless of click order", () => {
     const onChange = vi.fn();
-    render(<BookmakerMenu selected={["betclic"]} onChange={onChange} />);
+    render(<BookmakerMenu selected={["merkurbets"]} onChange={onChange} />);
     open();
 
-    fireEvent.click(screen.getByRole("checkbox", { name: "Winamax" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "LeoVegas" }));
 
-    expect(onChange).toHaveBeenCalledWith(["winamax", "betclic"]);
+    expect(onChange).toHaveBeenCalledWith(["leovegas", "merkurbets"]);
   });
 });

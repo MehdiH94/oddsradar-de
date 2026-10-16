@@ -28,9 +28,8 @@ export function seedOdds(db: DatabaseSync): void {
       startTime: hoursFromNow(3),
       participants: VALUE_MATCH.participants,
       byBookmaker: {
-        winamax: oneXTwo(VALUE_MATCH.winamax),
-        betclic: oneXTwo(VALUE_MATCH.betclic),
-        unibet: oneXTwo(VALUE_MATCH.unibet),
+        leovegas: oneXTwo(VALUE_MATCH.leovegas),
+        merkurbets: oneXTwo(VALUE_MATCH.merkurbets),
       },
     },
     {
@@ -39,7 +38,7 @@ export function seedOdds(db: DatabaseSync): void {
       competition: SUREBET_MATCH.competition,
       startTime: hoursFromNow(5),
       participants: SUREBET_MATCH.participants,
-      byBookmaker: { winamax: oneXTwo(SUREBET_MATCH.winamax), betclic: oneXTwo(SUREBET_MATCH.betclic) },
+      byBookmaker: { leovegas: oneXTwo(SUREBET_MATCH.leovegas), merkurbets: oneXTwo(SUREBET_MATCH.merkurbets) },
     },
     {
       id: SECOND_VALUE_MATCH.id,
@@ -47,7 +46,7 @@ export function seedOdds(db: DatabaseSync): void {
       competition: SECOND_VALUE_MATCH.competition,
       startTime: hoursFromNow(6),
       participants: SECOND_VALUE_MATCH.participants,
-      byBookmaker: { winamax: oneXTwo(SECOND_VALUE_MATCH.winamax), betclic: oneXTwo(SECOND_VALUE_MATCH.betclic) },
+      byBookmaker: { leovegas: oneXTwo(SECOND_VALUE_MATCH.leovegas), merkurbets: oneXTwo(SECOND_VALUE_MATCH.merkurbets) },
     },
     {
       id: TENNIS_MATCH.id,
@@ -55,7 +54,7 @@ export function seedOdds(db: DatabaseSync): void {
       competition: TENNIS_MATCH.competition,
       startTime: hoursFromNow(4),
       participants: TENNIS_MATCH.participants,
-      byBookmaker: { winamax: winner(TENNIS_MATCH.winamax), betclic: winner(TENNIS_MATCH.betclic) },
+      byBookmaker: { leovegas: winner(TENNIS_MATCH.leovegas), merkurbets: winner(TENNIS_MATCH.merkurbets) },
     },
     {
       id: EXCHANGE_MATCH.id,
@@ -63,7 +62,7 @@ export function seedOdds(db: DatabaseSync): void {
       competition: EXCHANGE_MATCH.competition,
       startTime: hoursFromNow(8),
       participants: EXCHANGE_MATCH.participants,
-      byBookmaker: { winamax: oneXTwo(EXCHANGE_MATCH.winamax), betclic: oneXTwo(EXCHANGE_MATCH.betclic) },
+      byBookmaker: { leovegas: oneXTwo(EXCHANGE_MATCH.leovegas), merkurbets: oneXTwo(EXCHANGE_MATCH.merkurbets) },
     },
     {
       // A competition's winner: one participant, its title, a season away.
@@ -72,7 +71,7 @@ export function seedOdds(db: DatabaseSync): void {
       competition: COMPETITION_WINNER.competition,
       startTime: hoursFromNow(24 * 200),
       participants: [COMPETITION_WINNER.title],
-      byBookmaker: { unibet: outright(COMPETITION_WINNER.unibet), vbet: outright(COMPETITION_WINNER.vbet) },
+      byBookmaker: { leovegas: outright(COMPETITION_WINNER.leovegas), merkurbets: outright(COMPETITION_WINNER.merkurbets) },
     },
   ];
   upsertCanonicalEvents(db, events);

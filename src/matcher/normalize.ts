@@ -23,3 +23,13 @@ export function normalizeName(name: string): string {
   cache.set(name, normalized);
   return normalized;
 }
+
+// German writes an umlaut as its letter and an "e" when the letter is missing:
+// "München" is "Muenchen", "Köln" "Koeln", and the English sites drop it
+// ("Monchengladbach"). normalizeName strips the umlaut ("munchen"), so the
+// digraphs are folded the same way, on a normalized name. Applied to both
+// names a comparison looks at, never to the words the matcher lists itself
+// ("groningue", "ligue"), which normalizeName's output is checked against.
+export function foldGermanDigraphs(normalized: string): string {
+  return normalized.replace(/([aou])e/g, "$1");
+}

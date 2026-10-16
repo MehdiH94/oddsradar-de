@@ -1,7 +1,8 @@
 import { announceUnauthorized } from "../auth/session";
-import type { ALL_BOOKMAKERS } from "../bookmakers";
 
-export type BookmakerId = (typeof ALL_BOOKMAKERS)[number];
+// The ids the server knows (BookmakerId in src/scraper/canonical.ts), the ones
+// it reads now (ALL_BOOKMAKERS) among them.
+export type BookmakerId = "leovegas" | "merkurbets" | "twentybet" | "winamax" | "betclic";
 
 // The freebets an account holds, by bookmaker, in FB (1 FB is 1 euro): a bookmaker
 // where it holds nothing is absent (src/freebets/wallet.ts).
@@ -121,11 +122,11 @@ async function call<T>(url: string, init?: RequestInit): Promise<T> {
   } catch (err) {
     // A request the page itself gave up on (a newer one replaced it) is not a failure to report.
     if (err instanceof DOMException && err.name === "AbortError") throw err;
-    throw new FreebetsError("Connexion impossible. Vérifiez votre réseau et réessayez.", 0);
+    throw new FreebetsError("Could not connect. Check your network and try again.", 0);
   }
   if (res.status === 401) announceUnauthorized();
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new FreebetsError(data.message ?? "Une erreur est survenue. Réessayez dans un instant.", res.status);
+  if (!res.ok) throw new FreebetsError(data.message ?? "Something went wrong. Try again in a moment.", res.status);
   return data as T;
 }
 

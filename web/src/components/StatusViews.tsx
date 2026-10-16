@@ -6,7 +6,7 @@ import styles from "./StatusViews.module.css";
 export function Skeleton({ rows = 6 }: { rows?: number }) {
   return (
     <div className={styles.skeleton}>
-      <span className="visually-hidden">Chargement des cotes…</span>
+      <span className="visually-hidden">Loading the odds…</span>
       {Array.from({ length: rows }, (_, i) => (
         <div key={i} className={styles.skeletonRow} aria-hidden="true">
           <span className={styles.bar} style={{ width: "4rem" }} />
@@ -26,7 +26,7 @@ export function ErrorBanner({ children, onRetry }: { children: ReactNode; onRetr
       <TriangleAlert size={18} aria-hidden="true" />
       <p>{children}</p>
       <button type="button" className={styles.retry} onClick={onRetry}>
-        Réessayer
+        Try again
       </button>
     </div>
   );

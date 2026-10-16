@@ -8,14 +8,14 @@ import styles from "./FairOdds.module.css";
 // them too loosely for fair odds.
 export function FairOdds({ fair, ceiling = false, edge }: { fair: number; ceiling?: boolean; edge?: number }) {
   const title = ceiling
-    ? `Cote juste au plus : la cote de lay de ${REFERENCE_SOURCE}, qui cote ce joueur de trop loin pour en donner une`
-    : `Cote juste : la cote de ${REFERENCE_SOURCE}, sans sa marge`;
+    ? `Fair odds at most: the lay price at ${REFERENCE_SOURCE}, which prices this player too loosely to give fair odds`
+    : `Fair odds: the price at ${REFERENCE_SOURCE}, without its margin`;
   return (
     <span className={styles.fair} title={title}>
-      <span aria-hidden="true">{ceiling ? "Juste ≤ " : "Juste "}</span>
-      <span className="visually-hidden">{ceiling ? "Cote juste : au plus " : "Cote juste : "}</span>
+      <span aria-hidden="true">{ceiling ? "Fair ≤ " : "Fair "}</span>
+      <span className="visually-hidden">{ceiling ? "Fair odds: at most " : "Fair odds: "}</span>
       <span className={styles.price}>{formatPrice(fair)}</span>
-      {edge !== undefined && <Edge edge={edge} label="meilleure value" />}
+      {edge !== undefined && <Edge edge={edge} label="best value" />}
     </span>
   );
 }
@@ -26,10 +26,10 @@ export function SuspectOdds({ gap }: { gap: number }) {
   return (
     <span
       className={styles.fair}
-      title={`Cote suspecte : ${REFERENCE_SOURCE} ne cote pas ce joueur, et cette cote dépasse de loin celle de l'autre bookmaker`}
+      title={`Suspect price: ${REFERENCE_SOURCE} does not price this player, and this price is far above the other bookmaker's`}
     >
-      Cote suspecte
-      <Edge edge={gap} label="au-dessus de l'autre bookmaker" after />
+      Suspect price
+      <Edge edge={gap} label="over the other bookmaker" after />
     </span>
   );
 }
@@ -40,8 +40,8 @@ function Edge({ edge, label, after = false }: { edge: number; label: string; aft
       <span aria-hidden="true" className={styles.dot}>
         {" · "}
       </span>
-      {!after && <span className="visually-hidden">, {label} : </span>}
-      {after && <span className="visually-hidden"> : </span>}
+      {!after && <span className="visually-hidden">, {label}: </span>}
+      {after && <span className="visually-hidden">: </span>}
       {formatEdge(edge)}
       {after && <span className="visually-hidden"> {label}</span>}
     </strong>

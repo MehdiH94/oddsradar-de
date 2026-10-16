@@ -1,0 +1,1042 @@
+{
+ "events": [
+  {
+   "event": {
+    "id": 1028565549,
+    "name": "Huracán - Gimnasia de La Plata",
+    "nameDelimiter": "-",
+    "englishName": "Huracán - Gimnasia de La Plata",
+    "homeName": "Huracán",
+    "awayName": "Gimnasia de La Plata",
+    "start": "2026-10-15T23:00:00Z",
+    "group": "Liga Profesional Argentina",
+    "groupId": 2000050561,
+    "path": [
+     {
+      "id": 1000093190,
+      "name": "Football",
+      "englishName": "Football",
+      "termKey": "football"
+     },
+     {
+      "id": 1000461754,
+      "name": "Argentina",
+      "englishName": "Argentina",
+      "termKey": "argentina"
+     },
+     {
+      "id": 2000050561,
+      "name": "Liga Profesional Argentina",
+      "englishName": "Liga Profesional Argentina",
+      "termKey": "liga_profesional_argentina"
+     }
+    ],
+    "nonLiveBoCount": 67,
+    "sport": "FOOTBALL",
+    "tags": [
+     "OFFERED_LIVE",
+     "BET_BUILDER",
+     "MATCH"
+    ],
+    "state": "NOT_STARTED"
+   },
+   "betOffers": [
+    {
+     "id": 2701736684,
+     "closed": "2026-10-15T23:00:00Z",
+     "criterion": {
+      "id": 1001159858,
+      "label": "Full Time",
+      "englishLabel": "Full Time",
+      "order": [],
+      "occurrenceType": "GOALS",
+      "lifetime": "FULL_TIME"
+     },
+     "betOfferType": {
+      "id": 2,
+      "name": "Match",
+      "englishName": "Match"
+     },
+     "eventId": 1028565549,
+     "outcomes": [
+      {
+       "id": 4367932995,
+       "label": "1",
+       "englishLabel": "1",
+       "odds": 2480,
+       "participant": "Huracán",
+       "type": "OT_ONE",
+       "betOfferId": 2701736684,
+       "changedDate": "2026-10-09T09:40:07Z",
+       "participantId": 1000078391,
+       "oddsFractional": "29/20",
+       "oddsAmerican": "148",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 0
+      },
+      {
+       "id": 4367932996,
+       "label": "X",
+       "englishLabel": "X",
+       "odds": 3100,
+       "type": "OT_CROSS",
+       "betOfferId": 2701736684,
+       "changedDate": "2026-10-09T09:40:07Z",
+       "oddsFractional": "21/10",
+       "oddsAmerican": "210",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 1
+      },
+      {
+       "id": 4367932997,
+       "label": "2",
+       "englishLabel": "2",
+       "odds": 3200,
+       "participant": "Gimnasia de La Plata",
+       "type": "OT_TWO",
+       "betOfferId": 2701736684,
+       "changedDate": "2026-10-09T09:40:07Z",
+       "participantId": 1000002682,
+       "oddsFractional": "11/5",
+       "oddsAmerican": "220",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 2
+      }
+     ],
+     "tags": [
+      "OFFERED_PREMATCH",
+      "BET_BUILDER",
+      "MAIN"
+     ],
+     "sortOrder": 1,
+     "cashOutStatus": "ENABLED"
+    },
+    {
+     "id": 2701736656,
+     "closed": "2026-10-15T23:00:00Z",
+     "criterion": {
+      "id": 1001159926,
+      "label": "Total Goals",
+      "englishLabel": "Total Goals",
+      "order": [],
+      "occurrenceType": "GOALS",
+      "lifetime": "FULL_TIME"
+     },
+     "betOfferType": {
+      "id": 6,
+      "name": "Over/Under",
+      "englishName": "Over/Under"
+     },
+     "eventId": 1028565549,
+     "outcomes": [
+      {
+       "id": 4367932928,
+       "label": "Over",
+       "englishLabel": "Over",
+       "odds": 1490,
+       "line": 1500,
+       "type": "OT_OVER",
+       "betOfferId": 2701736656,
+       "changedDate": "2026-10-09T09:40:05Z",
+       "oddsFractional": "12/25",
+       "oddsAmerican": "-205",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 0
+      },
+      {
+       "id": 4367932929,
+       "label": "Under",
+       "englishLabel": "Under",
+       "odds": 2550,
+       "line": 1500,
+       "type": "OT_UNDER",
+       "betOfferId": 2701736656,
+       "changedDate": "2026-10-09T09:40:05Z",
+       "oddsFractional": "31/20",
+       "oddsAmerican": "155",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 1
+      }
+     ],
+     "tags": [
+      "OFFERED_PREMATCH",
+      "MAIN_LINE",
+      "BET_BUILDER"
+     ],
+     "sortOrder": 2,
+     "cashOutStatus": "ENABLED"
+    }
+   ]
+  },
+  {
+   "event": {
+    "id": 1028404541,
+    "name": "Sydney FC - Western Sydney Wanderers",
+    "nameDelimiter": "-",
+    "englishName": "Sydney FC - Western Sydney Wanderers",
+    "homeName": "Sydney FC",
+    "awayName": "Western Sydney Wanderers",
+    "start": "2026-10-16T09:00:00Z",
+    "group": "A-League",
+    "groupId": 1000182606,
+    "path": [
+     {
+      "id": 1000093190,
+      "name": "Football",
+      "englishName": "Football",
+      "termKey": "football"
+     },
+     {
+      "id": 1000461755,
+      "name": "Australia",
+      "englishName": "Australia",
+      "termKey": "australia"
+     },
+     {
+      "id": 1000182606,
+      "name": "A-League",
+      "englishName": "A-League",
+      "termKey": "a-league"
+     }
+    ],
+    "nonLiveBoCount": 70,
+    "sport": "FOOTBALL",
+    "tags": [
+     "OFFERED_LIVE",
+     "BET_BUILDER",
+     "MATCH"
+    ],
+    "state": "NOT_STARTED"
+   },
+   "betOffers": [
+    {
+     "id": 2702899299,
+     "criterion": {
+      "id": 1001159858,
+      "label": "Full Time",
+      "englishLabel": "Full Time",
+      "order": [],
+      "occurrenceType": "GOALS",
+      "lifetime": "FULL_TIME"
+     },
+     "betOfferType": {
+      "id": 2,
+      "name": "Match",
+      "englishName": "Match"
+     },
+     "eventId": 1028404541,
+     "outcomes": [
+      {
+       "id": 4371766881,
+       "label": "1",
+       "englishLabel": "1",
+       "odds": 2080,
+       "participant": "Sydney FC",
+       "type": "OT_ONE",
+       "betOfferId": 2702899299,
+       "changedDate": "2026-10-14T22:46:44Z",
+       "participantId": 1000010448,
+       "oddsFractional": "27/25",
+       "oddsAmerican": "108",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 0
+      },
+      {
+       "id": 4371766882,
+       "label": "X",
+       "englishLabel": "X",
+       "odds": 3550,
+       "type": "OT_CROSS",
+       "betOfferId": 2702899299,
+       "changedDate": "2026-10-14T22:46:44Z",
+       "oddsFractional": "5/2",
+       "oddsAmerican": "255",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 1
+      },
+      {
+       "id": 4371766883,
+       "label": "2",
+       "englishLabel": "2",
+       "odds": 3100,
+       "participant": "Western Sydney Wanderers",
+       "type": "OT_TWO",
+       "betOfferId": 2702899299,
+       "changedDate": "2026-10-14T22:46:44Z",
+       "participantId": 1001289410,
+       "oddsFractional": "21/10",
+       "oddsAmerican": "210",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 2
+      }
+     ],
+     "tags": [
+      "OFFERED_PREMATCH",
+      "OFFERED_LIVE",
+      "BET_BUILDER",
+      "MAIN"
+     ],
+     "sortOrder": 1,
+     "cashOutStatus": "ENABLED"
+    },
+    {
+     "id": 2702899256,
+     "criterion": {
+      "id": 1001159926,
+      "label": "Total Goals",
+      "englishLabel": "Total Goals",
+      "order": [],
+      "occurrenceType": "GOALS",
+      "lifetime": "FULL_TIME"
+     },
+     "betOfferType": {
+      "id": 6,
+      "name": "Over/Under",
+      "englishName": "Over/Under"
+     },
+     "eventId": 1028404541,
+     "outcomes": [
+      {
+       "id": 4371766786,
+       "label": "Over",
+       "englishLabel": "Over",
+       "odds": 1710,
+       "line": 2500,
+       "type": "OT_OVER",
+       "betOfferId": 2702899256,
+       "changedDate": "2026-10-14T22:46:43Z",
+       "oddsFractional": "7/10",
+       "oddsAmerican": "-141",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 0
+      },
+      {
+       "id": 4371766787,
+       "label": "Under",
+       "englishLabel": "Under",
+       "odds": 2000,
+       "line": 2500,
+       "type": "OT_UNDER",
+       "betOfferId": 2702899256,
+       "changedDate": "2026-10-14T22:46:43Z",
+       "oddsFractional": "Evens",
+       "oddsAmerican": "100",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 1
+      }
+     ],
+     "tags": [
+      "OFFERED_PREMATCH",
+      "OFFERED_LIVE",
+      "MAIN_LINE",
+      "BET_BUILDER"
+     ],
+     "sortOrder": 2,
+     "cashOutStatus": "ENABLED"
+    }
+   ]
+  },
+  {
+   "event": {
+    "id": 1026658588,
+    "name": "Henan Songshan Longmen - Tianjin Tigers",
+    "nameDelimiter": "-",
+    "englishName": "Henan Songshan Longmen - Tianjin Tigers",
+    "homeName": "Henan Songshan Longmen",
+    "awayName": "Tianjin Tigers",
+    "start": "2026-10-16T11:35:00Z",
+    "group": "Super League",
+    "groupId": 1000338400,
+    "path": [
+     {
+      "id": 1000093190,
+      "name": "Football",
+      "englishName": "Football",
+      "termKey": "football"
+     },
+     {
+      "id": 1000461784,
+      "name": "China",
+      "englishName": "China",
+      "termKey": "china"
+     },
+     {
+      "id": 1000338400,
+      "name": "Super League",
+      "englishName": "Super League",
+      "termKey": "super_league"
+     }
+    ],
+    "nonLiveBoCount": 25,
+    "sport": "FOOTBALL",
+    "tags": [
+     "OFFERED_LIVE",
+     "BET_BUILDER",
+     "MATCH"
+    ],
+    "state": "NOT_STARTED"
+   },
+   "betOffers": [
+    {
+     "id": 2702591926,
+     "closed": "2026-10-16T11:35:00Z",
+     "criterion": {
+      "id": 1001159858,
+      "label": "Full Time",
+      "englishLabel": "Full Time",
+      "order": [],
+      "occurrenceType": "GOALS",
+      "lifetime": "FULL_TIME"
+     },
+     "betOfferType": {
+      "id": 2,
+      "name": "Match",
+      "englishName": "Match"
+     },
+     "eventId": 1026658588,
+     "outcomes": [
+      {
+       "id": 4370612980,
+       "label": "1",
+       "englishLabel": "1",
+       "odds": 1770,
+       "participant": "Henan Songshan Longmen",
+       "type": "OT_ONE",
+       "betOfferId": 2702591926,
+       "changedDate": "2026-10-15T11:48:52Z",
+       "participantId": 1000338406,
+       "oddsFractional": "3/4",
+       "oddsAmerican": "-130",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 0
+      },
+      {
+       "id": 4370612981,
+       "label": "X",
+       "englishLabel": "X",
+       "odds": 3700,
+       "type": "OT_CROSS",
+       "betOfferId": 2702591926,
+       "changedDate": "2026-10-15T11:48:52Z",
+       "oddsFractional": "27/10",
+       "oddsAmerican": "270",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 1
+      },
+      {
+       "id": 4370612982,
+       "label": "2",
+       "englishLabel": "2",
+       "odds": 4250,
+       "participant": "Tianjin Tigers",
+       "type": "OT_TWO",
+       "betOfferId": 2702591926,
+       "changedDate": "2026-10-15T11:48:52Z",
+       "participantId": 1007535745,
+       "oddsFractional": "13/4",
+       "oddsAmerican": "325",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 2
+      }
+     ],
+     "tags": [
+      "OFFERED_PREMATCH",
+      "BET_BUILDER",
+      "MAIN"
+     ],
+     "sortOrder": 1,
+     "cashOutStatus": "ENABLED"
+    },
+    {
+     "id": 2702566686,
+     "closed": "2026-10-16T11:35:00Z",
+     "criterion": {
+      "id": 1001159926,
+      "label": "Total Goals",
+      "englishLabel": "Total Goals",
+      "order": [],
+      "occurrenceType": "GOALS",
+      "lifetime": "FULL_TIME"
+     },
+     "betOfferType": {
+      "id": 6,
+      "name": "Over/Under",
+      "englishName": "Over/Under"
+     },
+     "eventId": 1026658588,
+     "outcomes": [
+      {
+       "id": 4370649499,
+       "label": "Over",
+       "englishLabel": "Over",
+       "odds": 1780,
+       "line": 2500,
+       "type": "OT_OVER",
+       "betOfferId": 2702566686,
+       "changedDate": "2026-10-15T11:48:52Z",
+       "oddsFractional": "10/13",
+       "oddsAmerican": "-129",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 0
+      },
+      {
+       "id": 4370649500,
+       "label": "Under",
+       "englishLabel": "Under",
+       "odds": 1900,
+       "line": 2500,
+       "type": "OT_UNDER",
+       "betOfferId": 2702566686,
+       "changedDate": "2026-10-15T11:48:52Z",
+       "oddsFractional": "9/10",
+       "oddsAmerican": "-112",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 1
+      }
+     ],
+     "tags": [
+      "OFFERED_PREMATCH",
+      "MAIN_LINE",
+      "BET_BUILDER"
+     ],
+     "sortOrder": 2,
+     "cashOutStatus": "ENABLED"
+    }
+   ]
+  },
+  {
+   "event": {
+    "id": 1029469673,
+    "name": "Aalesunds FK (W) - Røa (W)",
+    "nameDelimiter": "-",
+    "englishName": "Aalesunds FK (W) - Røa (W)",
+    "homeName": "Aalesunds FK (W)",
+    "awayName": "Røa (W)",
+    "start": "2026-10-16T16:00:00Z",
+    "group": "Toppserien (W)",
+    "groupId": 1000176403,
+    "path": [
+     {
+      "id": 1000093190,
+      "name": "Football",
+      "englishName": "Football",
+      "termKey": "football"
+     },
+     {
+      "id": 1000461744,
+      "name": "Norway",
+      "englishName": "Norway",
+      "termKey": "norway"
+     },
+     {
+      "id": 1000176403,
+      "name": "Toppserien (W)",
+      "englishName": "Toppserien (W)",
+      "termKey": "toppserien__w_"
+     }
+    ],
+    "nonLiveBoCount": 11,
+    "sport": "FOOTBALL",
+    "tags": [
+     "OFFERED_LIVE",
+     "BET_BUILDER",
+     "MATCH"
+    ],
+    "state": "NOT_STARTED"
+   },
+   "betOffers": [
+    {
+     "id": 2702923882,
+     "closed": "2026-10-16T16:00:00Z",
+     "criterion": {
+      "id": 1001159858,
+      "label": "Full Time",
+      "englishLabel": "Full Time",
+      "order": [],
+      "occurrenceType": "GOALS",
+      "lifetime": "FULL_TIME"
+     },
+     "betOfferType": {
+      "id": 2,
+      "name": "Match",
+      "englishName": "Match"
+     },
+     "eventId": 1029469673,
+     "outcomes": [
+      {
+       "id": 4371836331,
+       "label": "1",
+       "englishLabel": "1",
+       "odds": 1250,
+       "participant": "Aalesunds FK (W)",
+       "type": "OT_ONE",
+       "betOfferId": 2702923882,
+       "changedDate": "2026-10-12T10:49:55Z",
+       "participantId": 1030460987,
+       "oddsFractional": "1/4",
+       "oddsAmerican": "-400",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 0
+      },
+      {
+       "id": 4371836332,
+       "label": "X",
+       "englishLabel": "X",
+       "odds": 5300,
+       "type": "OT_CROSS",
+       "betOfferId": 2702923882,
+       "changedDate": "2026-10-12T10:49:55Z",
+       "oddsFractional": "17/4",
+       "oddsAmerican": "430",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 1
+      },
+      {
+       "id": 4371836333,
+       "label": "2",
+       "englishLabel": "2",
+       "odds": 8000,
+       "participant": "Røa (W)",
+       "type": "OT_TWO",
+       "betOfferId": 2702923882,
+       "changedDate": "2026-10-12T10:49:55Z",
+       "participantId": 1000077436,
+       "oddsFractional": "7/1",
+       "oddsAmerican": "700",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 2
+      }
+     ],
+     "tags": [
+      "OFFERED_PREMATCH",
+      "BET_BUILDER",
+      "MAIN"
+     ],
+     "sortOrder": 1,
+     "cashOutStatus": "ENABLED"
+    },
+    {
+     "id": 2702909307,
+     "closed": "2026-10-16T16:00:00Z",
+     "criterion": {
+      "id": 1001159926,
+      "label": "Total Goals",
+      "englishLabel": "Total Goals",
+      "order": [],
+      "occurrenceType": "GOALS",
+      "lifetime": "FULL_TIME"
+     },
+     "betOfferType": {
+      "id": 6,
+      "name": "Over/Under",
+      "englishName": "Over/Under"
+     },
+     "eventId": 1029469673,
+     "outcomes": [
+      {
+       "id": 4371841658,
+       "label": "Over",
+       "englishLabel": "Over",
+       "odds": 1890,
+       "line": 3500,
+       "type": "OT_OVER",
+       "betOfferId": 2702909307,
+       "changedDate": "2026-10-12T10:49:55Z",
+       "oddsFractional": "22/25",
+       "oddsAmerican": "-113",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 0
+      },
+      {
+       "id": 4371841659,
+       "label": "Under",
+       "englishLabel": "Under",
+       "odds": 1720,
+       "line": 3500,
+       "type": "OT_UNDER",
+       "betOfferId": 2702909307,
+       "changedDate": "2026-10-12T10:49:55Z",
+       "oddsFractional": "7/10",
+       "oddsAmerican": "-139",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 1
+      }
+     ],
+     "tags": [
+      "OFFERED_PREMATCH",
+      "MAIN_LINE",
+      "BET_BUILDER"
+     ],
+     "sortOrder": 2,
+     "cashOutStatus": "ENABLED"
+    }
+   ]
+  },
+  {
+   "event": {
+    "id": 1026029004,
+    "name": "Bodo/Glimt (W) - Lyn (W)",
+    "nameDelimiter": "-",
+    "englishName": "Bodo/Glimt (W) - Lyn (W)",
+    "homeName": "Bodo/Glimt (W)",
+    "awayName": "Lyn (W)",
+    "start": "2026-10-16T16:00:00Z",
+    "group": "Toppserien (W)",
+    "groupId": 1000176403,
+    "path": [
+     {
+      "id": 1000093190,
+      "name": "Football",
+      "englishName": "Football",
+      "termKey": "football"
+     },
+     {
+      "id": 1000461744,
+      "name": "Norway",
+      "englishName": "Norway",
+      "termKey": "norway"
+     },
+     {
+      "id": 1000176403,
+      "name": "Toppserien (W)",
+      "englishName": "Toppserien (W)",
+      "termKey": "toppserien__w_"
+     }
+    ],
+    "nonLiveBoCount": 12,
+    "sport": "FOOTBALL",
+    "tags": [
+     "OFFERED_LIVE",
+     "BET_BUILDER",
+     "MATCH"
+    ],
+    "state": "NOT_STARTED"
+   },
+   "betOffers": [
+    {
+     "id": 2702663067,
+     "closed": "2026-10-16T16:00:00Z",
+     "criterion": {
+      "id": 1001159858,
+      "label": "Full Time",
+      "englishLabel": "Full Time",
+      "order": [],
+      "occurrenceType": "GOALS",
+      "lifetime": "FULL_TIME"
+     },
+     "betOfferType": {
+      "id": 2,
+      "name": "Match",
+      "englishName": "Match"
+     },
+     "eventId": 1026029004,
+     "outcomes": [
+      {
+       "id": 4370922377,
+       "label": "1",
+       "englishLabel": "1",
+       "odds": 10000,
+       "participant": "Bodo/Glimt (W)",
+       "type": "OT_ONE",
+       "betOfferId": 2702663067,
+       "changedDate": "2026-10-15T11:56:04Z",
+       "participantId": 1030140519,
+       "oddsFractional": "9/1",
+       "oddsAmerican": "900",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 0
+      },
+      {
+       "id": 4370922378,
+       "label": "X",
+       "englishLabel": "X",
+       "odds": 6100,
+       "type": "OT_CROSS",
+       "betOfferId": 2702663067,
+       "changedDate": "2026-10-15T11:56:04Z",
+       "oddsFractional": "5/1",
+       "oddsAmerican": "510",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 1
+      },
+      {
+       "id": 4370922379,
+       "label": "2",
+       "englishLabel": "2",
+       "odds": 1180,
+       "participant": "Lyn (W)",
+       "type": "OT_TWO",
+       "betOfferId": 2702663067,
+       "changedDate": "2026-10-15T11:56:04Z",
+       "participantId": 1002087544,
+       "oddsFractional": "1/6",
+       "oddsAmerican": "-560",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 2
+      }
+     ],
+     "tags": [
+      "OFFERED_PREMATCH",
+      "BET_BUILDER",
+      "MAIN"
+     ],
+     "sortOrder": 1,
+     "cashOutStatus": "ENABLED"
+    },
+    {
+     "id": 2702679822,
+     "closed": "2026-10-16T16:00:00Z",
+     "criterion": {
+      "id": 1001159926,
+      "label": "Total Goals",
+      "englishLabel": "Total Goals",
+      "order": [],
+      "occurrenceType": "GOALS",
+      "lifetime": "FULL_TIME"
+     },
+     "betOfferType": {
+      "id": 6,
+      "name": "Over/Under",
+      "englishName": "Over/Under"
+     },
+     "eventId": 1026029004,
+     "outcomes": [
+      {
+       "id": 4370887359,
+       "label": "Over",
+       "englishLabel": "Over",
+       "odds": 1800,
+       "line": 3500,
+       "type": "OT_OVER",
+       "betOfferId": 2702679822,
+       "changedDate": "2026-10-15T11:56:04Z",
+       "oddsFractional": "4/5",
+       "oddsAmerican": "-125",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 0
+      },
+      {
+       "id": 4370887360,
+       "label": "Under",
+       "englishLabel": "Under",
+       "odds": 1810,
+       "line": 3500,
+       "type": "OT_UNDER",
+       "betOfferId": 2702679822,
+       "changedDate": "2026-10-15T11:56:04Z",
+       "oddsFractional": "4/5",
+       "oddsAmerican": "-124",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 1
+      }
+     ],
+     "tags": [
+      "OFFERED_PREMATCH",
+      "MAIN_LINE",
+      "BET_BUILDER"
+     ],
+     "sortOrder": 2,
+     "cashOutStatus": "ENABLED"
+    }
+   ]
+  },
+  {
+   "event": {
+    "id": 1027977189,
+    "name": "Wieczysta Krakow - Raków Częstochowa",
+    "nameDelimiter": "-",
+    "englishName": "Wieczysta Krakow - Raków Częstochowa",
+    "homeName": "Wieczysta Krakow",
+    "awayName": "Raków Częstochowa",
+    "start": "2026-10-16T16:00:00Z",
+    "group": "Ekstraklasa",
+    "groupId": 1000385219,
+    "path": [
+     {
+      "id": 1000093190,
+      "name": "Football",
+      "englishName": "Football",
+      "termKey": "football"
+     },
+     {
+      "id": 1000461811,
+      "name": "Poland",
+      "englishName": "Poland",
+      "termKey": "poland"
+     },
+     {
+      "id": 1000385219,
+      "name": "Ekstraklasa",
+      "englishName": "Ekstraklasa",
+      "termKey": "ekstraklasa"
+     }
+    ],
+    "nonLiveBoCount": 68,
+    "sport": "FOOTBALL",
+    "tags": [
+     "OFFERED_LIVE",
+     "BET_BUILDER",
+     "MATCH"
+    ],
+    "state": "NOT_STARTED"
+   },
+   "betOffers": [
+    {
+     "id": 2701827222,
+     "criterion": {
+      "id": 1001159858,
+      "label": "Full Time",
+      "englishLabel": "Full Time",
+      "order": [],
+      "occurrenceType": "GOALS",
+      "lifetime": "FULL_TIME"
+     },
+     "betOfferType": {
+      "id": 2,
+      "name": "Match",
+      "englishName": "Match"
+     },
+     "eventId": 1027977189,
+     "outcomes": [
+      {
+       "id": 4368303008,
+       "label": "1",
+       "englishLabel": "1",
+       "odds": 2080,
+       "participant": "Wieczysta Krakow",
+       "type": "OT_ONE",
+       "betOfferId": 2701827222,
+       "changedDate": "2026-10-15T16:37:15Z",
+       "participantId": 1003477586,
+       "oddsFractional": "27/25",
+       "oddsAmerican": "108",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 0
+      },
+      {
+       "id": 4368303009,
+       "label": "X",
+       "englishLabel": "X",
+       "odds": 3750,
+       "type": "OT_CROSS",
+       "betOfferId": 2701827222,
+       "changedDate": "2026-10-15T16:37:15Z",
+       "oddsFractional": "11/4",
+       "oddsAmerican": "275",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 1
+      },
+      {
+       "id": 4368303010,
+       "label": "2",
+       "englishLabel": "2",
+       "odds": 3150,
+       "participant": "Raków Częstochowa",
+       "type": "OT_TWO",
+       "betOfferId": 2701827222,
+       "changedDate": "2026-10-15T16:37:15Z",
+       "participantId": 1000038616,
+       "oddsFractional": "43/20",
+       "oddsAmerican": "215",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 2
+      }
+     ],
+     "tags": [
+      "OFFERED_PREMATCH",
+      "OFFERED_LIVE",
+      "BET_BUILDER",
+      "MAIN"
+     ],
+     "sortOrder": 1,
+     "cashOutStatus": "ENABLED"
+    },
+    {
+     "id": 2701879120,
+     "criterion": {
+      "id": 1001159926,
+      "label": "Total Goals",
+      "englishLabel": "Total Goals",
+      "order": [],
+      "occurrenceType": "GOALS",
+      "lifetime": "FULL_TIME"
+     },
+     "betOfferType": {
+      "id": 6,
+      "name": "Over/Under",
+      "englishName": "Over/Under"
+     },
+     "eventId": 1027977189,
+     "outcomes": [
+      {
+       "id": 4368323931,
+       "label": "Over",
+       "englishLabel": "Over",
+       "odds": 1490,
+       "line": 2500,
+       "type": "OT_OVER",
+       "betOfferId": 2701879120,
+       "changedDate": "2026-10-15T16:37:15Z",
+       "oddsFractional": "12/25",
+       "oddsAmerican": "-205",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 0
+      },
+      {
+       "id": 4368323932,
+       "label": "Under",
+       "englishLabel": "Under",
+       "odds": 2400,
+       "line": 2500,
+       "type": "OT_UNDER",
+       "betOfferId": 2701879120,
+       "changedDate": "2026-10-15T16:37:15Z",
+       "oddsFractional": "7/5",
+       "oddsAmerican": "140",
+       "status": "OPEN",
+       "cashOutStatus": "ENABLED",
+       "displayOrder": 1
+      }
+     ],
+     "tags": [
+      "OFFERED_PREMATCH",
+      "OFFERED_LIVE",
+      "MAIN_LINE",
+      "BET_BUILDER"
+     ],
+     "sortOrder": 2,
+     "cashOutStatus": "ENABLED"
+    }
+   ]
+  }
+ ]
+}

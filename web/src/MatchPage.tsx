@@ -13,8 +13,8 @@ import styles from "./MatchPage.module.css";
 const POLL_MS = 60_000;
 
 // Collapsed at first: the markets only one bookmaker offers, nothing to
-// compare in them.
-const FOLDED_SECTIONS = new Set(["winamax", "betclic"]);
+// compare in them (a section keyed by the bookmaker, src/markets/catalog.ts).
+const FOLDED_SECTIONS = new Set<string>(["winamax", "betclic", ...ALL_BOOKMAKERS]);
 
 export interface PageStatus {
   updated?: Date;
@@ -44,7 +44,7 @@ function Section({
           className={styles.toggle}
           aria-expanded={open}
           aria-controls={bodyId}
-          aria-label={`${section.label}, ${count} marché${count > 1 ? "s" : ""}`}
+          aria-label={`${section.label}, ${count} market${count === 1 ? "" : "s"}`}
           onClick={onToggle}
         >
           {section.label}
@@ -77,7 +77,7 @@ export function MatchPage({
   bookmakers,
   onBookmakersChange,
   backHref,
-  backLabel = "Tous les matchs",
+  backLabel = "All matches",
   onBack,
   competitionHref,
   onOpenCompetition,
@@ -179,7 +179,7 @@ export function MatchPage({
         {back}
         {failed ? (
           <ErrorBanner onRetry={() => setRetries((n) => n + 1)}>
-            Impossible de charger les marchés de ce match.
+            The markets of this match could not be loaded.
           </ErrorBanner>
         ) : (
           <Skeleton />
@@ -192,8 +192,8 @@ export function MatchPage({
     return (
       <div className={styles.page}>
         {back}
-        <EmptyState action={{ label: `Voir ${backLabel.charAt(0).toLowerCase()}${backLabel.slice(1)}`, onClick: onBack }}>
-          Ce match n'est plus proposé : il a commencé, ou les bookmakers l'ont retiré.
+        <EmptyState action={{ label: `Show ${backLabel.charAt(0).toLowerCase()}${backLabel.slice(1)}`, onClick: onBack }}>
+          This match is no longer offered: it has started, or the bookmakers have taken it down.
         </EmptyState>
       </div>
     );
@@ -212,7 +212,7 @@ export function MatchPage({
               <a
                 href={competitionHref(detail.sport, detail.competitionFilter)}
                 className={styles.competition}
-                aria-label={`Voir les matchs : ${detail.competition}`}
+                aria-label={`Show the matches: ${detail.competition}`}
                 onClick={(e) => {
                   if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
                   e.preventDefault();
@@ -235,12 +235,12 @@ export function MatchPage({
           </p>
           <h2 className={styles.title}>{title}</h2>
           <p className={styles.summary}>
-            {detail.comparedCount} marché{detail.comparedCount > 1 ? "s" : ""} comparé{detail.comparedCount > 1 ? "s" : ""}
+            {detail.comparedCount} market{detail.comparedCount === 1 ? "" : "s"} compared
             {detail.surebetCount > 0 && (
               <>
                 {" · "}
                 <strong className={styles.sure}>
-                  {detail.surebetCount} surebet{detail.surebetCount > 1 ? "s" : ""}
+                  {detail.surebetCount} surebet{detail.surebetCount === 1 ? "" : "s"}
                 </strong>
               </>
             )}
@@ -251,17 +251,17 @@ export function MatchPage({
 
       {failed && (
         <ErrorBanner onRetry={() => setRetries((n) => n + 1)}>
-          Impossible d'actualiser les marchés : ceux affichés peuvent être dépassés.
+          The markets could not be refreshed: the ones shown may be out of date.
         </ErrorBanner>
       )}
 
       {bookmakers.length === 0 ? (
-        <EmptyState action={{ label: "Cocher tous les bookmakers", onClick: () => onBookmakersChange([...ALL_BOOKMAKERS]) }}>
-          Cochez au moins un bookmaker pour comparer les cotes.
+        <EmptyState action={{ label: "Tick every bookmaker", onClick: () => onBookmakersChange([...ALL_BOOKMAKERS]) }}>
+          Tick at least one bookmaker to compare the odds.
         </EmptyState>
       ) : (
         <>
-          <nav className={styles.nav} aria-label="Rubriques">
+          <nav className={styles.nav} aria-label="Sections">
             {detail.sections.map((section) => (
               <button key={section.key} type="button" className={styles.navItem} onClick={() => goToSection(section.key)}>
                 {section.label}

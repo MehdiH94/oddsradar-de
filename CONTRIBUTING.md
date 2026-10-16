@@ -49,7 +49,7 @@ qui partagent le même fichier SQLite :
 | `src/worker/` | Démarrage du worker et planification des cycles. |
 | `tests/` | Tests du backend, même arborescence que `src/`. `tests/scraper/fixtures/` contient de vraies réponses des bookmakers. |
 | `e2e/` | Tests end-to-end (Playwright) des chemins critiques, section 5 : `server.ts` lance la vraie API sur une base semée (`seed.ts`), `fixtures.ts` dit ce que le semis contient, un fichier `*.spec.ts` par famille de parcours. |
-| `web/src/` | Site React : la page d'accueil (`/`, `HomePage.tsx`) et le dashboard (`/cotes`, `App.tsx`), choisis par `Root.tsx`. Chaque composant a son test à côté (`OddsTable.tsx` et `OddsTable.test.tsx`). |
+| `web/src/` | Site React : la page d'accueil (`/`, `HomePage.tsx`) et le dashboard (`/odds`, `App.tsx`), choisis par `Root.tsx`. Chaque composant a son test à côté (`OddsTable.tsx` et `OddsTable.test.tsx`). |
 | `deploy/` | Script de déploiement et unités systemd ; `deploy/staging/` : ceux du site de test. |
 | `.github/workflows/` | `test.yml` (les vérifications : les tests, puis le job `e2e`), `ci.yml` (les pull requests), `deploy-staging.yml` (déploiement de `development`), `deploy.yml` (déploiement de `main`, gardé par le job `gate`), `sync-development.yml`. |
 
@@ -109,7 +109,7 @@ enregistrées.
 | La récupération des cotes d'un bookmaker | `src/scraper/<bookmaker>.ts` | `tests/scraper/` |
 | Le calcul du TRJ | `src/db/payoutRate.ts` | `tests/db/payoutRate.test.ts` |
 | La référence (cote juste de l'exchange) : sa collecte, le rapprochement de ses matchs, ses garde-fous | `src/reference/exchange.ts` (recherche, détails d'un match, socket des prix et lignes asiatiques, cote juste, fiabilité des cotes joueurs), `src/reference/match.ts` (noms en anglais, sens des équipes), `src/reference/run.ts` (le cycle du worker), `src/reference/players.ts` (ses marchés joueurs), `src/reference/tennis.ts` et `tennisRun.ts` (le tennis : noms des joueurs, marchés, cote juste, son cycle), `src/reference/sports.ts` et `sportsRun.ts` (les autres sports de face-à-face : le marché de l'exchange de chacun, ses matchs « Away @ Home », son cycle), `src/reference/golf.ts` et `golfRun.ts` (les tournois de golf des 7 prochains jours : le vainqueur de chacun sur l'exchange, sa cote juste par joueur), `src/db/reference.ts`, `src/db/playerReference.ts` et `src/db/tennisReference.ts` (ses tables), `src/db/tennisValue.ts` (value bets tennis) | `tests/reference/` (sur des réponses réelles de l'exchange, dont `tennis.test.ts`, `tennisRun.test.ts`, `sports.test.ts` et `sportsRun.test.ts`) |
-| Les comptes : inscription, connexion, sessions, emails, rôles | `src/auth/` (`routes.ts` les routes, `store.ts` les requêtes, `password.ts`, `middleware.ts` : `requireAuth`, `requireRole`, CSRF), `src/auth/db.ts` (**migrations versionnées** : en ajouter une, ne jamais modifier une migration livrée), `web/src/auth/` (contexte, pages), `web/src/Root.tsx` (la garde de `/cotes`) | `tests/auth/`, `tests/api/protection.test.ts`, `web/src/Root.test.tsx` |
+| Les comptes : inscription, connexion, sessions, emails, rôles | `src/auth/` (`routes.ts` les routes, `store.ts` les requêtes, `password.ts`, `middleware.ts` : `requireAuth`, `requireRole`, CSRF), `src/auth/db.ts` (**migrations versionnées** : en ajouter une, ne jamais modifier une migration livrée), `web/src/auth/` (contexte, pages), `web/src/Root.tsx` (la garde de `/odds`) | `tests/auth/`, `tests/api/protection.test.ts`, `web/src/Root.test.tsx` |
 | Les alertes Discord (gems) | `src/alerts/gems.ts` (seuils, message, envoi), `src/db/alerts.ts` (gems envoyées, état), `src/worker/index.ts` (après chaque cycle de la référence), `GET /api/alerts` dans `src/api/server.ts`, `deploy/deploy.sh` (`apply_settings`) et `.github/workflows/deploy.yml` (le secret `DISCORD_WEBHOOK_URL`) | `tests/alerts/gems.test.ts`, `tests/deploy/settings.test.ts`, `tests/api/server.test.ts` |
 | Les métriques des marchés joueurs de l'exchange | `src/db/playerStats.ts` (compteurs, signaux vus, bilan), `src/reference/players.ts` (`recordPlayerSignals`), `GET /api/stats/players` dans `src/api/server.ts` | `tests/reference/players.test.ts`, `tests/api/server.test.ts` |
 | Les surebets : TRJ au-dessus de 100 % entre bookmakers, avec les cotes back de l'exchange (commission de 3 %, 20 € au moins) ou back/lay, « à vérifier » au-delà de 110 %, alertes Discord | `src/db/surebets.ts` (`getSurebets`, `surebets` de `/api/value-bets` ; `withoutSurebets`, les value bets sans les cotes qui font un surebet, sur le site et dans les alertes), `src/db/marketGrid.ts` (le TRJ d'un marché, partagé avec `src/db/eventDetail.ts` et `src/db/payoutRate.ts`), `src/alerts/gems.ts` (`surebetsMessage`), `web/src/SurebetsTable.tsx`, `web/src/App.tsx` | `tests/db/surebets.test.ts` (sur un vrai match de tennis : aces, jeux...), `tests/db/eventDetail.test.ts`, `tests/alerts/gems.test.ts`, `tests/api/server.test.ts`, `web/src/SurebetsTable.test.tsx`, `web/src/App.test.tsx` |
@@ -212,11 +212,11 @@ chemin. Pour en ajouter une :
   que pour les chemins listés) ;
 - si la page montre des données, elle appelle une route `/api` : celles-ci sont
   protégées d'office (`requireAuth` dans `createServer`), et la page doit
-  passer par `RequireAuth` dans `Root.tsx` comme `/cotes` (sans quoi le
+  passer par `RequireAuth` dans `Root.tsx` comme `/odds` (sans quoi le
   visiteur voit des erreurs au lieu de la page de connexion) ;
 - les adresses publiques existantes ne changent pas : les alertes Discord et
   les liens partagés pointent vers `/?match=…` ; `Root` les envoie vers
-  `/cotes` (`isDashboardQuery` dans `routes.ts`).
+  `/odds` (`isDashboardQuery` dans `routes.ts`).
 
 ### Conventions du dashboard
 
@@ -291,14 +291,14 @@ l'API) :
 | Inscription | `accounts.spec.ts` | Créer un compte, être refusé tant que l'adresse n'est pas confirmée, confirmer par le lien de l'email, se connecter |
 | Mot de passe oublié | `accounts.spec.ts` | Demander le lien, en choisir un nouveau mot de passe, l'ancien est refusé |
 | Déconnexion | `accounts.spec.ts` | La session est fermée : le tableau de bord et l'API sont de nouveau fermés |
-| Accès protégé | `access.spec.ts` | Un visiteur anonyme sur `/cotes` est envoyé à `/connexion?next=…` et revient où il était ; `/api` répond 401 sans session, sauf `/api/health` et `/api/public/home` |
+| Accès protégé | `access.spec.ts` | Un visiteur anonyme sur `/odds` est envoyé à `/login?next=…` et revient où il était ; `/api` répond 401 sans session, sauf `/api/health` et `/api/public/home` |
 | Rechargement des pages | `access.spec.ts` | Chaque page du site (`SPA_PATHS`) s'ouvre aussi directement, pas par une 404 |
 | Administration | `admin.spec.ts` | Un visiteur ou un compte ordinaire n'entre pas sur `/admin` ; un admin liste les comptes, en bloque un (déconnecté aussitôt, refusé à la connexion) et nomme un autre admin |
 | Les cotes | `odds.spec.ts` | La liste des matchs et la meilleure cote de chaque issue, les filtres (sport, recherche, bookmakers) gardés dans l'adresse |
 | Les value bets | `odds.spec.ts` | Chaque pari contre la cote juste, le plus gros écart en premier |
 | La page d'un match | `odds.spec.ts` | Ouverte depuis les value bets, tous ses marchés, le lien retour |
 | Les surebets | `odds.spec.ts` | Chaque jambe (bookmaker, cote, mise), le TRJ et le gain |
-| Les freebets | `freebets.spec.ts` | Un compte saisit ses FB (enregistrés avec le compte, relus au rechargement), voit le top 3 et où placer chaque pari, copie la liste ; le mode exchange (pari + lay, chaque cas) ; les réglages gardés dans l'adresse ; un compte neuf est invité à saisir ses FB ; un visiteur est renvoyé à `/connexion?next=…` et l'API lui répond 401 |
+| Les freebets | `freebets.spec.ts` | Un compte saisit ses FB (enregistrés avec le compte, relus au rechargement), voit le top 3 et où placer chaque pari, copie la liste ; le mode exchange (pari + lay, chaque cas) ; les réglages gardés dans l'adresse ; un compte neuf est invité à saisir ses FB ; un visiteur est renvoyé à `/login?next=…` et l'API lui répond 401 |
 
 Ce qui n'y est pas : le cycle du worker (il dépend des sites des bookmakers,
 et ses tests utilisent de vraies réponses enregistrées), l'accueil public et

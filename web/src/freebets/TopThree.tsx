@@ -50,10 +50,10 @@ export function TopThree({
               <span className={`${styles.rank} num`}>{card.rank}</span>
               {card.badge && <span className={card.badge.tone === "good" ? styles.good : styles.warning}>{card.badge.text}</span>}
             </span>
-            <span className={styles.label}>Taux de conversion</span>
+            <span className={styles.label}>Conversion rate</span>
             <span className={`${styles.rate} num`}>{card.rate}</span>
             <span className={styles.cash}>
-              Retour cash garanti <strong className="num">{card.cash}</strong>
+              Guaranteed cash return <strong className="num">{card.cash}</strong>
             </span>
             <Gauge from={card.from} to={card.to} />
             <span className={styles.caption}>{card.caption}</span>

@@ -2,7 +2,7 @@ import { distance } from "fastest-levenshtein";
 import { createHash } from "node:crypto";
 import { RawEvent, RawOdds, CanonicalEvent, EventSource } from "../types";
 import { COMPETITION_WINNER_SPORTS, MARKET_OUTRIGHT } from "../scraper/canonical";
-import { normalizeName } from "./normalize";
+import { foldGermanDigraphs, normalizeName } from "./normalize";
 
 export const NAME_SIMILARITY_THRESHOLD = 0.75;
 const START_TIME_TOLERANCE_MS = 10 * 60 * 1000;
@@ -56,7 +56,11 @@ function levenshteinRatio(a: string, b: string): number {
 }
 
 function nameSimilarity(a: string, b: string): number {
-  return levenshteinRatio(normalizeName(a), normalizeName(b));
+  const na = normalizeName(a);
+  const nb = normalizeName(b);
+  // "München" / "Muenchen": the better of the names as written and with the
+  // German digraphs folded.
+  return Math.max(levenshteinRatio(na, nb), levenshteinRatio(foldGermanDigraphs(na), foldGermanDigraphs(nb)));
 }
 
 // Words bookmakers add to or drop from a club's name at will: club-type and
@@ -101,7 +105,9 @@ function coreWords(name: string): string[] {
     .filter(Boolean)
     .map((w) => CITY_ALIASES.get(w) ?? w);
   const core = words.filter((w) => !IGNORED_NAME_WORDS.has(w));
-  return core.length > 0 ? core : words;
+  // Folded once the words the matcher lists are looked up: "Köln" and "Koeln"
+  // are one word.
+  return (core.length > 0 ? core : words).map(foldGermanDigraphs);
 }
 
 // Names bookmakers give the same team that no spelling rule can pair: an
@@ -1058,9 +1064,11 @@ function addSource(sources: Record<string, EventSource>, bookmakerId: string, ev
 }
 
 // The bookmakers whose spelling of an event (its id, its names) is kept, in
-// this order: those it was before the others joined, so that their events
-// keep their ids. The others seed only the events neither lists.
-const SEED_BOOKMAKERS = ["betclic", "winamax"];
+// this order: LeoVegas.de's English names first (Kambi's, which ease the
+// matching with the exchange), then Merkur Bets's and 20bet's (English too); Betclic and Winamax, whose
+// real captures many tests still read, keep their order between them. The
+// others seed only the events none of them lists.
+const SEED_BOOKMAKERS = ["leovegas", "merkurbets", "twentybet", "betclic", "winamax"];
 const seedRank = (id: string) => (SEED_BOOKMAKERS.includes(id) ? SEED_BOOKMAKERS.indexOf(id) : SEED_BOOKMAKERS.length);
 // The same order, for whatever else keeps one bookmaker's spelling (the players'
 // names of the markets cycle, src/scraper/marketsRun.ts).

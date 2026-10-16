@@ -214,7 +214,7 @@ describe("runGemAlerts", () => {
         "fair odds, or a player, games or sets bet 15% or more; and each surebet (payout over 100%, " +
         "those “to verify” flagged as such). A single alert per match, market and outcome." +
         "\n" +
-        `${SITE}/?sport=value-bets&sort=value&bookmakers=leovegas,merkurbets,twentybet`
+        `${SITE}/?sport=value-bets&sort=value&bookmakers=leovegas,merkurbets,twentybet,admiralbet`
     );
     // No one pinged by a name, ever.
     expect([hello.allowed_mentions, gems.allowed_mentions]).toEqual([{ parse: [] }, { parse: [] }]);
@@ -226,14 +226,14 @@ describe("runGemAlerts", () => {
     const kickOff = KICK_OFF.getTime() / 1000;
     expect(france).toEqual({
       title: "💎 +5.0%",
-      url: `${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet`,
+      url: `${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet,admiralbet`,
       color: 0xd97706,
       fields: [
         { name: "Match", value: "France - Italie · Ligue des Nations" },
         { name: "Kick-off", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
         {
           name: "Match page",
-          value: `[See the match on OddsBlitzer](${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet)`,
+          value: `[See the match on OddsBlitzer](${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet,admiralbet)`,
         },
       ],
     });
@@ -289,7 +289,7 @@ describe("runGemAlerts", () => {
     expect([sure]).toEqual([
       {
         title: "⚖️ 107.4%",
-        url: `${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet`,
+        url: `${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet,admiralbet`,
         color: 0x16a34a,
         fields: [
           { name: "Match", value: "Lakers - Celtics · NBA" },
@@ -297,7 +297,7 @@ describe("runGemAlerts", () => {
           { name: "Profit", value: "+7.4%", inline: true },
           {
             name: "Match page",
-            value: `[See the match on OddsBlitzer](${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet)`,
+            value: `[See the match on OddsBlitzer](${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet,admiralbet)`,
           },
         ],
       },
@@ -642,7 +642,7 @@ describe("the link to the match", () => {
     thin: false,
     legs: [{ selection: "1", label: "PSG", source: "leovegas", side: "back", price: 2.1, stake: 100 }],
   } as unknown as Surebet;
-  const url = "https://cote-radar.fr/?match=psg-om&bookmakers=leovegas,merkurbets,twentybet";
+  const url = "https://cote-radar.fr/?match=psg-om&bookmakers=leovegas,merkurbets,twentybet,admiralbet";
 
   it("is the title's and a line of its own, on a gem and a surebet", () => {
     for (const embed of [gemEmbed(gem, "https://cote-radar.fr"), surebetEmbed(surebet, "https://cote-radar.fr")]) {
@@ -660,7 +660,7 @@ describe("the link to the match", () => {
       expect(embed.fields.map((f) => f.name)).toEqual(names);
     }
     const odd = gemEmbed({ ...gem, eventId: "a(b)c d" }, "https://cote-radar.fr");
-    expect(odd.url).toBe("https://cote-radar.fr/?match=a%28b%29c%20d&bookmakers=leovegas,merkurbets,twentybet");
+    expect(odd.url).toBe("https://cote-radar.fr/?match=a%28b%29c%20d&bookmakers=leovegas,merkurbets,twentybet,admiralbet");
     // One "(" and one ")": the link's own.
     const value = odd.fields.at(-1)!.value;
     expect([value.split("(").length - 1, value.split(")").length - 1]).toEqual([1, 1]);

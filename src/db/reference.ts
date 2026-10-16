@@ -112,7 +112,7 @@ export function golfCompetitors(db: DatabaseSync, eventId: string, oddsSince: st
     .prepare(
       `SELECT selection FROM event_bookmaker_odds
        WHERE event_id = @eventId AND market = @market AND scraped_at >= @oddsSince
-       ORDER BY CASE bookmaker_id WHEN 'leovegas' THEN 0 WHEN 'merkurbets' THEN 1 WHEN 'twentybet' THEN 2 WHEN 'betclic' THEN 3 WHEN 'winamax' THEN 4 ELSE 5 END, selection`
+       ORDER BY CASE bookmaker_id WHEN 'leovegas' THEN 0 WHEN 'merkurbets' THEN 1 WHEN 'twentybet' THEN 2 WHEN 'admiralbet' THEN 3 WHEN 'betclic' THEN 4 WHEN 'winamax' THEN 5 ELSE 6 END, selection`
     )
     .all({ eventId, market: MARKET_OUTRIGHT, oddsSince }) as { selection: string }[];
   return [...new Set(rows.map((r) => r.selection))];

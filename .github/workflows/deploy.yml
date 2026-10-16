@@ -4,11 +4,10 @@
 # automatique".
 name: deploy
 
-# Run by hand only, until OddsRadar's own deploy keys are set up (its
-# server is the OVH VPS, never CoteRadar's): then add back
-#   push:
-#     branches: [main]
+# OddsBlitzer's own server, the OVH VPS (never CoteRadar's).
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 # One deploy at a time, in push order: a newer pending run replaces an older
@@ -25,7 +24,7 @@ env:
   DEPLOY_USER: oddsradar
   # The site's public address, in the alerts' links and the health check
   # after the deployment. The repository variable APP_URL overrides it.
-  APP_URL: ${{ vars.APP_URL || 'http://141.95.86.176' }}
+  APP_URL: ${{ vars.APP_URL || 'https://141-95-86-176.sslip.io' }}
 
 jobs:
   test:

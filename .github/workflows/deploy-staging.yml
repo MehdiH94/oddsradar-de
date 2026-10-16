@@ -22,7 +22,7 @@ env:
   DEPLOY_HOST: 141.95.86.176
   DEPLOY_USER: oddsradar
   # The staging site's public address: the repository variable STAGING_URL.
-  STAGING_URL: ${{ vars.STAGING_URL || 'https://staging.141-95-86-176.sslip.io' }}
+  STAGING_URL: ${{ vars.STAGING_URL || 'https://staging.odds-blitzer.de' }}
 
 jobs:
   test:

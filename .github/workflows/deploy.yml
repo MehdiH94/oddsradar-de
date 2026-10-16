@@ -24,7 +24,7 @@ env:
   DEPLOY_USER: oddsradar
   # The site's public address, in the alerts' links and the health check
   # after the deployment. The repository variable APP_URL overrides it.
-  APP_URL: ${{ vars.APP_URL || 'https://141-95-86-176.sslip.io' }}
+  APP_URL: ${{ vars.APP_URL || 'https://odds-blitzer.de' }}
 
 jobs:
   test:

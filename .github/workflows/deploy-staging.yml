@@ -3,9 +3,11 @@
 # services, other databases. One-time setup: README, "Environnement de test".
 name: deploy-staging
 
+# Run by hand only, until OddsRadar's own deploy keys are set up (its
+# server is the OVH VPS, never CoteRadar's): then add back
+#   push:
+#     branches: [development]
 on:
-  push:
-    branches: [development]
   workflow_dispatch:
 
 # One deploy at a time, in push order: a newer pending run replaces an older
@@ -18,10 +20,10 @@ permissions:
   contents: read
 
 env:
-  DEPLOY_HOST: 141.94.244.108
+  DEPLOY_HOST: 141.95.86.176
   DEPLOY_USER: oddsradar
   # The staging site's public address: the repository variable STAGING_URL.
-  STAGING_URL: ${{ vars.STAGING_URL || 'https://staging.cote-radar.fr' }}
+  STAGING_URL: ${{ vars.STAGING_URL }}
 
 jobs:
   test:

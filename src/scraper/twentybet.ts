@@ -25,7 +25,12 @@ const PRE_MATCH = 0;
 // Events a page: the API answers nothing above 150 (15/10/2026).
 const PAGE_SIZE = 100;
 // A page's every market is a few MB to parse: a sport's pages one at a time.
-const REQUEST_DELAY_MS = 300;
+// 20bet answers 429 (too many requests) when the production and the staging
+// workers read it at once from the server's IP (16/10/2026): a second between
+// pages, and a 429 waits as long as it asks (Retry-After) before one retry.
+const REQUEST_DELAY_MS = 1_000;
+const RATE_LIMITED_WAIT_MS = 10_000;
+const MAX_RETRY_AFTER_MS = 30_000;
 // A stalled request must fail rather than hang: the worker's overlap guard
 // would otherwise skip every later cycle, for every bookmaker.
 const REQUEST_TIMEOUT_MS = 30_000;
@@ -178,13 +183,23 @@ export const twentybetListUrl = (sportId: string, page: number): string =>
   `${API}?lang=en&main=1&status_in[]=${PRE_MATCH}&oddsExists_eq=1&sportId_eq=${sportId}` +
   `&relations[]=odds&relations[]=competitors&relations[]=league&limit=${PAGE_SIZE}&page=${page}`;
 
-async function getPage(sportId: string, page: number): Promise<TwentybetListReply> {
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// How long a 429 asks to wait: its Retry-After in seconds, within reason.
+export function retryAfterMs(header: string | null): number {
+  const seconds = Number(header);
+  return Number.isFinite(seconds) && seconds > 0 ? Math.min(seconds * 1000, MAX_RETRY_AFTER_MS) : RATE_LIMITED_WAIT_MS;
+}
+
+async function getPage(sportId: string, page: number, retried = false): Promise<TwentybetListReply> {
   const res = await fetch(twentybetListUrl(sportId, page), { headers: HEADERS, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
+  if (res.status === 429 && !retried) {
+    await sleep(retryAfterMs(res.headers.get("retry-after")));
+    return getPage(sportId, page, true);
+  }
   if (!res.ok) throw new Error(`20bet event/list: HTTP ${res.status}`);
   return (await res.json()) as TwentybetListReply;
 }
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // A sport's every event, page after page.
 async function fetchSport(sportId: string): Promise<RawEvent[]> {

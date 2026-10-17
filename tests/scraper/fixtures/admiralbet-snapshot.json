@@ -1,0 +1,2522 @@
+[
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10007560",
+   "name": "Hamburger SV",
+   "type": 0,
+   "abbreviation": "HSV",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:1",
+   "venue": null,
+   "translations": {
+    "en": "HSV"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10007609",
+   "name": "VfB Stuttgart",
+   "type": 0,
+   "abbreviation": "VFB",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:1",
+   "venue": null,
+   "translations": {
+    "en": "VfB Stuttgart"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competition",
+  "entity": {
+   "urn": "asw:competition:10000260",
+   "name": "Bundesliga",
+   "sport": "asw:sport:1",
+   "region": "asw:region:80",
+   "remarks": [],
+   "translations": {
+    "en": "Bundesliga"
+   },
+   "properties": {}
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Sport",
+  "entity": {
+   "urn": "asw:sport:1",
+   "name": "Soccer",
+   "translations": {
+    "en": "Football",
+    "de": "Fußball"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "atr:market:prematch:ecfdf748-406e-3c02-85ab-434d1eaf5970/atr:event:7247833",
+   "type": "asw:markettype:1",
+   "state": 1,
+   "selections": [
+    "atr:selection:prematch:973e4717-af5e-3fdb-af92-f1357b184e90",
+    "atr:selection:prematch:1ffa8d9f-de6c-3836-965b-89503b7b9b36",
+    "atr:selection:prematch:ffa85995-675b-33d8-b57a-d7d6342ae07f"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:973e4717-af5e-3fdb-af92-f1357b184e90",
+   "type": "asw:selectiontype:1",
+   "odds": 4.2,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:1ffa8d9f-de6c-3836-965b-89503b7b9b36",
+   "type": "asw:selectiontype:2",
+   "odds": 4.2,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:ffa85995-675b-33d8-b57a-d7d6342ae07f",
+   "type": "asw:selectiontype:3",
+   "odds": 1.75,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:16886659",
+   "name": "Hamburger SV : VfB Stuttgart",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-17T13:30:00Z",
+   "endTime": null,
+   "sport": "asw:sport:1",
+   "region": "asw:region:80",
+   "competition": "asw:competition:10000260",
+   "competitionRound": "sr:tournamentround/sr:tournament:35?round=6&phase=regularseason",
+   "season": "sr:season:140768",
+   "venue": "sr:venue:582",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10007560"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10007609"
+    }
+   ],
+   "markets": [
+    "atr:market:prematch:ecfdf748-406e-3c02-85ab-434d1eaf5970/atr:event:7247833",
+    "atr:market:prematch:88ae6279-b8c6-3fda-b642-f6e98b0266e1/atr:event:7247833",
+    "atr:market:prematch:3aa2aa1a-a0f8-3083-a1f4-a8fa8f56a982/atr:event:7247833"
+   ],
+   "categories": [
+    "asw:category:10026374"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:72513248"
+   ],
+   "broadcasters": [],
+   "remarks": [],
+   "translations": {
+    "en": "HSV : VfB Stuttgart"
+   },
+   "properties": {
+    "EventNumber": 73,
+    "IsInPlayEnabled": true,
+    "IsPreMatchEnabled": true,
+    "VisualizationType": "PreMatch",
+    "OvertimeLength": "00:15:00",
+    "PeriodLength": "00:45:00",
+    "BetradarHostedStatistics": {
+     "SportId": 1,
+     "MatchId": 72513248
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 1,
+     "MatchId": 72513248,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "IsNeutralGround": false,
+    "Statistics": [
+     "soccer/lastCompetitorMeetings",
+     "soccer/funFacts",
+     "soccer/lineup"
+    ],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": true,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": true,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10382376",
+   "name": "Schalke 04",
+   "type": 0,
+   "abbreviation": null,
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:1",
+   "venue": null,
+   "translations": {
+    "en": "Schalke 04",
+    "de": "Schalke"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10007511",
+   "name": "FSV Mainz",
+   "type": 0,
+   "abbreviation": "M05",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:1",
+   "venue": null,
+   "translations": {
+    "en": "FSV Mainz 05"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "atr:market:prematch:4906e72b-6653-318c-9957-79288dd6b73c/atr:event:7247835",
+   "type": "asw:markettype:1",
+   "state": 1,
+   "selections": [
+    "atr:selection:prematch:17503a3d-02db-34b1-a552-dd5447462ede",
+    "atr:selection:prematch:d2e1c122-f259-3b8c-90ab-8b059876634b",
+    "atr:selection:prematch:0aec2428-ee4d-32ff-a087-c5fc206040b0"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:17503a3d-02db-34b1-a552-dd5447462ede",
+   "type": "asw:selectiontype:1",
+   "odds": 3.1,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:d2e1c122-f259-3b8c-90ab-8b059876634b",
+   "type": "asw:selectiontype:2",
+   "odds": 3.5,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:0aec2428-ee4d-32ff-a087-c5fc206040b0",
+   "type": "asw:selectiontype:3",
+   "odds": 2.25,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:16886661",
+   "name": "Schalke 04 : FSV Mainz",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-17T13:30:00Z",
+   "endTime": null,
+   "sport": "asw:sport:1",
+   "region": "asw:region:80",
+   "competition": "asw:competition:10000260",
+   "competitionRound": "sr:tournamentround/sr:tournament:35?round=6&phase=regularseason",
+   "season": "sr:season:140768",
+   "venue": "sr:venue:812",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10382376"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10007511"
+    }
+   ],
+   "markets": [
+    "atr:market:prematch:4906e72b-6653-318c-9957-79288dd6b73c/atr:event:7247835",
+    "atr:market:prematch:b51831a9-eaf1-3e85-9308-2ddbf3f6bfb5/atr:event:7247835",
+    "atr:market:prematch:905c14bb-961c-36d6-9804-351f14ea75da/atr:event:7247835"
+   ],
+   "categories": [
+    "asw:category:10026374"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:72513252"
+   ],
+   "broadcasters": [],
+   "remarks": [],
+   "translations": {
+    "en": "Schalke 04 : FSV Mainz 05",
+    "de": "Schalke : FSV Mainz 05"
+   },
+   "properties": {
+    "EventNumber": 75,
+    "IsInPlayEnabled": true,
+    "IsPreMatchEnabled": true,
+    "VisualizationType": "PreMatch",
+    "OvertimeLength": "00:15:00",
+    "PeriodLength": "00:45:00",
+    "BetradarHostedStatistics": {
+     "SportId": 1,
+     "MatchId": 72513252
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 1,
+     "MatchId": 72513252,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "IsNeutralGround": false,
+    "Statistics": [
+     "soccer/lastCompetitorMeetings",
+     "soccer/funFacts",
+     "soccer/lineup"
+    ],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": true,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": true,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10008597",
+   "name": "SV 07 Elversberg",
+   "type": 0,
+   "abbreviation": "ELV",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:1",
+   "venue": null,
+   "translations": {
+    "en": "SV Elversberg"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10007563",
+   "name": "FC Augsburg",
+   "type": 0,
+   "abbreviation": "FCA",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:1",
+   "venue": null,
+   "translations": {
+    "en": "Augsburg"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "atr:market:prematch:53d5f012-1304-380c-9966-c12b532af63c/atr:event:7247836",
+   "type": "asw:markettype:1",
+   "state": 1,
+   "selections": [
+    "atr:selection:prematch:b7e571ae-a09a-3e1d-ad5d-1b4fdc4efb90",
+    "atr:selection:prematch:0d470a3e-6fae-374c-a07d-293d3fe22d32",
+    "atr:selection:prematch:8902e9f7-f8a3-3252-9de3-062878ba9e82"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:b7e571ae-a09a-3e1d-ad5d-1b4fdc4efb90",
+   "type": "asw:selectiontype:1",
+   "odds": 2.4,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:0d470a3e-6fae-374c-a07d-293d3fe22d32",
+   "type": "asw:selectiontype:2",
+   "odds": 3.8,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:8902e9f7-f8a3-3252-9de3-062878ba9e82",
+   "type": "asw:selectiontype:3",
+   "odds": 2.7,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:16886656",
+   "name": "SV 07 Elversberg : FC Augsburg",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-17T13:30:00Z",
+   "endTime": null,
+   "sport": "asw:sport:1",
+   "region": "asw:region:80",
+   "competition": "asw:competition:10000260",
+   "competitionRound": "sr:tournamentround/sr:tournament:35?round=6&phase=regularseason",
+   "season": "sr:season:140768",
+   "venue": "sr:venue:1283",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10008597"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10007563"
+    }
+   ],
+   "markets": [
+    "atr:market:prematch:53d5f012-1304-380c-9966-c12b532af63c/atr:event:7247836",
+    "atr:market:prematch:6e701419-0290-3dc5-a640-d35d035a0be2/atr:event:7247836",
+    "atr:market:prematch:adf443ee-ee51-30a1-8575-b70470448dcf/atr:event:7247836"
+   ],
+   "categories": [
+    "asw:category:10026374"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:72513254"
+   ],
+   "broadcasters": [],
+   "remarks": [],
+   "translations": {
+    "en": "SV Elversberg : Augsburg"
+   },
+   "properties": {
+    "EventNumber": 72,
+    "IsInPlayEnabled": true,
+    "IsPreMatchEnabled": true,
+    "VisualizationType": "PreMatch",
+    "BetradarHostedStatistics": {
+     "SportId": 1,
+     "MatchId": 72513254
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 1,
+     "MatchId": 72513254,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "IsNeutralGround": false,
+    "PeriodLength": "00:45:00",
+    "Statistics": [
+     "soccer/lastCompetitorMeetings",
+     "soccer/funFacts",
+     "soccer/lineup"
+    ],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": true,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": true,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10006847",
+   "name": "Union Berlin",
+   "type": 0,
+   "abbreviation": "UNI",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:1",
+   "venue": null,
+   "translations": {
+    "en": "Union Berlin"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10005828",
+   "name": "Borussia Dortmund",
+   "type": 0,
+   "abbreviation": "BVB",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:1",
+   "venue": null,
+   "translations": {
+    "en": "Dortmund"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "atr:market:prematch:14daf863-6732-3fae-bc8f-eadfc3b8f7c5/atr:event:7247832",
+   "type": "asw:markettype:1",
+   "state": 1,
+   "selections": [
+    "atr:selection:prematch:bd8b05d6-9ea2-33ee-9bb1-146a2403a294",
+    "atr:selection:prematch:a68d5e9d-4c7f-3146-b11c-ad8852f62c86",
+    "atr:selection:prematch:c11d9698-51d7-325c-94f8-cf4416cb4c87"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:bd8b05d6-9ea2-33ee-9bb1-146a2403a294",
+   "type": "asw:selectiontype:1",
+   "odds": 5.2,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:a68d5e9d-4c7f-3146-b11c-ad8852f62c86",
+   "type": "asw:selectiontype:2",
+   "odds": 4.5,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:c11d9698-51d7-325c-94f8-cf4416cb4c87",
+   "type": "asw:selectiontype:3",
+   "odds": 1.57,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:16886662",
+   "name": "Union Berlin : Borussia Dortmund",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-17T13:30:00Z",
+   "endTime": null,
+   "sport": "asw:sport:1",
+   "region": "asw:region:80",
+   "competition": "asw:competition:10000260",
+   "competitionRound": "sr:tournamentround/sr:tournament:35?round=6&phase=regularseason",
+   "season": "sr:season:140768",
+   "venue": "sr:venue:578",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10006847"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10005828"
+    }
+   ],
+   "markets": [
+    "atr:market:prematch:14daf863-6732-3fae-bc8f-eadfc3b8f7c5/atr:event:7247832",
+    "atr:market:prematch:4c57c5f1-c6b1-3efe-912e-338387dafc0e/atr:event:7247832",
+    "atr:market:prematch:d677f11e-01d5-3d43-a303-3ed0a787d0e4/atr:event:7247832"
+   ],
+   "categories": [
+    "asw:category:10026374"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:72513244"
+   ],
+   "broadcasters": [],
+   "remarks": [],
+   "translations": {
+    "en": "Union Berlin : Dortmund"
+   },
+   "properties": {
+    "EventNumber": 76,
+    "IsInPlayEnabled": true,
+    "IsPreMatchEnabled": true,
+    "VisualizationType": "PreMatch",
+    "BetradarHostedStatistics": {
+     "SportId": 1,
+     "MatchId": 72513244
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 1,
+     "MatchId": 72513244,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "IsNeutralGround": false,
+    "PeriodLength": "00:45:00",
+    "Statistics": [
+     "soccer/lastCompetitorMeetings",
+     "soccer/funFacts",
+     "soccer/lineup"
+    ],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": true,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": true,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10244757",
+   "name": "La Serna, Juan Manuel",
+   "type": 0,
+   "abbreviation": "LA ",
+   "countryCode": "ARG",
+   "gender": 1,
+   "sport": "asw:sport:5",
+   "venue": null,
+   "translations": {
+    "en": "La Serna, Juan Manuel"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10018370",
+   "name": "Roncadelli, Franco",
+   "type": 0,
+   "abbreviation": null,
+   "countryCode": "URY",
+   "gender": 1,
+   "sport": "asw:sport:5",
+   "venue": null,
+   "translations": {
+    "en": "Roncadelli, Franco"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competition",
+  "entity": {
+   "urn": "asw:competition:10012454",
+   "name": "ATP Challenger Santa Cruz 2, Bolivia Men Singles",
+   "sport": "asw:sport:5",
+   "region": "asw:region:0",
+   "remarks": [],
+   "translations": {
+    "en": "Santa Cruz 2 (Challenger)"
+   },
+   "properties": {}
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Sport",
+  "entity": {
+   "urn": "asw:sport:5",
+   "name": "Tennis",
+   "translations": {
+    "en": "Tennis"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "sr:market:186/sr:match:75371512",
+   "type": "asw:markettype:186",
+   "state": 1,
+   "selections": [
+    "sr:outcome:4/sr:market:186/sr:match:75371512",
+    "sr:outcome:5/sr:market:186/sr:match:75371512"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "sr:outcome:4/sr:market:186/sr:match:75371512",
+   "type": "asw:selectiontype:4",
+   "odds": 1.9,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "sr:outcome:5/sr:market:186/sr:match:75371512",
+   "type": "asw:selectiontype:5",
+   "odds": 1.75,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:16963331",
+   "name": "La Serna, Juan Manuel : Roncadelli, Franco",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-16T20:00:00Z",
+   "endTime": null,
+   "sport": "asw:sport:5",
+   "region": "asw:region:0",
+   "competition": "asw:competition:10012454",
+   "competitionRound": "sr:tournamentround/sr:tournament:36093?round=Quarterfinal",
+   "season": "sr:season:142962",
+   "venue": "sr:venue:23928",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10244757"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10018370"
+    }
+   ],
+   "markets": [
+    "sr:market:186/sr:match:75371512",
+    "sr:market:202/sr:match:75371512?setnr=1",
+    "sr:market:189/sr:match:75371512?total=21.5"
+   ],
+   "categories": [
+    "asw:category:10025967"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:75371512"
+   ],
+   "broadcasters": [],
+   "remarks": [],
+   "translations": {
+    "en": "La Serna, Juan Manuel : Roncadelli, Franco"
+   },
+   "properties": {
+    "EventNumber": 4407,
+    "IsInPlayEnabled": true,
+    "IsPreMatchEnabled": true,
+    "StatsCoreLiveMatchPro": {
+     "SportId": 4,
+     "LSportsId": "20539990",
+     "Id": 6830060
+    },
+    "VisualizationType": "PreMatch",
+    "BestOf": 3,
+    "BetradarHostedStatistics": {
+     "SportId": 5,
+     "MatchId": 75371512
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 5,
+     "MatchId": 75371512,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "CourtSurface": "Clay",
+    "IsNeutralGround": true,
+    "MatchMode": "bo3",
+    "Statistics": [],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": true,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": false,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10370387",
+   "name": "Miguel, Luis Guto",
+   "type": 0,
+   "abbreviation": "MIG",
+   "countryCode": "BRA",
+   "gender": 1,
+   "sport": "asw:sport:5",
+   "venue": null,
+   "translations": {
+    "en": "Miguel, Luis Guto"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10008812",
+   "name": "Dellien, Hugo",
+   "type": 0,
+   "abbreviation": "DEL",
+   "countryCode": "BOL",
+   "gender": 1,
+   "sport": "asw:sport:5",
+   "venue": null,
+   "translations": {
+    "en": "Dellien, Hugo"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "sr:market:186/sr:match:75371514",
+   "type": "asw:markettype:186",
+   "state": 1,
+   "selections": [
+    "sr:outcome:4/sr:market:186/sr:match:75371514",
+    "sr:outcome:5/sr:market:186/sr:match:75371514"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "sr:outcome:4/sr:market:186/sr:match:75371514",
+   "type": "asw:selectiontype:4",
+   "odds": 2.7,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "sr:outcome:5/sr:market:186/sr:match:75371514",
+   "type": "asw:selectiontype:5",
+   "odds": 1.37,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:16963327",
+   "name": "Miguel, Luis Guto : Dellien, Hugo",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-16T20:10:00Z",
+   "endTime": null,
+   "sport": "asw:sport:5",
+   "region": "asw:region:0",
+   "competition": "asw:competition:10012454",
+   "competitionRound": "sr:tournamentround/sr:tournament:36093?round=Quarterfinal",
+   "season": "sr:season:142962",
+   "venue": "sr:venue:67281",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10370387"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10008812"
+    }
+   ],
+   "markets": [
+    "sr:market:186/sr:match:75371514",
+    "sr:market:202/sr:match:75371514?setnr=1",
+    "sr:market:189/sr:match:75371514?total=21.5"
+   ],
+   "categories": [
+    "asw:category:10025967"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:75371514"
+   ],
+   "broadcasters": [],
+   "remarks": [],
+   "translations": {
+    "en": "Miguel, Luis Guto : Dellien, Hugo"
+   },
+   "properties": {
+    "EventNumber": 4417,
+    "IsInPlayEnabled": true,
+    "IsPreMatchEnabled": true,
+    "StatsCoreLiveMatchPro": {
+     "SportId": 4,
+     "LSportsId": "20529587",
+     "Id": 6829344
+    },
+    "VisualizationType": "PreMatch",
+    "BestOf": 3,
+    "BetradarHostedStatistics": {
+     "SportId": 5,
+     "MatchId": 75371514
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 5,
+     "MatchId": 75371514,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "CourtSurface": "Clay",
+    "IsNeutralGround": true,
+    "MatchMode": "bo3",
+    "Statistics": [],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": true,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": false,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10009506",
+   "name": "Seyboth Wild, Thiago",
+   "type": 0,
+   "abbreviation": "SEY",
+   "countryCode": "BRA",
+   "gender": 1,
+   "sport": "asw:sport:5",
+   "venue": null,
+   "translations": {
+    "en": "Seyboth Wild, Thiago"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10006695",
+   "name": "Kicker, Nicolas",
+   "type": 0,
+   "abbreviation": "KIC",
+   "countryCode": "ARG",
+   "gender": 1,
+   "sport": "asw:sport:5",
+   "venue": null,
+   "translations": {
+    "en": "Kicker, Nicolas"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "sr:market:186/sr:match:75371510",
+   "type": "asw:markettype:186",
+   "state": 1,
+   "selections": [
+    "sr:outcome:4/sr:market:186/sr:match:75371510",
+    "sr:outcome:5/sr:market:186/sr:match:75371510"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "sr:outcome:4/sr:market:186/sr:match:75371510",
+   "type": "asw:selectiontype:4",
+   "odds": 1.12,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "sr:outcome:5/sr:market:186/sr:match:75371510",
+   "type": "asw:selectiontype:5",
+   "odds": 4.8,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:16963329",
+   "name": "Seyboth Wild, Thiago : Kicker, Nicolas",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-16T21:20:00Z",
+   "endTime": null,
+   "sport": "asw:sport:5",
+   "region": "asw:region:0",
+   "competition": "asw:competition:10012454",
+   "competitionRound": "sr:tournamentround/sr:tournament:36093?round=Quarterfinal",
+   "season": "sr:season:142962",
+   "venue": "sr:venue:67281",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10009506"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10006695"
+    }
+   ],
+   "markets": [
+    "sr:market:186/sr:match:75371510",
+    "sr:market:202/sr:match:75371510?setnr=1",
+    "sr:market:189/sr:match:75371510?total=19.5"
+   ],
+   "categories": [
+    "asw:category:10025967"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:75371510"
+   ],
+   "broadcasters": [],
+   "remarks": [],
+   "translations": {
+    "en": "Seyboth Wild, Thiago : Kicker, Nicolas"
+   },
+   "properties": {
+    "EventNumber": 4415,
+    "IsInPlayEnabled": true,
+    "IsPreMatchEnabled": true,
+    "StatsCoreLiveMatchPro": {
+     "SportId": 4,
+     "LSportsId": "20541117",
+     "Id": 6830061
+    },
+    "VisualizationType": "PreMatch",
+    "BestOf": 3,
+    "BetradarHostedStatistics": {
+     "SportId": 5,
+     "MatchId": 75371510
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 5,
+     "MatchId": 75371510,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "CourtSurface": "Clay",
+    "IsNeutralGround": true,
+    "MatchMode": "bo3",
+    "Statistics": [],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": true,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": false,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10016218",
+   "name": "Basquet Manresa",
+   "type": 0,
+   "abbreviation": "BMA",
+   "countryCode": "ESP",
+   "gender": 1,
+   "sport": "asw:sport:2",
+   "venue": null,
+   "translations": {
+    "en": "Manresa"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10014150",
+   "name": "CB Malaga",
+   "type": 0,
+   "abbreviation": "MAL",
+   "countryCode": "ESP",
+   "gender": 1,
+   "sport": "asw:sport:2",
+   "venue": null,
+   "translations": {
+    "en": "CB Malaga"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competition",
+  "entity": {
+   "urn": "asw:competition:10001062",
+   "name": "Liga ACB",
+   "sport": "asw:sport:2",
+   "region": "asw:region:199",
+   "remarks": [],
+   "translations": {
+    "en": "Liga ACB"
+   },
+   "properties": {
+    "SeasonStandingsTemplate": "BasketballPercentage"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Sport",
+  "entity": {
+   "urn": "asw:sport:2",
+   "name": "Basketball",
+   "translations": {
+    "en": "Basketball"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "sr:market:219/sr:match:73713512",
+   "type": "asw:markettype:219",
+   "state": 1,
+   "selections": [
+    "sr:outcome:4/sr:market:219/sr:match:73713512",
+    "sr:outcome:5/sr:market:219/sr:match:73713512"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "sr:outcome:4/sr:market:219/sr:match:73713512",
+   "type": "asw:selectiontype:4",
+   "odds": 2.35,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "sr:outcome:5/sr:market:219/sr:match:73713512",
+   "type": "asw:selectiontype:5",
+   "odds": 1.55,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:16995461",
+   "name": "Basquet Manresa : CB Malaga",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-17T16:00:00Z",
+   "endTime": null,
+   "sport": "asw:sport:2",
+   "region": "asw:region:199",
+   "competition": "asw:competition:10001062",
+   "competitionRound": "sr:tournamentround/sr:tournament:264?round=4",
+   "season": "sr:season:144766",
+   "venue": "sr:venue:7004",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10016218"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10014150"
+    }
+   ],
+   "markets": [
+    "sr:market:219/sr:match:73713512",
+    "sr:market:1/sr:match:73713512",
+    "sr:market:223/sr:match:73713512?hcp=-10.5"
+   ],
+   "categories": [
+    "asw:category:10011491"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:73713512"
+   ],
+   "broadcasters": [],
+   "remarks": [],
+   "translations": {
+    "en": "Manresa : CB Malaga"
+   },
+   "properties": {
+    "EventNumber": 6052,
+    "ImgVideoStream": {
+     "Id": 539902,
+     "CountryCodes": [
+      "AT"
+     ]
+    },
+    "IsInPlayEnabled": true,
+    "IsPreMatchEnabled": true,
+    "VisualizationType": "PreMatch",
+    "PeriodLength": "00:10:00",
+    "BetradarHostedStatistics": {
+     "SportId": 2,
+     "MatchId": 73713512
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 2,
+     "MatchId": 73713512,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "IsNeutralGround": false,
+    "Statistics": [
+     "basketball/lastCompetitorMeetings"
+    ],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": true,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": false,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10016000",
+   "name": "BC Andorra",
+   "type": 0,
+   "abbreviation": "AND",
+   "countryCode": "ESP",
+   "gender": 1,
+   "sport": "asw:sport:2",
+   "venue": null,
+   "translations": {
+    "en": "Andorra"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10016212",
+   "name": "CB Breogan",
+   "type": 0,
+   "abbreviation": null,
+   "countryCode": "ESP",
+   "gender": 1,
+   "sport": "asw:sport:2",
+   "venue": null,
+   "translations": {
+    "en": "CB Breogan"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "atr:market:prematch:956cb801-c5b3-37fa-b37e-70d36fc6c017/atr:event:7279068",
+   "type": "asw:markettype:219",
+   "state": 1,
+   "selections": [
+    "atr:selection:prematch:ef3fe3f5-65dd-3faf-a423-480d642c3326",
+    "atr:selection:prematch:f504179c-0138-3be9-958f-7bd17c1f0001"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:ef3fe3f5-65dd-3faf-a423-480d642c3326",
+   "type": "asw:selectiontype:4",
+   "odds": 1.83,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:f504179c-0138-3be9-958f-7bd17c1f0001",
+   "type": "asw:selectiontype:5",
+   "odds": 1.9,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:16995478",
+   "name": "BC Andorra : CB Breogan",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-17T17:30:00Z",
+   "endTime": null,
+   "sport": "asw:sport:2",
+   "region": "asw:region:199",
+   "competition": "asw:competition:10001062",
+   "competitionRound": "sr:tournamentround/sr:tournament:264?round=4",
+   "season": "sr:season:144766",
+   "venue": "sr:venue:17254",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10016000"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10016212"
+    }
+   ],
+   "markets": [
+    "atr:market:prematch:956cb801-c5b3-37fa-b37e-70d36fc6c017/atr:event:7279068",
+    "sr:market:1/sr:match:73713514",
+    "atr:market:prematch:8a95f445-4d2d-3c38-a57b-aba92feea702/atr:event:7279068"
+   ],
+   "categories": [
+    "asw:category:10011491"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:73713514"
+   ],
+   "broadcasters": [],
+   "remarks": [],
+   "translations": {
+    "en": "Andorra : CB Breogan"
+   },
+   "properties": {
+    "EventNumber": 6056,
+    "ImgVideoStream": {
+     "Id": 539901,
+     "CountryCodes": [
+      "AT"
+     ]
+    },
+    "IsInPlayEnabled": true,
+    "IsPreMatchEnabled": true,
+    "VisualizationType": "PreMatch",
+    "PeriodLength": "00:10:00",
+    "BetradarHostedStatistics": {
+     "SportId": 2,
+     "MatchId": 73713514
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 2,
+     "MatchId": 73713514,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "IsNeutralGround": false,
+    "Statistics": [
+     "basketball/lastCompetitorMeetings"
+    ],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": true,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": true,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10015082",
+   "name": "CB San Pablo Burgos",
+   "type": 0,
+   "abbreviation": "MIR",
+   "countryCode": "ESP",
+   "gender": 1,
+   "sport": "asw:sport:2",
+   "venue": null,
+   "translations": {
+    "en": "San Pablo Burgos"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10015997",
+   "name": "Obradoiro CAB",
+   "type": 0,
+   "abbreviation": "OBR",
+   "countryCode": "ESP",
+   "gender": 1,
+   "sport": "asw:sport:2",
+   "venue": null,
+   "translations": {
+    "en": "Obradoiro"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "atr:market:prematch:c8779258-75b7-3282-b21e-57b4f2659e29/atr:event:7279126",
+   "type": "asw:markettype:219",
+   "state": 1,
+   "selections": [
+    "atr:selection:prematch:8bd802ae-d52c-3aa5-9274-30976578603a",
+    "atr:selection:prematch:cb8c52fe-3a9a-3231-af7f-e286ea71792d"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:8bd802ae-d52c-3aa5-9274-30976578603a",
+   "type": "asw:selectiontype:4",
+   "odds": 1.4,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:cb8c52fe-3a9a-3231-af7f-e286ea71792d",
+   "type": "asw:selectiontype:5",
+   "odds": 2.8,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:16995462",
+   "name": "CB San Pablo Burgos : Obradoiro CAB",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-17T19:00:00Z",
+   "endTime": null,
+   "sport": "asw:sport:2",
+   "region": "asw:region:199",
+   "competition": "asw:competition:10001062",
+   "competitionRound": "sr:tournamentround/sr:tournament:264?round=4",
+   "season": "sr:season:144766",
+   "venue": "sr:venue:34942",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10015082"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10015997"
+    }
+   ],
+   "markets": [
+    "atr:market:prematch:c8779258-75b7-3282-b21e-57b4f2659e29/atr:event:7279126",
+    "sr:market:1/sr:match:73713516",
+    "atr:market:prematch:72e83927-8a90-3e04-931d-3f4a4e7a9101/atr:event:7279126"
+   ],
+   "categories": [
+    "asw:category:10011491"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:73713516"
+   ],
+   "broadcasters": [],
+   "remarks": [],
+   "translations": {
+    "en": "San Pablo Burgos : Obradoiro"
+   },
+   "properties": {
+    "EventNumber": 6053,
+    "ImgVideoStream": {
+     "Id": 539900,
+     "CountryCodes": [
+      "AT"
+     ]
+    },
+    "IsInPlayEnabled": true,
+    "IsPreMatchEnabled": true,
+    "VisualizationType": "PreMatch",
+    "PeriodLength": "00:10:00",
+    "BetradarHostedStatistics": {
+     "SportId": 2,
+     "MatchId": 73713516
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 2,
+     "MatchId": 73713516,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "IsNeutralGround": false,
+    "Statistics": [
+     "basketball/lastCompetitorMeetings"
+    ],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": true,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": true,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10011488",
+   "name": "Krefeld Pinguine",
+   "type": 0,
+   "abbreviation": "KRE",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:4",
+   "venue": null,
+   "translations": {
+    "en": "Krefeld Pinguine"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10011353",
+   "name": "Eisbaren Berlin",
+   "type": 0,
+   "abbreviation": "BER",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:4",
+   "venue": null,
+   "translations": {
+    "en": "Eisbaren Berlin",
+    "de": "Eisbären Berlin"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competition",
+  "entity": {
+   "urn": "asw:competition:10000181",
+   "name": "DEL",
+   "sport": "asw:sport:4",
+   "region": "asw:region:80",
+   "remarks": [],
+   "translations": {
+    "en": "DEL"
+   },
+   "properties": {
+    "IsSelfTraded": true
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Sport",
+  "entity": {
+   "urn": "asw:sport:4",
+   "name": "Ice Hockey",
+   "translations": {
+    "en": "Ice Hockey",
+    "de": "Eishockey"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "atr:market:prematch:9485aec6-1134-3453-b59e-accbb3310af7/atr:event:7281926",
+   "type": "asw:markettype:1",
+   "state": 1,
+   "selections": [
+    "atr:selection:prematch:3d70f2a4-9f21-3942-9328-11ae52e4b3c6",
+    "atr:selection:prematch:fc069eb6-69c1-31a5-8c9d-535456fc6a9b",
+    "atr:selection:prematch:9c3fc991-4a15-329b-97f1-a365c01077f3"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:3d70f2a4-9f21-3942-9328-11ae52e4b3c6",
+   "type": "asw:selectiontype:1",
+   "odds": 4.8,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:fc069eb6-69c1-31a5-8c9d-535456fc6a9b",
+   "type": "asw:selectiontype:2",
+   "odds": 4.7,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:9c3fc991-4a15-329b-97f1-a365c01077f3",
+   "type": "asw:selectiontype:3",
+   "odds": 1.52,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:17008404",
+   "name": "Krefeld Pinguine : Eisbaren Berlin",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-18T12:00:00Z",
+   "endTime": null,
+   "sport": "asw:sport:4",
+   "region": "asw:region:80",
+   "competition": "asw:competition:10000181",
+   "competitionRound": "sr:tournamentround/sr:tournament:225?round=10",
+   "season": "sr:season:142504",
+   "venue": "sr:venue:5574",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10011488"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10011353"
+    }
+   ],
+   "markets": [
+    "atr:market:prematch:9485aec6-1134-3453-b59e-accbb3310af7/atr:event:7281926",
+    "atr:market:prematch:3cd70275-65ac-3692-9a15-a1c9bfe0873f/atr:event:7281926",
+    "sr:market:37/sr:match:72484012?total=5.5"
+   ],
+   "categories": [
+    "asw:category:10012420"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:72484012"
+   ],
+   "broadcasters": [],
+   "remarks": [],
+   "translations": {
+    "en": "Krefeld Pinguine : Eisbaren Berlin",
+    "de": "Krefeld Pinguine : Eisbären Berlin"
+   },
+   "properties": {
+    "EventNumber": 5371,
+    "ImgVideoStream": {
+     "Id": 535570,
+     "CountryCodes": [
+      "AT"
+     ]
+    },
+    "IsInPlayEnabled": false,
+    "IsPreMatchEnabled": true,
+    "VisualizationType": "PreMatch",
+    "BetradarHostedStatistics": {
+     "SportId": 4,
+     "MatchId": 72484012
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 4,
+     "MatchId": 72484012,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "IsNeutralGround": false,
+    "OvertimeLength": "00:05:00",
+    "PeriodLength": "00:20:00",
+    "Statistics": [
+     "iceHockey/lastCompetitorMeetings"
+    ],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": false,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": true,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10015103",
+   "name": "Lowen Frankfurt",
+   "type": 0,
+   "abbreviation": "LOW",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:4",
+   "venue": null,
+   "translations": {
+    "en": "Lowen Frankfurt",
+    "de": "Löwen Frankfurt"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10011489",
+   "name": "Iserlohn Roosters",
+   "type": 0,
+   "abbreviation": "ISE",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:4",
+   "venue": null,
+   "translations": {
+    "en": "Iserlohn Roosters"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "sr:market:1/sr:match:72484014",
+   "type": "asw:markettype:1",
+   "state": 1,
+   "selections": [
+    "sr:outcome:1/sr:market:1/sr:match:72484014",
+    "sr:outcome:2/sr:market:1/sr:match:72484014",
+    "sr:outcome:3/sr:market:1/sr:match:72484014"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "sr:outcome:1/sr:market:1/sr:match:72484014",
+   "type": "asw:selectiontype:1",
+   "odds": 2.15,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "sr:outcome:2/sr:market:1/sr:match:72484014",
+   "type": "asw:selectiontype:2",
+   "odds": 4.15,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "sr:outcome:3/sr:market:1/sr:match:72484014",
+   "type": "asw:selectiontype:3",
+   "odds": 2.65,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:17008389",
+   "name": "Lowen Frankfurt : Iserlohn Roosters",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-18T12:00:00Z",
+   "endTime": null,
+   "sport": "asw:sport:4",
+   "region": "asw:region:80",
+   "competition": "asw:competition:10000181",
+   "competitionRound": "sr:tournamentround/sr:tournament:225?round=10",
+   "season": "sr:season:142504",
+   "venue": "sr:venue:45716",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10015103"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10011489"
+    }
+   ],
+   "markets": [
+    "sr:market:1/sr:match:72484014",
+    "sr:market:406/sr:match:72484014",
+    "sr:market:37/sr:match:72484014?total=5.5"
+   ],
+   "categories": [
+    "asw:category:10012420"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:72484014"
+   ],
+   "broadcasters": [],
+   "remarks": [],
+   "translations": {
+    "en": "Lowen Frankfurt : Iserlohn Roosters",
+    "de": "Löwen Frankfurt : Iserlohn Roosters"
+   },
+   "properties": {
+    "EventNumber": 5367,
+    "ImgVideoStream": {
+     "Id": 535569,
+     "CountryCodes": [
+      "AT"
+     ]
+    },
+    "IsInPlayEnabled": false,
+    "IsPreMatchEnabled": true,
+    "VisualizationType": "PreMatch",
+    "BetradarHostedStatistics": {
+     "SportId": 4,
+     "MatchId": 72484014
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 4,
+     "MatchId": 72484014,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "IsNeutralGround": false,
+    "OvertimeLength": "00:05:00",
+    "PeriodLength": "00:20:00",
+    "Statistics": [
+     "iceHockey/lastCompetitorMeetings"
+    ],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": false,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": true,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10011327",
+   "name": "Straubing Tigers",
+   "type": 0,
+   "abbreviation": "STR",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:4",
+   "venue": null,
+   "translations": {
+    "en": "Straubing Tigers"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10010920",
+   "name": "Grizzlys Wolfsburg",
+   "type": 0,
+   "abbreviation": "WOL",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:4",
+   "venue": null,
+   "translations": {
+    "en": "Grizzlys Wolfsburg"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "atr:market:prematch:fbf9dcc7-93e7-3620-8835-b09ae4a638d4/atr:event:7281929",
+   "type": "asw:markettype:1",
+   "state": 1,
+   "selections": [
+    "atr:selection:prematch:49745c4c-d2bf-3f8e-bf79-e2033aa2eaa2",
+    "atr:selection:prematch:c4fc0547-d0b4-390a-a20e-c1cc30e6d9ab",
+    "atr:selection:prematch:9eb27896-62e0-33de-92f9-0c686bf06692"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:49745c4c-d2bf-3f8e-bf79-e2033aa2eaa2",
+   "type": "asw:selectiontype:1",
+   "odds": 2.2,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:c4fc0547-d0b4-390a-a20e-c1cc30e6d9ab",
+   "type": "asw:selectiontype:2",
+   "odds": 4.2,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "atr:selection:prematch:9eb27896-62e0-33de-92f9-0c686bf06692",
+   "type": "asw:selectiontype:3",
+   "odds": 2.6,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:17008388",
+   "name": "Straubing Tigers : Grizzlys Wolfsburg",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-18T12:00:00Z",
+   "endTime": null,
+   "sport": "asw:sport:4",
+   "region": "asw:region:80",
+   "competition": "asw:competition:10000181",
+   "competitionRound": "sr:tournamentround/sr:tournament:225?round=10",
+   "season": "sr:season:142504",
+   "venue": "sr:venue:5580",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10011327"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10010920"
+    }
+   ],
+   "markets": [
+    "atr:market:prematch:fbf9dcc7-93e7-3620-8835-b09ae4a638d4/atr:event:7281929",
+    "atr:market:prematch:084a792c-23f4-3641-9067-ac5af8388899/atr:event:7281929",
+    "sr:market:37/sr:match:72484016?total=5.5"
+   ],
+   "categories": [
+    "asw:category:10012420"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:72484016"
+   ],
+   "broadcasters": [],
+   "remarks": [],
+   "translations": {
+    "en": "Straubing Tigers : Grizzlys Wolfsburg"
+   },
+   "properties": {
+    "EventNumber": 5368,
+    "ImgVideoStream": {
+     "Id": 535568,
+     "CountryCodes": [
+      "AT"
+     ]
+    },
+    "IsInPlayEnabled": false,
+    "IsPreMatchEnabled": true,
+    "VisualizationType": "PreMatch",
+    "BetradarHostedStatistics": {
+     "SportId": 4,
+     "MatchId": 72484016
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 4,
+     "MatchId": 72484016,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "IsNeutralGround": false,
+    "OvertimeLength": "00:05:00",
+    "PeriodLength": "00:20:00",
+    "Statistics": [
+     "iceHockey/lastCompetitorMeetings"
+    ],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": false,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": true,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10008272",
+   "name": "Jacksonville Jaguars",
+   "type": 0,
+   "abbreviation": "JAC",
+   "countryCode": "USA",
+   "gender": 1,
+   "sport": "asw:sport:16",
+   "venue": null,
+   "translations": {
+    "en": "Jacksonville Jaguars"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10008270",
+   "name": "Houston Texans",
+   "type": 0,
+   "abbreviation": "HOU",
+   "countryCode": "USA",
+   "gender": 1,
+   "sport": "asw:sport:16",
+   "venue": null,
+   "translations": {
+    "en": "Houston Texans"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competition",
+  "entity": {
+   "urn": "asw:competition:10000308",
+   "name": "NFL",
+   "sport": "asw:sport:16",
+   "region": "asw:region:226",
+   "remarks": [],
+   "translations": {
+    "en": "NFL"
+   },
+   "properties": {}
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Sport",
+  "entity": {
+   "urn": "asw:sport:16",
+   "name": "American Football",
+   "translations": {
+    "en": "American Football"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "sr:market:219/sr:match:71488626",
+   "type": "asw:markettype:219",
+   "state": 1,
+   "selections": [
+    "sr:outcome:4/sr:market:219/sr:match:71488626",
+    "sr:outcome:5/sr:market:219/sr:match:71488626"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "prematch"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "sr:outcome:4/sr:market:219/sr:match:71488626",
+   "type": "asw:selectiontype:4",
+   "odds": 1.65,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "sr:outcome:5/sr:market:219/sr:match:71488626",
+   "type": "asw:selectiontype:5",
+   "odds": 2.1,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:16349895",
+   "name": "Jacksonville Jaguars : Houston Texans",
+   "type": 0,
+   "state": 1,
+   "startTime": "2026-10-18T13:30:00Z",
+   "endTime": null,
+   "sport": "asw:sport:16",
+   "region": "asw:region:226",
+   "competition": "asw:competition:10000308",
+   "competitionRound": "sr:tournamentround/sr:tournament:31?round=6&group=afcsouth",
+   "season": "sr:season:139396",
+   "venue": "sr:venue:8",
+   "phase": "asw:phase:0",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10008272"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10008270"
+    }
+   ],
+   "markets": [
+    "sr:market:219/sr:match:71488626",
+    "sr:market:1/sr:match:71488626",
+    "sr:market:223/sr:match:71488626?hcp=-6.5"
+   ],
+   "categories": [
+    "asw:category:10010737"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/sr:match:71488626"
+   ],
+   "broadcasters": [],
+   "remarks": [
+    "asw:remark:1"
+   ],
+   "translations": {
+    "en": "Jacksonville Jaguars : Houston Texans"
+   },
+   "properties": {
+    "EventNumber": 7600,
+    "IsInPlayEnabled": true,
+    "IsPreMatchEnabled": true,
+    "VisualizationType": "PreMatch",
+    "BetgeniusDropAndPlay": {
+     "SportId": 17,
+     "FixtureId": 13902243,
+     "LiveStreams": [
+      {
+       "Device": "Desktop",
+       "CountryCodes": [
+        "AT",
+        "CH",
+        "DE",
+        "ES",
+        "UK"
+       ]
+      },
+      {
+       "Device": "Mobile",
+       "CountryCodes": [
+        "AT",
+        "CH",
+        "DE",
+        "ES",
+        "UK"
+       ]
+      },
+      {
+       "Device": "Tablet",
+       "CountryCodes": [
+        "AT",
+        "CH",
+        "DE",
+        "ES",
+        "UK"
+       ]
+      }
+     ]
+    },
+    "BetradarHostedStatistics": {
+     "SportId": 16,
+     "MatchId": 71488626
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 16,
+     "MatchId": 71488626,
+     "IsCompact": true,
+     "IsMomentum": false
+    },
+    "IsNeutralGround": true,
+    "Statistics": [],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": true,
+    "IsPreMatchAvailable": true,
+    "IsInPlayAvailable": false,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": true,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10007502",
+   "name": "Eintracht Frankfurt",
+   "type": 0,
+   "abbreviation": "SGE",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:1",
+   "venue": null,
+   "translations": {
+    "en": "Eintracht Frankfurt"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Competitor",
+  "entity": {
+   "urn": "asw:competitor:10007639",
+   "name": "1. FC Cologne",
+   "type": 0,
+   "abbreviation": "KOE",
+   "countryCode": "DEU",
+   "gender": 1,
+   "sport": "asw:sport:1",
+   "venue": null,
+   "translations": {
+    "en": "1. FC Cologne",
+    "de": "1. FC Köln"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Market",
+  "entity": {
+   "urn": "gs:market:223596713:0:inplay/gs:fixture:14099016",
+   "type": "asw:markettype:1",
+   "state": 1,
+   "selections": [
+    "gs:selection:605772559/gs:market:223596713:0:inplay/gs:fixture:14099016",
+    "gs:selection:605772560/gs:market:223596713:0:inplay/gs:fixture:14099016",
+    "gs:selection:605772561/gs:market:223596713:0:inplay/gs:fixture:14099016"
+   ],
+   "properties": {
+    "IsMainMarket": true,
+    "mode": "inplay"
+   }
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "gs:selection:605772559/gs:market:223596713:0:inplay/gs:fixture:14099016",
+   "type": "asw:selectiontype:1",
+   "odds": 2.15,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "gs:selection:605772560/gs:market:223596713:0:inplay/gs:fixture:14099016",
+   "type": "asw:selectiontype:2",
+   "odds": 2.45,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Selection",
+  "entity": {
+   "urn": "gs:selection:605772561/gs:market:223596713:0:inplay/gs:fixture:14099016",
+   "type": "asw:selectiontype:3",
+   "odds": 5,
+   "state": 1
+  }
+ },
+ {
+  "kind": 0,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:16886657",
+   "name": "Eintracht Frankfurt : 1. FC Cologne",
+   "type": 0,
+   "state": 5,
+   "startTime": "2026-10-16T18:30:00Z",
+   "endTime": null,
+   "sport": "asw:sport:1",
+   "region": "asw:region:80",
+   "competition": "asw:competition:10000260",
+   "competitionRound": "sr:tournamentround/sr:tournament:35?round=6&phase=regularseason",
+   "season": "sr:season:140768",
+   "venue": "sr:venue:67707",
+   "phase": "asw:phase:7",
+   "eventCompetitors": [
+    {
+     "qualifier": "home",
+     "competitor": "asw:competitor:10007502"
+    },
+    {
+     "qualifier": "away",
+     "competitor": "asw:competitor:10007639"
+    }
+   ],
+   "markets": [
+    "gs:market:223596713:0:inplay/gs:fixture:14099016",
+    "gs:market:223596721:0:inplay/gs:fixture:14099016",
+    "gs:market:223596732:0:inplay/gs:fixture:14099016"
+   ],
+   "categories": [
+    "asw:category:10026374"
+   ],
+   "eventDetails": [
+    "asw:eventdetail:scoreboard/gs:fixture:14099016",
+    "asw:eventdetail:lineup/sr:match:72513242",
+    "asw:eventdetail:statistics/sr:match:72513242"
+   ],
+   "broadcasters": [
+    "asw:broadcaster:674"
+   ],
+   "remarks": [],
+   "translations": {
+    "en": "Eintracht Frankfurt : 1. FC Cologne",
+    "de": "Eintracht Frankfurt : 1. FC Köln"
+   },
+   "properties": {
+    "EventNumber": 71,
+    "IsInPlayEnabled": true,
+    "IsPreMatchEnabled": true,
+    "VisualizationType": "InPlay",
+    "OvertimeLength": "00:15:00",
+    "PeriodLength": "00:45:00",
+    "BetradarHostedStatistics": {
+     "SportId": 1,
+     "MatchId": 72513242
+    },
+    "BetradarLiveMatchTracker": {
+     "SportId": 1,
+     "MatchId": 72513242,
+     "IsCompact": true,
+     "IsMomentum": true
+    },
+    "IsNeutralGround": false,
+    "Statistics": [
+     "soccer/lastCompetitorMeetings",
+     "soccer/funFacts",
+     "soccer/lineup"
+    ],
+    "IsPreMatchBooked": true,
+    "IsInPlayBooked": true,
+    "IsPreMatchAvailable": false,
+    "IsInPlayAvailable": true,
+    "IsSettled": false,
+    "PolicyRuleType": "Allow",
+    "IsTopEvent": true,
+    "MatchAnimationType": "BetradarLiveMatchTracker"
+   }
+  }
+ },
+ {
+  "kind": 1,
+  "type": "Event",
+  "entity": {
+   "urn": "asw:event:1"
+  }
+ }
+]

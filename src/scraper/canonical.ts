@@ -121,7 +121,7 @@ export function canonicalMarketName(outcomeCount: number): string {
 
 // --- sports ------------------------------------------------------------------
 
-export type BookmakerId = "winamax" | "betclic" | "leovegas" | "merkurbets" | "twentybet" | "admiralbet";
+export type BookmakerId = "winamax" | "betclic" | "leovegas" | "merkurbets" | "twentybet" | "admiralbet" | "tipico" | "winamaxde";
 
 // The canonical key is the lowercased Winamax display name: the dashboard is in
 // French and renders the sport string as-is (section headings, the sport
@@ -152,6 +152,9 @@ const VERIFIED_SPORTS: ReadonlyArray<{
   // Admiralbet's sport ids (./admiralbet.ts: "asw:sport:<id>", Betradar's), as
   // its snapshots name them (16/10/2026), for the sports it is read for.
   admiralbet?: string;
+  // The Odds API's sport, the first word of its sports' keys ("soccer_epl"),
+  // for Tipico's and Winamax.de's prices it gives (./oddsApi.ts).
+  oddsapi?: string;
 }> = [
   {
     canonical: "football",
@@ -161,6 +164,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     merkurbets: "1",
     twentybet: "1",
     admiralbet: "1",
+    oddsapi: "soccer",
   },
   {
     canonical: "tennis",
@@ -343,6 +347,8 @@ const CANONICAL_BY_BOOKMAKER: Record<BookmakerId, Map<string, string>> = {
   merkurbets: canonicalByName((s) => s.merkurbets),
   twentybet: canonicalByName((s) => s.twentybet),
   admiralbet: canonicalByName((s) => s.admiralbet),
+  tipico: canonicalByName((s) => s.oddsapi),
+  winamaxde: canonicalByName((s) => s.oddsapi),
 };
 
 // The Kambi term keys of the sports this project reads (./kambi.ts).

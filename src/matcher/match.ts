@@ -1079,7 +1079,7 @@ function addSource(sources: Record<string, EventSource>, bookmakerId: string, ev
 // matching with the exchange), then Merkur Bets's, 20bet's and Admiralbet's (English too); Betclic and Winamax, whose
 // real captures many tests still read, keep their order between them. The
 // others seed only the events none of them lists.
-const SEED_BOOKMAKERS = ["leovegas", "merkurbets", "twentybet", "admiralbet", "betclic", "winamax"];
+const SEED_BOOKMAKERS = ["leovegas", "merkurbets", "twentybet", "admiralbet", "tipico", "winamaxde", "betclic", "winamax"];
 const seedRank = (id: string) => (SEED_BOOKMAKERS.includes(id) ? SEED_BOOKMAKERS.indexOf(id) : SEED_BOOKMAKERS.length);
 // The same order, for whatever else keeps one bookmaker's spelling (the players'
 // names of the markets cycle, src/scraper/marketsRun.ts).

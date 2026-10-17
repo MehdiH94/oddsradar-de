@@ -95,12 +95,14 @@ const BOOKMAKER_NAMES: Record<string, string> = {
   merkurbets: "Merkur Bets",
   twentybet: "20bet",
   admiralbet: "Admiralbet",
+  tipico: "Tipico",
+  winamaxde: "Winamax",
   [EXCHANGE]: "Exchange",
 };
 const bookmakerName = (id: string) => BOOKMAKER_NAMES[id] ?? id;
 // Every bookmaker the site lists: an alert's links name them all, so that a gem
 // is never hidden by the site's default selection when opened.
-export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = ["leovegas", "merkurbets", "twentybet", "admiralbet"];
+export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = ["leovegas", "merkurbets", "twentybet", "admiralbet", "tipico", "winamaxde"];
 const ALL_BOOKMAKERS_QUERY = `bookmakers=${ALL_BOOKMAKER_IDS.join(",")}`;
 // A match's page on the site (none without PUBLIC_URL). Parentheses are
 // escaped: the address ends a Markdown link in the "Page du match" field.
@@ -175,6 +177,12 @@ export function gemsMessage(gems: readonly ValueBet[], publicUrl?: string): Disc
 // A surebet as the alerts know it (src/db/alerts.ts): its combination, which
 // outcome where, stands for the bookmaker, so that each is sent once.
 const surebetCombination = (s: Surebet) => s.legs.map((l) => `${l.selection}@${l.source}:${l.side}`).join(",");
+// Bookmakers read only a few times a day (The Odds API's free plan,
+// src/scraper/oddsApi.ts): their prices may be hours old, so a gem or a
+// surebet on one of them is shown on the site but never sent.
+const SLOW_BOOKMAKERS: ReadonlySet<string> = new Set(["tipico", "winamaxde"]);
+const surebetOnSlowBookmaker = (s: Surebet): boolean => s.legs.some((l) => SLOW_BOOKMAKERS.has(l.source));
+
 const surebetGem = (s: Surebet) => ({ eventId: s.eventId, market: s.market, selection: SUREBET_SELECTION, bookmaker: surebetCombination(s) });
 
 // The first of each alert (`gemKey`): the gems come biggest edge first, so the
@@ -290,7 +298,9 @@ export async function runGemAlerts(db: DatabaseSync, opts: GemAlertOptions): Pro
     // (a lay with under 20 EUR on it): the site shows them, but they are not
     // sent, so the gem is.
     const allSurebets = surebetsOrNone(db, listing).filter((s) => !s.thin);
-    const gems = withoutSurebets(getValueBets(db, listing).bets, allSurebets).filter(isGem);
+    const gems = withoutSurebets(getValueBets(db, listing).bets, allSurebets)
+      .filter(isGem)
+      .filter((g) => !SLOW_BOOKMAKERS.has(g.bookmaker));
     const sent = sentGemKeys(db, gems.map((g) => g.eventId));
     // As many as make one message Discord accepts (10 cards, 6000 characters).
     const fresh = fitMessage(
@@ -324,7 +334,7 @@ export async function runGemAlerts(db: DatabaseSync, opts: GemAlertOptions): Pro
     }
 
     // The surebets from 100 %, those to be checked too: the alert says so.
-    const surebets = allSurebets;
+    const surebets = allSurebets.filter((s) => !surebetOnSlowBookmaker(s));
     const sentSurebets = sentGemKeys(db, surebets.map((s) => s.eventId));
     const freshSurebets = fitMessage(
       surebets.filter((s) => !sentSurebets.has(gemKey(surebetGem(s)))),

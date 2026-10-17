@@ -64,14 +64,14 @@ describe("loadOddsApi", () => {
     // The Bundesliga's 6 matches, all still to start at NOW.
     expect(first).toHaveLength(6);
 
-    // An hour later, from the file: no request.
+    // Ten minutes later, from the file: no request.
     calls.length = 0;
-    const later = await loadOddsApi({ key: "k", cacheFile: file, now: () => NOW + 60 * 60 * 1000, fetch: fetchMock as unknown as typeof fetch });
+    const later = await loadOddsApi({ key: "k", cacheFile: file, now: () => NOW + 10 * 60 * 1000, fetch: fetchMock as unknown as typeof fetch });
     expect(calls).toEqual([]);
     expect(later).toHaveLength(6);
 
-    // Past the refresh time: read again.
-    await loadOddsApi({ key: "k", cacheFile: file, now: () => NOW + 13 * 60 * 60 * 1000, fetch: fetchMock as unknown as typeof fetch });
+    // Past the refresh time (15 minutes): read again.
+    await loadOddsApi({ key: "k", cacheFile: file, now: () => NOW + 16 * 60 * 1000, fetch: fetchMock as unknown as typeof fetch });
     expect(calls.filter((p) => p.endsWith("/odds"))).toHaveLength(1);
   });
 
@@ -83,16 +83,18 @@ describe("loadOddsApi", () => {
     expect(events.length).toBeLessThan(6);
   });
 
-  it("stops reading when the month's last credits are left", async () => {
+  it("stops reading when the month's last credits are left, and then shows no old prices", async () => {
     const file = cacheFile();
     const { fetchMock, calls } = api({ remaining: "10" });
     vi.spyOn(console, "log").mockImplementation(() => {});
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     await loadOddsApi({ key: "k", cacheFile: file, now: () => NOW, fetch: fetchMock as unknown as typeof fetch });
     calls.length = 0;
-    await loadOddsApi({ key: "k", cacheFile: file, now: () => NOW + 13 * 60 * 60 * 1000, fetch: fetchMock as unknown as typeof fetch });
+    const stale = await loadOddsApi({ key: "k", cacheFile: file, now: () => NOW + 31 * 60 * 1000, fetch: fetchMock as unknown as typeof fetch });
     expect(calls).toEqual([]);
     expect(warn).toHaveBeenCalled();
+    // Not read again for over half an hour: its prices are no longer shown.
+    expect(stale).toEqual([]);
   });
 
   it("reads nothing without a key", async () => {

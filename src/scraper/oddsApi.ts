@@ -8,13 +8,14 @@ import { validateRawEvent } from "./validateRawEvent";
 // Tipico's and Winamax.de's prices, which no request from the server reaches
 // (Akamai and CloudFront refuse it), from The Odds API (the-odds-api.com), an
 // odds data provider, under the user's own key (ODDS_API_KEY in .env, never
-// printed). The key's plan is the free one (16/10/2026): 500 credits a month,
-// a competition's prices costing one. So each competition below is read every
-// ODDS_API_REFRESH_HOURS (12 by default), only when it has matches within
-// 48 hours (which the API's event list, free, tells), and never under
-// MIN_CREDITS_LEFT. Between two reads the last prices are returned again, from
-// a file that a restart keeps: these two bookmakers' prices are hours old at
-// most, so they send no Discord alert (src/alerts/gems.ts).
+// printed), a competition's prices costing one credit. Each competition below
+// is read every ODDS_API_REFRESH_MINUTES (15 by default: the user chose fresh
+// prices over the free plan's 500 credits a month, 17/10/2026), only when it
+// has matches within 48 hours (which the API's event list, free, tells), and
+// never under MIN_CREDITS_LEFT. Between two reads the last prices are returned
+// again, from a file that a restart keeps; a competition not read for
+// MAX_PRICE_AGE_MS (credits spent, the API down) is left out, so that no old
+// price is shown or alerted on.
 //
 // The prices are the bookmakers' as the API gives them: no German betting tax
 // taken off (whether Tipico and Winamax.de take it off the stake or the
@@ -39,7 +40,9 @@ export const ODDS_API_COMPETITIONS: Readonly<Record<string, string>> = {
   soccer_uefa_champs_league: "UEFA Champions League",
 };
 
-const DEFAULT_REFRESH_HOURS = 12;
+const DEFAULT_REFRESH_MINUTES = 15;
+// The oldest prices returned: twice the refresh time, half an hour at least.
+const maxPriceAgeMs = (refreshMs: number) => Math.max(2 * refreshMs, 30 * 60 * 1000);
 // A competition read only when it has a match within this horizon.
 const HORIZON_MS = 48 * 60 * 60 * 1000;
 // The last credits are kept: the month's plan is never overrun.
@@ -109,7 +112,7 @@ export interface OddsApiCache {
 
 export interface OddsApiOptions {
   key?: string;
-  refreshHours?: number;
+  refreshMinutes?: number;
   cacheFile?: string;
   now?: () => number;
   fetch?: typeof fetch;
@@ -140,7 +143,7 @@ export async function loadOddsApi(opts: OddsApiOptions = {}): Promise<OddsApiEve
   if (!key) return [];
   const doFetch = opts.fetch ?? fetch;
   const now = (opts.now ?? Date.now)();
-  const refreshMs = (opts.refreshHours ?? (Number(process.env.ODDS_API_REFRESH_HOURS) || DEFAULT_REFRESH_HOURS)) * 60 * 60 * 1000;
+  const refreshMs = (opts.refreshMinutes ?? (Number(process.env.ODDS_API_REFRESH_MINUTES) || DEFAULT_REFRESH_MINUTES)) * 60 * 1000;
   const file = opts.cacheFile ?? ODDS_API_CACHE_FILE;
   const cache = readCache(file);
   const url = (path: string, params: Record<string, string> = {}) => {
@@ -186,8 +189,9 @@ export async function loadOddsApi(opts: OddsApiOptions = {}): Promise<OddsApiEve
     }
   }
   if (changed) writeCache(file, cache);
-  // Only matches still to start: a cached list ages.
+  // Only recent reads, and their matches still to start: a cached list ages.
   return Object.values(cache.competitions)
+    .filter((c) => now - Date.parse(c.readAt) <= maxPriceAgeMs(refreshMs))
     .flatMap((c) => c.events)
     .filter((e) => Date.parse(e.commence_time ?? "") > now);
 }

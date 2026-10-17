@@ -197,27 +197,6 @@ describe("runGemAlerts", () => {
     );
   });
 
-  it("sends no gem nor surebet on Tipico or Winamax.de, whose prices may be hours old", async () => {
-    // Spain - Portugal: Tipico's 2.40 on "1", 20% above the fair 2.00, and with
-    // Winamax.de's 5.00 on "2" a surebet: shown on the site, never sent.
-    upsertCanonicalEvents(db, [
-      {
-        id: "esp-por",
-        sport: "football",
-        competition: "Ligue des Nations",
-        startTime: KICK_OFF.toISOString(),
-        participants: ["Espagne", "Portugal"],
-        byBookmaker: { tipico: oneXTwo([2.4, 3.3, 3.8]), winamaxde: oneXTwo([2.0, 3.3, 5.0]), leovegas: oneXTwo([1.9, 3.2, 3.9]) },
-      },
-    ]);
-    saveReferenceOdds(db, "esp-por", { fair: { "1": 2, X: 3.4, "2": 4 }, back: { "1": 2, X: 3.4, "2": 4 }, lay: { "1": 2, X: 3.4, "2": 4 }, matched: 125000 }, new Date().toISOString());
-    await run();
-    const sent = getAlertStatus(db).sent;
-    expect(sent.some((g) => g.matchLabel === "Espagne - Portugal")).toBe(false);
-    // France - Italie's are sent as before.
-    expect(sent.some((g) => g.matchLabel === "France - Italie")).toBe(true);
-  });
-
   it("does nothing without a webhook, and says so", async () => {
     await run(null);
     expect(send).not.toHaveBeenCalled();

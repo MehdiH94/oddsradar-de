@@ -27,7 +27,7 @@ const marketsIntervalMinutes = Number(process.env.MARKETS_INTERVAL_MINUTES ?? "1
 const db = openDb(dbPath);
 // The bookmakers: LeoVegas.de (Kambi), Merkur Bets and Admiralbet, German;
 // 20bet (a Curaçao licence, src/scraper/twentybet.ts); Tipico and Winamax.de
-// through The Odds API (src/scraper/oddsApi.ts, read a few times a day).
+// through The Odds API (src/scraper/oddsApi.ts, every 15 minutes).
 const scrapers = [leovegasScraper, merkurbetsScraper, twentybetScraper, admiralbetScraper, tipicoScraper, winamaxdeScraper];
 
 console.log(`[worker] starting, polling every ${intervalMinutes} min, db=${dbPath}`);

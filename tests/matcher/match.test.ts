@@ -1582,6 +1582,15 @@ describe("matchEvents with the aliases of 9/10/2026", () => {
 });
 
 describe("keepsSidesOrder", () => {
+  // Merkur Bets's women's teams carry a leading "W", the others' a "(W)" at the
+  // end: neither is a player's initial. Read as one, "Madrid CFF (W)" was "W
+  // Atletico Madrid" ("W." and "Madrid"), and the Atlético's price was Madrid
+  // CFF's (18/10/2026).
+  it("does not read a women's team's W as an initial", () => {
+    expect(keepsSidesOrder(["Atlético Madrid (W)", "Madrid CFF (W)"], ["W Atl. Madrid", "W Madrid CFF"])).toBe(true);
+    expect(keepsSidesOrder(["Atlético Madrid (W)", "Madrid CFF (W)"], ["W Madrid CFF", "W Atl. Madrid"])).toBe(false);
+  });
+
   it("reads the same side first under another bookmaker's spelling", () => {
     // Betclic's and Winamax's names for one basketball match (14/10/2026).
     expect(keepsSidesOrder(["Groningen", "Spirou Charleroi"], ["Donar Groningue", "Spirou Basket"])).toBe(true);

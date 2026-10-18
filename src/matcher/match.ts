@@ -512,7 +512,11 @@ function isSameSurname(surname: string[], other: string[]): boolean {
 // of the given names, two of them at most, and one must start one of the
 // written-out name's given names ("U.Carabelli" is "Camilo Ugo Carabelli"): its
 // words before the surname, which may itself be several words, so every split
-// of the name is tried.
+// of the name is tried. A letter of the written-out name is an initial too
+// ("Siniakova K"), or the "W" of a women's team: an initial matches it only
+// when the given names are all initials and the surnames are the same. Else
+// "Madrid CFF (W)" was "W. Madrid", and so "W Atletico Madrid" (Merkur Bets's
+// spelling, 18/10/2026): the sides of the match swapped.
 function isInitialsOfName(abbreviated: string, full: string): boolean {
   const [short, long] = [personWords(abbreviated), personWords(full)];
   if (short.length < 2 || long.length < 2 || short[0].length > 2) return false;
@@ -523,7 +527,10 @@ function isInitialsOfName(abbreviated: string, full: string): boolean {
   const initials = short.slice(0, split).join("");
   const surname = short.slice(split);
   for (let i = 1; i < long.length; i++) {
-    if (long.slice(0, i).some((w) => initials.includes(w[0])) && isSameSurname(surname, long.slice(i))) return true;
+    const given = long.slice(0, i);
+    const rest = long.slice(i);
+    if (given.some((w) => w.length > 1 && initials.includes(w[0])) && isSameSurname(surname, rest)) return true;
+    if (given.every((w) => w.length === 1 && initials.includes(w)) && surname.join(" ") === rest.join(" ")) return true;
   }
   return false;
 }

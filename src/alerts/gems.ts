@@ -95,12 +95,14 @@ const BOOKMAKER_NAMES: Record<string, string> = {
   merkurbets: "Merkur Bets",
   twentybet: "20bet",
   admiralbet: "Admiralbet",
+  tipico: "Tipico",
+  winamaxde: "Winamax",
   [EXCHANGE]: "Exchange",
 };
 const bookmakerName = (id: string) => BOOKMAKER_NAMES[id] ?? id;
 // Every bookmaker the site lists: an alert's links name them all, so that a gem
 // is never hidden by the site's default selection when opened.
-export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = ["leovegas", "merkurbets", "twentybet", "admiralbet"];
+export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = ["leovegas", "merkurbets", "twentybet", "admiralbet", "tipico", "winamaxde"];
 const ALL_BOOKMAKERS_QUERY = `bookmakers=${ALL_BOOKMAKER_IDS.join(",")}`;
 // A match's page on the site (none without PUBLIC_URL). Parentheses are
 // escaped: the address ends a Markdown link in the "Page du match" field.

@@ -591,14 +591,21 @@ bets (depuis le 6/10/2026) : celle qu'un lay de l'exchange paie quoi qu'il
 arrive (la meilleure, celle du surebet, comme celles des autres bookmakers
 au-dessus du lay), ou celle qui, a la place de la cote de son issue dans un
 surebet de toutes les issues, garde le TRJ au-dessus de 100 %. Meme regle
-pour les alertes Discord, meme quand le surebet est « a verifier ».
+pour les alertes Discord, meme quand le surebet, « a verifier », n'est pas
+envoye.
 
 Sur Discord, la carte d'un surebet dit comme celle d'une gem ou regarder
-et pas quoi parier : le TRJ (« a verifier » devant, au-dela de 110 %), le
-match, le coup d'envoi, le gain en pourcentage et le lien vers la page du
-match, ni le marche, ni les paris, ni les mises. Deux surebets differents
-du meme match (une autre combinaison de bookmakers, ou un autre marche)
-sont toujours deux alertes.
+et pas quoi parier : le TRJ, le match, le coup d'envoi, le gain en
+pourcentage et le lien vers la page du match, ni le marche, ni les paris,
+ni les mises. Deux surebets differents du meme match (une autre
+combinaison de bookmakers, ou un autre marche) sont toujours deux alertes.
+
+Une alerte (gem ou surebet) ne promet que des paris qui tiennent
+(18/10/2026) : jamais un surebet « a verifier », seulement des cotes que le
+dernier cycle de lecture a relues au meme prix (une cote suspendue ou
+retiree reste sur le site trois cycles, pas dans les alertes), et vues a
+deux cycles de suite, cinq minutes d'ecart : une erreur de cote corrigee
+dans les minutes qui suivent, comme 20bet en fait, n'est jamais envoyee.
 
 Seuls les bookmakers coches comptent (l'exchange toujours), du plus gros TRJ
 au plus petit ou par date. Au-dela de 110 %, un surebet est marque « a

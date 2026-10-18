@@ -1,7 +1,17 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { fetchTwentybet, parseTwentybetEvents, retryAfterMs, teamName, TWENTYBET_SPORTS, twentybetListUrl, TwentybetListReply } from "../../src/scraper/twentybet";
+import {
+  boostedPrice,
+  fetchTwentybet,
+  parseTwentybetEvents,
+  retryAfterMs,
+  teamName,
+  TwentybetBoost,
+  TWENTYBET_SPORTS,
+  twentybetListUrl,
+  TwentybetListReply,
+} from "../../src/scraper/twentybet";
 
 // Real answers of 20bet's event list (platform.20bet.com/api/event/list, from
 // a German IP, 15/10/2026): each sport's first 6 events, their markets trimmed
@@ -11,6 +21,10 @@ const FOOTBALL = reply("football");
 const TENNIS = reply("tennis");
 const BASKETBALL = reply("basketball");
 const ICE_HOCKEY = reply("ice-hockey");
+// Its odds boosts of the moment (platform.20bet.com/api/v4/boosted-odds,
+// 18/10/2026): six, two of them on a 1X2.
+const BOOSTS: TwentybetBoost[] = JSON.parse(readFileSync(join(__dirname, "fixtures/20bet-boosts.json"), "utf8")).data;
+const isBoostsUrl = (url: string) => url.includes("/boosted-odds");
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -123,6 +137,45 @@ describe("parseTwentybetEvents", () => {
   });
 });
 
+// 20bet names a boost's outcome and how much more it pays, its page works out
+// the price (its module 86362, ported in boostedPrice and checked against it
+// on 50 000 random markets, 18/10/2026).
+describe("20bet's odds boosts", () => {
+  it("prices a 1X2's boosted outcome as 20bet's page does, its market brought to 101%", () => {
+    const parma = BOOSTS.find((b) => b.eventId === 11643767 && b.marketId === 621)!;
+    const cagliari = BOOSTS.find((b) => b.eventId === 11643762 && b.marketId === 621)!;
+    // Parma - Torino's 3.25 / 3.10 / 2.40 (105%), Parma boosted; Monza -
+    // Cagliari's 2.44 / 3.20 / 3.05, Cagliari boosted (18/10/2026).
+    expect(boostedPrice(parma, [3.25, 3.1, 2.4], 0)).toBe(3.38);
+    expect(boostedPrice(cagliari, [2.44, 3.2, 3.05], 2)).toBe(3.18);
+    // A market of two: Tottenham - Coventry's over 3.5 goals.
+    expect(boostedPrice({ boostMethod: 1, marginBoost: 101 }, [2.42, 1.57], 0)).toBe(2.55);
+  });
+
+  it("prices a boost by a factor, and none that would not pay more", () => {
+    expect(boostedPrice({ boostMethod: 2, factorBoost: 1.1 }, [2, 3.4, 4], 0)).toBe(2.2);
+    expect(boostedPrice({ boostMethod: 2, factorBoost: 0.9 }, [2, 3.4, 4], 0)).toBeUndefined();
+    // A market already paying more than the boost's 101%.
+    expect(boostedPrice({ boostMethod: 1, marginBoost: 101 }, [2.1, 2.1], 0)).toBeUndefined();
+    expect(boostedPrice({ boostMethod: 1, marginBoost: 101 }, [2, Number.NaN, 4], 0)).toBeUndefined();
+  });
+
+  it("puts the boosted price beside the price, on its outcome only", () => {
+    // Fenerbahce - Slavia's result (20bet's market 621), Fenerbahce boosted.
+    const events = parseTwentybetEvents(FOOTBALL, "1", [
+      { eventId: 11336339, marketId: 621, outcomeId: 1, specifiers: null, boostMethod: 1, marginBoost: 101 },
+      // A line's boost is not the main market's.
+      { eventId: 11336328, marketId: 621, outcomeId: 3, specifiers: "total=2.5", boostMethod: 1, marginBoost: 101 },
+    ]);
+    expect(events[0].odds).toEqual([
+      { market: "1X2", selection: "Fenerbahce Istanbul", price: 1.62, boosted: 1.69 },
+      { market: "1X2", selection: "Draw", price: 4 },
+      { market: "1X2", selection: "Slavia Prague", price: 4.8 },
+    ]);
+    expect(events.flatMap((e) => e.odds).filter((o) => o.boosted !== undefined)).toHaveLength(1);
+  });
+});
+
 describe("fetchTwentybet", () => {
   it("asks each sport's events before kick-off, page after page", async () => {
     const urls: string[] = [];
@@ -130,6 +183,7 @@ describe("fetchTwentybet", () => {
       "fetch",
       vi.fn(async (url: string) => {
         urls.push(url);
+        if (isBoostsUrl(url)) return new Response(JSON.stringify({ data: BOOSTS }), { status: 200 });
         const params = new URL(url).searchParams;
         const page = Number(params.get("page"));
         const answer: TwentybetListReply =
@@ -140,10 +194,12 @@ describe("fetchTwentybet", () => {
     noDelay();
     // Football's two pages, the same answer twice.
     expect(await fetchTwentybet()).toHaveLength(12);
-    expect(urls).toHaveLength(Object.keys(TWENTYBET_SPORTS).length + 1);
-    expect(urls[0]).toBe(twentybetListUrl("1", 1));
-    expect(urls[1]).toBe(twentybetListUrl("1", 2));
-    expect(urls[0]).toContain("https://platform.20bet.com/api/event/list?lang=en&main=1&status_in[]=0&oddsExists_eq=1&sportId_eq=1");
+    // The boosts first, then each sport.
+    expect(urls).toHaveLength(Object.keys(TWENTYBET_SPORTS).length + 2);
+    expect(urls[0]).toBe("https://platform.20bet.com/api/v4/boosted-odds?lang=en&clientType=0&countryCode=DE");
+    expect(urls[1]).toBe(twentybetListUrl("1", 1));
+    expect(urls[2]).toBe(twentybetListUrl("1", 2));
+    expect(urls[1]).toContain("https://platform.20bet.com/api/event/list?lang=en&main=1&status_in[]=0&oddsExists_eq=1&sportId_eq=1");
   });
 
   it("waits as long as a 429 asks, then asks again once", async () => {
@@ -151,6 +207,7 @@ describe("fetchTwentybet", () => {
     vi.stubGlobal(
       "fetch",
       vi.fn(async (url: string) => {
+        if (isBoostsUrl(url)) return new Response(JSON.stringify({ data: [] }), { status: 200 });
         calls++;
         if (calls === 1) return new Response("", { status: 429, headers: { "retry-after": "2" } });
         const sport = new URL(url).searchParams.get("sportId_eq");
@@ -168,6 +225,21 @@ describe("fetchTwentybet", () => {
     expect(waits[0]).toBe(2000);
     expect(retryAfterMs(null)).toBe(10_000);
     expect(retryAfterMs("600")).toBe(30_000);
+  });
+
+  it("reads the prices without the boosts when the boosts fail", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string) => {
+        if (isBoostsUrl(url)) return new Response("", { status: 503 });
+        const sport = new URL(url).searchParams.get("sportId_eq");
+        const answer = sport === "1" ? { data: { ...FOOTBALL.data, page: 1, lastPage: 1 } } : { data: { page: 1, lastPage: 1, items: [] } };
+        return new Response(JSON.stringify(answer), { status: 200 });
+      })
+    );
+    noDelay();
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    expect(await fetchTwentybet()).toHaveLength(6);
   });
 
   it("fails when every sport fails, so that the cycle retries it", async () => {

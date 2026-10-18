@@ -2,6 +2,9 @@ export interface RawOdds {
   market: string;
   selection: string;
   price: number;
+  // Its odds boost's price, when the bookmaker boosts it (20bet): shown
+  // beside the price, never counted as the price.
+  boosted?: number;
 }
 
 export interface EventWithOdds {

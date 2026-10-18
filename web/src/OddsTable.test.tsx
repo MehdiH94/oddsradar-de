@@ -139,6 +139,31 @@ describe("OddsTable", () => {
     expect(chip("1.50")).toHaveAttribute("data-best");
   });
 
+  it("shows 20bet's boosted price beside its price, which alone decides the best price", () => {
+    const boosted: EventWithOdds[] = [
+      {
+        ...events[0],
+        byBookmaker: {
+          ...events[0].byBookmaker,
+          twentybet: {
+            scrapedAt: "2026-09-20T10:00:00.000Z",
+            odds: [
+              { market: "1X2", selection: "1", price: 1.6, boosted: 1.7 },
+              { market: "1X2", selection: "X", price: 3.0 },
+              { market: "1X2", selection: "2", price: 4.5 },
+            ],
+          },
+        },
+      },
+    ];
+    render(<OddsTable events={boosted} bookmakers={["leovegas", "merkurbets", "twentybet"]} />);
+    const twentybet = chip("1.60");
+    expect(text(twentybet)).toBe("20bet: 1.601.70 (boosted)");
+    expect(twentybet.getAttribute("data-best")).toBeNull();
+    // Merkur Bets's 1.65 stays the best price, though under the boost.
+    expect(chip("1.65").getAttribute("data-best")).toBe("true");
+  });
+
   it("renders just the start and match columns when no bookmaker is selected", () => {
     const { container } = render(<OddsTable events={events} bookmakers={[]} />);
 

@@ -607,6 +607,13 @@ retiree reste sur le site trois cycles, pas dans les alertes), et vues a
 deux cycles de suite, cinq minutes d'ecart : une erreur de cote corrigee
 dans les minutes qui suivent, comme 20bet en fait, n'est jamais envoyee.
 
+Les cotes boostees de 20bet (18/10/2026) sont montrees a cote de sa cote,
+avec un eclair : 20bet les calcule sur sa page a partir du boost de son API
+(`api/v4/boosted-odds`), et `boostedPrice` (`src/scraper/twentybet.ts`)
+reprend ce calcul a l'identique. Elles ne comptent ni pour la meilleure
+cote, ni dans les surebets, les value bets ou les alertes : un boost est
+souvent plafonne en mise.
+
 Seuls les bookmakers coches comptent (l'exchange toujours), du plus gros TRJ
 au plus petit ou par date. Au-dela de 110 %, un surebet est marque « a
 verifier » : c'est presque toujours deux regles ou deux lignes differentes,

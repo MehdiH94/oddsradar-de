@@ -16,10 +16,11 @@ import { tennisSignals } from "./tennisValue";
 
 
 const INSERT_ODDS = `
-  INSERT INTO event_bookmaker_odds (event_id, bookmaker_id, market, selection, price, scraped_at)
-  VALUES (@eventId, @bookmakerId, @market, @selection, @price, @scrapedAt)
+  INSERT INTO event_bookmaker_odds (event_id, bookmaker_id, market, selection, price, boosted, scraped_at)
+  VALUES (@eventId, @bookmakerId, @market, @selection, @price, @boosted, @scrapedAt)
   ON CONFLICT(event_id, bookmaker_id, market, selection) DO UPDATE SET
     price = excluded.price,
+    boosted = excluded.boosted,
     scraped_at = excluded.scraped_at
 `;
 
@@ -120,6 +121,7 @@ export function upsertCanonicalEvents(db: DatabaseSync, canonicalEvents: Canonic
             market: o.market,
             selection: o.selection,
             price: o.price,
+            boosted: o.boosted ?? null,
             scrapedAt,
           });
         }
@@ -151,6 +153,7 @@ interface OddsRow {
   market: string;
   selection: string;
   price: number;
+  boosted: number | null;
   scrapedAt: string;
 }
 
@@ -441,13 +444,13 @@ export function loadEvents(
   const rows = db
     .prepare(
       `SELECT e.id, e.sport, e.competition, e.start_time as startTime, e.participants,
-              o.bookmaker_id as bookmakerId, o.market, o.selection, o.price, o.scraped_at as scrapedAt
+              o.bookmaker_id as bookmakerId, o.market, o.selection, o.price, o.boosted, o.scraped_at as scrapedAt
        FROM events e
        JOIN (
-         SELECT event_id, bookmaker_id, market, selection, price, scraped_at FROM event_bookmaker_odds
+         SELECT event_id, bookmaker_id, market, selection, price, boosted, scraped_at FROM event_bookmaker_odds
          WHERE event_id IN (${idList}) AND scraped_at >= @oddsSince
          UNION ALL
-         SELECT m.event_id, m.bookmaker_id, m.market, m.selection, m.price, m.scraped_at FROM event_market_odds m
+         SELECT m.event_id, m.bookmaker_id, m.market, m.selection, m.price, NULL, m.scraped_at FROM event_market_odds m
          WHERE m.event_id IN (${idList}) AND m.market = @winner AND m.scraped_at >= @marketsSince
            AND EXISTS (SELECT 1 FROM event_bookmaker_odds l
                        WHERE l.event_id = m.event_id AND l.bookmaker_id = m.bookmaker_id AND l.scraped_at >= @oddsSince)
@@ -477,7 +480,12 @@ export function loadEvents(
     if (!event.byBookmaker[row.bookmakerId]) {
       event.byBookmaker[row.bookmakerId] = { scrapedAt: row.scrapedAt, odds: [] };
     }
-    event.byBookmaker[row.bookmakerId].odds.push({ market: row.market, selection: row.selection, price: row.price });
+    event.byBookmaker[row.bookmakerId].odds.push({
+      market: row.market,
+      selection: row.selection,
+      price: row.price,
+      ...(row.boosted !== null ? { boosted: row.boosted } : {}),
+    });
   }
 
   // Re-derive the order from ids rather than relying on the join query's row
@@ -880,7 +888,13 @@ export interface EventMarketOdds {
 export function saveMarketOdds(db: DatabaseSync, batches: readonly EventMarketOdds[], scrapedAt: string): void {
   const insertBookmaker = db.prepare(`INSERT INTO bookmakers (id, name) VALUES (@id, @name) ON CONFLICT(id) DO NOTHING`);
   const forget = db.prepare("DELETE FROM event_market_odds WHERE event_id = @eventId AND bookmaker_id = @bookmakerId");
-  const insertOdds = db.prepare(INSERT_ODDS.replace("event_bookmaker_odds", "event_market_odds"));
+  const insertOdds = db.prepare(`
+    INSERT INTO event_market_odds (event_id, bookmaker_id, market, selection, price, scraped_at)
+    VALUES (@eventId, @bookmakerId, @market, @selection, @price, @scrapedAt)
+    ON CONFLICT(event_id, market, bookmaker_id, selection) DO UPDATE SET
+      price = excluded.price,
+      scraped_at = excluded.scraped_at
+  `);
   for (const { eventId, bookmakerId, odds } of batches) {
     if (odds.length === 0) continue;
     db.exec("BEGIN");

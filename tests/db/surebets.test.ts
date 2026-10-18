@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { openDb } from "../../src/db/client";
-import { saveMarketOdds, upsertCanonicalEvents } from "../../src/db/repository";
+import { getLatestEvents, saveMarketOdds, upsertCanonicalEvents } from "../../src/db/repository";
 import { saveReferenceMarkets, saveReferenceOdds } from "../../src/db/reference";
 import { inChunks, savePlayerOdds } from "../../src/db/playerReference";
 import { backLayRate, getSurebets, netBack, withoutSurebets } from "../../src/db/surebets";
@@ -46,6 +46,27 @@ describe("getSurebets", () => {
   let db: DatabaseSync;
   beforeEach(() => {
     db = openDb(":memory:");
+  });
+
+  // A boosted price (20bet's, RawOdds.boosted) is shown beside its price: the
+  // surebets, like the value bets and the alerts, weigh the price only.
+  it("never makes a surebet with a boosted price, which the listing still shows", () => {
+    upsertCanonicalEvents(db, [
+      event("lal-bos", "basketball", ["Lakers", "Celtics"], {
+        leovegas: main("Vainqueur du match", { "1": 1.9, "2": 1.95 }),
+        // 2.30 boosted: 1 / (1/2.3 + 1/1.95) would pay 105.5%.
+        twentybet: [
+          { market: "Vainqueur du match", selection: "1", price: 1.85, boosted: 2.3 },
+          { market: "Vainqueur du match", selection: "2", price: 1.9 },
+        ],
+      }),
+    ]);
+    expect(getSurebets(db)).toEqual([]);
+    const [listed] = getLatestEvents(db, { sport: "basketball" }).events;
+    expect(listed.byBookmaker.twentybet.odds).toEqual([
+      { market: "Vainqueur du match", selection: "1", price: 1.85, boosted: 2.3 },
+      { market: "Vainqueur du match", selection: "2", price: 1.9 },
+    ]);
   });
 
   describe("on a real tennis match's every market", () => {

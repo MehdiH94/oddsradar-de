@@ -1,0 +1,84 @@
+{
+ "status": "ok",
+ "code": 200,
+ "data": [
+  {
+   "oddsBoosterId": 8385,
+   "status": 1,
+   "eventId": 6854374,
+   "eventType": 0,
+   "marketId": 910,
+   "outcomeId": 4,
+   "outcomeType": 1,
+   "specifiers": null,
+   "boostMethod": 1,
+   "marginBoost": 103,
+   "factorBoost": null
+  },
+  {
+   "oddsBoosterId": 16356,
+   "status": 2,
+   "eventId": 11620677,
+   "eventType": 0,
+   "marketId": 289,
+   "outcomeId": 12,
+   "outcomeType": 1,
+   "specifiers": "total=3.5",
+   "boostMethod": 1,
+   "marginBoost": 101,
+   "factorBoost": null
+  },
+  {
+   "oddsBoosterId": 16358,
+   "status": 2,
+   "eventId": 11643767,
+   "eventType": 0,
+   "marketId": 289,
+   "outcomeId": 12,
+   "outcomeType": 1,
+   "specifiers": "total=2.5",
+   "boostMethod": 1,
+   "marginBoost": 101,
+   "factorBoost": null
+  },
+  {
+   "oddsBoosterId": 16358,
+   "status": 2,
+   "eventId": 11643767,
+   "eventType": 0,
+   "marketId": 621,
+   "outcomeId": 1,
+   "outcomeType": 1,
+   "specifiers": null,
+   "boostMethod": 1,
+   "marginBoost": 101,
+   "factorBoost": null
+  },
+  {
+   "oddsBoosterId": 16360,
+   "status": 2,
+   "eventId": 11643762,
+   "eventType": 0,
+   "marketId": 621,
+   "outcomeId": 3,
+   "outcomeType": 1,
+   "specifiers": null,
+   "boostMethod": 1,
+   "marginBoost": 101,
+   "factorBoost": null
+  },
+  {
+   "oddsBoosterId": 16362,
+   "status": 2,
+   "eventId": 10952613,
+   "eventType": 0,
+   "marketId": 289,
+   "outcomeId": 12,
+   "outcomeType": 1,
+   "specifiers": "total=2.5",
+   "boostMethod": 1,
+   "marginBoost": 101,
+   "factorBoost": null
+  }
+ ]
+}

@@ -55,6 +55,8 @@ export const TWENTYBET_SPORTS: Readonly<Record<string, { market: number }>> = {
   "13": { market: 1 },
   "7": { market: 186 },
   "5": { market: 251 },
+  // Darts: the winner (18/10/2026).
+  "18": { market: 186 },
 };
 
 const HEADERS = {

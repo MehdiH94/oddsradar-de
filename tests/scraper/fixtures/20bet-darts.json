@@ -1,0 +1,497 @@
+{
+ "status": "ok",
+ "code": 200,
+ "data": {
+  "page": 1,
+  "lastPage": 1,
+  "items": [
+   {
+    "id": 12001091,
+    "sbEventId": 12001091,
+    "vendorId": 6,
+    "vendorEventId": "2218999",
+    "sportId": 18,
+    "sportCategoryId": 3379,
+    "leagueId": 1103298,
+    "roundId": null,
+    "isTop": 0,
+    "isTopLive": 0,
+    "status": 0,
+    "team1": "",
+    "team2": "",
+    "competitor1Id": 530388,
+    "competitor2Id": 446960,
+    "time": "2026-10-19 08:40:00",
+    "translationSlug": "grant-sampson-archie-self",
+    "defaultSlug": "grant-sampson-archie-self",
+    "liveMatchTracker": "",
+    "roundType": null,
+    "cupLevel": null,
+    "isCashoutAvailable": true,
+    "backgroundImage": null,
+    "statistic_exists": 0,
+    "hasBetBuilder": false,
+    "oddsBooster": false,
+    "isHomeAwayReversed": false
+   },
+   {
+    "id": 12000248,
+    "sbEventId": 12000248,
+    "vendorId": 6,
+    "vendorEventId": "2218869",
+    "sportId": 18,
+    "sportCategoryId": 3379,
+    "leagueId": 1103298,
+    "roundId": null,
+    "isTop": 0,
+    "isTopLive": 0,
+    "status": 0,
+    "team1": "",
+    "team2": "",
+    "competitor1Id": 374407,
+    "competitor2Id": 452353,
+    "time": "2026-10-19 09:00:00",
+    "translationSlug": "graham-usher-stuart-dutton",
+    "defaultSlug": "graham-usher-stuart-dutton",
+    "liveMatchTracker": "",
+    "roundType": null,
+    "cupLevel": null,
+    "isCashoutAvailable": true,
+    "backgroundImage": null,
+    "statistic_exists": 0,
+    "hasBetBuilder": false,
+    "oddsBooster": false,
+    "isHomeAwayReversed": false
+   },
+   {
+    "id": 12000887,
+    "sbEventId": 12000887,
+    "vendorId": 6,
+    "vendorEventId": "2218959",
+    "sportId": 18,
+    "sportCategoryId": 3379,
+    "leagueId": 1103298,
+    "roundId": null,
+    "isTop": 0,
+    "isTopLive": 0,
+    "status": 0,
+    "team1": "",
+    "team2": "",
+    "competitor1Id": 406714,
+    "competitor2Id": 472050,
+    "time": "2026-10-19 09:15:00",
+    "translationSlug": "ricardo-ulrich-jack-aldridge",
+    "defaultSlug": "ricardo-ulrich-jack-aldridge",
+    "liveMatchTracker": "",
+    "roundType": null,
+    "cupLevel": null,
+    "isCashoutAvailable": true,
+    "backgroundImage": null,
+    "statistic_exists": 0,
+    "hasBetBuilder": false,
+    "oddsBooster": false,
+    "isHomeAwayReversed": false
+   },
+   {
+    "id": 12000890,
+    "sbEventId": 12000890,
+    "vendorId": 6,
+    "vendorEventId": "2218960",
+    "sportId": 18,
+    "sportCategoryId": 3379,
+    "leagueId": 1103298,
+    "roundId": null,
+    "isTop": 0,
+    "isTopLive": 0,
+    "status": 0,
+    "team1": "",
+    "team2": "",
+    "competitor1Id": 446960,
+    "competitor2Id": 374407,
+    "time": "2026-10-19 09:35:00",
+    "translationSlug": "archie-self-graham-usher",
+    "defaultSlug": "archie-self-graham-usher",
+    "liveMatchTracker": "",
+    "roundType": null,
+    "cupLevel": null,
+    "isCashoutAvailable": true,
+    "backgroundImage": null,
+    "statistic_exists": 0,
+    "hasBetBuilder": false,
+    "oddsBooster": false,
+    "isHomeAwayReversed": false
+   },
+   {
+    "id": 12000892,
+    "sbEventId": 12000892,
+    "vendorId": 6,
+    "vendorEventId": "2218961",
+    "sportId": 18,
+    "sportCategoryId": 3379,
+    "leagueId": 1103298,
+    "roundId": null,
+    "isTop": 0,
+    "isTopLive": 0,
+    "status": 0,
+    "team1": "",
+    "team2": "",
+    "competitor1Id": 472050,
+    "competitor2Id": 530388,
+    "time": "2026-10-19 09:50:00",
+    "translationSlug": "jack-aldridge-grant-sampson",
+    "defaultSlug": "jack-aldridge-grant-sampson",
+    "liveMatchTracker": "",
+    "roundType": null,
+    "cupLevel": null,
+    "isCashoutAvailable": true,
+    "backgroundImage": null,
+    "statistic_exists": 0,
+    "hasBetBuilder": false,
+    "oddsBooster": false,
+    "isHomeAwayReversed": false
+   },
+   {
+    "id": 12000893,
+    "sbEventId": 12000893,
+    "vendorId": 6,
+    "vendorEventId": "2218962",
+    "sportId": 18,
+    "sportCategoryId": 3379,
+    "leagueId": 1103298,
+    "roundId": null,
+    "isTop": 0,
+    "isTopLive": 0,
+    "status": 0,
+    "team1": "",
+    "team2": "",
+    "competitor1Id": 452353,
+    "competitor2Id": 406714,
+    "time": "2026-10-19 10:10:00",
+    "translationSlug": "stuart-dutton-ricardo-ulrich",
+    "defaultSlug": "stuart-dutton-ricardo-ulrich",
+    "liveMatchTracker": "",
+    "roundType": null,
+    "cupLevel": null,
+    "isCashoutAvailable": true,
+    "backgroundImage": null,
+    "statistic_exists": 0,
+    "hasBetBuilder": false,
+    "oddsBooster": false,
+    "isHomeAwayReversed": false
+   }
+  ],
+  "relations": {
+   "odds": {
+    "12000248": [
+     {
+      "connectionId": 400,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 910,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 4,
+        "odds": 1.58,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": null,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "4"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 5,
+        "odds": 2.14,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": null,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "5"
+       }
+      ],
+      "product": 10,
+      "specifiers": null,
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 6,
+      "vendorMarketId": 186
+     }
+    ],
+    "12000887": [
+     {
+      "connectionId": 400,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 910,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 4,
+        "odds": 2.61,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": null,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "4"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 5,
+        "odds": 1.39,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": null,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "5"
+       }
+      ],
+      "product": 10,
+      "specifiers": null,
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 6,
+      "vendorMarketId": 186
+     }
+    ],
+    "12000890": [
+     {
+      "connectionId": 400,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 910,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 4,
+        "odds": 1.5,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": null,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "4"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 5,
+        "odds": 2.3,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": null,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "5"
+       }
+      ],
+      "product": 10,
+      "specifiers": null,
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 6,
+      "vendorMarketId": 186
+     }
+    ],
+    "12000892": [
+     {
+      "connectionId": 400,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 910,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 4,
+        "odds": 1.071,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": null,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "4"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 5,
+        "odds": 5.7,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": null,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "5"
+       }
+      ],
+      "product": 10,
+      "specifiers": null,
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 6,
+      "vendorMarketId": 186
+     }
+    ],
+    "12000893": [
+     {
+      "connectionId": 400,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 910,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 4,
+        "odds": 1.66,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": null,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "4"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 5,
+        "odds": 1.98,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": null,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "5"
+       }
+      ],
+      "product": 10,
+      "specifiers": null,
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 6,
+      "vendorMarketId": 186
+     }
+    ],
+    "12001091": [
+     {
+      "connectionId": 400,
+      "extendedSpecifiers": null,
+      "favourite": null,
+      "id": 910,
+      "isVariant": false,
+      "marketMetadata": null,
+      "outcomes": [
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 4,
+        "odds": 5,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": null,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "4"
+       },
+       {
+        "active": 1,
+        "competitor": false,
+        "id": 5,
+        "odds": 1.1,
+        "player": false,
+        "playerVendorId": null,
+        "probabilities": null,
+        "team": null,
+        "type": 1,
+        "vendorOutcomeId": "5"
+       }
+      ],
+      "product": 10,
+      "specifiers": null,
+      "status": 1,
+      "type": 1,
+      "variantVendorId": null,
+      "vendorId": 6,
+      "vendorMarketId": 186
+     }
+    ]
+   },
+   "competitors": [
+    {
+     "id": 374407,
+     "name": "Graham Usher"
+    },
+    {
+     "id": 406714,
+     "name": "Ricardo Ulrich"
+    },
+    {
+     "id": 446960,
+     "name": "Archie Self"
+    },
+    {
+     "id": 452353,
+     "name": "Stuart Dutton"
+    },
+    {
+     "id": 472050,
+     "name": "Jack Aldridge"
+    },
+    {
+     "id": 530388,
+     "name": "Grant Sampson"
+    }
+   ],
+   "league": [
+    {
+     "countryCode": null,
+     "defaultSlug": "modus-super-series-2026",
+     "description": "[]",
+     "endDate": "1-01-00",
+     "express": 1,
+     "flagCode": null,
+     "flagURL": null,
+     "hasLiveEvents": false,
+     "hasOutrights": false,
+     "hasPrematchEvents": true,
+     "id": 1103298,
+     "isOutright": false,
+     "name": "Modus Super Series. 2026",
+     "order": 5,
+     "sportCategoryId": 3379,
+     "sportId": 18,
+     "startDate": "1-01-00",
+     "top": 0,
+     "topLive": 0,
+     "translationSlug": "modus-super-series-2026",
+     "type": 0
+    }
+   ]
+  }
+ }
+}

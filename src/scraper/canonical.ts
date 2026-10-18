@@ -137,8 +137,9 @@ export type BookmakerId = "winamax" | "betclic" | "leovegas" | "merkurbets" | "t
 // the French site's for now).
 const VERIFIED_SPORTS: ReadonlyArray<{
   canonical: string;
-  winamax: string;
-  betclic: string | string[];
+  // Not read any more (src/worker/index.ts): none for a sport added since.
+  winamax?: string;
+  betclic?: string | string[];
   // Kambi's term keys (./kambi.ts), the same at every operator: those of its
   // sports list (group.json), and for the winter sports the second step of an
   // event's path, as LeoVegas.de and PMU list them (11 and 15/10/2026).
@@ -298,6 +299,10 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     betclic: "cross_country_skiing",
   },
   { canonical: "saut à ski", winamax: "Saut à ski", betclic: "ski_jumping" },
+  // Darts (18/10/2026): 20bet's sport 18 (its sports list, 15 matches that
+  // night), Kambi's "darts" (LeoVegas.de's list view knows it, with no match
+  // that night). Merkur Bets and Admiralbet listed none to check their ids.
+  { canonical: "fléchettes", kambi: "darts", twentybet: "18" },
   {
     canonical: "moto",
     winamax: "Moto",

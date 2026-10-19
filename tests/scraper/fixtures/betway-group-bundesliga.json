@@ -1,0 +1,322 @@
+{
+ "Categories": [
+  {
+   "DisplayName": "Football",
+   "CategoryCName": "soccer",
+   "Events": [
+    17260272,
+    17264000,
+    17263999,
+    17264002,
+    17264001,
+    17263998,
+    17264490,
+    17268525,
+    17268891,
+    17289338,
+    17293025,
+    17293027,
+    17293024,
+    17293022,
+    17293023,
+    17293657,
+    17371333,
+    17371668,
+    16929022,
+    16929024,
+    16929023,
+    16929025,
+    16929021
+   ],
+   "EventTablesKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  }
+ ],
+ "EventSummaries": [
+  {
+   "EventId": 17260272,
+   "StartTime": "2026-10-23T18:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17264000,
+   "StartTime": "2026-10-24T13:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17263999,
+   "StartTime": "2026-10-24T13:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17264002,
+   "StartTime": "2026-10-24T13:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17264001,
+   "StartTime": "2026-10-24T13:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17263998,
+   "StartTime": "2026-10-24T13:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17264490,
+   "StartTime": "2026-10-24T16:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17268525,
+   "StartTime": "2026-10-25T14:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17268891,
+   "StartTime": "2026-10-25T16:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17289338,
+   "StartTime": "2026-10-30T19:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17293025,
+   "StartTime": "2026-10-31T14:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17293027,
+   "StartTime": "2026-10-31T14:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17293024,
+   "StartTime": "2026-10-31T14:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17293022,
+   "StartTime": "2026-10-31T14:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17293023,
+   "StartTime": "2026-10-31T14:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17293657,
+   "StartTime": "2026-10-31T17:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17371333,
+   "StartTime": "2026-11-01T14:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 17371668,
+   "StartTime": "2026-11-01T16:30:00",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": false,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 16929022,
+   "StartTime": "2027-05-22T19:00:38",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": true,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 16929024,
+   "StartTime": "2027-05-22T19:00:38",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": true,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 16929023,
+   "StartTime": "2027-05-22T19:00:38",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": true,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 16929025,
+   "StartTime": "2027-05-22T19:00:38",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": true,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  },
+  {
+   "EventId": 16929021,
+   "StartTime": "2027-05-22T19:00:38",
+   "EventTableKey": "soccer_germany_bundesliga",
+   "IsOutright": true,
+   "EventTableKeys": [
+    "soccer_germany_bundesliga"
+   ]
+  }
+ ],
+ "EventTables": [
+  {
+   "Key": "soccer_germany_bundesliga",
+   "Header": "Germany",
+   "SubHeader": "Bundesliga",
+   "IsAmericanFormat": false
+  }
+ ],
+ "MarketFilterList": [
+  {
+   "CategoryCName": "soccer",
+   "MarketName": "Win/Draw/Win",
+   "MarketCName": "win-draw-win",
+   "OutcomeHeaders": [
+    {
+     "IsAmericanFormat": false,
+     "Headers": [
+      "Home",
+      "Draw",
+      "Away"
+     ]
+    },
+    {
+     "IsAmericanFormat": true,
+     "Headers": [
+      "Away",
+      "Draw",
+      "Home"
+     ]
+    }
+   ],
+   "IsVirtual": false
+  },
+  {
+   "CategoryCName": "soccer",
+   "MarketName": "Double Chance",
+   "MarketCName": "double-chance",
+   "OutcomeHeaders": [
+    {
+     "IsAmericanFormat": false,
+     "Headers": [
+      "Home & Draw",
+      "Home & Away",
+      "Away & Draw"
+     ]
+    },
+    {
+     "IsAmericanFormat": true,
+     "Headers": [
+      "Away & Draw",
+      "Home & Away",
+      "Home & Draw"
+     ]
+    }
+   ],
+   "IsVirtual": false
+  },
+  {
+   "CategoryCName": "soccer",
+   "MarketName": "Both Teams To Score",
+   "MarketCName": "both-teams-to-score",
+   "OutcomeHeaders": [
+    {
+     "IsAmericanFormat": false,
+     "Headers": [
+      "Yes",
+      "No"
+     ]
+    }
+   ],
+   "IsVirtual": false
+  }
+ ],
+ "MethodName": "Group",
+ "MethodResult": "OK",
+ "Success": true,
+ "CorrelationId": "8f6b2b9e-1d3c-4a5e-9b7f-0c1d2e3f4a5b"
+}

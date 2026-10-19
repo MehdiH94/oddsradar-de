@@ -8,13 +8,13 @@ describe("readUrlFilters", () => {
       sport: "football",
       sort: "trj",
       q: "",
-      bookmakers: ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "tipico", "winamaxde"],
+      bookmakers: ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "oddset", "betway", "tipico", "winamaxde"],
       page: 1,
     });
   });
 
   it("reads all the bookmakers only when they are all named", () => {
-    expect(readUrlFilters("?bookmakers=winamaxde,tipico,betathome,admiralbet,twentybet,merkurbets,leovegas").bookmakers).toEqual([...ALL_BOOKMAKERS]);
+    expect(readUrlFilters("?bookmakers=winamaxde,tipico,betway,oddset,betathome,admiralbet,twentybet,merkurbets,leovegas").bookmakers).toEqual([...ALL_BOOKMAKERS]);
   });
 
   it("reads every filter", () => {
@@ -68,14 +68,14 @@ describe("readUrlFilters", () => {
 
 describe("urlFiltersQuery", () => {
   it("writes the competition only when there is one", () => {
-    const base = { sport: "football", sort: "trj" as const, q: "", bookmakers: ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "tipico", "winamaxde"], page: 1 };
+    const base = { sport: "football", sort: "trj" as const, q: "", bookmakers: ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "oddset", "betway", "tipico", "winamaxde"], page: 1 };
     expect(urlFiltersQuery({ ...base, competition: "Ligue 1" })).toBe("sport=football&sort=trj&competition=Ligue+1");
     expect(urlFiltersQuery({ ...base, competition: "" })).toBe("sport=football&sort=trj");
   });
 
   it("writes the sport and the sort, and leaves out the other defaults", () => {
     expect(
-      urlFiltersQuery({ sport: "football", sort: "trj", q: "", bookmakers: ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "tipico", "winamaxde"], page: 1 })
+      urlFiltersQuery({ sport: "football", sort: "trj", q: "", bookmakers: ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "oddset", "betway", "tipico", "winamaxde"], page: 1 })
     ).toBe("sport=football&sort=trj");
   });
 
@@ -98,13 +98,13 @@ describe("urlFiltersQuery", () => {
         sport: "football",
         sort: "trj",
         q: "",
-        bookmakers: ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "tipico", "winamaxde"],
+        bookmakers: ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "oddset", "betway", "tipico", "winamaxde"],
         players: true,
         page: 2,
       })
     ).toBe("sport=football&sort=trj&players=1&page=2");
     expect(
-      urlFiltersQuery({ sport: "value-bets", sort: "value", q: "", bookmakers: ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "tipico", "winamaxde"], page: 1 })
+      urlFiltersQuery({ sport: "value-bets", sort: "value", q: "", bookmakers: ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "oddset", "betway", "tipico", "winamaxde"], page: 1 })
     ).toBe("sport=value-bets&sort=value");
   });
 

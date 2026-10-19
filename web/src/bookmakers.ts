@@ -3,14 +3,16 @@ import merkurbetsLogo from "./assets/bookmakers/merkurbets.png";
 import twentybetLogo from "./assets/bookmakers/twentybet.png";
 import admiralbetLogo from "./assets/bookmakers/admiralbet.png";
 import betathomeLogo from "./assets/bookmakers/betathome.png";
+import oddsetLogo from "./assets/bookmakers/oddset.png";
+import betwayLogo from "./assets/bookmakers/betway.png";
 import winamaxdeLogo from "./assets/bookmakers/winamaxde.png";
 
 // The fixed set of bookmakers this project scrapes (src/scraper/kambi.ts for
-// LeoVegas.de, src/scraper/merkurbets.ts for Merkur Bets, src/scraper/twentybet.ts for 20bet, src/scraper/admiralbet.ts for Admiralbet, src/scraper/betathome.ts for bet-at-home, src/scraper/oddsApi.ts for Tipico and Winamax.de). Unlike sports there is no
+// LeoVegas.de, src/scraper/merkurbets.ts for Merkur Bets, src/scraper/twentybet.ts for 20bet, src/scraper/admiralbet.ts for Admiralbet, src/scraper/betathome.ts for bet-at-home, src/scraper/oddset.ts for ODDSET, src/scraper/betway.ts for Betway, src/scraper/oddsApi.ts for Tipico and Winamax.de). Unlike sports there is no
 // /api/bookmakers endpoint -- they are hardcoded scrapers, so the frontend's
 // list mirrors that directly rather than being derived from a fetched response.
 // The order is the filter's, and everywhere the bookmakers are listed.
-export const ALL_BOOKMAKERS = ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "tipico", "winamaxde"] as const;
+export const ALL_BOOKMAKERS = ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "oddset", "betway", "tipico", "winamaxde"] as const;
 
 // What the filter shows ticked when the URL doesn't say. Not "all": the API's
 // own default (no `bookmakers` parameter) still is every bookmaker.
@@ -20,6 +22,8 @@ export const DEFAULT_BOOKMAKERS: readonly string[] = [
   "twentybet",
   "admiralbet",
   "betathome",
+  "oddset",
+  "betway",
   "tipico",
   "winamaxde",
 ];
@@ -31,7 +35,7 @@ export function isDefaultBookmakers(selected: readonly string[]): boolean {
   return selected.length === DEFAULT_BOOKMAKERS.length && selected.every((b, i) => b === DEFAULT_BOOKMAKERS[i]);
 }
 
-// How the UI shows each bookmaker: its own site icon (LeoVegas.de's favicon, Merkur Bets's sun, 20bet's app icon, Admiralbet's, bet-at-home's, Winamax's; Tipico's name alone), with the name as alt text and
+// How the UI shows each bookmaker: its own site icon (LeoVegas.de's favicon, Merkur Bets's sun, 20bet's app icon, Admiralbet's, bet-at-home's, ODDSET's, Betway's, Winamax's; Tipico's name alone), with the name as alt text and
 // tooltip (BookmakerLogo). A bookmaker without an icon (yet) shows its name in
 // its place.
 export const BOOKMAKER_BRANDING: Record<string, { name: string; logo?: string } | undefined> = {
@@ -40,6 +44,8 @@ export const BOOKMAKER_BRANDING: Record<string, { name: string; logo?: string } 
   twentybet: { name: "20bet", logo: twentybetLogo },
   admiralbet: { name: "Admiralbet", logo: admiralbetLogo },
   betathome: { name: "bet-at-home", logo: betathomeLogo },
+  oddset: { name: "ODDSET", logo: oddsetLogo },
+  betway: { name: "Betway", logo: betwayLogo },
   tipico: { name: "Tipico" },
   winamaxde: { name: "Winamax", logo: winamaxdeLogo },
 };

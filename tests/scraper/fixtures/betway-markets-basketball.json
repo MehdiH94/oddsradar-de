@@ -1,0 +1,747 @@
+{
+ "Events": [
+  {
+   "Version": 6,
+   "Id": 17371257,
+   "GroupName": "NextGen",
+   "SubCategoryName": "eBasketball",
+   "CategoryCName": "basketball",
+   "CategoryName": "Basketball",
+   "HomeTeamName": "Phoenix Suns (Bangkok)",
+   "AwayTeamName": "Milwaukee Bucks (Shanghai)",
+   "EventName": "Phoenix Suns (Bangkok) - Milwaukee Bucks (Shanghai)",
+   "Milliseconds": 1792418700000,
+   "Date": "10/19/2026",
+   "Time": "14:05",
+   "MarketCount": 4,
+   "Markets": [
+    650174146
+   ],
+   "CouponMarketId": 650174146,
+   "FilterMarkets": {
+    "basketball-match-winner": 650174146
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 75716580,
+   "SuperTournamentCName": "e-leagues",
+   "SuperTournamentName": "E-Leagues",
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      650174146
+     ]
+    }
+   },
+   "IsLive": true,
+   "IsPremium": false,
+   "HomeTeamCName": "phoenix-suns-bangkok",
+   "AwayTeamCName": "milwaukee-bucks-shanghai",
+   "GroupCName": "nextgen",
+   "SubCategoryCName": "ebasketball",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": false,
+   "NeutralVenue": false,
+   "SurfaceCName": null,
+   "SurfaceName": "",
+   "SportVariationCName": null,
+   "SportVariationName": "",
+   "SportsRadarId": 75716580,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": false
+  },
+  {
+   "Version": 5,
+   "Id": 17093421,
+   "GroupName": "NBA",
+   "SubCategoryName": "USA",
+   "CategoryCName": "basketball",
+   "CategoryName": "Basketball",
+   "HomeTeamName": "Detroit Pistons",
+   "AwayTeamName": "Boston Celtics",
+   "EventName": "Detroit Pistons - Boston Celtics",
+   "Milliseconds": 1792522800000,
+   "Date": "10/20/2026",
+   "Time": "19:00",
+   "MarketCount": 109,
+   "Markets": [
+    625825015
+   ],
+   "CouponMarketId": 625825015,
+   "FilterMarkets": {
+    "money-line": 625825015
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 73682354,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      625825015
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "detroit-pistons",
+   "AwayTeamCName": "boston-celtics",
+   "GroupCName": "nba",
+   "SubCategoryCName": "usa",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": true,
+   "NeutralVenue": false,
+   "SurfaceCName": null,
+   "SurfaceName": "",
+   "SportVariationCName": null,
+   "SportVariationName": "",
+   "SportsRadarId": 73682354,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": false
+  },
+  {
+   "Version": 5,
+   "Id": 17093424,
+   "GroupName": "NBA",
+   "SubCategoryName": "USA",
+   "CategoryCName": "basketball",
+   "CategoryName": "Basketball",
+   "HomeTeamName": "New York Knicks",
+   "AwayTeamName": "Philadelphia 76ers",
+   "EventName": "New York Knicks - Philadelphia 76ers",
+   "Milliseconds": 1792537200000,
+   "Date": "10/20/2026",
+   "Time": "23:00",
+   "MarketCount": 109,
+   "Markets": [
+    625825177
+   ],
+   "CouponMarketId": 625825177,
+   "FilterMarkets": {
+    "money-line": 625825177
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 73682356,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      625825177
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "new-york-knicks",
+   "AwayTeamCName": "philadelphia-76ers",
+   "GroupCName": "nba",
+   "SubCategoryCName": "usa",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": true,
+   "NeutralVenue": false,
+   "SurfaceCName": null,
+   "SurfaceName": "",
+   "SportVariationCName": null,
+   "SportVariationName": "",
+   "SportsRadarId": 73682356,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": false
+  },
+  {
+   "Version": 5,
+   "Id": 17373607,
+   "GroupName": "Euroleague",
+   "SubCategoryName": "International Club",
+   "CategoryCName": "basketball",
+   "CategoryName": "Basketball",
+   "HomeTeamName": "Hapoel Tel Aviv",
+   "AwayTeamName": "Virtus Bologna",
+   "EventName": "Hapoel Tel Aviv - Virtus Bologna",
+   "Milliseconds": 1792598400000,
+   "Date": "10/21/2026",
+   "Time": "16:00",
+   "MarketCount": 35,
+   "Markets": [
+    650404797
+   ],
+   "CouponMarketId": 650404797,
+   "FilterMarkets": {
+    "basketball-match-winner": 650404797
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 73263058,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      650404797
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "hapoel-tel-aviv",
+   "AwayTeamCName": "virtus-bologna",
+   "GroupCName": "euroleague",
+   "SubCategoryCName": "international-club",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": false,
+   "NeutralVenue": false,
+   "SurfaceCName": null,
+   "SurfaceName": "",
+   "SportVariationCName": "quarters",
+   "SportVariationName": "Quarters",
+   "SportsRadarId": 73263058,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": false
+  },
+  {
+   "Version": 6,
+   "Id": 17373608,
+   "GroupName": "Euroleague",
+   "SubCategoryName": "International Club",
+   "CategoryCName": "basketball",
+   "CategoryName": "Basketball",
+   "HomeTeamName": "Anadolu Efes SK",
+   "AwayTeamName": "Besiktas",
+   "EventName": "Anadolu Efes SK - Besiktas",
+   "Milliseconds": 1792690200000,
+   "Date": "10/22/2026",
+   "Time": "17:30",
+   "MarketCount": 35,
+   "Markets": [
+    650404883
+   ],
+   "CouponMarketId": 650404883,
+   "FilterMarkets": {
+    "basketball-match-winner": 650404883
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 73263060,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      650404883
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "anadolu-efes-sk",
+   "AwayTeamCName": "besiktas-jk",
+   "GroupCName": "euroleague",
+   "SubCategoryCName": "international-club",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": false,
+   "AmericanFormat": false,
+   "NeutralVenue": false,
+   "SurfaceCName": null,
+   "SurfaceName": "",
+   "SportVariationCName": "quarters",
+   "SportVariationName": "Quarters",
+   "SportsRadarId": 73263060,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": false
+  }
+ ],
+ "Markets": [
+  {
+   "Version": 5,
+   "Id": 650174146,
+   "Title": "Match Winner",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Phoenix Suns (Bangkok)",
+    "Milwaukee Bucks (Shanghai)"
+   ],
+   "Outcomes": [
+    [
+     2673705537,
+     2673705538
+    ]
+   ],
+   "EventId": 17371257,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2673705537
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2673705538
+     ]
+    }
+   },
+   "TypeCName": "to-win",
+   "TemplateId": 2,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": false,
+   "CouponHeaders": [
+    "Home",
+    "Away"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": false,
+   "MarketCName": "basketball-match-winner"
+  },
+  {
+   "Version": 3,
+   "Id": 625825015,
+   "Title": "Money Line",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Boston Celtics",
+    "Detroit Pistons"
+   ],
+   "Outcomes": [
+    [
+     2600178062,
+     2600178061
+    ]
+   ],
+   "EventId": 17093421,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2600178061
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2600178062
+     ]
+    }
+   },
+   "TypeCName": "to-win",
+   "TemplateId": 2,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": true,
+   "CouponHeaders": [
+    "Away",
+    "Home"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": true,
+   "MarketCName": "money-line"
+  },
+  {
+   "Version": 3,
+   "Id": 625825177,
+   "Title": "Money Line",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Philadelphia 76ers",
+    "New York Knicks"
+   ],
+   "Outcomes": [
+    [
+     2600178497,
+     2600178496
+    ]
+   ],
+   "EventId": 17093424,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2600178496
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2600178497
+     ]
+    }
+   },
+   "TypeCName": "to-win",
+   "TemplateId": 2,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": true,
+   "CouponHeaders": [
+    "Away",
+    "Home"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": true,
+   "MarketCName": "money-line"
+  },
+  {
+   "Version": 3,
+   "Id": 650404797,
+   "Title": "Match Winner",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Hapoel Tel Aviv",
+    "Virtus Bologna"
+   ],
+   "Outcomes": [
+    [
+     2674405371,
+     2674405372
+    ]
+   ],
+   "EventId": 17373607,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2674405371
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2674405372
+     ]
+    }
+   },
+   "TypeCName": "to-win",
+   "TemplateId": 2,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": false,
+   "CouponHeaders": [
+    "Home",
+    "Away"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": false,
+   "MarketCName": "basketball-match-winner"
+  },
+  {
+   "Version": 3,
+   "Id": 650404883,
+   "Title": "Match Winner",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Anadolu Efes SK",
+    "Besiktas"
+   ],
+   "Outcomes": [
+    [
+     2674405559,
+     2674405560
+    ]
+   ],
+   "EventId": 17373608,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2674405559
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2674405560
+     ]
+    }
+   },
+   "TypeCName": "to-win",
+   "TemplateId": 2,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": false,
+   "CouponHeaders": [
+    "Home",
+    "Away"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": false,
+   "MarketCName": "basketball-match-winner"
+  }
+ ],
+ "Outcomes": [
+  {
+   "Version": 28,
+   "Id": 2673705537,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.526,
+   "OddsDecimalDisplay": "1.52",
+   "OddsNum": 10,
+   "OddsDen": 19,
+   "EventId": 17371257,
+   "MarketId": 650174146,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": "",
+   "BetName": "Phoenix Suns (Bangkok)",
+   "CouponName": "Home",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 26,
+   "Id": 2673705538,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 2.2,
+   "OddsDecimalDisplay": "2.20",
+   "OddsNum": 6,
+   "OddsDen": 5,
+   "EventId": 17371257,
+   "MarketId": 650174146,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": "",
+   "BetName": "Milwaukee Bucks (Shanghai)",
+   "CouponName": "Away",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 12,
+   "Id": 2600178061,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.909,
+   "OddsDecimalDisplay": "1.90",
+   "OddsNum": 10,
+   "OddsDen": 11,
+   "EventId": 17093421,
+   "MarketId": 625825015,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": "",
+   "BetName": "Detroit Pistons",
+   "CouponName": "Home",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 12,
+   "Id": 2600178062,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.909,
+   "OddsDecimalDisplay": "1.90",
+   "OddsNum": 10,
+   "OddsDen": 11,
+   "EventId": 17093421,
+   "MarketId": 625825015,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": "",
+   "BetName": "Boston Celtics",
+   "CouponName": "Away",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 8,
+   "Id": 2600178496,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.556,
+   "OddsDecimalDisplay": "1.55",
+   "OddsNum": 5,
+   "OddsDen": 9,
+   "EventId": 17093424,
+   "MarketId": 625825177,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": "",
+   "BetName": "New York Knicks",
+   "CouponName": "Home",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 8,
+   "Id": 2600178497,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 2.5,
+   "OddsDecimalDisplay": "2.50",
+   "OddsNum": 6,
+   "OddsDen": 4,
+   "EventId": 17093424,
+   "MarketId": 625825177,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": "",
+   "BetName": "Philadelphia 76ers",
+   "CouponName": "Away",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 3,
+   "Id": 2674405371,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.25,
+   "OddsDecimalDisplay": "1.25",
+   "OddsNum": 1,
+   "OddsDen": 4,
+   "EventId": 17373607,
+   "MarketId": 650404797,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Hapoel Tel Aviv",
+   "CouponName": "Home",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 3,
+   "Id": 2674405372,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 4.0,
+   "OddsDecimalDisplay": "4.00",
+   "OddsNum": 3,
+   "OddsDen": 1,
+   "EventId": 17373607,
+   "MarketId": 650404797,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Virtus Bologna",
+   "CouponName": "Away",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 3,
+   "Id": 2674405559,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.55,
+   "OddsDecimalDisplay": "1.55",
+   "OddsNum": 11,
+   "OddsDen": 20,
+   "EventId": 17373608,
+   "MarketId": 650404883,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": "",
+   "BetName": "Anadolu Efes SK",
+   "CouponName": "Home",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 3,
+   "Id": 2674405560,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 2.5,
+   "OddsDecimalDisplay": "2.50",
+   "OddsNum": 6,
+   "OddsDen": 4,
+   "EventId": 17373608,
+   "MarketId": 650404883,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": "",
+   "BetName": "Besiktas",
+   "CouponName": "Away",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  }
+ ],
+ "MethodName": "EventsWithMultipleMarkets",
+ "MethodResult": "OK",
+ "Success": true,
+ "CorrelationId": "8f6b2b9e-1d3c-4a5e-9b7f-0c1d2e3f4a5b"
+}

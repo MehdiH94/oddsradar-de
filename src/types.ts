@@ -2,6 +2,11 @@ export interface RawOdds {
   market: string;
   selection: string;
   price: number;
+  // What the bookmaker pays on this outcome with its odds boost, when it
+  // boosts it (20bet, src/scraper/twentybet.ts): shown beside the price,
+  // never weighed in the surebets, the value bets or the alerts, which read
+  // `price` only.
+  boosted?: number;
 }
 
 export interface RawEvent {

@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { Check, Zap } from "lucide-react";
 import { BOOKMAKER_BRANDING } from "../bookmakers";
 import { BookmakerLogo } from "../BookmakerLogo";
 import { formatEdge, formatPrice } from "../format";
@@ -11,7 +11,10 @@ import styles from "./PriceChip.module.css";
 // prices (FairOdds) and read out here; so does a suspect price (`suspect`:
 // its edge is over the other bookmaker's price). A bookmaker without a price
 // for it shows a dash. `compact` stacks the icon over the price, for a phone
-// showing many bookmakers side by side (the chip then has under 3 rem).
+// showing many bookmakers side by side (the chip then has under 3 rem). A
+// boosted outcome (20bet's odds boost, `boosted`) shows its boosted price
+// after the price, with a lightning: never the best price nor a value bet,
+// which the price alone decides.
 export function PriceChip({
   bookmaker,
   price,
@@ -20,6 +23,7 @@ export function PriceChip({
   suspect = false,
   showLogo = true,
   compact = false,
+  boosted,
 }: {
   bookmaker: string;
   price: number | undefined;
@@ -28,6 +32,7 @@ export function PriceChip({
   suspect?: boolean;
   showLogo?: boolean;
   compact?: boolean;
+  boosted?: number;
 }) {
   const name = BOOKMAKER_BRANDING[bookmaker]?.name ?? bookmaker;
   const className = [styles.chip, best && styles.best, edge !== undefined && styles.value, price === undefined && styles.missing, compact && styles.compact]
@@ -38,6 +43,13 @@ export function PriceChip({
       {showLogo && <BookmakerLogo bookmaker={bookmaker} size={16} decorative />}
       <span className="visually-hidden">{name}: </span>
       <span className={styles.price}>{price === undefined ? "-" : formatPrice(price)}</span>
+      {boosted !== undefined && price !== undefined && (
+        <span className={styles.boost} title={`Odds boost: ${formatPrice(boosted)}`}>
+          <Zap size={11} strokeWidth={2.5} aria-hidden="true" />
+          {formatPrice(boosted)}
+          <span className="visually-hidden"> (boosted)</span>
+        </span>
+      )}
       {best && (
         <>
           <Check size={12} strokeWidth={3} className={styles.check} aria-hidden="true" />

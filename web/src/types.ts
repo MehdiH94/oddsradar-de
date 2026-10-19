@@ -2,6 +2,9 @@ export interface RawOdds {
   market: string;
   selection: string;
   price: number;
+  // Its odds boost's price, when the bookmaker boosts it (20bet): shown
+  // beside the price, never counted as the price.
+  boosted?: number;
 }
 
 export interface EventWithOdds {
@@ -130,7 +133,8 @@ export interface OutcomeDetail {
   // A player the exchange doesn't price: each bookmaker's price 30% or more
   // above the other's, by how much (not sent for now, like `basis`
   // "bookmaker").
-  suspects?: Record<string, number>;
+  suspects?: Record<string, number>;  // A bookmaker's boosted price (20bet's odds boost), shown beside its price.
+  boosted?: Record<string, number>;
 }
 
 export interface MarketLine {

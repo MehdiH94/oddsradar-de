@@ -1,4 +1,4 @@
-# CoteRadar — dashboard
+# OddsBlitzer — dashboard
 
 Interface React (Vite) du comparateur. Elle lit l'API du backend (`/api/*`) et
 affiche les cotes. En production, c'est le process web du backend qui sert le

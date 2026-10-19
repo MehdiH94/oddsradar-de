@@ -1,3 +1,4 @@
+import { Zap } from "lucide-react";
 import { BOOKMAKER_BRANDING } from "../bookmakers";
 import { BookmakerLogo } from "../BookmakerLogo";
 import { formatEdge, formatPrice } from "../format";
@@ -10,7 +11,9 @@ const bookmakerName = (bookmaker: string) => BOOKMAKER_BRANDING[bookmaker]?.name
 // best bookmaker's icon, "+1" when two share it), the price in large figures,
 // and under it the value bet's edge, or else the fair odds. A value bet gets
 // the amber frame and corner of PriceChip. Read out in one go: "1: 1.66 at
-// Winamax, value bet +2.5%".
+// Winamax, value bet +2.5%". A boosted price above it (20bet's odds boost)
+// follows the price, with the lightning, as in PriceChip: it is never the
+// price itself.
 export function BestPrice({
   label,
   name,
@@ -20,6 +23,7 @@ export function BestPrice({
   edge,
   fairLabel = "Fair",
   showFair = false,
+  boost,
 }: {
   // As shown ("X") and as read out ("Draw").
   label: string;
@@ -34,6 +38,8 @@ export function BestPrice({
   // Under the price, the fair odds even for a value bet (whose edge is shown
   // elsewhere, the value bets' list's).
   showFair?: boolean;
+  // The highest boosted price among the ticked bookmakers, when above the price.
+  boost?: { price: number; bookmaker: string };
 }) {
   const noteIsEdge = edge !== undefined && !(showFair && fair !== undefined);
   const [first, ...others] = bookmakers;
@@ -53,9 +59,16 @@ export function BestPrice({
         {name}: {price === undefined ? "no price" : `${formatPrice(price)} at ${where}`}
         {edge !== undefined && `, value bet ${formatEdge(edge)}`}
         {fair !== undefined && (edge === undefined || showFair) && `, fair odds ${fairLabel === "Fair" ? "" : "at most "}${formatPrice(fair)}`}
+        {boost && `, boosted to ${formatPrice(boost.price)} at ${bookmakerName(boost.bookmaker)}`}
       </span>
-      <span className={`${styles.price} num`} aria-hidden="true">
-        {price === undefined ? "-" : formatPrice(price)}
+      <span className={styles.priceRow} aria-hidden="true">
+        <span className={`${styles.price} num`}>{price === undefined ? "-" : formatPrice(price)}</span>
+        {boost && (
+          <span className={`${styles.boost} num`} title={`Odds boost at ${bookmakerName(boost.bookmaker)}: ${formatPrice(boost.price)}`}>
+            <Zap size={12} strokeWidth={2.5} />
+            {formatPrice(boost.price)}
+          </span>
+        )}
       </span>
       {(edge !== undefined || fair !== undefined) && (
         <span className={styles.note} aria-hidden="true">

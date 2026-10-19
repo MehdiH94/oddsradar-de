@@ -2,9 +2,18 @@ import { APP_NAME } from "../brand";
 import { createHash } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import { getValueBets, ListingOptions, ValueBet } from "../db/repository";
-import { gemKey, getAlertState, recordSentGems, SentGem, sentGemKeys, setAlertState, SUREBET_SELECTION } from "../db/alerts";
+import {
+  confirmedAlerts,
+  gemKey,
+  getAlertState,
+  listingPrices,
+  recordSentGems,
+  SentGem,
+  sentGemKeys,
+  setAlertState,
+  SUREBET_SELECTION,
+} from "../db/alerts";
 import { EXCHANGE, Surebet, SUREBET_TO_VERIFY, surebetsOrNone, withoutSurebets } from "../db/surebets";
-import { parseMarketKey, winnersOf } from "../markets/catalog";
 import { BookmakerId, MARKET_1X2, MARKET_MATCH_WINNER } from "../scraper/canonical";
 
 // A gem: a value bet big enough for a Discord message. 5% above the fair odds
@@ -95,6 +104,7 @@ const BOOKMAKER_NAMES: Record<string, string> = {
   merkurbets: "Merkur Bets",
   twentybet: "20bet",
   admiralbet: "Admiralbet",
+  betathome: "bet-at-home",
   tipico: "Tipico",
   winamaxde: "Winamax",
   [EXCHANGE]: "Exchange",
@@ -102,7 +112,15 @@ const BOOKMAKER_NAMES: Record<string, string> = {
 const bookmakerName = (id: string) => BOOKMAKER_NAMES[id] ?? id;
 // Every bookmaker the site lists: an alert's links name them all, so that a gem
 // is never hidden by the site's default selection when opened.
-export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = ["leovegas", "merkurbets", "twentybet", "admiralbet", "tipico", "winamaxde"];
+export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = [
+  "leovegas",
+  "merkurbets",
+  "twentybet",
+  "admiralbet",
+  "betathome",
+  "tipico",
+  "winamaxde",
+];
 const ALL_BOOKMAKERS_QUERY = `bookmakers=${ALL_BOOKMAKER_IDS.join(",")}`;
 // A match's page on the site (none without PUBLIC_URL). Parentheses are
 // escaped: the address ends a Markdown link in the "Page du match" field.
@@ -142,7 +160,8 @@ export function helloMessage(publicUrl?: string): DiscordMessage {
       `or match winner value bet (football, tennis, basketball, baseball, American football, hockey, rugby, MMA) ` +
       `${formatPercent(GEM_MIN_EDGE.match)} or more above the fair odds, ` +
       `or a player, games or sets bet ${formatPercent(GEM_MIN_EDGE.players)} or more; and each surebet (payout over ` +
-      `100%, those “to verify” flagged as such). A single alert per match, market and outcome.${link}`,
+      `100%, up to ${formatPercent(SUREBET_TO_VERIFY)}). Only prices still offered at two reads in a row. ` +
+      `A single alert per match, market and outcome.${link}`,
   };
 }
 
@@ -191,33 +210,20 @@ function onePerAlert<T extends Pick<SentGem, "eventId" | "market" | "selection" 
   });
 }
 
-// Why a surebet is "to be checked" (src/db/surebets.ts), as the alert says it.
-function toVerifyReason(s: Surebet): string {
-  if (s.payoutRate > SUREBET_TO_VERIFY) {
-    return `Payout over ${formatPercent(SUREBET_TO_VERIFY)}: most often two different rules or lines, or an old price. Check at the bookmakers before betting.`;
-  }
-  if ((winnersOf(parseMarketKey(s.market)) ?? 1) > 1) {
-    return "Market with several winners: each bookmaker applies its own rule on a tie for the last place. Check before betting.";
-  }
-  return "Check before betting.";
-}
-
 // One embed per surebet: its TRJ, the match, its kick-off and the profit as a
 // percentage, a link to the match's page. Never the market, the bets or the
-// stakes (see gemEmbed). One "to be checked" says so in its title and in a
-// field of its own, after the profit.
+// stakes (see gemEmbed).
 export function surebetEmbed(s: Surebet, publicUrl?: string): Embed {
   const link = matchUrl(s.eventId, publicUrl);
   const kickOff = Math.floor(Date.parse(s.startTime) / 1000);
   return {
-    title: `⚖️ ${s.toVerify ? "To verify · " : ""}${formatRate(s.payoutRate)}`,
+    title: `⚖️ ${formatRate(s.payoutRate)}`,
     ...(link ? { url: link } : {}),
     color: SUREBET_COLOR,
     fields: [
       { name: "Match", value: fieldValue(`${s.participants.join(" - ")}${s.competition ? ` · ${s.competition}` : ""}`) },
       { name: "Kick-off", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
       { name: "Profit", value: formatEdge(s.payoutRate - 1), inline: true },
-      ...(s.toVerify ? [{ name: "⚠️ To verify", value: toVerifyReason(s) }] : []),
       ...matchLinkFields(link),
     ],
   };
@@ -292,11 +298,29 @@ export async function runGemAlerts(db: DatabaseSync, opts: GemAlertOptions): Pro
     // (a lay with under 20 EUR on it): the site shows them, but they are not
     // sent, so the gem is.
     const allSurebets = surebetsOrNone(db, listing).filter((s) => !s.thin);
-    const gems = withoutSurebets(getValueBets(db, listing).bets, allSurebets).filter(isGem);
+    // Only what the last scrape cycle still offers, at the price it read
+    // (listingPrices), and only the surebets that are not to be checked: a
+    // payout over 110% is most often a mistaken price, and a market of
+    // several winners pays by each bookmaker's rule. The site still shows
+    // them; an alert promises a bet that stands.
+    const prices = listingPrices(db);
+    const gems = withoutSurebets(getValueBets(db, listing).bets, allSurebets)
+      .filter(isGem)
+      .filter((g) => prices.isCurrent(g.eventId, g.bookmaker, g.market, g.selection, g.price));
+    const surebets = allSurebets.filter(
+      (s) =>
+        !s.toVerify &&
+        s.legs.every((l) => l.source === EXCHANGE || prices.isCurrent(s.eventId, l.source, s.market, l.selection, l.price))
+    );
+    // And only what the cycle before had too (confirmedAlerts).
+    const confirmed = confirmedAlerts(db, prices.latest, [
+      ...gems.map((g) => gemKey(g)),
+      ...surebets.map((s) => gemKey(surebetGem(s))),
+    ]);
     const sent = sentGemKeys(db, gems.map((g) => g.eventId));
     // As many as make one message Discord accepts (10 cards, 6000 characters).
     const fresh = fitMessage(
-      onePerAlert(gems.filter((g) => !sent.has(gemKey(g)))),
+      onePerAlert(gems.filter((g) => confirmed.has(gemKey(g)) && !sent.has(gemKey(g)))),
       (g) => gemEmbed(g, opts.publicUrl)
     );
     if (fresh.length > 0) {
@@ -325,11 +349,9 @@ export async function runGemAlerts(db: DatabaseSync, opts: GemAlertOptions): Pro
       console.log(`[alerts] ${fresh.length} gem(s) sent to Discord`);
     }
 
-    // The surebets from 100 %, those to be checked too: the alert says so.
-    const surebets = allSurebets;
     const sentSurebets = sentGemKeys(db, surebets.map((s) => s.eventId));
     const freshSurebets = fitMessage(
-      surebets.filter((s) => !sentSurebets.has(gemKey(surebetGem(s)))),
+      surebets.filter((s) => confirmed.has(gemKey(surebetGem(s))) && !sentSurebets.has(gemKey(surebetGem(s)))),
       (s) => surebetEmbed(s, opts.publicUrl)
     );
     if (freshSurebets.length > 0) {

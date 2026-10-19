@@ -121,7 +121,16 @@ export function canonicalMarketName(outcomeCount: number): string {
 
 // --- sports ------------------------------------------------------------------
 
-export type BookmakerId = "winamax" | "betclic" | "leovegas" | "merkurbets" | "twentybet" | "admiralbet" | "tipico" | "winamaxde";
+export type BookmakerId =
+  | "winamax"
+  | "betclic"
+  | "leovegas"
+  | "merkurbets"
+  | "twentybet"
+  | "admiralbet"
+  | "tipico"
+  | "winamaxde"
+  | "betathome";
 
 // The canonical key is the lowercased Winamax display name: the dashboard is in
 // French and renders the sport string as-is (section headings, the sport
@@ -137,8 +146,9 @@ export type BookmakerId = "winamax" | "betclic" | "leovegas" | "merkurbets" | "t
 // the French site's for now).
 const VERIFIED_SPORTS: ReadonlyArray<{
   canonical: string;
-  winamax: string;
-  betclic: string | string[];
+  // Not read any more (src/worker/index.ts): none for a sport added since.
+  winamax?: string;
+  betclic?: string | string[];
   // Kambi's term keys (./kambi.ts), the same at every operator: those of its
   // sports list (group.json), and for the winter sports the second step of an
   // event's path, as LeoVegas.de and PMU list them (11 and 15/10/2026).
@@ -152,6 +162,9 @@ const VERIFIED_SPORTS: ReadonlyArray<{
   // Admiralbet's sport ids (./admiralbet.ts: "asw:sport:<id>", Betradar's), as
   // its snapshots name them (16/10/2026), for the sports it is read for.
   admiralbet?: string;
+  // bet-at-home.de's sport ids (./betathome.ts), as its sports API lists them
+  // (18/10/2026), for the sports it is read for.
+  betathome?: string;
   // The Odds API's sport, the first word of its sports' keys ("soccer_epl"),
   // for Tipico's and Winamax.de's prices it gives (./oddsApi.ts).
   oddsapi?: string;
@@ -165,6 +178,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "1",
     admiralbet: "1",
     oddsapi: "soccer",
+    betathome: "1",
   },
   {
     canonical: "tennis",
@@ -174,6 +188,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     merkurbets: "2",
     twentybet: "3",
     admiralbet: "5",
+    betathome: "3",
   },
   {
     canonical: "basketball",
@@ -183,6 +198,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     merkurbets: "12",
     twentybet: "2",
     admiralbet: "2",
+    betathome: "8",
   },
   {
     canonical: "hockey sur glace",
@@ -192,6 +208,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     merkurbets: "10",
     twentybet: "4",
     admiralbet: "4",
+    betathome: "6",
   },
   {
     canonical: "baseball",
@@ -228,6 +245,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     merkurbets: "6",
     twentybet: "17",
     admiralbet: "16",
+    betathome: "5",
   },
   {
     canonical: "football australien",
@@ -249,6 +267,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     merkurbets: "15",
     twentybet: "10",
     admiralbet: "6",
+    betathome: "7",
   },
   {
     canonical: "golf",
@@ -264,12 +283,14 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     merkurbets: "18",
     twentybet: "13",
     admiralbet: "12",
+    betathome: "39",
   },
   {
     canonical: "rugby à xiii",
     winamax: "Rugby à XIII",
     betclic: "rugby_league",
     kambi: "rugby_league",
+    betathome: "28",
   },
   {
     canonical: "snooker",
@@ -285,6 +306,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     merkurbets: "23",
     twentybet: "7",
     admiralbet: "23",
+    betathome: "20",
   },
   {
     canonical: "ski alpin",
@@ -298,6 +320,11 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     betclic: "cross_country_skiing",
   },
   { canonical: "saut à ski", winamax: "Saut à ski", betclic: "ski_jumping" },
+  // Darts (18/10/2026): 20bet's sport 18 (its sports list, 15 matches that
+  // night), Kambi's "darts" (LeoVegas.de's list view knows it, with no match
+  // that night), bet-at-home.de's 45 (its sports list, none that night).
+  // Merkur Bets and Admiralbet listed none to check their ids.
+  { canonical: "fléchettes", kambi: "darts", twentybet: "18", betathome: "45" },
   {
     canonical: "moto",
     winamax: "Moto",
@@ -347,6 +374,7 @@ const CANONICAL_BY_BOOKMAKER: Record<BookmakerId, Map<string, string>> = {
   merkurbets: canonicalByName((s) => s.merkurbets),
   twentybet: canonicalByName((s) => s.twentybet),
   admiralbet: canonicalByName((s) => s.admiralbet),
+  betathome: canonicalByName((s) => s.betathome),
   tipico: canonicalByName((s) => s.oddsapi),
   winamaxde: canonicalByName((s) => s.oddsapi),
 };

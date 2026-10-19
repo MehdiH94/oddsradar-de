@@ -1,4 +1,4 @@
-# Faire évoluer CoteRadar et le mettre en production
+# Faire évoluer OddsBlitzer et le mettre en production
 
 Ce guide explique comment modifier le projet, vérifier la modification, puis
 la mettre en ligne. Le README décrit l'installation et la mise en place du
@@ -11,11 +11,11 @@ serveur. Ici, on part d'un projet déjà en production.
 3. Lancer les vérifications, les mêmes que la CI (section 5).
 4. Ouvrir une pull request **vers `development`**. La CI la teste ; une fois
    fusionnée, GitHub Actions déploie `development` sur le site de test
-   <https://staging.cote-radar.fr> en 1 à 2 minutes.
+   <https://staging.odds-blitzer.de> en 1 à 2 minutes.
 5. Vérifier la modification sur le site de test.
 6. Pour une mise en production, ouvrir une pull request
    **`development` → `main`**. Une fois fusionnée, le commit est déployé sur
-   <https://cote-radar.fr>, à condition d'avoir tourné sur le site de test.
+   <https://odds-blitzer.de>, à condition d'avoir tourné sur le site de test.
 
 Rien n'arrive sur `main` autrement que par `development`, et un commit qui
 échoue aux tests ou qui n'est pas passé par le site de test n'est jamais
@@ -34,9 +34,9 @@ Winamax, Betclic, Vbet, CircusBet, DAZN Bet, NetBet, Genybet, Unibet, Betsson, P
 Deux process tournent en production, sous forme de deux services systemd
 qui partagent le même fichier SQLite :
 
-- `coteradar-worker` interroge les bookmakers à intervalle régulier et
+- `oddsradar-worker` interroge les bookmakers à intervalle régulier et
   enregistre les cotes ;
-- `coteradar-web` sert l'API sur `/api/*` et le dashboard compilé
+- `oddsradar-web` sert l'API sur `/api/*` et le dashboard compilé
   (`web/dist`), sur le même port.
 
 | Chemin | Rôle |
@@ -61,8 +61,8 @@ Chacun a son `package.json`, son `package-lock.json` et ses tests.
 Il faut Node.js 23.4 ou plus récent ; la CI utilise Node 24.
 
 ```bash
-git clone https://github.com/ouassimBenMosbah/coteRadar.git
-cd coteRadar
+git clone https://github.com/MehdiH94/oddsradar-de.git
+cd oddsradar-de
 npm install
 cp .env.example .env
 cd web && npm install && cd ..
@@ -324,8 +324,8 @@ Deux branches durables, trois environnements :
 | Branche | Site | Déployé par |
 | --- | --- | --- |
 | `feat/…`, `fix/…` | aucun (tests de la CI seulement) | |
-| `development` | <https://staging.cote-radar.fr> (site de test) | `deploy-staging` à chaque push |
-| `main` | <https://cote-radar.fr> (production) | `deploy` à chaque push, si le `gate` passe |
+| `development` | <https://staging.odds-blitzer.de> (site de test) | `deploy-staging` à chaque push |
+| `main` | <https://odds-blitzer.de> (production) | `deploy` à chaque push, si le `gate` passe |
 
 ### Une modification (feature ou bug)
 
@@ -340,7 +340,7 @@ gh pr create --base development
 La pull request lance le workflow `ci` : les vérifications de la section 5
 sur une machine GitHub. Fusionner avec un **merge commit** quand elle est
 verte. Le push sur `development` lance `deploy-staging` : tests, déploiement
-sur le VPS dans `/opt/coteradar-staging`, vérification que le site de test
+sur le VPS dans `/opt/oddsradar-staging`, vérification que le site de test
 répond. Vérifier alors la modification sur le site de test.
 
 Le site de test a ses propres bases (jamais celles de la production), son
@@ -447,36 +447,36 @@ En urgence, on peut aussi relancer un ancien run vert de `deploy` (Actions >
 le run > « Re-run all jobs »). Il redéploie son propre commit. Ce n'est que
 temporaire : le prochain push sur `main` redéploie `main`.
 
-**Sur le VPS** (`ssh ubuntu@141.94.244.108`) :
+**Sur le VPS** (`ssh oddsradar@141.95.86.176`) :
 
 ```bash
-sudo systemctl status coteradar-worker coteradar-web   # état des services
-journalctl -u coteradar-web -n 100                     # 100 dernières lignes du log
-journalctl -u coteradar-worker -f                      # log en direct (Ctrl+C pour quitter)
-/opt/coteradar/deploy/deploy.sh                        # redéployer main à la main
-/opt/coteradar/deploy/deploy.sh <sha>                  # redéployer un commit précis de main
-journalctl -u coteradar-staging-worker -n 100          # le site de test : mêmes commandes
-                                                       # avec coteradar-staging-web/-worker
+sudo systemctl status oddsradar-worker oddsradar-web   # état des services
+journalctl -u oddsradar-web -n 100                     # 100 dernières lignes du log
+journalctl -u oddsradar-worker -f                      # log en direct (Ctrl+C pour quitter)
+/opt/oddsradar/deploy/deploy.sh                        # redéployer main à la main
+/opt/oddsradar/deploy/deploy.sh <sha>                  # redéployer un commit précis de main
+journalctl -u oddsradar-staging-worker -n 100          # le site de test : mêmes commandes
+                                                       # avec oddsradar-staging-web/-worker
 ```
 
 ## 8. Ce que le déploiement automatique ne fait pas
 
 Ces changements se font à la main sur le VPS, en plus du push (pour le site de
-test : `/opt/coteradar-staging`, ses services `coteradar-staging-*` et ses
+test : `/opt/oddsradar-staging`, ses services `oddsradar-staging-*` et ses
 unités dans `deploy/staging/`) :
 
 - **Réglages dans `.env`** (`PORT`, `POLL_INTERVAL_MINUTES`,
   `MARKETS_INTERVAL_MINUTES`, `DB_PATH`) :
-  modifier `/opt/coteradar/.env`, puis
-  `sudo systemctl restart coteradar-worker coteradar-web`. Si le port
+  modifier `/opt/oddsradar/.env`, puis
+  `sudo systemctl restart oddsradar-worker oddsradar-web`. Si le port
   change, mettre aussi à jour `APP_URL` dans
   `.github/workflows/deploy.yml`.
 - **Unités systemd** (`deploy/*.service`) : les recopier et les recharger.
 
   ```bash
-  sudo cp /opt/coteradar/deploy/*.service /etc/systemd/system/
+  sudo cp /opt/oddsradar/deploy/*.service /etc/systemd/system/
   sudo systemctl daemon-reload
-  sudo systemctl restart coteradar-worker coteradar-web
+  sudo systemctl restart oddsradar-worker oddsradar-web
   ```
 
 - **Structure de la base** : `src/db/client.ts` crée les tables qui manquent

@@ -297,7 +297,15 @@ describe("matchEvents", () => {
         ["2026-10-31T20:00:00.000Z", ["Canelo Alvarez", "Christian Mbilli"]]
       );
 
-      for (const result of [tennis, boxing, mma, shortened]) expect(result).toHaveLength(1);
+      // A darts session's matches follow one another: each bookmaker guesses
+      // when (20bet's Modus Super Series, 18/10/2026).
+      const darts = pair(
+        "fléchettes",
+        ["2026-10-19T09:15:00.000Z", ["Ricardo Ulrich", "Jack Aldridge"]],
+        ["2026-10-19T09:55:00.000Z", ["Ricardo Ulrich", "Jack Aldridge"]]
+      );
+
+      for (const result of [tennis, boxing, mma, shortened, darts]) expect(result).toHaveLength(1);
       // The first bookmaker's time is kept, as for any merged event.
       expect(boxing[0].startTime).toBe("2026-11-09T02:00:00.000Z");
     });

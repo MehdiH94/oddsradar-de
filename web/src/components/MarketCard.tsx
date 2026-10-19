@@ -29,6 +29,7 @@ function Prices({ outcome, bookmakers }: { outcome: OutcomeDetail | undefined; b
           edge={outcome?.edges?.[bookmaker] ?? outcome?.suspects?.[bookmaker]}
           suspect={outcome?.suspects?.[bookmaker] !== undefined}
           compact={bookmakers.length >= COMPACT_FROM}
+          boosted={outcome?.boosted?.[bookmaker]}
         />
       ))}
     </span>

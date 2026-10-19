@@ -6,8 +6,8 @@ request seems to need an exception, ask the user instead of making one.
 
 ## Branches
 
-- `main` is production (https://cote-radar.fr). `development` is the
-  integration branch, deployed to staging (https://staging.cote-radar.fr).
+- `main` is production (https://odds-blitzer.de). `development` is the
+  integration branch, deployed to staging (https://staging.odds-blitzer.de).
 - **Never commit, push, rebase or force-push on `main`.** `main` only moves
   when a pull request `development` -> `main` is merged.
 - Every feature or bug starts from an up-to-date `development`:
@@ -43,8 +43,14 @@ request seems to need an exception, ask the user instead of making one.
 
 ## Environments
 
+- This repository is OddsBlitzer (odds-blitzer.de, VPS 141.95.86.176).
+  CoteRadar (cote-radar.fr, repository ouassimBenMosbah/coteRadar, VPS
+  141.94.244.108) is another project: never connect to it, deploy to it, or
+  change its repository or its secrets. `tests/deploy/targets.test.ts` keeps
+  its targets out of `deploy/`, the workflows and the docs.
+
 - Staging is production-like but separate: its own databases, its own
-  services (`coteradar-staging-*`), no Discord alerts. Never point staging at
+  services (`oddsradar-staging-*`), no Discord alerts. Never point staging at
   production's `auth.sqlite`, and never copy staging data to production.
 - Private keys and secrets are never read, printed or pasted: the user adds
   them to GitHub secrets or to the VPS themselves.

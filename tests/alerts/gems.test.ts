@@ -4,7 +4,7 @@ import { openDb } from "../../src/db/client";
 import { saveMarketOdds, upsertCanonicalEvents } from "../../src/db/repository";
 import { saveReferenceOdds } from "../../src/db/reference";
 import { savePlayerOdds } from "../../src/db/playerReference";
-import { gemKey, getAlertStatus } from "../../src/db/alerts";
+import { confirmedAlerts, gemKey, getAlertStatus } from "../../src/db/alerts";
 import {
   assertSendable,
   DISCORD_LIMITS,
@@ -149,6 +149,16 @@ describe("runGemAlerts", () => {
   // null: no webhook.
   const run = (webhookUrl: string | null = WEBHOOK) =>
     runGemAlerts(db, { webhookUrl: webhookUrl ?? undefined, publicUrl: SITE, send });
+  // The next scrape cycle, reading every listed price again as it was.
+  let cycles = 0;
+  const rescrape = () =>
+    db.prepare("UPDATE event_bookmaker_odds SET scraped_at = ?").run(new Date(Date.now() + ++cycles * 1000).toISOString());
+  // An alert goes out once two cycles in a row have it.
+  const runTwice = async () => {
+    await run();
+    rescrape();
+    await run();
+  };
 
   beforeEach(() => {
     db = openDb(":memory:");
@@ -205,6 +215,10 @@ describe("runGemAlerts", () => {
 
   it("greets a new webhook, then sends each gem once", async () => {
     await run();
+    // Greeted; the gems wait for the next cycle to have them too.
+    expect(send).toHaveBeenCalledTimes(1);
+    rescrape();
+    await run();
     expect(send).toHaveBeenCalledTimes(2);
     expect(send.mock.calls.every(([url, init]) => url === WEBHOOK && init.method === "POST")).toBe(true);
     const [hello, gems] = bodies();
@@ -212,9 +226,9 @@ describe("runGemAlerts", () => {
       "✅ OddsBlitzer is connected to this channel. An alert will come here for each new gem: a 1X2 or match winner " +
         "value bet (football, tennis, basketball, baseball, American football, hockey, rugby, MMA) 5% or more above the " +
         "fair odds, or a player, games or sets bet 15% or more; and each surebet (payout over 100%, " +
-        "those “to verify” flagged as such). A single alert per match, market and outcome." +
+        "up to 110%). Only prices still offered at two reads in a row. A single alert per match, market and outcome." +
         "\n" +
-        `${SITE}/?sport=value-bets&sort=value&bookmakers=leovegas,merkurbets,twentybet,admiralbet,tipico,winamaxde`
+        `${SITE}/?sport=value-bets&sort=value&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,tipico,winamaxde`
     );
     // No one pinged by a name, ever.
     expect([hello.allowed_mentions, gems.allowed_mentions]).toEqual([{ parse: [] }, { parse: [] }]);
@@ -226,14 +240,14 @@ describe("runGemAlerts", () => {
     const kickOff = KICK_OFF.getTime() / 1000;
     expect(france).toEqual({
       title: "💎 +5.0%",
-      url: `${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet,admiralbet,tipico,winamaxde`,
+      url: `${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,tipico,winamaxde`,
       color: 0xd97706,
       fields: [
         { name: "Match", value: "France - Italie · Ligue des Nations" },
         { name: "Kick-off", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
         {
           name: "Match page",
-          value: `[See the match on OddsBlitzer](${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet,admiralbet,tipico,winamaxde)`,
+          value: `[See the match on OddsBlitzer](${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,tipico,winamaxde)`,
         },
       ],
     });
@@ -249,7 +263,7 @@ describe("runGemAlerts", () => {
     ]);
   });
 
-  it("sends each new surebet once, by its combination, the ones to be checked flagged as such", async () => {
+  it("sends each new surebet once, by its combination, never one to be checked", async () => {
     const winner = (one: number, two: number): RawOdds[] => [
       { market: "Vainqueur du match", selection: "1", price: one },
       { market: "Vainqueur du match", selection: "2", price: two },
@@ -265,31 +279,22 @@ describe("runGemAlerts", () => {
     upsertCanonicalEvents(db, [
       // 1 / (1/2.2 + 1/2.1): 107.4 %.
       nba("lal-bos", ["Lakers", "Celtics"], winner(2.2, 1.7), winner(1.9, 2.1)),
-      // 124.8 %: to be checked.
+      // 124.8 %: to be checked, most often a mistaken price. Never sent.
       nba("chi-nyk", ["Bulls", "Knicks"], winner(2.6, 1.4), winner(1.5, 2.4)),
     ]);
-    await run();
+    rescrape();
+    await runTwice();
     // The hello, the gems, the surebets.
     expect(send).toHaveBeenCalledTimes(3);
     const surebets = bodies()[2];
-    expect(surebets.content).toBe("⚖️ 2 new surebets");
+    expect(surebets.content).toBe("⚖️ New surebet");
     expect(surebets.allowed_mentions).toEqual({ parse: [] });
     const kickOff = KICK_OFF.getTime() / 1000;
-    // Biggest TRJ first. The one over 110% is sent too, flagged as to be checked.
-    const [toVerify, sure] = surebets.embeds;
-    expect(toVerify.title).toBe("⚖️ To verify · 124.8%");
-    expect(toVerify.fields.map((f: { name: string }) => f.name)).toEqual([
-      "Match",
-      "Kick-off",
-      "Profit",
-      "⚠️ To verify",
-      "Match page",
-    ]);
-    expect(toVerify.fields[3].value).toMatch(/^Payout over 110%/);
-    expect([sure]).toEqual([
+    const [sure] = surebets.embeds;
+    expect(surebets.embeds).toEqual([
       {
         title: "⚖️ 107.4%",
-        url: `${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet,admiralbet,tipico,winamaxde`,
+        url: `${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,tipico,winamaxde`,
         color: 0x16a34a,
         fields: [
           { name: "Match", value: "Lakers - Celtics · NBA" },
@@ -297,7 +302,7 @@ describe("runGemAlerts", () => {
           { name: "Profit", value: "+7.4%", inline: true },
           {
             name: "Match page",
-            value: `[See the match on OddsBlitzer](${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet,admiralbet,tipico,winamaxde)`,
+            value: `[See the match on OddsBlitzer](${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,tipico,winamaxde)`,
           },
         ],
       },
@@ -306,8 +311,13 @@ describe("runGemAlerts", () => {
     // Nothing new: nothing sent.
     await run();
     expect(send).toHaveBeenCalledTimes(3);
-    // Merkur Bets's Lakers up to 2.25: another combination, sent too.
+    // Merkur Bets's Lakers up to 2.25: another combination, sent too, once
+    // the next cycle has it as well.
     upsertCanonicalEvents(db, [nba("lal-bos", ["Lakers", "Celtics"], winner(2.2, 1.7), winner(2.25, 2.1))]);
+    rescrape();
+    await run();
+    expect(send).toHaveBeenCalledTimes(3);
+    rescrape();
     await run();
     expect(send).toHaveBeenCalledTimes(4);
     expect(bodies()[3].embeds).toHaveLength(1);
@@ -320,35 +330,60 @@ describe("runGemAlerts", () => {
         .map((g) => [g.matchLabel, g.label])
     ).toEqual([
       ["Lakers - Celtics", "Lakers @ Merkur Bets 2.25 / Celtics @ Merkur Bets 2.10"],
-      ["Bulls - Knicks", "Bulls @ LeoVegas 2.60 / Knicks @ Merkur Bets 2.40"],
       ["Lakers - Celtics", "Lakers @ LeoVegas 2.20 / Celtics @ Merkur Bets 2.10"],
     ]);
   });
 
-  it("flags a golf Top N surebet as to be checked, whatever its TRJ", () => {
-    const base: Surebet = {
-      eventId: "masters",
-      sport: "golf",
-      competition: "Masters",
-      startTime: "2026-10-10T20:30:00.000Z",
-      participants: ["Masters 2026"],
-      marketCount: 0,
-      market: "golf_top|5",
-      marketLabel: "Dans le Top 5",
-      kind: "bookmakers",
-      payoutRate: 1.03,
-      profit: 3,
-      toVerify: true,
-      thin: false,
-      legs: [{ selection: "a", label: "Joueur A", source: "leovegas", side: "back", price: 5, stake: 50 }],
-    };
-    const embed = surebetEmbed(base, SITE);
-    expect(embed.title).toBe("⚖️ To verify · 103.0%");
-    expect(embed.fields.find((f) => f.name === "⚠️ To verify")?.value).toMatch(/^Market with several winners/);
-    // One that is not to be checked says nothing of it.
-    const sure = surebetEmbed({ ...base, market: "Vainqueur", marketLabel: "Vainqueur du tournoi", toVerify: false }, SITE);
-    expect(sure.title).toBe("⚖️ 103.0%");
-    expect(sure.fields.map((f) => f.name)).not.toContain("⚠️ To verify");
+  // 20bet suspends a market it mispriced and reprices it within minutes: the
+  // site kept its old price for three cycles, and the alerts sent surebets
+  // that were gone when looked at (18/10/2026).
+  it("sends only what the last cycle still offers, and seen at two cycles in a row", async () => {
+    upsertCanonicalEvents(db, [
+      {
+        id: "lal-bos",
+        sport: "basketball",
+        competition: "NBA",
+        startTime: KICK_OFF.toISOString(),
+        participants: ["Lakers", "Celtics"],
+        byBookmaker: {
+          leovegas: [
+            { market: "Vainqueur du match", selection: "1", price: 1.7 },
+            { market: "Vainqueur du match", selection: "2", price: 2.1 },
+          ],
+          twentybet: [
+            { market: "Vainqueur du match", selection: "1", price: 2.2 },
+            { market: "Vainqueur du match", selection: "2", price: 1.6 },
+          ],
+        },
+      },
+    ]);
+    const surebetsSent = () => getAlertStatus(db).sent.filter((g) => g.basis.startsWith("surebet")).length;
+    const lastCycle = () => (db.prepare("SELECT MAX(scraped_at) AS at FROM event_bookmaker_odds").get() as { at: string }).at;
+    rescrape();
+    await run();
+    // 20bet's market suspended at the next cycle: its prices are still listed
+    // (for three cycles), but this cycle did not read them.
+    const before = lastCycle();
+    rescrape();
+    db.prepare("UPDATE event_bookmaker_odds SET scraped_at = ? WHERE bookmaker_id = 'twentybet'").run(before);
+    await run();
+    expect(surebetsSent()).toBe(0);
+    // Back at the next cycle: seen once, then twice, then sent.
+    rescrape();
+    await run();
+    expect(surebetsSent()).toBe(0);
+    rescrape();
+    await run();
+    expect(surebetsSent()).toBe(1);
+  });
+
+  it("confirms an alert at another cycle only, not at the same cycle read twice", () => {
+    expect(confirmedAlerts(db, "a cycle", ["x"])).toEqual(new Set());
+    expect(confirmedAlerts(db, "a cycle", ["x"])).toEqual(new Set());
+    expect(confirmedAlerts(db, "the next cycle", ["x", "y"])).toEqual(new Set(["x"]));
+    // The same cycle again keeps what it confirmed.
+    expect(confirmedAlerts(db, "the next cycle", ["x", "y"])).toEqual(new Set(["x"]));
+    expect(confirmedAlerts(db, undefined, ["x"])).toEqual(new Set());
   });
 
   it("sends a value bet a surebet holds as that surebet only", async () => {
@@ -365,7 +400,7 @@ describe("runGemAlerts", () => {
       3400,
       new Date().toISOString()
     );
-    await run();
+    await runTwice();
     // The hello, the gems, the surebets.
     expect(send).toHaveBeenCalledTimes(3);
     const [, gems, surebets] = bodies();
@@ -377,7 +412,7 @@ describe("runGemAlerts", () => {
   });
 
   it("sends a gem that appears later, alone, and greets a new webhook again", async () => {
-    await run();
+    await runTwice();
     // Merkur Bets's Mbappé goes up to 2.40, 20% above: already sent, at LeoVegas.
     saveMarketOdds(
       db,
@@ -414,7 +449,7 @@ describe("runGemAlerts", () => {
       ],
       new Date().toISOString()
     );
-    await run();
+    await runTwice();
     expect(send).toHaveBeenCalledTimes(3);
     expect(bodies()[2].content).toBe("💎 New gem");
     // Dembélé's +25,0 %: nothing else of the bet is told.
@@ -440,7 +475,7 @@ describe("runGemAlerts", () => {
       [{ eventId: "fra-ita", bookmakerId: "merkurbets", odds: [{ market: "anytime_scorer", selection: "Mbappé", price: 2.4 }] }],
       new Date().toISOString()
     );
-    await run();
+    await runTwice();
     expect(bodies()[1].embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +20.0%", "💎 +16.7%", "💎 +5.0%"]);
     expect(getAlertStatus(db).sent).toHaveLength(3);
 
@@ -458,8 +493,10 @@ describe("runGemAlerts", () => {
       sent: [],
     });
 
-    // Greeted, then refused: Discord's rate limit.
-    send.mockImplementationOnce(ok).mockImplementationOnce(() => Promise.resolve({ ok: false, status: 429 }));
+    // Greeted; at the next cycle, the gems refused: Discord's rate limit.
+    await run();
+    rescrape();
+    send.mockImplementationOnce(() => Promise.resolve({ ok: false, status: 429 }));
     await run();
     expect(getAlertStatus(db).lastError?.message).toBe("HTTP 429: Discord limits the sending, next try at the next cycle");
     expect(getAlertStatus(db).sent).toEqual([]);
@@ -497,7 +534,7 @@ describe("runGemAlerts", () => {
       ],
       new Date().toISOString()
     );
-    await run();
+    await runTwice();
     expect(bodies()[1].embeds).toHaveLength(10);
     await run();
     // 15 gems: 10, then 5.
@@ -642,7 +679,7 @@ describe("the link to the match", () => {
     thin: false,
     legs: [{ selection: "1", label: "PSG", source: "leovegas", side: "back", price: 2.1, stake: 100 }],
   } as unknown as Surebet;
-  const url = "https://cote-radar.fr/?match=psg-om&bookmakers=leovegas,merkurbets,twentybet,admiralbet,tipico,winamaxde";
+  const url = "https://cote-radar.fr/?match=psg-om&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,tipico,winamaxde";
 
   it("is the title's and a line of its own, on a gem and a surebet", () => {
     for (const embed of [gemEmbed(gem, "https://cote-radar.fr"), surebetEmbed(surebet, "https://cote-radar.fr")]) {
@@ -660,7 +697,7 @@ describe("the link to the match", () => {
       expect(embed.fields.map((f) => f.name)).toEqual(names);
     }
     const odd = gemEmbed({ ...gem, eventId: "a(b)c d" }, "https://cote-radar.fr");
-    expect(odd.url).toBe("https://cote-radar.fr/?match=a%28b%29c%20d&bookmakers=leovegas,merkurbets,twentybet,admiralbet,tipico,winamaxde");
+    expect(odd.url).toBe("https://cote-radar.fr/?match=a%28b%29c%20d&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,tipico,winamaxde");
     // One "(" and one ")": the link's own.
     const value = odd.fields.at(-1)!.value;
     expect([value.split("(").length - 1, value.split(")").length - 1]).toEqual([1, 1]);
@@ -676,6 +713,9 @@ describe("runGemAlerts, size and rate limit", () => {
     Promise.resolve({ ok: false, status: 429, headers: { get: (name: string) => (name === "retry-after" ? (retryAfter ?? null) : null) } });
   const bodies = () => send.mock.calls.map(([, init]) => JSON.parse(init.body));
   const run = () => runGemAlerts(db, { webhookUrl: WEBHOOK, publicUrl: SITE, send, sleep });
+  // The cycle before had these alerts too (confirmedAlerts): France's 2.10
+  // on "1", and the players' gems of a test.
+  const seenLastCycle = (...keys: string[]) => confirmedAlerts(db, "the cycle before", ["fra-ita|1X2|1", ...keys]);
 
   beforeEach(() => {
     db = openDb(":memory:");
@@ -692,6 +732,7 @@ describe("runGemAlerts, size and rate limit", () => {
       },
     ]);
     saveReferenceOdds(db, "fra-ita", { fair: { "1": 2, X: 3.4, "2": 4 }, back: { "1": 2, X: 3.4, "2": 4 }, lay: { "1": 2, X: 3.4, "2": 4 }, matched: 125000 }, new Date().toISOString());
+    seenLastCycle();
   });
 
   it("waits out a rate limit Discord says how long to wait for, then sends", async () => {
@@ -766,6 +807,7 @@ describe("runGemAlerts, size and rate limit", () => {
       new Date().toISOString()
     );
 
+    seenLastCycle(...players.map((p) => `fra-ita|first_scorer|${p}`));
     const total = () => getAlertStatus(db, 50).sent.length;
     await run();
     await run();

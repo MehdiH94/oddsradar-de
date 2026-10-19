@@ -55,6 +55,8 @@ export const TWENTYBET_SPORTS: Readonly<Record<string, { market: number }>> = {
   "13": { market: 1 },
   "7": { market: 186 },
   "5": { market: 251 },
+  // Darts: the winner (18/10/2026).
+  "18": { market: 186 },
 };
 
 const HEADERS = {
@@ -67,6 +69,8 @@ const HEADERS = {
 };
 
 export interface TwentybetOutcome {
+  // 20bet's own id, the one its boosts name (TwentybetBoost.outcomeId).
+  id?: number;
   // Sportradar's: "1", "2" (the draw), "3" for a result; "4", "5" for a winner.
   vendorOutcomeId?: string;
   odds?: number | null;
@@ -74,6 +78,8 @@ export interface TwentybetOutcome {
   active?: number;
 }
 export interface TwentybetMarket {
+  // 20bet's own id (621 its result), the one its boosts name.
+  id?: number;
   // Sportradar's market id: 1 the result, 186, 219, 251 a winner...
   vendorMarketId?: number;
   // A line ("total=2.5", "hcp=-1.5"); none on a result or a winner.
@@ -129,11 +135,100 @@ export function teamName(name: string, competition: string): string {
   return name;
 }
 
+// 20bet's odds boosts: the outcomes it pays more on, from the request its pages
+// make (platform.20bet.com/api/v4/boosted-odds, 18/10/2026: six, on the 1X2
+// or the goals of football matches). A boost names its outcome by 20bet's own
+// ids and says how much more it pays, not the price: the page works it out
+// (boostedPrice).
+const BOOSTS_API = "https://platform.20bet.com/api/v4/boosted-odds?lang=en&clientType=0&countryCode=DE";
+
+export interface TwentybetBoost {
+  eventId?: number;
+  // 20bet's market and outcome ids (TwentybetMarket.id, TwentybetOutcome.id).
+  marketId?: number;
+  outcomeId?: number;
+  specifiers?: string | null;
+  // 1: the market's margin brought to marginBoost% (101: its prices pay 101%
+  // in all); 2: the outcome's price times factorBoost.
+  boostMethod?: number;
+  marginBoost?: number | null;
+  factorBoost?: number | null;
+}
+
+const BOOST_BY_MARGIN = 1;
+const BOOST_BY_FACTOR = 2;
+
+const isPrice = (x: unknown): x is number => typeof x === "number" && Number.isFinite(x) && x > 0;
+
+// A market of two outcomes priced again to pay `payout`% in all, the ratio of
+// their (price - 1) kept: 20bet's page's own computation (its module 86362,
+// 18/10/2026), as it is.
+function reprice2([x, y]: [number, number], payout: number): [number, number] {
+  if (x > y) return reprice2([y, x], payout).reverse() as [number, number];
+  const a = payout / 100;
+  const d = (a * (y - 1)) / (x - 1);
+  const c = ((y - 1) / (x - 1) + 1) * (a - 1);
+  const low = (-c + (c ** 2 + 4 * d * (2 - a)) ** 0.5) / (2 * d) + 1;
+  return [low, 1 / (a - 1 / low)];
+}
+
+// The same for three outcomes, the 1X2: the favourite's price first, from a
+// cubic, then the two others as a market of two.
+function reprice3(odds: number[], payout: number): number[] {
+  const r = payout / 100;
+  const low = Math.min(...odds);
+  const lowAt = odds.indexOf(low);
+  const high = Math.max(...odds);
+  const highAt = odds.lastIndexOf(high);
+  const midAt = 3 - lowAt - highAt;
+  const mid = odds[midAt];
+  const i = (mid - 1) / (low - 1);
+  const u = (high - 1) / (low - 1);
+  const f = i * u * r;
+  const m = (i + u + i * u) * (r - 1);
+  const p = (i + u + 1) * (r - 2);
+  const b = (m ** 2 - 3 * f * p) / (3 * f ** 2);
+  const q = (2 * m ** 3 - 9 * f * m * p - 27 * (3 - r) * f ** 2) / (27 * f ** 3);
+  if ((q / 2) ** 2 - (b / 3) ** 3 >= 0) return odds;
+  const g = Math.acos(q / (2 * (b / 3) ** 1.5));
+  const first = -2 * (b / 3) ** 0.5 * Math.cos(g / 3 + (2 / 3) * Math.PI) - m / (3 * f) + 1;
+  const [second, third] = reprice2([mid, high], (r - 1 / first) * 100);
+  const out: number[] = [];
+  out[lowAt] = first;
+  out[midAt] = second;
+  out[highAt] = third;
+  return out;
+}
+
+// What a boost pays on its outcome, at the market's prices, rounded to the
+// cent as the page shows it; none when it would not pay more than the price.
+export function boostedPrice(boost: TwentybetBoost, odds: readonly number[], index: number): number | undefined {
+  const price = odds[index];
+  if (!isPrice(price) || !odds.every(isPrice)) return undefined;
+  let boosted: number | undefined;
+  if (boost.boostMethod === BOOST_BY_FACTOR) {
+    boosted = isPrice(boost.factorBoost) && boost.factorBoost >= 1 ? price * boost.factorBoost : undefined;
+  } else if (isPrice(boost.marginBoost)) {
+    const repriced = odds.length === 3 ? reprice3([...odds], boost.marginBoost) : reprice2([odds[0], odds[1]], boost.marginBoost);
+    boosted = repriced[index];
+  }
+  if (boosted === undefined || !Number.isFinite(boosted)) return undefined;
+  const cents = Math.round(boosted * 100) / 100;
+  return cents > price ? cents : undefined;
+}
+
+const boostKey = (eventId: number | undefined, marketId: number | undefined, outcomeId: number | undefined) =>
+  `${eventId}:${marketId}:${outcomeId}`;
+
 // A page of a sport's events as raw events: each event not yet started with
 // its main market, labelled with the teams' names and "Draw" (the matcher
 // reads them as 1, X and 2). A market closed, or with outcomes it does not
 // know, leaves the event out.
-export function parseTwentybetEvents(reply: TwentybetListReply, sportId: string): RawEvent[] {
+export function parseTwentybetEvents(
+  reply: TwentybetListReply,
+  sportId: string,
+  boosts: readonly TwentybetBoost[] = []
+): RawEvent[] {
   const config = TWENTYBET_SPORTS[sportId];
   if (!config) return [];
   const relations = reply.data?.relations ?? {};
@@ -141,6 +236,8 @@ export function parseTwentybetEvents(reply: TwentybetListReply, sportId: string)
   const leagues = new Map((relations.league ?? []).map((l) => [l.id, l.name?.trim() ?? ""]));
   const sides = config.market === 1 ? RESULT_OUTCOMES : WINNER_OUTCOMES;
   const expected = config.market === 1 ? 3 : 2;
+  // The boosts of a market without a line (the main one's).
+  const boostOf = new Map(boosts.filter((b) => !b.specifiers).map((b) => [boostKey(b.eventId, b.marketId, b.outcomeId), b]));
 
   const events: RawEvent[] = [];
   for (const event of reply.data?.items ?? []) {
@@ -156,10 +253,14 @@ export function parseTwentybetEvents(reply: TwentybetListReply, sportId: string)
       if (!market || market.status !== 1 || outcomes.length !== expected) continue;
       const names = { home, draw: "Draw", away };
       const marketName = canonicalMarketName(expected);
-      const odds: RawOdds[] = outcomes.map((o) => {
+      const prices = outcomes.map((o) => (typeof o.odds === "number" ? o.odds : NaN));
+      const odds: RawOdds[] = outcomes.map((o, i) => {
         const side = sides[o.vendorOutcomeId ?? ""];
         if (!side) throw new Error(`unexpected outcome "${o.vendorOutcomeId}"`);
-        return { market: marketName, selection: names[side], price: o.active === 1 && typeof o.odds === "number" ? o.odds : NaN };
+        const price = o.active === 1 && typeof o.odds === "number" ? o.odds : NaN;
+        const boost = boostOf.get(boostKey(event.id, market.id, o.id));
+        const boosted = boost && Number.isFinite(price) ? boostedPrice(boost, prices, i) : undefined;
+        return { market: marketName, selection: names[side], price, ...(boosted !== undefined ? { boosted } : {}) };
       });
       const raw: RawEvent = {
         sport: sportOf(sportId, competition),
@@ -202,21 +303,35 @@ async function getPage(sportId: string, page: number, retried = false): Promise<
 }
 
 // A sport's every event, page after page.
-async function fetchSport(sportId: string): Promise<RawEvent[]> {
+async function fetchSport(sportId: string, boosts: readonly TwentybetBoost[]): Promise<RawEvent[]> {
   const events: RawEvent[] = [];
   for (let page = 1; ; page++) {
     const reply = await getPage(sportId, page);
     await sleep(REQUEST_DELAY_MS);
-    events.push(...parseTwentybetEvents(reply, sportId));
+    events.push(...parseTwentybetEvents(reply, sportId, boosts));
     if (page >= (reply.data?.lastPage ?? 1)) return events;
+  }
+}
+
+// The boosts of the moment; none when they fail to come: the prices still do.
+async function fetchBoosts(): Promise<TwentybetBoost[]> {
+  try {
+    const res = await fetch(BOOSTS_API, { headers: { ...HEADERS, "x-bff": "1" }, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = ((await res.json()) as { data?: unknown }).data;
+    return Array.isArray(data) ? (data as TwentybetBoost[]) : [];
+  } catch (err) {
+    console.warn("[scraper:twentybet] boosts failed, reading the prices without them:", err);
+    return [];
   }
 }
 
 export async function fetchTwentybet(): Promise<RawEvent[]> {
   const sports = Object.keys(TWENTYBET_SPORTS);
+  const boosts = await fetchBoosts();
   const read = [];
   for (const sportId of sports) {
-    read.push(await fetchSport(sportId).then((value) => ({ ok: true as const, value }), (reason) => ({ ok: false as const, reason })));
+    read.push(await fetchSport(sportId, boosts).then((value) => ({ ok: true as const, value }), (reason) => ({ ok: false as const, reason })));
   }
   // Every sport failing is the bookmaker failing (runScrapeCycle retries it);
   // one failing costs only its own events.

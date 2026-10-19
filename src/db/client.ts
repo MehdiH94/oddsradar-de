@@ -258,6 +258,8 @@ const ADDED_COLUMNS: [table: string, column: string, definition: string][] = [
   // football.ts), listed again every half hour.
   ["reference_sources", "markets", "TEXT"],
   ["reference_sources", "listed_at", "TEXT"],
+  // A boosted outcome's price (RawOdds.boosted), beside its price.
+  ["event_bookmaker_odds", "boosted", "REAL"],
 ];
 
 function addMissingColumns(db: DatabaseSync): void {

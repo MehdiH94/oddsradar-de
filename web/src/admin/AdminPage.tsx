@@ -4,17 +4,20 @@ import { ArrowLeft, ShieldCheck } from "lucide-react";
 import { useAuth } from "../auth/useAuth";
 import { Logo } from "../components/Logo";
 import { ODDS_PATH } from "../routes";
-import { AdminError, fetchAdminUsers, updateAdminUser, type AdminUser, type AdminUserChange } from "./adminApi";
+import { BOOKMAKER_BRANDING } from "../bookmakers";
+import { AdminError, fetchAdminBookmakers, fetchAdminUsers, updateAdminUser, type AdminBookmaker, type AdminUser, type AdminUserChange } from "./adminApi";
 import styles from "./AdminPage.module.css";
 
 const DATE_FORMAT = new Intl.DateTimeFormat("en-GB", { dateStyle: "short" });
 const formatDate = (iso: string | null) => (iso ? DATE_FORMAT.format(new Date(iso)) : "—");
 
 // The administration, for accounts with the admin role (the server answers 403
-// to the others; Root only spares them the page). One tab for now, the
-// users: who they are, whether the address is confirmed, whether they pay,
-// and the two things an admin does with an account -- block it, make it admin.
+// to the others; Root only spares them the page). Two tabs: the users (who
+// they are, whether the address is confirmed, whether they pay, and the two
+// things an admin does with an account -- block it, make it admin), and the
+// bookmakers' health (whether each one still gives odds).
 export function AdminPage() {
+  const [tab, setTab] = useState<"users" | "bookmakers">("users");
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -31,13 +34,38 @@ export function AdminPage() {
           <ShieldCheck size={22} aria-hidden="true" /> Administration
         </h1>
         <div role="tablist" aria-label="Sections" className={styles.tabs}>
-          <button type="button" role="tab" aria-selected="true" aria-controls="admin-users" id="tab-users" className={styles.tab}>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === "users"}
+            aria-controls="admin-users"
+            id="tab-users"
+            className={styles.tab}
+            onClick={() => setTab("users")}
+          >
             Users
           </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === "bookmakers"}
+            aria-controls="admin-bookmakers"
+            id="tab-bookmakers"
+            className={styles.tab}
+            onClick={() => setTab("bookmakers")}
+          >
+            Bookmakers
+          </button>
         </div>
-        <section id="admin-users" role="tabpanel" aria-labelledby="tab-users">
-          <UsersTab />
-        </section>
+        {tab === "users" ? (
+          <section id="admin-users" role="tabpanel" aria-labelledby="tab-users">
+            <UsersTab />
+          </section>
+        ) : (
+          <section id="admin-bookmakers" role="tabpanel" aria-labelledby="tab-bookmakers">
+            <BookmakersTab />
+          </section>
+        )}
       </main>
     </div>
   );
@@ -167,6 +195,102 @@ function UsersTab() {
           </tbody>
         </table>
       </div>
+    </>
+  );
+}
+
+const TIME_FORMAT = new Intl.DateTimeFormat("en-GB", { dateStyle: "short", timeStyle: "short" });
+const formatTime = (iso: string | null) => (iso ? TIME_FORMAT.format(new Date(iso)) : "never");
+const HEALTH_LABELS: Record<AdminBookmaker["health"], string> = {
+  ok: "OK",
+  failing: "Failing",
+  empty: "No match",
+  down: "Down",
+};
+
+// Each bookmaker's last read: whether it still gives odds, how many matches,
+// and the last error. "Down" is no match for 30 minutes, which the
+// administrators' Discord channel is told about (src/alerts/health.ts).
+function BookmakersTab() {
+  const [bookmakers, setBookmakers] = useState<AdminBookmaker[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const load = useCallback(() => {
+    setError(null);
+    return fetchAdminBookmakers()
+      .then(setBookmakers)
+      .catch((err) => setError(err instanceof AdminError ? err.message : "Something went wrong."));
+  }, []);
+  useEffect(() => {
+    void load();
+  }, [load]);
+
+  if (!bookmakers) {
+    return error ? (
+      <p role="alert" className={styles.error}>
+        {error}{" "}
+        <button type="button" className={styles.linkButton} onClick={() => void load()}>
+          Try again
+        </button>
+      </p>
+    ) : (
+      <p aria-busy="true" className={styles.muted}>
+        Loading the bookmakers…
+      </p>
+    );
+  }
+
+  const down = bookmakers.filter((b) => b.health === "down").length;
+  return (
+    <>
+      <p className={styles.muted}>
+        {bookmakers.length === 0
+          ? "No read yet: the worker records each bookmaker at its next cycle."
+          : down === 0
+            ? "Every bookmaker gives odds."
+            : `${down} bookmaker${down === 1 ? "" : "s"} down.`}{" "}
+        <button type="button" className={styles.linkButton} onClick={() => void load()}>
+          Refresh
+        </button>
+      </p>
+      {bookmakers.length > 0 && (
+        <div className={styles.scroll}>
+          <table className={styles.table}>
+            <caption className="visually-hidden">The bookmakers' last reads</caption>
+            <thead>
+              <tr>
+                <th scope="col">Bookmaker</th>
+                <th scope="col">Status</th>
+                <th scope="col">Last read</th>
+                <th scope="col">Matches</th>
+                <th scope="col">Last good read</th>
+                <th scope="col">Last error</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookmakers.map((b) => (
+                <tr key={b.bookmaker}>
+                  <th scope="row" className={styles.email}>
+                    {BOOKMAKER_BRANDING[b.bookmaker]?.name ?? b.bookmaker}
+                  </th>
+                  <td>
+                    <span className={b.health === "ok" ? styles.active : b.health === "down" ? styles.blocked : styles.warning}>
+                      {HEALTH_LABELS[b.health]}
+                    </span>
+                  </td>
+                  <td>{formatTime(b.lastReadAt)}</td>
+                  <td>{b.lastEvents ?? "—"}</td>
+                  <td>
+                    {formatTime(b.lastGoodAt)}
+                    {b.lastGoodEvents !== null && b.health !== "ok" && <span className={styles.you}> ({b.lastGoodEvents} matches)</span>}
+                  </td>
+                  <td className={styles.errorCell}>{b.lastError ?? "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </>
   );
 }

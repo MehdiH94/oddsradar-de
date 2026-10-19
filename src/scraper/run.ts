@@ -2,6 +2,7 @@ import { DatabaseSync } from "node:sqlite";
 import { RawEvent } from "../types";
 import { matchEvents } from "../matcher/match";
 import { upsertCanonicalEvents } from "../db/repository";
+import { recordBookmakerRead } from "../db/bookmakerStatus";
 
 export interface BookmakerScraper {
   id: string;
@@ -39,12 +40,16 @@ export async function runScrapeCycle(db: DatabaseSync, scrapers: BookmakerScrape
   const results = await Promise.allSettled(scrapers.map(async (s) => fetchWithRetry(s)));
 
   const eventsByBookmaker: Record<string, RawEvent[]> = {};
+  const at = new Date().toISOString();
   results.forEach((result, i) => {
     const scraper = scrapers[i];
     if (result.status === "fulfilled") {
       eventsByBookmaker[scraper.id] = result.value;
+      recordBookmakerRead(db, scraper.id, { events: result.value.length }, at);
     } else {
       console.error(`[scraper:${scraper.id}] failed:`, result.reason);
+      const reason = result.reason instanceof Error ? result.reason.message : String(result.reason);
+      recordBookmakerRead(db, scraper.id, { error: reason }, at);
     }
   });
 

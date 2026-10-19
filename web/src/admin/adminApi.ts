@@ -12,6 +12,18 @@ export interface AdminUser {
   lastLoginAt: string | null;
 }
 
+// A bookmaker's last read by the worker (src/db/bookmakerStatus.ts).
+export interface AdminBookmaker {
+  bookmaker: string;
+  lastReadAt: string;
+  lastEvents: number | null;
+  lastError: string | null;
+  lastGoodAt: string | null;
+  lastGoodEvents: number | null;
+  health: "ok" | "failing" | "empty" | "down";
+  downAlerted: boolean;
+}
+
 export type AdminUserChange = Partial<Pick<AdminUser, "status" | "role">>;
 
 // An answer of /api/admin/* that is not a success, with the server's message
@@ -45,3 +57,5 @@ export const updateAdminUser = (id: string, change: AdminUserChange) =>
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(change),
   }).then((r) => r.user);
+
+export const fetchAdminBookmakers = () => call<{ bookmakers: AdminBookmaker[] }>("/api/admin/bookmakers").then((r) => r.bookmakers);

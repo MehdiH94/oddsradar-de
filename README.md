@@ -1,4 +1,4 @@
-# CoteRadar
+# OddsBlitzer
 
 Comparateur de cotes avant-match entre bookmakers francais (Winamax, Betclic,
 Vbet, CircusBet, DAZN Bet, NetBet, Genybet, Unibet, Betsson et PMU, plus Betify, qui n'est pas agree ANJ) : un worker recupere les cotes toutes les quelques
@@ -365,8 +365,8 @@ Le site suit le theme clair ou sombre du systeme. Il est verifie avec axe
 Seuls les matchs pas encore commences sont listes : un match disparait des
 son coup d'envoi.
 
-Production : <https://cote-radar.fr>, deployee automatiquement a chaque push
-sur `main`. Site de test : <https://staging.cote-radar.fr>, deploye
+Production : <https://odds-blitzer.de>, deployee automatiquement a chaque push
+sur `main`. Site de test : <https://staging.odds-blitzer.de>, deploye
 automatiquement a chaque push sur `development` : rien n'arrive sur `main`
 sans y etre passe. **Pour modifier le projet et mettre la modification en
 prod, voir [CONTRIBUTING.md](CONTRIBUTING.md).**
@@ -641,8 +641,8 @@ value bets sur le site, n'en declenchent pas.
 Apres chaque cycle de la reference (toutes les 5 min), il envoie les gems
 qu'il n'a pas encore envoyees : une carte par gem, qui dit ou regarder et
 pas quoi parier (ecart, match, coup d'envoi a l'heure du lecteur, lien vers
-la page du match, sur le titre et sur une ligne « Voir le match sur
-CoteRadar »), ni l'issue, ni le bookmaker, ni la cote), 10 au
+la page du match, sur le titre et sur une ligne « See the match on
+OddsBlitzer »), ni l'issue, ni le bookmaker, ni la cote), 10 au
 plus par message et 6000 caracteres de texte au plus pour l'ensemble des
 cartes (la limite de Discord), la suite au cycle suivant. Chaque message est
 verifie avant d'etre envoye. **Une seule alerte par match, marche (son
@@ -677,7 +677,7 @@ Mise en place, une seule fois :
    secret, nom `DISCORD_WEBHOOK_URL`, valeur l'URL copiee. C'est un secret :
    qui l'a peut ecrire dans le salon ;
 3. relancer le deploiement (Actions > deploy > Run workflow). Le message
-   « CoteRadar est connecte a ce salon » arrive aussitot : c'est la preuve
+   « OddsBlitzer is connected to this channel » arrive aussitot : c'est la preuve
    que tout marche.
 
 Le deploiement ecrit le secret dans le `.env` du VPS (voir « Deploiement
@@ -729,7 +729,7 @@ sont ecrits dans le terminal de `npm run api`.
 
 1. **HTTPS** : un nom de domaine pointant vers le VPS, les ports 80 et 443
    ouverts, Caddy installe, puis `deploy/Caddyfile` (domaine a remplacer) copie
-   dans `/etc/caddy/`. Dans `/opt/coteradar/.env` : `PUBLIC_URL=https://<domaine>`,
+   dans `/etc/caddy/`. Dans `/opt/oddsradar/.env` : `PUBLIC_URL=https://<domaine>`,
    `TRUST_PROXY=1` et `HOST=127.0.0.1` (seul Caddy atteint alors l'API). Variable
    de depot GitHub `APP_URL` = `https://<domaine>` (la verification du
    deploiement l'interroge).
@@ -739,19 +739,19 @@ sont ecrits dans le terminal de `npm run api`.
    `SMTP_FROM`, le service web refuse de demarrer** (`NODE_ENV=production`) : un
    compte ne pourrait jamais etre confirme.
 3. **Sauvegarde** : `sudo apt install sqlite3`, puis
-   `sudo cp deploy/coteradar-backup*.{service,timer} /etc/systemd/system/`,
+   `sudo cp deploy/oddsradar-backup*.{service,timer} /etc/systemd/system/`,
    `sudo systemctl daemon-reload` et
-   `sudo systemctl enable --now coteradar-backup.timer coteradar-backup-odds.timer`.
+   `sudo systemctl enable --now oddsradar-backup.timer oddsradar-backup-odds.timer`.
    Le deploiement n'installe pas ces fichiers : a refaire a la main quand ils
    changent. Deux copies, faites par `deploy/backup-db.sh` (copie coherente
    pendant que les services tournent, puis `PRAGMA integrity_check` ; une copie
    abimee est gardee a part en `.corrupt` et fait echouer l'unite, visible dans
-   `systemctl status` ou `journalctl -u coteradar-backup`) :
+   `systemctl status` ou `journalctl -u oddsradar-backup`) :
    - les **comptes** (`auth.sqlite`), toutes les heures, 30 jours gardes ;
    - la **base des cotes** (`coteradar.sqlite`), chaque dimanche, 4 copies : les
      cotes se reconstruisent, pas les stats des joueurs ni les alertes envoyees.
 
-   Les copies sont dans `/opt/coteradar/backups/`, **sur le meme disque** : en
+   Les copies sont dans `/opt/oddsradar/backups/`, **sur le meme disque** : en
    recopier regulierement hors du VPS (un disque qui tombe emporte le serveur
    et ses sauvegardes). Essayer de temps en temps de restaurer une copie sur
    une machine de test.
@@ -762,8 +762,8 @@ Installation initiale d'un serveur, a faire une seule fois. Ensuite, chaque
 push sur `main` est deploye automatiquement (voir plus bas).
 
 ```bash
-git clone <repo> /opt/coteradar
-cd /opt/coteradar
+git clone <repo> /opt/oddsradar
+cd /opt/oddsradar
 
 # Backend : installation complete (PAS --production -- `npm run build` lance
 # `tsc`, et typescript est une devDependency ; avec --production le build
@@ -777,10 +777,10 @@ cd web && npm install && npm run build && cd ..
 
 cp .env.example .env   # puis editer .env
 sudo cp deploy/*.service /etc/systemd/system/
-sudo systemctl enable --now coteradar-worker coteradar-web
+sudo systemctl enable --now oddsradar-worker oddsradar-web
 ```
 
-`coteradar-web.service` est autonome : le process web sert l'API sur `/api/*`
+`oddsradar-web.service` est autonome : le process web sert l'API sur `/api/*`
 **et** le dashboard build (`web/dist`) comme fichiers statiques, sur le meme
 `PORT`. Pour un VPS perso, rien d'autre n'est necessaire — il suffit d'ouvrir
 `http://<vps>:<PORT>`.
@@ -822,28 +822,28 @@ retour arriere).
 
 A lancer **sur le VPS** (pas sur une machine de developpement), connecte en
 tant que l'utilisateur des services. Verifier d'abord qu'on est au bon
-endroit : la commande doit afficher `ubuntu` puis `/opt/coteradar`.
+endroit : la commande doit afficher `oddsradar` puis `/opt/oddsradar`.
 
 ```bash
-whoami && ls -d /opt/coteradar
+whoami && ls -d /opt/oddsradar
 ```
 
 Puis, en un seul bloc (il s'arrete a la premiere erreur) :
 
 ```bash
-cd /opt/coteradar && git pull origin main \
+cd /opt/oddsradar && git pull origin main \
 && GIT_TERMINAL_PROMPT=0 git fetch origin main && echo FETCH-OK \
 && { sudo -n true && echo SUDO-OK || echo SUDO-KO; } \
 && mkdir -p -m 700 ~/.ssh \
 && ssh-keygen -t ed25519 -N "" -C github-deploy -f ~/.ssh/github_deploy \
-&& echo "command=\"/opt/coteradar/deploy/deploy.sh\",restrict $(cat ~/.ssh/github_deploy.pub)" >> ~/.ssh/authorized_keys \
-&& for f in /etc/ssh/ssh_host_*_key.pub; do echo "141.94.244.108 $(cut -d' ' -f1,2 "$f")"; done
+&& echo "command=\"/opt/oddsradar/deploy/deploy.sh\",restrict $(cat ~/.ssh/github_deploy.pub)" >> ~/.ssh/authorized_keys \
+&& for f in /etc/ssh/ssh_host_*_key.pub; do echo "141.95.86.176 $(cut -d' ' -f1,2 "$f")"; done
 ```
 
 Puis dans GitHub : Settings > Secrets and variables > Actions > New repository
 secret, deux fois :
 
-- `VPS_KNOWN_HOSTS` : toutes les lignes `141.94.244.108 ...` affichees a la
+- `VPS_KNOWN_HOSTS` : toutes les lignes `141.95.86.176 ...` affichees a la
   fin (ce sont les cles publiques du serveur) ;
 - `VPS_SSH_KEY` : la sortie complete de `cat ~/.ssh/github_deploy`, lignes
   `BEGIN` et `END` comprises. C'est une cle privee : la copier uniquement
@@ -854,10 +854,10 @@ Si `FETCH-OK` ne s'affiche pas, le VPS ne peut pas lire le depot (prive) sans
 mot de passe. Lui donner une cle en lecture seule :
 
 ```bash
-ssh-keygen -t ed25519 -N "" -C coteradar-vps -f ~/.ssh/coteradar_repo
-cat ~/.ssh/coteradar_repo.pub   # GitHub : Settings > Deploy keys > Add deploy key (sans ecriture)
-printf 'Host github.com\n  IdentityFile ~/.ssh/coteradar_repo\n' >> ~/.ssh/config
-git -C /opt/coteradar remote set-url origin git@github.com:ouassimBenMosbah/coteRadar.git
+ssh-keygen -t ed25519 -N "" -C oddsradar-vps -f ~/.ssh/oddsradar_repo
+cat ~/.ssh/oddsradar_repo.pub   # GitHub : Settings > Deploy keys > Add deploy key (sans ecriture)
+printf 'Host github.com\n  IdentityFile ~/.ssh/oddsradar_repo\n' >> ~/.ssh/config
+git -C /opt/oddsradar remote set-url origin git@github.com:MehdiH94/oddsradar-de.git
 ssh -o StrictHostKeyChecking=accept-new -T git@github.com   # accepte la cle de GitHub
 ```
 
@@ -865,9 +865,9 @@ Si `SUDO-KO` s'affiche, autoriser uniquement le redemarrage des
 services :
 
 ```bash
-echo 'ubuntu ALL=(root) NOPASSWD: /usr/bin/systemctl restart coteradar-worker coteradar-web' \
-  | sudo tee /etc/sudoers.d/coteradar-deploy
-sudo chmod 440 /etc/sudoers.d/coteradar-deploy
+echo 'oddsradar ALL=(root) NOPASSWD: /usr/bin/systemctl restart oddsradar-worker oddsradar-web' \
+  | sudo tee /etc/sudoers.d/oddsradar-deploy
+sudo chmod 440 /etc/sudoers.d/oddsradar-deploy
 ```
 
 #### Deployer a la main
@@ -875,23 +875,23 @@ sudo chmod 440 /etc/sudoers.d/coteradar-deploy
 Le meme script sert sans GitHub, depuis le VPS :
 
 ```bash
-/opt/coteradar/deploy/deploy.sh          # dernier commit de main
-/opt/coteradar/deploy/deploy.sh <sha>    # un commit precis de main
+/opt/oddsradar/deploy/deploy.sh          # dernier commit de main
+/opt/oddsradar/deploy/deploy.sh <sha>    # un commit precis de main
 ```
 
 En cas de probleme apres un deploiement :
 
 ```bash
-sudo systemctl status coteradar-worker coteradar-web
-journalctl -u coteradar-worker -f   # Ctrl+C pour quitter
+sudo systemctl status oddsradar-worker oddsradar-web
+journalctl -u oddsradar-worker -f   # Ctrl+C pour quitter
 ```
 
 ### Environnement de test
 
-`staging.cote-radar.fr` montre toujours le dernier etat de la branche
+`staging.odds-blitzer.de` montre toujours le dernier etat de la branche
 `development`. C'est le meme VPS que la production, mais un autre dossier
-(`/opt/coteradar-staging`), d'autres services (`coteradar-staging-worker`,
-`coteradar-staging-web`, port 3001) et d'autres bases : celles de la
+(`/opt/oddsradar-staging`), d'autres services (`oddsradar-staging-worker`,
+`oddsradar-staging-web`, port 3001) et d'autres bases : celles de la
 production ne sont jamais touchees. Son worker scrape toutes les 45 minutes
 (meme IP que la production) et n'envoie aucune alerte Discord.
 
@@ -903,21 +903,21 @@ production un commit qui n'a pas ete deploye avec succes sur le site de test.
 
 #### Mise en place (une seule fois)
 
-1. **DNS** : un enregistrement `A` `staging.cote-radar.fr` vers
-   `141.94.244.108`.
-2. **Sur le VPS**, en tant que `ubuntu` (une fois la branche `development`
+1. **DNS** : un enregistrement `A` `staging.odds-blitzer.de` vers
+   `141.95.86.176`.
+2. **Sur le VPS**, en tant que `oddsradar` (une fois la branche `development`
    contenant `deploy/staging/` fusionnee). `/opt` appartient a root : le
-   dossier est d'abord cree au nom de `ubuntu`, puis le depot y est clone :
+   dossier est d'abord cree au nom de `oddsradar`, puis le depot y est clone :
 
    ```bash
-   sudo install -d -o ubuntu -g ubuntu -m 755 /opt/coteradar-staging \
-   && git clone git@github.com:ouassimBenMosbah/coteRadar.git /opt/coteradar-staging \
-   && cd /opt/coteradar-staging && git checkout development \
+   sudo install -d -o oddsradar -g oddsradar -m 755 /opt/oddsradar-staging \
+   && git clone git@github.com:MehdiH94/oddsradar-de.git /opt/oddsradar-staging \
+   && cd /opt/oddsradar-staging && git checkout development \
    && mkdir -p data \
    && cp deploy/staging/.env.staging.example .env && chmod 600 .env \
-   && sqlite3 /opt/coteradar/data/coteradar.sqlite ".backup /opt/coteradar-staging/data/coteradar.sqlite" \
+   && sqlite3 /opt/oddsradar/data/coteradar.sqlite ".backup /opt/oddsradar-staging/data/coteradar.sqlite" \
    && sudo cp deploy/staging/*.service /etc/systemd/system/ && sudo systemctl daemon-reload \
-   && sudo systemctl enable coteradar-staging-worker coteradar-staging-web
+   && sudo systemctl enable oddsradar-staging-worker oddsradar-staging-web
    ```
 
    La copie de la base des cotes evite un site de test vide pendant le premier
@@ -928,11 +928,11 @@ production un commit qui n'a pas ete deploye avec succes sur le site de test.
    qu'une faute de frappe ne puisse pas casser `sudo` :
 
    ```bash
-   echo 'ubuntu ALL=(root) NOPASSWD: /usr/bin/systemctl restart coteradar-staging-worker coteradar-staging-web' \
-     > /tmp/coteradar-staging-deploy \
-   && sudo visudo -cf /tmp/coteradar-staging-deploy \
-   && sudo install -m 440 -o root -g root /tmp/coteradar-staging-deploy /etc/sudoers.d/coteradar-staging-deploy \
-   && rm /tmp/coteradar-staging-deploy && sudo visudo -c
+   echo 'oddsradar ALL=(root) NOPASSWD: /usr/bin/systemctl restart oddsradar-staging-worker oddsradar-staging-web' \
+     > /tmp/oddsradar-staging-deploy \
+   && sudo visudo -cf /tmp/oddsradar-staging-deploy \
+   && sudo install -m 440 -o root -g root /tmp/oddsradar-staging-deploy /etc/sudoers.d/oddsradar-staging-deploy \
+   && rm /tmp/oddsradar-staging-deploy && sudo visudo -c
    ```
 
    Puis le bloc Caddy du site de test, ajoute a la fin de
@@ -942,20 +942,20 @@ production un commit qui n'a pas ete deploye avec succes sur le site de test.
    ```bash
    sudo cp -p /etc/caddy/Caddyfile /etc/caddy/Caddyfile.bak-$(date +%Y%m%d-%H%M%S) \
    && printf '\n' | sudo tee -a /etc/caddy/Caddyfile >/dev/null \
-   && sudo tee -a /etc/caddy/Caddyfile < /opt/coteradar-staging/deploy/staging/Caddyfile.snippet >/dev/null \
+   && sudo tee -a /etc/caddy/Caddyfile < /opt/oddsradar-staging/deploy/staging/Caddyfile.snippet >/dev/null \
    && sudo -u caddy caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
    ```
 
    Ne recharger Caddy qu'une fois le DNS en place
-   (`dig +short staging.cote-radar.fr @1.1.1.1` doit repondre
-   `141.94.244.108`) : sinon Caddy demande tout de suite un certificat pour un
+   (`dig +short staging.odds-blitzer.de @1.1.1.1` doit repondre
+   `141.95.86.176`) : sinon Caddy demande tout de suite un certificat pour un
    nom qui ne pointe pas encore vers le serveur, et Let's Encrypt limite le
    nombre d'echecs par heure.
 
    ```bash
    sudo systemctl reload caddy
-   curl -sI https://cote-radar.fr | head -1                               # la production repond toujours
-   curl -sI https://staging.cote-radar.fr | grep -iE '^HTTP|x-robots'     # 502 normal avant le premier deploiement
+   curl -sI https://odds-blitzer.de | head -1                               # la production repond toujours
+   curl -sI https://staging.odds-blitzer.de | grep -iE '^HTTP|x-robots'     # 502 normal avant le premier deploiement
    ```
 
 3. **Cle SSH du deploiement de test**, sur le VPS (meme demarche que pour la
@@ -966,7 +966,7 @@ production un commit qui n'a pas ete deploye avec succes sur le site de test.
    ```bash
    { [ -z "$(tail -c1 ~/.ssh/authorized_keys)" ] || echo >> ~/.ssh/authorized_keys; } \
    && ssh-keygen -t ed25519 -N "" -C github-deploy-staging -f ~/.ssh/github_deploy_staging \
-   && echo "command=\"env DEPLOY_BRANCH=development DEPLOY_SERVICES='coteradar-staging-worker coteradar-staging-web' /opt/coteradar-staging/deploy/deploy.sh\",restrict $(cat ~/.ssh/github_deploy_staging.pub)" >> ~/.ssh/authorized_keys
+   && echo "command=\"env DEPLOY_BRANCH=development DEPLOY_SERVICES='oddsradar-staging-worker oddsradar-staging-web' /opt/oddsradar-staging/deploy/deploy.sh\",restrict $(cat ~/.ssh/github_deploy_staging.pub)" >> ~/.ssh/authorized_keys
    ```
 
    Puis, **depuis le PC** (avec `gh` connecte au compte proprietaire du depot),
@@ -974,10 +974,10 @@ production un commit qui n'a pas ete deploye avec succes sur le site de test.
    passe directement du VPS au secret, sans jamais etre affichee :
 
    ```bash
-   ( set -o pipefail; ssh ubuntu@141.94.244.108 'test -s ~/.ssh/github_deploy_staging && cat ~/.ssh/github_deploy_staging' \
-     | gh secret set STAGING_VPS_SSH_KEY --repo ouassimBenMosbah/coteRadar ) && echo "secret OK"
-   gh variable set STAGING_URL --body "https://staging.cote-radar.fr" --repo ouassimBenMosbah/coteRadar
-   gh secret list --repo ouassimBenMosbah/coteRadar; gh variable list --repo ouassimBenMosbah/coteRadar
+   ( set -o pipefail; ssh oddsradar@141.95.86.176 'test -s ~/.ssh/github_deploy_staging && cat ~/.ssh/github_deploy_staging' \
+     | gh secret set STAGING_VPS_SSH_KEY --repo MehdiH94/oddsradar-de ) && echo "secret OK"
+   gh variable set STAGING_URL --body "https://staging.odds-blitzer.de" --repo MehdiH94/oddsradar-de
+   gh secret list --repo MehdiH94/oddsradar-de; gh variable list --repo MehdiH94/oddsradar-de
    ```
 
    Une fois `STAGING_VPS_SSH_KEY` dans la liste, supprimer la cle du VPS :
@@ -985,14 +985,14 @@ production un commit qui n'a pas ete deploye avec succes sur le site de test.
    ligne d'`authorized_keys` reste). `VPS_KNOWN_HOSTS` et les secrets `SMTP_*`
    de la production sont reutilises.
 4. Lancer le premier deploiement (Actions > deploy-staging > Run workflow, ou
-   `gh workflow run deploy-staging.yml --repo ouassimBenMosbah/coteRadar --ref development`),
+   `gh workflow run deploy-staging.yml --repo MehdiH94/oddsradar-de --ref development`),
    puis creer un compte administrateur de test (email et mot de passe tapes
    dans le terminal, distincts de ceux de la production) :
-   `cd /opt/coteradar-staging && npm run create-admin`.
+   `cd /opt/oddsradar-staging && npm run create-admin`.
 
 Le site de test se deploie a la main comme la production :
 
 ```bash
-DEPLOY_BRANCH=development DEPLOY_SERVICES='coteradar-staging-worker coteradar-staging-web' \
-  /opt/coteradar-staging/deploy/deploy.sh
+DEPLOY_BRANCH=development DEPLOY_SERVICES='oddsradar-staging-worker oddsradar-staging-web' \
+  /opt/oddsradar-staging/deploy/deploy.sh
 ```

@@ -10,6 +10,7 @@ import { runGolfReferenceCycle } from "../reference/golfRun";
 import { runF1ReferenceCycle } from "../reference/f1Run";
 import { REFERENCE_SPORTS } from "../reference/sports";
 import { GEM_MIN_EDGE, runGemAlerts } from "../alerts/gems";
+import { runHealthAlerts } from "../alerts/health";
 import { marketsMaxAgeForInterval, oddsMaxAgeForPollInterval } from "../db/repository";
 import { startScheduler } from "./scheduler";
 import { leovegasScraper } from "../scraper/kambi";
@@ -45,7 +46,17 @@ const scrapers = [
 ];
 
 console.log(`[worker] starting, polling every ${intervalMinutes} min, db=${dbPath}`);
-startScheduler(intervalMinutes, () => runScrapeCycle(db, scrapers));
+// The bookmakers' health, to the administrators' Discord channel: one going
+// down, one coming back (src/alerts/health.ts).
+const adminWebhookUrl = process.env.DISCORD_ADMIN_WEBHOOK_URL;
+console.log(adminWebhookUrl ? "[worker] admin alerts on" : "[worker] admin alerts off (no DISCORD_ADMIN_WEBHOOK_URL)");
+startScheduler(intervalMinutes, async () => {
+  try {
+    await runScrapeCycle(db, scrapers);
+  } finally {
+    await runHealthAlerts(db, { webhookUrl: adminWebhookUrl });
+  }
+});
 console.log(`[worker] every market of the next 48 h's football matches every ${marketsIntervalMinutes} min`);
 startScheduler(marketsIntervalMinutes, () => runMarketsCycle(db));
 // The reference's fair odds (an exchange's, src/reference/) for the same

@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { AuthContext, type AuthValue } from "../auth/AuthContext";
 import { AdminPage } from "./AdminPage";
-import type { AdminUser } from "./adminApi";
+import type { AdminBookmaker, AdminUser } from "./adminApi";
 
 const reply = (body: unknown, status = 200) => Promise.resolve({ ok: status < 400, status, json: () => Promise.resolve(body) });
 
@@ -123,5 +123,29 @@ describe("AdminPage", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent("Access denied.");
     fireEvent.click(screen.getByRole("button", { name: "Try again" }));
     expect(await screen.findByText("1 account")).toBeInTheDocument();
+  });
+
+  it("shows each bookmaker's health in its own tab, the down ones in red", async () => {
+    const bookmakers: AdminBookmaker[] = [
+      { bookmaker: "betway", lastReadAt: "2026-10-20T10:05:00.000Z", lastEvents: 950, lastError: null, lastGoodAt: "2026-10-20T10:05:00.000Z", lastGoodEvents: 950, health: "ok", downAlerted: false },
+      { bookmaker: "oddset", lastReadAt: "2026-10-20T10:05:00.000Z", lastEvents: null, lastError: "oddset sport 4: HTTP 403", lastGoodAt: "2026-10-20T09:00:00.000Z", lastGoodEvents: 830, health: "down", downAlerted: true },
+    ];
+    const fetchMock = vi.fn((url: string) => reply(url.endsWith("/bookmakers") ? { bookmakers } : { users: [ME] }));
+    vi.stubGlobal("fetch", fetchMock);
+    render(
+      <AuthContext.Provider value={auth}>
+        <AdminPage />
+      </AuthContext.Provider>
+    );
+    fireEvent.click(screen.getByRole("tab", { name: "Bookmakers" }));
+    expect(screen.getByRole("tab", { name: "Bookmakers" })).toHaveAttribute("aria-selected", "true");
+
+    expect(await screen.findByText("1 bookmaker down.")).toBeInTheDocument();
+    const oddset = screen.getByRole("row", { name: /ODDSET/ });
+    expect(within(oddset).getByText("Down").className).toContain("blocked");
+    expect(within(oddset).getByText("oddset sport 4: HTTP 403")).toBeInTheDocument();
+    expect(within(oddset).getByText("(830 matches)")).toBeInTheDocument();
+    expect(within(screen.getByRole("row", { name: /Betway/ })).getByText("OK").className).toContain("active");
+    expect(fetchMock).toHaveBeenCalledWith("/api/admin/bookmakers", undefined);
   });
 });

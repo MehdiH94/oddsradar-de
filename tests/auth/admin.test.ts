@@ -4,17 +4,19 @@ import { openDb } from "../../src/db/client";
 import { createServer } from "../../src/api/server";
 import { createSession, findUserById, listUsers } from "../../src/auth/store";
 import { addUser, PASSWORD, SITE, testAuth, withCookie } from "./helpers";
+import { recordBookmakerRead } from "../../src/db/bookmakerStatus";
 
 async function setup() {
   const t = testAuth();
-  const raw = createServer(openDb(":memory:"), {}, { auth: t.auth });
+  const odds = openDb(":memory:");
+  const raw = createServer(odds, {}, { auth: t.auth });
   const admin = await addUser(t.auth.db, "root@example.com", { role: "admin" });
   const member = await addUser(t.auth.db, "ada@example.com");
   const cookieFor = (id: string) => `__Host-session=${createSession(t.auth.db, id, {}, t.auth.now())}`;
   const asAdmin = withCookie(raw, cookieFor(admin.id));
   // JSON from this site, like the page's own fetch.
   const patch = (id: string, body: unknown, app = asAdmin) => request(app).patch(`/api/admin/users/${id}`).set({ Origin: SITE }).send(body as object);
-  return { ...t, raw, admin, member, cookieFor, asAdmin, patch };
+  return { ...t, odds, raw, admin, member, cookieFor, asAdmin, patch };
 }
 
 describe("who may use the administration routes", () => {
@@ -127,5 +129,17 @@ describe("PATCH /api/admin/users/:id", () => {
     expect(foreign.status).toBe(403);
     const form = await request(asAdmin).patch(`/api/admin/users/${member.id}`).set({ Origin: SITE }).type("form").send("status=disabled");
     expect(form.status).toBe(403);
+  });
+});
+
+describe("GET /api/admin/bookmakers", () => {
+  it("gives the admins each bookmaker's last read, and nobody else", async () => {
+    const { asAdmin, raw, member, cookieFor, odds } = await setup();
+    recordBookmakerRead(odds, "betway", { events: 950 });
+    const res = await request(asAdmin).get("/api/admin/bookmakers");
+    expect(res.status).toBe(200);
+    expect(res.body.bookmakers).toEqual([expect.objectContaining({ bookmaker: "betway", lastEvents: 950, health: "ok" })]);
+    expect((await request(raw).get("/api/admin/bookmakers")).status).toBe(401);
+    expect((await request(withCookie(raw, cookieFor(member.id))).get("/api/admin/bookmakers")).status).toBe(403);
   });
 });

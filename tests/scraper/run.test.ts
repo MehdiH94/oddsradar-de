@@ -3,6 +3,7 @@ import { DatabaseSync } from "node:sqlite";
 import { openDb } from "../../src/db/client";
 import { getLatestEvents } from "../../src/db/repository";
 import { runScrapeCycle, BookmakerScraper } from "../../src/scraper/run";
+import { listBookmakerStatus } from "../../src/db/bookmakerStatus";
 import { RawEvent } from "../../src/types";
 
 // Relative to "now" rather than a fixed date: getLatestEvents only returns
@@ -141,5 +142,17 @@ describe("runScrapeCycle", () => {
     expect(consoleErrorSpy).toHaveBeenCalledOnce();
 
     consoleErrorSpy.mockRestore();
+  });
+
+  it("records each bookmaker's read: its matches, or its error", async () => {
+    db = openDb(":memory:");
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    await runScrapeCycle(db, [
+      { id: "winamax", fetch: async () => [sampleEvent] },
+      { id: "betclic", fetch: async () => { throw new Error("HTTP 503"); } },
+    ]);
+    const status = Object.fromEntries(listBookmakerStatus(db).map((s) => [s.bookmaker, s]));
+    expect(status.winamax).toMatchObject({ lastEvents: 1, lastError: null, health: "ok" });
+    expect(status.betclic).toMatchObject({ lastEvents: null, lastError: "HTTP 503", health: "down" });
   });
 });

@@ -65,6 +65,8 @@ checkout() {
 # when run by hand over SSH.
 declare -A SETTING_PATTERNS=(
   [DISCORD_WEBHOOK_URL]='^https://(discord\.com|discordapp\.com)/api/webhooks/[0-9]+/[A-Za-z0-9_-]+$'
+  # The administrators' channel, for the bookmakers' health (src/alerts/health.ts).
+  [DISCORD_ADMIN_WEBHOOK_URL]='^https://(discord\.com|discordapp\.com)/api/webhooks/[0-9]+/[A-Za-z0-9_-]+$'
   [PUBLIC_URL]='^https?://[A-Za-z0-9.-]+(:[0-9]+)?$'
   # The accounts' emails (src/auth/mailer.ts). No quote, backslash, dollar or
   # space in a secret: the same file is read by systemd and by dotenv.

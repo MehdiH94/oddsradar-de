@@ -684,6 +684,18 @@ Le deploiement ecrit le secret dans le `.env` du VPS (voir « Deploiement
 automatique ») : pour couper les alertes, supprimer le secret et relancer le
 deploiement. En developpement, mettre `DISCORD_WEBHOOK_URL` dans son `.env`.
 
+### Sante des bookmakers (administrateurs)
+
+Chaque cycle de lecture note, par bookmaker, l'heure, le nombre de matchs lus
+ou l'erreur (`src/db/bookmakerStatus.ts`). La page `/admin`, onglet
+« Bookmakers », les montre : OK, en echec ou sans match depuis moins de 30 min,
+ou « Down » (aucun match depuis 30 min). Un bookmaker qui tombe, puis qui
+revient, est signale une fois chacun dans un salon Discord **reserve aux
+administrateurs** (`src/alerts/health.ts`), jamais dans celui des alertes que
+lisent les utilisateurs : secret GitHub `DISCORD_ADMIN_WEBHOOK_URL` (le webhook
+d'un salon prive), que le deploiement de la production ecrit dans `.env`.
+Sans lui, la page `/admin` reste la seule source.
+
 ## Comptes et HTTPS
 
 Les cotes, les value bets, les surebets et les pages de match sont reserves

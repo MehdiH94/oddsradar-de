@@ -76,6 +76,11 @@
   font-weight: 700;
 }
 
+.tab[aria-selected="false"] {
+  border-bottom-color: transparent;
+  color: var(--color-text-muted);
+}
+
 .muted {
   margin-bottom: var(--space-3);
   color: var(--color-text-muted);
@@ -146,6 +151,23 @@
 .blocked {
   background: var(--color-danger-bg);
   color: var(--color-danger-text);
+}
+
+/* A bookmaker failing or without a match, for less than 30 minutes. */
+.warning {
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-value-bg);
+  color: var(--color-value-text);
+  font-weight: 600;
+}
+
+/* An error can be long: it wraps instead of widening the table. */
+.table .errorCell {
+  min-width: 16rem;
+  max-width: 28rem;
+  white-space: normal;
+  color: var(--color-text-muted);
 }
 
 .actions {

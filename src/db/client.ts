@@ -215,6 +215,18 @@ CREATE TABLE IF NOT EXISTS alert_state (
   value TEXT NOT NULL
 );
 
+-- Each bookmaker's last read by the scraping cycle (src/db/bookmakerStatus.ts):
+-- the administration's health table and the admin alerts.
+CREATE TABLE IF NOT EXISTS bookmaker_status (
+  bookmaker_id TEXT PRIMARY KEY,
+  last_read_at TEXT NOT NULL,
+  last_events INTEGER,
+  last_error TEXT,
+  last_good_at TEXT,
+  last_good_events INTEGER,
+  down_alerted INTEGER NOT NULL DEFAULT 0
+);
+
 CREATE TABLE IF NOT EXISTS reference_player_cycles (
   at TEXT PRIMARY KEY,
   matches INTEGER NOT NULL,

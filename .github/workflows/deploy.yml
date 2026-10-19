@@ -99,6 +99,9 @@ jobs:
           # Optional: the Discord channel's webhook for the gems' alerts
           # (README, "Alertes Discord").
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          # Optional: the administrators' own channel, told when a bookmaker
+          # gives no odds any more (src/alerts/health.ts).
+          DISCORD_ADMIN_WEBHOOK_URL: ${{ secrets.DISCORD_ADMIN_WEBHOOK_URL }}
           # The accounts' emails (confirmation, password reset): the web
           # service refuses to start in production without SMTP_HOST and
           # SMTP_FROM (README, "Comptes et HTTPS").
@@ -122,6 +125,7 @@ jobs:
           # standard input (apply_settings: an empty one is removed).
           {
             printf 'DISCORD_WEBHOOK_URL=%s\nPUBLIC_URL=%s\n' "$(printf '%s' "$DISCORD_WEBHOOK_URL" | tr -d '[:space:]')" "$APP_URL"
+            printf 'DISCORD_ADMIN_WEBHOOK_URL=%s\n' "$(printf '%s' "$DISCORD_ADMIN_WEBHOOK_URL" | tr -d '[:space:]')"
             printf 'SMTP_HOST=%s\nSMTP_PORT=%s\nSMTP_USER=%s\nSMTP_PASSWORD=%s\n' \
               "$(printf '%s' "$SMTP_HOST" | tr -d '[:space:]')" "$(printf '%s' "$SMTP_PORT" | tr -d '[:space:]')" \
               "$(printf '%s' "$SMTP_USER" | tr -d '[:space:]')" "$(printf '%s' "$SMTP_PASSWORD" | tr -d '\r\n')"

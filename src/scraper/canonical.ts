@@ -130,7 +130,8 @@ export type BookmakerId =
   | "admiralbet"
   | "tipico"
   | "winamaxde"
-  | "betathome";
+  | "betathome"
+  | "oddset";
 
 // The canonical key is the lowercased Winamax display name: the dashboard is in
 // French and renders the sport string as-is (section headings, the sport
@@ -165,6 +166,9 @@ const VERIFIED_SPORTS: ReadonlyArray<{
   // bet-at-home.de's sport ids (./betathome.ts), as its sports API lists them
   // (18/10/2026), for the sports it is read for.
   betathome?: string;
+  // ODDSET's sport ids (./oddset.ts), as its API lists them (19/10/2026), for
+  // the sports it is read for.
+  oddset?: string;
   // The Odds API's sport, the first word of its sports' keys ("soccer_epl"),
   // for Tipico's and Winamax.de's prices it gives (./oddsApi.ts).
   oddsapi?: string;
@@ -179,6 +183,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     admiralbet: "1",
     oddsapi: "soccer",
     betathome: "1",
+    oddset: "4",
   },
   {
     canonical: "tennis",
@@ -189,6 +194,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "3",
     admiralbet: "5",
     betathome: "3",
+    oddset: "5",
   },
   {
     canonical: "basketball",
@@ -199,6 +205,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "2",
     admiralbet: "2",
     betathome: "8",
+    oddset: "7",
   },
   {
     canonical: "hockey sur glace",
@@ -209,6 +216,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "4",
     admiralbet: "4",
     betathome: "6",
+    oddset: "12",
   },
   {
     canonical: "baseball",
@@ -246,6 +254,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "17",
     admiralbet: "16",
     betathome: "5",
+    oddset: "11",
   },
   {
     canonical: "football australien",
@@ -268,6 +277,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "10",
     admiralbet: "6",
     betathome: "7",
+    oddset: "16",
   },
   {
     canonical: "golf",
@@ -307,6 +317,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "7",
     admiralbet: "23",
     betathome: "20",
+    oddset: "18",
   },
   {
     canonical: "ski alpin",
@@ -375,6 +386,7 @@ const CANONICAL_BY_BOOKMAKER: Record<BookmakerId, Map<string, string>> = {
   twentybet: canonicalByName((s) => s.twentybet),
   admiralbet: canonicalByName((s) => s.admiralbet),
   betathome: canonicalByName((s) => s.betathome),
+  oddset: canonicalByName((s) => s.oddset),
   tipico: canonicalByName((s) => s.oddsapi),
   winamaxde: canonicalByName((s) => s.oddsapi),
 };

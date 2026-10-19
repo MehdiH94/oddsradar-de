@@ -105,6 +105,7 @@ const BOOKMAKER_NAMES: Record<string, string> = {
   twentybet: "20bet",
   admiralbet: "Admiralbet",
   betathome: "bet-at-home",
+  oddset: "ODDSET",
   tipico: "Tipico",
   winamaxde: "Winamax",
   [EXCHANGE]: "Exchange",
@@ -118,6 +119,7 @@ export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = [
   "twentybet",
   "admiralbet",
   "betathome",
+  "oddset",
   "tipico",
   "winamaxde",
 ];

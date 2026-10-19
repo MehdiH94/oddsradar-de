@@ -1,0 +1,1744 @@
+{
+ "fixtures": [
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1567741332,
+     "name": {
+      "value": "3-Way - Result After Regular Time"
+     },
+     "results": [
+      {
+       "id": 2322021566,
+       "odds": 1.75,
+       "name": {
+        "value": "Esbjerg Energy"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 3,
+       "denominator": 4,
+       "americanOdds": -135,
+       "playerId": 2708892,
+       "version": 11070000999
+      },
+      {
+       "id": 2322021567,
+       "odds": 4.75,
+       "name": {
+        "value": "X"
+       },
+       "sourceName": {
+        "value": "X"
+       },
+       "visibility": "Visible",
+       "numerator": 15,
+       "denominator": 4,
+       "americanOdds": 375,
+       "version": 11070000999
+      },
+      {
+       "id": 2322021568,
+       "odds": 3.3,
+       "name": {
+        "value": "Rungsted Ishockey"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 23,
+       "denominator": 10,
+       "americanOdds": 230,
+       "playerId": 2708893,
+       "version": 11070000999
+      }
+     ],
+     "templateId": 51,
+     "categoryId": 64,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 64,
+      "name": {
+       "value": "Result (3Way)"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "ppanef2vg"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "6cb4ea19-1ce3-4c29-9503-a67b83465c66",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    },
+    {
+     "id": 1567741333,
+     "name": {
+      "value": "2-Way (Incl. Overtime And Penalties)"
+     },
+     "results": [
+      {
+       "id": 2322021569,
+       "odds": 1.48,
+       "name": {
+        "value": "Esbjerg Energy"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 10,
+       "denominator": 21,
+       "americanOdds": -210,
+       "playerId": 2708892,
+       "version": 11070001037
+      },
+      {
+       "id": 2322021570,
+       "odds": 2.54,
+       "name": {
+        "value": "Rungsted Ishockey"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 77,
+       "denominator": 50,
+       "americanOdds": 154,
+       "playerId": 2708893,
+       "version": 11070001037
+      }
+     ],
+     "templateId": 5545,
+     "categoryId": 65,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 65,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "riyhwb2ck"
+      ],
+      "detailed": [
+       {
+        "subIndex": 15,
+        "marketTabId": 4,
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f32b9f9f-b40e-4b56-918d-322b8891a68d",
+        "orderType": "None"
+       },
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "a187f771-4490-46b5-b356-b76f8d126f2d",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2708892,
+     "name": {
+      "value": "Esbjerg Energy",
+      "short": "Esbjerg Energy"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2708893,
+     "name": {
+      "value": "Rungsted Ishockey",
+      "short": "Rungsted Ishockey"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20017411",
+   "name": {
+    "value": "Esbjerg Energy - Rungsted Ishockey"
+   },
+   "sourceId": 20017411,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20017411",
+   "stage": "PreMatch",
+   "groupId": 4442785,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-19T16:30:00Z",
+   "cutOffDate": "2026-10-19T16:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 12,
+    "name": {
+     "value": "Ice Hockey",
+     "sign": "KozAPA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 13545,
+    "statistics": true,
+    "sportId": 12,
+    "compoundId": "1:13545",
+    "type": "Competition",
+    "id": 13545,
+    "parentId": 13,
+    "name": {
+     "value": "Metal Ligaen",
+     "sign": "QLDzbA=="
+    }
+   },
+   "region": {
+    "code": "DEN",
+    "sportId": 12,
+    "type": "Region",
+    "id": 13,
+    "parentId": 12,
+    "name": {
+     "value": "Denmark",
+     "sign": "tcH9tg=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 32,
+   "priceBoostCount": 0,
+   "sequence": 797,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1567741420,
+     "name": {
+      "value": "3-Way - Result After Regular Time"
+     },
+     "results": [
+      {
+       "id": 2322021936,
+       "odds": 2.6,
+       "name": {
+        "value": "Odense Bulldogs"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 8,
+       "denominator": 5,
+       "americanOdds": 160,
+       "playerId": 2563843,
+       "version": 11070635821
+      },
+      {
+       "id": 2322021937,
+       "odds": 4.25,
+       "name": {
+        "value": "X"
+       },
+       "sourceName": {
+        "value": "X"
+       },
+       "visibility": "Visible",
+       "numerator": 13,
+       "denominator": 4,
+       "americanOdds": 325,
+       "version": 11070635821
+      },
+      {
+       "id": 2322021938,
+       "odds": 2.18,
+       "name": {
+        "value": "Herlev Eagles"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 59,
+       "denominator": 50,
+       "americanOdds": 118,
+       "playerId": 2563846,
+       "version": 11070635821
+      }
+     ],
+     "templateId": 51,
+     "categoryId": 64,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 64,
+      "name": {
+       "value": "Result (3Way)"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "ppanef2vg"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "6cb4ea19-1ce3-4c29-9503-a67b83465c66",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    },
+    {
+     "id": 1567741421,
+     "name": {
+      "value": "2-Way (Incl. Overtime And Penalties)"
+     },
+     "results": [
+      {
+       "id": 2322021939,
+       "odds": 2.0,
+       "name": {
+        "value": "Odense Bulldogs"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 1,
+       "denominator": 1,
+       "americanOdds": 100,
+       "playerId": 2563843,
+       "version": 11070635824
+      },
+      {
+       "id": 2322021940,
+       "odds": 1.75,
+       "name": {
+        "value": "Herlev Eagles"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 3,
+       "denominator": 4,
+       "americanOdds": -135,
+       "playerId": 2563846,
+       "version": 11070635824
+      }
+     ],
+     "templateId": 5545,
+     "categoryId": 65,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 65,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "riyhwb2ck"
+      ],
+      "detailed": [
+       {
+        "subIndex": 15,
+        "marketTabId": 4,
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f32b9f9f-b40e-4b56-918d-322b8891a68d",
+        "orderType": "None"
+       },
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "a187f771-4490-46b5-b356-b76f8d126f2d",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2563843,
+     "name": {
+      "value": "Odense Bulldogs",
+      "short": "Odense Bulldogs"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2563846,
+     "name": {
+      "value": "Herlev Eagles",
+      "short": "Herlev Eagles"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20017412",
+   "name": {
+    "value": "Odense Bulldogs - Herlev Eagles"
+   },
+   "sourceId": 20017412,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20017412",
+   "stage": "PreMatch",
+   "groupId": 4442786,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-19T17:00:00Z",
+   "cutOffDate": "2026-10-19T17:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 12,
+    "name": {
+     "value": "Ice Hockey",
+     "sign": "KozAPA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 13545,
+    "statistics": true,
+    "sportId": 12,
+    "compoundId": "1:13545",
+    "type": "Competition",
+    "id": 13545,
+    "parentId": 13,
+    "name": {
+     "value": "Metal Ligaen",
+     "sign": "QLDzbA=="
+    }
+   },
+   "region": {
+    "code": "DEN",
+    "sportId": 12,
+    "type": "Region",
+    "id": 13,
+    "parentId": 12,
+    "name": {
+     "value": "Denmark",
+     "sign": "tcH9tg=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 32,
+   "priceBoostCount": 0,
+   "sequence": 1093,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 1566643297,
+     "name": {
+      "value": "3-Way - Result After Regular Time"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 2318918463,
+       "status": "Visible",
+       "name": {
+        "value": "Ducks"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 9,
+        "denominator": 5,
+        "odds": 2.8,
+        "americanOdds": 180,
+        "priceHistory": []
+       },
+       "participantId": 2564981
+      },
+      {
+       "id": 2318918464,
+       "status": "Visible",
+       "name": {
+        "value": "X"
+       },
+       "sourceName": {
+        "value": "X"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 3,
+        "denominator": 1,
+        "odds": 4.0,
+        "americanOdds": 300,
+        "priceHistory": []
+       }
+      },
+      {
+       "id": 2318918465,
+       "status": "Visible",
+       "name": {
+        "value": "Rangers"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 11,
+        "denominator": 10,
+        "odds": 2.1,
+        "americanOdds": 110,
+        "priceHistory": []
+       },
+       "participantId": 2563453
+      }
+     ],
+     "parameters": [
+      {
+       "key": "TemplateId",
+       "type": "Integer",
+       "value": "51"
+      },
+      {
+       "key": "CategoryId",
+       "type": "Integer",
+       "value": "64"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "ppanef2vg"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "6cb4ea19-1ce3-4c29-9503-a67b83465c66",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 64,
+      "name": {
+       "value": "Result (3Way)"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoEventCombo",
+     "minCombo": 1,
+     "resultOrder": "Default",
+     "source": "V1",
+     "isBetBuilder": false
+    },
+    {
+     "id": 1566643296,
+     "name": {
+      "value": "2-Way (including overtime and shoot-outs)"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 2318918461,
+       "status": "Visible",
+       "name": {
+        "value": "Ducks"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 23,
+        "denominator": 20,
+        "odds": 2.15,
+        "americanOdds": 115,
+        "priceHistory": []
+       },
+       "participantId": 2564981,
+       "version": 11072026436
+      },
+      {
+       "id": 2318918462,
+       "status": "Visible",
+       "name": {
+        "value": "Rangers"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 8,
+        "denominator": 11,
+        "odds": 1.72,
+        "americanOdds": -140,
+        "priceHistory": []
+       },
+       "participantId": 2563453,
+       "version": 11072008864
+      }
+     ],
+     "parameters": [
+      {
+       "key": "TemplateId",
+       "type": "Integer",
+       "value": "5612"
+      },
+      {
+       "key": "CategoryId",
+       "type": "Integer",
+       "value": "65"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "riyhwb2ck"
+      ],
+      "detailed": [
+       {
+        "subIndex": 4,
+        "marketTabId": 4,
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f32b9f9f-b40e-4b56-918d-322b8891a68d",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 0,
+        "marketTabId": 4,
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f896090a-529a-43a1-8fb2-cdccca3ef0f8",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 65,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoEventCombo",
+     "minCombo": 1,
+     "resultOrder": "Default",
+     "source": "V1",
+     "isBetBuilder": true
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "participantId": 2564981,
+     "name": {
+      "value": "Anaheim Ducks",
+      "short": "Ducks"
+     },
+     "image": {
+      "jersey": "2564981_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2563453,
+     "name": {
+      "value": "New York Rangers",
+      "short": "Rangers"
+     },
+     "image": {
+      "jersey": "2563453_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2864007,
+     "name": {
+      "value": "Ryan Getzlaf (Ana)",
+      "short": "R. Getzlaf"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2564981
+     },
+     "options": []
+    }
+   ],
+   "id": "20007880",
+   "name": {
+    "value": "Anaheim Ducks at New York Rangers"
+   },
+   "sourceId": 20007880,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20007880",
+   "stage": "PreMatch",
+   "groupId": 4440827,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-19T23:08:00Z",
+   "cutOffDate": "2026-10-19T23:08:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 12,
+    "name": {
+     "value": "Ice Hockey",
+     "sign": "KozAPA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 34,
+    "statistics": true,
+    "sportId": 12,
+    "compoundId": "1:34",
+    "imageProfile": {
+     "logo": "be0c497a.svg",
+     "logoColor": "C4CED3"
+    },
+    "type": "Competition",
+    "id": 34,
+    "parentId": 9,
+    "name": {
+     "value": "NHL",
+     "sign": "3qHT/A=="
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 12,
+    "type": "Region",
+    "id": 9,
+    "parentId": 12,
+    "name": {
+     "value": "North America",
+     "sign": "94++pQ=="
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 52,
+   "priceBoostCount": 0,
+   "tv2RelatedFixtureId": "6:45767",
+   "hybridFixtureData": {
+    "fixtureId": "6:45767",
+    "status": "Unavailable"
+   },
+   "sequence": 2712,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 1566643453,
+     "name": {
+      "value": "3-Way - Result After Regular Time"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 2318918963,
+       "status": "Visible",
+       "name": {
+        "value": "Avalanche"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 4,
+        "denominator": 6,
+        "odds": 1.67,
+        "americanOdds": -150,
+        "priceHistory": []
+       },
+       "participantId": 2563420
+      },
+      {
+       "id": 2318918964,
+       "status": "Visible",
+       "name": {
+        "value": "X"
+       },
+       "sourceName": {
+        "value": "X"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 10,
+        "denominator": 3,
+        "odds": 4.33,
+        "americanOdds": 333,
+        "priceHistory": []
+       }
+      },
+      {
+       "id": 2318918965,
+       "status": "Visible",
+       "name": {
+        "value": "Flyers"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 3,
+        "denominator": 1,
+        "odds": 4.0,
+        "americanOdds": 300,
+        "priceHistory": []
+       },
+       "participantId": 2563458
+      }
+     ],
+     "parameters": [
+      {
+       "key": "TemplateId",
+       "type": "Integer",
+       "value": "51"
+      },
+      {
+       "key": "CategoryId",
+       "type": "Integer",
+       "value": "64"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "ppanef2vg"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "6cb4ea19-1ce3-4c29-9503-a67b83465c66",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 64,
+      "name": {
+       "value": "Result (3Way)"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoEventCombo",
+     "minCombo": 1,
+     "resultOrder": "Default",
+     "source": "V1",
+     "isBetBuilder": false
+    },
+    {
+     "id": 1566643452,
+     "name": {
+      "value": "2-Way (including overtime and shoot-outs)"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 2318918961,
+       "status": "Visible",
+       "name": {
+        "value": "Avalanche"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 21,
+        "denominator": 50,
+        "odds": 1.42,
+        "americanOdds": -235,
+        "priceHistory": []
+       },
+       "participantId": 2563420
+      },
+      {
+       "id": 2318918962,
+       "status": "Visible",
+       "name": {
+        "value": "Flyers"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 2,
+        "denominator": 1,
+        "odds": 2.95,
+        "americanOdds": 195,
+        "priceHistory": []
+       },
+       "participantId": 2563458
+      }
+     ],
+     "parameters": [
+      {
+       "key": "TemplateId",
+       "type": "Integer",
+       "value": "5612"
+      },
+      {
+       "key": "CategoryId",
+       "type": "Integer",
+       "value": "65"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "riyhwb2ck"
+      ],
+      "detailed": [
+       {
+        "subIndex": 4,
+        "marketTabId": 4,
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f32b9f9f-b40e-4b56-918d-322b8891a68d",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 0,
+        "marketTabId": 4,
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f896090a-529a-43a1-8fb2-cdccca3ef0f8",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 65,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoEventCombo",
+     "minCombo": 1,
+     "resultOrder": "Default",
+     "source": "V1",
+     "isBetBuilder": true
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "participantId": 2563420,
+     "name": {
+      "value": "Colorado Avalanche",
+      "short": "Avalanche"
+     },
+     "image": {
+      "jersey": "2563420_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2563458,
+     "name": {
+      "value": "Philadelphia Flyers",
+      "short": "Flyers"
+     },
+     "image": {
+      "jersey": "2563458_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2853124,
+     "name": {
+      "value": "Nathan MacKinnon (COL)",
+      "short": "Nathan MacKinnon"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563420
+     },
+     "options": []
+    }
+   ],
+   "id": "20007881",
+   "name": {
+    "value": "Colorado Avalanche at Philadelphia Flyers"
+   },
+   "sourceId": 20007881,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20007881",
+   "stage": "PreMatch",
+   "groupId": 4440828,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-19T23:08:00Z",
+   "cutOffDate": "2026-10-19T23:08:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 12,
+    "name": {
+     "value": "Ice Hockey",
+     "sign": "KozAPA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 34,
+    "statistics": true,
+    "sportId": 12,
+    "compoundId": "1:34",
+    "imageProfile": {
+     "logo": "be0c497a.svg",
+     "logoColor": "C4CED3"
+    },
+    "type": "Competition",
+    "id": 34,
+    "parentId": 9,
+    "name": {
+     "value": "NHL",
+     "sign": "3qHT/A=="
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 12,
+    "type": "Region",
+    "id": 9,
+    "parentId": 12,
+    "name": {
+     "value": "North America",
+     "sign": "94++pQ=="
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 52,
+   "priceBoostCount": 0,
+   "tv2RelatedFixtureId": "6:45786",
+   "hybridFixtureData": {
+    "fixtureId": "6:45786",
+    "status": "Unavailable"
+   },
+   "sequence": 4068,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 1566643616,
+     "name": {
+      "value": "3-Way - Result After Regular Time"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 2318919481,
+       "status": "Visible",
+       "name": {
+        "value": "Sharks"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 9,
+        "denominator": 5,
+        "odds": 2.8,
+        "americanOdds": 180,
+        "priceHistory": []
+       },
+       "participantId": 2563462
+      },
+      {
+       "id": 2318919482,
+       "status": "Visible",
+       "name": {
+        "value": "X"
+       },
+       "sourceName": {
+        "value": "X"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 31,
+        "denominator": 10,
+        "odds": 4.1,
+        "americanOdds": 310,
+        "priceHistory": []
+       }
+      },
+      {
+       "id": 2318919483,
+       "status": "Visible",
+       "name": {
+        "value": "Maple Leafs"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 11,
+        "denominator": 10,
+        "odds": 2.1,
+        "americanOdds": 110,
+        "priceHistory": []
+       },
+       "participantId": 2563473
+      }
+     ],
+     "parameters": [
+      {
+       "key": "TemplateId",
+       "type": "Integer",
+       "value": "51"
+      },
+      {
+       "key": "CategoryId",
+       "type": "Integer",
+       "value": "64"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "ppanef2vg"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "6cb4ea19-1ce3-4c29-9503-a67b83465c66",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 64,
+      "name": {
+       "value": "Result (3Way)"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoEventCombo",
+     "minCombo": 1,
+     "resultOrder": "Default",
+     "source": "V1",
+     "isBetBuilder": false
+    },
+    {
+     "id": 1566643615,
+     "name": {
+      "value": "2-Way (including overtime and shoot-outs)"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 2318919479,
+       "status": "Visible",
+       "name": {
+        "value": "Sharks"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 59,
+        "denominator": 50,
+        "odds": 2.18,
+        "americanOdds": 118,
+        "priceHistory": []
+       },
+       "participantId": 2563462,
+       "version": 11072025537
+      },
+      {
+       "id": 2318919480,
+       "status": "Visible",
+       "name": {
+        "value": "Maple Leafs"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 7,
+        "denominator": 10,
+        "odds": 1.7,
+        "americanOdds": -145,
+        "priceHistory": []
+       },
+       "participantId": 2563473
+      }
+     ],
+     "parameters": [
+      {
+       "key": "TemplateId",
+       "type": "Integer",
+       "value": "5612"
+      },
+      {
+       "key": "CategoryId",
+       "type": "Integer",
+       "value": "65"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "riyhwb2ck"
+      ],
+      "detailed": [
+       {
+        "subIndex": 4,
+        "marketTabId": 4,
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f32b9f9f-b40e-4b56-918d-322b8891a68d",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 0,
+        "marketTabId": 4,
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f896090a-529a-43a1-8fb2-cdccca3ef0f8",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 65,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoEventCombo",
+     "minCombo": 1,
+     "resultOrder": "Default",
+     "source": "V1",
+     "isBetBuilder": true
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "participantId": 2563462,
+     "name": {
+      "value": "San Jose Sharks",
+      "short": "Sharks"
+     },
+     "image": {
+      "jersey": "2563462_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2563473,
+     "name": {
+      "value": "Toronto Maple Leafs",
+      "short": "Maple Leafs"
+     },
+     "image": {
+      "jersey": "2563473_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2852997,
+     "name": {
+      "value": "Joe Thornton (SJ)",
+      "short": "Joe Thornton (SJ)"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563462
+     },
+     "options": []
+    }
+   ],
+   "id": "20007882",
+   "name": {
+    "value": "San Jose Sharks at Toronto Maple Leafs"
+   },
+   "sourceId": 20007882,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20007882",
+   "stage": "PreMatch",
+   "groupId": 4440829,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-19T23:38:00Z",
+   "cutOffDate": "2026-10-19T23:38:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 12,
+    "name": {
+     "value": "Ice Hockey",
+     "sign": "KozAPA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 34,
+    "statistics": true,
+    "sportId": 12,
+    "compoundId": "1:34",
+    "imageProfile": {
+     "logo": "be0c497a.svg",
+     "logoColor": "C4CED3"
+    },
+    "type": "Competition",
+    "id": 34,
+    "parentId": 9,
+    "name": {
+     "value": "NHL",
+     "sign": "3qHT/A=="
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 12,
+    "type": "Region",
+    "id": 9,
+    "parentId": 12,
+    "name": {
+     "value": "North America",
+     "sign": "94++pQ=="
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 52,
+   "priceBoostCount": 0,
+   "tv2RelatedFixtureId": "6:45826",
+   "hybridFixtureData": {
+    "fixtureId": "6:45826",
+    "status": "Unavailable"
+   },
+   "sequence": 3266,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 1566643784,
+     "name": {
+      "value": "3-Way - Result After Regular Time"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 2318920003,
+       "status": "Visible",
+       "name": {
+        "value": "Penguins"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 23,
+        "denominator": 10,
+        "odds": 3.3,
+        "americanOdds": 230,
+        "priceHistory": []
+       },
+       "participantId": 2563460
+      },
+      {
+       "id": 2318920004,
+       "status": "Visible",
+       "name": {
+        "value": "X"
+       },
+       "sourceName": {
+        "value": "X"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 13,
+        "denominator": 4,
+        "odds": 4.25,
+        "americanOdds": 325,
+        "priceHistory": []
+       }
+      },
+      {
+       "id": 2318920005,
+       "status": "Visible",
+       "name": {
+        "value": "Mammoth"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 5,
+        "denominator": 6,
+        "odds": 1.83,
+        "americanOdds": -120,
+        "priceHistory": []
+       },
+       "participantId": 2987067
+      }
+     ],
+     "parameters": [
+      {
+       "key": "TemplateId",
+       "type": "Integer",
+       "value": "51"
+      },
+      {
+       "key": "CategoryId",
+       "type": "Integer",
+       "value": "64"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "ppanef2vg"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "6cb4ea19-1ce3-4c29-9503-a67b83465c66",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 64,
+      "name": {
+       "value": "Result (3Way)"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoEventCombo",
+     "minCombo": 1,
+     "resultOrder": "Default",
+     "source": "V1",
+     "isBetBuilder": false
+    },
+    {
+     "id": 1566643783,
+     "name": {
+      "value": "2-Way (including overtime and shoot-outs)"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 2318920001,
+       "status": "Visible",
+       "name": {
+        "value": "Penguins"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 31,
+        "denominator": 20,
+        "odds": 2.55,
+        "americanOdds": 155,
+        "priceHistory": []
+       },
+       "participantId": 2563460,
+       "version": 11072025464
+      },
+      {
+       "id": 2318920002,
+       "status": "Visible",
+       "name": {
+        "value": "Mammoth"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 8,
+        "denominator": 15,
+        "odds": 1.53,
+        "americanOdds": -190,
+        "priceHistory": []
+       },
+       "participantId": 2987067
+      }
+     ],
+     "parameters": [
+      {
+       "key": "TemplateId",
+       "type": "Integer",
+       "value": "5612"
+      },
+      {
+       "key": "CategoryId",
+       "type": "Integer",
+       "value": "65"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "riyhwb2ck"
+      ],
+      "detailed": [
+       {
+        "subIndex": 4,
+        "marketTabId": 4,
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f32b9f9f-b40e-4b56-918d-322b8891a68d",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 0,
+        "marketTabId": 4,
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f896090a-529a-43a1-8fb2-cdccca3ef0f8",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 65,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoEventCombo",
+     "minCombo": 1,
+     "resultOrder": "Default",
+     "source": "V1",
+     "isBetBuilder": true
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "participantId": 2563460,
+     "name": {
+      "value": "Pittsburgh Penguins",
+      "short": "Penguins"
+     },
+     "image": {
+      "jersey": "2563460_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2987067,
+     "name": {
+      "value": "Utah Mammoth",
+      "short": "Mammoth"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2853002,
+     "name": {
+      "value": "Kris Letang (Pit)",
+      "short": "Kris Letang"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563460
+     },
+     "options": []
+    }
+   ],
+   "id": "20007883",
+   "name": {
+    "value": "Pittsburgh Penguins at Utah Mammoth"
+   },
+   "sourceId": 20007883,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20007883",
+   "stage": "PreMatch",
+   "groupId": 4440830,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-20T01:08:00Z",
+   "cutOffDate": "2026-10-20T01:08:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 12,
+    "name": {
+     "value": "Ice Hockey",
+     "sign": "KozAPA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 34,
+    "statistics": true,
+    "sportId": 12,
+    "compoundId": "1:34",
+    "imageProfile": {
+     "logo": "be0c497a.svg",
+     "logoColor": "C4CED3"
+    },
+    "type": "Competition",
+    "id": 34,
+    "parentId": 9,
+    "name": {
+     "value": "NHL",
+     "sign": "3qHT/A=="
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 12,
+    "type": "Region",
+    "id": 9,
+    "parentId": 12,
+    "name": {
+     "value": "North America",
+     "sign": "94++pQ=="
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 53,
+   "priceBoostCount": 0,
+   "tv2RelatedFixtureId": "6:45830",
+   "hybridFixtureData": {
+    "fixtureId": "6:45830",
+    "status": "Unavailable"
+   },
+   "sequence": 2581,
+   "isPlannedInPlay": false
+  }
+ ],
+ "totalCount": 6
+}

@@ -1,0 +1,1244 @@
+{
+ "fixtures": [
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1565862004,
+     "name": {
+      "value": "Money Line"
+     },
+     "results": [
+      {
+       "id": 2316839976,
+       "odds": 2.2,
+       "name": {
+        "value": "Atlanta Dream"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 6,
+       "denominator": 5,
+       "americanOdds": 120,
+       "playerId": 2558667,
+       "version": 11067759975
+      },
+      {
+       "id": 2316839977,
+       "odds": 1.7,
+       "name": {
+        "value": "Golden St Valkyries"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 7,
+       "denominator": 10,
+       "americanOdds": -145,
+       "playerId": 2978419,
+       "version": 11067759975
+      }
+     ],
+     "templateId": 3450,
+     "categoryId": 43,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "balanced": 1,
+     "spread": 0.5,
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 12,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 10,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": true,
+     "oddsKey": 104.28
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2558667,
+     "name": {
+      "value": "Atlanta Dream",
+      "short": "Atlanta Dream"
+     },
+     "image": {
+      "jersey": "2558667_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2978419,
+     "name": {
+      "value": "Golden State Valkyries",
+      "short": "Golden St Valkyries"
+     },
+     "image": {
+      "jersey": "2978419_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2953058,
+     "name": {
+      "value": "Jordin Canada (ATL)",
+      "short": "Jordin Canada"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2558667
+     },
+     "options": []
+    }
+   ],
+   "id": "20002256",
+   "name": {
+    "value": "Atlanta Dream at Golden State Valkyries"
+   },
+   "sourceId": 20002256,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20002256",
+   "stage": "PreMatch",
+   "groupId": 4439660,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-20T00:00:00Z",
+   "cutOffDate": "2026-10-20T00:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 402,
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:402",
+    "imageProfile": {
+     "logo": "e26a01db.svg",
+     "logoColor": "C4CED3"
+    },
+    "type": "Competition",
+    "id": 402,
+    "parentId": 9,
+    "name": {
+     "value": "WNBA",
+     "sign": "isB4Qw=="
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 7,
+    "type": "Region",
+    "id": 9,
+    "parentId": 7,
+    "name": {
+     "value": "North America",
+     "sign": "94++pQ=="
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 42,
+   "priceBoostCount": 0,
+   "sequence": 1959,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 1550332473,
+     "name": {
+      "value": "Money Line"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 2274043826,
+       "status": "Visible",
+       "name": {
+        "value": "Celtics"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 20,
+        "denominator": 23,
+        "odds": 1.87,
+        "americanOdds": -115,
+        "priceHistory": []
+       },
+       "participantId": 2554157,
+       "version": 11055562262
+      },
+      {
+       "id": 2274043827,
+       "status": "Visible",
+       "name": {
+        "value": "Pistons"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 19,
+        "denominator": 20,
+        "odds": 1.95,
+        "americanOdds": -105,
+        "priceHistory": []
+       },
+       "participantId": 2554165,
+       "version": 11055562262
+      }
+     ],
+     "parameters": [
+      {
+       "key": "TemplateId",
+       "type": "Integer",
+       "value": "3450"
+      },
+      {
+       "key": "CategoryId",
+       "type": "Integer",
+       "value": "43"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 12,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 10,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "spread": 0.08,
+     "balanced": 1,
+     "isMain": true,
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoEventCombo",
+     "minCombo": 1,
+     "resultOrder": "Default",
+     "source": "V1",
+     "isBetBuilder": true,
+     "oddsKey": 104.76
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "participantId": 2554157,
+     "name": {
+      "value": "Boston Celtics",
+      "short": "Celtics"
+     },
+     "image": {
+      "jersey": "2554157_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2554165,
+     "name": {
+      "value": "Detroit Pistons",
+      "short": "Pistons"
+     },
+     "image": {
+      "jersey": "2554165_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2769530,
+     "name": {
+      "value": "Jaylen Brown (Bos)",
+      "short": "Jaylen Brown"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554157
+     },
+     "options": []
+    }
+   ],
+   "id": "19873661",
+   "name": {
+    "value": "Boston Celtics at Detroit Pistons"
+   },
+   "sourceId": 19873661,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|19873661",
+   "stage": "PreMatch",
+   "groupId": 4413555,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-20T19:00:00Z",
+   "cutOffDate": "2026-10-20T19:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 6004,
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:6004",
+    "imageProfile": {
+     "logo": "3b8e2756.svg",
+     "logoColor": "C4CED3"
+    },
+    "type": "Competition",
+    "id": 6004,
+    "parentId": 9,
+    "name": {
+     "value": "NBA",
+     "sign": "pL+WdA=="
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 7,
+    "type": "Region",
+    "id": 9,
+    "parentId": 7,
+    "name": {
+     "value": "North America",
+     "sign": "94++pQ=="
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 127,
+   "priceBoostCount": 0,
+   "tv2RelatedFixtureId": "6:48177",
+   "hybridFixtureData": {
+    "fixtureId": "6:48177",
+    "status": "Unavailable"
+   },
+   "sequence": 1865,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1568805871,
+     "name": {
+      "value": "Money Line"
+     },
+     "results": [
+      {
+       "id": 2324929837,
+       "odds": 1.01,
+       "name": {
+        "value": "Kavkasia"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 1,
+       "denominator": 100,
+       "americanOdds": -10000,
+       "playerId": 2778645,
+       "version": 11072349333
+      },
+      {
+       "id": 2324929838,
+       "odds": 17.0,
+       "name": {
+        "value": "BC Akhaltsikhe"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 16,
+       "denominator": 1,
+       "americanOdds": 1600,
+       "playerId": 3011013,
+       "version": 11072349333
+      }
+     ],
+     "templateId": 66,
+     "categoryId": 43,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "balanced": 1,
+     "spread": 15.99,
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 13,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 11,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false,
+     "oddsKey": 104.89
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2778645,
+     "name": {
+      "value": "Kavkasia",
+      "short": "Kavkasia"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 3011013,
+     "name": {
+      "value": "BC Akhaltsikhe",
+      "short": "BC Akhaltsikhe"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20026725",
+   "name": {
+    "value": "Kavkasia - BC Akhaltsikhe"
+   },
+   "sourceId": 20026725,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20026725",
+   "stage": "PreMatch",
+   "groupId": 4444849,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-19T14:00:00Z",
+   "cutOffDate": "2026-10-19T14:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:34801",
+    "type": "Competition",
+    "id": 34801,
+    "parentId": 122,
+    "name": {
+     "value": "Super League",
+     "sign": "3yTT+g=="
+    }
+   },
+   "region": {
+    "code": "GEO",
+    "sportId": 7,
+    "type": "Region",
+    "id": 122,
+    "parentId": 7,
+    "name": {
+     "value": "Georgia",
+     "sign": "LeCFjw=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 10,
+   "priceBoostCount": 0,
+   "sequence": 67,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1568844398,
+     "name": {
+      "value": "Money Line"
+     },
+     "results": [
+      {
+       "id": 2325033089,
+       "odds": 2.15,
+       "name": {
+        "value": "CS Rapid Bucuresti"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 23,
+       "denominator": 20,
+       "americanOdds": 115,
+       "playerId": 2797529,
+       "version": 11072499078
+      },
+      {
+       "id": 2325033090,
+       "odds": 1.6,
+       "name": {
+        "value": "CSU Atlassib Sibiu"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 3,
+       "denominator": 5,
+       "americanOdds": -165,
+       "playerId": 2559368,
+       "version": 11072499078
+      }
+     ],
+     "templateId": 66,
+     "categoryId": 43,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "balanced": 1,
+     "spread": 0.55,
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 13,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 11,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false,
+     "oddsKey": 109.01
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2797529,
+     "name": {
+      "value": "CS Rapid Bucuresti",
+      "short": "CS Rapid Bucuresti"
+     },
+     "image": {
+      "jersey": "2797529_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2559368,
+     "name": {
+      "value": "CSU Atlassib Sibiu",
+      "short": "CSU Atlassib Sibiu"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20026888",
+   "name": {
+    "value": "CS Rapid Bucuresti - CSU Atlassib Sibiu"
+   },
+   "sourceId": 20026888,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20026888",
+   "stage": "PreMatch",
+   "groupId": 4444794,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-19T14:30:00Z",
+   "cutOffDate": "2026-10-19T14:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 6986,
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:6986",
+    "type": "Competition",
+    "id": 6986,
+    "parentId": 24,
+    "name": {
+     "value": "Liga Nationala - Men",
+     "sign": "xPuTYw=="
+    }
+   },
+   "region": {
+    "code": "ROM",
+    "sportId": 7,
+    "type": "Region",
+    "id": 24,
+    "parentId": 7,
+    "name": {
+     "value": "Romania",
+     "sign": "/Sb8xg=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 15,
+   "priceBoostCount": 0,
+   "sequence": 535,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1568802530,
+     "name": {
+      "value": "Money Line"
+     },
+     "results": [
+      {
+       "id": 2324920574,
+       "odds": 1.01,
+       "name": {
+        "value": "Al Muharraq"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 1,
+       "denominator": 100,
+       "americanOdds": -10000,
+       "playerId": 2827152,
+       "version": 11069877677
+      },
+      {
+       "id": 2324920575,
+       "odds": 16.5,
+       "name": {
+        "value": "Isa Town"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 15,
+       "denominator": 1,
+       "americanOdds": 1550,
+       "playerId": 2748576,
+       "version": 11072336603
+      }
+     ],
+     "templateId": 66,
+     "categoryId": 43,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "balanced": 1,
+     "spread": 15.49,
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 13,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 11,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false,
+     "oddsKey": 105.07
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2827152,
+     "name": {
+      "value": "Al Muharraq",
+      "short": "Al Muharraq"
+     },
+     "image": {
+      "jersey": "2827152_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2748576,
+     "name": {
+      "value": "Isa Town",
+      "short": "Isa Town"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20026665",
+   "name": {
+    "value": "Al Muharraq - Isa Town"
+   },
+   "sourceId": 20026665,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20026665",
+   "stage": "PreMatch",
+   "groupId": 4444819,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-19T15:00:00Z",
+   "cutOffDate": "2026-10-19T15:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "statistics": false,
+    "sportId": 7,
+    "compoundId": "1:32750",
+    "type": "Competition",
+    "id": 32750,
+    "parentId": 79,
+    "name": {
+     "value": "Premier League",
+     "sign": "JX8tcw=="
+    }
+   },
+   "region": {
+    "code": "BRN",
+    "sportId": 7,
+    "type": "Region",
+    "id": 79,
+    "parentId": 7,
+    "name": {
+     "value": "Bahrain",
+     "sign": "PPGG+A=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 10,
+   "priceBoostCount": 0,
+   "sequence": 133,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1567562923,
+     "name": {
+      "value": "Money Line"
+     },
+     "results": [
+      {
+       "id": 2321540984,
+       "odds": 1.02,
+       "name": {
+        "value": "BC Dubai"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 1,
+       "denominator": 50,
+       "americanOdds": -5000,
+       "playerId": 2964121,
+       "version": 11062636295
+      },
+      {
+       "id": 2321540985,
+       "odds": 9.25,
+       "name": {
+        "value": "KK Studentski Centar"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 8,
+       "denominator": 1,
+       "americanOdds": 825,
+       "playerId": 2878412,
+       "version": 11072516975
+      }
+     ],
+     "templateId": 66,
+     "categoryId": 43,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "balanced": 1,
+     "spread": 8.23,
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 13,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 11,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false,
+     "oddsKey": 108.85
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2964121,
+     "name": {
+      "value": "BC Dubai",
+      "short": "BC Dubai"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2878412,
+     "name": {
+      "value": "KK Studentski Centar",
+      "short": "KK Studentski Centar"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20016181",
+   "name": {
+    "value": "BC Dubai - KK Studentski Centar"
+   },
+   "sourceId": 20016181,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20016181",
+   "stage": "PreMatch",
+   "groupId": 4442492,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-19T15:30:00Z",
+   "cutOffDate": "2026-10-19T15:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:24362",
+    "type": "Competition",
+    "id": 24362,
+    "parentId": 7,
+    "name": {
+     "value": "Liga ABA",
+     "sign": "wp9rYg=="
+    }
+   },
+   "region": {
+    "code": "EUR",
+    "sportId": 7,
+    "type": "Region",
+    "id": 7,
+    "parentId": 7,
+    "name": {
+     "value": "Europe",
+     "sign": "S8loYQ=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 15,
+   "priceBoostCount": 0,
+   "sequence": 424,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1568873153,
+     "name": {
+      "value": "Money Line"
+     },
+     "results": [
+      {
+       "id": 2325109692,
+       "odds": 17.0,
+       "name": {
+        "value": "Beijing Royal Fighters"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 16,
+       "denominator": 1,
+       "americanOdds": 1600,
+       "version": 11072995211
+      },
+      {
+       "id": 2325109693,
+       "odds": 1.01,
+       "name": {
+        "value": "Shanghai Sharks"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 1,
+       "denominator": 100,
+       "americanOdds": -10000,
+       "version": 11072988875
+      }
+     ],
+     "templateId": 66,
+     "categoryId": 43,
+     "resultOrder": "Default",
+     "combo1": "OtherLiveEvents",
+     "combo2": "Single",
+     "visibility": "Suspended",
+     "balanced": 1,
+     "spread": 15.99,
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 13,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 11,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false,
+     "oddsKey": 104.89
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2828132,
+     "name": {
+      "value": "Beijing Royal Fighters",
+      "short": "Beijing Royal Fighters"
+     },
+     "image": {
+      "jersey": "2828132_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2559545,
+     "name": {
+      "value": "Shanghai Sharks",
+      "short": "Shanghai Sharks"
+     },
+     "image": {
+      "jersey": "2559545_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20027278",
+   "name": {
+    "value": "Beijing Royal Fighters - Shanghai Sharks"
+   },
+   "sourceId": 20027278,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20027278",
+   "stage": "Live",
+   "groupId": 4442457,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-19T11:35:00Z",
+   "cutOffDate": "2026-10-19T14:35:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 14386,
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:14385",
+    "type": "Competition",
+    "id": 14385,
+    "parentId": 57,
+    "name": {
+     "value": "Chinese Basketball Association",
+     "sign": "48DHIw=="
+    }
+   },
+   "region": {
+    "code": "CHN",
+    "sportId": 7,
+    "type": "Region",
+    "id": 57,
+    "parentId": 7,
+    "name": {
+     "value": "China",
+     "sign": "2fRUTQ=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 14,
+   "priceBoostCount": 0,
+   "sequence": 41184,
+   "isPlannedInPlay": false
+  }
+ ],
+ "totalCount": 7
+}

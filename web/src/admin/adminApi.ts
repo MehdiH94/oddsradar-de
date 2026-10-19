@@ -24,6 +24,16 @@ export interface AdminBookmaker {
   downAlerted: boolean;
 }
 
+// A tester's message (src/auth/feedback.ts, FeedbackItem).
+export interface AdminFeedback {
+  id: number;
+  email: string;
+  message: string;
+  page: string | null;
+  createdAt: string;
+  doneAt: string | null;
+}
+
 export type AdminUserChange = Partial<Pick<AdminUser, "status" | "role">>;
 
 // An answer of /api/admin/* that is not a success, with the server's message
@@ -59,3 +69,12 @@ export const updateAdminUser = (id: string, change: AdminUserChange) =>
   }).then((r) => r.user);
 
 export const fetchAdminBookmakers = () => call<{ bookmakers: AdminBookmaker[] }>("/api/admin/bookmakers").then((r) => r.bookmakers);
+
+export const fetchAdminFeedback = () => call<{ feedback: AdminFeedback[] }>("/api/admin/feedback").then((r) => r.feedback);
+
+export const updateAdminFeedback = (id: number, done: boolean) =>
+  call<{ feedback: AdminFeedback }>(`/api/admin/feedback/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ done }),
+  }).then((r) => r.feedback);

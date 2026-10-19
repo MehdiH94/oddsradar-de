@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import { AuthContext } from "./context";
 import { sameSiteOnly } from "./middleware";
+import { listFeedback, setFeedbackDone } from "./feedback";
 import { deleteUserSessions, findUserById, listUsers, recordEvent, Role, setRole, setStatus, User } from "./store";
 
 // Mounted under /api/admin after requireAuth and requireRole("admin"): req.user
@@ -55,6 +56,26 @@ export function adminRouter(auth: AuthContext): Router {
       audit(role === "admin" ? "admin_grant_admin" : "admin_revoke_admin");
     }
     res.json({ user: listUsers(db).find((user) => user.id === target.id) });
+  });
+
+  // The testers' messages (src/auth/feedback.ts), the newest first.
+  router.get("/feedback", (_req, res) => {
+    res.json({ feedback: listFeedback(db) });
+  });
+
+  // Marks a message handled ({ done: true }) or not.
+  router.patch("/feedback/:id", (req, res) => {
+    const { done } = req.body ?? {};
+    const id = Number(req.params.id);
+    if (typeof done !== "boolean" || !Number.isSafeInteger(id)) {
+      res.status(400).json({ error: "invalid", message: "Invalid change." });
+      return;
+    }
+    if (!setFeedbackDone(db, id, done, auth.now())) {
+      res.status(404).json({ error: "not_found", message: "Message not found." });
+      return;
+    }
+    res.json({ feedback: listFeedback(db).find((item) => item.id === id) });
   });
 
   return router;

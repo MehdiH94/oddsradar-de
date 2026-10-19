@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import styles from "./Sheet.module.css";
 
-const FOCUSABLE = 'button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])';
+const FOCUSABLE = 'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])';
 
 // A panel that rises from the bottom of a phone's screen, over a dimmed page:
 // a modal dialog. The focus goes in on opening and stays in (Tab cycles

@@ -83,6 +83,20 @@ const MIGRATIONS: string[] = [
     PRIMARY KEY (user_id, bookmaker)
   );
   `,
+  // What the beta's testers tell the team (src/auth/feedback.ts), read on the
+  // administration page. It goes with the account; done_at is when an admin
+  // marked it handled.
+  `
+  CREATE TABLE feedback (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    message TEXT NOT NULL,
+    page TEXT,
+    created_at TEXT NOT NULL,
+    done_at TEXT
+  );
+  CREATE INDEX feedback_by_date ON feedback(created_at);
+  `,
 ];
 
 export function migrate(db: DatabaseSync): void {

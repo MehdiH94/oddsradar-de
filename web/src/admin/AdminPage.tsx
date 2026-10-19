@@ -5,19 +5,38 @@ import { useAuth } from "../auth/useAuth";
 import { Logo } from "../components/Logo";
 import { ODDS_PATH } from "../routes";
 import { BOOKMAKER_BRANDING } from "../bookmakers";
-import { AdminError, fetchAdminBookmakers, fetchAdminUsers, updateAdminUser, type AdminBookmaker, type AdminUser, type AdminUserChange } from "./adminApi";
+import {
+  AdminError,
+  fetchAdminBookmakers,
+  fetchAdminFeedback,
+  fetchAdminUsers,
+  updateAdminFeedback,
+  updateAdminUser,
+  type AdminBookmaker,
+  type AdminFeedback,
+  type AdminUser,
+  type AdminUserChange,
+} from "./adminApi";
 import styles from "./AdminPage.module.css";
 
 const DATE_FORMAT = new Intl.DateTimeFormat("en-GB", { dateStyle: "short" });
 const formatDate = (iso: string | null) => (iso ? DATE_FORMAT.format(new Date(iso)) : "—");
 
 // The administration, for accounts with the admin role (the server answers 403
-// to the others; Root only spares them the page). Two tabs: the users (who
+// to the others; Root only spares them the page). Three tabs: the users (who
 // they are, whether the address is confirmed, whether they pay, and the two
-// things an admin does with an account -- block it, make it admin), and the
-// bookmakers' health (whether each one still gives odds).
+// things an admin does with an account -- block it, make it admin), the
+// bookmakers' health (whether each one still gives odds), and what the
+// testers wrote (the header's Feedback button).
+type Tab = "users" | "bookmakers" | "feedback";
+const TABS: [Tab, string][] = [
+  ["users", "Users"],
+  ["bookmakers", "Bookmakers"],
+  ["feedback", "Feedback"],
+];
+
 export function AdminPage() {
-  const [tab, setTab] = useState<"users" | "bookmakers">("users");
+  const [tab, setTab] = useState<Tab>("users");
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -34,38 +53,24 @@ export function AdminPage() {
           <ShieldCheck size={22} aria-hidden="true" /> Administration
         </h1>
         <div role="tablist" aria-label="Sections" className={styles.tabs}>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={tab === "users"}
-            aria-controls="admin-users"
-            id="tab-users"
-            className={styles.tab}
-            onClick={() => setTab("users")}
-          >
-            Users
-          </button>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={tab === "bookmakers"}
-            aria-controls="admin-bookmakers"
-            id="tab-bookmakers"
-            className={styles.tab}
-            onClick={() => setTab("bookmakers")}
-          >
-            Bookmakers
-          </button>
+          {TABS.map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              role="tab"
+              aria-selected={tab === id}
+              aria-controls={`admin-${id}`}
+              id={`tab-${id}`}
+              className={styles.tab}
+              onClick={() => setTab(id)}
+            >
+              {label}
+            </button>
+          ))}
         </div>
-        {tab === "users" ? (
-          <section id="admin-users" role="tabpanel" aria-labelledby="tab-users">
-            <UsersTab />
-          </section>
-        ) : (
-          <section id="admin-bookmakers" role="tabpanel" aria-labelledby="tab-bookmakers">
-            <BookmakersTab />
-          </section>
-        )}
+        <section id={`admin-${tab}`} role="tabpanel" aria-labelledby={`tab-${tab}`}>
+          {tab === "users" ? <UsersTab /> : tab === "bookmakers" ? <BookmakersTab /> : <FeedbackTab />}
+        </section>
       </main>
     </div>
   );
@@ -285,6 +290,104 @@ function BookmakersTab() {
                     {b.lastGoodEvents !== null && b.health !== "ok" && <span className={styles.you}> ({b.lastGoodEvents} matches)</span>}
                   </td>
                   <td className={styles.errorCell}>{b.lastError ?? "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </>
+  );
+}
+
+// What the testers wrote, the newest first: who, when, from which page. An
+// admin marks a message handled once it is dealt with; the open ones are
+// counted at the top.
+function FeedbackTab() {
+  const [feedback, setFeedback] = useState<AdminFeedback[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [busyId, setBusyId] = useState<number | null>(null);
+
+  const load = useCallback(() => {
+    setError(null);
+    return fetchAdminFeedback()
+      .then(setFeedback)
+      .catch((err) => setError(err instanceof AdminError ? err.message : "Something went wrong."));
+  }, []);
+  useEffect(() => {
+    void load();
+  }, [load]);
+
+  async function toggle(item: AdminFeedback) {
+    setBusyId(item.id);
+    setError(null);
+    try {
+      const updated = await updateAdminFeedback(item.id, item.doneAt === null);
+      setFeedback((list) => list && list.map((f) => (f.id === updated.id ? updated : f)));
+    } catch (err) {
+      setError(err instanceof AdminError ? err.message : "Something went wrong.");
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  if (!feedback) {
+    return error ? (
+      <p role="alert" className={styles.error}>
+        {error}{" "}
+        <button type="button" className={styles.linkButton} onClick={() => void load()}>
+          Try again
+        </button>
+      </p>
+    ) : (
+      <p aria-busy="true" className={styles.muted}>
+        Loading the feedback…
+      </p>
+    );
+  }
+
+  const open = feedback.filter((f) => f.doneAt === null).length;
+  return (
+    <>
+      <p className={styles.muted}>
+        {feedback.length === 0 ? "No feedback yet." : `${open} open message${open === 1 ? "" : "s"}, ${feedback.length} in all.`}{" "}
+        <button type="button" className={styles.linkButton} onClick={() => void load()}>
+          Refresh
+        </button>
+      </p>
+      {error && (
+        <p role="alert" className={styles.error}>
+          {error}
+        </p>
+      )}
+      {feedback.length > 0 && (
+        <div className={styles.scroll}>
+          <table className={styles.table}>
+            <caption className="visually-hidden">The testers' feedback</caption>
+            <thead>
+              <tr>
+                <th scope="col">Sent</th>
+                <th scope="col">From</th>
+                <th scope="col">Message</th>
+                <th scope="col">Page</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {feedback.map((f) => (
+                <tr key={f.id}>
+                  <td>{formatTime(f.createdAt)}</td>
+                  <th scope="row" className={styles.email}>
+                    {f.email}
+                  </th>
+                  <td className={styles.message}>{f.message}</td>
+                  <td>{f.page ?? "—"}</td>
+                  <td>
+                    <button type="button" className={styles.action} disabled={busyId === f.id} onClick={() => void toggle(f)}>
+                      {f.doneAt === null ? "Mark done" : "Reopen"}
+                      <span className="visually-hidden"> the message of {f.email}</span>
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

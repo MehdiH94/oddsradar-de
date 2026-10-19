@@ -46,6 +46,14 @@ describe("AppHeader", () => {
       expect(screen.getByRole("link", { name: "Administration" })).toHaveAttribute("href", "/admin");
     });
 
+    it("offers the feedback button to a signed-in account, not to a visitor", () => {
+      const { unmount } = renderAs(withRole("user"));
+      expect(screen.getByRole("button", { name: "Send feedback" })).toBeInTheDocument();
+      unmount();
+      render(<AppHeader lastUpdated={null} refreshing={false} failed={false} onRefresh={() => {}} />);
+      expect(screen.queryByRole("button", { name: "Send feedback" })).not.toBeInTheDocument();
+    });
+
     it("is not offered to an ordinary account, nor to a visitor", () => {
       renderAs(withRole("user"));
       expect(screen.queryByRole("link", { name: "Administration" })).not.toBeInTheDocument();

@@ -131,7 +131,8 @@ export type BookmakerId =
   | "tipico"
   | "winamaxde"
   | "betathome"
-  | "oddset";
+  | "oddset"
+  | "betway";
 
 // The canonical key is the lowercased Winamax display name: the dashboard is in
 // French and renders the sport string as-is (section headings, the sport
@@ -169,6 +170,9 @@ const VERIFIED_SPORTS: ReadonlyArray<{
   // ODDSET's sport ids (./oddset.ts), as its API lists them (19/10/2026), for
   // the sports it is read for.
   oddset?: string;
+  // Betway.de's categories (./betway.ts), as its API names them (19/10/2026),
+  // for the sports it is read for.
+  betway?: string;
   // The Odds API's sport, the first word of its sports' keys ("soccer_epl"),
   // for Tipico's and Winamax.de's prices it gives (./oddsApi.ts).
   oddsapi?: string;
@@ -183,6 +187,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     admiralbet: "1",
     oddsapi: "soccer",
     betathome: "1",
+    betway: "soccer",
     oddset: "4",
   },
   {
@@ -194,6 +199,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "3",
     admiralbet: "5",
     betathome: "3",
+    betway: "tennis",
     oddset: "5",
   },
   {
@@ -205,6 +211,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "2",
     admiralbet: "2",
     betathome: "8",
+    betway: "basketball",
     oddset: "7",
   },
   {
@@ -216,6 +223,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "4",
     admiralbet: "4",
     betathome: "6",
+    betway: "ice-hockey",
     oddset: "12",
   },
   {
@@ -254,6 +262,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "17",
     admiralbet: "16",
     betathome: "5",
+    betway: "american-football",
     oddset: "11",
   },
   {
@@ -277,6 +286,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "10",
     admiralbet: "6",
     betathome: "7",
+    betway: "handball",
     oddset: "16",
   },
   {
@@ -294,6 +304,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "13",
     admiralbet: "12",
     betathome: "39",
+    betway: "rugby-union",
   },
   {
     canonical: "rugby à xiii",
@@ -301,6 +312,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     betclic: "rugby_league",
     kambi: "rugby_league",
     betathome: "28",
+    betway: "rugby-league",
   },
   {
     canonical: "snooker",
@@ -317,6 +329,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
     twentybet: "7",
     admiralbet: "23",
     betathome: "20",
+    betway: "volleyball",
     oddset: "18",
   },
   {
@@ -335,7 +348,7 @@ const VERIFIED_SPORTS: ReadonlyArray<{
   // night), Kambi's "darts" (LeoVegas.de's list view knows it, with no match
   // that night), bet-at-home.de's 45 (its sports list, none that night).
   // Merkur Bets and Admiralbet listed none to check their ids.
-  { canonical: "fléchettes", kambi: "darts", twentybet: "18", betathome: "45" },
+  { canonical: "fléchettes", kambi: "darts", twentybet: "18", betathome: "45", betway: "darts" },
   {
     canonical: "moto",
     winamax: "Moto",
@@ -387,6 +400,7 @@ const CANONICAL_BY_BOOKMAKER: Record<BookmakerId, Map<string, string>> = {
   admiralbet: canonicalByName((s) => s.admiralbet),
   betathome: canonicalByName((s) => s.betathome),
   oddset: canonicalByName((s) => s.oddset),
+  betway: canonicalByName((s) => s.betway),
   tipico: canonicalByName((s) => s.oddsapi),
   winamaxde: canonicalByName((s) => s.oddsapi),
 };

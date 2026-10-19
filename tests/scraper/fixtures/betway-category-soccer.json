@@ -1,0 +1,100 @@
+{
+ "CategoryCName": "soccer",
+ "CategoryName": "Football",
+ "SubCategories": [
+  {
+   "Groups": [
+    {
+     "GroupCName": "pro-league",
+     "GroupName": "Pro League",
+     "FixturesCount": 9,
+     "OutrightsCount": 1
+    },
+    {
+     "GroupCName": "challenger-pro-league",
+     "GroupName": "Challenger Pro League",
+     "FixturesCount": 1,
+     "OutrightsCount": 0
+    }
+   ],
+   "SubCategoryCName": "belgium",
+   "SubCategoryName": "Belgium"
+  },
+  {
+   "Groups": [
+    {
+     "GroupCName": "premier-league",
+     "GroupName": "Premier League",
+     "FixturesCount": 20,
+     "OutrightsCount": 11
+    },
+    {
+     "GroupCName": "fa-cup",
+     "GroupName": "FA Cup",
+     "FixturesCount": 11,
+     "OutrightsCount": 1
+    },
+    {
+     "GroupCName": "efl-cup",
+     "GroupName": "EFL Cup",
+     "FixturesCount": 0,
+     "OutrightsCount": 1
+    }
+   ],
+   "SubCategoryCName": "england",
+   "SubCategoryName": "England"
+  },
+  {
+   "Groups": [
+    {
+     "GroupCName": "bundesliga",
+     "GroupName": "Bundesliga",
+     "FixturesCount": 18,
+     "OutrightsCount": 5
+    },
+    {
+     "GroupCName": "dfb-pokal",
+     "GroupName": "DFB Pokal",
+     "FixturesCount": 0,
+     "OutrightsCount": 1
+    },
+    {
+     "GroupCName": "3-liga",
+     "GroupName": "3 Liga",
+     "FixturesCount": 1,
+     "OutrightsCount": 0
+    }
+   ],
+   "SubCategoryCName": "germany",
+   "SubCategoryName": "Germany"
+  },
+  {
+   "Groups": [
+    {
+     "GroupCName": "adriaticleague",
+     "GroupName": "AdriaticLeague",
+     "FixturesCount": 5,
+     "OutrightsCount": 0
+    },
+    {
+     "GroupCName": "gt-leagues",
+     "GroupName": "GT Leagues",
+     "FixturesCount": 6,
+     "OutrightsCount": 0
+    },
+    {
+     "GroupCName": "valhalla-cup",
+     "GroupName": "Valhalla Cup",
+     "FixturesCount": 13,
+     "OutrightsCount": 0
+    }
+   ],
+   "SubCategoryCName": "esoccer",
+   "SubCategoryName": "eSoccer"
+  }
+ ],
+ "MethodName": "GetCategoryDetails",
+ "MethodResult": "OK",
+ "Success": true,
+ "CorrelationId": "8f6b2b9e-1d3c-4a5e-9b7f-0c1d2e3f4a5b"
+}

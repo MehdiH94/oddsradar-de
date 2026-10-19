@@ -1,0 +1,1068 @@
+{
+ "Events": [
+  {
+   "Version": 6,
+   "Id": 17260272,
+   "GroupName": "Bundesliga",
+   "SubCategoryName": "Germany",
+   "CategoryCName": "soccer",
+   "CategoryName": "Football",
+   "HomeTeamName": "Stuttgart",
+   "AwayTeamName": "Borussia M'gladbach",
+   "EventName": "Stuttgart - Borussia M'gladbach",
+   "Milliseconds": 1792780200000,
+   "Date": "10/23/2026",
+   "Time": "18:30",
+   "MarketCount": 125,
+   "Markets": [
+    640614268
+   ],
+   "CouponMarketId": 640614268,
+   "FilterMarkets": {
+    "win-draw-win": 640614268
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 72513260,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      640614268
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "stuttgart",
+   "AwayTeamCName": "borussia-monchengladbach",
+   "GroupCName": "bundesliga",
+   "SubCategoryCName": "germany",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": false,
+   "NeutralVenue": false,
+   "SurfaceCName": null,
+   "SurfaceName": "",
+   "SportVariationCName": null,
+   "SportVariationName": "",
+   "SportsRadarId": 72513260,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": true
+  },
+  {
+   "Version": 6,
+   "Id": 17264000,
+   "GroupName": "Bundesliga",
+   "SubCategoryName": "Germany",
+   "CategoryCName": "soccer",
+   "CategoryName": "Football",
+   "HomeTeamName": "Cologne",
+   "AwayTeamName": "Schalke",
+   "EventName": "Cologne - Schalke",
+   "Milliseconds": 1792848600000,
+   "Date": "10/24/2026",
+   "Time": "13:30",
+   "MarketCount": 136,
+   "Markets": [
+    640918678
+   ],
+   "CouponMarketId": 640918678,
+   "FilterMarkets": {
+    "win-draw-win": 640918678
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 72513270,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      640918678
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "fc-koln",
+   "AwayTeamCName": "schalke-04",
+   "GroupCName": "bundesliga",
+   "SubCategoryCName": "germany",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": false,
+   "NeutralVenue": false,
+   "SurfaceCName": null,
+   "SurfaceName": "",
+   "SportVariationCName": null,
+   "SportVariationName": "",
+   "SportsRadarId": 72513270,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": true
+  },
+  {
+   "Version": 6,
+   "Id": 17263999,
+   "GroupName": "Bundesliga",
+   "SubCategoryName": "Germany",
+   "CategoryCName": "soccer",
+   "CategoryName": "Football",
+   "HomeTeamName": "FC Augsburg",
+   "AwayTeamName": "Union Berlin",
+   "EventName": "FC Augsburg - Union Berlin",
+   "Milliseconds": 1792848600000,
+   "Date": "10/24/2026",
+   "Time": "13:30",
+   "MarketCount": 132,
+   "Markets": [
+    640918366
+   ],
+   "CouponMarketId": 640918366,
+   "FilterMarkets": {
+    "win-draw-win": 640918366
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 72513266,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      640918366
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "fc-augsburg",
+   "AwayTeamCName": "union-berlin",
+   "GroupCName": "bundesliga",
+   "SubCategoryCName": "germany",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": false,
+   "NeutralVenue": false,
+   "SurfaceCName": null,
+   "SurfaceName": "",
+   "SportVariationCName": null,
+   "SportVariationName": "",
+   "SportsRadarId": 72513266,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": true
+  },
+  {
+   "Version": 6,
+   "Id": 17264002,
+   "GroupName": "Bundesliga",
+   "SubCategoryName": "Germany",
+   "CategoryCName": "soccer",
+   "CategoryName": "Football",
+   "HomeTeamName": "Mainz",
+   "AwayTeamName": "Werder Bremen",
+   "EventName": "Mainz - Werder Bremen",
+   "Milliseconds": 1792848600000,
+   "Date": "10/24/2026",
+   "Time": "13:30",
+   "MarketCount": 136,
+   "Markets": [
+    640918500
+   ],
+   "CouponMarketId": 640918500,
+   "FilterMarkets": {
+    "win-draw-win": 640918500
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 72513268,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      640918500
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "mainz-05",
+   "AwayTeamCName": "werder-bremen",
+   "GroupCName": "bundesliga",
+   "SubCategoryCName": "germany",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": false,
+   "NeutralVenue": false,
+   "SurfaceCName": null,
+   "SurfaceName": "",
+   "SportVariationCName": null,
+   "SportVariationName": "",
+   "SportsRadarId": 72513268,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": true
+  },
+  {
+   "Version": 6,
+   "Id": 17264001,
+   "GroupName": "Bundesliga",
+   "SubCategoryName": "Germany",
+   "CategoryCName": "soccer",
+   "CategoryName": "Football",
+   "HomeTeamName": "Paderborn",
+   "AwayTeamName": "Hamburg",
+   "EventName": "Paderborn - Hamburg",
+   "Milliseconds": 1792848600000,
+   "Date": "10/24/2026",
+   "Time": "13:30",
+   "MarketCount": 136,
+   "Markets": [
+    640918646
+   ],
+   "CouponMarketId": 640918646,
+   "FilterMarkets": {
+    "win-draw-win": 640918646
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 72513272,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      640918646
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "paderborn",
+   "AwayTeamCName": "hamburg",
+   "GroupCName": "bundesliga",
+   "SubCategoryCName": "germany",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": false,
+   "NeutralVenue": false,
+   "SurfaceCName": null,
+   "SurfaceName": "",
+   "SportVariationCName": null,
+   "SportVariationName": "",
+   "SportsRadarId": 72513272,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": true
+  },
+  {
+   "Version": 6,
+   "Id": 17263998,
+   "GroupName": "Bundesliga",
+   "SubCategoryName": "Germany",
+   "CategoryCName": "soccer",
+   "CategoryName": "Football",
+   "HomeTeamName": "RB Leipzig",
+   "AwayTeamName": "SV Elversberg",
+   "EventName": "RB Leipzig - SV Elversberg",
+   "Milliseconds": 1792848600000,
+   "Date": "10/24/2026",
+   "Time": "13:30",
+   "MarketCount": 123,
+   "Markets": [
+    640918230
+   ],
+   "CouponMarketId": 640918230,
+   "FilterMarkets": {
+    "win-draw-win": 640918230
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 72513258,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      640918230
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "rb-leipzig",
+   "AwayTeamCName": "sv-elversberg",
+   "GroupCName": "bundesliga",
+   "SubCategoryCName": "germany",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": false,
+   "NeutralVenue": false,
+   "SurfaceCName": null,
+   "SurfaceName": "",
+   "SportVariationCName": null,
+   "SportVariationName": "",
+   "SportsRadarId": 72513258,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": true
+  }
+ ],
+ "Markets": [
+  {
+   "Version": 4,
+   "Id": 640614268,
+   "Title": "Win/Draw/Win",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Stuttgart",
+    "Draw",
+    "Borussia M'gladbach"
+   ],
+   "Outcomes": [
+    [
+     2644599154,
+     2644599155,
+     2644599156
+    ]
+   ],
+   "EventId": 17260272,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2644599154
+     ]
+    },
+    "draw": {
+     "outcomes": [
+      2644599155
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2644599156
+     ]
+    }
+   },
+   "TypeCName": "win-draw-win",
+   "TemplateId": 1,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": false,
+   "CouponHeaders": [
+    "Home",
+    "Draw",
+    "Away"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": true,
+   "MarketCName": "win-draw-win"
+  },
+  {
+   "Version": 4,
+   "Id": 640918678,
+   "Title": "Win/Draw/Win",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Cologne",
+    "Draw",
+    "Schalke"
+   ],
+   "Outcomes": [
+    [
+     2645500940,
+     2645500942,
+     2645500943
+    ]
+   ],
+   "EventId": 17264000,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2645500940
+     ]
+    },
+    "draw": {
+     "outcomes": [
+      2645500942
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2645500943
+     ]
+    }
+   },
+   "TypeCName": "win-draw-win",
+   "TemplateId": 1,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": false,
+   "CouponHeaders": [
+    "Home",
+    "Draw",
+    "Away"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": true,
+   "MarketCName": "win-draw-win"
+  },
+  {
+   "Version": 4,
+   "Id": 640918366,
+   "Title": "Win/Draw/Win",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "FC Augsburg",
+    "Draw",
+    "Union Berlin"
+   ],
+   "Outcomes": [
+    [
+     2645499506,
+     2645499507,
+     2645499508
+    ]
+   ],
+   "EventId": 17263999,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2645499506
+     ]
+    },
+    "draw": {
+     "outcomes": [
+      2645499507
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2645499508
+     ]
+    }
+   },
+   "TypeCName": "win-draw-win",
+   "TemplateId": 1,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": false,
+   "CouponHeaders": [
+    "Home",
+    "Draw",
+    "Away"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": true,
+   "MarketCName": "win-draw-win"
+  },
+  {
+   "Version": 4,
+   "Id": 640918500,
+   "Title": "Win/Draw/Win",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Mainz",
+    "Draw",
+    "Werder Bremen"
+   ],
+   "Outcomes": [
+    [
+     2645500138,
+     2645500139,
+     2645500140
+    ]
+   ],
+   "EventId": 17264002,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2645500138
+     ]
+    },
+    "draw": {
+     "outcomes": [
+      2645500139
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2645500140
+     ]
+    }
+   },
+   "TypeCName": "win-draw-win",
+   "TemplateId": 1,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": false,
+   "CouponHeaders": [
+    "Home",
+    "Draw",
+    "Away"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": true,
+   "MarketCName": "win-draw-win"
+  },
+  {
+   "Version": 4,
+   "Id": 640918646,
+   "Title": "Win/Draw/Win",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Paderborn",
+    "Draw",
+    "Hamburg"
+   ],
+   "Outcomes": [
+    [
+     2645500784,
+     2645500786,
+     2645500789
+    ]
+   ],
+   "EventId": 17264001,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2645500784
+     ]
+    },
+    "draw": {
+     "outcomes": [
+      2645500786
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2645500789
+     ]
+    }
+   },
+   "TypeCName": "win-draw-win",
+   "TemplateId": 1,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": false,
+   "CouponHeaders": [
+    "Home",
+    "Draw",
+    "Away"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": true,
+   "MarketCName": "win-draw-win"
+  },
+  {
+   "Version": 8,
+   "Id": 640918230,
+   "Title": "Win/Draw/Win",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "RB Leipzig",
+    "Draw",
+    "SV Elversberg"
+   ],
+   "Outcomes": [
+    [
+     2645498870,
+     2645498871,
+     2645498872
+    ]
+   ],
+   "EventId": 17263998,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2645498870
+     ]
+    },
+    "draw": {
+     "outcomes": [
+      2645498871
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2645498872
+     ]
+    }
+   },
+   "TypeCName": "win-draw-win",
+   "TemplateId": 1,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": false,
+   "CouponHeaders": [
+    "Home",
+    "Draw",
+    "Away"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": true,
+   "MarketCName": "win-draw-win"
+  }
+ ],
+ "Outcomes": [
+  {
+   "Version": 24,
+   "Id": 2644599154,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.35,
+   "OddsDecimalDisplay": "1.35",
+   "OddsNum": 7,
+   "OddsDen": 20,
+   "EventId": 17260272,
+   "MarketId": 640614268,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Stuttgart",
+   "CouponName": "Home",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 15,
+   "Id": 2644599155,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 5.5,
+   "OddsDecimalDisplay": "5.50",
+   "OddsNum": 9,
+   "OddsDen": 2,
+   "EventId": 17260272,
+   "MarketId": 640614268,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Draw",
+   "CouponName": "Draw",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 23,
+   "Id": 2644599156,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 6.0,
+   "OddsDecimalDisplay": "6.00",
+   "OddsNum": 5,
+   "OddsDen": 1,
+   "EventId": 17260272,
+   "MarketId": 640614268,
+   "ColumnId": 2,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Borussia M'gladbach",
+   "CouponName": "Away",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 3,
+   "TeamCName": null
+  },
+  {
+   "Version": 44,
+   "Id": 2645500940,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 2.0,
+   "OddsDecimalDisplay": "2.00",
+   "OddsNum": 1,
+   "OddsDen": 1,
+   "EventId": 17264000,
+   "MarketId": 640918678,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Cologne",
+   "CouponName": "Home",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 356,
+   "Id": 2645500942,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 3.75,
+   "OddsDecimalDisplay": "3.75",
+   "OddsNum": 11,
+   "OddsDen": 4,
+   "EventId": 17264000,
+   "MarketId": 640918678,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Draw",
+   "CouponName": "Draw",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 206,
+   "Id": 2645500943,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 3.2,
+   "OddsDecimalDisplay": "3.20",
+   "OddsNum": 11,
+   "OddsDen": 5,
+   "EventId": 17264000,
+   "MarketId": 640918678,
+   "ColumnId": 2,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Schalke",
+   "CouponName": "Away",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 3,
+   "TeamCName": null
+  },
+  {
+   "Version": 20,
+   "Id": 2645499506,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.8,
+   "OddsDecimalDisplay": "1.80",
+   "OddsNum": 4,
+   "OddsDen": 5,
+   "EventId": 17263999,
+   "MarketId": 640918366,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "FC Augsburg",
+   "CouponName": "Home",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 15,
+   "Id": 2645499507,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 4.0,
+   "OddsDecimalDisplay": "4.00",
+   "OddsNum": 3,
+   "OddsDen": 1,
+   "EventId": 17263999,
+   "MarketId": 640918366,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Draw",
+   "CouponName": "Draw",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 15,
+   "Id": 2645499508,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 3.6,
+   "OddsDecimalDisplay": "3.60",
+   "OddsNum": 13,
+   "OddsDen": 5,
+   "EventId": 17263999,
+   "MarketId": 640918366,
+   "ColumnId": 2,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Union Berlin",
+   "CouponName": "Away",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 3,
+   "TeamCName": null
+  },
+  {
+   "Version": 15,
+   "Id": 2645500138,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.7,
+   "OddsDecimalDisplay": "1.70",
+   "OddsNum": 7,
+   "OddsDen": 10,
+   "EventId": 17264002,
+   "MarketId": 640918500,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Mainz",
+   "CouponName": "Home",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 8,
+   "Id": 2645500139,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 4.0,
+   "OddsDecimalDisplay": "4.00",
+   "OddsNum": 3,
+   "OddsDen": 1,
+   "EventId": 17264002,
+   "MarketId": 640918500,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Draw",
+   "CouponName": "Draw",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 9,
+   "Id": 2645500140,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 4.0,
+   "OddsDecimalDisplay": "4.00",
+   "OddsNum": 3,
+   "OddsDen": 1,
+   "EventId": 17264002,
+   "MarketId": 640918500,
+   "ColumnId": 2,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Werder Bremen",
+   "CouponName": "Away",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 3,
+   "TeamCName": null
+  },
+  {
+   "Version": 21,
+   "Id": 2645500784,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 2.2,
+   "OddsDecimalDisplay": "2.20",
+   "OddsNum": 6,
+   "OddsDen": 5,
+   "EventId": 17264001,
+   "MarketId": 640918646,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Paderborn",
+   "CouponName": "Home",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 20,
+   "Id": 2645500786,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 3.6,
+   "OddsDecimalDisplay": "3.60",
+   "OddsNum": 13,
+   "OddsDen": 5,
+   "EventId": 17264001,
+   "MarketId": 640918646,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Draw",
+   "CouponName": "Draw",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 17,
+   "Id": 2645500789,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 2.875,
+   "OddsDecimalDisplay": "2.87",
+   "OddsNum": 15,
+   "OddsDen": 8,
+   "EventId": 17264001,
+   "MarketId": 640918646,
+   "ColumnId": 2,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Hamburg",
+   "CouponName": "Away",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 3,
+   "TeamCName": null
+  },
+  {
+   "Version": 23,
+   "Id": 2645498870,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.4,
+   "OddsDecimalDisplay": "1.40",
+   "OddsNum": 2,
+   "OddsDen": 5,
+   "EventId": 17263998,
+   "MarketId": 640918230,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "RB Leipzig",
+   "CouponName": "Home",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 10,
+   "Id": 2645498871,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 5.0,
+   "OddsDecimalDisplay": "5.00",
+   "OddsNum": 4,
+   "OddsDen": 1,
+   "EventId": 17263998,
+   "MarketId": 640918230,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Draw",
+   "CouponName": "Draw",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 16,
+   "Id": 2645498872,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 6.0,
+   "OddsDecimalDisplay": "6.00",
+   "OddsNum": 5,
+   "OddsDen": 1,
+   "EventId": 17263998,
+   "MarketId": 640918230,
+   "ColumnId": 2,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "SV Elversberg",
+   "CouponName": "Away",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 3,
+   "TeamCName": null
+  }
+ ],
+ "MethodName": "EventsWithMultipleMarkets",
+ "MethodResult": "OK",
+ "Success": true,
+ "CorrelationId": "8f6b2b9e-1d3c-4a5e-9b7f-0c1d2e3f4a5b"
+}

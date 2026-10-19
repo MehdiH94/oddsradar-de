@@ -1,0 +1,364 @@
+{
+ "Events": [
+  {
+   "Version": 6,
+   "Id": 17372412,
+   "GroupName": "NHL",
+   "SubCategoryName": "North America",
+   "CategoryCName": "ice-hockey",
+   "CategoryName": "Hockey",
+   "HomeTeamName": "New York Rangers",
+   "AwayTeamName": "Anaheim Ducks",
+   "EventName": "New York Rangers - Anaheim Ducks",
+   "Milliseconds": 1792450800000,
+   "Date": "10/19/2026",
+   "Time": "23:00",
+   "MarketCount": 166,
+   "Markets": [
+    650307073
+   ],
+   "CouponMarketId": 650307073,
+   "FilterMarkets": {
+    "win-draw-win": 650307073
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 72909118,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      650307073
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "new-york-rangers",
+   "AwayTeamCName": "anaheim-ducks",
+   "GroupCName": "nhl",
+   "SubCategoryCName": "north-america",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": true,
+   "NeutralVenue": false,
+   "SurfaceCName": null,
+   "SurfaceName": "",
+   "SportVariationCName": null,
+   "SportVariationName": "",
+   "SportsRadarId": 72909118,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": true
+  },
+  {
+   "Version": 6,
+   "Id": 17372413,
+   "GroupName": "NHL",
+   "SubCategoryName": "North America",
+   "CategoryCName": "ice-hockey",
+   "CategoryName": "Hockey",
+   "HomeTeamName": "Philadelphia Flyers",
+   "AwayTeamName": "Colorado Avalanche",
+   "EventName": "Philadelphia Flyers - Colorado Avalanche",
+   "Milliseconds": 1792450800000,
+   "Date": "10/19/2026",
+   "Time": "23:00",
+   "MarketCount": 173,
+   "Markets": [
+    650307217
+   ],
+   "CouponMarketId": 650307217,
+   "FilterMarkets": {
+    "win-draw-win": 650307217
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 72909120,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      650307217
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "philadelphia-flyers",
+   "AwayTeamCName": "colorado-avalanche",
+   "GroupCName": "nhl",
+   "SubCategoryCName": "north-america",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": true,
+   "NeutralVenue": false,
+   "SurfaceCName": null,
+   "SurfaceName": "",
+   "SportVariationCName": null,
+   "SportVariationName": "",
+   "SportsRadarId": 72909120,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": true
+  }
+ ],
+ "Markets": [
+  {
+   "Version": 3,
+   "Id": 650307073,
+   "Title": "Win/Draw/Win",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Anaheim Ducks",
+    "Draw",
+    "New York Rangers"
+   ],
+   "Outcomes": [
+    [
+     2674119495,
+     2674119494,
+     2674119493
+    ]
+   ],
+   "EventId": 17372412,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2674119493
+     ]
+    },
+    "draw": {
+     "outcomes": [
+      2674119494
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2674119495
+     ]
+    }
+   },
+   "TypeCName": "win-draw-win",
+   "TemplateId": 1,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": true,
+   "CouponHeaders": [
+    "Away",
+    "Draw",
+    "Home"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": false,
+   "MarketCName": "win-draw-win"
+  },
+  {
+   "Version": 3,
+   "Id": 650307217,
+   "Title": "Win/Draw/Win",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Colorado Avalanche",
+    "Draw",
+    "Philadelphia Flyers"
+   ],
+   "Outcomes": [
+    [
+     2674119900,
+     2674119899,
+     2674119898
+    ]
+   ],
+   "EventId": 17372413,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2674119898
+     ]
+    },
+    "draw": {
+     "outcomes": [
+      2674119899
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2674119900
+     ]
+    }
+   },
+   "TypeCName": "win-draw-win",
+   "TemplateId": 1,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": true,
+   "CouponHeaders": [
+    "Away",
+    "Draw",
+    "Home"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": false,
+   "MarketCName": "win-draw-win"
+  }
+ ],
+ "Outcomes": [
+  {
+   "Version": 2,
+   "Id": 2674119493,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 2.1,
+   "OddsDecimalDisplay": "2.10",
+   "OddsNum": 11,
+   "OddsDen": 10,
+   "EventId": 17372412,
+   "MarketId": 650307073,
+   "ColumnId": 2,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "New York Rangers",
+   "CouponName": "Home",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 3,
+   "Id": 2674119494,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 4.0,
+   "OddsDecimalDisplay": "4.00",
+   "OddsNum": 3,
+   "OddsDen": 1,
+   "EventId": 17372412,
+   "MarketId": 650307073,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Draw",
+   "CouponName": "Draw",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 2,
+   "Id": 2674119495,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 2.75,
+   "OddsDecimalDisplay": "2.75",
+   "OddsNum": 7,
+   "OddsDen": 4,
+   "EventId": 17372412,
+   "MarketId": 650307073,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Anaheim Ducks",
+   "CouponName": "Away",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 3,
+   "TeamCName": null
+  },
+  {
+   "Version": 8,
+   "Id": 2674119898,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 3.75,
+   "OddsDecimalDisplay": "3.75",
+   "OddsNum": 11,
+   "OddsDen": 4,
+   "EventId": 17372413,
+   "MarketId": 650307217,
+   "ColumnId": 2,
+   "RowId": 0,
+   "GroupCName": "",
+   "BetName": "Philadelphia Flyers",
+   "CouponName": "Home",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 5,
+   "Id": 2674119899,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 4.5,
+   "OddsDecimalDisplay": "4.50",
+   "OddsNum": 7,
+   "OddsDen": 2,
+   "EventId": 17372413,
+   "MarketId": 650307217,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": "",
+   "BetName": "Draw",
+   "CouponName": "Draw",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 4,
+   "Id": 2674119900,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.69,
+   "OddsDecimalDisplay": "1.69",
+   "OddsNum": 20,
+   "OddsDen": 29,
+   "EventId": 17372413,
+   "MarketId": 650307217,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": "",
+   "BetName": "Colorado Avalanche",
+   "CouponName": "Away",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 3,
+   "TeamCName": null
+  }
+ ],
+ "MethodName": "EventsWithMultipleMarkets",
+ "MethodResult": "OK",
+ "Success": true,
+ "CorrelationId": "8f6b2b9e-1d3c-4a5e-9b7f-0c1d2e3f4a5b"
+}

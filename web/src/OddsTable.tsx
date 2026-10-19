@@ -212,6 +212,11 @@ export function OddsTable({
                     const bestEdge = Math.max(...edges.map((edge) => edge ?? -Infinity));
                     if (!wide) {
                       const bestPrice = best.length > 0 ? prices[listing.indexOf(best[0])] : undefined;
+                      // The highest boost among the listed bookmakers, shown when it beats the best price.
+                      const boost = listing.reduce<{ price: number; bookmaker: string } | undefined>((top, bookmaker, b) => {
+                        const boosted = offers[b]?.boosted;
+                        return boosted !== undefined && boosted > (top?.price ?? bestPrice ?? Infinity) ? { price: boosted, bookmaker } : top;
+                      }, undefined);
                       return (
                         <td key={selection} className={styles.outcome}>
                           <BestPrice
@@ -221,6 +226,7 @@ export function OddsTable({
                             bookmakers={best}
                             fair={fair}
                             edge={Number.isFinite(bestEdge) ? bestEdge : undefined}
+                            boost={boost}
                           />
                           {isCompared && (
                             <span className={styles.prices} id={`${pricesId}-${selection}`}>

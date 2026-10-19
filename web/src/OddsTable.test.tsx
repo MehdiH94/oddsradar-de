@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { OddsTable } from "./OddsTable";
 import type { EventWithOdds } from "./types";
+import { mockPhone } from "./testUtils";
 
 const events: EventWithOdds[] = [
   {
@@ -45,6 +46,7 @@ describe("OddsTable", () => {
   });
   afterEach(() => {
     vi.useRealTimers();
+    vi.unstubAllGlobals();
   });
 
   it("renders one row per event with participant names, competition and each bookmaker's price", () => {
@@ -162,6 +164,31 @@ describe("OddsTable", () => {
     expect(twentybet.getAttribute("data-best")).toBeNull();
     // Merkur Bets's 1.65 stays the best price, though under the boost.
     expect(chip("1.65").getAttribute("data-best")).toBe("true");
+  });
+
+  it("on a phone, shows the highest boost beside the best price, folded or not", () => {
+    mockPhone();
+    // Monza - Cagliari, 19/10/2026: 20bet's 3.05 on Cagliari, the best, boosted to 3.17.
+    const cagliari: EventWithOdds[] = [
+      {
+        ...events[0],
+        byBookmaker: {
+          ...events[0].byBookmaker,
+          twentybet: {
+            scrapedAt: "2026-09-20T10:00:00.000Z",
+            odds: [
+              { market: "1X2", selection: "1", price: 1.6 },
+              { market: "1X2", selection: "X", price: 3.0 },
+              { market: "1X2", selection: "2", price: 5.05, boosted: 5.17 },
+            ],
+          },
+        },
+      },
+    ];
+    render(<OddsTable events={cagliari} bookmakers={["leovegas", "merkurbets", "twentybet"]} />);
+
+    expect(screen.getByText("OM: 5.05 at 20bet, boosted to 5.17 at 20bet")).toBeInTheDocument();
+    expect(screen.getAllByTitle(/^Odds boost/)).toHaveLength(1);
   });
 
   it("renders just the start and match columns when no bookmaker is selected", () => {

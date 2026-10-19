@@ -28,6 +28,16 @@ describe("BestPrice", () => {
     expect(screen.getByText(/value bet \+6.7.*fair odds 1.50/)).toBeInTheDocument();
   });
 
+  it("shows a boosted price after the price, never as it, read out too", () => {
+    const { container } = render(
+      <BestPrice label="2" name="Cagliari" price={3.05} bookmakers={["twentybet"]} boost={{ price: 3.17, bookmaker: "twentybet" }} />
+    );
+
+    expect(screen.getByText("Cagliari: 3.05 at 20bet, boosted to 3.17 at 20bet")).toBeInTheDocument();
+    expect(container.querySelector('[title="Odds boost at 20bet: 3.17"]')).not.toBeNull();
+    expect(container.textContent).toContain("3.053.17");
+  });
+
   it("shows a dash without any price", () => {
     render(<BestPrice label="2" name="OM" price={undefined} bookmakers={[]} />);
 

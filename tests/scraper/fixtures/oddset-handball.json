@@ -1,0 +1,1789 @@
+{
+ "fixtures": [
+  {
+   "optionMarkets": [
+    {
+     "id": 69084074,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 167292781,
+       "status": "Visible",
+       "name": {
+        "value": "MMTS Kwidzyn"
+       },
+       "price": {
+        "id": 410764029,
+        "numerator": 46,
+        "denominator": 100,
+        "odds": 1.46,
+        "americanOdds": -220
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4833343
+       }
+      },
+      {
+       "id": 167292782,
+       "status": "Visible",
+       "name": {
+        "value": "Draw"
+       },
+       "price": {
+        "id": 410764032,
+        "numerator": 15,
+        "denominator": 2,
+        "odds": 8.5,
+        "americanOdds": 750
+       },
+       "parameters": {
+        "optionTypes": [
+         "Draw"
+        ]
+       }
+      },
+      {
+       "id": 167292783,
+       "status": "Visible",
+       "name": {
+        "value": "Handball Stal Mielec"
+       },
+       "price": {
+        "id": 410764035,
+        "numerator": 23,
+        "denominator": 10,
+        "odds": 3.3,
+        "americanOdds": 230
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4833344
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "3way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "wv1gntxnn"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "1eaf226d-c717-4840-bd66-dc5c0ba4c3a5",
+        "marketGroupItemId": "e8f8de19-43f1-4084-bced-12066daef814",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false
+    },
+    {
+     "id": 69085156,
+     "name": {
+      "value": "Total Goals"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 167295157,
+       "status": "Visible",
+       "name": {
+        "value": "Over 57.5"
+       },
+       "price": {
+        "id": 410770747,
+        "numerator": 19,
+        "denominator": 20,
+        "odds": 1.95,
+        "americanOdds": -105
+       },
+       "parameters": {
+        "optionTypes": [
+         "Over"
+        ]
+       }
+      },
+      {
+       "id": 167295158,
+       "status": "Visible",
+       "name": {
+        "value": "Under 57.5"
+       },
+       "price": {
+        "id": 410770750,
+        "numerator": 3,
+        "denominator": 4,
+        "odds": 1.75,
+        "americanOdds": -135
+       },
+       "parameters": {
+        "optionTypes": [
+         "Under"
+        ]
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "DecimalValue",
+       "type": "Decimal",
+       "value": "57.5"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "Over/Under"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "x81h5kz07"
+      ],
+      "detailed": [
+       {
+        "subIndex": 58,
+        "displayType": "OverUnder",
+        "marketGroupId": "1eaf226d-c717-4840-bd66-dc5c0ba4c3a5",
+        "marketGroupItemId": "84e2d41e-ebb5-44ba-a80a-1ba13e7c0069",
+        "orderType": "LineValue"
+       },
+       {
+        "subIndex": 58,
+        "displayType": "OverUnder",
+        "marketGroupId": "1efce82d-e1f1-4fb6-b2ee-d2478816744e",
+        "marketGroupItemId": "e8a09c22-89c1-4c7b-b44a-433f8e8e7a3e",
+        "orderType": "LineValue"
+       }
+      ]
+     },
+     "attr": "57.5",
+     "spread": 0.2,
+     "balanced": 1,
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false,
+     "oddsKey": 108.42
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 4833343,
+     "participantId": 765332,
+     "name": {
+      "value": "MMTS Kwidzyn"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 4833344,
+     "participantId": 765335,
+     "name": {
+      "value": "Handball Stal Mielec"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "5:1276566",
+   "name": {
+    "value": "MMTS Kwidzyn - Handball Stal Mielec",
+    "sign": "vouGkQ=="
+   },
+   "sourceId": 1276566,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|5:1276566_92_any",
+   "stage": "PreMatch",
+   "liveAlert": false,
+   "startDate": "2026-10-19T16:00:00Z",
+   "cutOffDate": "2026-10-19T18:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 16,
+    "name": {
+     "value": "Handball"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 16,
+    "compoundId": "2:106319",
+    "type": "Competition",
+    "id": 106319,
+    "parentId": 22,
+    "name": {
+     "value": "Superliga"
+    }
+   },
+   "region": {
+    "code": "POL",
+    "sportId": 16,
+    "type": "Region",
+    "id": 22,
+    "parentId": 16,
+    "name": {
+     "value": "Poland"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 20,
+   "priceBoostCount": 0,
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 69329235,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 167826312,
+       "status": "Visible",
+       "name": {
+        "value": "HBW Balingen-Weilstetten"
+       },
+       "price": {
+        "id": 412294949,
+        "numerator": 17,
+        "denominator": 10,
+        "odds": 2.7,
+        "americanOdds": 170
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4644273
+       }
+      },
+      {
+       "id": 167826313,
+       "status": "Visible",
+       "name": {
+        "value": "Draw"
+       },
+       "price": {
+        "id": 412294952,
+        "numerator": 13,
+        "denominator": 2,
+        "odds": 7.5,
+        "americanOdds": 650
+       },
+       "parameters": {
+        "optionTypes": [
+         "Draw"
+        ]
+       }
+      },
+      {
+       "id": 167826314,
+       "status": "Visible",
+       "name": {
+        "value": "TSV Hannover-Burgdorf"
+       },
+       "price": {
+        "id": 412294955,
+        "numerator": 13,
+        "denominator": 20,
+        "odds": 1.65,
+        "americanOdds": -155
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4644274
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "3way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "wv1gntxnn"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "1eaf226d-c717-4840-bd66-dc5c0ba4c3a5",
+        "marketGroupItemId": "e8f8de19-43f1-4084-bced-12066daef814",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false
+    },
+    {
+     "id": 69340666,
+     "name": {
+      "value": "Handicap"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 167850803,
+       "status": "Visible",
+       "name": {
+        "value": "HBW Balingen-Weilstetten (1.5)"
+       },
+       "price": {
+        "id": 412367046,
+        "numerator": 4,
+        "denominator": 5,
+        "odds": 1.8,
+        "americanOdds": -125
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4644273
+       }
+      },
+      {
+       "id": 167850804,
+       "status": "Visible",
+       "name": {
+        "value": "TSV Hannover-Burgdorf (-1.5)"
+       },
+       "price": {
+        "id": 412367049,
+        "numerator": 9,
+        "denominator": 10,
+        "odds": 1.9,
+        "americanOdds": -110
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4644274
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "DecimalHandicap",
+       "type": "Decimal",
+       "value": "1.5"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketSubType",
+       "type": "String",
+       "value": "2waySpread"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2wayHandicap"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "wpo4aiye6"
+      ],
+      "detailed": [
+       {
+        "subIndex": 2,
+        "displayType": "Spread",
+        "marketGroupId": "1eaf226d-c717-4840-bd66-dc5c0ba4c3a5",
+        "marketGroupItemId": "1cd906ad-d2d3-4074-bc53-1cf204abcabb",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 2,
+        "displayType": "Spread",
+        "marketGroupId": "d5f55f85-274e-4a53-94b2-dab00df00d7e",
+        "marketGroupItemId": "35d02fb1-d942-4934-bc3e-a496da8fa582",
+        "orderType": "LineValue"
+       }
+      ]
+     },
+     "attr": "1.5",
+     "spread": 0.1,
+     "balanced": 1,
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false,
+     "oddsKey": 108.19
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 4644273,
+     "participantId": 759343,
+     "name": {
+      "value": "HBW Balingen-Weilstetten"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 4644274,
+     "participantId": 760763,
+     "name": {
+      "value": "TSV Hannover-Burgdorf"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "5:1208505",
+   "name": {
+    "value": "HBW Balingen-Weilstetten - TSV Hannover-Burgdorf",
+    "sign": "FHoE0Q=="
+   },
+   "sourceId": 1208505,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|5:1208505_92_any",
+   "stage": "PreMatch",
+   "liveAlert": false,
+   "startDate": "2026-10-19T17:00:00Z",
+   "cutOffDate": "2026-10-19T19:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 16,
+    "name": {
+     "value": "Handball"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 16,
+    "compoundId": "2:106290",
+    "type": "Competition",
+    "id": 106290,
+    "parentId": 17,
+    "name": {
+     "value": "Bundesliga"
+    }
+   },
+   "region": {
+    "code": "GER",
+    "sportId": 16,
+    "type": "Region",
+    "id": 17,
+    "parentId": 16,
+    "name": {
+     "value": "Germany"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 20,
+   "priceBoostCount": 0,
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 68331536,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 165646718,
+       "status": "Visible",
+       "name": {
+        "value": "TuSEM Essen"
+       },
+       "price": {
+        "id": 405957300,
+        "numerator": 11,
+        "denominator": 10,
+        "odds": 2.1,
+        "americanOdds": 110
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4827555
+       }
+      },
+      {
+       "id": 165646719,
+       "status": "Visible",
+       "name": {
+        "value": "Draw"
+       },
+       "price": {
+        "id": 405957303,
+        "numerator": 13,
+        "denominator": 2,
+        "odds": 7.5,
+        "americanOdds": 650
+       },
+       "parameters": {
+        "optionTypes": [
+         "Draw"
+        ]
+       }
+      },
+      {
+       "id": 165646720,
+       "status": "Visible",
+       "name": {
+        "value": "TV Emsdetten"
+       },
+       "price": {
+        "id": 405957306,
+        "numerator": 98,
+        "denominator": 100,
+        "odds": 1.98,
+        "americanOdds": -102
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4827556
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "3way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "wv1gntxnn"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "1eaf226d-c717-4840-bd66-dc5c0ba4c3a5",
+        "marketGroupItemId": "e8f8de19-43f1-4084-bced-12066daef814",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false
+    },
+    {
+     "id": 68812987,
+     "name": {
+      "value": "Total Goals"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 166698271,
+       "status": "Visible",
+       "name": {
+        "value": "Over 63.5"
+       },
+       "price": {
+        "id": 409032643,
+        "numerator": 17,
+        "denominator": 20,
+        "odds": 1.85,
+        "americanOdds": -118
+       },
+       "parameters": {
+        "optionTypes": [
+         "Over"
+        ]
+       }
+      },
+      {
+       "id": 166698272,
+       "status": "Visible",
+       "name": {
+        "value": "Under 63.5"
+       },
+       "price": {
+        "id": 409032646,
+        "numerator": 17,
+        "denominator": 20,
+        "odds": 1.85,
+        "americanOdds": -118
+       },
+       "parameters": {
+        "optionTypes": [
+         "Under"
+        ]
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "Over/Under"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      },
+      {
+       "key": "DecimalValue",
+       "type": "Decimal",
+       "value": "63.5"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "x81h5kz07"
+      ],
+      "detailed": [
+       {
+        "subIndex": 64,
+        "displayType": "OverUnder",
+        "marketGroupId": "1eaf226d-c717-4840-bd66-dc5c0ba4c3a5",
+        "marketGroupItemId": "84e2d41e-ebb5-44ba-a80a-1ba13e7c0069",
+        "orderType": "LineValue"
+       },
+       {
+        "subIndex": 64,
+        "displayType": "OverUnder",
+        "marketGroupId": "1efce82d-e1f1-4fb6-b2ee-d2478816744e",
+        "marketGroupItemId": "e8a09c22-89c1-4c7b-b44a-433f8e8e7a3e",
+        "orderType": "LineValue"
+       }
+      ]
+     },
+     "attr": "63,5",
+     "spread": 0.0,
+     "balanced": 1,
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false,
+     "oddsKey": 108.11
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 4827555,
+     "participantId": 759359,
+     "name": {
+      "value": "TuSEM Essen"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 4827556,
+     "participantId": 817909,
+     "name": {
+      "value": "TV Emsdetten"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "5:1274994",
+   "name": {
+    "value": "TuSEM Essen - TV Emsdetten",
+    "sign": "42Q/yA=="
+   },
+   "sourceId": 1274994,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|5:1274994_92_any",
+   "stage": "PreMatch",
+   "liveAlert": false,
+   "startDate": "2026-10-19T17:30:00Z",
+   "cutOffDate": "2026-10-19T19:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 16,
+    "name": {
+     "value": "Handball"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 16,
+    "compoundId": "2:106289",
+    "type": "Competition",
+    "id": 106289,
+    "parentId": 17,
+    "name": {
+     "value": "2. HBL"
+    }
+   },
+   "region": {
+    "code": "GER",
+    "sportId": 16,
+    "type": "Region",
+    "id": 17,
+    "parentId": 16,
+    "name": {
+     "value": "Germany"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 20,
+   "priceBoostCount": 0,
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 69053984,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 167228126,
+       "status": "Visible",
+       "name": {
+        "value": "Kpr Ostrovia Ostrow Wlkp"
+       },
+       "price": {
+        "id": 410572505,
+        "numerator": 4,
+        "denominator": 11,
+        "odds": 1.36,
+        "americanOdds": -275
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4905763
+       }
+      },
+      {
+       "id": 167228127,
+       "status": "Visible",
+       "name": {
+        "value": "Draw"
+       },
+       "price": {
+        "id": 410572508,
+        "numerator": 33,
+        "denominator": 4,
+        "odds": 9.25,
+        "americanOdds": 825
+       },
+       "parameters": {
+        "optionTypes": [
+         "Draw"
+        ]
+       }
+      },
+      {
+       "id": 167228128,
+       "status": "Visible",
+       "name": {
+        "value": "KPR Legionowo"
+       },
+       "price": {
+        "id": 410572511,
+        "numerator": 29,
+        "denominator": 10,
+        "odds": 3.9,
+        "americanOdds": 290
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4905764
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "3way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "wv1gntxnn"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "1eaf226d-c717-4840-bd66-dc5c0ba4c3a5",
+        "marketGroupItemId": "e8f8de19-43f1-4084-bced-12066daef814",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false
+    },
+    {
+     "id": 69053994,
+     "name": {
+      "value": "Handicap"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 167228158,
+       "status": "Visible",
+       "name": {
+        "value": "Kpr Ostrovia Ostrow Wlkp (-4.5)"
+       },
+       "price": {
+        "id": 410572601,
+        "numerator": 11,
+        "denominator": 8,
+        "odds": 2.37,
+        "americanOdds": 138
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4905763
+       }
+      },
+      {
+       "id": 167228159,
+       "status": "Visible",
+       "name": {
+        "value": "KPR Legionowo (4.5)"
+       },
+       "price": {
+        "id": 410572604,
+        "numerator": 52,
+        "denominator": 100,
+        "odds": 1.52,
+        "americanOdds": -190
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4905764
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "DecimalHandicap",
+       "type": "Decimal",
+       "value": "-4.5"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketSubType",
+       "type": "String",
+       "value": "2waySpread"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2wayHandicap"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "wpo4aiye6"
+      ],
+      "detailed": [
+       {
+        "subIndex": -3,
+        "displayType": "Spread",
+        "marketGroupId": "1eaf226d-c717-4840-bd66-dc5c0ba4c3a5",
+        "marketGroupItemId": "1cd906ad-d2d3-4074-bc53-1cf204abcabb",
+        "orderType": "None"
+       },
+       {
+        "subIndex": -3,
+        "displayType": "Spread",
+        "marketGroupId": "d5f55f85-274e-4a53-94b2-dab00df00d7e",
+        "marketGroupItemId": "35d02fb1-d942-4934-bc3e-a496da8fa582",
+        "orderType": "LineValue"
+       }
+      ]
+     },
+     "attr": "-4.5",
+     "spread": 0.85,
+     "balanced": 1,
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false,
+     "oddsKey": 107.98
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 4905763,
+     "participantId": 765320,
+     "name": {
+      "value": "Kpr Ostrovia Ostrow Wlkp"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 4905764,
+     "participantId": 765349,
+     "name": {
+      "value": "KPR Legionowo"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "5:1294993",
+   "name": {
+    "value": "Kpr Ostrovia Ostrow Wlkp - KPR Legionowo",
+    "sign": "gdfqog=="
+   },
+   "sourceId": 1294993,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|5:1294993_92_any",
+   "stage": "PreMatch",
+   "liveAlert": false,
+   "startDate": "2026-10-20T16:00:00Z",
+   "cutOffDate": "2026-10-20T16:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 16,
+    "name": {
+     "value": "Handball"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 16,
+    "compoundId": "2:106319",
+    "type": "Competition",
+    "id": 106319,
+    "parentId": 22,
+    "name": {
+     "value": "Superliga"
+    }
+   },
+   "region": {
+    "code": "POL",
+    "sportId": 16,
+    "type": "Region",
+    "id": 22,
+    "parentId": 16,
+    "name": {
+     "value": "Poland"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 20,
+   "priceBoostCount": 0,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 68713936,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 166481447,
+       "status": "Visible",
+       "name": {
+        "value": "Partizan"
+       },
+       "price": {
+        "id": 408415045,
+        "numerator": 33,
+        "denominator": 20,
+        "odds": 2.65,
+        "americanOdds": 165
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4638023
+       }
+      },
+      {
+       "id": 166481448,
+       "status": "Visible",
+       "name": {
+        "value": "Draw"
+       },
+       "price": {
+        "id": 408415048,
+        "numerator": 25,
+        "denominator": 4,
+        "odds": 7.25,
+        "americanOdds": 625
+       },
+       "parameters": {
+        "optionTypes": [
+         "Draw"
+        ]
+       }
+      },
+      {
+       "id": 166481449,
+       "status": "Visible",
+       "name": {
+        "value": "FC Porto"
+       },
+       "price": {
+        "id": 408415051,
+        "numerator": 68,
+        "denominator": 100,
+        "odds": 1.68,
+        "americanOdds": -145
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4638024
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "3way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "wv1gntxnn"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "1eaf226d-c717-4840-bd66-dc5c0ba4c3a5",
+        "marketGroupItemId": "e8f8de19-43f1-4084-bced-12066daef814",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false
+    },
+    {
+     "id": 69375438,
+     "name": {
+      "value": "Total Goals"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 167925918,
+       "status": "Visible",
+       "name": {
+        "value": "Over 63.5"
+       },
+       "price": {
+        "id": 412591288,
+        "numerator": 68,
+        "denominator": 100,
+        "odds": 1.68,
+        "americanOdds": -145
+       },
+       "parameters": {
+        "optionTypes": [
+         "Over"
+        ]
+       }
+      },
+      {
+       "id": 167925919,
+       "status": "Visible",
+       "name": {
+        "value": "Under 63.5"
+       },
+       "price": {
+        "id": 412591291,
+        "numerator": 21,
+        "denominator": 20,
+        "odds": 2.05,
+        "americanOdds": 105
+       },
+       "parameters": {
+        "optionTypes": [
+         "Under"
+        ]
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "DecimalValue",
+       "type": "Decimal",
+       "value": "63.5"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "Over/Under"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "x81h5kz07"
+      ],
+      "detailed": [
+       {
+        "subIndex": 64,
+        "displayType": "OverUnder",
+        "marketGroupId": "1eaf226d-c717-4840-bd66-dc5c0ba4c3a5",
+        "marketGroupItemId": "84e2d41e-ebb5-44ba-a80a-1ba13e7c0069",
+        "orderType": "LineValue"
+       },
+       {
+        "subIndex": 64,
+        "displayType": "OverUnder",
+        "marketGroupId": "1efce82d-e1f1-4fb6-b2ee-d2478816744e",
+        "marketGroupItemId": "e8a09c22-89c1-4c7b-b44a-433f8e8e7a3e",
+        "orderType": "LineValue"
+       }
+      ]
+     },
+     "attr": "63.5",
+     "spread": 0.37,
+     "balanced": 1,
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false,
+     "oddsKey": 108.3
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 4638024,
+     "participantId": 760689,
+     "name": {
+      "value": "FC Porto"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 4638023,
+     "participantId": 766101,
+     "name": {
+      "value": "Partizan"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "5:1206325",
+   "name": {
+    "value": "Partizan - FC Porto",
+    "sign": "lmu0Uw=="
+   },
+   "sourceId": 1206325,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|5:1206325_92_any",
+   "stage": "PreMatch",
+   "liveAlert": false,
+   "startDate": "2026-10-21T16:45:00Z",
+   "cutOffDate": "2026-10-21T18:45:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 16,
+    "name": {
+     "value": "Handball"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 16,
+    "compoundId": "2:106297",
+    "type": "Competition",
+    "id": 106297,
+    "parentId": 6,
+    "name": {
+     "value": "EHF Champions League"
+    }
+   },
+   "region": {
+    "code": "WRL",
+    "sportId": 16,
+    "type": "Region",
+    "id": 6,
+    "parentId": 16,
+    "name": {
+     "value": "World"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 20,
+   "priceBoostCount": 0,
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 68944134,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 166986538,
+       "status": "Visible",
+       "name": {
+        "value": "CS Dinamo Bucuresti"
+       },
+       "price": {
+        "id": 409877521,
+        "numerator": 5,
+        "denominator": 4,
+        "odds": 2.25,
+        "americanOdds": 125
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4638080
+       }
+      },
+      {
+       "id": 166986539,
+       "status": "Visible",
+       "name": {
+        "value": "Draw"
+       },
+       "price": {
+        "id": 409877524,
+        "numerator": 23,
+        "denominator": 4,
+        "odds": 6.75,
+        "americanOdds": 575
+       },
+       "parameters": {
+        "optionTypes": [
+         "Draw"
+        ]
+       }
+      },
+      {
+       "id": 166986540,
+       "status": "Visible",
+       "name": {
+        "value": "Skanderborg AGF Haandbold"
+       },
+       "price": {
+        "id": 409877527,
+        "numerator": 10,
+        "denominator": 11,
+        "odds": 1.91,
+        "americanOdds": -110
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4638081
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "3way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "wv1gntxnn"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "1eaf226d-c717-4840-bd66-dc5c0ba4c3a5",
+        "marketGroupItemId": "e8f8de19-43f1-4084-bced-12066daef814",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false
+    },
+    {
+     "id": 69376486,
+     "name": {
+      "value": "Total Goals"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 167928302,
+       "status": "Visible",
+       "name": {
+        "value": "Over 61.5"
+       },
+       "price": {
+        "id": 412598210,
+        "numerator": 1,
+        "denominator": 1,
+        "odds": 2,
+        "americanOdds": 100
+       },
+       "parameters": {
+        "optionTypes": [
+         "Over"
+        ]
+       }
+      },
+      {
+       "id": 167928303,
+       "status": "Visible",
+       "name": {
+        "value": "Under 61.5"
+       },
+       "price": {
+        "id": 412598213,
+        "numerator": 8,
+        "denominator": 11,
+        "odds": 1.72,
+        "americanOdds": -140
+       },
+       "parameters": {
+        "optionTypes": [
+         "Under"
+        ]
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "DecimalValue",
+       "type": "Decimal",
+       "value": "61.5"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "Over/Under"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "x81h5kz07"
+      ],
+      "detailed": [
+       {
+        "subIndex": 62,
+        "displayType": "OverUnder",
+        "marketGroupId": "1eaf226d-c717-4840-bd66-dc5c0ba4c3a5",
+        "marketGroupItemId": "84e2d41e-ebb5-44ba-a80a-1ba13e7c0069",
+        "orderType": "LineValue"
+       },
+       {
+        "subIndex": 62,
+        "displayType": "OverUnder",
+        "marketGroupId": "1efce82d-e1f1-4fb6-b2ee-d2478816744e",
+        "marketGroupItemId": "e8a09c22-89c1-4c7b-b44a-433f8e8e7a3e",
+        "orderType": "LineValue"
+       }
+      ]
+     },
+     "attr": "61,5",
+     "spread": 0.28,
+     "balanced": 1,
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false,
+     "oddsKey": 108.14
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 4638080,
+     "participantId": 760295,
+     "name": {
+      "value": "CS Dinamo Bucuresti"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 4638081,
+     "participantId": 759018,
+     "name": {
+      "value": "Skanderborg AGF Haandbold"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "5:1206349",
+   "name": {
+    "value": "CS Dinamo Bucuresti - Skanderborg AGF Haandbold",
+    "sign": "eqBK1g=="
+   },
+   "sourceId": 1206349,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|5:1206349_92_any",
+   "stage": "PreMatch",
+   "liveAlert": false,
+   "startDate": "2026-10-21T16:45:00Z",
+   "cutOffDate": "2026-10-21T18:45:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 16,
+    "name": {
+     "value": "Handball"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 16,
+    "compoundId": "2:106297",
+    "type": "Competition",
+    "id": 106297,
+    "parentId": 6,
+    "name": {
+     "value": "EHF Champions League"
+    }
+   },
+   "region": {
+    "code": "WRL",
+    "sportId": 16,
+    "type": "Region",
+    "id": 6,
+    "parentId": 16,
+    "name": {
+     "value": "World"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "totalMarketsCount": 20,
+   "priceBoostCount": 0,
+   "isPlannedInPlay": true
+  }
+ ],
+ "totalCount": 6
+}

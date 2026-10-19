@@ -8,6 +8,7 @@ export type BookmakerId =
   | "twentybet"
   | "admiralbet"
   | "betathome"
+  | "oddset"
   | "tipico"
   | "winamaxde"
   | "winamax"

@@ -17,6 +17,7 @@ import { merkurbetsScraper } from "../scraper/merkurbets";
 import { twentybetScraper } from "../scraper/twentybet";
 import { admiralbetScraper } from "../scraper/admiralbet";
 import { betathomeScraper } from "../scraper/betathome";
+import { oddsetScraper } from "../scraper/oddset";
 import { tipicoScraper, winamaxdeScraper } from "../scraper/oddsApi";
 
 const dbPath = process.env.DB_PATH ?? "./data/coteradar.sqlite";
@@ -36,6 +37,7 @@ const scrapers = [
   twentybetScraper,
   admiralbetScraper,
   betathomeScraper,
+  oddsetScraper,
   tipicoScraper,
   winamaxdeScraper,
 ];

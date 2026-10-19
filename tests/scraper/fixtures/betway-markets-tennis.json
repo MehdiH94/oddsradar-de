@@ -1,0 +1,600 @@
+{
+ "Events": [
+  {
+   "Version": 12,
+   "Id": 17370645,
+   "GroupName": "Lisbon - Portugal",
+   "SubCategoryName": "Challenger",
+   "CategoryCName": "tennis",
+   "CategoryName": "Tennis",
+   "HomeTeamName": "Marco Cecchinato",
+   "AwayTeamName": "Vilius Gaubas",
+   "EventName": "Marco Cecchinato - Vilius Gaubas",
+   "Milliseconds": 1792418400000,
+   "Date": "10/19/2026",
+   "Time": "14:00",
+   "MarketCount": 58,
+   "Markets": [
+    650119841
+   ],
+   "CouponMarketId": 650119841,
+   "FilterMarkets": {
+    "match-winner": 650119841
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 75723580,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      650119841
+     ]
+    }
+   },
+   "IsLive": true,
+   "IsPremium": false,
+   "HomeTeamCName": "marco-cecchinato",
+   "AwayTeamCName": "vilius-gaubas",
+   "GroupCName": "lisbon---portugal",
+   "SubCategoryCName": "challenger",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": false,
+   "NeutralVenue": false,
+   "SurfaceCName": "gravel",
+   "SurfaceName": "Gravel",
+   "SportVariationCName": "3-sets",
+   "SportVariationName": "3-sets",
+   "SportsRadarId": 75723580,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": true
+  },
+  {
+   "Version": 15,
+   "Id": 17368125,
+   "GroupName": "Florence - Italy",
+   "SubCategoryName": "Challenger",
+   "CategoryCName": "tennis",
+   "CategoryName": "Tennis",
+   "HomeTeamName": "Francesco Forti",
+   "AwayTeamName": "Jonas Forejtek",
+   "EventName": "Francesco Forti - Jonas Forejtek",
+   "Milliseconds": 1792418400000,
+   "Date": "10/19/2026",
+   "Time": "14:00",
+   "MarketCount": 60,
+   "Markets": [
+    649916486
+   ],
+   "CouponMarketId": 649916486,
+   "FilterMarkets": {
+    "match-winner": 649916486
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 75721852,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      649916486
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "francesco-forti",
+   "AwayTeamCName": "jonas-forejtek",
+   "GroupCName": "florence---italy",
+   "SubCategoryCName": "challenger",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": false,
+   "NeutralVenue": false,
+   "SurfaceCName": "indoor",
+   "SurfaceName": "Indoor",
+   "SportVariationCName": "3-sets",
+   "SportVariationName": "3-sets",
+   "SportsRadarId": 75721852,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": true
+  },
+  {
+   "Version": 10,
+   "Id": 17370350,
+   "GroupName": "Lisbon - Portugal",
+   "SubCategoryName": "Challenger",
+   "CategoryCName": "tennis",
+   "CategoryName": "Tennis",
+   "HomeTeamName": "Max Alcala Gurri",
+   "AwayTeamName": "Andres Andrade",
+   "EventName": "Max Alcala Gurri - Andres Andrade",
+   "Milliseconds": 1792418400000,
+   "Date": "10/19/2026",
+   "Time": "14:00",
+   "MarketCount": 60,
+   "Markets": [
+    650092166
+   ],
+   "CouponMarketId": 650092166,
+   "FilterMarkets": {
+    "match-winner": 650092166
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 75723572,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      650092166
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "max-alcala-gurri",
+   "AwayTeamCName": "andres-andrade",
+   "GroupCName": "lisbon---portugal",
+   "SubCategoryCName": "challenger",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": false,
+   "NeutralVenue": false,
+   "SurfaceCName": "indoor",
+   "SurfaceName": "Indoor",
+   "SportVariationCName": "3-sets",
+   "SportVariationName": "3-sets",
+   "SportsRadarId": 75723572,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": true
+  },
+  {
+   "Version": 17,
+   "Id": 17368123,
+   "GroupName": "Florence - Italy",
+   "SubCategoryName": "Challenger",
+   "CategoryCName": "tennis",
+   "CategoryName": "Tennis",
+   "HomeTeamName": "Michele Ribecai",
+   "AwayTeamName": "Jacopo Vasami",
+   "EventName": "Michele Ribecai - Jacopo Vasami",
+   "Milliseconds": 1792418400000,
+   "Date": "10/19/2026",
+   "Time": "14:00",
+   "MarketCount": 60,
+   "Markets": [
+    649916400
+   ],
+   "CouponMarketId": 649916400,
+   "FilterMarkets": {
+    "match-winner": 649916400
+   },
+   "IsSuspended": false,
+   "LiveStreamingMobileStatus": null,
+   "LiveStreamingProviderType": null,
+   "LiveStreamingDesktopStatus": null,
+   "IsOutright": false,
+   "FeedId": 75721846,
+   "SuperTournamentCName": null,
+   "SuperTournamentName": null,
+   "MarketGroups": {
+    "main-markets": {
+     "GroupName": "Main Markets",
+     "MarketIds": [
+      649916400
+     ]
+    }
+   },
+   "IsLive": false,
+   "IsPremium": false,
+   "HomeTeamCName": "michele-ribecai",
+   "AwayTeamCName": "jacopo-vasami",
+   "GroupCName": "florence---italy",
+   "SubCategoryCName": "challenger",
+   "VenueTime": null,
+   "Venue": "",
+   "Title": null,
+   "IsLiveTraded": true,
+   "AmericanFormat": false,
+   "NeutralVenue": false,
+   "SurfaceCName": "indoor",
+   "SurfaceName": "Indoor",
+   "SportVariationCName": "3-sets",
+   "SportVariationName": "3-sets",
+   "SportsRadarId": 75721846,
+   "IsVirtual": false,
+   "IsBetBuilderSupported": true
+  }
+ ],
+ "Markets": [
+  {
+   "Version": 5,
+   "Id": 650119841,
+   "Title": "Match Winner",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Marco Cecchinato",
+    "Vilius Gaubas"
+   ],
+   "Outcomes": [
+    [
+     2673531817,
+     2673531818
+    ]
+   ],
+   "EventId": 17370645,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2673531817
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2673531818
+     ]
+    }
+   },
+   "TypeCName": "to-win",
+   "TemplateId": 2,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": false,
+   "CouponHeaders": [
+    "Player 1",
+    "Player 2"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": true,
+   "MarketCName": "match-winner"
+  },
+  {
+   "Version": 5,
+   "Id": 649916486,
+   "Title": "Match Winner",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Francesco Forti",
+    "Jonas Forejtek"
+   ],
+   "Outcomes": [
+    [
+     2672935567,
+     2672935568
+    ]
+   ],
+   "EventId": 17368125,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2672935567
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2672935568
+     ]
+    }
+   },
+   "TypeCName": "to-win",
+   "TemplateId": 2,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": false,
+   "CouponHeaders": [
+    "Player 1",
+    "Player 2"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": true,
+   "MarketCName": "match-winner"
+  },
+  {
+   "Version": 5,
+   "Id": 650092166,
+   "Title": "Match Winner",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Max Alcala Gurri",
+    "Andres Andrade"
+   ],
+   "Outcomes": [
+    [
+     2673452595,
+     2673452596
+    ]
+   ],
+   "EventId": 17370350,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2673452595
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2673452596
+     ]
+    }
+   },
+   "TypeCName": "to-win",
+   "TemplateId": 2,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": false,
+   "CouponHeaders": [
+    "Player 1",
+    "Player 2"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": true,
+   "MarketCName": "match-winner"
+  },
+  {
+   "Version": 5,
+   "Id": 649916400,
+   "Title": "Match Winner",
+   "IsSuspended": false,
+   "Handicap": 0.0,
+   "Headers": [
+    "Michele Ribecai",
+    "Jacopo Vasami"
+   ],
+   "Outcomes": [
+    [
+     2672935183,
+     2672935184
+    ]
+   ],
+   "EventId": 17368123,
+   "EachWayActive": false,
+   "EachWayFractionDen": 1,
+   "EachWayPosition": 1,
+   "OutcomeGroups": {
+    "home": {
+     "outcomes": [
+      2672935183
+     ]
+    },
+    "away": {
+     "outcomes": [
+      2672935184
+     ]
+    }
+   },
+   "TypeCName": "to-win",
+   "TemplateId": 2,
+   "MarketGroupCName": "main-markets",
+   "MarketGroupName": "Main Markets",
+   "CashOutActive": true,
+   "FixedPriceAvailable": true,
+   "StartingPriceAvailable": false,
+   "AmericanFormat": false,
+   "CouponHeaders": [
+    "Player 1",
+    "Player 2"
+   ],
+   "SituationIndex": null,
+   "IsBetBuilderSupported": true,
+   "MarketCName": "match-winner"
+  }
+ ],
+ "Outcomes": [
+  {
+   "Version": 45,
+   "Id": 2673531817,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 2.4,
+   "OddsDecimalDisplay": "2.40",
+   "OddsNum": 7,
+   "OddsDen": 5,
+   "EventId": 17370645,
+   "MarketId": 650119841,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Marco Cecchinato",
+   "CouponName": "Player 1",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 46,
+   "Id": 2673531818,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.5,
+   "OddsDecimalDisplay": "1.50",
+   "OddsNum": 1,
+   "OddsDen": 2,
+   "EventId": 17370645,
+   "MarketId": 650119841,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Vilius Gaubas",
+   "CouponName": "Player 2",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 72,
+   "Id": 2672935567,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 2.2,
+   "OddsDecimalDisplay": "2.20",
+   "OddsNum": 6,
+   "OddsDen": 5,
+   "EventId": 17368125,
+   "MarketId": 649916486,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Francesco Forti",
+   "CouponName": "Player 1",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 72,
+   "Id": 2672935568,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.6,
+   "OddsDecimalDisplay": "1.60",
+   "OddsNum": 3,
+   "OddsDen": 5,
+   "EventId": 17368125,
+   "MarketId": 649916486,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Jonas Forejtek",
+   "CouponName": "Player 2",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 40,
+   "Id": 2673452595,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.3,
+   "OddsDecimalDisplay": "1.30",
+   "OddsNum": 30,
+   "OddsDen": 100,
+   "EventId": 17370350,
+   "MarketId": 650092166,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Max Alcala Gurri",
+   "CouponName": "Player 1",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 53,
+   "Id": 2673452596,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 3.25,
+   "OddsDecimalDisplay": "3.25",
+   "OddsNum": 9,
+   "OddsDen": 4,
+   "EventId": 17370350,
+   "MarketId": 650092166,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Andres Andrade",
+   "CouponName": "Player 2",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  },
+  {
+   "Version": 54,
+   "Id": 2672935183,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 1.6,
+   "OddsDecimalDisplay": "1.60",
+   "OddsNum": 3,
+   "OddsDen": 5,
+   "EventId": 17368123,
+   "MarketId": 649916400,
+   "ColumnId": 0,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Michele Ribecai",
+   "CouponName": "Player 1",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 1,
+   "TeamCName": null
+  },
+  {
+   "Version": 54,
+   "Id": 2672935184,
+   "IsDisplay": true,
+   "IsActive": true,
+   "OddsDecimal": 2.2,
+   "OddsDecimalDisplay": "2.20",
+   "OddsNum": 6,
+   "OddsDen": 5,
+   "EventId": 17368123,
+   "MarketId": 649916400,
+   "ColumnId": 1,
+   "RowId": 0,
+   "GroupCName": null,
+   "BetName": "Jacopo Vasami",
+   "CouponName": "Player 2",
+   "HandicapDisplay": "",
+   "Handicap": null,
+   "SortIndex": 2,
+   "TeamCName": null
+  }
+ ],
+ "MethodName": "EventsWithMultipleMarkets",
+ "MethodResult": "OK",
+ "Success": true,
+ "CorrelationId": "8f6b2b9e-1d3c-4a5e-9b7f-0c1d2e3f4a5b"
+}

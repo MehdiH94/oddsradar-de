@@ -1,4 +1,9 @@
-# CoteRadar
+# OddsBlitzer
+
+Ce dépôt est OddsBlitzer (odds-blitzer.de, VPS 141.95.86.176). CoteRadar
+(cote-radar.fr, dépôt ouassimBenMosbah/coteRadar, VPS 141.94.244.108) est un
+autre projet : ne jamais s'y connecter, y déployer, ni modifier son dépôt ou
+ses secrets.
 
 Comparateur de cotes (value bets et surebets) : un worker qui scrape dix
 bookmakers et l'exchange, une API Express + SQLite, un dashboard React

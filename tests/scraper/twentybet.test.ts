@@ -21,6 +21,9 @@ const FOOTBALL = reply("football");
 const TENNIS = reply("tennis");
 const BASKETBALL = reply("basketball");
 const ICE_HOCKEY = reply("ice-hockey");
+// Its darts (sport 18), from the same list (18/10/2026): the first 6, their
+// winner only.
+const DARTS = reply("darts");
 // Its odds boosts of the moment (platform.20bet.com/api/v4/boosted-odds,
 // 18/10/2026): six, two of them on a 1X2.
 const BOOSTS: TwentybetBoost[] = JSON.parse(readFileSync(join(__dirname, "fixtures/20bet-boosts.json"), "utf8")).data;
@@ -74,6 +77,22 @@ describe("parseTwentybetEvents", () => {
     expect(basketball.sport).toBe("basketball");
     expect(basketball.competition).toBe("Euroleague");
     expect(basketball.odds.map((o) => o.price)).toEqual([1.32, 3.3]);
+  });
+
+  it("reads a darts match's winner, as darts", () => {
+    const [first] = parseTwentybetEvents(DARTS, "18");
+    expect(parseTwentybetEvents(DARTS, "18")).toHaveLength(6);
+    expect(first).toEqual({
+      sport: "fléchettes",
+      competition: "Modus Super Series. 2026",
+      startTime: "2026-10-19T08:40:00.000Z",
+      participants: ["Grant Sampson", "Archie Self"],
+      odds: [
+        { market: "Vainqueur du match", selection: "Grant Sampson", price: 5 },
+        { market: "Vainqueur du match", selection: "Archie Self", price: 1.1 },
+      ],
+      sourceId: expect.any(String),
+    });
   });
 
   it("leaves out the games already started, which the list may still give", () => {

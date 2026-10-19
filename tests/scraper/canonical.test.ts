@@ -138,6 +138,14 @@ describe("canonicalSport", () => {
           ["betclic", "judo"],
         ],
       ],
+      // Darts: LeoVegas.de's (Kambi) and 20bet's (18/10/2026).
+      [
+        "fléchettes",
+        [
+          ["leovegas", "darts"],
+          ["twentybet", "18"],
+        ],
+      ],
     ];
     for (const [canonical, names] of sports) {
       for (const [bookmaker, name] of names) expect(canonicalSport(bookmaker, name), `${bookmaker} ${name}`).toBe(canonical);

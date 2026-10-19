@@ -17,12 +17,12 @@ const START_TIME_TOLERANCE_MS = 10 * 60 * 1000;
 const SHIFTED_START_TIME_TOLERANCE_MS = 60 * 60 * 1000;
 
 // Sports whose start times the two bookmakers give hours apart: a fight is
-// timed by the card or by the bout, a tennis match by a guess at the order of
-// play. Real production cases (2026-09-28): Betclic 04:10 / Winamax 05:00 for
+// timed by the card or by the bout, a tennis or a darts match by a guess at
+// the order of play. Real production cases (2026-09-28): Betclic 04:10 / Winamax 05:00 for
 // the same tennis match, 02:00 / 12:00 for the same fight. The same two
 // opponents never meet twice in 12 hours, so near-identical names are enough
 // there -- but only near-identical: a shared surname (0.75) is not.
-const LOOSE_START_TIME_SPORTS = new Set(["tennis", "boxe", "mma"]);
+const LOOSE_START_TIME_SPORTS = new Set(["tennis", "boxe", "mma", "fléchettes"]);
 const LOOSE_START_TIME_TOLERANCE_MS = 12 * 60 * 60 * 1000;
 const LOOSE_START_TIME_MIN_SIMILARITY = 0.9;
 

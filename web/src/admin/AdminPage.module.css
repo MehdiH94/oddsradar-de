@@ -205,3 +205,11 @@
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
+
+/* A tester's message, on as many lines as it takes. */
+.table .message {
+  min-width: 18rem;
+  max-width: 36rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

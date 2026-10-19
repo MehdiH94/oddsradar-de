@@ -14,6 +14,7 @@ import { authRouter } from "../auth/routes";
 import { loadSession, requireAuth, requireRole } from "../auth/middleware";
 import { adminRouter } from "../auth/adminRoutes";
 import { preferencesRouter } from "../auth/preferencesRoutes";
+import { feedbackRouter } from "../auth/feedbackRoutes";
 import { walletRouter } from "../freebets/walletRoutes";
 import { conversionsRouter } from "../freebets/conversionsRoutes";
 import { createConversionsService } from "../freebets/conversions";
@@ -90,6 +91,8 @@ export function createServer(
   });
   app.use("/api", requireAuth);
   app.use("/api/preferences", preferencesRouter(auth));
+  // What a tester tells the team, read on the administration page.
+  app.use("/api/feedback", feedbackRouter(auth));
   // The freebets an account holds, at their exact path, and what the Freebets
   // page converts them into, next to it under /api/freebets.
   app.use("/api/freebets/wallet", walletRouter(auth));

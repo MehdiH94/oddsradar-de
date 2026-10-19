@@ -4,6 +4,7 @@ import { useAuth } from "../auth/useAuth";
 import { ADMIN_PATH } from "../routes";
 import { APP_NAME } from "../brand";
 import { Logo } from "./Logo";
+import { FeedbackButton } from "./FeedbackButton";
 import styles from "./AppHeader.module.css";
 
 const TIME_FORMAT = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit" });
@@ -59,6 +60,7 @@ export function AppHeader({
           >
             <RefreshCw size={18} aria-hidden="true" className={refreshing ? styles.spinning : undefined} />
           </button>
+          {authStatus === "authenticated" && <FeedbackButton className={styles.refresh} />}
           {user?.role === "admin" && (
             <a className={styles.refresh} href={ADMIN_PATH} aria-label="Administration">
               <ShieldCheck size={18} aria-hidden="true" />

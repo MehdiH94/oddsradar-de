@@ -696,6 +696,14 @@ lisent les utilisateurs : secret GitHub `DISCORD_ADMIN_WEBHOOK_URL` (le webhook
 d'un salon prive), que le deploiement de la production ecrit dans `.env`.
 Sans lui, la page `/admin` reste la seule source.
 
+### Retours des testeurs
+
+Le bouton « Send feedback » de l'en-tete (icone bulle, comptes connectes)
+envoie un message avec la page ou il a ete ecrit (`POST /api/feedback`, 10 par
+heure et par compte, 2000 caracteres au plus). Les messages sont gardes dans la
+base des comptes (table `feedback`, `src/auth/feedback.ts`) et listes dans
+`/admin`, onglet « Feedback », ou un administrateur les marque traites.
+
 ## Comptes et HTTPS
 
 Les cotes, les value bets, les surebets et les pages de match sont reserves

@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { AuthContext, type AuthValue } from "../auth/AuthContext";
 import { AdminPage } from "./AdminPage";
-import type { AdminBookmaker, AdminUser } from "./adminApi";
+import type { AdminBookmaker, AdminFeedback, AdminUser } from "./adminApi";
 
 const reply = (body: unknown, status = 200) => Promise.resolve({ ok: status < 400, status, json: () => Promise.resolve(body) });
 
@@ -147,5 +147,35 @@ describe("AdminPage", () => {
     expect(within(oddset).getByText("(830 matches)")).toBeInTheDocument();
     expect(within(screen.getByRole("row", { name: /Betway/ })).getByText("OK").className).toContain("active");
     expect(fetchMock).toHaveBeenCalledWith("/api/admin/bookmakers", undefined);
+  });
+
+  it("lists the testers' feedback in its own tab, and marks a message done", async () => {
+    const feedback: AdminFeedback[] = [
+      { id: 2, email: "ada@example.com", message: "Betway is missing tonight's NBA", page: "/odds?sport=basketball", createdAt: "2026-10-20T10:05:00.000Z", doneAt: null },
+      { id: 1, email: "bob@example.com", message: "Love it", page: null, createdAt: "2026-10-19T08:00:00.000Z", doneAt: "2026-10-19T09:00:00.000Z" },
+    ];
+    const fetchMock = vi.fn((url: string, init?: RequestInit) => {
+      if (init?.method === "PATCH") return reply({ feedback: { ...feedback[0], doneAt: "2026-10-20T11:00:00.000Z" } });
+      return reply(url.endsWith("/feedback") ? { feedback } : { users: [ME] });
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    render(
+      <AuthContext.Provider value={auth}>
+        <AdminPage />
+      </AuthContext.Provider>
+    );
+    fireEvent.click(screen.getByRole("tab", { name: "Feedback" }));
+
+    expect(await screen.findByText("1 open message, 2 in all.")).toBeInTheDocument();
+    const ada = screen.getByRole("row", { name: /ada@example.com/ });
+    expect(within(ada).getByText("Betway is missing tonight's NBA")).toBeInTheDocument();
+    expect(within(ada).getByText("/odds?sport=basketball")).toBeInTheDocument();
+    expect(within(screen.getByRole("row", { name: /bob@example.com/ })).getByRole("button", { name: /Reopen/ })).toBeInTheDocument();
+
+    fireEvent.click(within(ada).getByRole("button", { name: /Mark done/ }));
+    expect(await screen.findByText("0 open messages, 2 in all.")).toBeInTheDocument();
+    const patch = fetchMock.mock.calls.find(([, init]) => init?.method === "PATCH")!;
+    expect(patch[0]).toBe("/api/admin/feedback/2");
+    expect(JSON.parse(patch[1]!.body as string)).toEqual({ done: true });
   });
 });

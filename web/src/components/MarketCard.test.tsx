@@ -51,6 +51,20 @@ describe("MarketCard", () => {
     expect(chips.every((chip) => chip.className.includes("compact"))).toBe(true);
   });
 
+  it("shows a boosted price beside the bookmaker's price", () => {
+    const [psg, ...rest] = result.lines[0].outcomes;
+    const boosted: MarketDetail = {
+      ...result,
+      lines: [{ ...result.lines[0], outcomes: [{ ...psg, prices: { ...psg.prices, twentybet: 2.1 }, boosted: { twentybet: 2.35 } }, ...rest] }],
+    };
+    const { container } = render(<MarketCard market={boosted} bookmakers={["leovegas", "twentybet"]} />);
+    const chip = container.querySelector('[data-bookmaker="twentybet"]');
+    expect(text(chip)).toContain("2.10");
+    expect(text(chip)).toContain("2.35");
+    expect(chip?.querySelector('[title="Odds boost: 2.35"]')).not.toBeNull();
+    expect(container.querySelectorAll('[title^="Odds boost"]')).toHaveLength(1);
+  });
+
   it("leaves out an unticked bookmaker's value bet", () => {
     const { container } = render(<MarketCard market={result} bookmakers={["merkurbets"]} />);
     expect(container.querySelector("[data-value]")).toBeNull();

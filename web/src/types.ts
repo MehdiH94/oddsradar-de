@@ -133,7 +133,8 @@ export interface OutcomeDetail {
   // A player the exchange doesn't price: each bookmaker's price 30% or more
   // above the other's, by how much (not sent for now, like `basis`
   // "bookmaker").
-  suspects?: Record<string, number>;
+  suspects?: Record<string, number>;  // A bookmaker's boosted price (20bet's odds boost), shown beside its price.
+  boosted?: Record<string, number>;
 }
 
 export interface MarketLine {

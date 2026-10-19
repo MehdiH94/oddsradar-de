@@ -106,6 +106,33 @@ describe("getEventDetail", () => {
     ]);
   });
 
+  it("gives a boosted outcome its boosted price beside its price, never as it", () => {
+    // 20bet's boost on Werder Brême, as its listing stores it (RawOdds.boosted).
+    upsertCanonicalEvents(db, [
+      {
+        ...match,
+        byBookmaker: {
+          ...match.byBookmaker,
+          twentybet: [
+            { market: "1X2", selection: "1", price: 1.3 },
+            { market: "1X2", selection: "X", price: 5 },
+            { market: "1X2", selection: "2", price: 6.2, boosted: 6.9 },
+          ],
+        },
+      },
+    ]);
+
+    const [home, , away] = getEventDetail(db, "bvb")!.sections[0].markets[0].lines[0].outcomes;
+
+    expect(away.prices).toEqual({ betclic: 6.5, twentybet: 6.2, winamax: 5.6 });
+    expect(away.boosted).toEqual({ twentybet: 6.9 });
+    expect(away.best).toEqual(["betclic"]);
+    expect(home.boosted).toBeUndefined();
+    // Not ticked, its boost goes with its price.
+    const unticked = getEventDetail(db, "bvb", { bookmakers: ["betclic", "winamax"] })!;
+    expect(unticked.sections[0].markets[0].lines[0].outcomes[2].boosted).toBeUndefined();
+  });
+
   it("puts over/under lines of one market in one table, and a TRJ on each line", () => {
     save(db, "winamax", [
       { market: "total_goals|2.5", selection: "over", price: 1.3 },

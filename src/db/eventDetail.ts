@@ -52,6 +52,9 @@ export interface OutcomeDetail {
   fairIsCeiling?: true;
   edges?: Record<string, number>;
   suspects?: Record<string, number>;
+  // A bookmaker's boosted price of it (20bet's odds boost, RawOdds.boosted),
+  // shown beside its price and never counted as it.
+  boosted?: Record<string, number>;
 }
 
 // What a market's outcome is worth, given its ticked bookmakers' prices.
@@ -107,6 +110,7 @@ interface Row {
   market: string;
   selection: string;
   price: number;
+  boosted: number | null;
 }
 
 function bestOf(prices: Map<string, number>): string[] {
@@ -121,7 +125,13 @@ function sectionOf(parsed: ParsedMarketKey, sport: string): SectionKey {
   return mainSectionOf(sport);
 }
 
-function outcomesOf(parsed: ParsedMarketKey, grid: Grid, participants: string[], valuation?: Valuation): OutcomeDetail[] {
+function outcomesOf(
+  parsed: ParsedMarketKey,
+  grid: Grid,
+  participants: string[],
+  valuation?: Valuation,
+  boosts?: ReadonlyMap<string, Map<string, number>>
+): OutcomeDetail[] {
   const line = parsed.kind === "family" ? parsed.line : undefined;
   const comparable = (key: string) => parsed.kind !== "family" || !isRemainder(key) || sameOutcomes(grid);
   const outcomes = [...grid].map(([key, prices]) => {
@@ -135,6 +145,7 @@ function outcomesOf(parsed: ParsedMarketKey, grid: Grid, participants: string[],
             : key,
       prices: Object.fromEntries(prices),
       best: comparable(key) ? bestOf(prices) : [],
+      ...(boosts?.get(key)?.size ? { boosted: Object.fromEntries(boosts.get(key)!) } : {}),
     };
     return { ...outcome, ...valuation?.(key, outcome.prices) };
   });
@@ -174,10 +185,10 @@ export function getEventDetail(
   // comes last and is the one kept.
   const rows = db
     .prepare(
-      `SELECT bookmaker_id AS bookmakerId, market, selection, price, 1 AS fromListing FROM event_bookmaker_odds
+      `SELECT bookmaker_id AS bookmakerId, market, selection, price, boosted, 1 AS fromListing FROM event_bookmaker_odds
        WHERE event_id = @id AND scraped_at >= @oddsSince
        UNION ALL
-       SELECT bookmaker_id AS bookmakerId, market, selection, price, 0 AS fromListing FROM event_market_odds
+       SELECT bookmaker_id AS bookmakerId, market, selection, price, NULL AS boosted, 0 AS fromListing FROM event_market_odds
        WHERE event_id = @id AND scraped_at >= @marketsSince
        ORDER BY bookmakerId, fromListing`
     )
@@ -186,6 +197,9 @@ export function getEventDetail(
   if (rows.length === 0) return null;
 
   const grids = new Map<string, Grid>();
+  // The boosted prices, by market, outcome and bookmaker: the listing's only,
+  // which comes last for a bookmaker giving an outcome twice.
+  const boosts = new Map<string, Map<string, Map<string, number>>>();
   for (const row of rows) {
     if (opts.bookmakers && !opts.bookmakers.includes(row.bookmakerId)) continue;
     let grid = grids.get(row.market);
@@ -193,6 +207,14 @@ export function getEventDetail(
     let prices = grid.get(row.selection);
     if (!prices) grid.set(row.selection, (prices = new Map()));
     prices.set(row.bookmakerId, row.price);
+    const boosted = boosts.get(row.market)?.get(row.selection);
+    if (row.boosted === null) boosted?.delete(row.bookmakerId);
+    else {
+      if (!boosts.has(row.market)) boosts.set(row.market, new Map());
+      const bySelection = boosts.get(row.market)!;
+      if (!bySelection.has(row.selection)) bySelection.set(row.selection, new Map());
+      bySelection.get(row.selection)!.set(row.bookmakerId, row.boosted);
+    }
   }
 
   // What the outcomes are worth: the reference's fair odds of the 1X2 (the
@@ -271,7 +293,7 @@ export function getEventDetail(
     const line: MarketLine = {
       line: parsed.kind === "family" ? (parsed.line ?? null) : null,
       payoutRate,
-      outcomes: outcomesOf(parsed, grid, participants, valuationOf(key)),
+      outcomes: outcomesOf(parsed, grid, participants, valuationOf(key), boosts.get(key)),
     };
     const shared = sharesLines(parsed, grid);
     // A player's statistic is a card of its own, its lines in the table.

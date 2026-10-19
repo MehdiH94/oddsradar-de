@@ -78,7 +78,7 @@ describe("HomePage", () => {
     stubApi(LIVE);
     render(<HomePage />);
     const list = screen.getByRole("list", { name: "Bookmakers compared" });
-    expect(within(list).getAllByRole("listitem").map((item) => item.textContent)).toEqual(["LeoVegas", "Merkur Bets", "20bet", "Admiralbet", "Tipico", "Winamax"]);
+    expect(within(list).getAllByRole("listitem").map((item) => item.textContent)).toEqual(["LeoVegas", "Merkur Bets", "20bet", "Admiralbet", "bet-at-home", "Tipico", "Winamax"]);
   });
 
   it("asks the API for the public totals only, and shows its figures", async () => {
@@ -91,7 +91,7 @@ describe("HomePage", () => {
     expect(fetchMock.mock.calls.map(([url]) => url)).toEqual(["/api/public/home"]);
 
     const tiles = within(live).getAllByRole("listitem").slice(0, 3);
-    expect(tiles.map((tile) => tile.textContent)).toEqual(["312Matches tracked", "6Bookmakers compared", "3Sports"]);
+    expect(tiles.map((tile) => tile.textContent)).toEqual(["312Matches tracked", "7Bookmakers compared", "3Sports"]);
     expect(within(live).getByText(/Figures as of/)).toBeInTheDocument();
   });
 

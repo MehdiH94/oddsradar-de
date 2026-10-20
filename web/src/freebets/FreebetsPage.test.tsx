@@ -331,7 +331,7 @@ describe("FreebetsPage", () => {
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
       fails = true;
-      fireEvent.click(screen.getByRole("button", { name: "Refresh the odds" }));
+      fireEvent.click(screen.getByRole("button", { name: "Quoten aktualisieren" }));
       await waitFor(() => expect(calls.asked.length).toBe(2));
       expect(await screen.findByRole("alert")).toHaveTextContent("The conversions could not be refreshed: Busy");
       expect(screen.getByRole("heading", { name: /Top 3/ })).toBeInTheDocument();
@@ -637,7 +637,7 @@ describe("FreebetsPage", () => {
       stubApi();
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
-      expect(await screen.findByText(/Updated at/)).toBeInTheDocument();
+      expect(await screen.findByText(/Aktualisiert um/)).toBeInTheDocument();
     });
 
     it("lays out for a phone, with the bar at the bottom and the bets one under the other", async () => {

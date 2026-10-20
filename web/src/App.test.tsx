@@ -1149,7 +1149,7 @@ describe("App", () => {
       await waitFor(() => expect(screen.getByText("results", { exact: false })).toHaveTextContent("50 results"));
 
       fail = true;
-      fireEvent.click(screen.getByRole("button", { name: "Refresh the odds" }));
+      fireEvent.click(screen.getByRole("button", { name: "Quoten aktualisieren" }));
 
       await waitFor(() => expect(screen.getByRole("alert")).toHaveTextContent(/the ones shown are from \d\d:\d\d/));
       expect(screen.getByText("results", { exact: false })).toHaveTextContent("50 results");
@@ -1197,7 +1197,7 @@ describe("App", () => {
       vi.stubGlobal("fetch", vi.fn(() => reply([])));
       render(<App />);
 
-      expect(screen.getByRole("contentinfo")).toHaveTextContent("Gambling is for adults only");
+      expect(screen.getByRole("contentinfo")).toHaveTextContent("Glücksspiel nur für Erwachsene");
     });
   });
 
@@ -1229,11 +1229,11 @@ describe("App", () => {
       vi.spyOn(console, "error").mockImplementation(() => {});
       render(<App />);
 
-      await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent(/Updated at \d\d:\d\d/));
+      await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent(/Aktualisiert um \d\d:\d\d/));
 
       fail = true;
-      fireEvent.click(screen.getByRole("button", { name: "Refresh the odds" }));
-      await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent("Refresh failed"));
+      fireEvent.click(screen.getByRole("button", { name: "Quoten aktualisieren" }));
+      await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent("Aktualisierung fehlgeschlagen"));
     });
 
     it("fetches the same page again at once when asked to refresh", async () => {
@@ -1242,9 +1242,9 @@ describe("App", () => {
       render(<App />);
       const pageTwo = "/api/events?sport=football&sort=trj&kind=all&page=2";
       await waitFor(() => expect(fetchMock).toHaveBeenCalledWith(pageTwo));
-      await waitFor(() => expect(screen.getByRole("button", { name: "Refresh the odds" })).toBeEnabled());
+      await waitFor(() => expect(screen.getByRole("button", { name: "Quoten aktualisieren" })).toBeEnabled());
 
-      fireEvent.click(screen.getByRole("button", { name: "Refresh the odds" }));
+      fireEvent.click(screen.getByRole("button", { name: "Quoten aktualisieren" }));
 
       await waitFor(() => expect(fetchMock.mock.calls.filter(([url]) => url === pageTwo)).toHaveLength(2));
     });

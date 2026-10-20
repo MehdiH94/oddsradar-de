@@ -7,24 +7,24 @@ describe("AppHeader", () => {
   it("says when the odds were last updated", () => {
     render(<AppHeader lastUpdated={new Date(2026, 8, 29, 10, 42)} refreshing={false} failed={false} onRefresh={() => {}} />);
 
-    expect(screen.getByRole("status")).toHaveTextContent("Updated at 10:42");
+    expect(screen.getByRole("status")).toHaveTextContent("Aktualisiert um 10:42");
   });
 
   it("says so when the last update failed", () => {
     render(<AppHeader lastUpdated={new Date(2026, 8, 29, 10, 42)} refreshing={false} failed onRefresh={() => {}} />);
 
-    expect(screen.getByRole("status")).toHaveTextContent("Refresh failed");
+    expect(screen.getByRole("status")).toHaveTextContent("Aktualisierung fehlgeschlagen");
   });
 
   it("asks for fresh odds, except while some are already on their way", () => {
     const onRefresh = vi.fn();
     const { rerender } = render(<AppHeader lastUpdated={null} refreshing={false} failed={false} onRefresh={onRefresh} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Refresh the odds" }));
+    fireEvent.click(screen.getByRole("button", { name: "Quoten aktualisieren" }));
     expect(onRefresh).toHaveBeenCalledTimes(1);
 
     rerender(<AppHeader lastUpdated={null} refreshing failed={false} onRefresh={onRefresh} />);
-    expect(screen.getByRole("button", { name: "Refresh the odds" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Quoten aktualisieren" })).toBeDisabled();
   });
 
   describe("the administration link", () => {
@@ -48,10 +48,10 @@ describe("AppHeader", () => {
 
     it("offers the feedback button to a signed-in account, not to a visitor", () => {
       const { unmount } = renderAs(withRole("user"));
-      expect(screen.getByRole("button", { name: "Send feedback" })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Feedback senden" })).toBeInTheDocument();
       unmount();
       render(<AppHeader lastUpdated={null} refreshing={false} failed={false} onRefresh={() => {}} />);
-      expect(screen.queryByRole("button", { name: "Send feedback" })).not.toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: "Feedback senden" })).not.toBeInTheDocument();
     });
 
     it("is not offered to an ordinary account, nor to a visitor", () => {

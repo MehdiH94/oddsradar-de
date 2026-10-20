@@ -50,7 +50,7 @@ test("an admin lists the accounts, blocks one that is then locked out, and makes
   // Signed out at once, and refused at the login.
   expect((await otherPage.request.get("/api/events")).status()).toBe(401);
   await logIn(otherPage, blocked, NEW_PASSWORD);
-  await expect(otherPage.getByRole("alert")).toContainText("This account is disabled");
+  await expect(otherPage.getByRole("alert")).toContainText("Dieses Konto ist gesperrt");
   await other.close();
 
   await row(promoted).getByRole("button", { name: /Make admin/ }).click();

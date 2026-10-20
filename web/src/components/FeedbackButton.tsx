@@ -25,7 +25,7 @@ export function FeedbackButton({ className }: { className?: string }) {
     event.preventDefault();
     const text = message.trim();
     if (!text) {
-      setError("Write a message first.");
+      setError("Schreib zuerst eine Nachricht.");
       return;
     }
     setSending(true);
@@ -42,21 +42,21 @@ export function FeedbackButton({ className }: { className?: string }) {
 
   return (
     <>
-      <button type="button" className={className} onClick={show} aria-label="Send feedback" aria-haspopup="dialog">
+      <button type="button" className={className} onClick={show} aria-label="Feedback senden" aria-haspopup="dialog">
         <MessageSquare size={18} aria-hidden="true" />
       </button>
-      <Sheet id="feedback-sheet" title="Send feedback" open={open} onClose={() => setOpen(false)}>
+      <Sheet id="feedback-sheet" title="Feedback senden" open={open} onClose={() => setOpen(false)}>
         {sent ? (
           <div className={styles.thanks}>
-            <p role="status">Thank you! Your message has been sent to the team.</p>
+            <p role="status">Danke! Deine Nachricht wurde an das Team geschickt.</p>
             <button type="button" className={styles.send} onClick={() => setOpen(false)}>
-              Close
+              Fertig
             </button>
           </div>
         ) : (
           <form className={styles.form} onSubmit={(event) => void submit(event)}>
             <label htmlFor={fieldId} className={styles.label}>
-              A bug, a missing bookmaker or match, an idea: tell us.
+              Ein Fehler, ein fehlender Buchmacher oder ein fehlendes Spiel, eine Idee: Sag es uns.
             </label>
             <textarea
               id={fieldId}
@@ -73,7 +73,7 @@ export function FeedbackButton({ className }: { className?: string }) {
               </p>
             )}
             <button type="submit" className={styles.send} disabled={sending}>
-              {sending ? "Sending…" : "Send"}
+              {sending ? "Wird gesendet…" : "Senden"}
             </button>
           </form>
         )}

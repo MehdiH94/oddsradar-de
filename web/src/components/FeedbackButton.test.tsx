@@ -11,8 +11,8 @@ afterEach(() => {
 
 function open() {
   render(<FeedbackButton />);
-  fireEvent.click(screen.getByRole("button", { name: "Send feedback" }));
-  return screen.getByRole("dialog", { name: "Send feedback" });
+  fireEvent.click(screen.getByRole("button", { name: "Feedback senden" }));
+  return screen.getByRole("dialog", { name: "Feedback senden" });
 }
 
 describe("FeedbackButton", () => {
@@ -23,14 +23,14 @@ describe("FeedbackButton", () => {
     open();
 
     fireEvent.change(screen.getByRole("textbox"), { target: { value: "  Bet-at-home is missing  " } });
-    fireEvent.click(screen.getByRole("button", { name: "Send" }));
+    fireEvent.click(screen.getByRole("button", { name: "Senden" }));
 
-    expect(await screen.findByRole("status")).toHaveTextContent("Thank you!");
+    expect(await screen.findByRole("status")).toHaveTextContent("Danke!");
     expect(fetchMock).toHaveBeenCalledWith("/api/feedback", expect.objectContaining({ method: "POST" }));
     const [, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
     expect(JSON.parse(init.body as string)).toEqual({ message: "Bet-at-home is missing", page: "/odds?sport=tennis" });
 
-    fireEvent.click(screen.getByRole("button", { name: "Close" }));
+    fireEvent.click(screen.getByRole("button", { name: "Fertig" }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
@@ -38,17 +38,17 @@ describe("FeedbackButton", () => {
     const fetchMock = vi.fn();
     vi.stubGlobal("fetch", fetchMock);
     open();
-    fireEvent.submit(screen.getByRole("button", { name: "Send" }).closest("form")!);
-    expect(screen.getByRole("alert")).toHaveTextContent("Write a message first.");
+    fireEvent.submit(screen.getByRole("button", { name: "Senden" }).closest("form")!);
+    expect(screen.getByRole("alert")).toHaveTextContent("Schreib zuerst eine Nachricht.");
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("shows the server's refusal and keeps the message to try again", async () => {
-    vi.stubGlobal("fetch", vi.fn(() => reply({ message: "Too many messages. Try again later." }, 429)));
+    vi.stubGlobal("fetch", vi.fn(() => reply({ message: "Zu viele Nachrichten. Versuch es später noch einmal." }, 429)));
     open();
     fireEvent.change(screen.getByRole("textbox"), { target: { value: "Again" } });
-    fireEvent.click(screen.getByRole("button", { name: "Send" }));
-    expect(await screen.findByRole("alert")).toHaveTextContent("Too many messages. Try again later.");
+    fireEvent.click(screen.getByRole("button", { name: "Senden" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Zu viele Nachrichten. Versuch es später noch einmal.");
     expect(screen.getByRole("textbox")).toHaveValue("Again");
   });
 });

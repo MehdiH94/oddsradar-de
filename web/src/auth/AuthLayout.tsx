@@ -14,7 +14,7 @@ export function AuthLayout({ title, intro, children, footer }: { title: string; 
       <GamblingBanner />
       <div className={styles.page}>
         <header className={styles.header}>
-          <a className={styles.brand} href={HOME_PATH} aria-label={`${APP_NAME}, home`}>
+          <a className={styles.brand} href={HOME_PATH} aria-label={`${APP_NAME}, Startseite`}>
             <Logo className={styles.logo} />
             <span className={styles.name}>{APP_NAME}</span>
           </a>

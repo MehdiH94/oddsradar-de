@@ -7,7 +7,7 @@ import { Logo } from "./Logo";
 import { FeedbackButton } from "./FeedbackButton";
 import styles from "./AppHeader.module.css";
 
-const TIME_FORMAT = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit" });
+const TIME_FORMAT = new Intl.DateTimeFormat("de-DE", { hour: "2-digit", minute: "2-digit" });
 
 // The brand, and how fresh the odds on screen are: the time of the last
 // answer from the API, a spinning icon while one is on its way, a warning when
@@ -28,12 +28,12 @@ export function AppHeader({
   children?: ReactNode;
 }) {
   const { status: authStatus, user, logout } = useAuth();
-  let status: ReactNode = "Loading the odds…";
-  if (failed) status = "Refresh failed";
+  let status: ReactNode = "Quoten werden geladen…";
+  if (failed) status = "Aktualisierung fehlgeschlagen";
   else if (lastUpdated)
     status = (
       <>
-        <span className={styles.statusLead}>Updated at </span>
+        <span className={styles.statusLead}>Aktualisiert um </span>
         <span className="num">{TIME_FORMAT.format(lastUpdated)}</span>
       </>
     );
@@ -41,7 +41,7 @@ export function AppHeader({
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <a className={styles.brand} href="/" aria-label={`${APP_NAME}, home`}>
+        <a className={styles.brand} href="/" aria-label={`${APP_NAME}, Startseite`}>
           <Logo className={styles.logo} />
           <span className={styles.name}>{APP_NAME}</span>
         </a>
@@ -56,7 +56,7 @@ export function AppHeader({
             className={styles.refresh}
             onClick={onRefresh}
             disabled={refreshing}
-            aria-label="Refresh the odds"
+            aria-label="Quoten aktualisieren"
           >
             <RefreshCw size={18} aria-hidden="true" className={refreshing ? styles.spinning : undefined} />
           </button>
@@ -67,7 +67,7 @@ export function AppHeader({
             </a>
           )}
           {authStatus === "authenticated" && (
-            <button type="button" className={styles.refresh} onClick={() => void logout()} aria-label="Log out">
+            <button type="button" className={styles.refresh} onClick={() => void logout()} aria-label="Abmelden">
               <LogOut size={18} aria-hidden="true" />
             </button>
           )}

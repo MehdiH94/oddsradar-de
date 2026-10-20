@@ -12,28 +12,28 @@ function SaveStatus({ wallet }: { wallet: WalletState }) {
     case "saving":
       return (
         <>
-          <LoaderCircle size={16} aria-hidden="true" className={styles.spinning} /> Saving…
+          <LoaderCircle size={16} aria-hidden="true" className={styles.spinning} /> Wird gespeichert…
         </>
       );
     case "invalid":
       return (
         <>
-          <TriangleAlert size={16} aria-hidden="true" /> Fix the amounts flagged to save them
+          <TriangleAlert size={16} aria-hidden="true" /> Korrigiere die markierten Beträge, um sie zu speichern
         </>
       );
     case "failed":
       return (
         <>
-          <TriangleAlert size={16} aria-hidden="true" /> Saving failed.{" "}
+          <TriangleAlert size={16} aria-hidden="true" /> Speichern fehlgeschlagen.{" "}
           <button type="button" className={styles.link} onClick={wallet.retry}>
-            Try again
+            Erneut versuchen
           </button>
         </>
       );
     default:
       return (
         <>
-          <Check size={16} aria-hidden="true" /> Saved to your account
+          <Check size={16} aria-hidden="true" /> In deinem Konto gespeichert
         </>
       );
   }
@@ -44,20 +44,20 @@ function SaveStatus({ wallet }: { wallet: WalletState }) {
 export function WalletCard({ wallet }: { wallet: WalletState }) {
   const ready = wallet.status === "ready";
   return (
-    <Card id="wallet-heading" title="My freebets" aside={ready ? <span role="status" className={styles.save}><SaveStatus wallet={wallet} /></span> : undefined}>
+    <Card id="wallet-heading" title="Meine Freebets" aside={ready ? <span role="status" className={styles.save}><SaveStatus wallet={wallet} /></span> : undefined}>
       <p className={styles.hint}>
-        Enter the freebets (FB) you have left at each bookmaker. 1 FB = €1. You will find them on all your devices.
+        Trag die Freebets (FB) ein, die du bei jedem Buchmacher noch hast. 1 FB = 1 €. Du findest sie auf all deinen Geräten wieder.
       </p>
       {wallet.status === "loading" && (
         <p className={styles.hint} aria-busy="true">
-          Loading your freebets…
+          Deine Freebets werden geladen…
         </p>
       )}
       {wallet.status === "failed" && (
         <p role="alert" className={styles.error}>
-          <TriangleAlert size={16} aria-hidden="true" /> Your freebets could not be loaded.{" "}
+          <TriangleAlert size={16} aria-hidden="true" /> Deine Freebets konnten nicht geladen werden.{" "}
           <button type="button" className={styles.link} onClick={wallet.retry}>
-            Try again
+            Erneut versuchen
           </button>
         </p>
       )}
@@ -81,7 +81,7 @@ export function WalletCard({ wallet }: { wallet: WalletState }) {
                         autoComplete="off"
                         value={wallet.texts[id]}
                         placeholder="0"
-                        aria-label={`${name} freebets in euros`}
+                        aria-label={`Freebets bei ${name} in Euro`}
                         aria-invalid={bad}
                         aria-describedby={bad ? `wallet-error-${id}` : undefined}
                         onChange={(event) => wallet.setText(id, event.target.value)}
@@ -92,7 +92,7 @@ export function WalletCard({ wallet }: { wallet: WalletState }) {
                   </label>
                   {bad && (
                     <p id={`wallet-error-${id}`} className={styles.invalid}>
-                      Invalid amount: a number from 0 to {MAX_FREEBET.toLocaleString("en-GB")}.
+                      Ungültiger Betrag: eine Zahl von 0 bis {MAX_FREEBET.toLocaleString("de-DE")}.
                     </p>
                   )}
                 </div>
@@ -100,7 +100,7 @@ export function WalletCard({ wallet }: { wallet: WalletState }) {
             })}
           </div>
           <p className={styles.total}>
-            Total to convert <b className="num">{formatFb(wallet.total)} FB</b>
+            Insgesamt umzuwandeln <b className="num">{formatFb(wallet.total)} FB</b>
           </p>
         </>
       )}

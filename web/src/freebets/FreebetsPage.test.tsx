@@ -71,7 +71,7 @@ function renderPage() {
   );
 }
 
-const fb = (name: string) => screen.getByRole("textbox", { name: `${name} freebets in euros` });
+const fb = (name: string) => screen.getByRole("textbox", { name: `Freebets bei ${name} in Euro` });
 const lastAsked = (calls: { asked: string[] }) => calls.asked[calls.asked.length - 1];
 
 describe("FreebetsPage", () => {
@@ -88,13 +88,13 @@ describe("FreebetsPage", () => {
       renderPage();
       expect(await screen.findByDisplayValue("30")).toBeInTheDocument();
       expect(fb("LeoVegas")).toHaveValue("30");
-      expect(fb("Merkur Bets")).toHaveValue("25.5");
+      expect(fb("Merkur Bets")).toHaveValue("25,5");
       expect(fb("20bet")).toHaveValue("");
       expect(fb("Admiralbet")).toHaveValue("");
       expect(fb("Tipico")).toHaveValue("");
       expect(screen.getAllByRole("textbox")).toHaveLength(9);
-      expect(screen.getByText(/Total to convert/)).toHaveTextContent("55.50 FB");
-      expect(await screen.findByText("Saved to your account")).toBeInTheDocument();
+      expect(screen.getByText(/Insgesamt umzuwandeln/)).toHaveTextContent("55,50 FB");
+      expect(await screen.findByText("In deinem Konto gespeichert")).toBeInTheDocument();
     });
 
     it("says when the wallet cannot be read, and reads it again", async () => {
@@ -105,9 +105,9 @@ describe("FreebetsPage", () => {
         return reply(BOOKMAKERS_ANSWER);
       });
       renderPage();
-      expect(await screen.findByText(/Your freebets could not be loaded/)).toBeInTheDocument();
+      expect(await screen.findByText(/Deine Freebets konnten nicht geladen werden/)).toBeInTheDocument();
       ok = true;
-      fireEvent.click(screen.getByRole("button", { name: "Try again" }));
+      fireEvent.click(screen.getByRole("button", { name: "Erneut versuchen" }));
       expect(await screen.findByDisplayValue("5")).toBeInTheDocument();
     });
 
@@ -118,14 +118,14 @@ describe("FreebetsPage", () => {
       await waitFor(() => expect(calls.asked.length).toBe(1));
 
       fireEvent.change(fb("LeoVegas"), { target: { value: "40.5" } });
-      expect(screen.getByText("Saving…")).toBeInTheDocument();
+      expect(screen.getByText("Wird gespeichert…")).toBeInTheDocument();
       // Nothing is sent while the visitor is still typing.
       expect(calls.saved).toEqual([]);
       await waitFor(() => expect(calls.saved).toEqual([{ leovegas: 40.5, merkurbets: 25.5 }]), { timeout: 3000 });
-      expect(await screen.findByText("Saved to your account")).toBeInTheDocument();
+      expect(await screen.findByText("In deinem Konto gespeichert")).toBeInTheDocument();
       // The server converts what it holds: asked again once it holds the new wallet.
       await waitFor(() => expect(calls.asked.length).toBe(2), { timeout: 3000 });
-      expect(screen.getByText(/Total to convert/)).toHaveTextContent("66.00 FB");
+      expect(screen.getByText(/Insgesamt umzuwandeln/)).toHaveTextContent("66,00 FB");
     });
 
     it("sends the last of several quick changes only, and a cleared field as no freebets", async () => {
@@ -146,8 +146,8 @@ describe("FreebetsPage", () => {
       await screen.findByDisplayValue("30");
       fireEvent.change(fb("LeoVegas"), { target: { value: "douze" } });
       expect(fb("LeoVegas")).toHaveAttribute("aria-invalid", "true");
-      expect(screen.getByText(/Invalid amount/)).toBeInTheDocument();
-      expect(screen.getByText(/Fix the amounts flagged/)).toBeInTheDocument();
+      expect(screen.getByText(/Ungültiger Betrag/)).toBeInTheDocument();
+      expect(screen.getByText(/Korrigiere die markierten Beträge/)).toBeInTheDocument();
       await new Promise((resolve) => setTimeout(resolve, 1000));
       expect(calls.saved).toEqual([]);
       fireEvent.change(fb("LeoVegas"), { target: { value: "12" } });
@@ -160,12 +160,12 @@ describe("FreebetsPage", () => {
       renderPage();
       await screen.findByDisplayValue("30");
       fireEvent.change(fb("LeoVegas"), { target: { value: "8" } });
-      expect(await screen.findByText(/Saving failed/, undefined, { timeout: 3000 })).toBeInTheDocument();
+      expect(await screen.findByText(/Speichern fehlgeschlagen/, undefined, { timeout: 3000 })).toBeInTheDocument();
       expect(fb("LeoVegas")).toHaveValue("8");
       api.saveFails = false;
-      fireEvent.click(screen.getByRole("button", { name: "Try again" }));
+      fireEvent.click(screen.getByRole("button", { name: "Erneut versuchen" }));
       await waitFor(() => expect(calls.saved).toEqual([{ leovegas: 8, merkurbets: 25.5 }]), { timeout: 3000 });
-      expect(await screen.findByText("Saved to your account")).toBeInTheDocument();
+      expect(await screen.findByText("In deinem Konto gespeichert")).toBeInTheDocument();
     });
 
     it("writes a field back as an amount when it is left", async () => {
@@ -174,7 +174,7 @@ describe("FreebetsPage", () => {
       await screen.findByDisplayValue("30");
       fireEvent.change(fb("LeoVegas"), { target: { value: "12.50" } });
       fireEvent.blur(fb("LeoVegas"));
-      expect(fb("LeoVegas")).toHaveValue("12.5");
+      expect(fb("LeoVegas")).toHaveValue("12,5");
     });
   });
 
@@ -182,65 +182,65 @@ describe("FreebetsPage", () => {
     it("asks for the single bets first, and shows the three plans with the first one's detail and bets", async () => {
       const { calls } = stubApi();
       renderPage();
-      expect(await screen.findByRole("heading", { name: "Top 3 conversions · single bet" })).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: "Top-3-Umwandlungen · Einzelwette" })).toBeInTheDocument();
       expect(calls.asked).toEqual(["/api/freebets/conversions?mode=bookmakers&legs=1"]);
 
-      const cards = within(screen.getByRole("heading", { name: /Top 3/ }).closest("section")!).getAllByRole("button");
+      const cards = within(screen.getByRole("heading", { name: /Top-3/ }).closest("section")!).getAllByRole("button");
       expect(cards).toHaveLength(3);
       expect(cards[0]).toHaveAttribute("aria-pressed", "true");
-      expect(cards[0]).toHaveTextContent("59.5%");
-      expect(cards[0]).toHaveTextContent("€31.20");
-      expect(cards[0]).toHaveTextContent("Best rate");
+      expect(cards[0]).toHaveTextContent("59,5 %");
+      expect(cards[0]).toHaveTextContent("31,20 €");
+      expect(cards[0]).toHaveTextContent("Beste Rate");
       expect(cards[1]).toHaveTextContent("Lyon – Lille");
 
-      expect(screen.getByRole("heading", { name: "Conversion 1 · the 3 bets to place" })).toBeInTheDocument();
-      expect(screen.getByText(/Indicative prices read at/)).toHaveTextContent(/check before placing/);
+      expect(screen.getByRole("heading", { name: "Umwandlung 1 · 3 Wetten platzieren" })).toBeInTheDocument();
+      expect(screen.getByText(/Unverbindliche Quoten von/)).toHaveTextContent(/vor dem Platzieren prüfen/);
       // The figures, in the order of the page.
       const kpis = screen.getAllByRole("term").map((term) => term.textContent);
-      expect(kpis).toEqual(["Conversion rate", "Guaranteed cash return", "FB converted", "Bets to place"]);
-      expect(screen.getByText("52.40 / 55.50")).toBeInTheDocument();
-      expect(screen.getByText("3.10 FB left")).toBeInTheDocument();
-      expect(screen.getByText("2 bookmakers, €0 staked")).toBeInTheDocument();
+      expect(kpis).toEqual(["Umwandlungsrate", "Garantierte Auszahlung", "Umgewandelte FB", "Zu platzierende Wetten"]);
+      expect(screen.getByText("52,40 / 55,50")).toBeInTheDocument();
+      expect(screen.getByText("3,10 FB übrig")).toBeInTheDocument();
+      expect(screen.getByText("2 Buchmacher, 0,00 € eigener Einsatz")).toBeInTheDocument();
 
       // Where to place them.
       const leovegas = within(screen.getByRole("article", { name: "LeoVegas" }));
       expect(leovegas.getByText("Paris SG")).toBeInTheDocument();
-      expect(leovegas.getByText("12.40 FB")).toBeInTheDocument();
-      expect(leovegas.getByText("28.40")).toBeInTheDocument();
+      expect(leovegas.getByText("12,40 FB")).toBeInTheDocument();
+      expect(leovegas.getByText("28,40")).toBeInTheDocument();
       const merkurbets = within(screen.getByRole("article", { name: "Merkur Bets" }));
-      expect(merkurbets.getByText("24.00 FB")).toBeInTheDocument();
-      expect(screen.getByText(/You have/)).toHaveTextContent("3.10 FB");
+      expect(merkurbets.getByText("24,00 FB")).toBeInTheDocument();
+      expect(screen.getByText(/Dir bleiben/)).toHaveTextContent("3,10 FB");
     });
 
     it("shows another plan when its card is chosen, and goes back to the first when the settings change", async () => {
       stubApi();
       renderPage();
-      await screen.findByRole("heading", { name: /Top 3/ });
+      await screen.findByRole("heading", { name: /Top-3/ });
       fireEvent.click(screen.getByRole("button", { name: /Lyon – Lille/ }));
-      expect(await screen.findByRole("heading", { name: "Conversion 2 · the 3 bets to place" })).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: "Umwandlung 2 · 3 Wetten platzieren" })).toBeInTheDocument();
       expect(screen.getByRole("button", { name: /Lyon – Lille/ })).toHaveAttribute("aria-pressed", "true");
-      expect(screen.getByText(/The search was cut short for this plan/)).toBeInTheDocument();
-      fireEvent.click(screen.getByRole("radio", { name: "2-match accumulator" }));
-      await waitFor(() => expect(screen.getByRole("heading", { name: "Conversion 1 · the 3 bets to place" })).toBeInTheDocument());
+      expect(screen.getByText(/Die Suche wurde für diesen Plan abgekürzt/)).toBeInTheDocument();
+      fireEvent.click(screen.getByRole("radio", { name: "2er-Kombiwette" }));
+      await waitFor(() => expect(screen.getByRole("heading", { name: "Umwandlung 1 · 3 Wetten platzieren" })).toBeInTheDocument());
     });
 
     it("asks for the format chosen, and keeps it in the address", async () => {
       const { calls } = stubApi();
       renderPage();
-      await screen.findByRole("heading", { name: /Top 3/ });
-      fireEvent.click(screen.getByRole("radio", { name: "3-match accumulator" }));
+      await screen.findByRole("heading", { name: /Top-3/ });
+      fireEvent.click(screen.getByRole("radio", { name: "3er-Kombiwette" }));
       await waitFor(() => expect(lastAsked(calls)).toBe("/api/freebets/conversions?mode=bookmakers&legs=3"));
       expect(window.location.search).toBe("?legs=3");
-      expect(await screen.findByRole("heading", { name: "Top 3 conversions · 3-match accumulator" })).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: "Top-3-Umwandlungen · 3er-Kombiwette" })).toBeInTheDocument();
     });
 
     it("opens on the settings of the address", async () => {
       window.history.replaceState(null, "", "/freebets?legs=2&sports=tennis");
       const { calls } = stubApi();
       renderPage();
-      await screen.findByRole("heading", { name: /Top 3/ });
+      await screen.findByRole("heading", { name: /Top-3/ });
       expect(calls.asked[0]).toBe("/api/freebets/conversions?mode=bookmakers&legs=2&sports=tennis");
-      expect(screen.getByRole("radio", { name: "2-match accumulator" })).toBeChecked();
+      expect(screen.getByRole("radio", { name: "2er-Kombiwette" })).toBeChecked();
     });
 
     it("offers the sports on offer, all ticked, and asks again for those left ticked", async () => {
@@ -262,10 +262,10 @@ describe("FreebetsPage", () => {
     it("asks once for a few quick changes", async () => {
       const { calls } = stubApi();
       renderPage();
-      await screen.findByRole("heading", { name: /Top 3/ });
+      await screen.findByRole("heading", { name: /Top-3/ });
       const before = calls.asked.length;
-      fireEvent.click(screen.getByRole("radio", { name: "2-match accumulator" }));
-      fireEvent.click(screen.getByRole("radio", { name: "3-match accumulator" }));
+      fireEvent.click(screen.getByRole("radio", { name: "2er-Kombiwette" }));
+      fireEvent.click(screen.getByRole("radio", { name: "3er-Kombiwette" }));
       await waitFor(() => expect(calls.asked.length).toBe(before + 1));
       expect(lastAsked(calls)).toContain("legs=3");
     });
@@ -273,10 +273,10 @@ describe("FreebetsPage", () => {
     it("lists the bookmakers it uses", async () => {
       stubApi();
       renderPage();
-      const info = (await screen.findByText(/Bookmakers used/)).closest("p")!;
+      const info = (await screen.findByText(/Genutzte Buchmacher/)).closest("p")!;
       expect(info).toHaveTextContent("LeoVegas");
       expect(info).toHaveTextContent("Merkur Bets");
-      expect(info).toHaveTextContent("At least two are needed");
+      expect(info).toHaveTextContent("Mindestens zwei sind nötig");
     });
   });
 
@@ -286,22 +286,22 @@ describe("FreebetsPage", () => {
     it("explains an empty wallet", async () => {
       stubApi({ wallet: {}, answers: () => reason("empty_wallet", { bookmakers: [], total: 0 }) });
       renderPage();
-      expect(await screen.findByText(/Enter your freebets above to see how to convert them/)).toBeInTheDocument();
+      expect(await screen.findByText(/Trag oben deine Freebets ein, um zu sehen, wie du sie umwandelst/)).toBeInTheDocument();
     });
 
     it("sends freebets held at one bookmaker to the exchange", async () => {
       stubApi({ wallet: { merkurbets: 30 }, answers: (url) => (url.searchParams.get("mode") === "exchange" ? echo(url, { merkurbets: 30 }) : reason("single_bookmaker")) });
       renderPage();
-      expect(await screen.findByText(/converting between bookmakers takes at least two/)).toBeInTheDocument();
-      fireEvent.click(screen.getByRole("button", { name: "Convert against the exchange" }));
-      expect(await screen.findByRole("heading", { name: /Top 3 conversions · Merkur Bets · 30.00 FB/ })).toBeInTheDocument();
-      expect(screen.getByRole("radio", { name: "Against the exchange" })).toBeChecked();
+      expect(await screen.findByText(/Zum Umwandeln zwischen Buchmachern brauchst du mindestens zwei/)).toBeInTheDocument();
+      fireEvent.click(screen.getByRole("button", { name: "Gegen die Wettbörse umwandeln" }));
+      expect(await screen.findByRole("heading", { name: /Top-3-Umwandlungen · Merkur Bets · 30,00 FB/ })).toBeInTheDocument();
+      expect(screen.getByRole("radio", { name: "Gegen die Wettbörse" })).toBeChecked();
       expect(window.location.search).toContain("mode=exchange");
     });
 
     it.each([
-      ["no_match", /No match to convert with these settings/],
-      ["no_plan", /No guaranteed conversion is possible with these matches/],
+      ["no_match", /Mit diesen Einstellungen gibt es gerade kein Spiel zum Umwandeln/],
+      ["no_plan", /Mit diesen Spielen und deinen Freebets ist keine garantierte Umwandlung möglich/],
     ])("explains %s", async (code, text) => {
       stubApi({ answers: () => reason(code) });
       renderPage();
@@ -311,17 +311,17 @@ describe("FreebetsPage", () => {
     it("says when the search ran out of time", async () => {
       stubApi({ answers: () => ({ ...BOOKMAKERS_ANSWER, partial: true }) });
       renderPage();
-      expect(await screen.findByText(/The calculation ran out of time/)).toBeInTheDocument();
+      expect(await screen.findByText(/Die Zeit für die Berechnung war zu knapp/)).toBeInTheDocument();
     });
 
     it("shows the server's message when the calculation fails, and asks again on request", async () => {
       let fails = true;
-      stubApi({ answers: () => (fails ? reply({ message: "The calculation did not finish. Try again in a moment." }, 503) : BOOKMAKERS_ANSWER) });
+      stubApi({ answers: () => (fails ? reply({ message: "Die Berechnung wurde nicht abgeschlossen. Versuch es gleich noch einmal." }, 503) : BOOKMAKERS_ANSWER) });
       renderPage();
-      expect(await screen.findByRole("alert")).toHaveTextContent("The calculation did not finish");
+      expect(await screen.findByRole("alert")).toHaveTextContent("Die Berechnung wurde nicht abgeschlossen");
       fails = false;
       fireEvent.click(screen.getByRole("button", { name: "Erneut versuchen" }));
-      expect(await screen.findByRole("heading", { name: /Top 3/ })).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: /Top-3/ })).toBeInTheDocument();
       expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     });
 
@@ -329,12 +329,12 @@ describe("FreebetsPage", () => {
       let fails = false;
       const { calls } = stubApi({ answers: () => (fails ? reply({ message: "Busy" }, 503) : BOOKMAKERS_ANSWER) });
       renderPage();
-      await screen.findByRole("heading", { name: /Top 3/ });
+      await screen.findByRole("heading", { name: /Top-3/ });
       fails = true;
       fireEvent.click(screen.getByRole("button", { name: "Quoten aktualisieren" }));
       await waitFor(() => expect(calls.asked.length).toBe(2));
-      expect(await screen.findByRole("alert")).toHaveTextContent("The conversions could not be refreshed: Busy");
-      expect(screen.getByRole("heading", { name: /Top 3/ })).toBeInTheDocument();
+      expect(await screen.findByRole("alert")).toHaveTextContent("Die Umwandlungen konnten nicht aktualisiert werden: Busy");
+      expect(screen.getByRole("heading", { name: /Top-3/ })).toBeInTheDocument();
     });
   });
 
@@ -343,11 +343,11 @@ describe("FreebetsPage", () => {
     async function openExchange() {
       const api = stubApi({ wallet: { leovegas: 10, merkurbets: 30 } });
       renderPage();
-      await screen.findByRole("heading", { name: /Top 3/ });
-      fireEvent.click(screen.getByRole("radio", { name: "Against the exchange" }));
-      await screen.findByRole("heading", { name: /LeoVegas · 10.00 FB/ });
-      fireEvent.click(screen.getByRole("radio", { name: /Merkur Bets, 30.00 FB/ }));
-      await screen.findByRole("heading", { name: /Merkur Bets · 30.00 FB/ });
+      await screen.findByRole("heading", { name: /Top-3/ });
+      fireEvent.click(screen.getByRole("radio", { name: "Gegen die Wettbörse" }));
+      await screen.findByRole("heading", { name: /LeoVegas · 10,00 FB/ });
+      fireEvent.click(screen.getByRole("radio", { name: /Merkur Bets, 30,00 FB/ }));
+      await screen.findByRole("heading", { name: /Merkur Bets · 30,00 FB/ });
       return api;
     }
 
@@ -361,58 +361,58 @@ describe("FreebetsPage", () => {
 
     it("shows the three conversions of the chain", async () => {
       await openExchange();
-      const top = screen.getByRole("heading", { name: /Top 3/ }).closest("section")!;
+      const top = screen.getByRole("heading", { name: /Top-3/ }).closest("section")!;
       const cards = within(top).getAllByRole("button");
       expect(cards).toHaveLength(3);
-      expect(cards[0]).toHaveTextContent("Limited by liquidity");
-      expect(cards[0]).toHaveTextContent("75.6%");
-      expect(cards[0]).toHaveTextContent("€10.67");
-      expect(cards[0]).toHaveTextContent("Converts 14.12 FB · 15.88 FB left after");
-      expect(cards[2]).toHaveTextContent("Converts all the rest");
-      expect(cards[2]).toHaveTextContent("Converts 3.71 FB · 0.00 FB left after");
+      expect(cards[0]).toHaveTextContent("Durch Liquidität begrenzt");
+      expect(cards[0]).toHaveTextContent("75,6 %");
+      expect(cards[0]).toHaveTextContent("10,67 €");
+      expect(cards[0]).toHaveTextContent("Wandelt 14,12 FB um · danach 15,88 FB übrig");
+      expect(cards[2]).toHaveTextContent("Wandelt den ganzen Rest um");
+      expect(cards[2]).toHaveTextContent("Wandelt 3,71 FB um · danach 0,00 FB übrig");
 
       // The wallet as the chain shares it.
-      expect(screen.getByRole("img", { name: /Your Merkur Bets balance of 30.00 FB: conversion 1: 14.12 FB, conversion 2: 12.17 FB, conversion 3: 3.71 FB, not converted: 0.00 FB/ })).toBeInTheDocument();
-      expect(screen.getByText(/Conversion 2:/)).toHaveTextContent("12.17 FB");
+      expect(screen.getByRole("img", { name: /Dein Guthaben bei Merkur Bets: 30,00 FB\. Umwandlung 1: 14,12 FB, Umwandlung 2: 12,17 FB, Umwandlung 3: 3,71 FB, nicht umgewandelt: 0,00 FB/ })).toBeInTheDocument();
+      expect(screen.getByText(/Umwandlung 2:/)).toHaveTextContent("12,17 FB");
     });
 
     it("details a conversion: the freebet bet, the lay, the liquidity and what is left in each case", async () => {
       await openExchange();
-      expect(screen.getByRole("heading", { name: "Conversion 1 · two bets to place" })).toBeInTheDocument();
-      const step1 = within(screen.getByRole("heading", { name: /Merkur Bets · as a freebet/ }).parentElement!);
-      expect(step1.getByText("14.12 FB")).toBeInTheDocument();
-      expect(step1.getByText("4.60")).toBeInTheDocument();
-      expect(step1.getByText(/If it wins, the freebet returns €50.83/)).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Umwandlung 1 · zwei Wetten platzieren" })).toBeInTheDocument();
+      const step1 = within(screen.getByRole("heading", { name: /Merkur Bets · als Freebet/ }).parentElement!);
+      expect(step1.getByText("14,12 FB")).toBeInTheDocument();
+      expect(step1.getByText("4,60")).toBeInTheDocument();
+      expect(step1.getByText(/Gewinnt sie, bringt die Freebet 50,83 €/)).toBeInTheDocument();
       const step2 = within(screen.getByRole("heading", { name: /Lay/ }).parentElement!);
-      expect(step2.getByText(/^Lay on/)).toHaveTextContent("Lay €11.00 on");
-      expect(step2.getByText("4.65")).toBeInTheDocument();
-      expect(step2.getByText(/3 % commission on winnings/)).toBeInTheDocument();
-      expect(step2.getByText(/Lay needed/)).toHaveTextContent("available on the exchange €11.00");
+      expect(step2.getByText(/^Lay auf/)).toHaveTextContent("Lay 11,00 € auf");
+      expect(step2.getByText("4,65")).toBeInTheDocument();
+      expect(step2.getByText(/3 % Kommission auf Gewinne/)).toBeInTheDocument();
+      expect(step2.getByText(/Benötigter Lay/)).toHaveTextContent("verfügbar an der Wettbörse 11,00 €");
 
-      expect(screen.getByRole("heading", { name: "Whatever the result, you keep at least €10.67" })).toBeInTheDocument();
-      expect(screen.getByText("If Auxerre wins")).toBeInTheDocument();
-      expect(screen.getByText("If Auxerre does not win (Brest wins or a draw)")).toBeInTheDocument();
-      expect(screen.getByText(/your lay loses/)).toBeInTheDocument();
-      expect(screen.getByText(/With this liquidity, only 14.12 FB of 30.00 FB can be converted here. Move on to conversion 2 for the remaining 15.88 FB/)).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: /^Unabhängig vom Ergebnis behältst du mindestens 10,67\s€$/ })).toBeInTheDocument();
+      expect(screen.getByText("Wenn Auxerre gewinnt")).toBeInTheDocument();
+      expect(screen.getByText("Wenn Auxerre nicht gewinnt (Brest gewinnt oder Unentschieden)")).toBeInTheDocument();
+      expect(screen.getByText(/dein Lay verliert/)).toBeInTheDocument();
+      expect(screen.getByText(/Bei dieser Liquidität lassen sich hier nur 14,12 FB von 30,00 FB umwandeln\. Mach mit Umwandlung 2 für die restlichen 15,88 FB weiter/)).toBeInTheDocument();
     });
 
     it("details the other conversions: a draw, and the one that takes the rest", async () => {
       await openExchange();
       fireEvent.click(screen.getAllByRole("button", { pressed: false })[0]);
-      expect(await screen.findByRole("heading", { name: "Conversion 2 · two bets to place" })).toBeInTheDocument();
-      expect(screen.getByText("If the match is a draw")).toBeInTheDocument();
-      expect(screen.getByText(/If the match is not a draw/)).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: "Umwandlung 2 · zwei Wetten platzieren" })).toBeInTheDocument();
+      expect(screen.getByText("Wenn das Spiel unentschieden endet")).toBeInTheDocument();
+      expect(screen.getByText(/Wenn das Spiel nicht unentschieden endet/)).toBeInTheDocument();
       fireEvent.click(screen.getAllByRole("button", { pressed: false })[1]);
-      expect(await screen.findByRole("heading", { name: "Conversion 3 · two bets to place" })).toBeInTheDocument();
-      expect(screen.getByText(/This conversion takes all the rest of your Merkur Bets balance \(3.71 FB\)/)).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: "Umwandlung 3 · zwei Wetten platzieren" })).toBeInTheDocument();
+      expect(screen.getByText(/Diese Umwandlung nimmt den ganzen Rest deines Guthabens bei Merkur Bets \(3,71 FB\)/)).toBeInTheDocument();
     });
 
     it("says 'at least' when the two cases leave different cents, and the amount alone when they leave the same", async () => {
       await openExchange();
       // The first conversion leaves 10,68 € or 10,67 € (the lay is rounded to the cent), the third 2,65 € either way.
-      expect(screen.getByRole("heading", { name: "Whatever the result, you keep at least €10.67" })).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: /^Unabhängig vom Ergebnis behältst du mindestens 10,67\s€$/ })).toBeInTheDocument();
       fireEvent.click(screen.getAllByRole("button", { pressed: false })[1]);
-      expect(await screen.findByRole("heading", { name: "Whatever the result, you keep €2.65" })).toBeInTheDocument();
+      expect(await screen.findByRole("heading", { name: /^Unabhängig vom Ergebnis behältst du 2,65\s€$/ })).toBeInTheDocument();
     });
 
     describe("the chain's hint", () => {
@@ -423,49 +423,49 @@ describe("FreebetsPage", () => {
           answers: (url) => (url.searchParams.get("mode") === "exchange" ? { ...EXCHANGE_ANSWER, chain: { ...CHAIN, ...chain } } : BOOKMAKERS_ANSWER),
         });
         renderPage();
-        await screen.findByRole("heading", { name: /Merkur Bets · 30.00 FB/ });
+        await screen.findByRole("heading", { name: /Merkur Bets · 30,00 FB/ });
       }
-      const hint = () => screen.getByRole("heading", { name: /Merkur Bets · 30.00 FB/ }).closest("section")!.querySelector("p")!;
+      const hint = () => screen.getByRole("heading", { name: /Merkur Bets · 30,00 FB/ }).closest("section")!.querySelector("p")!;
 
       it("tells the conversions to chain, from the first to the last", async () => {
         await openChain({});
-        expect(hint()).toHaveTextContent("chain them, from no. 1 to no. 3, to convert all of your Merkur Bets balance.");
+        expect(hint()).toHaveTextContent("Mach sie nacheinander, von Nr. 1 bis Nr. 3, um dein ganzes Guthaben bei Merkur Bets umzuwandeln.");
       });
 
       it("does not ask to chain a single conversion", async () => {
         await openChain({ steps: [CHAIN.steps[2]], converted: 30, leftover: 0 });
-        expect(hint()).toHaveTextContent("A single conversion converts all of your Merkur Bets balance.");
-        expect(hint()).not.toHaveTextContent("chain them");
+        expect(hint()).toHaveTextContent("Eine einzige Umwandlung wandelt dein ganzes Guthaben bei Merkur Bets um.");
+        expect(hint()).not.toHaveTextContent("nacheinander");
       });
 
       it("says what stays unconverted when the liquidity runs out", async () => {
         await openChain({ steps: [CHAIN.steps[0]], converted: 14.12, leftover: 15.88 });
-        expect(hint()).toHaveTextContent("Only one match is on offer and the exchange's liquidity limits it: 15.88 FB of your Merkur Bets balance will stay unconverted.");
+        expect(hint()).toHaveTextContent("Nur ein Spiel ist im Angebot, und die Liquidität der Wettbörse begrenzt es: 15,88 FB deines Guthabens bei Merkur Bets bleiben nicht umgewandelt.");
       });
 
       it("says it for a chain too short for the balance as well", async () => {
         await openChain({ steps: CHAIN.steps.slice(0, 2), converted: 26.29, leftover: 3.71 });
-        expect(hint()).toHaveTextContent("from no. 1 to no. 2. 3.71 FB of your Merkur Bets balance will stay unconverted.");
+        expect(hint()).toHaveTextContent("von Nr. 1 bis Nr. 2. 3,71 FB deines Guthabens bei Merkur Bets bleiben nicht umgewandelt.");
       });
     });
 
     it("lets the freebets of another bookmaker be chosen", async () => {
       const { calls } = await openExchange();
-      const choice = screen.getByRole("radio", { name: /LeoVegas, 10.00 FB/ });
+      const choice = screen.getByRole("radio", { name: /LeoVegas, 10,00 FB/ });
       fireEvent.click(choice);
       await waitFor(() => expect(lastAsked(calls)).toBe("/api/freebets/conversions?mode=exchange&bookmaker=leovegas"));
       expect(window.location.search).toContain("bookmaker=leovegas");
     });
 
     it.each([
-      ["no_freebets", /You have no freebets at this bookmaker/],
-      ["no_match", /No match of this bookmaker has money to lay on the exchange/],
-      ["no_plan", /No guaranteed conversion is possible against the exchange/],
+      ["no_freebets", /Du hast keine Freebets bei diesem Buchmacher/],
+      ["no_match", /kein Spiel dieses Buchmachers Geld für einen Lay an der Wettbörse/],
+      ["no_plan", /keine garantierte Umwandlung gegen die Wettbörse möglich/],
     ])("explains %s", async (code, text) => {
       stubApi({ answers: (url) => (url.searchParams.get("mode") === "exchange" ? { ...EXCHANGE_ANSWER, chain: null, reason: code as never } : BOOKMAKERS_ANSWER) });
       renderPage();
-      await screen.findByRole("heading", { name: /Top 3/ });
-      fireEvent.click(screen.getByRole("radio", { name: "Against the exchange" }));
+      await screen.findByRole("heading", { name: /Top-3/ });
+      fireEvent.click(screen.getByRole("radio", { name: "Gegen die Wettbörse" }));
       expect(await screen.findByText(text)).toBeInTheDocument();
     });
 
@@ -473,7 +473,7 @@ describe("FreebetsPage", () => {
       window.history.replaceState(null, "", "/freebets?mode=exchange");
       const { calls } = stubApi({ wallet: {} });
       renderPage();
-      expect((await screen.findAllByText(/one bookmaker is enough to convert them against the exchange/)).length).toBeGreaterThan(0);
+      expect((await screen.findAllByText(/Ein Buchmacher reicht, um sie gegen die Wettbörse umzuwandeln/)).length).toBeGreaterThan(0);
       expect(calls.asked).toEqual([]);
     });
   });
@@ -487,9 +487,9 @@ describe("FreebetsPage", () => {
       Object.defineProperty(navigator, "clipboard", { value: { writeText }, configurable: true });
       renderPage();
       const leovegas = within(await screen.findByRole("article", { name: "LeoVegas" }));
-      fireEvent.click(leovegas.getByRole("button", { name: "Copy the list" }));
-      await waitFor(() => expect(writeText).toHaveBeenCalledWith("LeoVegas: 2 freebet bets\n- Paris SG: 12.40 FB\n- Marseille: 16.00 FB"));
-      expect(await leovegas.findByText("List copied")).toBeInTheDocument();
+      fireEvent.click(leovegas.getByRole("button", { name: "Liste kopieren" }));
+      await waitFor(() => expect(writeText).toHaveBeenCalledWith("LeoVegas: 2 Freebet-Wetten\n- Paris SG: 12,40 FB\n- Marseille: 16,00 FB"));
+      expect(await leovegas.findByText("Liste kopiert")).toBeInTheDocument();
     });
 
     it("says when the list cannot be copied", async () => {
@@ -497,8 +497,8 @@ describe("FreebetsPage", () => {
       Object.defineProperty(navigator, "clipboard", { value: { writeText: () => Promise.reject(new Error("denied")) }, configurable: true });
       renderPage();
       const merkurbets = within(await screen.findByRole("article", { name: "Merkur Bets" }));
-      fireEvent.click(merkurbets.getByRole("button", { name: "Copy the list" }));
-      expect(await merkurbets.findByText(/Copy failed/)).toBeInTheDocument();
+      fireEvent.click(merkurbets.getByRole("button", { name: "Liste kopieren" }));
+      expect(await merkurbets.findByText(/Kopieren fehlgeschlagen/)).toBeInTheDocument();
     });
   });
 
@@ -508,27 +508,27 @@ describe("FreebetsPage", () => {
     it("says between bookmakers that the prices are indicative and that the bookmakers' stake limits are unknown", async () => {
       stubApi();
       renderPage();
-      await screen.findByRole("heading", { name: "Top 3 conversions · single bet" });
-      expect(note()).toHaveTextContent("Indicative prices. They move fast: check the price of each bet");
-      expect(note()).toHaveTextContent("the money available to lay");
-      expect(note()).toHaveTextContent("The calculation knows neither the minimum nor the maximum stakes of each bookmaker, especially on accumulators.");
+      await screen.findByRole("heading", { name: "Top-3-Umwandlungen · Einzelwette" });
+      expect(note()).toHaveTextContent("Unverbindliche Quoten. Sie ändern sich schnell: Prüfe vor dem Platzieren die Quote jeder Wette");
+      expect(note()).toHaveTextContent("das Geld, das für den Lay verfügbar ist");
+      expect(note()).toHaveTextContent("Die Berechnung kennt weder die Mindest- noch die Höchsteinsätze der einzelnen Buchmacher, besonders bei Kombiwetten.");
     });
 
     it("says it against the exchange too, without the stake limits of the bookmakers", async () => {
       window.history.replaceState(null, "", "/freebets?mode=exchange&bookmaker=merkurbets");
       stubApi({ wallet: { merkurbets: 30 } });
       renderPage();
-      await screen.findByRole("heading", { name: /Merkur Bets · 30.00 FB/ });
-      expect(note()).toHaveTextContent("Indicative prices. They move fast");
-      expect(note()).not.toHaveTextContent("mises minimales");
+      await screen.findByRole("heading", { name: /Merkur Bets · 30,00 FB/ });
+      expect(note()).toHaveTextContent("Unverbindliche Quoten. Sie ändern sich schnell");
+      expect(note()).not.toHaveTextContent("Mindest-");
       // The header of the detail says it as well.
-      expect(screen.getByText(/Indicative prices read at/)).toHaveTextContent(/Brest – Auxerre.*check before placing/);
+      expect(screen.getByText(/Unverbindliche Quoten von/)).toHaveTextContent(/Brest – Auxerre.*vor dem Platzieren prüfen/);
     });
 
     it("is not shown when there is nothing to place", async () => {
       stubApi({ wallet: {}, answers: () => ({ ...BOOKMAKERS_ANSWER, plans: [], bookmakers: [], total: 0, reason: "empty_wallet" }) });
       renderPage();
-      await screen.findByText(/Enter your freebets above/);
+      await screen.findByText(/Trag oben deine Freebets ein/);
       expect(note()).toBeNull();
     });
   });
@@ -562,7 +562,7 @@ describe("FreebetsPage", () => {
       renderPage();
       await opened();
       expect(calls.asked).toHaveLength(1);
-      fireEvent.click(screen.getByRole("radio", { name: "2-match accumulator" }));
+      fireEvent.click(screen.getByRole("radio", { name: "2er-Kombiwette" }));
       await advance(ASK_DELAY_MS - 50);
       expect(calls.asked).toHaveLength(1);
       await advance(100);
@@ -597,19 +597,19 @@ describe("FreebetsPage", () => {
       });
       renderPage();
       await opened();
-      expect(screen.getByRole("heading", { name: "Top 3 conversions · single bet" })).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Top-3-Umwandlungen · Einzelwette" })).toBeInTheDocument();
       slow = true;
-      fireEvent.click(screen.getByRole("radio", { name: "3-match accumulator" }));
+      fireEvent.click(screen.getByRole("radio", { name: "3er-Kombiwette" }));
       await advance(ASK_DELAY_MS + 10);
       // The single bets' plans are not the combos': they are not shown as such.
-      expect(screen.queryByRole("heading", { name: /pari simple/ })).not.toBeInTheDocument();
+      expect(screen.queryByRole("heading", { name: /Einzelwette/ })).not.toBeInTheDocument();
       // A fourth change replaces the slow question; its late answer arrives after.
-      fireEvent.click(screen.getByRole("radio", { name: "2-match accumulator" }));
+      fireEvent.click(screen.getByRole("radio", { name: "2er-Kombiwette" }));
       await advance(ASK_DELAY_MS + 10);
-      expect(screen.getByRole("heading", { name: "Top 3 conversions · 2-match accumulator" })).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Top-3-Umwandlungen · 2er-Kombiwette" })).toBeInTheDocument();
       await act(async () => release(reply({ ...BOOKMAKERS_ANSWER, legs: 3 })));
-      expect(screen.getByRole("heading", { name: "Top 3 conversions · 2-match accumulator" })).toBeInTheDocument();
-      expect(screen.queryByRole("heading", { name: /3-match accumulator/ })).not.toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Top-3-Umwandlungen · 2er-Kombiwette" })).toBeInTheDocument();
+      expect(screen.queryByRole("heading", { name: /3er-Kombiwette/ })).not.toBeInTheDocument();
     });
   });
 
@@ -617,7 +617,7 @@ describe("FreebetsPage", () => {
     it("names the Freebets entry of the navigation as the page in, with the two lists beside it", async () => {
       stubApi();
       renderPage();
-      await screen.findByRole("heading", { name: /Top 3/ });
+      await screen.findByRole("heading", { name: /Top-3/ });
       const views = within(screen.getByRole("group", { name: "Anzeigen" })).getAllByRole("radio");
       expect(views.map((radio) => radio.getAttribute("value"))).toEqual(["value-bets", "matches", "freebets"]);
       expect(screen.getByRole("radio", { name: "Freebets" })).toBeChecked();
@@ -627,7 +627,7 @@ describe("FreebetsPage", () => {
     it("goes to the dashboard's lists from the navigation", async () => {
       stubApi();
       renderPage();
-      await screen.findByRole("heading", { name: /Top 3/ });
+      await screen.findByRole("heading", { name: /Top-3/ });
       fireEvent.click(screen.getByRole("radio", { name: "Value Bets" }));
       expect(window.location.pathname).toBe("/odds");
       expect(window.location.search).toContain("sport=value-bets");
@@ -636,7 +636,7 @@ describe("FreebetsPage", () => {
     it("shows the time of the last answer", async () => {
       stubApi();
       renderPage();
-      await screen.findByRole("heading", { name: /Top 3/ });
+      await screen.findByRole("heading", { name: /Top-3/ });
       expect(await screen.findByText(/Aktualisiert um/)).toBeInTheDocument();
     });
 
@@ -644,7 +644,7 @@ describe("FreebetsPage", () => {
       mockPhone();
       stubApi();
       renderPage();
-      await screen.findByRole("heading", { name: /Top 3/ });
+      await screen.findByRole("heading", { name: /Top-3/ });
       expect(screen.getByRole("navigation", { name: "Hauptnavigation" })).toBeInTheDocument();
       expect(screen.getByRole("radio", { name: "Freebets" })).toBeChecked();
     });
@@ -652,11 +652,11 @@ describe("FreebetsPage", () => {
     it("has no accessibility violation axe can find, with plans and with a chain", async () => {
       stubApi();
       const page = renderPage();
-      await screen.findByRole("heading", { name: /Top 3/ });
+      await screen.findByRole("heading", { name: /Top-3/ });
       const rules = { rules: { "color-contrast": { enabled: false } } };
       expect((await axe.run(page.container, rules)).violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.html).join(" | ")}`)).toEqual([]);
-      fireEvent.click(screen.getByRole("radio", { name: "Against the exchange" }));
-      await screen.findByRole("heading", { name: /LeoVegas · 30.00 FB/ });
+      fireEvent.click(screen.getByRole("radio", { name: "Gegen die Wettbörse" }));
+      await screen.findByRole("heading", { name: /LeoVegas · 30,00 FB/ });
       expect((await axe.run(page.container, rules)).violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.html).join(" | ")}`)).toEqual([]);
     });
   });

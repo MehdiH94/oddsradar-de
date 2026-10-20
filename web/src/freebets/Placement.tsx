@@ -28,10 +28,10 @@ function CopyButton({ group }: { group: Group }) {
   return (
     <>
       <button type="button" className={styles.copy} onClick={() => void copy()}>
-        <Copy size={16} aria-hidden="true" /> Copy the list
+        <Copy size={16} aria-hidden="true" /> Liste kopieren
       </button>
       <span role="status" className={styles.copied}>
-        {done === "copied" ? "List copied" : done === "failed" ? "Copy failed: copy the list by hand" : ""}
+        {done === "copied" ? "Liste kopiert" : done === "failed" ? "Kopieren fehlgeschlagen: Kopiere die Liste von Hand" : ""}
       </span>
     </>
   );
@@ -44,9 +44,9 @@ export function Placement({ plan }: { plan: PlanView }) {
     <section aria-labelledby="placement-heading">
       <div className={styles.head}>
         <h2 id="placement-heading" className={styles.title}>
-          Where to place your FB
+          Wo du deine FB platzierst
         </h2>
-        <p className={styles.hint}>No bookmaker carries every outcome: you place these bets bookmaker by bookmaker.</p>
+        <p className={styles.hint}>Kein Buchmacher bietet alle Ausgänge an: Du platzierst diese Wetten Buchmacher für Buchmacher.</p>
       </div>
       <div className={styles.books}>
         {plan.bookmakers.map((group) => (
@@ -55,12 +55,12 @@ export function Placement({ plan }: { plan: PlanView }) {
               <BookmakerLogo bookmaker={group.bookmaker} size={24} decorative />
               <span className={styles.name}>{BOOKMAKER_BRANDING[group.bookmaker]?.name ?? group.bookmaker}</span>
               <span className={styles.count}>
-                <b className="num">{group.bets.length}</b> bet{group.bets.length === 1 ? "" : "s"}
+                <b className="num">{group.bets.length}</b> {group.bets.length === 1 ? "Wette" : "Wetten"}
               </span>
             </div>
             <Gauge to={group.fb > 0 ? group.used / group.fb : 0} />
             <p className={styles.use}>
-              <b className="num">{formatFb(group.used)}</b> FB used of <span className="num">{formatFb(group.fb)}</span>
+              <b className="num">{formatFb(group.used)}</b> FB von <span className="num">{formatFb(group.fb)}</span> genutzt
             </p>
             <ul className={styles.bets}>
               {group.bets.map((bet) => (
@@ -76,7 +76,7 @@ export function Placement({ plan }: { plan: PlanView }) {
       </div>
       {plan.left >= 0.01 && (
         <p className={styles.rest}>
-          You have <b className="num">{formatFb(plan.left)} FB</b> left that this conversion does not take: convert them another way (another conversion above, or against the exchange).
+          Dir bleiben <b className="num">{formatFb(plan.left)} FB</b>, die diese Umwandlung nicht nutzt: Wandle sie auf anderem Weg um (mit einer anderen Umwandlung oben oder gegen die Wettbörse).
         </p>
       )}
     </section>

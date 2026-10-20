@@ -159,7 +159,7 @@ describe("the listing and the reference", () => {
         participants: ["value", "Rival"],
         marketCount: 1,
         market: "1X2",
-        marketLabel: "Match result",
+        marketLabel: "Spielergebnis (1X2)",
         selection: "1",
         label: "value",
         bookmaker: "winamax",
@@ -189,7 +189,7 @@ describe("the listing and the reference", () => {
         "double betclic X",
         "double betclic 1",
       ]);
-      expect(getValueBets(db).bets[1]).toMatchObject({ selection: "X", label: "Draw", price: 3.6, fair: 3.4 });
+      expect(getValueBets(db).bets[1]).toMatchObject({ selection: "X", label: "Unentschieden", price: 3.6, fair: 3.4 });
       expect(rows(getValueBets(db, { sort: "start" }))).toEqual([
         "value winamax 1",
         "betclic betclic 1",
@@ -328,7 +328,7 @@ describe("the listing and the reference", () => {
         "betclic 1X2 betclic betclic fair",
       ]);
       expect(getValueBets(db).bets[1]).toMatchObject({
-        marketLabel: "Anytime scorer",
+        marketLabel: "Torschütze (jederzeit)",
         selection: "Mbappé",
         price: 2.3,
         fair: 2,
@@ -352,7 +352,7 @@ describe("the listing and the reference", () => {
         [{ eventId: "nofair", bookmakerId: "winamax", odds: [{ market: "anytime_scorer", selection: "Kane", price: 2.7 }] }],
         new Date().toISOString()
       );
-      expect(getValueBets(db).bets.find((b) => b.eventId === "nofair")).toMatchObject({ label: "Kane", marketLabel: "Anytime scorer" });
+      expect(getValueBets(db).bets.find((b) => b.eventId === "nofair")).toMatchObject({ label: "Kane", marketLabel: "Torschütze (jederzeit)" });
     });
   });
 

@@ -43,7 +43,7 @@ const BET = {
   participants: ["PSG", "OM"],
   marketCount: 42,
   market: "1X2",
-  marketLabel: "Résultat du match",
+  marketLabel: "Spielergebnis (1X2)",
   selection: "1",
   label: "PSG",
   bookmaker: "merkurbets",

@@ -75,10 +75,10 @@ test("a match opens from the value bets with all its markets, and its back link 
   await expect(page.getByRole("heading", { name: "Paris SG – Marseille", level: 2 })).toBeVisible();
   await expect(page.getByText("2 Märkte verglichen")).toBeVisible();
   // Its main market, with the TRJ of the best prices, and a market of its own.
-  const result = page.getByRole("article", { name: "Match result" });
+  const result = page.getByRole("article", { name: "Spielergebnis (1X2)" });
   await expect(result).toContainText("97,3 %");
   await expect(result).toContainText("LeoVegas: 2,20 (beste Quote)");
-  await expect(page.getByRole("article", { name: "Total goals" })).toContainText("2,5");
+  await expect(page.getByRole("article", { name: "Tore gesamt" })).toContainText("2,5");
 
   await page.getByRole("link", { name: "Alle Value Bets" }).click();
   await expect(page).toHaveURL(/sport=value-bets/);
@@ -92,7 +92,7 @@ test("a match's name opens its page from the odds list, even with nothing but it
 
   await expect(page).toHaveURL(/match=e2e-weber-ruiz/);
   await expect(page.getByRole("heading", { name: "Jonas Weber – Mateo Ruiz", level: 2 })).toBeVisible();
-  await expect(page.getByRole("article", { name: "Match winner" })).toContainText("Merkur Bets");
+  await expect(page.getByRole("article", { name: "Sieger" })).toContainText("Merkur Bets");
 
   await page.getByRole("link", { name: "Alle Spiele" }).click();
   await expect(page).not.toHaveURL(/match=/);
@@ -125,7 +125,7 @@ test("a surebet shows each leg's bookmaker, price and stake, and what it earns",
   const legs = surebets.getByRole("listitem");
   await expect(legs).toHaveCount(3);
   await expect(legs.nth(0)).toHaveText(/Lyon\s*LeoVegas\s*2,60\s*Einsatz 39,20\s€/);
-  await expect(legs.nth(1)).toHaveText(/Draw\s*Merkur Bets\s*3,80\s*Einsatz 26,82\s€/);
+  await expect(legs.nth(1)).toHaveText(/Unentschieden\s*Merkur Bets\s*3,80\s*Einsatz 26,82\s€/);
   await expect(legs.nth(2)).toHaveText(/Lille\s*Merkur Bets\s*3,00\s*Einsatz 33,98\s€/);
   await expect(surebets).toContainText("101,9 %");
   await expect(surebets).toContainText("+1,93 €");
@@ -135,7 +135,7 @@ test("a match page keeps every ticked bookmaker's price in view on a desktop", a
   // Every bookmaker ticked (the default).
   await page.goto(`/odds?match=${VALUE_MATCH.id}`);
 
-  for (const name of ["Match result", "Total goals"]) {
+  for (const name of ["Spielergebnis (1X2)", "Tore gesamt"]) {
     const card = page.getByRole("article", { name });
     await expect(card).toBeVisible();
     const chips = card.locator("[data-bookmaker]");

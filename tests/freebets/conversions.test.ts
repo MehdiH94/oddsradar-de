@@ -123,7 +123,7 @@ describe("chainView", () => {
   const view = chainView(result, new Map(rows.map((r) => [r.id, r])), markets, "merkurbets", 30);
 
   it("gives the three conversions of the mock-up, on whole cents", () => {
-    expect(view.steps.map((s) => s.label)).toEqual(["Away", "Draw", "Away"]);
+    expect(view.steps.map((s) => s.label)).toEqual(["Away", "Unentschieden", "Away"]);
     expect(view.steps.map((s) => s.fb)).toEqual([14.12, 12.17, 3.71]);
     expect(view.steps.map((s) => s.layStake)).toEqual([11, 9, 2.73]);
     expect(view.steps.map((s) => s.liability)).toEqual([40.15, 26.55, 7.92]);

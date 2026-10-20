@@ -18,8 +18,8 @@ const surebet = (overrides: Partial<Surebet>): Surebet => ({
   toVerify: false,
   thin: false,
   legs: [
-    { selection: "over", label: "Plus de 9.5", source: "merkurbets", side: "back", price: 2, stake: 52.38 },
-    { selection: "under", label: "Moins de 9.5", source: "leovegas", side: "back", price: 2.2, stake: 47.62 },
+    { selection: "over", label: "Über 9,5", source: "merkurbets", side: "back", price: 2, stake: 52.38 },
+    { selection: "under", label: "Unter 9,5", source: "leovegas", side: "back", price: 2.2, stake: 47.62 },
   ],
   ...overrides,
 });
@@ -38,8 +38,8 @@ describe("SurebetsTable", () => {
     expect(cells[0].querySelector("time")).toHaveAttribute("dateTime", "2099-01-01T07:00:00.000Z");
     expect(cells[1]).toHaveTextContent("🎾 Alex De Minaur - Hubert HurkaczAces réussis par Hubert Hurkacz (9.5 aces)");
     expect(within(cells[2]).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
-      "Plus de 9.5Merkur Bets2,00Einsatz 52,38\u00a0€",
-      "Moins de 9.5LeoVegas2,20Einsatz 47,62\u00a0€",
+      "Über 9,5Merkur Bets2,00Einsatz 52,38\u00a0€",
+      "Unter 9,5LeoVegas2,20Einsatz 47,62\u00a0€",
     ]);
     expect(cells[3]).toHaveTextContent("104,8 %+4,76 €");
     expect(cells[3]).not.toHaveTextContent("zu prüfen");
@@ -53,7 +53,7 @@ describe("SurebetsTable", () => {
             eventId: "psg",
             participants: ["PSG", "OM"],
             market: "anytime_scorer",
-            marketLabel: "Buteur",
+            marketLabel: "Torschütze (jederzeit)",
             kind: "lay",
             payoutRate: 1.12,
             profit: 12,
@@ -83,14 +83,14 @@ describe("SurebetsTable", () => {
             eventId: "kos-aut",
             participants: ["Kosovo F.", "Autriche F."],
             market: "correct_score",
-            marketLabel: "Score exact",
+            marketLabel: "Genaues Ergebnis",
             kind: "lay",
             payoutRate: 1.14,
             profit: 14,
             thin: true,
             legs: [
-              { selection: "2-2", label: "2 - 2", source: "unibet", side: "back", price: 100, stake: 100 },
-              { selection: "2-2", label: "2 - 2", source: "exchange", side: "lay", price: 85, stake: 117.55, liability: 9874.2, size: 4.5 },
+              { selection: "2-2", label: "2:2", source: "unibet", side: "back", price: 100, stake: 100 },
+              { selection: "2-2", label: "2:2", source: "exchange", side: "lay", price: 85, stake: 117.55, liability: 9874.2, size: 4.5 },
             ],
           }),
         ]}

@@ -111,8 +111,8 @@ describe("getSurebets", () => {
           profit: expect.closeTo(100 * (rate - 1), 10),
           toVerify: false,
           legs: [
-            { selection: "over", label: "Over 9.5", source: "betclic", side: "back", price: 2.0, stake: expect.closeTo((100 * rate) / 2.0, 10) },
-            { selection: "under", label: "Under 9.5", source: "winamax", side: "back", price: 2.2, stake: expect.closeTo((100 * rate) / 2.2, 10) },
+            { selection: "over", label: "Über 9,5", source: "betclic", side: "back", price: 2.0, stake: expect.closeTo((100 * rate) / 2.0, 10) },
+            { selection: "under", label: "Unter 9,5", source: "winamax", side: "back", price: 2.2, stake: expect.closeTo((100 * rate) / 2.2, 10) },
           ],
         }),
       ]);
@@ -244,10 +244,10 @@ describe("getSurebets", () => {
       const rate = 1 / (1 / 2.3 + 1 / netBack(3.75) + 1 / netBack(4.6));
       expect(netBack(3.75)).toBeCloseTo(1 + 2.75 * 0.97, 10);
       const surebet = getSurebets(db).find((s) => s.kind === "exchange")!;
-      expect(surebet).toMatchObject({ market: "1X2", marketLabel: "Match result", payoutRate: expect.closeTo(rate, 10) });
+      expect(surebet).toMatchObject({ market: "1X2", marketLabel: "Spielergebnis (1X2)", payoutRate: expect.closeTo(rate, 10) });
       expect(surebet.legs.map((l) => [l.label, l.source, l.price])).toEqual([
         ["PSG", "winamax", 2.3],
-        ["Draw", "exchange", 3.75],
+        ["Unentschieden", "exchange", 3.75],
         ["OM", "exchange", 4.6],
       ]);
       expect(surebet.legs.reduce((sum, l) => sum + l.stake, 0)).toBeCloseTo(100, 10);

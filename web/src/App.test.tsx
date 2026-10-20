@@ -363,9 +363,9 @@ describe("App", () => {
       participants,
       marketCount: 42,
       market: "1X2",
-      marketLabel: "Résultat du match",
+      marketLabel: "Spielergebnis (1X2)",
       selection,
-      label: selection === "X" ? "Draw" : participants[selection === "1" ? 0 : 1],
+      label: selection === "X" ? "Unentschieden" : participants[selection === "1" ? 0 : 1],
       bookmaker,
       price,
       basis: "fair",
@@ -486,7 +486,7 @@ describe("App", () => {
 
     it("says how the players' value bets differ when it lists some", async () => {
       window.history.replaceState(null, "", "/?sport=value-bets&sort=value");
-      stubFetch([...BETS, { ...BETS[0], market: "anytime_scorer", marketLabel: "Buteur", selection: "Dembélé", label: "Dembélé" }]);
+      stubFetch([...BETS, { ...BETS[0], market: "anytime_scorer", marketLabel: "Torschütze (jederzeit)", selection: "Dembélé", label: "Dembélé" }]);
       render(<App />);
       expect(
         await screen.findByText(
@@ -1396,11 +1396,11 @@ describe("App", () => {
       sections: [
         {
           key: "goals",
-          label: "Buts",
+          label: "Tore",
           markets: [
             {
               key: "btts",
-              label: "Les deux équipes marquent",
+              label: "Beide Teams treffen",
               kind: "list",
               compared: true,
               lines: [
@@ -1408,8 +1408,8 @@ describe("App", () => {
                   line: null,
                   payoutRate: 0.88,
                   outcomes: [
-                    { key: "yes", label: "Oui", prices: { leovegas: 1.5, merkurbets: 1.52 }, best: ["merkurbets"] },
-                    { key: "no", label: "Non", prices: { leovegas: 2.05, merkurbets: 2.07 }, best: ["merkurbets"] },
+                    { key: "yes", label: "Ja", prices: { leovegas: 1.5, merkurbets: 1.52 }, best: ["merkurbets"] },
+                    { key: "no", label: "Nein", prices: { leovegas: 2.05, merkurbets: 2.07 }, best: ["merkurbets"] },
                   ],
                 },
               ],
@@ -1447,7 +1447,7 @@ describe("App", () => {
       expect(window.history.length).toBe(entries + 1);
       // The list's filters make way for the match's page.
       expect(screen.queryByRole("search", { name: "Filter" })).not.toBeInTheDocument();
-      expect(screen.getByRole("article", { name: "Les deux équipes marquent" })).toBeInTheDocument();
+      expect(screen.getByRole("article", { name: "Beide Teams treffen" })).toBeInTheDocument();
 
       fireEvent.click(screen.getByRole("link", { name: "Alle Spiele" }));
       expect(await screen.findByRole("search", { name: "Filter" })).toBeInTheDocument();
@@ -1489,7 +1489,7 @@ describe("App", () => {
 
       expect(await screen.findByRole("heading", { level: 2, name: "Borussia Dortmund – Werder Brême" })).toBeInTheDocument();
       expect(urlParams()).toEqual({ sport: "football", sort: "start", match: "bvb" });
-      expect(screen.getByRole("article", { name: "Les deux équipes marquent" })).toBeInTheDocument();
+      expect(screen.getByRole("article", { name: "Beide Teams treffen" })).toBeInTheDocument();
 
       fireEvent.click(screen.getByRole("link", { name: "Alle Spiele" }));
       expect(await screen.findByRole("search", { name: "Filter" })).toBeInTheDocument();

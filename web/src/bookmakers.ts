@@ -38,10 +38,12 @@ export function isDefaultBookmakers(selected: readonly string[]): boolean {
 // How the UI shows each bookmaker: its own site icon (LeoVegas.de's favicon, Merkur Bets's sun, 20bet's app icon, Admiralbet's, bet-at-home's, ODDSET's, Betway's, Winamax's; Tipico's name alone), with the name as alt text and
 // tooltip (BookmakerLogo). A bookmaker without an icon (yet) shows its name in
 // its place.
-export const BOOKMAKER_BRANDING: Record<string, { name: string; logo?: string } | undefined> = {
+// `unlicensed`: the bookmaker holds no German licence (GGL): said next to its
+// name in the filter, as a fact, with no link to it.
+export const BOOKMAKER_BRANDING: Record<string, { name: string; logo?: string; unlicensed?: boolean } | undefined> = {
   leovegas: { name: "LeoVegas", logo: leovegasLogo },
   merkurbets: { name: "Merkur Bets", logo: merkurbetsLogo },
-  twentybet: { name: "20bet", logo: twentybetLogo },
+  twentybet: { name: "20bet", logo: twentybetLogo, unlicensed: true },
   admiralbet: { name: "Admiralbet", logo: admiralbetLogo },
   betathome: { name: "bet-at-home", logo: betathomeLogo },
   oddset: { name: "ODDSET", logo: oddsetLogo },

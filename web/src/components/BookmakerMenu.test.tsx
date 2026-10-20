@@ -31,7 +31,8 @@ describe("BookmakerMenu", () => {
     render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
     open();
 
-    expect(screen.getAllByRole("checkbox").map((box) => box.closest("label")?.textContent)).toEqual(["LeoVegas", "Merkur Bets", "20bet", "Admiralbet", "bet-at-home", "ODDSET", "Betway", "Tipico", "Winamax"]);
+    // 20bet holds a Curaçao licence, no German one: said, as a fact.
+    expect(screen.getAllByRole("checkbox").map((box) => box.closest("label")?.textContent)).toEqual(["LeoVegas", "Merkur Bets", "20bet · nicht GGL-lizenziert", "Admiralbet", "bet-at-home", "ODDSET", "Betway", "Tipico", "Winamax"]);
   });
 
   it("shows each bookmaker's icon and name, read once", () => {

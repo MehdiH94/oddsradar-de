@@ -22,7 +22,7 @@ function pickMarkets(name: string) {
   fireEvent.click(option);
 }
 
-function toggleBookmaker(name: string) {
+function toggleBookmaker(name: string | RegExp) {
   if (!screen.queryByRole("checkbox", { name })) {
     fireEvent.click(screen.getByRole("button", { name: /^Buchmacher:/ }));
   }
@@ -1184,7 +1184,7 @@ describe("App", () => {
       render(<App />);
       await waitFor(() => expect(screen.getByText("Ergebnisse", { exact: false })).toBeInTheDocument());
 
-      for (const name of ["LeoVegas", "Merkur Bets", "20bet", "Admiralbet", "bet-at-home", "ODDSET", "Betway", "Tipico", "Winamax"]) toggleBookmaker(name);
+      for (const name of ["LeoVegas", "Merkur Bets", /^20bet/, "Admiralbet", "bet-at-home", "ODDSET", "Betway", "Tipico", "Winamax"]) toggleBookmaker(name);
       await waitFor(() => expect(screen.getByText("Wähle mindestens einen Buchmacher, um die Quoten zu vergleichen.")).toBeInTheDocument());
       fireEvent.click(screen.getByRole("button", { name: "Alle Buchmacher auswählen" }));
 
@@ -1277,7 +1277,7 @@ describe("App", () => {
       await waitFor(() => expect(screen.getByRole("radio", { name: "Fußball" })).toBeInTheDocument());
 
       fireEvent.click(screen.getByRole("button", { name: "Buchmacher: Alle" }));
-      for (const name of ["LeoVegas", "Merkur Bets", "20bet", "Admiralbet", "bet-at-home", "ODDSET", "Betway", "Tipico", "Winamax"]) expect(screen.getByRole("checkbox", { name })).toBeChecked();
+      for (const name of ["LeoVegas", "Merkur Bets", /^20bet/, "Admiralbet", "bet-at-home", "ODDSET", "Betway", "Tipico", "Winamax"]) expect(screen.getByRole("checkbox", { name })).toBeChecked();
       expect(screen.queryByRole("button", { name: "Filter zurücksetzen" })).not.toBeInTheDocument();
 
       toggleBookmaker("Merkur Bets");

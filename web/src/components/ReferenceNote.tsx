@@ -27,6 +27,9 @@ export function ReferenceNote({ players = false }: { players?: boolean }) {
           )}
         </p>
         <p>
+          Die Betfair-Wettbörse hat keine deutsche Lizenz (GGL): Ihre Kurse dienen hier nur als Referenz für die faire Quote.
+        </p>
+        <p>
           Die beste Quote jedes Ausgangs ist grün und abgehakt. Die Auszahlungsquote ist die der besten Quoten: Je näher sie
           an {formatPercent(1)} liegt, desto weniger Marge nehmen die Buchmacher; darüber ist es eine Surebet.
         </p>

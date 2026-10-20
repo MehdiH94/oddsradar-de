@@ -35,7 +35,7 @@ const FEATURES: ReadonlyArray<{ title: string; Icon: typeof Gem; text: ReactNode
     Icon: Gem,
     text: (
       <>
-        Eine Quote ist ein Value Bet, wenn sie mindestens {formatPercent(VALUE_MIN_EDGE)} über der fairen Quote liegt: dem Kurs
+        Eine Quote ist eine Value Bet, wenn sie mindestens {formatPercent(VALUE_MIN_EDGE)} über der fairen Quote liegt: dem Kurs
         der Betfair-Wettbörse ohne ihre Marge. Der Vorteil wird angezeigt, damit du weißt, wo du zuerst hinschauen solltest.
       </>
     ),
@@ -84,11 +84,11 @@ const FREEBET_WAYS: ReadonlyArray<{ title: string; Icon: typeof Gem; text: React
 
 const FAQ: ReadonlyArray<{ question: string; answer: ReactNode }> = [
   {
-    question: "Was ist ein Value Bet?",
+    question: "Was ist eine Value Bet?",
     answer: (
       <>
         Eine Wette, deren Quote höher ist, als die Chancen des Ausgangs wirklich wert sind. {APP_NAME} schätzt diesen Wert mit
-        der fairen Quote von {REFERENCE_SOURCE} und markiert jede Quote, die mindestens {formatPercent(VALUE_MIN_EDGE)} darüber liegt (
+        der fairen Quote {REFERENCE_SOURCE} und markiert jede Quote, die mindestens {formatPercent(VALUE_MIN_EDGE)} darüber liegt (
         {formatPercent(PLAYER_VALUE_MIN_EDGE)} bei Spielermärkten). Das ist ein Hinweis, keine Gewissheit: Auch eine Wette über der
         fairen Quote kann verlieren.
       </>
@@ -98,7 +98,7 @@ const FAQ: ReadonlyArray<{ question: string; answer: ReactNode }> = [
     question: "Woher kommt die faire Quote?",
     answer: (
       <>
-        Es ist der Kurs von {REFERENCE_SOURCE} abzüglich ihrer Marge. An einer Wettbörse bestimmen die Wettenden die Kurse:
+        Es ist der Kurs {REFERENCE_SOURCE} abzüglich ihrer Marge. An einer Wettbörse bestimmen die Wettenden die Kurse:
         Das ist die Referenz, die den echten Wahrscheinlichkeiten am nächsten kommt. Ist an der Wettbörse zu wenig Geld auf einem
         Ausgang,{" "}zeigt {APP_NAME} keine faire Quote.
       </>

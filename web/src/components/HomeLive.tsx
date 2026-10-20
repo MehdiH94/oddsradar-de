@@ -82,7 +82,7 @@ function ExamplePick() {
       </div>
       <p className={styles.explain}>
         Die Quote ({formatPrice(EXAMPLE.price)}) zahlt {formatPercent(edge)} mehr als die faire Quote ({formatPrice(EXAMPLE.fair)}):
-        Das ist ein Value Bet.
+        Das ist eine Value Bet.
       </p>
     </li>
   );
@@ -93,7 +93,7 @@ function ExamplePick() {
 export function LivePreview() {
   return (
     <div>
-      <h3 className={styles.previewTitle}>So sieht ein Value Bet aus</h3>
+      <h3 className={styles.previewTitle}>So sieht eine Value Bet aus</h3>
       <ol className={`${styles.cards} ${styles.single}`}>
         <ExamplePick />
       </ol>

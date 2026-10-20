@@ -24,10 +24,13 @@ export const formatOdds = (value: number) => TWO_DECIMALS.format(value);
 export const amountText = (value: number | undefined) => (value && value > 0 ? String(value).replace(".", ",") : "");
 
 // The amount a field holds, in FB: null when it is not one. Empty is nothing (0), a comma or a dot
-// are both decimal marks, and the server's ceiling (src/freebets/wallet.ts, MAX_FREEBET) is respected.
+// are both decimal marks, except dots grouping thousands the German way ("1.000", "2.500,50"), and
+// the server's ceiling (src/freebets/wallet.ts, MAX_FREEBET) is respected.
 export const MAX_FREEBET = 10_000;
+const THOUSANDS = /^[1-9]\d{0,2}(\.\d{3})+(,\d*)?$/;
 export function parseAmount(text: string): number | null {
-  const cleaned = text.trim().replace(/\s/g, "").replace(",", ".");
+  const compact = text.trim().replace(/\s/g, "");
+  const cleaned = (THOUSANDS.test(compact) ? compact.replace(/\./g, "") : compact).replace(",", ".");
   if (cleaned === "") return 0;
   if (!/^\d*\.?\d*$/.test(cleaned) || cleaned === ".") return null;
   const value = Number(cleaned);

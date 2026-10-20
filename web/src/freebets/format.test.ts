@@ -37,6 +37,13 @@ describe("what a field holds", () => {
     expect(parseAmount(text)).toBe(amount);
   });
 
+  it("reads dots grouping thousands the German way, and a lone dot as a decimal mark", () => {
+    expect(parseAmount("1.000")).toBe(1000);
+    expect(parseAmount("2.500,50")).toBe(2500.5);
+    expect(parseAmount("1.5")).toBe(1.5);
+    expect(parseAmount("12.50")).toBe(12.5);
+  });
+
   it.each(["abc", "-3", "1,2,3", "1e3", ".", "12 FB", String(MAX_FREEBET + 1), "99999999999"])("refuses %j", (text) => {
     expect(parseAmount(text)).toBeNull();
   });

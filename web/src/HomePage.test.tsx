@@ -99,9 +99,9 @@ describe("HomePage", () => {
     stubApi(LIVE);
     render(<HomePage />);
 
-    expect(await screen.findByRole("heading", { name: "So sieht ein Value Bet aus" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "So sieht eine Value Bet aus" })).toBeInTheDocument();
     expect(screen.getByText("Beispiel")).toBeInTheDocument();
-    expect(screen.getByText(/Das ist ein Value Bet/)).toBeInTheDocument();
+    expect(screen.getByText(/Das ist eine Value Bet/)).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: /Every market of the match/ })).not.toBeInTheDocument();
   });
 
@@ -136,7 +136,7 @@ describe("HomePage", () => {
     const faq = screen.getByRole("region", { name: "Häufige Fragen" });
     const questions = [...faq.querySelectorAll("summary")].map((summary) => summary.textContent);
     expect(questions).toEqual([
-      "Was ist ein Value Bet?",
+      "Was ist eine Value Bet?",
       "Woher kommt die faire Quote?",
       "Was ist eine Surebet?",
       "Was ist eine Freebet, und wie macht man daraus Geld?",

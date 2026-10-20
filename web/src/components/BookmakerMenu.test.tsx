@@ -3,25 +3,25 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { BookmakerMenu } from "./BookmakerMenu";
 import { ALL_BOOKMAKERS, BOOKMAKER_BRANDING } from "../bookmakers";
 
-const open = () => fireEvent.click(screen.getByRole("button", { name: /^Bookmakers/ }));
+const open = () => fireEvent.click(screen.getByRole("button", { name: /^Buchmacher/ }));
 
 describe("BookmakerMenu", () => {
   it("sums up the bookmakers ticked", () => {
     const { rerender } = render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers: All");
+    expect(screen.getByRole("button", { name: /^Buchmacher/ })).toHaveAccessibleName("Buchmacher: Alle");
 
     rerender(<BookmakerMenu selected={["merkurbets"]} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers: Merkur Bets");
+    expect(screen.getByRole("button", { name: /^Buchmacher/ })).toHaveAccessibleName("Buchmacher: Merkur Bets");
 
     rerender(<BookmakerMenu selected={[]} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: /^Bookmakers/ })).toHaveAccessibleName("Bookmakers: None");
+    expect(screen.getByRole("button", { name: /^Buchmacher/ })).toHaveAccessibleName("Buchmacher: Keine");
   });
 
   it("renders every bookmaker checked when all are selected", () => {
     render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
     open();
 
-    expect(screen.getByRole("group", { name: "Bookmakers compared" })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Verglichene Buchmacher" })).toBeInTheDocument();
     for (const name of ["LeoVegas", "Merkur Bets"]) {
       expect(screen.getByRole("checkbox", { name })).toBeChecked();
     }

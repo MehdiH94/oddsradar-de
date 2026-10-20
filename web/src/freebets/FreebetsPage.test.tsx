@@ -246,7 +246,7 @@ describe("FreebetsPage", () => {
     it("offers the sports on offer, all ticked, and asks again for those left ticked", async () => {
       const { calls } = stubApi();
       renderPage();
-      const football = await screen.findByRole("button", { name: "Football" });
+      const football = await screen.findByRole("button", { name: "Fußball" });
       const tennis = screen.getByRole("button", { name: "Tennis" });
       expect(football).toHaveAttribute("aria-pressed", "true");
       expect(tennis).toHaveAttribute("aria-pressed", "true");
@@ -255,7 +255,7 @@ describe("FreebetsPage", () => {
       await waitFor(() => expect(lastAsked(calls)).toBe("/api/freebets/conversions?mode=bookmakers&legs=1&sports=tennis"));
       expect(window.location.search).toBe("?sports=tennis");
       // Every sport ticked again is every sport.
-      fireEvent.click(screen.getByRole("button", { name: "Football" }));
+      fireEvent.click(screen.getByRole("button", { name: "Fußball" }));
       await waitFor(() => expect(lastAsked(calls)).toBe("/api/freebets/conversions?mode=bookmakers&legs=1"));
     });
 
@@ -320,7 +320,7 @@ describe("FreebetsPage", () => {
       renderPage();
       expect(await screen.findByRole("alert")).toHaveTextContent("The calculation did not finish");
       fails = false;
-      fireEvent.click(screen.getByRole("button", { name: "Try again" }));
+      fireEvent.click(screen.getByRole("button", { name: "Erneut versuchen" }));
       expect(await screen.findByRole("heading", { name: /Top 3/ })).toBeInTheDocument();
       expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     });
@@ -386,7 +386,7 @@ describe("FreebetsPage", () => {
       const step2 = within(screen.getByRole("heading", { name: /Lay/ }).parentElement!);
       expect(step2.getByText(/^Lay on/)).toHaveTextContent("Lay €11.00 on");
       expect(step2.getByText("4.65")).toBeInTheDocument();
-      expect(step2.getByText(/3% commission on winnings/)).toBeInTheDocument();
+      expect(step2.getByText(/3 % commission on winnings/)).toBeInTheDocument();
       expect(step2.getByText(/Lay needed/)).toHaveTextContent("available on the exchange €11.00");
 
       expect(screen.getByRole("heading", { name: "Whatever the result, you keep at least €10.67" })).toBeInTheDocument();
@@ -618,7 +618,7 @@ describe("FreebetsPage", () => {
       stubApi();
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
-      const views = within(screen.getByRole("group", { name: "Show" })).getAllByRole("radio");
+      const views = within(screen.getByRole("group", { name: "Anzeigen" })).getAllByRole("radio");
       expect(views.map((radio) => radio.getAttribute("value"))).toEqual(["value-bets", "matches", "freebets"]);
       expect(screen.getByRole("radio", { name: "Freebets" })).toBeChecked();
       expect(screen.getByRole("heading", { level: 1, name: "Freebets" })).toBeInTheDocument();
@@ -628,7 +628,7 @@ describe("FreebetsPage", () => {
       stubApi();
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
-      fireEvent.click(screen.getByRole("radio", { name: "Value bets" }));
+      fireEvent.click(screen.getByRole("radio", { name: "Value Bets" }));
       expect(window.location.pathname).toBe("/odds");
       expect(window.location.search).toContain("sport=value-bets");
     });
@@ -645,7 +645,7 @@ describe("FreebetsPage", () => {
       stubApi();
       renderPage();
       await screen.findByRole("heading", { name: /Top 3/ });
-      expect(screen.getByRole("navigation", { name: "Main navigation" })).toBeInTheDocument();
+      expect(screen.getByRole("navigation", { name: "Hauptnavigation" })).toBeInTheDocument();
       expect(screen.getByRole("radio", { name: "Freebets" })).toBeChecked();
     });
 

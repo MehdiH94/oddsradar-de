@@ -4,8 +4,8 @@ import styles from "./AppNav.module.css";
 export type View = "value-bets" | "matches" | "freebets";
 
 const VIEWS: ReadonlyArray<{ value: View; label: string; Icon: typeof Gem }> = [
-  { value: "value-bets", label: "Value bets", Icon: Gem },
-  { value: "matches", label: "Matches", Icon: ListOrdered },
+  { value: "value-bets", label: "Value Bets", Icon: Gem },
+  { value: "matches", label: "Spiele", Icon: ListOrdered },
   { value: "freebets", label: "Freebets", Icon: Gift },
 ];
 
@@ -30,9 +30,9 @@ export function AppNav({
   filters?: { count: number; open: boolean; onOpen: () => void; controls: string };
 }) {
   return (
-    <nav className={placement === "bar" ? styles.bar : styles.header} aria-label="Main navigation">
+    <nav className={placement === "bar" ? styles.bar : styles.header} aria-label="Hauptnavigation">
       <fieldset className={styles.group}>
-        <legend className="visually-hidden">Show</legend>
+        <legend className="visually-hidden">Anzeigen</legend>
         {VIEWS.map(({ value, label, Icon }) => (
           <label key={value} className={styles.item}>
             <input
@@ -57,15 +57,15 @@ export function AppNav({
           aria-haspopup="dialog"
           aria-expanded={filters.open}
           aria-controls={filters.controls}
-          // The badge's count, read out: "Filters, 2 active".
+          // The badge's count, read out: "Filter, 2 aktiv".
           aria-label={
-            filters.count > 0 ? `Filters, ${filters.count} active` : undefined
+            filters.count > 0 ? `Filter, ${filters.count} aktiv` : undefined
           }
           onClick={filters.onOpen}
         >
           <span className={styles.face}>
             <SlidersHorizontal size={20} aria-hidden="true" className={styles.icon} />
-            Filters
+            Filter
             {filters.count > 0 && (
               <span className={styles.badge} aria-hidden="true">
                 {filters.count}

@@ -125,7 +125,7 @@ test("a new account is asked for its freebets, and with one bookmaker's only is 
   await logIn(page, email, NEW_PASSWORD);
   await expect(page).toHaveURL(/\/odds/);
 
-  await page.getByRole("navigation", { name: "Main navigation" }).getByText("Freebets", { exact: true }).click();
+  await page.getByRole("navigation", { name: "Hauptnavigation" }).getByText("Freebets", { exact: true }).click();
   await expect(page).toHaveURL(/\/freebets/);
   await expect(page.getByText("Enter your freebets above to see how to convert them.")).toBeVisible();
 

@@ -15,7 +15,7 @@ const FOOTBALL = [
   "Super Lig",
 ];
 
-const open = (name = "Competition: All") => fireEvent.click(screen.getByRole("button", { name }));
+const open = (name = "Wettbewerb: Alle") => fireEvent.click(screen.getByRole("button", { name }));
 const radios = () => screen.getAllByRole("radio").map((radio) => radio.parentElement?.textContent);
 const pick = (name: string) => {
   fireEvent.pointerDown(screen.getByText(name));
@@ -25,20 +25,20 @@ const pick = (name: string) => {
 describe("CompetitionMenu", () => {
   it("sums up the current competition, or all of them", () => {
     const { rerender } = render(<CompetitionMenu sport="football" value="" competitions={["Ligue 1"]} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: "Competition: All" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Wettbewerb: Alle" })).toBeInTheDocument();
 
     rerender(<CompetitionMenu sport="football" value="Ligue 1" competitions={["Ligue 1"]} onChange={() => {}} />);
-    expect(screen.getByRole("button", { name: "Competition: Ligue 1" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Wettbewerb: Ligue 1" })).toBeInTheDocument();
   });
 
   it("opens on all, the favorites in order, then the others alphabetically, the current one checked", () => {
     render(<CompetitionMenu sport="football" value="Ligue 1" competitions={["Coupe de France", "Ligue 1", "Serie A", "Premier League"]} onChange={() => {}} />);
 
-    open("Competition: Ligue 1");
-    expect(radios()).toEqual(["All competitions", "Premier League", "Serie A", "Ligue 1", "Coupe de France"]);
+    open("Wettbewerb: Ligue 1");
+    expect(radios()).toEqual(["Alle Wettbewerbe", "Premier League", "Serie A", "Ligue 1", "Coupe de France"]);
     expect(screen.getByRole("radio", { name: "Ligue 1" })).toBeChecked();
-    expect(screen.getByRole("group", { name: "Top competitions" })).toBeInTheDocument();
-    expect(screen.getByRole("group", { name: "Other competitions" })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Top-Wettbewerbe" })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Weitere Wettbewerbe" })).toBeInTheDocument();
   });
 
   it("is folded to the favorites and three others, with a button to show them all and to fold again", () => {
@@ -46,7 +46,7 @@ describe("CompetitionMenu", () => {
 
     open();
     expect(radios()).toEqual([
-      "All competitions",
+      "Alle Wettbewerbe",
       "Bundesliga",
       "Premier League",
       "Serie A",
@@ -55,13 +55,13 @@ describe("CompetitionMenu", () => {
       "Championship",
       "Coupe de France",
     ]);
-    const more = screen.getByRole("button", { name: "Show all 10 competitions" });
+    const more = screen.getByRole("button", { name: "Alle 10 Wettbewerbe anzeigen" });
     expect(more).toHaveAttribute("aria-expanded", "false");
 
     fireEvent.click(more);
     expect(radios()).toHaveLength(11);
     expect(radios().slice(5)).toEqual(["Bundesliga 2", "Championship", "Coupe de France", "Eredivisie", "Ligue 2", "Super Lig"]);
-    const less = screen.getByRole("button", { name: "Show fewer" });
+    const less = screen.getByRole("button", { name: "Weniger anzeigen" });
     expect(less).toHaveAttribute("aria-expanded", "true");
 
     fireEvent.click(less);
@@ -71,7 +71,7 @@ describe("CompetitionMenu", () => {
   it("keeps the chosen competition in sight while folded", () => {
     render(<CompetitionMenu sport="football" value="Super Lig" competitions={FOOTBALL} onChange={() => {}} />);
 
-    open("Competition: Super Lig");
+    open("Wettbewerb: Super Lig");
     expect(radios()).toContain("Super Lig");
     expect(screen.getByRole("radio", { name: "Super Lig" })).toBeChecked();
     expect(screen.queryByRole("radio", { name: "Eredivisie" })).not.toBeInTheDocument();
@@ -81,39 +81,39 @@ describe("CompetitionMenu", () => {
     render(<CompetitionMenu sport="football" value="" competitions={["Coupe de France", "Ligue 1"]} onChange={() => {}} />);
 
     open();
-    expect(radios()).toEqual(["All competitions", "Ligue 1", "Coupe de France"]);
-    expect(screen.queryByRole("button", { name: /Show all/ })).not.toBeInTheDocument();
+    expect(radios()).toEqual(["Alle Wettbewerbe", "Ligue 1", "Coupe de France"]);
+    expect(screen.queryByRole("button", { name: /Alle \d+ Wettbewerbe anzeigen/ })).not.toBeInTheDocument();
   });
 
   it("has no favorites outside football", () => {
     render(<CompetitionMenu sport="tennis" value="" competitions={["Ligue 1", "ATP Paris"]} onChange={() => {}} />);
 
     open();
-    expect(radios()).toEqual(["All competitions", "ATP Paris", "Ligue 1"]);
-    expect(screen.queryByRole("group", { name: "Top competitions" })).not.toBeInTheDocument();
+    expect(radios()).toEqual(["Alle Wettbewerbe", "ATP Paris", "Ligue 1"]);
+    expect(screen.queryByRole("group", { name: "Top-Wettbewerbe" })).not.toBeInTheDocument();
   });
 
   it("searches every competition as one types, folded or not, without case or accents", () => {
     render(<CompetitionMenu sport="football" value="" competitions={FOOTBALL} onChange={() => {}} />);
 
     open();
-    const search = screen.getByRole("searchbox", { name: "Search for a competition" });
+    const search = screen.getByRole("searchbox", { name: "Wettbewerb suchen" });
     expect(search).toHaveFocus();
     fireEvent.change(search, { target: { value: "BUNDES" } });
 
     expect(radios()).toEqual(["Bundesliga", "Bundesliga 2"]);
-    expect(screen.queryByRole("button", { name: /Show all|Show fewer/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Alle \d+ Wettbewerbe anzeigen|Weniger anzeigen/ })).not.toBeInTheDocument();
 
     fireEvent.change(search, { target: { value: "super" } });
     expect(radios()).toEqual(["Super Lig"]);
 
     fireEvent.change(search, { target: { value: "zzz" } });
     expect(screen.queryAllByRole("radio")).toHaveLength(0);
-    expect(screen.getByRole("status")).toHaveTextContent("No competition matches “zzz”.");
+    expect(screen.getByRole("status")).toHaveTextContent("Kein Wettbewerb passt zu „zzz“.");
 
-    fireEvent.click(screen.getByRole("button", { name: "Clear the competition search" }));
+    fireEvent.click(screen.getByRole("button", { name: "Wettbewerbssuche löschen" }));
     expect(search).toHaveValue("");
-    expect(radios()[0]).toBe("All competitions");
+    expect(radios()[0]).toBe("Alle Wettbewerbe");
   });
 
   it("picks the first competition found on Enter, and the arrow goes down to the rows", () => {
@@ -121,14 +121,14 @@ describe("CompetitionMenu", () => {
     render(<CompetitionMenu sport="football" value="" competitions={FOOTBALL} onChange={onChange} />);
 
     open();
-    const search = screen.getByRole("searchbox", { name: "Search for a competition" });
+    const search = screen.getByRole("searchbox", { name: "Wettbewerb suchen" });
     fireEvent.change(search, { target: { value: "ligue" } });
     fireEvent.keyDown(search, { key: "Enter" });
     expect(onChange).toHaveBeenCalledWith("Ligue 1");
 
     fireEvent.keyDown(search, { key: "ArrowDown" });
     expect(radios().length).toBeGreaterThan(0);
-    expect(within(screen.getByRole("group", { name: "Top competitions" })).getAllByRole("radio")[0]).toHaveFocus();
+    expect(within(screen.getByRole("group", { name: "Top-Wettbewerbe" })).getAllByRole("radio")[0]).toHaveFocus();
   });
 
   it("does nothing on Enter when nothing is found", () => {
@@ -136,7 +136,7 @@ describe("CompetitionMenu", () => {
     render(<CompetitionMenu sport="football" value="" competitions={FOOTBALL} onChange={onChange} />);
 
     open();
-    const search = screen.getByRole("searchbox", { name: "Search for a competition" });
+    const search = screen.getByRole("searchbox", { name: "Wettbewerb suchen" });
     fireEvent.change(search, { target: { value: "zzz" } });
     fireEvent.keyDown(search, { key: "Enter" });
     expect(onChange).not.toHaveBeenCalled();
@@ -146,13 +146,13 @@ describe("CompetitionMenu", () => {
     const onChange = vi.fn();
     render(<CompetitionMenu sport="football" value="Ligue 1" competitions={["Coupe de France", "Ligue 1"]} onChange={onChange} />);
 
-    open("Competition: Ligue 1");
+    open("Wettbewerb: Ligue 1");
     pick("Coupe de France");
     expect(onChange).toHaveBeenLastCalledWith("Coupe de France");
-    expect(screen.queryByRole("group", { name: "Competition" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("group", { name: "Wettbewerb" })).not.toBeInTheDocument();
 
-    open("Competition: Ligue 1");
-    pick("All competitions");
+    open("Wettbewerb: Ligue 1");
+    pick("Alle Wettbewerbe");
     expect(onChange).toHaveBeenLastCalledWith("");
   });
 
@@ -160,20 +160,20 @@ describe("CompetitionMenu", () => {
     render(<CompetitionMenu sport="football" value="" competitions={FOOTBALL} onChange={() => {}} />);
 
     open();
-    fireEvent.click(screen.getByRole("button", { name: "Show all 10 competitions" }));
+    fireEvent.click(screen.getByRole("button", { name: "Alle 10 Wettbewerbe anzeigen" }));
     fireEvent.change(screen.getByRole("searchbox"), { target: { value: "ere" } });
     fireEvent.keyDown(screen.getByRole("searchbox"), { key: "Escape" });
     expect(screen.queryByRole("searchbox")).not.toBeInTheDocument();
 
     open();
     expect(screen.getByRole("searchbox")).toHaveValue("");
-    expect(screen.getByRole("button", { name: "Show all 10 competitions" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Alle 10 Wettbewerbe anzeigen" })).toBeInTheDocument();
   });
 
   it("lists the current competition even when the list has no more of it, so that it can be undone", () => {
     render(<CompetitionMenu sport="football" value="Ligue 2" competitions={["Ligue 1"]} onChange={() => {}} />);
 
-    open("Competition: Ligue 2");
+    open("Wettbewerb: Ligue 2");
     expect(screen.getByRole("radio", { name: "Ligue 2" })).toBeChecked();
     expect(screen.getByRole("radio", { name: "Ligue 1" })).not.toBeChecked();
   });

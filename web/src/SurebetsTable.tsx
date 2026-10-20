@@ -11,22 +11,23 @@ import styles from "./SurebetsTable.module.css";
 
 // The exchange's legs, beside the bookmakers' (src/db/surebets.ts).
 const EXCHANGE = "exchange";
-const sourceName = (source: string) => (source === EXCHANGE ? "Exchange" : (BOOKMAKER_BRANDING[source]?.name ?? source));
-const euros = (amount: number) => `€${amount.toFixed(2)}`;
+const sourceName = (source: string) => (source === EXCHANGE ? "Börse" : (BOOKMAKER_BRANDING[source]?.name ?? source));
+// "10,67 €", with a no-break space.
+const euros = (amount: number) => `${amount.toFixed(2).replace(".", ",")}\u00a0€`;
 // What a lay offers under which the surebet is thin (SUREBET_MIN_SIZE).
 const THIN_SIZE = 20;
 
 // Said in the card, not in a tooltip only: a finger can't bring one up.
 const KIND_LABELS: Record<Surebet["kind"], string> = {
-  bookmakers: "Between bookmakers",
-  exchange: "With the exchange",
-  lay: "Lay on the exchange",
+  bookmakers: "Zwischen Buchmachern",
+  exchange: "Mit der Börse",
+  lay: "Lay an der Börse",
 };
 
 const KIND_TITLES: Record<Surebet["kind"], string> = {
-  bookmakers: "Between the bookmakers: the best price of each outcome",
-  exchange: "With the exchange: its price net of its 3% commission",
-  lay: "Backed at a bookmaker, laid on the exchange: its 3% commission included. Under €20 to lay, the profit holds for that amount only",
+  bookmakers: "Zwischen den Buchmachern: die beste Quote jedes Ausgangs",
+  exchange: "Mit der Börse: ihre Quote abzüglich 3\u00a0% Provision",
+  lay: "Beim Buchmacher gesetzt, an der Börse gelayt: 3\u00a0% Provision inbegriffen. Unter 20\u00a0€ zum Layen gilt der Gewinn nur für diesen Betrag",
 };
 
 // One bet of a surebet: where, at what price, and how much (out of 100 € in
@@ -45,10 +46,10 @@ function Leg({ leg }: { leg: SurebetLeg }) {
       </span>
       <span className={styles.legStake}>
         {leg.side === "lay" && leg.liability !== undefined
-          ? `stake ${euros(leg.stake)} (liability ${euros(leg.liability)})`
-          : `stake ${euros(leg.stake)}`}
+          ? `Einsatz ${euros(leg.stake)} (Haftung ${euros(leg.liability)})`
+          : `Einsatz ${euros(leg.stake)}`}
         {leg.size !== undefined && leg.size < THIN_SIZE && (
-          <span className={styles.thinSize}> · only {euros(leg.size)} to lay</span>
+          <span className={styles.thinSize}> · nur {euros(leg.size)} zum Layen</span>
         )}
       </span>
     </li>
@@ -83,12 +84,12 @@ export function SurebetsTable({
         <thead>
           <tr>
             <th scope="col" className={styles.startHead}>
-              Kick-off
+              Anstoß
             </th>
-            <th scope="col">Match</th>
-            <th scope="col">Bets for €100</th>
+            <th scope="col">Spiel</th>
+            <th scope="col">Wetten für 100&nbsp;€</th>
             <th scope="col" className={styles.rateHead}>
-              Payout
+              Auszahlung
             </th>
           </tr>
         </thead>
@@ -132,14 +133,14 @@ export function SurebetsTable({
                     <a
                       className={styles.more}
                       href={matchHref(surebet.eventId)}
-                      aria-label={`+${surebet.marketCount - 1} markets for ${teams}`}
+                      aria-label={`+${surebet.marketCount - 1} ${surebet.marketCount === 2 ? "Markt" : "Märkte"} für ${teams}`}
                       onClick={open}
                     >
-                      +{surebet.marketCount - 1} markets
+                      +{surebet.marketCount - 1} {surebet.marketCount === 2 ? "Markt" : "Märkte"}
                     </a>
                   )}
                 </td>
-                <td className={styles.legs} data-label="Bets for €100">
+                <td className={styles.legs} data-label={"Wetten für 100\u00a0€"}>
                   <ul className={styles.legList}>
                     {surebet.legs.map((leg) => (
                       <Leg key={`${leg.selection}@${leg.source}:${leg.side}`} leg={leg} />
@@ -149,15 +150,15 @@ export function SurebetsTable({
                 <td className={styles.rate} title={KIND_TITLES[surebet.kind]}>
                   <strong className={styles.rateValue}>{formatPayoutRate(surebet.payoutRate)}</strong>
                   <span className={styles.profit}>+{euros(surebet.profit)}</span>
-                  {surebet.toVerify && <span className={styles.toVerify}>to verify</span>}
-                  {surebet.thin && <span className={styles.toVerify}>limited liquidity</span>}
+                  {surebet.toVerify && <span className={styles.toVerify}>zu prüfen</span>}
+                  {surebet.thin && <span className={styles.toVerify}>geringe Liquidität</span>}
                   <span className={styles.kind}>{KIND_LABELS[surebet.kind]}</span>
                 </td>
                 {!wide && hasPage && (
                   <td className={styles.actions}>
                     <a className={styles.allMarkets} href={matchHref(surebet.eventId)} onClick={open}>
                       <span>
-                        Every market of the match{" "}
+                        Alle Märkte des Spiels{" "}
                         <span className="visually-hidden">{teams}</span>
                       </span>
                       <ChevronRight size={16} aria-hidden="true" />

@@ -1,7 +1,7 @@
 import { Dropdown, MenuGroup, MenuOption } from "./Dropdown";
 import { CompetitionPicker } from "./CompetitionPicker";
 
-// "Compétition : Toutes", opening on the competitions of the sport shown (the
+// "Wettbewerb: Alle", opening on the competitions of the sport shown (the
 // matches' and the winners'): picking one keeps its matches and its winner.
 // Football's big leagues come first, the list is folded, and a field searches
 // it (CompetitionPicker).
@@ -18,8 +18,8 @@ export function CompetitionMenu({
   onChange: (competition: string) => void;
 }) {
   return (
-    <Dropdown label="Competition" summary={value || "All"}>
-      <MenuGroup legend="Competition">
+    <Dropdown label="Wettbewerb" summary={value || "Alle"}>
+      <MenuGroup legend="Wettbewerb">
         <CompetitionPicker
           sport={sport}
           value={value}

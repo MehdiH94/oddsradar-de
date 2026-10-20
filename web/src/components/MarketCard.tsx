@@ -14,8 +14,8 @@ const FILTER_FROM = 30;
 // stack their icon over their price.
 const COMPACT_FROM = 6;
 
-// "2,5": the French decimal comma.
-const formatLine = (line: number) => String(line);
+// "2,5": the German decimal comma.
+const formatLine = (line: number) => String(line).replace(".", ",");
 
 function Prices({ outcome, bookmakers }: { outcome: OutcomeDetail | undefined; bookmakers: readonly string[] }) {
   return (
@@ -62,12 +62,12 @@ function LinesTable({ market, bookmakers }: { market: MarketDetail; bookmakers: 
     <table className={styles.lines}>
       <thead>
         <tr>
-          <th scope="col">Line</th>
-          <th scope="col">Over</th>
-          <th scope="col">Under</th>
+          <th scope="col">Linie</th>
+          <th scope="col">Über</th>
+          <th scope="col">Unter</th>
           {hasPayout && (
             <th scope="col" className={styles.trjHead}>
-              Payout
+              Auszahlung
             </th>
           )}
         </tr>
@@ -78,10 +78,10 @@ function LinesTable({ market, bookmakers }: { market: MarketDetail; bookmakers: 
             <th scope="row" className={styles.line}>
               {line.line === null ? "" : formatLine(line.line)}
             </th>
-            <td data-label="Plus">
+            <td data-label="Über">
               <Prices outcome={line.outcomes.find((o) => o.key === "over")} bookmakers={bookmakers} />
             </td>
-            <td data-label="Moins">
+            <td data-label="Unter">
               <Prices outcome={line.outcomes.find((o) => o.key === "under")} bookmakers={bookmakers} />
             </td>
             {hasPayout && (
@@ -113,8 +113,8 @@ function OutcomeList({ market, line, bookmakers }: { market: MarketDetail; line:
         <input
           type="search"
           className={styles.filter}
-          aria-label={`Search in ${market.label}`}
-          placeholder={`Search among ${line.outcomes.length}…`}
+          aria-label={`In ${market.label} suchen`}
+          placeholder={`Unter ${line.outcomes.length} suchen…`}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         />
@@ -134,10 +134,10 @@ function OutcomeList({ market, line, bookmakers }: { market: MarketDetail; line:
           ))}
         </tbody>
       </table>
-      {needle && matching.length === 0 && <p className={styles.empty}>Rien ne correspond.</p>}
+      {needle && matching.length === 0 && <p className={styles.empty}>Nichts gefunden.</p>}
       {folds && !needle && (
         <button type="button" className={styles.more} onClick={() => setExpanded(!expanded)} aria-expanded={expanded}>
-          {expanded ? "Show fewer" : `Show the ${hidden} others`}
+          {expanded ? "Weniger anzeigen" : `Die anderen ${hidden} anzeigen`}
         </button>
       )}
     </>
@@ -158,8 +158,8 @@ export function MarketCard({ market, bookmakers }: { market: MarketDetail; bookm
       <header className={styles.header}>
         <h4 className={styles.title}>{market.label}</h4>
         {single && single.payoutRate !== null && (
-          <span className={styles.badge} title="Payout, with the best price of each outcome">
-            <span className="visually-hidden">Payout: </span>
+          <span className={styles.badge} title="Auszahlungsquote mit der besten Quote jedes Ausgangs">
+            <span className="visually-hidden">Auszahlungsquote: </span>
             <PayoutBadge rate={single.payoutRate} />
           </span>
         )}

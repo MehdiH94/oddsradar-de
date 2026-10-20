@@ -133,8 +133,8 @@ describe("MatchPage", () => {
 
     expect(await screen.findByRole("heading", { level: 2, name: "Borussia Dortmund – Werder Brême" })).toBeInTheDocument();
     expect(fetchMock).toHaveBeenCalledWith("/api/events/bvb");
-    expect(screen.getByText(/3 markets compared/)).toBeInTheDocument();
-    expect(screen.getByText("1 surebet")).toBeInTheDocument();
+    expect(screen.getByText(/3 Märkte verglichen/)).toBeInTheDocument();
+    expect(screen.getByText("1 Surebet")).toBeInTheDocument();
   });
 
   describe("the competition", () => {
@@ -146,7 +146,7 @@ describe("MatchPage", () => {
       const onOpenCompetition = vi.fn();
       renderPage({ competitionHref, onOpenCompetition });
 
-      const link = await screen.findByRole("link", { name: "Show the matches: Bundesliga" });
+      const link = await screen.findByRole("link", { name: "Spiele anzeigen: Bundesliga" });
       expect(link).toHaveTextContent("Bundesliga");
       expect(link).toHaveAttribute("href", "?sport=football&sort=trj&competition=Bundesliga");
 
@@ -159,7 +159,7 @@ describe("MatchPage", () => {
       const onOpenCompetition = vi.fn();
       renderPage({ competitionHref, onOpenCompetition });
 
-      const link = await screen.findByRole("link", { name: "Show the matches: Ligue 1 McDonald's® 2026/2027" });
+      const link = await screen.findByRole("link", { name: "Spiele anzeigen: Ligue 1 McDonald's® 2026/2027" });
       expect(link).toHaveTextContent("Ligue 1 McDonald's® 2026/2027");
       fireEvent.click(link);
       expect(onOpenCompetition).toHaveBeenCalledWith("football", "Ligue 1 McDonald's®");
@@ -170,7 +170,7 @@ describe("MatchPage", () => {
       const onOpenCompetition = vi.fn();
       renderPage({ competitionHref, onOpenCompetition });
 
-      fireEvent.click(await screen.findByRole("link", { name: "Show the matches: Bundesliga" }), { ctrlKey: true });
+      fireEvent.click(await screen.findByRole("link", { name: "Spiele anzeigen: Bundesliga" }), { ctrlKey: true });
       expect(onOpenCompetition).not.toHaveBeenCalled();
     });
 
@@ -178,13 +178,13 @@ describe("MatchPage", () => {
       stubFetch(detail);
       const { unmount } = renderPage();
       expect(await screen.findByText(/Bundesliga/)).toBeInTheDocument();
-      expect(screen.queryByRole("link", { name: /Show the matches/ })).not.toBeInTheDocument();
+      expect(screen.queryByRole("link", { name: /Spiele anzeigen/ })).not.toBeInTheDocument();
       unmount();
 
       stubFetch({ ...detail, competition: "", competitionFilter: "" });
       renderPage({ competitionHref, onOpenCompetition: () => {} });
       await screen.findByRole("heading", { level: 2 });
-      expect(screen.queryByRole("link", { name: /Show the matches/ })).not.toBeInTheDocument();
+      expect(screen.queryByRole("link", { name: /Spiele anzeigen/ })).not.toBeInTheDocument();
     });
   });
 
@@ -223,8 +223,8 @@ describe("MatchPage", () => {
 
     const card = await screen.findByRole("article", { name: "Double chance" });
     const row = within(card).getByRole("row", { name: /Borussia Dortmund ou nul/ });
-    expect(row).toHaveTextContent("LeoVegas: 1.07");
-    expect(row).toHaveTextContent("Merkur Bets: 1.08 (best price)");
+    expect(row).toHaveTextContent("LeoVegas: 1,07");
+    expect(row).toHaveTextContent("Merkur Bets: 1,08 (beste Quote)");
     // One bookmaker's price only: nothing to compare, no best.
     expect(within(card).getByRole("row", { name: /Nul ou Werder Brême/ })).not.toHaveTextContent("best price");
   });
@@ -236,13 +236,13 @@ describe("MatchPage", () => {
     const card = await screen.findByRole("article", { name: "Nombre de buts" });
     const table = within(card).getByRole("table");
     expect(within(table).getAllByRole("columnheader").map((h) => h.textContent)).toEqual([
-      "Line",
-      "Over",
-      "Under",
-      "Payout",
+      "Linie",
+      "Über",
+      "Unter",
+      "Auszahlung",
     ]);
-    const line = within(table).getByRole("row", { name: /2.5/ });
-    expect(line).toHaveTextContent("101.2");
+    const line = within(table).getByRole("row", { name: /2,5/ });
+    expect(line).toHaveTextContent("101,2");
     expect(line).toHaveTextContent("Surebet");
   });
 
@@ -252,10 +252,10 @@ describe("MatchPage", () => {
 
     const card = await screen.findByRole("article", { name: "Buteur" });
     expect(within(card).getAllByRole("row")).toHaveLength(10);
-    fireEvent.change(within(card).getByRole("searchbox", { name: "Search in Buteur" }), { target: { value: "guir" } });
+    fireEvent.change(within(card).getByRole("searchbox", { name: "In Buteur suchen" }), { target: { value: "guir" } });
     expect(within(card).getAllByRole("row").map((r) => r.querySelector("th")?.textContent)).toEqual(["Serhou Guirassy"]);
     fireEvent.change(within(card).getByRole("searchbox"), { target: { value: "" } });
-    fireEvent.click(within(card).getByRole("button", { name: "Show the 24 others" }));
+    fireEvent.click(within(card).getByRole("button", { name: "Die anderen 24 anzeigen" }));
     expect(within(card).getAllByRole("row")).toHaveLength(34);
   });
 
@@ -263,15 +263,15 @@ describe("MatchPage", () => {
     stubFetch(detail);
     renderPage();
 
-    const toggle = await screen.findByRole("button", { name: "Seulement at LeoVegas, 1 market" });
+    const toggle = await screen.findByRole("button", { name: "Seulement at LeoVegas, 1 Markt" });
     expect(toggle).toHaveAttribute("aria-expanded", "false");
     expect(screen.queryByRole("article", { name: "Remplaçant buteur" })).not.toBeInTheDocument();
 
-    fireEvent.click(within(screen.getByRole("navigation", { name: "Sections" })).getByRole("button", { name: "Seulement at LeoVegas" }));
+    fireEvent.click(within(screen.getByRole("navigation", { name: "Rubriken" })).getByRole("button", { name: "Seulement at LeoVegas" }));
     expect(toggle).toHaveAttribute("aria-expanded", "true");
     expect(screen.getByRole("article", { name: "Remplaçant buteur" })).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: "Buts, 1 market" }));
+    fireEvent.click(screen.getByRole("button", { name: "Buts, 1 Markt" }));
     expect(screen.queryByRole("article", { name: "Nombre de buts" })).not.toBeInTheDocument();
   });
 
@@ -280,7 +280,7 @@ describe("MatchPage", () => {
     const onBack = vi.fn();
     renderPage({ onBack });
 
-    const back = await screen.findByRole("link", { name: "All matches" });
+    const back = await screen.findByRole("link", { name: "Alle Spiele" });
     expect(back).toHaveAttribute("href", "?sport=football&sort=trj");
     fireEvent.click(back);
     expect(onBack).toHaveBeenCalled();
@@ -289,7 +289,7 @@ describe("MatchPage", () => {
   it("says so when the match is no longer offered", async () => {
     stubFetch({ error: "not found" }, 404);
     renderPage();
-    expect(await screen.findByText(/This match is no longer offered/)).toBeInTheDocument();
+    expect(await screen.findByText(/Dieses Spiel wird nicht mehr angeboten/)).toBeInTheDocument();
   });
 
   it("reports how fresh its prices are, and tries again after a failure", async () => {
@@ -301,7 +301,7 @@ describe("MatchPage", () => {
 
     await waitFor(() => expect(onStatus).toHaveBeenLastCalledWith({ refreshing: false, failed: true }));
     stubFetch(detail);
-    fireEvent.click(screen.getByRole("button", { name: "Try again" }));
+    fireEvent.click(screen.getByRole("button", { name: "Erneut versuchen" }));
     await waitFor(() => expect(onStatus).toHaveBeenLastCalledWith(expect.objectContaining({ failed: false, updated: expect.any(Date) })));
   });
 });

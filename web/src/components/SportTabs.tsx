@@ -152,9 +152,9 @@ export function SportTabs({
           <button
             type="button"
             className={styles.star}
-            aria-label={`Favourite: ${sportLabel(sport)}`}
+            aria-label={`Favorit: ${sportLabel(sport)}`}
             aria-pressed={favorite}
-            title={closed ? `${MAX_FAVORITES} favourites at most` : undefined}
+            title={closed ? `Höchstens ${MAX_FAVORITES} Favoriten` : undefined}
             disabled={closed}
             tabIndex={selected ? 0 : -1}
             onClick={() => {
@@ -171,7 +171,7 @@ export function SportTabs({
 
   return (
     <fieldset className={styles.group} ref={barRef}>
-      <legend className="visually-hidden">Sport</legend>
+      <legend className="visually-hidden">Sportart</legend>
       <div className={styles.layout}>
         {pinned && <div className={styles.pinned}>{chip(pinned)}</div>}
         <div className={styles.scroller}>
@@ -189,7 +189,7 @@ export function SportTabs({
           <button
             type="button"
             className={`${styles.arrow} ${styles.before}`}
-            aria-label="Previous sports"
+            aria-label="Vorherige Sportarten"
             tabIndex={-1}
             hidden={!more.before}
             onClick={() => scroll(-1)}
@@ -199,7 +199,7 @@ export function SportTabs({
           <button
             type="button"
             className={`${styles.arrow} ${styles.after}`}
-            aria-label="Next sports"
+            aria-label="Weitere Sportarten"
             tabIndex={-1}
             hidden={!more.after}
             onClick={() => scroll(1)}

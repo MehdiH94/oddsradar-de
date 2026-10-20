@@ -50,9 +50,9 @@ export const BOOKMAKER_BRANDING: Record<string, { name: string; logo?: string } 
   winamaxde: { name: "Winamax", logo: winamaxdeLogo },
 };
 
-// Every bookmaker's name, for the texts that list them all: "LeoVegas, Merkur Bets, 20bet, Admiralbet, Tipico and Winamax".
+// Every bookmaker's name, for the texts that list them all: "LeoVegas, Merkur Bets, 20bet, …, Tipico und Winamax".
 export const ALL_BOOKMAKER_NAMES = ALL_BOOKMAKERS.map((id) => BOOKMAKER_BRANDING[id]?.name ?? id);
 export const ALL_BOOKMAKERS_SENTENCE =
   ALL_BOOKMAKER_NAMES.length === 1
     ? ALL_BOOKMAKER_NAMES[0]
-    : `${ALL_BOOKMAKER_NAMES.slice(0, -1).join(", ")} and ${ALL_BOOKMAKER_NAMES[ALL_BOOKMAKER_NAMES.length - 1]}`;
+    : `${ALL_BOOKMAKER_NAMES.slice(0, -1).join(", ")} und ${ALL_BOOKMAKER_NAMES[ALL_BOOKMAKER_NAMES.length - 1]}`;

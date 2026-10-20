@@ -68,6 +68,7 @@ function OutrightCard({
   const shown = expanded || needle ? matching : matching.slice(0, FAVOURITES_SHOWN);
   const hidden = rows.length - FAVOURITES_SHOWN;
   const title = event.participants.join(" - ");
+  const extraMarkets = (event.marketCount ?? 1) - 1;
   // A golf tournament the week it is played: the exchange's fair odds of the
   // players whose prices are tight enough, and its value bets from 5%.
   const reference = event.reference?.market === MARKET_OUTRIGHT ? event.reference : undefined;
@@ -105,17 +106,17 @@ function OutrightCard({
               className={styles.more}
               href={matchHref(event.id)}
               // The visible text first, as heard: which tournament it is about.
-              aria-label={`+${(event.marketCount ?? 1) - 1} markets for ${title}`}
+              aria-label={`+${extraMarkets} ${extraMarkets === 1 ? "Markt" : "Märkte"} für ${title}`}
               onClick={open}
             >
-              +{(event.marketCount ?? 1) - 1} markets
+              +{extraMarkets} {extraMarkets === 1 ? "Markt" : "Märkte"}
             </a>
           )}
         </div>
         {bookmakers.length > 0 && (
-          <div className={styles.trj} title="Payout, with the best price of each contender">
+          <div className={styles.trj} title="Auszahlungsquote mit der besten Quote jedes Teilnehmers">
             <span className={styles.trjLabel}>
-              Payout
+              Auszahlung
             </span>
             <PayoutBadge rate={event.payoutRate} />
           </div>
@@ -126,8 +127,8 @@ function OutrightCard({
         <input
           type="search"
           className={styles.filter}
-          aria-label={`Find a contender of ${title}`}
-          placeholder={`Find a contender among ${rows.length}…`}
+          aria-label={`Teilnehmer von ${title} suchen`}
+          placeholder={`Unter ${rows.length} Teilnehmern suchen…`}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         />
@@ -138,9 +139,9 @@ function OutrightCard({
           <tr>
             <th scope="col" className={styles.rankHead}>
               <span aria-hidden="true">#</span>
-              <span className="visually-hidden">Rank</span>
+              <span className="visually-hidden">Platz</span>
             </th>
-            <th scope="col">Contender</th>
+            <th scope="col">Teilnehmer</th>
             {bookmakers.map((bookmaker) => (
               <th key={bookmaker} scope="col" className={styles.bookmakerHead}>
                 <BookmakerLogo bookmaker={bookmaker} size={18} />
@@ -182,11 +183,11 @@ function OutrightCard({
           })}
         </tbody>
       </table>
-      {needle && matching.length === 0 && <p className={styles.empty}>No contender matches.</p>}
+      {needle && matching.length === 0 && <p className={styles.empty}>Kein Teilnehmer gefunden.</p>}
 
       {!needle && hidden > 0 && (
         <button type="button" className={styles.more} onClick={() => setExpanded(!expanded)} aria-expanded={expanded}>
-          {expanded ? "Show fewer" : `Show the ${hidden} others`}
+          {expanded ? "Weniger anzeigen" : `Die anderen ${hidden} anzeigen`}
         </button>
       )}
     </article>

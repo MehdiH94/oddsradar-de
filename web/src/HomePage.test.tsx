@@ -110,7 +110,7 @@ describe("HomePage", () => {
     render(<HomePage />);
     const sports = await screen.findByRole("region", { name: "The sports covered" });
     expect(within(sports).getAllByRole("listitem").map((item) => item.textContent)).toEqual([
-      "⚽ Football",
+      "⚽ Fußball",
       "🎾 Tennis",
       "🏀 Basketball",
     ]);

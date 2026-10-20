@@ -1,14 +1,14 @@
 import { Dropdown, MenuGroup, MenuOption } from "./Dropdown";
 import { MARKETS_OPTIONS } from "./filterOptions";
 
-// "Markets: All", opening on every match or only those with players'
+// "Märkte: Alle", opening on every match or only those with players'
 // markets (scorers, assisters, decisive players), which bookmakers offer for
 // some matches only, a day or two before. A click picks and closes.
 export function MarketsMenu({ players, onChange }: { players: boolean; onChange: (players: boolean) => void }) {
   const current = MARKETS_OPTIONS.find((option) => option.value === players) ?? MARKETS_OPTIONS[0];
   return (
-    <Dropdown label="Markets" summary={current.summary}>
-      <MenuGroup legend="Keep the matches">
+    <Dropdown label="Märkte" summary={current.summary}>
+      <MenuGroup legend="Spiele anzeigen">
         {MARKETS_OPTIONS.map((option) => (
           <MenuOption
             key={option.label}

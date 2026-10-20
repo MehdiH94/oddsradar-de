@@ -32,6 +32,14 @@ export const SUREBET_THIN_MIN_SIZE = 2;
 // Above it, a TRJ almost always comes from two bookmakers' different rules
 // or lines, or an old price: shown, to be checked.
 export const SUREBET_TO_VERIFY = 1.1;
+// A leg whose price is this far from the other sources' for the same outcome,
+// in chances (1 / price), is not the same bet: one source has the teams the
+// other way round, another match, or an old price. Seen 20/10/2026: the
+// exchange's lay of Avenida shown as Chartres' (1.64 against 2.40 to 2.54 at
+// the bookmakers, a "surebet" of 144.9 %), and Betway's 9.47 on K Olsa Brakel
+// (W) where 20bet paid 2.07 (154.3 %). A real surebet's prices differ by a
+// few points of chance; a longshot's 15 against 9 by 4.
+export const SUREBET_OUT_OF_LINE = 0.15;
 // What a surebet's stakes and profit are given for.
 const TOTAL_STAKE = 100;
 // The matches whose prices are read at once.
@@ -359,6 +367,18 @@ function surebetsOf(
     for (const [market, grid] of grids.get(event.id) ?? []) {
       const labels = labelsOf(market, event.participants, event.sport);
       const onExchange = exchange.get(event.id)?.get(market);
+      // Whether a leg is out of line with the other sources' prices of its
+      // outcome (SUREBET_OUT_OF_LINE): a back against the other bookmakers'
+      // and the exchange's back, a lay against the bookmakers'.
+      const outOfLine = (leg: SurebetLeg): boolean => {
+        const others = [...(grid.get(leg.selection) ?? [])]
+          .filter(([source]) => leg.side === "lay" || source !== leg.source)
+          .map(([, price]) => price);
+        const exchangeBack = onExchange?.get(leg.selection)?.back;
+        if (leg.side === "back" && leg.source !== EXCHANGE && exchangeBack) others.push(exchangeBack);
+        if (others.length === 0) return false;
+        return Math.abs(1 / leg.price - 1 / median(others)) > SUREBET_OUT_OF_LINE;
+      };
 
       // The bookmakers' best prices, and the exchange's back too when it
       // prices every outcome with money on each.
@@ -385,7 +405,7 @@ function surebetsOf(
       }
       if (best) {
         const legs = backLegs(market, best.grid, best.rate, labels.outcome, exchangeRaw);
-        add(market, labels.market, legs.some((l) => l.source === EXCHANGE) ? "exchange" : "bookmakers", best.rate, legs);
+        if (!legs.some(outOfLine)) add(market, labels.market, legs.some((l) => l.source === EXCHANGE) ? "exchange" : "bookmakers", best.rate, legs);
       }
 
       // Each outcome backed at its best bookmaker and laid on the exchange.
@@ -396,21 +416,29 @@ function surebetsOf(
         const layRate = backLayRate(price, lay.lay);
         if (layRate <= 1) continue;
         const layStake = (TOTAL_STAKE * price) / (lay.lay - EXCHANGE_COMMISSION);
+        const layLeg: SurebetLeg = {
+          selection,
+          label: labels.outcome(selection),
+          source: EXCHANGE,
+          side: "lay",
+          price: lay.lay,
+          stake: layStake,
+          liability: layStake * (lay.lay - 1),
+          size: lay.laySize,
+        };
+        if (outOfLine(layLeg)) continue;
         add(market, labels.market, "lay", layRate, [
           { selection, label: labels.outcome(selection), source: bookmaker, side: "back", price, stake: TOTAL_STAKE },
-          {
-            selection,
-            label: labels.outcome(selection),
-            source: EXCHANGE,
-            side: "lay",
-            price: lay.lay,
-            stake: layStake,
-            liability: layStake * (lay.lay - 1),
-            size: lay.laySize,
-          },
+          layLeg,
         ]);
       }
     }
   }
   return surebets;
+}
+
+function median(values: readonly number[]): number {
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
 }

@@ -95,7 +95,7 @@ describe("a golf tournament's markets of several winners", () => {
 
   describe("as surebets", () => {
     it("finds one among the best prices of a Top N, always to be checked: bookmakers share a dead heat differently", () => {
-      save(top2(2, 1.4, 2.2, 2.2), top2(1.4, 2, 2.2, 2.2));
+      save(top2(2, 1.6, 2.2, 2.2), top2(1.6, 2, 2.2, 2.2));
       const [surebet] = getSurebets(db).filter((s) => s.market === "golf_top|2");
 
       expect(surebet).toMatchObject({ kind: "bookmakers", marketLabel: "In den Top 2", toVerify: true });

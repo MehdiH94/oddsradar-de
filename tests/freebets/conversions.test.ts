@@ -31,19 +31,19 @@ describe("parseRequest", () => {
   });
 
   it.each([
-    [{}, "mode"],
-    [{ mode: "both" }, "mode"],
-    [{ mode: ["bookmakers"] }, "mode"],
-    [{ mode: "bookmakers", legs: "4" }, "accumulator"],
-    [{ mode: "bookmakers", legs: "0" }, "accumulator"],
-    [{ mode: "bookmakers", legs: "1.5" }, "accumulator"],
-    [{ mode: "bookmakers", legs: "x" }, "accumulator"],
-    [{ mode: "exchange" }, "bookmaker"],
-    [{ mode: "exchange", bookmaker: "nobody" }, "bookmaker"],
-    [{ mode: "exchange", bookmaker: "constructor" }, "bookmaker"],
-    [{ mode: "bookmakers", sports: ["a", "b"] }, "sports"],
-    [{ mode: "bookmakers", sports: "x".repeat(41) }, "sports"],
-    [{ mode: "bookmakers", sports: Array.from({ length: 31 }, (_, i) => `s${i}`).join(",") }, "sports"],
+    [{}, "Umwandlungsmodus"],
+    [{ mode: "both" }, "Umwandlungsmodus"],
+    [{ mode: ["bookmakers"] }, "Umwandlungsmodus"],
+    [{ mode: "bookmakers", legs: "4" }, "Kombiwette"],
+    [{ mode: "bookmakers", legs: "0" }, "Kombiwette"],
+    [{ mode: "bookmakers", legs: "1.5" }, "Kombiwette"],
+    [{ mode: "bookmakers", legs: "x" }, "Kombiwette"],
+    [{ mode: "exchange" }, "Buchmacher"],
+    [{ mode: "exchange", bookmaker: "nobody" }, "Buchmacher"],
+    [{ mode: "exchange", bookmaker: "constructor" }, "Buchmacher"],
+    [{ mode: "bookmakers", sports: ["a", "b"] }, "Sportarten"],
+    [{ mode: "bookmakers", sports: "x".repeat(41) }, "Sportarten"],
+    [{ mode: "bookmakers", sports: Array.from({ length: 31 }, (_, i) => `s${i}`).join(",") }, "Sportarten"],
   ])("refuses %j", (query, word) => {
     expect(parseRequest(query)).toEqual({ error: expect.stringContaining(word) });
   });

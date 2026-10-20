@@ -6,9 +6,9 @@ export function OddsNotice({ mode }: { mode: "bookmakers" | "exchange" }) {
   return (
     <div role="note" className={styles.notice}>
       <p>
-        <strong>Indicative prices.</strong> They move fast: check the price of each bet (and, against the exchange, the money available to lay) before placing it.
+        <strong>Unverbindliche Quoten.</strong> Sie ändern sich schnell: Prüfe vor dem Platzieren die Quote jeder Wette (und gegen die Wettbörse das Geld, das für den Lay verfügbar ist).
       </p>
-      {mode === "bookmakers" && <p>The calculation knows neither the minimum nor the maximum stakes of each bookmaker, especially on accumulators.</p>}
+      {mode === "bookmakers" && <p>Die Berechnung kennt weder die Mindest- noch die Höchsteinsätze der einzelnen Buchmacher, besonders bei Kombiwetten.</p>}
     </div>
   );
 }

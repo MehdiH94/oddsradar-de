@@ -22,24 +22,24 @@ export type ConversionRequest =
 const MAX_SPORTS = 30;
 const MAX_SPORT_LENGTH = 40;
 
-// A request from a query string, or the French message for the client that sent
+// A request from a query string, or the German message for the client that sent
 // a wrong one. `sports` is a comma-separated list: absent, every sport; present
 // and empty, none.
 export function parseRequest(query: Record<string, unknown>): ConversionRequest | { error: string } {
   const sports = parseSports(query.sports);
-  if (sports === null) return { error: "Invalid list of sports." };
+  if (sports === null) return { error: "Ungültige Liste von Sportarten." };
   const withSports = sports === undefined ? {} : { sports };
   if (query.mode === "bookmakers") {
     const legs = query.legs === undefined ? 1 : Number(query.legs);
-    if (legs !== 1 && legs !== 2 && legs !== 3) return { error: "An accumulator has 1, 2 or 3 matches." };
+    if (legs !== 1 && legs !== 2 && legs !== 3) return { error: "Eine Kombiwette hat 1, 2 oder 3 Spiele." };
     return { mode: "bookmakers", legs, ...withSports };
   }
   if (query.mode === "exchange") {
     const bookmaker = ALL_BOOKMAKER_IDS.find((id) => id === query.bookmaker);
-    if (!bookmaker) return { error: "Unknown bookmaker." };
+    if (!bookmaker) return { error: "Unbekannter Buchmacher." };
     return { mode: "exchange", bookmaker, ...withSports };
   }
-  return { error: "Unknown conversion mode." };
+  return { error: "Unbekannter Umwandlungsmodus." };
 }
 
 function parseSports(value: unknown): string[] | undefined | null {

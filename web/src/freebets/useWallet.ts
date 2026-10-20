@@ -24,7 +24,7 @@ export interface WalletState {
   // for again then, since the server converts what it holds.
   version: number;
   setText(bookmaker: BookmakerId, text: string): void;
-  // A field left: its text becomes the amount it makes ("12.5" -> "12,5").
+  // A field left: its text becomes the amount it makes ("12.50" -> "12,5").
   tidy(bookmaker: BookmakerId): void;
   retry(): void;
 }

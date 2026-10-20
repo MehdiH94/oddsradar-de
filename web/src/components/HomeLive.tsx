@@ -6,15 +6,15 @@ import { FairOdds } from "./FairOdds";
 import { PriceChip } from "./PriceChip";
 import styles from "./HomeLive.module.css";
 
-const TIME_FORMAT = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit" });
+const TIME_FORMAT = new Intl.DateTimeFormat("de-DE", { hour: "2-digit", minute: "2-digit" });
 
 // A figure of the strip: "…" while it loads, a dash when it could not be read.
 function Figure({ value, loading }: { value: number | null; loading: boolean }) {
-  if (value !== null) return <>{value.toLocaleString("en-GB")}</>;
+  if (value !== null) return <>{value.toLocaleString("de-DE")}</>;
   return (
     <>
       <span aria-hidden="true">{loading ? "…" : "–"}</span>
-      <span className="visually-hidden">{loading ? "chargement" : "indisponible"}</span>
+      <span className="visually-hidden">{loading ? "wird geladen" : "nicht verfügbar"}</span>
     </>
   );
 }
@@ -23,9 +23,9 @@ function Figure({ value, loading }: { value: number | null; loading: boolean }) 
 // not be read (null) stays, as a dash: it is not a zero.
 export function LiveStats({ stats }: { stats: HomeStats }) {
   const tiles: Array<{ label: string; value: number | null }> = [
-    { label: "Matches tracked", value: stats.matches },
-    { label: "Bookmakers compared", value: ALL_BOOKMAKERS.length },
-    { label: "Sports", value: stats.sports === null ? null : stats.sports.length },
+    { label: "Beobachtete Spiele", value: stats.matches },
+    { label: "Verglichene Buchmacher", value: ALL_BOOKMAKERS.length },
+    { label: "Sportarten", value: stats.sports === null ? null : stats.sports.length },
   ];
   return (
     <div aria-busy={stats.loading}>
@@ -42,13 +42,13 @@ export function LiveStats({ stats }: { stats: HomeStats }) {
       </ul>
       <p className={styles.updated}>
         {stats.loading ? (
-          "Loading the figures…"
+          "Zahlen werden geladen…"
         ) : stats.updatedAt ? (
           <>
-            Figures as of <span className="num">{TIME_FORMAT.format(stats.updatedAt)}</span>
+            Stand: <span className="num">{TIME_FORMAT.format(stats.updatedAt)}</span>
           </>
         ) : (
-          "Figures unavailable for now."
+          "Zahlen derzeit nicht verfügbar."
         )}
       </p>
     </div>
@@ -58,9 +58,9 @@ export function LiveStats({ stats }: { stats: HomeStats }) {
 // A value bet, made up and said so (no bookmaker is named for a price that does not exist).
 const EXAMPLE = {
   teams: "Team A - Team B",
-  competition: "Made-up league",
+  competition: "Erfundene Liga",
   outcome: "Team A",
-  market: "Match result",
+  market: "Spielergebnis",
   price: 2.1,
   fair: 2.0,
 };
@@ -70,19 +70,19 @@ function ExamplePick() {
   return (
     <li className={styles.card}>
       <p className={styles.competition}>
-        <span className={styles.tag}>Example</span> {EXAMPLE.competition}
+        <span className={styles.tag}>Beispiel</span> {EXAMPLE.competition}
       </p>
       <h4 className={styles.teams}>{EXAMPLE.teams}</h4>
       <p className={styles.bet}>
         <strong>{EXAMPLE.outcome}</strong> · {EXAMPLE.market}
       </p>
       <div className={styles.prices}>
-        <PriceChip bookmaker="A bookmaker" price={EXAMPLE.price} best={false} edge={edge} showLogo={false} />
+        <PriceChip bookmaker="Ein Buchmacher" price={EXAMPLE.price} best={false} edge={edge} showLogo={false} />
         <FairOdds fair={EXAMPLE.fair} edge={edge} />
       </div>
       <p className={styles.explain}>
-        The price ({formatPrice(EXAMPLE.price)}) pays {formatPercent(edge)} more than the fair odds ({formatPrice(EXAMPLE.fair)}):
-        it is a value bet.
+        Die Quote ({formatPrice(EXAMPLE.price)}) zahlt {formatPercent(edge)} mehr als die faire Quote ({formatPrice(EXAMPLE.fair)}):
+        Das ist ein Value Bet.
       </p>
     </li>
   );
@@ -93,7 +93,7 @@ function ExamplePick() {
 export function LivePreview() {
   return (
     <div>
-      <h3 className={styles.previewTitle}>What a value bet looks like</h3>
+      <h3 className={styles.previewTitle}>So sieht ein Value Bet aus</h3>
       <ol className={`${styles.cards} ${styles.single}`}>
         <ExamplePick />
       </ol>

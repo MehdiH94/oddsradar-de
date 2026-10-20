@@ -18,13 +18,13 @@ export function feedbackRouter(auth: AuthContext): Router {
   router.post("/", (req, res) => {
     const feedback = parseFeedback(req.body);
     if (!feedback) {
-      res.status(400).json({ error: "invalid", message: "Write a message of 2000 characters at most." });
+      res.status(400).json({ error: "invalid", message: "Schreib eine Nachricht mit höchstens 2000 Zeichen." });
       return;
     }
     const wait = auth.limiter.hit(`feedback:${req.user!.id}`, MAX_PER_HOUR, 60 * 60 * 1000);
     if (wait > 0) {
       res.set("Retry-After", String(wait));
-      res.status(429).json({ error: "rate_limited", message: "Too many messages. Try again later." });
+      res.status(429).json({ error: "rate_limited", message: "Zu viele Nachrichten. Versuch es später noch einmal." });
       return;
     }
     saveFeedback(auth.db, req.user!.id, feedback, auth.now());

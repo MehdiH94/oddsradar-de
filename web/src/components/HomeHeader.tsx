@@ -12,18 +12,18 @@ export function HomeHeader() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <a className={styles.brand} href={HOME_PATH} aria-label={`${APP_NAME}, home`}>
+        <a className={styles.brand} href={HOME_PATH} aria-label={`${APP_NAME}, Startseite`}>
           <Logo className={styles.logo} />
           <span className={styles.name}>{APP_NAME}</span>
         </a>
-        <nav aria-label="Main navigation">
+        <nav aria-label="Hauptnavigation">
           {status === "authenticated" ? (
             <Link href={oddsHref} className={styles.enter}>
-              See the odds
+              Zu den Quoten
             </Link>
           ) : (
             <Link href={LOGIN_PATH} className={styles.enter}>
-              Log in
+              Anmelden
             </Link>
           )}
         </nav>

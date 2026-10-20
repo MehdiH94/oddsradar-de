@@ -31,16 +31,16 @@ export function GamblingBanner({ sportsBetting = false }: { sportsBetting?: bool
   }, []);
 
   return (
-    <aside ref={ref} className={styles.banner} aria-label="Responsible gambling">
+    <aside ref={ref} className={styles.banner} aria-label="Verantwortungsvolles Spielen">
       <a className={styles.link} href={HELP_URL} target="_blank" rel="noopener noreferrer">
         <span className={styles.text}>
           <span className={styles.first}>
             {sportsBetting
-              ? "18+. Sports betting can be addictive: know when to stop."
-              : "18+. Gambling can be addictive: losing money, family conflicts, addiction…"}
+              ? "18+. Sportwetten können süchtig machen: Hör rechtzeitig auf."
+              : "18+. Glücksspiel kann süchtig machen: Geldverlust, Konflikte in der Familie, Sucht…"}
           </span>{" "}
           <span className={styles.last}>
-            Help at check-dein-spiel.de (BZgA, free hotline <span className={styles.nowrap}>0800 1 37 27 00</span>)
+            Hilfe unter check-dein-spiel.de (BZgA, kostenlose Hotline <span className={styles.nowrap}>0800 1 37 27 00</span>)
           </span>
         </span>
       </a>

@@ -11,6 +11,7 @@ import { runF1ReferenceCycle } from "../reference/f1Run";
 import { REFERENCE_SPORTS } from "../reference/sports";
 import { GEM_MIN_EDGE, runGemAlerts } from "../alerts/gems";
 import { runHealthAlerts } from "../alerts/health";
+import { runQualityAlerts } from "../alerts/quality";
 import { marketsMaxAgeForInterval, oddsMaxAgeForPollInterval } from "../db/repository";
 import { startScheduler } from "./scheduler";
 import { leovegasScraper } from "../scraper/kambi";
@@ -112,5 +113,8 @@ startScheduler(intervalMinutes, async () => {
     await runGolfReferenceCycle(db, listing);
   } finally {
     await runGemAlerts(db, { webhookUrl, publicUrl: process.env.PUBLIC_URL, ...listing });
+    // The surebets left out as suspects, to the administrators' channel: a
+    // swapped or stale price is a bug to find (src/alerts/quality.ts).
+    await runQualityAlerts(db, { webhookUrl: adminWebhookUrl, publicUrl: process.env.PUBLIC_URL, listing });
   }
 });

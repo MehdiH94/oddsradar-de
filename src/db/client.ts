@@ -227,6 +227,13 @@ CREATE TABLE IF NOT EXISTS bookmaker_status (
   down_alerted INTEGER NOT NULL DEFAULT 0
 );
 
+-- The suspects the admins were told about (src/alerts/quality.ts), each once:
+-- a surebet left out because a leg's price is out of line.
+CREATE TABLE IF NOT EXISTS quality_alerts (
+  key TEXT PRIMARY KEY,
+  sent_at TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS reference_player_cycles (
   at TEXT PRIMARY KEY,
   matches INTEGER NOT NULL,

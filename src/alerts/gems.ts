@@ -128,7 +128,7 @@ export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = [
 const ALL_BOOKMAKERS_QUERY = `bookmakers=${ALL_BOOKMAKER_IDS.join(",")}`;
 // A match's page on the site (none without PUBLIC_URL). Parentheses are
 // escaped: the address ends a Markdown link in the "Page du match" field.
-const matchUrl = (eventId: string, publicUrl?: string) =>
+export const matchUrl = (eventId: string, publicUrl?: string) =>
   publicUrl
     ? `${publicUrl}/?match=${encodeURIComponent(eventId).replace(/\(/g, "%28").replace(/\)/g, "%29")}&${ALL_BOOKMAKERS_QUERY}`
     : undefined;

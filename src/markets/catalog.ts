@@ -1,4 +1,4 @@
-import { MARKET_1X2, MARKET_MATCH_WINNER } from "../scraper/canonical";
+import { MARKET_1X2, MARKET_MATCH_WINNER, MARKET_OUTRIGHT } from "../scraper/canonical";
 
 // Every market of a football, tennis or basketball match that two bookmakers
 // offer, under one shared key, so their prices can be compared outcome by
@@ -60,55 +60,55 @@ export type SectionKey =
 type Section = { key: SectionKey; label: string };
 
 const ONE_BOOKMAKER: Section[] = [
-  { key: "winamax", label: "Only at Winamax" },
-  { key: "betclic", label: "Only at Betclic" },
+  { key: "winamax", label: "Nur bei Winamax" },
+  { key: "betclic", label: "Nur bei Betclic" },
 ];
 
 // A match page's sections, by sport, in display order.
 const SPORT_SECTIONS: Record<Sport, readonly Section[]> = {
   football: [
-    { key: "result", label: "Result" },
-    { key: "goals", label: "Goals" },
-    { key: "half", label: "1st half" },
-    { key: "second_half", label: "2nd half" },
-    { key: "score", label: "Correct score" },
-    { key: "scorers", label: "Scorers and assists" },
-    { key: "combos", label: "Combos" },
+    { key: "result", label: "Ergebnis" },
+    { key: "goals", label: "Tore" },
+    { key: "half", label: "1. Halbzeit" },
+    { key: "second_half", label: "2. Halbzeit" },
+    { key: "score", label: "Genaues Ergebnis" },
+    { key: "scorers", label: "Torschützen und Vorlagen" },
+    { key: "combos", label: "Kombis" },
     ...ONE_BOOKMAKER,
   ],
   tennis: [
     { key: "t_match", label: "Match" },
-    { key: "t_sets", label: "Sets" },
+    { key: "t_sets", label: "Sätze" },
     { key: "t_games", label: "Games" },
-    { key: "t_set1", label: "By set" },
-    { key: "t_serve", label: "Aces and breaks" },
+    { key: "t_set1", label: "Pro Satz" },
+    { key: "t_serve", label: "Asse und Breaks" },
     ...ONE_BOOKMAKER,
   ],
   // A golf tournament: its winner (the listing's own market), then the
   // markets of several winners, which the bookmakers (and the exchange) price
   // by player.
   golf: [
-    { key: "g_winner", label: "Winner" },
-    { key: "g_top", label: "Final standing: Top 3, 5, 10, 20…" },
-    { key: "g_round", label: "Leader after a round" },
-    { key: "g_nation", label: "Best by nationality" },
+    { key: "g_winner", label: "Sieger" },
+    { key: "g_top", label: "Endplatzierung: Top 3, 5, 10, 20…" },
+    { key: "g_round", label: "Führender nach einer Runde" },
+    { key: "g_nation", label: "Bester nach Nation" },
     ...ONE_BOOKMAKER,
   ],
   // A basketball match: the winner (the listing's own, overtime included) and
   // the result in regular time, a draw possible, come first.
   basketball: [
-    { key: "result", label: "Result" },
-    { key: "points", label: "Points" },
-    { key: "half", label: "1st half" },
-    { key: "second_half", label: "2nd half" },
-    { key: "quarters", label: "Quarters" },
+    { key: "result", label: "Ergebnis" },
+    { key: "points", label: "Punkte" },
+    { key: "half", label: "1. Halbzeit" },
+    { key: "second_half", label: "2. Halbzeit" },
+    { key: "quarters", label: "Viertel" },
     // The players, by statistic: a card each, with its lines.
-    { key: "p_points", label: "Player points" },
-    { key: "p_rebounds", label: "Player rebounds" },
-    { key: "p_assists", label: "Player assists" },
-    { key: "p_threes", label: "Player three-pointers" },
-    { key: "p_combos", label: "Player points, rebounds and assists" },
-    { key: "p_best", label: "Top players" },
+    { key: "p_points", label: "Spielerpunkte" },
+    { key: "p_rebounds", label: "Spieler-Rebounds" },
+    { key: "p_assists", label: "Spieler-Assists" },
+    { key: "p_threes", label: "Spieler-Dreier" },
+    { key: "p_combos", label: "Spieler: Punkte, Rebounds und Assists" },
+    { key: "p_best", label: "Top-Spieler" },
     ...ONE_BOOKMAKER,
   ],
   // The sports below are read by the bookmakers that give a match's page for them
@@ -120,34 +120,34 @@ const SPORT_SECTIONS: Record<Sport, readonly Section[]> = {
   // American football: the winner is the listing's (overtime included), like the
   // basketball's, and its own markets include the overtime too.
   "football américain": [
-    { key: "result", label: "Result" },
-    { key: "points", label: "Points" },
-    { key: "half", label: "1st half" },
-    { key: "second_half", label: "2nd half" },
-    { key: "quarters", label: "Quarters" },
+    { key: "result", label: "Ergebnis" },
+    { key: "points", label: "Punkte" },
+    { key: "half", label: "1. Halbzeit" },
+    { key: "second_half", label: "2. Halbzeit" },
+    { key: "quarters", label: "Viertel" },
     ...ONE_BOOKMAKER,
   ],
   // Rugby union: the listing's result has a draw, there is no overtime.
   "rugby à xv": [
-    { key: "result", label: "Result" },
-    { key: "points", label: "Points" },
-    { key: "half", label: "1st half" },
-    { key: "second_half", label: "2nd half" },
+    { key: "result", label: "Ergebnis" },
+    { key: "points", label: "Punkte" },
+    { key: "half", label: "1. Halbzeit" },
+    { key: "second_half", label: "2. Halbzeit" },
     ...ONE_BOOKMAKER,
   ],
   // Ice hockey: the listing's result is the regular time's, the plain families
   // are too; the overtime-included ones are "ot_".
   "hockey sur glace": [
-    { key: "result", label: "Result" },
-    { key: "goals", label: "Goals" },
-    { key: "periods", label: "Periods" },
+    { key: "result", label: "Ergebnis" },
+    { key: "goals", label: "Tore" },
+    { key: "periods", label: "Drittel" },
     ...ONE_BOOKMAKER,
   ],
   handball: [
-    { key: "result", label: "Result" },
-    { key: "goals", label: "Goals" },
-    { key: "half", label: "1st half" },
-    { key: "second_half", label: "2nd half" },
+    { key: "result", label: "Ergebnis" },
+    { key: "goals", label: "Tore" },
+    { key: "half", label: "1. Halbzeit" },
+    { key: "second_half", label: "2. Halbzeit" },
     ...ONE_BOOKMAKER,
   ],
 };
@@ -173,21 +173,24 @@ export const mainSectionOf = (sport: string): SectionKey =>
 // - "none": they don't ("over", "yes", "3+", a player).
 export type TeamSwap = "teams" | "margin" | "scores" | "handicap" | "none";
 
-// What a line or a margin counts: "2.5 goals", "22.5 games".
+// What a line or a margin counts, in German: "2,5 Tore", "22,5 Games". `one`
+// is the singular (the same in the dative), `many` the plural, `byMany` the
+// dative plural a margin takes ("mit 2 Toren Vorsprung").
 export interface Unit {
   one: string;
   many: string;
+  byMany: string;
 }
 
-const GOALS: Unit = { one: "goal", many: "goals" };
-const POINTS: Unit = { one: "point", many: "points" };
-const REBOUNDS: Unit = { one: "rebound", many: "rebounds" };
-const ASSISTS: Unit = { one: "assist", many: "assists" };
-const THREES: Unit = { one: "three-pointer", many: "three-pointers" };
-const GAMES: Unit = { one: "game", many: "games" };
-const SETS: Unit = { one: "set", many: "sets" };
-const ACES: Unit = { one: "ace", many: "aces" };
-const BREAKS: Unit = { one: "break", many: "breaks" };
+const GOALS: Unit = { one: "Tor", many: "Tore", byMany: "Toren" };
+const POINTS: Unit = { one: "Punkt", many: "Punkte", byMany: "Punkten" };
+const REBOUNDS: Unit = { one: "Rebound", many: "Rebounds", byMany: "Rebounds" };
+const ASSISTS: Unit = { one: "Assist", many: "Assists", byMany: "Assists" };
+const THREES: Unit = { one: "Dreier", many: "Dreier", byMany: "Dreiern" };
+const GAMES: Unit = { one: "Game", many: "Games", byMany: "Games" };
+const SETS: Unit = { one: "Satz", many: "Sätze", byMany: "Sätzen" };
+const ACES: Unit = { one: "Ass", many: "Asse", byMany: "Assen" };
+const BREAKS: Unit = { one: "Break", many: "Breaks", byMany: "Breaks" };
 
 export interface MarketFamily {
   key: string;
@@ -293,19 +296,19 @@ const AMERICAN_FOOTBALL = ["football américain"] as const;
 
 // A basketball quarter's families: "q1_" is the first one's.
 const QUARTERS = [
-  { n: 1, at: "in the 1st quarter", of: "of the 1st quarter" },
-  { n: 2, at: "in the 2nd quarter", of: "of the 2nd quarter" },
-  { n: 3, at: "in the 3rd quarter", of: "of the 3rd quarter" },
-  { n: 4, at: "in the 4th quarter", of: "of the 4th quarter" },
+  { n: 1, at: "im 1. Viertel", of: "des 1. Viertels" },
+  { n: 2, at: "im 2. Viertel", of: "des 2. Viertels" },
+  { n: 3, at: "im 3. Viertel", of: "des 3. Viertels" },
+  { n: 4, at: "im 4. Viertel", of: "des 4. Viertels" },
 ] as const;
 
 function quarterFamilies({ n, at, of }: (typeof QUARTERS)[number]): MarketFamily[] {
   return [
-    basketball(`q${n}_1X2`, `Result ${of}`, "quarters", { swap: "teams", alsoFor: AMERICAN_FOOTBALL }),
-    basketball(`q${n}_draw_no_bet`, `Draw no bet ${at}`, "quarters", { swap: "teams", alsoFor: AMERICAN_FOOTBALL }),
+    basketball(`q${n}_1X2`, `Ergebnis ${of}`, "quarters", { swap: "teams", alsoFor: AMERICAN_FOOTBALL }),
+    basketball(`q${n}_draw_no_bet`, `Unentschieden keine Wette ${at}`, "quarters", { swap: "teams", alsoFor: AMERICAN_FOOTBALL }),
     basketball(`q${n}_spread`, `Handicap ${of}: {1} {h}`, "quarters", { hasLine: true, swap: "handicap", alsoFor: AMERICAN_FOOTBALL }),
-    basketball(`q${n}_total_points`, `Total points ${of}`, "quarters", { hasLine: true, alsoFor: AMERICAN_FOOTBALL }),
-    ...perTeamBasketball(`q${n}_team_points`, `{t} points ${at}`, "quarters", { hasLine: true, alsoFor: AMERICAN_FOOTBALL }),
+    basketball(`q${n}_total_points`, `Punkte gesamt ${at}`, "quarters", { hasLine: true, alsoFor: AMERICAN_FOOTBALL }),
+    ...perTeamBasketball(`q${n}_team_points`, `Punkte {t} ${at}`, "quarters", { hasLine: true, alsoFor: AMERICAN_FOOTBALL }),
   ];
 }
 
@@ -319,19 +322,19 @@ const perTeamHockey = (key: string, label: string, section: SectionKey, opts: Fa
 
 // An ice hockey period's families: "p1_" is the first one's.
 const PERIODS = [
-  { n: 1, at: "in the 1st period", of: "of the 1st period" },
-  { n: 2, at: "in the 2nd period", of: "of the 2nd period" },
-  { n: 3, at: "in the 3rd period", of: "of the 3rd period" },
+  { n: 1, at: "im 1. Drittel", of: "des 1. Drittels" },
+  { n: 2, at: "im 2. Drittel", of: "des 2. Drittels" },
+  { n: 3, at: "im 3. Drittel", of: "des 3. Drittels" },
 ] as const;
 
 function periodFamilies({ n, at, of }: (typeof PERIODS)[number]): MarketFamily[] {
   return [
-    hockey(`p${n}_1X2`, `Result ${of}`, "periods", { swap: "teams" }),
-    hockey(`p${n}_draw_no_bet`, `Draw no bet ${at}`, "periods", { swap: "teams" }),
-    hockey(`p${n}_double_chance`, `Double chance ${at}`, "periods", { complete: false, swap: "teams" }),
+    hockey(`p${n}_1X2`, `Ergebnis ${of}`, "periods", { swap: "teams" }),
+    hockey(`p${n}_draw_no_bet`, `Unentschieden keine Wette ${at}`, "periods", { swap: "teams" }),
+    hockey(`p${n}_double_chance`, `Doppelte Chance ${at}`, "periods", { complete: false, swap: "teams" }),
     hockey(`p${n}_handicap`, `Handicap ${of}: {1} {h}`, "periods", { hasLine: true, swap: "handicap" }),
-    hockey(`p${n}_total_goals`, `Total goals ${of}`, "periods", { hasLine: true }),
-    ...perTeamHockey(`p${n}_team_goals`, `{t} goals ${at}`, "periods", { hasLine: true }),
+    hockey(`p${n}_total_goals`, `Tore gesamt ${at}`, "periods", { hasLine: true }),
+    ...perTeamHockey(`p${n}_team_goals`, `Tore {t} ${at}`, "periods", { hasLine: true }),
   ];
 }
 
@@ -342,201 +345,203 @@ const golf = (key: string, label: string, section: SectionKey, opts: FamilyOptio
 // The nationalities (and regions) the bookmakers have a "best of" market for
 // (6/10/2026: Winamax's 12 and Betclic's 7 at Baycurrent Classic, Unibet's 12
 // at the Open d'Espagne): one family each, its key made of the slug. A market
-// of another nationality keeps its bookmaker's own name (golfBestOf).
+// of another nationality keeps its bookmaker's own name (golfBestOf). The
+// label is the market's German name.
 const NATIONALITIES: ReadonlyArray<readonly [slug: string, label: string]> = [
-  ["americain", "American"],
-  ["anglais", "English"],
-  ["australien", "Australian"],
-  ["canadien", "Canadian"],
-  ["japonais", "Japanese"],
-  ["sud_africain", "South African"],
-  ["sud_coreen", "South Korean"],
-  ["espagnol", "Spanish"],
-  ["italien", "Italian"],
-  ["francais", "French"],
-  ["allemand", "German"],
-  ["ecossais", "Scottish"],
-  ["suedois", "Swedish"],
-  ["chinois", "Chinese"],
-  ["irlandais", "Irish"],
-  ["gallois", "Welsh"],
-  ["nord_irlandais", "Northern Irish"],
-  ["danois", "Danish"],
-  ["norvegien", "Norwegian"],
-  ["finlandais", "Finnish"],
-  ["belge", "Belgian"],
-  ["autrichien", "Austrian"],
-  ["suisse", "Swiss"],
-  ["portugais", "Portuguese"],
-  ["argentin", "Argentine"],
-  ["mexicain", "Mexican"],
-  ["chilien", "Chilean"],
-  ["colombien", "Colombian"],
-  ["thailandais", "Thai"],
-  ["indien", "Indian"],
-  ["neo_zelandais", "New Zealander"],
-  ["sud_americain", "South American"],
-  ["asiatique", "Asian"],
-  ["europeen", "European"],
-  ["europeen_continental", "Continental European"],
-  ["scandinave", "Scandinavian"],
-  ["grande_bretagne_irlande", "Great Britain & Ireland"],
+  ["americain", "Bester Amerikaner"],
+  ["anglais", "Bester Engländer"],
+  ["australien", "Bester Australier"],
+  ["canadien", "Bester Kanadier"],
+  ["japonais", "Bester Japaner"],
+  ["sud_africain", "Bester Südafrikaner"],
+  ["sud_coreen", "Bester Südkoreaner"],
+  ["espagnol", "Bester Spanier"],
+  ["italien", "Bester Italiener"],
+  ["francais", "Bester Franzose"],
+  ["allemand", "Bester Deutscher"],
+  ["ecossais", "Bester Schotte"],
+  ["suedois", "Bester Schwede"],
+  ["chinois", "Bester Chinese"],
+  ["irlandais", "Bester Ire"],
+  ["gallois", "Bester Waliser"],
+  ["nord_irlandais", "Bester Nordire"],
+  ["danois", "Bester Däne"],
+  ["norvegien", "Bester Norweger"],
+  ["finlandais", "Bester Finne"],
+  ["belge", "Bester Belgier"],
+  ["autrichien", "Bester Österreicher"],
+  ["suisse", "Bester Schweizer"],
+  ["portugais", "Bester Portugiese"],
+  ["argentin", "Bester Argentinier"],
+  ["mexicain", "Bester Mexikaner"],
+  ["chilien", "Bester Chilene"],
+  ["colombien", "Bester Kolumbianer"],
+  ["thailandais", "Bester Thailänder"],
+  ["indien", "Bester Inder"],
+  ["neo_zelandais", "Bester Neuseeländer"],
+  ["sud_americain", "Bester Südamerikaner"],
+  ["asiatique", "Bester Asiate"],
+  ["europeen", "Bester Europäer"],
+  ["europeen_continental", "Bester Kontinentaleuropäer"],
+  ["scandinave", "Bester Skandinavier"],
+  ["grande_bretagne_irlande", "Bester aus Großbritannien und Irland"],
 ];
 
 // In display order within each section. A label's "{1}" and "{2}" are the
 // teams, "{n}" its line, "{h}" its line as the first team's handicap; a label
-// without either gets its line appended ("(2.5 goals)").
+// without either gets its line appended ("(2,5 Tore)"). Labels are German,
+// as the dashboard shows them; the keys never change.
 export const FAMILIES: readonly MarketFamily[] = [
   // Résultat
-  family(MARKET_1X2, "Match result", "result", { swap: "teams", alsoFor: WITH_RESULT }),
-  family("double_chance", "Double chance", "result", { complete: false, swap: "teams", alsoFor: WITH_DOUBLE_CHANCE }),
-  family("draw_no_bet", "Draw no bet", "result", { swap: "teams", alsoFor: WITH_RESULT }),
+  family(MARKET_1X2, "Spielergebnis (1X2)", "result", { swap: "teams", alsoFor: WITH_RESULT }),
+  family("double_chance", "Doppelte Chance", "result", { complete: false, swap: "teams", alsoFor: WITH_DOUBLE_CHANCE }),
+  family("draw_no_bet", "Unentschieden keine Wette", "result", { swap: "teams", alsoFor: WITH_RESULT }),
   family("handicap", "Handicap: {1} {h}", "result", { hasLine: true, swap: "handicap", alsoFor: IN_GOALS }),
-  family("ht_ft", "Half-time / full-time", "result", { swap: "teams", alsoFor: WITH_HALVES }),
-  family("winning_margin", "Winning margin", "result", { swap: "margin" }),
-  ...perTeam("win_to_nil", "{t} wins to nil", "result"),
-  ...perTeam("win_both_halves", "{t} wins both halves", "result", { alsoFor: AND_BASKETBALL }),
-  ...perTeam("win_either_half", "{t} wins at least one half", "result"),
+  family("ht_ft", "Halbzeit / Endstand", "result", { swap: "teams", alsoFor: WITH_HALVES }),
+  family("winning_margin", "Siegvorsprung", "result", { swap: "margin" }),
+  ...perTeam("win_to_nil", "{t} gewinnt zu null", "result"),
+  ...perTeam("win_both_halves", "{t} gewinnt beide Halbzeiten", "result", { alsoFor: AND_BASKETBALL }),
+  ...perTeam("win_either_half", "{t} gewinnt mindestens eine Halbzeit", "result"),
 
   // Buts
-  family("total_goals", "Total goals", "goals", { hasLine: true, alsoFor: IN_GOALS }),
-  ...perTeam("team_goals", "{t} goals", "goals", { hasLine: true, alsoFor: IN_GOALS }),
-  family("btts", "Both teams to score", "goals", { alsoFor: IN_GOALS }),
-  family("exact_goals", "Exact number of goals", "goals"),
-  ...perTeam("team_exact_goals", "Exact number of {t} goals", "goals"),
-  family("first_team_to_score", "First team to score", "goals", { swap: "teams" }),
-  family("last_team_to_score", "Last team to score", "goals", { swap: "teams" }),
-  ...perTeam("clean_sheet", "{t} clean sheet", "goals"),
-  ...perTeam("score_both_halves", "{t} scores in both halves", "goals"),
-  family("highest_scoring_half", "Highest scoring half", "goals", { alsoFor: ["handball"] }),
+  family("total_goals", "Tore gesamt", "goals", { hasLine: true, alsoFor: IN_GOALS }),
+  ...perTeam("team_goals", "Tore {t}", "goals", { hasLine: true, alsoFor: IN_GOALS }),
+  family("btts", "Beide Teams treffen", "goals", { alsoFor: IN_GOALS }),
+  family("exact_goals", "Genaue Anzahl Tore", "goals"),
+  ...perTeam("team_exact_goals", "Genaue Anzahl Tore {t}", "goals"),
+  family("first_team_to_score", "Team mit dem ersten Tor", "goals", { swap: "teams" }),
+  family("last_team_to_score", "Team mit dem letzten Tor", "goals", { swap: "teams" }),
+  ...perTeam("clean_sheet", "{t} ohne Gegentor", "goals"),
+  ...perTeam("score_both_halves", "{t} trifft in beiden Halbzeiten", "goals"),
+  family("highest_scoring_half", "Halbzeit mit den meisten Toren", "goals", { alsoFor: ["handball"] }),
   // Bands that differ between bookmakers (Winamax 4-6 and 7+, Betclic 4-5 and
   // 6+): the common ones are compared, the market has no TRJ.
-  family("goal_bands", "Total goals (bands)", "goals"),
-  family("first_goal_minute_10", "Minute of the first goal (by 10 minutes)", "goals"),
-  family("first_goal_minute_15", "Minute of the first goal (by 15 minutes)", "goals"),
+  family("goal_bands", "Tore gesamt (Bereiche)", "goals"),
+  family("first_goal_minute_10", "Minute des ersten Tores (in 10-Minuten-Abschnitten)", "goals"),
+  family("first_goal_minute_15", "Minute des ersten Tores (in 15-Minuten-Abschnitten)", "goals"),
   // Which team scores that way: "1", "2", "any", "both", "none", and "no@1"
   // for "the first team doesn't". They overlap: no TRJ.
-  family("penalty_goal", "Goal from a penalty", "goals", { complete: false, swap: "teams" }),
-  family("header_goal", "Headed goal", "goals", { complete: false, swap: "teams" }),
-  family("free_kick_goal", "Goal from a direct free kick", "goals", { complete: false, swap: "teams" }),
-  family("sub_scores", "A substitute scores", "goals"),
+  family("penalty_goal", "Tor per Elfmeter", "goals", { complete: false, swap: "teams" }),
+  family("header_goal", "Kopfballtor", "goals", { complete: false, swap: "teams" }),
+  family("free_kick_goal", "Tor per direktem Freistoß", "goals", { complete: false, swap: "teams" }),
+  family("sub_scores", "Ein Einwechselspieler trifft", "goals"),
 
   // 1re mi-temps
-  family("ht_1X2", "Half-time result", "half", { swap: "teams", alsoFor: WITH_HALVES }),
-  family("ht_double_chance", "Half-time double chance", "half", { complete: false, swap: "teams", alsoFor: ["rugby à xv", "handball"] }),
-  family("ht_draw_no_bet", "Half-time draw no bet", "half", { swap: "teams", alsoFor: WITH_HALVES }),
-  family("ht_handicap", "Half-time handicap: {1} {h}", "half", { hasLine: true, swap: "handicap", alsoFor: ["handball"] }),
-  family("ht_total_goals", "1st half total goals", "half", { hasLine: true, alsoFor: ["handball"] }),
-  ...perTeam("ht_team_goals", "{t} goals in the 1st half", "half", { hasLine: true, alsoFor: ["handball"] }),
-  family("ht_btts", "Both teams to score in the 1st half", "half", { alsoFor: ["handball"] }),
-  family("ht_exact_goals", "Exact number of goals in the 1st half", "half"),
-  family("ht_goal_bands", "1st half goals (bands)", "half", { complete: false }),
-  ...perTeam("ht_clean_sheet", "{t} clean sheet in the 1st half", "half"),
-  family("ht_result_total", "Half-time result and total goals", "half", { hasLine: true, swap: "teams" }),
-  family("ht_dc_btts", "Half-time double chance and both teams to score", "half", {
+  family("ht_1X2", "Halbzeitergebnis", "half", { swap: "teams", alsoFor: WITH_HALVES }),
+  family("ht_double_chance", "Doppelte Chance zur Halbzeit", "half", { complete: false, swap: "teams", alsoFor: ["rugby à xv", "handball"] }),
+  family("ht_draw_no_bet", "Unentschieden keine Wette zur Halbzeit", "half", { swap: "teams", alsoFor: WITH_HALVES }),
+  family("ht_handicap", "Handicap zur Halbzeit: {1} {h}", "half", { hasLine: true, swap: "handicap", alsoFor: ["handball"] }),
+  family("ht_total_goals", "Tore gesamt in der 1. Halbzeit", "half", { hasLine: true, alsoFor: ["handball"] }),
+  ...perTeam("ht_team_goals", "Tore {t} in der 1. Halbzeit", "half", { hasLine: true, alsoFor: ["handball"] }),
+  family("ht_btts", "Beide Teams treffen in der 1. Halbzeit", "half", { alsoFor: ["handball"] }),
+  family("ht_exact_goals", "Genaue Anzahl Tore in der 1. Halbzeit", "half"),
+  family("ht_goal_bands", "Tore in der 1. Halbzeit (Bereiche)", "half", { complete: false }),
+  ...perTeam("ht_clean_sheet", "{t} ohne Gegentor in der 1. Halbzeit", "half"),
+  family("ht_result_total", "Halbzeitergebnis und Tore gesamt", "half", { hasLine: true, swap: "teams" }),
+  family("ht_dc_btts", "Doppelte Chance zur Halbzeit und beide Teams treffen", "half", {
     complete: false,
     swap: "teams",
   }),
-  family("ht_result_btts", "Half-time result and both teams to score", "half", { swap: "teams" }),
-  family("ht_first_team_to_score", "First team to score in the 1st half", "half", { swap: "teams" }),
-  family("ht_scorer", "Scorer in the 1st half", "half", players()),
-  family("ht_scorer_goals", "Scores at least {n} goals in the 1st half", "half", players({ hasLine: true })),
-  family("ht_scorer_double_chance", "Scorer double chance in the 1st half", "half", players({ combo: "or" })),
-  family("ht_scorer_triple_chance", "Scorer triple chance in the 1st half", "half", players({ combo: "or" })),
-  family("ht_scorers_both", "Both players score in the 1st half", "half", players({ combo: "and" })),
-  family("ht_header_goal", "Headed goal in the 1st half", "half"),
+  family("ht_result_btts", "Halbzeitergebnis und beide Teams treffen", "half", { swap: "teams" }),
+  family("ht_first_team_to_score", "Team mit dem ersten Tor in der 1. Halbzeit", "half", { swap: "teams" }),
+  family("ht_scorer", "Torschütze in der 1. Halbzeit", "half", players()),
+  family("ht_scorer_goals", "Erzielt mindestens {n} Tore in der 1. Halbzeit", "half", players({ hasLine: true })),
+  family("ht_scorer_double_chance", "Torschützen-Doppelchance in der 1. Halbzeit", "half", players({ combo: "or" })),
+  family("ht_scorer_triple_chance", "Torschützen-Dreifachchance in der 1. Halbzeit", "half", players({ combo: "or" })),
+  family("ht_scorers_both", "Beide Spieler treffen in der 1. Halbzeit", "half", players({ combo: "and" })),
+  family("ht_header_goal", "Kopfballtor in der 1. Halbzeit", "half"),
 
   // 2e mi-temps (the second half alone): Betclic's, and Winamax's scorers.
-  family("2h_1X2", "2nd half result", "second_half", { swap: "teams", alsoFor: WITH_HALVES }),
-  family("2h_double_chance", "2nd half double chance", "second_half", { complete: false, swap: "teams", alsoFor: ["rugby à xv", "handball"] }),
-  family("2h_draw_no_bet", "2nd half draw no bet", "second_half", { swap: "teams", alsoFor: WITH_HALVES }),
-  family("2h_handicap", "2nd half handicap: {1} {h}", "second_half", { hasLine: true, swap: "handicap", alsoFor: ["handball"] }),
-  family("2h_total_goals", "2nd half total goals", "second_half", { hasLine: true, alsoFor: ["handball"] }),
-  ...perTeam("2h_team_goals", "{t} goals in the 2nd half", "second_half", { hasLine: true, alsoFor: ["handball"] }),
-  family("2h_btts", "Both teams to score in the 2nd half", "second_half", { alsoFor: ["handball"] }),
-  family("2h_exact_goals", "Exact number of goals in the 2nd half", "second_half"),
-  family("2h_goal_bands", "2nd half goals (bands)", "second_half", { complete: false }),
-  ...perTeam("2h_clean_sheet", "{t} clean sheet in the 2nd half", "second_half"),
-  family("2h_first_team_to_score", "First team to score in the 2nd half", "second_half", { swap: "teams" }),
-  family("2h_result_total", "2nd half result and total goals", "second_half", { hasLine: true, swap: "teams" }),
-  family("2h_result_btts", "2nd half result and both teams to score", "second_half", { swap: "teams" }),
-  family("2h_correct_score", "2nd half correct score", "second_half", { swap: "scores" }),
-  family("2h_scorer", "Scorer in the 2nd half", "second_half", players()),
-  family("2h_scorer_goals", "Scores at least {n} goals in the 2nd half", "second_half", players({ hasLine: true })),
-  family("2h_scorer_double_chance", "Scorer double chance in the 2nd half", "second_half", players({ combo: "or" })),
-  family("2h_scorer_triple_chance", "Scorer triple chance in the 2nd half", "second_half", players({ combo: "or" })),
-  family("2h_scorers_both", "Both players score in the 2nd half", "second_half", players({ combo: "and" })),
-  family("2h_header_goal", "Headed goal in the 2nd half", "second_half"),
+  family("2h_1X2", "Ergebnis der 2. Halbzeit", "second_half", { swap: "teams", alsoFor: WITH_HALVES }),
+  family("2h_double_chance", "Doppelte Chance in der 2. Halbzeit", "second_half", { complete: false, swap: "teams", alsoFor: ["rugby à xv", "handball"] }),
+  family("2h_draw_no_bet", "Unentschieden keine Wette in der 2. Halbzeit", "second_half", { swap: "teams", alsoFor: WITH_HALVES }),
+  family("2h_handicap", "Handicap in der 2. Halbzeit: {1} {h}", "second_half", { hasLine: true, swap: "handicap", alsoFor: ["handball"] }),
+  family("2h_total_goals", "Tore gesamt in der 2. Halbzeit", "second_half", { hasLine: true, alsoFor: ["handball"] }),
+  ...perTeam("2h_team_goals", "Tore {t} in der 2. Halbzeit", "second_half", { hasLine: true, alsoFor: ["handball"] }),
+  family("2h_btts", "Beide Teams treffen in der 2. Halbzeit", "second_half", { alsoFor: ["handball"] }),
+  family("2h_exact_goals", "Genaue Anzahl Tore in der 2. Halbzeit", "second_half"),
+  family("2h_goal_bands", "Tore in der 2. Halbzeit (Bereiche)", "second_half", { complete: false }),
+  ...perTeam("2h_clean_sheet", "{t} ohne Gegentor in der 2. Halbzeit", "second_half"),
+  family("2h_first_team_to_score", "Team mit dem ersten Tor in der 2. Halbzeit", "second_half", { swap: "teams" }),
+  family("2h_result_total", "Ergebnis der 2. Halbzeit und Tore gesamt", "second_half", { hasLine: true, swap: "teams" }),
+  family("2h_result_btts", "Ergebnis der 2. Halbzeit und beide Teams treffen", "second_half", { swap: "teams" }),
+  family("2h_correct_score", "Genaues Ergebnis der 2. Halbzeit", "second_half", { swap: "scores" }),
+  family("2h_scorer", "Torschütze in der 2. Halbzeit", "second_half", players()),
+  family("2h_scorer_goals", "Erzielt mindestens {n} Tore in der 2. Halbzeit", "second_half", players({ hasLine: true })),
+  family("2h_scorer_double_chance", "Torschützen-Doppelchance in der 2. Halbzeit", "second_half", players({ combo: "or" })),
+  family("2h_scorer_triple_chance", "Torschützen-Dreifachchance in der 2. Halbzeit", "second_half", players({ combo: "or" })),
+  family("2h_scorers_both", "Beide Spieler treffen in der 2. Halbzeit", "second_half", players({ combo: "and" })),
+  family("2h_header_goal", "Kopfballtor in der 2. Halbzeit", "second_half"),
 
   // Score exact
-  family("correct_score", "Correct score", "score", { swap: "scores" }),
-  family("multi_score", "Correct score multi-choice", "score", { swap: "scores" }),
-  family("ht_correct_score", "Half-time correct score", "score", { swap: "scores" }),
+  family("correct_score", "Genaues Ergebnis", "score", { swap: "scores" }),
+  family("multi_score", "Genaues Ergebnis (Mehrfachauswahl)", "score", { swap: "scores" }),
+  family("ht_correct_score", "Genaues Ergebnis zur Halbzeit", "score", { swap: "scores" }),
 
   // Buteurs et passeurs
-  family("anytime_scorer", "Anytime scorer", "scorers", players()),
-  family("first_scorer", "First scorer", "scorers", players()),
-  family("last_scorer", "Last scorer", "scorers", players()),
-  family("scorer_goals", "Scores at least {n} goals", "scorers", players({ hasLine: true })),
-  family("scorer_team_wins", "Scorer and their team wins", "scorers", players()),
-  family("scorer_both_halves", "Scores in both halves", "scorers", players()),
-  family("scorer_double_chance", "Scorer double chance", "scorers", players({ combo: "or" })),
-  family("scorer_triple_chance", "Scorer triple chance", "scorers", players({ combo: "or" })),
-  family("scorers_both", "Both players score", "scorers", players({ combo: "and" })),
-  family("duo_goals", "The duo scores more than {n} goals", "scorers", players({ hasLine: true, combo: "and" })),
-  family("trio_goals", "The trio scores more than {n} goals", "scorers", players({ hasLine: true, combo: "and" })),
+  family("anytime_scorer", "Torschütze (jederzeit)", "scorers", players()),
+  family("first_scorer", "Erster Torschütze", "scorers", players()),
+  family("last_scorer", "Letzter Torschütze", "scorers", players()),
+  family("scorer_goals", "Erzielt mindestens {n} Tore", "scorers", players({ hasLine: true })),
+  family("scorer_team_wins", "Torschütze und sein Team gewinnt", "scorers", players()),
+  family("scorer_both_halves", "Trifft in beiden Halbzeiten", "scorers", players()),
+  family("scorer_double_chance", "Torschützen-Doppelchance", "scorers", players({ combo: "or" })),
+  family("scorer_triple_chance", "Torschützen-Dreifachchance", "scorers", players({ combo: "or" })),
+  family("scorers_both", "Beide Spieler treffen", "scorers", players({ combo: "and" })),
+  family("duo_goals", "Das Duo erzielt mehr als {n} Tore", "scorers", players({ hasLine: true, combo: "and" })),
+  family("trio_goals", "Das Trio erzielt mehr als {n} Tore", "scorers", players({ hasLine: true, combo: "and" })),
   // Winnings multiplied by the player's goals (Winamax's "Serial Player",
   // Betclic's "Extra gains à chaque but"): priced the same way at both, about
   // 0.87 times the plain scorer's price (Danemark - Portugal, 29/09/2026).
-  family("scorer_each_goal", "Scorer, winnings multiplied by their goals", "scorers", players()),
-  family("decisive_player", "Decisive player (scorer or assist)", "scorers", players()),
-  family("decisive_each_action", "Decisive player, winnings multiplied by their goals and assists", "scorers", players()),
-  family("decisive_player_times", "Decisive player at least {n} times", "scorers", players({ hasLine: true })),
-  family("decisive_double_chance", "Decisive player double chance", "scorers", players({ combo: "or" })),
-  family("assist_each", "Assist, winnings multiplied by their assists", "scorers", players()),
-  family("assist_double_chance", "Assist double chance", "scorers", players({ combo: "or" })),
-  family("assist_triple_chance", "Assist triple chance", "scorers", players({ combo: "or" })),
+  family("scorer_each_goal", "Torschütze, Gewinn mal Anzahl seiner Tore", "scorers", players()),
+  family("decisive_player", "Entscheidender Spieler (Tor oder Vorlage)", "scorers", players()),
+  family("decisive_each_action", "Entscheidender Spieler, Gewinn mal Anzahl seiner Tore und Vorlagen", "scorers", players()),
+  family("decisive_player_times", "Mindestens {n}-mal entscheidender Spieler", "scorers", players({ hasLine: true })),
+  family("decisive_double_chance", "Entscheidender Spieler: Doppelchance", "scorers", players({ combo: "or" })),
+  family("assist_each", "Vorlage, Gewinn mal Anzahl seiner Vorlagen", "scorers", players()),
+  family("assist_double_chance", "Vorlagen-Doppelchance", "scorers", players({ combo: "or" })),
+  family("assist_triple_chance", "Vorlagen-Dreifachchance", "scorers", players({ combo: "or" })),
 
   // Combinés
-  family("result_btts", "Result and both teams to score", "combos", { swap: "teams" }),
-  family("result_total", "Result and total goals", "combos", { hasLine: true, swap: "teams" }),
-  family("dc_btts", "Double chance and both teams to score", "combos", { complete: false, swap: "teams" }),
-  family("dc_total", "Double chance and total goals", "combos", { complete: false, hasLine: true, swap: "teams" }),
-  family("first_goal_result", "First team to score and result", "combos", { swap: "teams" }),
+  family("result_btts", "Ergebnis und beide Teams treffen", "combos", { swap: "teams" }),
+  family("result_total", "Ergebnis und Tore gesamt", "combos", { hasLine: true, swap: "teams" }),
+  family("dc_btts", "Doppelte Chance und beide Teams treffen", "combos", { complete: false, swap: "teams" }),
+  family("dc_total", "Doppelte Chance und Tore gesamt", "combos", { complete: false, hasLine: true, swap: "teams" }),
+  family("first_goal_result", "Erstes Tor und Ergebnis", "combos", { swap: "teams" }),
 
   // --- tennis: "1" and "2" are the players, "{1}" and "{2}" their names ---
   // Match (the winner is the listing's, "Vainqueur du match")
-  tennis("games_handicap", "Games handicap: {1} {h}", "t_match", { hasLine: true, swap: "handicap", unit: GAMES }),
-  tennis("set_handicap", "Sets handicap: {1} {h}", "t_match", { hasLine: true, swap: "handicap", unit: SETS }),
-  tennis("set1_match", "1st set / match winner", "t_match", { swap: "teams" }),
-  tennis("winner_total_games", "Winner and total games", "t_match", { hasLine: true, swap: "teams", unit: GAMES }),
+  tennis("games_handicap", "Games-Handicap: {1} {h}", "t_match", { hasLine: true, swap: "handicap", unit: GAMES }),
+  tennis("set_handicap", "Satz-Handicap: {1} {h}", "t_match", { hasLine: true, swap: "handicap", unit: SETS }),
+  tennis("set1_match", "Sieger 1. Satz / Match", "t_match", { swap: "teams" }),
+  tennis("winner_total_games", "Sieger und Games gesamt", "t_match", { hasLine: true, swap: "teams", unit: GAMES }),
 
   // Sets
-  tennis("set_betting", "Set betting", "t_sets", { swap: "scores", unit: SETS }),
-  tennis("total_sets", "Total sets", "t_sets", { hasLine: true, unit: SETS }),
-  tennis("exact_sets", "Exact number of sets", "t_sets", { unit: SETS }),
-  ...perPlayer("win_a_set", "{t} wins at least one set", "t_sets"),
-  tennis("tiebreak", "Tie-break in the match", "t_sets"),
-  tennis("bagel", "A set won 6-0", "t_sets"),
+  tennis("set_betting", "Satzergebnis", "t_sets", { swap: "scores", unit: SETS }),
+  tennis("total_sets", "Sätze gesamt", "t_sets", { hasLine: true, unit: SETS }),
+  tennis("exact_sets", "Genaue Anzahl Sätze", "t_sets", { unit: SETS }),
+  ...perPlayer("win_a_set", "{t} gewinnt mindestens einen Satz", "t_sets"),
+  tennis("tiebreak", "Tiebreak im Match", "t_sets"),
+  tennis("bagel", "Ein Satz endet 6:0", "t_sets"),
 
   // Jeux
-  tennis("total_games", "Total games", "t_games", { hasLine: true, unit: GAMES }),
-  ...perPlayer("player_games", "Games won by {t}", "t_games", { hasLine: true, unit: GAMES }),
+  tennis("total_games", "Games gesamt", "t_games", { hasLine: true, unit: GAMES }),
+  ...perPlayer("player_games", "Gewonnene Games {t}", "t_games", { hasLine: true, unit: GAMES }),
 
   // Par set
-  tennis("set1_winner", "1st set winner", "t_set1", { swap: "teams" }),
-  tennis("set2_winner", "2nd set winner", "t_set1", { swap: "teams" }),
-  tennis("set1_games_handicap", "1st set games handicap: {1} {h}", "t_set1", { hasLine: true, swap: "handicap", unit: GAMES }),
-  tennis("set1_total_games", "1st set total games", "t_set1", { hasLine: true, unit: GAMES }),
-  tennis("set1_correct_score", "1st set score", "t_set1", { swap: "scores", unit: GAMES }),
+  tennis("set1_winner", "Sieger 1. Satz", "t_set1", { swap: "teams" }),
+  tennis("set2_winner", "Sieger 2. Satz", "t_set1", { swap: "teams" }),
+  tennis("set1_games_handicap", "Games-Handicap 1. Satz: {1} {h}", "t_set1", { hasLine: true, swap: "handicap", unit: GAMES }),
+  tennis("set1_total_games", "Games gesamt 1. Satz", "t_set1", { hasLine: true, unit: GAMES }),
+  tennis("set1_correct_score", "Ergebnis 1. Satz", "t_set1", { swap: "scores", unit: GAMES }),
 
   // Aces et breaks: Betclic's aces are "over" only, so they have no TRJ.
-  tennis("total_aces", "Total aces", "t_serve", { hasLine: true, unit: ACES }),
-  ...perPlayer("player_aces", "Aces by {t}", "t_serve", { hasLine: true, unit: ACES }),
-  tennis("most_aces", "Most aces", "t_serve", { swap: "teams" }),
-  tennis("first_break", "First player to break", "t_serve", { swap: "teams" }),
-  tennis("total_breaks", "Total breaks", "t_serve", { hasLine: true, unit: BREAKS }),
-  ...perPlayer("player_breaks", "Breaks by {t}", "t_serve", { hasLine: true, unit: BREAKS }),
+  tennis("total_aces", "Asse gesamt", "t_serve", { hasLine: true, unit: ACES }),
+  ...perPlayer("player_aces", "Asse {t}", "t_serve", { hasLine: true, unit: ACES }),
+  tennis("most_aces", "Die meisten Asse", "t_serve", { swap: "teams" }),
+  tennis("first_break", "Erstes Break", "t_serve", { swap: "teams" }),
+  tennis("total_breaks", "Breaks gesamt", "t_serve", { hasLine: true, unit: BREAKS }),
+  ...perPlayer("player_breaks", "Breaks {t}", "t_serve", { hasLine: true, unit: BREAKS }),
 
   // --- basketball: "1" and "2" are the teams, lines are in points, overtime
   // included in the match's own markets (the winner is the listing's,
@@ -545,57 +550,57 @@ export const FAMILIES: readonly MarketFamily[] = [
   // both halves are football's families above. ---
   // Résultat
   basketball("spread", "Handicap: {1} {h}", "result", { hasLine: true, swap: "handicap", alsoFor: IN_POINTS }),
-  basketball("overtime", "Overtime", "result", { alsoFor: AMERICAN_FOOTBALL }),
-  ...perTeamBasketball("win_all_quarters", "{t} wins every quarter", "result"),
+  basketball("overtime", "Verlängerung", "result", { alsoFor: AMERICAN_FOOTBALL }),
+  ...perTeamBasketball("win_all_quarters", "{t} gewinnt jedes Viertel", "result"),
 
   // Points
-  basketball("total_points", "Total points", "points", { hasLine: true, alsoFor: IN_POINTS }),
-  ...perTeamBasketball("team_points", "{t} points", "points", { hasLine: true, alsoFor: IN_POINTS }),
-  basketball("winner_total", "Winner and total points", "points", { hasLine: true, swap: "teams" }),
-  basketball("highest_quarter", "Highest scoring quarter", "points", { alsoFor: AMERICAN_FOOTBALL }),
-  basketball("highest_half", "Highest scoring half", "points"),
+  basketball("total_points", "Punkte gesamt", "points", { hasLine: true, alsoFor: IN_POINTS }),
+  ...perTeamBasketball("team_points", "Punkte {t}", "points", { hasLine: true, alsoFor: IN_POINTS }),
+  basketball("winner_total", "Sieger und Punkte gesamt", "points", { hasLine: true, swap: "teams" }),
+  basketball("highest_quarter", "Viertel mit den meisten Punkten", "points", { alsoFor: AMERICAN_FOOTBALL }),
+  basketball("highest_half", "Halbzeit mit den meisten Punkten", "points"),
 
   // 1re mi-temps
-  basketball("ht_spread", "Half-time handicap: {1} {h}", "half", { hasLine: true, swap: "handicap", alsoFor: IN_POINTS }),
-  basketball("ht_total_points", "1st half total points", "half", { hasLine: true, alsoFor: IN_POINTS }),
-  ...perTeamBasketball("ht_team_points", "{t} points in the 1st half", "half", { hasLine: true, alsoFor: IN_POINTS }),
+  basketball("ht_spread", "Handicap zur Halbzeit: {1} {h}", "half", { hasLine: true, swap: "handicap", alsoFor: IN_POINTS }),
+  basketball("ht_total_points", "Punkte gesamt in der 1. Halbzeit", "half", { hasLine: true, alsoFor: IN_POINTS }),
+  ...perTeamBasketball("ht_team_points", "Punkte {t} in der 1. Halbzeit", "half", { hasLine: true, alsoFor: IN_POINTS }),
 
   // 2e mi-temps
-  basketball("2h_spread", "2nd half handicap: {1} {h}", "second_half", { hasLine: true, swap: "handicap", alsoFor: IN_POINTS }),
-  basketball("2h_total_points", "2nd half total points", "second_half", { hasLine: true, alsoFor: IN_POINTS }),
-  ...perTeamBasketball("2h_team_points", "{t} points in the 2nd half", "second_half", { hasLine: true, alsoFor: IN_POINTS }),
+  basketball("2h_spread", "Handicap in der 2. Halbzeit: {1} {h}", "second_half", { hasLine: true, swap: "handicap", alsoFor: IN_POINTS }),
+  basketball("2h_total_points", "Punkte gesamt in der 2. Halbzeit", "second_half", { hasLine: true, alsoFor: IN_POINTS }),
+  ...perTeamBasketball("2h_team_points", "Punkte {t} in der 2. Halbzeit", "second_half", { hasLine: true, alsoFor: IN_POINTS }),
 
   // Quart-temps
   ...QUARTERS.flatMap(quarterFamilies),
 
   // Joueurs: a market per player and line, over and under. A bookmaker's
   // "N or more" ladder is the over of N - 0.5.
-  perPlayerBasketball("player_points", "{p} points", "p_points", POINTS),
-  perPlayerBasketball("player_rebounds", "{p} rebounds", "p_rebounds", REBOUNDS),
-  perPlayerBasketball("player_assists", "{p} assists", "p_assists", ASSISTS),
-  perPlayerBasketball("player_threes", "{p} three-pointers", "p_threes", THREES),
-  perPlayerBasketball("player_pra", "{p} points + rebounds + assists", "p_combos", POINTS),
-  perPlayerBasketball("player_pr", "{p} points + rebounds", "p_combos", POINTS),
-  perPlayerBasketball("player_pa", "{p} points + assists", "p_combos", POINTS),
-  perPlayerBasketball("player_ra", "{p} rebounds + assists", "p_combos", REBOUNDS),
-  basketball("top_scorer", "Top scorer", "p_best", players()),
-  basketball("double_double", "Double-double", "p_best", players()),
+  perPlayerBasketball("player_points", "{p}: Punkte", "p_points", POINTS),
+  perPlayerBasketball("player_rebounds", "{p}: Rebounds", "p_rebounds", REBOUNDS),
+  perPlayerBasketball("player_assists", "{p}: Assists", "p_assists", ASSISTS),
+  perPlayerBasketball("player_threes", "{p}: Dreier", "p_threes", THREES),
+  perPlayerBasketball("player_pra", "{p}: Punkte + Rebounds + Assists", "p_combos", POINTS),
+  perPlayerBasketball("player_pr", "{p}: Punkte + Rebounds", "p_combos", POINTS),
+  perPlayerBasketball("player_pa", "{p}: Punkte + Assists", "p_combos", POINTS),
+  perPlayerBasketball("player_ra", "{p}: Rebounds + Assists", "p_combos", REBOUNDS),
+  basketball("top_scorer", "Topscorer", "p_best", players()),
+  basketball("double_double", "Double-Double", "p_best", players()),
 
   // --- ice hockey: "1" and "2" are the teams, lines are in goals; the plain
   // families above (the result, the handicap, the totals, the double chance...)
   // are regular time's, as the listing's 1X2 is. A bookmaker's overtime-included
   // version is its own family. ---
-  hockey("ot_handicap", "Handicap, overtime included: {1} {h}", "result", { hasLine: true, swap: "handicap" }),
-  hockey("ot_total_goals", "Total goals, overtime included", "goals", { hasLine: true }),
-  ...perTeamHockey("ot_team_goals", "{t} goals, overtime included", "goals", { hasLine: true }),
+  hockey("ot_handicap", "Handicap inkl. Verlängerung: {1} {h}", "result", { hasLine: true, swap: "handicap" }),
+  hockey("ot_total_goals", "Tore gesamt inkl. Verlängerung", "goals", { hasLine: true }),
+  ...perTeamHockey("ot_team_goals", "Tore {t} inkl. Verlängerung", "goals", { hasLine: true }),
   ...PERIODS.flatMap(periodFamilies),
 
   // Golf: a tournament's winners by player. A Top N has N winners; its line
   // is N. A round's leader has one, its line is the round (6/10/2026, Winamax,
   // Betclic and Unibet: Top 5, 10 and 20, the leader after the 1st round).
-  golf("golf_top", "In the Top {n}", "g_top", { hasLine: true, winners: "line" }),
-  golf("golf_round_leader", "Leader after round {n}", "g_round", { hasLine: true, winners: 1 }),
-  ...NATIONALITIES.map(([slug, label]) => golf(`golf_best_${slug}`, `Best ${label}`, "g_nation", { winners: 1 })),
+  golf("golf_top", "In den Top {n}", "g_top", { hasLine: true, winners: "line" }),
+  golf("golf_round_leader", "Führender nach Runde {n}", "g_round", { hasLine: true, winners: 1 }),
+  ...NATIONALITIES.map(([slug, label]) => golf(`golf_best_${slug}`, label, "g_nation", { winners: 1 })),
 ];
 
 // How many of a market's outcomes win: a golf Top N's N, the leader's one.
@@ -980,80 +985,132 @@ export function compareOutcomes(familyKey: string, a: string, b: string): number
   return a.localeCompare(b, "en");
 }
 
-// "2.5".
+// Every label below is display text, in German: the keys and outcomes they
+// are built from never change.
+
+// "2,5": a line with the German decimal comma.
 export function formatLine(line: number): string {
-  return String(line);
+  return String(line).replace(".", ",");
 }
 
-// "+1.5", "-0.5".
+// "+1,5", "-0,5".
 const signedLine = (line: number) => (line > 0 ? "+" : "") + formatLine(line);
 
 export function marketLabel(f: MarketFamily, participants: readonly string[], line?: number, player?: string): string {
   const label = f.label
     .replace("{1}", participants[0] ?? "Team 1")
     .replace("{2}", participants[1] ?? "Team 2")
-    .replace("{p}", player ?? "this player");
+    .replace("{p}", player ?? "Dieser Spieler");
   if (line === undefined) return label.replace(/ \{[hn]\}/, "");
   if (label.includes("{h}")) return label.replace("{h}", signedLine(line));
   if (label.includes("{n}")) return label.replace("{n}", formatLine(line));
   return `${label} (${formatLine(line)} ${f.unit.many})`;
 }
 
+// The sports whose listing's winner counts the overtime: a moneyline.
+const MONEYLINE_SPORTS: ReadonlySet<string> = new Set(["basketball", "football américain"]);
+
+// How the listing's main markets read, by their stored key ("1X2",
+// "Vainqueur du match", "Vainqueur", "Marché à 4 issues"); any other name
+// is a bookmaker's own and reads as it is.
+export function mainMarketLabel(name: string, sport?: string): string {
+  if (name === MARKET_1X2) return "Spielergebnis (1X2)";
+  if (name === MARKET_MATCH_WINNER) return sport !== undefined && MONEYLINE_SPORTS.has(sport) ? "Sieger (inkl. Verlängerung)" : "Sieger";
+  if (name === MARKET_OUTRIGHT) return "Sieger (Turnier)";
+  const outcomes = /^Marché à (\d+) issues?$/.exec(name);
+  if (outcomes) return `Markt mit ${outcomes[1]} ${outcomes[1] === "1" ? "Ausgang" : "Ausgängen"}`;
+  return name;
+}
+
+// A bookmaker's own outcome, as it wrote it (a market no family covers, in
+// French at Winamax and Betclic): its usual words in German, "Plus de 2,5"
+// "Über 2,5", "Oui" "Ja". Anything else (a team, a player) as it is.
+const BOOKMAKER_WORDS: Readonly<Record<string, string>> = {
+  oui: "Ja",
+  non: "Nein",
+  yes: "Ja",
+  no: "Nein",
+  nul: "Unentschieden",
+  "match nul": "Unentschieden",
+  draw: "Unentschieden",
+  aucun: "Keiner",
+  aucune: "Keine",
+  "aucun but": "Kein Tor",
+  autre: "Andere",
+  "autre score": "Anderes Ergebnis",
+};
+
+export function bookmakerOutcomeLabel(outcome: string): string {
+  const plain = outcome.replace(/\s+/g, " ").trim();
+  const word = BOOKMAKER_WORDS[plain.toLowerCase()];
+  if (word) return word;
+  const side = /^(plus de|moins de|over|under) (.+)$/i.exec(plain);
+  if (side) return `${/^(plus|over)/i.test(side[1]) ? "Über" : "Unter"} ${side[2].replace(/(\d)\.(\d)/g, "$1,$2")}`;
+  return outcome;
+}
+
 function teamName(token: string, participants: readonly string[]): string {
   if (token === "1") return participants[0] ?? "Team 1";
   if (token === "2") return participants[1] ?? "Team 2";
-  if (token === "X") return "Draw";
-  if (token === "1X") return `${teamName("1", participants)} or draw`;
-  if (token === "X2") return `Draw or ${teamName("2", participants)}`;
-  if (token === "12") return `${teamName("1", participants)} or ${teamName("2", participants)}`;
+  if (token === "X") return "Unentschieden";
+  if (token === "1X") return `${teamName("1", participants)} oder Unentschieden`;
+  if (token === "X2") return `Unentschieden oder ${teamName("2", participants)}`;
+  if (token === "12") return `${teamName("1", participants)} oder ${teamName("2", participants)}`;
   return token;
 }
 
+// A match's main market ("Vainqueur du match"): its outcomes are teams or a
+// draw, else a bookmaker's own words.
+export function mainOutcomeLabel(outcome: string, participants: readonly string[]): string {
+  if (outcome === "1") return participants[0] ?? outcome;
+  if (outcome === "2") return participants[1] ?? outcome;
+  if (outcome === "X") return "Unentschieden";
+  return bookmakerOutcomeLabel(outcome);
+}
+
 const WORDS: Record<string, string> = {
-  yes: "Yes",
-  no: "No",
-  none: "No goal",
-  any: "At least one team",
-  both: "Both teams",
-  "1st": "1st half",
-  equal: "As many goals",
-  "2nd": "2nd half",
-  q1: "1st quarter",
-  q2: "2nd quarter",
-  q3: "3rd quarter",
-  q4: "4th quarter",
-  tie: "Tie",
-  other: "Other score",
+  yes: "Ja",
+  no: "Nein",
+  none: "Kein Tor",
+  any: "Mindestens ein Team",
+  both: "Beide Teams",
+  "1st": "1. Halbzeit",
+  equal: "Gleich viele Tore",
+  "2nd": "2. Halbzeit",
+  q1: "1. Viertel",
+  q2: "2. Viertel",
+  q3: "3. Viertel",
+  q4: "4. Viertel",
+  tie: "Gleichstand",
+  other: "Anderes Ergebnis",
 };
 
 function overUnder(token: string, line: number | undefined): string {
-  const side = token === "over" ? "Over" : "Under";
+  const side = token === "over" ? "Über" : "Unter";
   return line === undefined ? side : `${side} ${formatLine(line)}`;
 }
 
-const count = (n: number, unit: Unit) => `${n} ${n === 1 ? unit.one : unit.many}`;
+// "1 Tor", "2 Toren": a count in the dative, as a margin reads.
+const byCount = (n: number, unit: Unit) => `${n} ${n === 1 ? unit.one : unit.byMany}`;
 
-// A team (a player) with a half-goal (game, set) handicap, in words: -1.5
-// "wins by 2 goals or more", +1.5 "does not lose, or loses by 1 goal".
+// A team (a player) with a half-goal (game, set) handicap, in words: -1,5
+// "gewinnt mit mindestens 2 Toren Vorsprung", +1,5 "verliert nicht oder mit
+// 1 Tor Unterschied".
 function handicapLabel(team: string, handicap: number, unit: Unit): string {
   if (handicap < 0) {
     const margin = -handicap + 0.5;
-    return margin === 1 ? `${team} wins` : `${team} wins by ${count(margin, unit)} or more`;
+    return margin === 1 ? `${team} gewinnt` : `${team} gewinnt mit mindestens ${byCount(margin, unit)} Vorsprung`;
   }
   const margin = handicap - 0.5;
-  if (margin === 0) return `${team} does not lose`;
-  return `${team} does not lose, or loses by ${margin > 1 ? "at most " : ""}${count(margin, unit)}`;
-}
-
-// "1" -> "1st", "10" -> "10th", "21" -> "21st".
-function ordinal(n: string): string {
-  const v = Number(n);
-  const suffix = v % 100 >= 11 && v % 100 <= 13 ? "th" : (["th", "st", "nd", "rd"][v % 10] ?? "th");
-  return `${n}${suffix}`;
+  if (margin === 0) return `${team} verliert nicht`;
+  return `${team} verliert nicht oder mit ${margin > 1 ? "höchstens " : ""}${byCount(margin, unit)} Unterschied`;
 }
 
 // Which team scores a goal of that kind: "none" is no team, not no goal.
 const GOAL_KINDS = new Set(["penalty_goal", "header_goal", "free_kick_goal"]);
+
+// "2-1" reads "2:1".
+const score = (s: string) => s.replace("-", ":");
 
 // How an outcome reads on the dashboard.
 export function outcomeLabel(
@@ -1064,10 +1121,10 @@ export function outcomeLabel(
 ): string {
   const f = FAMILY_BY_KEY.get(familyKey);
   if (!f) return outcome;
-  if (outcome === "none" && GOAL_KINDS.has(familyKey)) return "No team";
+  if (outcome === "none" && GOAL_KINDS.has(familyKey)) return "Kein Team";
   if (outcome in WORDS && outcome !== "other") return WORDS[outcome];
   if (outcome === "over" || outcome === "under") return overUnder(outcome, line);
-  if (f.combo) return outcome.split(" / ").join(f.combo === "and" ? " and " : " or ");
+  if (f.combo) return outcome.split(" / ").join(f.combo === "and" ? " und " : " oder ");
 
   switch (f.swap) {
     case "handicap": {
@@ -1075,28 +1132,29 @@ export function outcomeLabel(
       return handicapLabel(teamName(outcome, participants), outcome === "1" ? line : -line, f.unit);
     }
     case "scores": {
-      if (outcome === "X") return "Draw (other score)";
+      if (outcome === "X") return "Unentschieden (anderes Ergebnis)";
       const parts = outcome.split(",").map((s) => {
         if (s === "other") return WORDS.other;
         const other = /^other@([12])$/.exec(s);
-        if (other) return `${teamName(other[1], participants)} wins (other score)`;
-        return s.replace("-", " - ");
+        if (other) return `${teamName(other[1], participants)} gewinnt (anderes Ergebnis)`;
+        return score(s);
       });
-      return parts.length > 1 ? `${parts.slice(0, -1).join(", ")} or ${parts[parts.length - 1]}` : parts[0];
+      return parts.length > 1 ? `${parts.slice(0, -1).join(", ")} oder ${parts[parts.length - 1]}` : parts[0];
     }
     case "margin": {
-      if (outcome === "X") return "Draw";
+      if (outcome === "X") return "Unentschieden";
       const [team, goals] = outcome.split(":");
       const n = goals.replace("+", "");
-      const unit = n === "1" && !goals.endsWith("+") ? "goal" : "goals";
-      return `${teamName(team, participants)} by ${n} ${unit}${goals.endsWith("+") ? " or more" : ""}`;
+      const more = goals.endsWith("+");
+      const unit = n === "1" && !more ? GOALS.one : GOALS.byMany;
+      return `${teamName(team, participants)} mit ${n}${more ? " oder mehr" : ""} ${unit} Vorsprung`;
     }
     case "teams": {
       if (familyKey === "first_goal_result") {
         const [scorer, result] = outcome.split(">");
-        return `${teamName(scorer, participants)} scores first, ${result === "X" ? "draw" : `${teamName(result, participants)} wins`}`;
+        return `${teamName(scorer, participants)} trifft zuerst, ${result === "X" ? "Unentschieden" : `${teamName(result, participants)} gewinnt`}`;
       }
-      if (familyKey === "most_aces" && outcome === "X") return "Tie";
+      if (familyKey === "most_aces" && outcome === "X") return "Gleichstand";
       if (familyKey === "ht_ft" || familyKey === "set1_match") {
         return outcome
           .split("/")
@@ -1104,7 +1162,7 @@ export function outcomeLabel(
           .join(" / ");
       }
       const not = /^no@([12])$/.exec(outcome);
-      if (not) return `${teamName(not[1], participants)} does not score`;
+      if (not) return `${teamName(not[1], participants)} trifft nicht`;
       return outcome
         .split("&")
         .map((t) => (t === "over" || t === "under" ? overUnder(t, line) : (WORDS[t] ?? teamName(t, participants))))
@@ -1112,11 +1170,14 @@ export function outcomeLabel(
     }
     default: {
       const plus = /^(\d+)\+$/.exec(outcome);
-      if (plus) return `${plus[1]} or more`;
+      if (plus) return `${plus[1]} oder mehr`;
       const band = /^(\d+)-(\d+)$/.exec(outcome);
-      if (band && familyKey.startsWith("first_goal_minute")) return `${ordinal(band[1])} to ${ordinal(band[2])} minute`;
-      if (band) return `${band[1]} to ${band[2]}`;
-      if (familyKey === "exact_sets") return count(Number(outcome), f.unit);
+      if (band && familyKey.startsWith("first_goal_minute")) return `${band[1]}. bis ${band[2]}. Minute`;
+      if (band) return `${band[1]} bis ${band[2]}`;
+      if (familyKey === "exact_sets") {
+        const n = Number(outcome);
+        return `${n} ${n === 1 ? f.unit.one : f.unit.many}`;
+      }
       return outcome;
     }
   }

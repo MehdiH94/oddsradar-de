@@ -3,6 +3,7 @@ import { Logo } from "./Logo";
 import { Link } from "./Link";
 import { useAuth } from "../auth/useAuth";
 import { HOME_PATH, LOGIN_PATH, oddsHref } from "../routes";
+import { BetaBadge } from "./BetaBadge";
 import styles from "./HomeHeader.module.css";
 
 // The home's header: the brand, and the way into the dashboard, always in
@@ -12,18 +13,19 @@ export function HomeHeader() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <a className={styles.brand} href={HOME_PATH} aria-label={`${APP_NAME}, home`}>
+        <a className={styles.brand} href={HOME_PATH} aria-label={`${APP_NAME}, Startseite`}>
           <Logo className={styles.logo} />
           <span className={styles.name}>{APP_NAME}</span>
+          <BetaBadge />
         </a>
-        <nav aria-label="Main navigation">
+        <nav aria-label="Hauptnavigation">
           {status === "authenticated" ? (
             <Link href={oddsHref} className={styles.enter}>
-              See the odds
+              Zu den Quoten
             </Link>
           ) : (
             <Link href={LOGIN_PATH} className={styles.enter}>
-              Log in
+              Anmelden
             </Link>
           )}
         </nav>

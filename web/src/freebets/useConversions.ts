@@ -48,7 +48,7 @@ export function useConversions(request: ConversionRequest | null, version: numbe
         })
         .catch((err: unknown) => {
           if (controller.signal.aborted) return;
-          setState((current) => ({ ...current, error: err instanceof FreebetsError ? err.message : "Something went wrong. Try again in a moment." }));
+          setState((current) => ({ ...current, error: err instanceof FreebetsError ? err.message : "Etwas ist schiefgelaufen. Versuch es gleich noch einmal." }));
           setDone(`${key}|${reloads}`);
         });
     }, ASK_DELAY_MS);

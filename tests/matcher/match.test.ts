@@ -589,6 +589,11 @@ describe("matchEvents", () => {
       expect(result).toHaveLength(2);
     });
 
+    it("never reads a women's team as another's code because both end in \"women\"", () => {
+      expect(keepsSidesOrder(["c chartres basket feminin women", "cb avenida salamanca women"], ["chartres women", "cb avenida women"])).toBe(true);
+      expect(keepsSidesOrder(["c chartres basket feminin women", "cb avenida salamanca women"], ["cb avenida women", "chartres women"])).toBe(false);
+    });
+
     it("keeps apart a nickname that starts like another but does not end like it", () => {
       const result = unibetAgainst("baseball", ["Minnesota Twins", "Tampa Bay Rays"], ["MIN TWolves", "TOR Raptors"]);
 

@@ -8,14 +8,14 @@ import styles from "./FairOdds.module.css";
 // them too loosely for fair odds.
 export function FairOdds({ fair, ceiling = false, edge }: { fair: number; ceiling?: boolean; edge?: number }) {
   const title = ceiling
-    ? `Fair odds at most: the lay price at ${REFERENCE_SOURCE}, which prices this player too loosely to give fair odds`
-    : `Fair odds: the price at ${REFERENCE_SOURCE}, without its margin`;
+    ? `Faire Quote höchstens: die Lay-Quote an ${REFERENCE_SOURCE}, die diesen Spieler zu ungenau bewertet, um eine faire Quote zu ergeben`
+    : `Faire Quote: die Quote an ${REFERENCE_SOURCE}, ohne ihre Marge`;
   return (
     <span className={styles.fair} title={title}>
       <span aria-hidden="true">{ceiling ? "Fair ≤ " : "Fair "}</span>
-      <span className="visually-hidden">{ceiling ? "Fair odds: at most " : "Fair odds: "}</span>
+      <span className="visually-hidden">{ceiling ? "Faire Quote: höchstens " : "Faire Quote: "}</span>
       <span className={styles.price}>{formatPrice(fair)}</span>
-      {edge !== undefined && <Edge edge={edge} label="best value" />}
+      {edge !== undefined && <Edge edge={edge} label="bester Value" />}
     </span>
   );
 }
@@ -26,10 +26,10 @@ export function SuspectOdds({ gap }: { gap: number }) {
   return (
     <span
       className={styles.fair}
-      title={`Suspect price: ${REFERENCE_SOURCE} does not price this player, and this price is far above the other bookmaker's`}
+      title={`Verdächtige Quote: An ${REFERENCE_SOURCE} wird dieser Spieler nicht gehandelt, und diese Quote liegt weit über der des anderen Buchmachers`}
     >
-      Suspect price
-      <Edge edge={gap} label="over the other bookmaker" after />
+      Verdächtige Quote
+      <Edge edge={gap} label="über dem anderen Buchmacher" after />
     </span>
   );
 }

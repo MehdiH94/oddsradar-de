@@ -255,7 +255,7 @@ describe("/api/freebets/wallet", () => {
     await t.put(cookie, { wallet: WALLET });
     const res = await t.put(cookie, body);
     expect(res.status).toBe(400);
-    expect(res.body).toEqual({ error: "invalid", message: "Invalid freebet amounts." });
+    expect(res.body).toEqual({ error: "invalid", message: "Ungültige Freebet-Beträge." });
     expect((await t.get(cookie)).body).toEqual({ wallet: WALLET });
   });
 

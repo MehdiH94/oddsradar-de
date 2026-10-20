@@ -13,23 +13,23 @@ test("a visitor signs up, confirms their address from the email, and signs in", 
   const email = newEmail("inscription");
 
   await page.goto("/signup");
-  await page.getByLabel("Email address").fill(email);
-  await page.getByLabel("Password", { exact: true }).fill(NEW_PASSWORD);
-  await page.getByRole("button", { name: "Create my account" }).click();
-  await expect(page.getByRole("status")).toContainText("a confirmation email has just been sent to it");
+  await page.getByLabel("E-Mail-Adresse").fill(email);
+  await page.getByLabel("Passwort", { exact: true }).fill(NEW_PASSWORD);
+  await page.getByRole("button", { name: "Konto erstellen" }).click();
+  await expect(page.getByRole("status")).toContainText("haben wir dir gerade eine Bestätigungs-E-Mail geschickt");
 
   // Not signed in until the address is confirmed.
   await logIn(page, email, NEW_PASSWORD);
-  await expect(page.getByRole("button", { name: "Send the confirmation email again" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Bestätigungs-E-Mail erneut senden" })).toBeVisible();
   await expect(page).toHaveURL(/\/login/);
 
   // The link in the email confirms it.
-  await page.goto(linkIn(await waitForMail(request, email, "Confirm your email")));
-  await expect(page.getByRole("status")).toContainText("Address confirmed, your account is active");
+  await page.goto(linkIn(await waitForMail(request, email, "Bestätige deine E-Mail-Adresse")));
+  await expect(page.getByRole("status")).toContainText("Adresse bestätigt, dein Konto ist aktiv");
 
   await logIn(page, email, NEW_PASSWORD);
   await expect(page).toHaveURL(/\/odds/);
-  await expect(page.getByRole("button", { name: "Log out" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Abmelden" })).toBeVisible();
 });
 
 test("a visitor who forgot their password chooses a new one from the email, and the old one stops working", async ({ page, request }) => {
@@ -37,15 +37,15 @@ test("a visitor who forgot their password chooses a new one from the email, and 
   await createConfirmedAccount(request, email, NEW_PASSWORD);
 
   await page.goto("/forgot-password");
-  await page.getByLabel("Email address").fill(email);
-  await page.getByRole("button", { name: "Send the link" }).click();
-  await expect(page.getByRole("status")).toContainText("an email has just been sent to it");
+  await page.getByLabel("E-Mail-Adresse").fill(email);
+  await page.getByRole("button", { name: "Link senden" }).click();
+  await expect(page.getByRole("status")).toContainText("haben wir gerade eine E-Mail mit einem Link geschickt");
 
   const changed = "a brand new passphrase";
-  await page.goto(linkIn(await waitForMail(request, email, "Reset your password")));
-  await page.getByLabel("New password").fill(changed);
-  await page.getByRole("button", { name: "Change the password" }).click();
-  await expect(page.getByRole("status")).toContainText("Password changed");
+  await page.goto(linkIn(await waitForMail(request, email, "Setze dein Passwort zurück")));
+  await page.getByLabel("Neues Passwort").fill(changed);
+  await page.getByRole("button", { name: "Passwort ändern" }).click();
+  await expect(page.getByRole("status")).toContainText("Passwort geändert");
 
   // The old password is refused, the new one signs in.
   await logIn(page, email, NEW_PASSWORD);
@@ -61,7 +61,7 @@ test("signing out closes the session: the dashboard and the API are shut again",
   await expect(page).toHaveURL(/\/odds/);
   expect((await page.request.get("/api/events")).ok()).toBe(true);
 
-  await page.getByRole("button", { name: "Log out" }).click();
+  await page.getByRole("button", { name: "Abmelden" }).click();
 
   expect((await page.request.get("/api/events")).status()).toBe(401);
   await page.goto("/odds");

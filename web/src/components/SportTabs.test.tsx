@@ -12,9 +12,9 @@ describe("SportTabs", () => {
   it("offers one choice per sport, named for people, the current one checked", () => {
     render(<SportTabs sports={["football", "hockey sur glace"]} value="hockey sur glace" onChange={() => {}} />);
 
-    expect(screen.getByRole("group", { name: "Sport" })).toBeInTheDocument();
-    expect(screen.getByRole("radio", { name: "Football" })).not.toBeChecked();
-    expect(screen.getByRole("radio", { name: "Ice hockey" })).toBeChecked();
+    expect(screen.getByRole("group", { name: "Sportart" })).toBeInTheDocument();
+    expect(screen.getByRole("radio", { name: "Fußball" })).not.toBeChecked();
+    expect(screen.getByRole("radio", { name: "Eishockey" })).toBeChecked();
   });
 
   it("reports the sport picked", () => {
@@ -31,35 +31,35 @@ describe("SportTabs", () => {
       const onChange = vi.fn();
       render(<SportTabs sports={[]} pinned="value-bets" value="football" onChange={onChange} />);
 
-      expect(screen.getByRole("radio", { name: "Value bets" })).not.toBeChecked();
-      fireEvent.click(screen.getByRole("radio", { name: "Value bets" }));
+      expect(screen.getByRole("radio", { name: "Value Bets" })).not.toBeChecked();
+      fireEvent.click(screen.getByRole("radio", { name: "Value Bets" }));
       expect(onChange).toHaveBeenCalledWith("value-bets");
     });
 
     it("comes first, in the same group of choices, out of the scrolling row", () => {
       render(<SportTabs sports={["football", "tennis"]} pinned="value-bets" value="value-bets" onChange={() => {}} />);
 
-      const pinned = screen.getByRole("radio", { name: "Value bets" });
-      const football = screen.getByRole("radio", { name: "Football" });
+      const pinned = screen.getByRole("radio", { name: "Value Bets" });
+      const football = screen.getByRole("radio", { name: "Fußball" });
       expect(pinned).toBeChecked();
       expect(pinned.compareDocumentPosition(football) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
       expect(pinned).toHaveAttribute("name", football.getAttribute("name"));
-      expect(itemOf("Value bets")).not.toBe(rowOf("Football"));
-      expect(rowOf("Football")).toBe(rowOf("Tennis"));
-      expect(rowOf("Football")).not.toContainElement(pinned);
+      expect(itemOf("Value Bets")).not.toBe(rowOf("Fußball"));
+      expect(rowOf("Fußball")).toBe(rowOf("Tennis"));
+      expect(rowOf("Fußball")).not.toContainElement(pinned);
     });
 
     it("is left out when none is pinned", () => {
       render(<SportTabs sports={["football"]} value="football" onChange={() => {}} />);
 
-      expect(screen.queryByRole("radio", { name: "Value bets" })).not.toBeInTheDocument();
+      expect(screen.queryByRole("radio", { name: "Value Bets" })).not.toBeInTheDocument();
       expect(screen.getAllByRole("radio")).toHaveLength(1);
     });
   });
 
   describe("the favorites", () => {
     const sports = ["basketball", "football", "golf", "tennis"];
-    const star = (name: string) => screen.getByRole("button", { name: `Favourite: ${name}` });
+    const star = (name: string) => screen.getByRole("button", { name: `Favorit: ${name}` });
 
     function renderTabs(props: Partial<ComponentProps<typeof SportTabs>> = {}) {
       const onChange = vi.fn();
@@ -93,8 +93,8 @@ describe("SportTabs", () => {
     it("have a star each, and so has every other sport but the pinned choice", () => {
       renderTabs({ favorites: ["tennis"] });
 
-      expect(screen.getAllByRole("button", { name: /^Favourite: / })).toHaveLength(sports.length);
-      expect(screen.queryByRole("button", { name: "Favourite: Value bets" })).not.toBeInTheDocument();
+      expect(screen.getAllByRole("button", { name: /^Favorit: / })).toHaveLength(sports.length);
+      expect(screen.queryByRole("button", { name: "Favorit: Value Bets" })).not.toBeInTheDocument();
     });
 
     it("show which sports are favorites", () => {
@@ -116,21 +116,21 @@ describe("SportTabs", () => {
     it("close the other stars at the limit, but still let a favorite go", () => {
       renderTabs({ favorites: ["tennis", "basketball", "golf"], canAddFavorite: false });
 
-      expect(star("Football")).toBeDisabled();
-      expect(star("Football")).toHaveAttribute("title", "3 favourites at most");
+      expect(star("Fußball")).toBeDisabled();
+      expect(star("Fußball")).toHaveAttribute("title", "Höchstens 3 Favoriten");
       expect(star("Tennis")).toBeEnabled();
     });
 
     it("leave the stars out when nothing is said to do with them", () => {
       render(<SportTabs sports={sports} value="football" onChange={() => {}} />);
 
-      expect(screen.queryByRole("button", { name: /^Favourite: / })).not.toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: /^Favorit: / })).not.toBeInTheDocument();
     });
 
     it("keep the tab order short: only the star of the chosen sport is in it", () => {
       renderTabs({ favorites: ["tennis"] });
 
-      expect(star("Football")).toHaveAttribute("tabindex", "0");
+      expect(star("Fußball")).toHaveAttribute("tabindex", "0");
       expect(star("Tennis")).toHaveAttribute("tabindex", "-1");
       expect(star("Golf")).toHaveAttribute("tabindex", "-1");
     });
@@ -155,7 +155,7 @@ describe("SportTabs", () => {
         const props = { sports, value: "football", onChange: () => {}, onToggleFavorite: () => {} };
         const { rerender } = render(<SportTabs {...props} favorites={[]} />);
         const scrollTo = vi.fn();
-        rowOf("Football").scrollTo = scrollTo;
+        rowOf("Fußball").scrollTo = scrollTo;
         scrollIntoView.mockClear();
 
         fireEvent.click(star("Golf"));
@@ -170,7 +170,7 @@ describe("SportTabs", () => {
         const props = { sports, value: "football", onChange: () => {}, onToggleFavorite: () => {} };
         const { rerender } = render(<SportTabs {...props} favorites={["golf"]} />);
         const scrollTo = vi.fn();
-        rowOf("Football").scrollTo = scrollTo;
+        rowOf("Fußball").scrollTo = scrollTo;
         scrollIntoView.mockClear();
 
         fireEvent.click(star("Golf"));
@@ -230,7 +230,7 @@ describe("SportTabs", () => {
     function renderRow(props: { pinned?: string } = {}) {
       const onChange = vi.fn();
       render(<SportTabs sports={sports} value="football" onChange={onChange} {...props} />);
-      return { row: rowOf("Football"), onChange };
+      return { row: rowOf("Fußball"), onChange };
     }
 
     const chip = (name: string) => screen.getByRole("radio", { name }).closest("label")!;
@@ -271,9 +271,9 @@ describe("SportTabs", () => {
         const { row } = renderRow({ pinned: "value-bets" });
         layOut(row, { scrollLeft: 100 });
 
-        expect(fireEvent.wheel(chip("Value bets"), { deltaY: 100 })).toBe(false);
+        expect(fireEvent.wheel(chip("Value Bets"), { deltaY: 100 })).toBe(false);
         expect(row.scrollLeft).toBe(200);
-        expect(fireEvent.wheel(screen.getByRole("group", { name: "Sport" }), { deltaY: 100 })).toBe(false);
+        expect(fireEvent.wheel(screen.getByRole("group", { name: "Sportart" }), { deltaY: 100 })).toBe(false);
         expect(row.scrollLeft).toBe(300);
       });
 
@@ -357,8 +357,8 @@ describe("SportTabs", () => {
         function renderStar() {
           const onToggleFavorite = vi.fn();
           render(<SportTabs sports={sports} value="football" onChange={() => {}} onToggleFavorite={onToggleFavorite} />);
-          layOut(rowOf("Football"));
-          return { onToggleFavorite, star: screen.getByRole("button", { name: "Favourite: Tennis" }) };
+          layOut(rowOf("Fußball"));
+          return { onToggleFavorite, star: screen.getByRole("button", { name: "Favorit: Tennis" }) };
         }
 
         it("does not star the sport a drag ends on", () => {
@@ -428,7 +428,7 @@ describe("SportTabs", () => {
     // The row is what holds the sports' chips.
     function renderRow() {
       render(<SportTabs sports={sports} value="football" onChange={() => {}} />);
-      return rowOf("Football");
+      return rowOf("Fußball");
     }
 
     const arrow = (name: string) => screen.queryByRole("button", { name });
@@ -437,24 +437,24 @@ describe("SportTabs", () => {
       const row = renderRow();
       layOut(row, { scrollLeft: 0, clientWidth: 800, scrollWidth: 800 });
 
-      expect(arrow("Previous sports")).not.toBeInTheDocument();
-      expect(arrow("Next sports")).not.toBeInTheDocument();
+      expect(arrow("Vorherige Sportarten")).not.toBeInTheDocument();
+      expect(arrow("Weitere Sportarten")).not.toBeInTheDocument();
     });
 
     it("shows each one only while sports are hidden on its side", () => {
       const row = renderRow();
 
       layOut(row, { scrollLeft: 0, clientWidth: 400, scrollWidth: 1000 });
-      expect(arrow("Previous sports")).not.toBeInTheDocument();
-      expect(arrow("Next sports")).toBeInTheDocument();
+      expect(arrow("Vorherige Sportarten")).not.toBeInTheDocument();
+      expect(arrow("Weitere Sportarten")).toBeInTheDocument();
 
       layOut(row, { scrollLeft: 300, clientWidth: 400, scrollWidth: 1000 });
-      expect(arrow("Previous sports")).toBeInTheDocument();
-      expect(arrow("Next sports")).toBeInTheDocument();
+      expect(arrow("Vorherige Sportarten")).toBeInTheDocument();
+      expect(arrow("Weitere Sportarten")).toBeInTheDocument();
 
       layOut(row, { scrollLeft: 600, clientWidth: 400, scrollWidth: 1000 });
-      expect(arrow("Previous sports")).toBeInTheDocument();
-      expect(arrow("Next sports")).not.toBeInTheDocument();
+      expect(arrow("Vorherige Sportarten")).toBeInTheDocument();
+      expect(arrow("Weitere Sportarten")).not.toBeInTheDocument();
     });
 
     it("scrolls most of a width each way", () => {
@@ -463,8 +463,8 @@ describe("SportTabs", () => {
       row.scrollBy = scrollBy;
       layOut(row, { scrollLeft: 300, clientWidth: 400, scrollWidth: 1000 });
 
-      fireEvent.click(arrow("Next sports")!);
-      fireEvent.click(arrow("Previous sports")!);
+      fireEvent.click(arrow("Weitere Sportarten")!);
+      fireEvent.click(arrow("Vorherige Sportarten")!);
 
       expect(scrollBy).toHaveBeenNthCalledWith(1, expect.objectContaining({ left: 320 }));
       expect(scrollBy).toHaveBeenNthCalledWith(2, expect.objectContaining({ left: -320 }));
@@ -474,8 +474,8 @@ describe("SportTabs", () => {
       const row = renderRow();
       layOut(row, { scrollLeft: 300, clientWidth: 400, scrollWidth: 1000 });
 
-      expect(arrow("Previous sports")).toHaveAttribute("tabindex", "-1");
-      expect(arrow("Next sports")).toHaveAttribute("tabindex", "-1");
+      expect(arrow("Vorherige Sportarten")).toHaveAttribute("tabindex", "-1");
+      expect(arrow("Weitere Sportarten")).toHaveAttribute("tabindex", "-1");
     });
   });
 });

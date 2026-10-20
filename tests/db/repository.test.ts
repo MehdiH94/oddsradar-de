@@ -716,12 +716,12 @@ describe("the winners of the competitions", () => {
   });
 
   it("are not compared as surebets, as a race's winner is", () => {
-    // Each bookmaker's field adds up to 1 or more, and their best prices to 0.75.
+    // Each bookmaker's field adds up to 1 or more, and their best prices to 0.92.
     const arbitrage = (event: CanonicalEvent): CanonicalEvent => ({
       ...event,
       byBookmaker: {
-        unibet: ["A", "B", "C"].map((selection, i) => ({ market: "Vainqueur", selection, price: i === 0 ? 4 : 2 })),
-        vbet: ["A", "B", "C"].map((selection, i) => ({ market: "Vainqueur", selection, price: i === 0 ? 2 : 4 })),
+        unibet: ["A", "B", "C"].map((selection, i) => ({ market: "Vainqueur", selection, price: i === 0 ? 3.4 : 2.5 })),
+        vbet: ["A", "B", "C"].map((selection, i) => ({ market: "Vainqueur", selection, price: i === 0 ? 2.5 : 3.2 })),
       },
     });
     upsertCanonicalEvents(db, [arbitrage(winner("l1", "football", "Ligue 1 2026/2027")), arbitrage({ ...race, id: "gp2" })]);

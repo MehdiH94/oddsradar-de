@@ -27,9 +27,9 @@ describe("GroupedOddsTables", () => {
     render(<GroupedOddsTables events={events} />);
 
     const headings = screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent);
-    expect(headings).toEqual(["⚽ Football", "🎾 Tennis"]);
-    // The emoji is decoration: the section is named "Football".
-    expect(screen.getByRole("region", { name: "Football" })).toBeInTheDocument();
+    expect(headings).toEqual(["⚽ Fußball", "🎾 Tennis"]);
+    // The emoji is decoration: the section is named "Fußball".
+    expect(screen.getByRole("region", { name: "Fußball" })).toBeInTheDocument();
   });
 
   it("renders each event's participants under its sport's section", () => {
@@ -56,8 +56,8 @@ describe("GroupedOddsTables", () => {
 
     render(<GroupedOddsTables events={eventsWithOdds} bookmakers={["leovegas"]} />);
 
-    expect(screen.getByText("1.50")).toBeInTheDocument();
-    expect(screen.queryByText("1.65")).not.toBeInTheDocument();
+    expect(screen.getByText("1,50")).toBeInTheDocument();
+    expect(screen.queryByText("1,65")).not.toBeInTheDocument();
   });
 
   it("shows a sport's matches in the table and its winner-among-N markets as cards", () => {
@@ -93,10 +93,10 @@ describe("GroupedOddsTables", () => {
       />
     );
 
-    expect(screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent)).toEqual(["🏎️ Formula 1"]);
+    expect(screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent)).toEqual(["🏎️ Formel 1"]);
     expect(screen.getByText("Verstappen - Norris")).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 3, name: "GP de Bahreïn" })).toBeInTheDocument();
-    expect(screen.getByRole("columnheader", { name: "Contender" })).toBeInTheDocument();
+    expect(screen.getByRole("columnheader", { name: "Teilnehmer" })).toBeInTheDocument();
     expect(screen.getByText("Antonelli")).toBeInTheDocument();
     // The race is a card, not a row of the match table.
     expect(screen.getByText("Verstappen - Norris").closest("table")).not.toBe(screen.getByText("Antonelli").closest("table"));

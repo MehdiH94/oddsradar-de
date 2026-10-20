@@ -26,9 +26,12 @@ const SELECTIONS_WITHOUT_DRAW = ["1", "2"] as const;
 // The draw is "X", as in English and German.
 const SELECTION_LABELS: Record<string, string> = { "1": "1", X: "X", "2": "2" };
 
+// "1 Markt", "3 Märkte".
+const marketsWord = (count: number) => (count === 1 ? "Markt" : "Märkte");
+
 // What an outcome is, read out: the team, or the draw.
 function selectionName(event: EventWithOdds, selection: string): string {
-  if (selection === "X") return "Draw";
+  if (selection === "X") return "Unentschieden";
   return (selection === "1" ? event.participants[0] : event.participants[1]) ?? SELECTION_LABELS[selection];
 }
 
@@ -61,8 +64,8 @@ function hasDrawOutcome(event: EventWithOdds): boolean {
 // show the hour only.
 //
 // On a phone, and up to 1024 px (useIsTable), each row is a card that shows the best price of each
-// outcome only (BestPrice), large: "Compare" unfolds every bookmaker's, and
-// "All markets" opens the match's page. Both are 44 px high, at the
+// outcome only (BestPrice), large: "Vergleichen" unfolds every bookmaker's, and
+// "N Märkte" opens the match's page. Both are 44 px high, at the
 // bottom of the card.
 export function OddsTable({
   events,
@@ -110,12 +113,12 @@ export function OddsTable({
       <thead>
         <tr>
           <th scope="col" className={styles.startHead}>
-            Kick-off
+            Anstoß
           </th>
-          <th scope="col">Match</th>
+          <th scope="col">Spiel</th>
           {hasBookmakers && (
-            <th scope="col" className={styles.trjHead} title="Payout, with the best price of each outcome">
-              Payout
+            <th scope="col" className={styles.trjHead} title="Auszahlungsquote mit der besten Quote jedes Ausgangs">
+              Auszahlung
             </th>
           )}
           {hasBookmakers &&
@@ -186,10 +189,10 @@ export function OddsTable({
                       className={styles.more}
                       href={matchHref(event.id)}
                       // The visible text first, as heard: which match is it about.
-                      aria-label={`+${extraMarkets} markets for ${teams}`}
+                      aria-label={`+${extraMarkets} ${marketsWord(extraMarkets)} für ${teams}`}
                       onClick={open}
                     >
-                      +{extraMarkets} markets
+                      +{extraMarkets} {marketsWord(extraMarkets)}
                     </a>
                   )}
                 </td>
@@ -276,18 +279,18 @@ export function OddsTable({
                         onClick={() => toggleCompared(event.id)}
                       >
                         <ChevronDown size={16} aria-hidden="true" className={styles.chevron} />
-                        {isCompared ? "Hide" : "Compare"}{" "}
-                        <span className="visually-hidden">{`the prices of ${listing.length} bookmakers for ${teams}`}</span>
+                        {isCompared ? "Ausblenden" : "Vergleichen"}
+                        <span className="visually-hidden">{`: Quoten von ${listing.length} Buchmachern für ${teams}`}</span>
                       </button>
                     )}
                     {hasPage && (
                       <a
                         className={styles.allMarkets}
                         href={matchHref(event.id)}
-                        aria-label={`+${extraMarkets} markets for ${teams}`}
+                        aria-label={`+${extraMarkets} ${marketsWord(extraMarkets)} für ${teams}`}
                         onClick={open}
                       >
-                        <span className="num">{extraMarkets}</span> markets
+                        <span className="num">{extraMarkets}</span> {marketsWord(extraMarkets)}
                         <ChevronRight size={16} aria-hidden="true" />
                       </a>
                     )}

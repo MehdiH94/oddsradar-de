@@ -548,9 +548,18 @@ function isInitialsOfName(abbreviated: string, full: string): boolean {
 // for "Roadrunners"). Two teams of one city, or of one code, tell apart by that
 // last word: of the 15 148 pairs of a code and a name of the NBA, NFL, NHL, AHL
 // and MLB teams on 9/10/2026, 102 match and no code fits two names.
+//
+// A word marking a club's other side ("women", a reserve's "ii") ends both
+// names alike and is left out first: it is no nickname. Without that, the
+// exchange's "CB Avenida (W)" read as a code of "C Chartres Basket Feminin
+// (W)" (both end in "women", 20/10/2026), and the match's prices were given
+// to the other team: a surebet on Chartres that was Avenida's lay.
 function isCityCodeOfName(coded: string, full: string): boolean {
-  const [code, ...words] = normalizeName(coded).split(" ").filter(Boolean);
-  const long = normalizeName(full.replace(/-/g, " ")).split(" ").filter(Boolean);
+  const [code, ...named] = normalizeName(coded).split(" ").filter(Boolean);
+  const fullWords = normalizeName(full.replace(/-/g, " ")).split(" ").filter(Boolean);
+  const [words, wordsSide] = splitSideWords(named);
+  const [long, longSide] = splitSideWords(fullWords);
+  if (wordsSide.join(" ") !== longSide.join(" ")) return false;
   if (!code || words.length === 0 || long.length < 2 || !/^[a-z]{2,4}$/.test(code)) return false;
   const nickname = words.join("");
   const last = long[long.length - 1];
@@ -560,6 +569,13 @@ function isCityCodeOfName(coded: string, full: string): boolean {
     (nickname[0] === last[0] && commonSuffixLength(nickname, last) >= 5) ||
     (coded.trim().length >= SHORT_NAME_WIDTH - 1 && last.startsWith(nickname) && nickname.length >= 6)
   );
+}
+
+// A name's words, and the ones at its end that mark a club's other side.
+function splitSideWords(words: string[]): [string[], string[]] {
+  let end = words.length;
+  while (end > 0 && isQualifierWord(words[end - 1])) end--;
+  return [words.slice(0, end), words.slice(end)];
 }
 
 function commonSuffixLength(a: string, b: string): number {

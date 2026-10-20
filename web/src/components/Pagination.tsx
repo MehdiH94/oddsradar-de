@@ -19,14 +19,14 @@ export function Pagination({
   const to = Math.min(total, page * pageSize);
 
   return (
-    <nav className={styles.pagination} aria-label="Pagination">
+    <nav className={styles.pagination} aria-label="Seitennavigation">
       <p className={styles.range}>
-        {from}–{to} of {total}
+        {from}–{to} von {total}
       </p>
       <div className={styles.controls}>
         <button type="button" className={styles.step} onClick={() => onChange(page - 1)} disabled={page <= 1}>
           <ChevronLeft size={16} aria-hidden="true" />
-          <span className={styles.stepLabel}>Previous</span>
+          <span className={styles.stepLabel}>Zurück</span>
         </button>
         <ol className={styles.pages}>
           {pageWindow(page, lastPage).map((item, i) =>
@@ -39,7 +39,7 @@ export function Pagination({
                 <button
                   type="button"
                   className={styles.page}
-                  aria-label={`Page ${item}`}
+                  aria-label={`Seite ${item}`}
                   aria-current={item === page ? "page" : undefined}
                   onClick={() => onChange(item)}
                 >
@@ -50,10 +50,10 @@ export function Pagination({
           )}
         </ol>
         <span className={styles.compact}>
-          Page {page} / {lastPage}
+          Seite {page} / {lastPage}
         </span>
         <button type="button" className={styles.step} onClick={() => onChange(page + 1)} disabled={page >= lastPage}>
-          <span className={styles.stepLabel}>Next</span>
+          <span className={styles.stepLabel}>Weiter</span>
           <ChevronRight size={16} aria-hidden="true" />
         </button>
       </div>

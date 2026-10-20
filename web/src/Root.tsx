@@ -31,17 +31,17 @@ const AdminPage = lazy(() => import("./admin/AdminPage").then((module) => ({ def
 // The Freebets page, a chunk of its own too.
 const FreebetsPage = lazy(() => import("./freebets/FreebetsPage").then((module) => ({ default: module.FreebetsPage })));
 
-export const HOME_TITLE = `${APP_NAME} · Odds comparison and value bets`;
-export const ODDS_TITLE = `Odds and value bets · ${APP_NAME}`;
+export const HOME_TITLE = `${APP_NAME} · Quotenvergleich und Value Bets`;
+export const ODDS_TITLE = `Quoten und Value Bets · ${APP_NAME}`;
 export const FREEBETS_TITLE = `Freebets · ${APP_NAME}`;
 
 const PAGE_TITLES: Record<string, string> = {
   [ODDS_PATH]: ODDS_TITLE,
-  [LOGIN_PATH]: `Log in · ${APP_NAME}`,
-  [REGISTER_PATH]: `Create an account · ${APP_NAME}`,
-  [FORGOT_PATH]: `Forgot password · ${APP_NAME}`,
-  [RESET_PATH]: `New password · ${APP_NAME}`,
-  [VERIFY_PATH]: `Email confirmation · ${APP_NAME}`,
+  [LOGIN_PATH]: `Anmelden · ${APP_NAME}`,
+  [REGISTER_PATH]: `Konto erstellen · ${APP_NAME}`,
+  [FORGOT_PATH]: `Passwort vergessen · ${APP_NAME}`,
+  [RESET_PATH]: `Neues Passwort · ${APP_NAME}`,
+  [VERIFY_PATH]: `E-Mail-Bestätigung · ${APP_NAME}`,
   [ADMIN_PATH]: `Administration · ${APP_NAME}`,
   [FREEBETS_PATH]: FREEBETS_TITLE,
 };

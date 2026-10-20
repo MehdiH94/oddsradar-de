@@ -57,7 +57,7 @@ describe("Root", () => {
   it("shows the home at /, with its own title", () => {
     stubApi({ signedIn: false });
     render(<Root />);
-    expect(screen.getByRole("heading", { level: 1, name: /The best odds/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: /Die besten Quoten/ })).toBeInTheDocument();
     expect(document.title).toBe(HOME_TITLE);
   });
 
@@ -87,7 +87,7 @@ describe("Root", () => {
     stubApi({ signedIn: false });
     window.history.replaceState(null, "", "/odds?sport=tennis&match=abc");
     render(<Root />);
-    expect(await screen.findByRole("heading", { level: 1, name: "Log in" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: "Anmelden" })).toBeInTheDocument();
     expect(address()).toBe("/login?next=%2Fodds%3Fsport%3Dtennis%26match%3Dabc");
     expect(screen.queryByText("Le dashboard")).not.toBeInTheDocument();
   });
@@ -104,7 +104,7 @@ describe("Root", () => {
     stubApi({ signedIn: false });
     window.history.replaceState(null, "", "/?utm_source=newsletter");
     render(<Root />);
-    expect(screen.getByRole("heading", { level: 1, name: /The best odds/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: /Die besten Quoten/ })).toBeInTheDocument();
     expect(address()).toBe("/?utm_source=newsletter");
   });
 
@@ -112,13 +112,13 @@ describe("Root", () => {
     stubApi();
     render(<Root />);
 
-    fireEvent.click(screen.getAllByRole("link", { name: "See the value bets" })[0]);
+    fireEvent.click(screen.getAllByRole("link", { name: "Value Bets ansehen" })[0]);
     expect(await screen.findByRole("heading", { level: 1, name: "Le dashboard" })).toBeInTheDocument();
     expect(address()).toBe("/odds?sport=value-bets&sort=value");
 
     // jsdom's history.back() is asynchronous: wait for its popstate.
     act(() => window.history.back());
-    await waitFor(() => expect(screen.getByRole("heading", { level: 1, name: /The best odds/ })).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByRole("heading", { level: 1, name: /Die besten Quoten/ })).toBeInTheDocument());
     expect(address()).toBe("/");
     expect(document.title).toBe(HOME_TITLE);
   });
@@ -151,7 +151,7 @@ describe("the administration page", () => {
     stubApi({ signedIn: false });
     window.history.replaceState(null, "", "/admin");
     render(<Root />);
-    expect(await screen.findByRole("heading", { level: 1, name: "Log in" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: "Anmelden" })).toBeInTheDocument();
     expect(address()).toBe("/login?next=%2Fadmin");
   });
 });
@@ -182,7 +182,7 @@ describe("the Freebets page", () => {
     stubApi({ signedIn: false });
     window.history.replaceState(null, "", "/freebets?legs=2");
     render(<Root />);
-    expect(await screen.findByRole("heading", { level: 1, name: "Log in" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: "Anmelden" })).toBeInTheDocument();
     expect(address()).toBe("/login?next=%2Ffreebets%3Flegs%3D2");
   });
 });
@@ -201,9 +201,9 @@ describe("the account pages", () => {
     window.history.replaceState(null, "", "/login?next=%2Fodds%3Fsport%3Dtennis");
     render(<Root />);
 
-    await fill("Email address", "ada@example.com");
-    await fill("Password", "correct horse battery");
-    fireEvent.click(screen.getByRole("button", { name: "Log in" }));
+    await fill("E-Mail-Adresse", "ada@example.com");
+    await fill("Passwort", "correct horse battery");
+    fireEvent.click(screen.getByRole("button", { name: "Anmelden" }));
 
     expect(await screen.findByRole("heading", { level: 1, name: "Le dashboard" })).toBeInTheDocument();
     expect(address()).toBe("/odds?sport=tennis");
@@ -211,15 +211,15 @@ describe("the account pages", () => {
   });
 
   it("shows the server's message when the login is refused, and stays on the page", async () => {
-    stubApi({ signedIn: false, loginAnswer: reply({ error: "invalid_credentials", message: "Wrong email or password." }, 401) });
+    stubApi({ signedIn: false, loginAnswer: reply({ error: "invalid_credentials", message: "E-Mail oder Passwort falsch." }, 401) });
     window.history.replaceState(null, "", "/login");
     render(<Root />);
 
-    await fill("Email address", "ada@example.com");
-    await fill("Password", "wrong wrong wrong");
-    fireEvent.click(screen.getByRole("button", { name: "Log in" }));
+    await fill("E-Mail-Adresse", "ada@example.com");
+    await fill("Passwort", "wrong wrong wrong");
+    fireEvent.click(screen.getByRole("button", { name: "Anmelden" }));
 
-    expect(await screen.findByRole("alert")).toHaveTextContent("Wrong email or password.");
+    expect(await screen.findByRole("alert")).toHaveTextContent("E-Mail oder Passwort falsch.");
     expect(address()).toBe("/login");
   });
 
@@ -228,9 +228,9 @@ describe("the account pages", () => {
     window.history.replaceState(null, "", "/login?next=https%3A%2F%2Fevil.example");
     render(<Root />);
 
-    await fill("Email address", "ada@example.com");
-    await fill("Password", "correct horse battery");
-    fireEvent.click(screen.getByRole("button", { name: "Log in" }));
+    await fill("E-Mail-Adresse", "ada@example.com");
+    await fill("Passwort", "correct horse battery");
+    fireEvent.click(screen.getByRole("button", { name: "Anmelden" }));
 
     await screen.findByRole("heading", { level: 1, name: "Le dashboard" });
     expect(address()).toBe("/odds");
@@ -252,11 +252,11 @@ describe("the account pages", () => {
     window.history.replaceState(null, "", "/signup");
     render(<Root />);
 
-    await fill("Email address", "ada@example.com");
-    await fill("Password", "correct horse battery");
-    fireEvent.click(screen.getByRole("button", { name: "Create my account" }));
+    await fill("E-Mail-Adresse", "ada@example.com");
+    await fill("Passwort", "correct horse battery");
+    fireEvent.click(screen.getByRole("button", { name: "Konto erstellen" }));
 
-    expect(await screen.findByRole("status")).toHaveTextContent(/confirmation email/);
+    expect(await screen.findByRole("status")).toHaveTextContent(/Bestätigungs-E-Mail/);
     const call = fetchMock.mock.calls.find(([url]) => url === "/api/auth/register")!;
     expect(JSON.parse(call[1]!.body as string)).toEqual({ email: "ada@example.com", password: "correct horse battery" });
   });
@@ -269,7 +269,7 @@ describe("the account pages", () => {
     window.history.replaceState(null, "", "/verify-email?token=abc123");
     render(<Root />);
 
-    expect(await screen.findByText(/Address confirmed, your account is active/)).toBeInTheDocument();
+    expect(await screen.findByText(/Adresse bestätigt, dein Konto ist aktiv/)).toBeInTheDocument();
     const call = fetchMock.mock.calls.find(([url]) => url === "/api/auth/verify-email")!;
     expect(call[1]!.method).toBe("POST");
     expect(JSON.parse(call[1]!.body as string)).toEqual({ token: "abc123" });
@@ -282,14 +282,14 @@ describe("the account pages", () => {
     );
     window.history.replaceState(null, "", "/reset-password?token=tok");
     const page = render(<Root />);
-    await fill("New password", "a brand new secret");
-    fireEvent.click(screen.getByRole("button", { name: "Change the password" }));
-    expect(await screen.findByText(/Password changed/)).toBeInTheDocument();
+    await fill("Neues Passwort", "a brand new secret");
+    fireEvent.click(screen.getByRole("button", { name: "Passwort ändern" }));
+    expect(await screen.findByText(/Passwort geändert/)).toBeInTheDocument();
     page.unmount();
 
     window.history.replaceState(null, "", "/reset-password");
     render(<Root />);
-    expect(await screen.findByRole("alert")).toHaveTextContent(/incomplet/);
+    expect(await screen.findByRole("alert")).toHaveTextContent(/unvollständig/);
   });
 
   it("offers the email again when the account is not confirmed yet", async () => {
@@ -299,22 +299,22 @@ describe("the account pages", () => {
     });
     window.history.replaceState(null, "", "/login");
     render(<Root />);
-    await fill("Email address", "ada@example.com");
-    await fill("Password", "correct horse battery");
-    fireEvent.click(screen.getByRole("button", { name: "Log in" }));
+    await fill("E-Mail-Adresse", "ada@example.com");
+    await fill("Passwort", "correct horse battery");
+    fireEvent.click(screen.getByRole("button", { name: "Anmelden" }));
 
-    fireEvent.click(await screen.findByRole("button", { name: "Send the confirmation email again" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Bestätigungs-E-Mail erneut senden" }));
     await waitFor(() => expect(fetchMock.mock.calls.some(([url]) => url === "/api/auth/resend-verification")).toBe(true));
   });
 
   it("shows and hides the typed password, and hides it again when the form is sent", async () => {
-    stubApi({ signedIn: false, loginAnswer: reply({ error: "invalid_credentials", message: "Wrong email or password." }, 401) });
+    stubApi({ signedIn: false, loginAnswer: reply({ error: "invalid_credentials", message: "E-Mail oder Passwort falsch." }, 401) });
     window.history.replaceState(null, "", "/login");
     render(<Root />);
-    await fill("Email address", "ada@example.com");
-    await fill("Password", "correct horse battery");
-    const password = screen.getByLabelText("Password");
-    const toggle = screen.getByRole("button", { name: "Show the password" });
+    await fill("E-Mail-Adresse", "ada@example.com");
+    await fill("Passwort", "correct horse battery");
+    const password = screen.getByLabelText("Passwort");
+    const toggle = screen.getByRole("button", { name: "Passwort anzeigen" });
     expect(password).toHaveAttribute("type", "password");
     expect(toggle).toHaveAttribute("aria-pressed", "false");
 
@@ -327,8 +327,8 @@ describe("the account pages", () => {
     expect(password).toHaveAttribute("type", "password");
 
     fireEvent.click(toggle);
-    fireEvent.click(screen.getByRole("button", { name: "Log in" }));
-    expect(await screen.findByText("Wrong email or password.")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Anmelden" }));
+    expect(await screen.findByText("E-Mail oder Passwort falsch.")).toBeInTheDocument();
     expect(password).toHaveAttribute("type", "password");
     expect(toggle).toHaveAttribute("aria-pressed", "false");
   });

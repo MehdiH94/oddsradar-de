@@ -14,10 +14,10 @@ export async function sendFeedback(message: string, page: string): Promise<strin
       body: JSON.stringify({ message, page }),
     });
   } catch {
-    return "Could not connect. Check your network and try again.";
+    return "Keine Verbindung. Prüf dein Netzwerk und versuch es noch einmal.";
   }
   if (res.ok) return null;
   if (res.status === 401) announceUnauthorized();
   const data = await res.json().catch(() => ({}));
-  return data.message ?? "Something went wrong. Try again in a moment.";
+  return data.message ?? "Etwas ist schiefgelaufen. Versuch es gleich noch einmal.";
 }

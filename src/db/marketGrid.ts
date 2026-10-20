@@ -74,10 +74,5 @@ export function outrightRateOf(grid: Grid, winners = 1): number | null {
   return winners / [...grid.values()].reduce((sum, prices) => sum + 1 / Math.max(...prices.values()), 0);
 }
 
-// A match's main market ("Vainqueur du match"): its outcomes are teams or a draw.
-export function mainOutcomeLabel(outcome: string, participants: readonly string[]): string {
-  if (outcome === "1") return participants[0] ?? outcome;
-  if (outcome === "2") return participants[1] ?? outcome;
-  if (outcome === "X") return "Draw";
-  return outcome;
-}
+// A match's main market's outcomes, as they read (src/markets/catalog.ts).
+export { mainOutcomeLabel } from "../markets/catalog";

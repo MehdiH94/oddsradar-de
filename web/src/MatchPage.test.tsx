@@ -13,7 +13,7 @@ const outcome = (key: string, label: string, prices: Record<string, number>, bes
 
 const scorers: MarketDetail = {
   key: "anytime_scorer",
-  label: "Buteur",
+  label: "Torschütze (jederzeit)",
   kind: "list",
   compared: true,
   lines: [
@@ -39,11 +39,11 @@ const detail: EventDetail = {
   sections: [
     {
       key: "result",
-      label: "Résultat",
+      label: "Ergebnis",
       markets: [
         {
           key: "double_chance",
-          label: "Double chance",
+          label: "Doppelte Chance",
           kind: "list",
           compared: true,
           lines: [
@@ -51,8 +51,8 @@ const detail: EventDetail = {
               line: null,
               payoutRate: null,
               outcomes: [
-                outcome("1X", "Borussia Dortmund ou nul", { leovegas: 1.07, merkurbets: 1.08 }, ["merkurbets"]),
-                outcome("X2", "Nul ou Werder Brême", { merkurbets: 2.85 }),
+                outcome("1X", "Borussia Dortmund oder Unentschieden", { leovegas: 1.07, merkurbets: 1.08 }, ["merkurbets"]),
+                outcome("X2", "Unentschieden oder Werder Brême", { merkurbets: 2.85 }),
               ],
             },
           ],
@@ -61,11 +61,11 @@ const detail: EventDetail = {
     },
     {
       key: "goals",
-      label: "Buts",
+      label: "Tore",
       markets: [
         {
           key: "total_goals",
-          label: "Nombre de buts",
+          label: "Tore gesamt",
           kind: "lines",
           compared: true,
           lines: [
@@ -73,30 +73,30 @@ const detail: EventDetail = {
               line: 2.5,
               payoutRate: 1.012,
               outcomes: [
-                outcome("over", "Plus de 2.5", { leovegas: 1.3, merkurbets: 1.31 }, ["merkurbets"]),
-                outcome("under", "Moins de 2.5", { leovegas: 4.8, merkurbets: 2.67 }, ["leovegas"]),
+                outcome("over", "Über 2,5", { leovegas: 1.3, merkurbets: 1.31 }, ["merkurbets"]),
+                outcome("under", "Unter 2,5", { leovegas: 4.8, merkurbets: 2.67 }, ["leovegas"]),
               ],
             },
             {
               line: 3.5,
               payoutRate: null,
-              outcomes: [outcome("over", "Plus de 3.5", { leovegas: 1.8 })],
+              outcomes: [outcome("over", "Über 3,5", { leovegas: 1.8 })],
             },
           ],
         },
       ],
     },
-    { key: "scorers", label: "Buteurs", markets: [scorers] },
+    { key: "scorers", label: "Torschützen und Vorlagen", markets: [scorers] },
     {
       key: "leovegas",
-      label: "Seulement at LeoVegas",
+      label: "Nur bei LeoVegas",
       markets: [
         {
           key: "wx:Remplaçant buteur",
           label: "Remplaçant buteur",
           kind: "list",
           compared: false,
-          lines: [{ line: null, payoutRate: null, outcomes: [outcome("Oui", "Oui", { leovegas: 2.15 })] }],
+          lines: [{ line: null, payoutRate: null, outcomes: [outcome("Oui", "Ja", { leovegas: 2.15 })] }],
         },
       ],
     },
@@ -133,8 +133,8 @@ describe("MatchPage", () => {
 
     expect(await screen.findByRole("heading", { level: 2, name: "Borussia Dortmund – Werder Brême" })).toBeInTheDocument();
     expect(fetchMock).toHaveBeenCalledWith("/api/events/bvb");
-    expect(screen.getByText(/3 markets compared/)).toBeInTheDocument();
-    expect(screen.getByText("1 surebet")).toBeInTheDocument();
+    expect(screen.getByText(/3 Märkte verglichen/)).toBeInTheDocument();
+    expect(screen.getByText("1 Surebet")).toBeInTheDocument();
   });
 
   describe("the competition", () => {
@@ -146,7 +146,7 @@ describe("MatchPage", () => {
       const onOpenCompetition = vi.fn();
       renderPage({ competitionHref, onOpenCompetition });
 
-      const link = await screen.findByRole("link", { name: "Show the matches: Bundesliga" });
+      const link = await screen.findByRole("link", { name: "Spiele anzeigen: Bundesliga" });
       expect(link).toHaveTextContent("Bundesliga");
       expect(link).toHaveAttribute("href", "?sport=football&sort=trj&competition=Bundesliga");
 
@@ -159,7 +159,7 @@ describe("MatchPage", () => {
       const onOpenCompetition = vi.fn();
       renderPage({ competitionHref, onOpenCompetition });
 
-      const link = await screen.findByRole("link", { name: "Show the matches: Ligue 1 McDonald's® 2026/2027" });
+      const link = await screen.findByRole("link", { name: "Spiele anzeigen: Ligue 1 McDonald's® 2026/2027" });
       expect(link).toHaveTextContent("Ligue 1 McDonald's® 2026/2027");
       fireEvent.click(link);
       expect(onOpenCompetition).toHaveBeenCalledWith("football", "Ligue 1 McDonald's®");
@@ -170,7 +170,7 @@ describe("MatchPage", () => {
       const onOpenCompetition = vi.fn();
       renderPage({ competitionHref, onOpenCompetition });
 
-      fireEvent.click(await screen.findByRole("link", { name: "Show the matches: Bundesliga" }), { ctrlKey: true });
+      fireEvent.click(await screen.findByRole("link", { name: "Spiele anzeigen: Bundesliga" }), { ctrlKey: true });
       expect(onOpenCompetition).not.toHaveBeenCalled();
     });
 
@@ -178,13 +178,13 @@ describe("MatchPage", () => {
       stubFetch(detail);
       const { unmount } = renderPage();
       expect(await screen.findByText(/Bundesliga/)).toBeInTheDocument();
-      expect(screen.queryByRole("link", { name: /Show the matches/ })).not.toBeInTheDocument();
+      expect(screen.queryByRole("link", { name: /Spiele anzeigen/ })).not.toBeInTheDocument();
       unmount();
 
       stubFetch({ ...detail, competition: "", competitionFilter: "" });
       renderPage({ competitionHref, onOpenCompetition: () => {} });
       await screen.findByRole("heading", { level: 2 });
-      expect(screen.queryByRole("link", { name: /Show the matches/ })).not.toBeInTheDocument();
+      expect(screen.queryByRole("link", { name: /Spiele anzeigen/ })).not.toBeInTheDocument();
     });
   });
 
@@ -198,7 +198,7 @@ describe("MatchPage", () => {
   it("sizes the markets' columns for the ticked bookmakers, so that no price is cut", async () => {
     stubFetch(detail);
     const { container, rerender } = renderPage();
-    const card = await screen.findByRole("article", { name: "Double chance" });
+    const card = await screen.findByRole("article", { name: "Doppelte Chance" });
     const markets = () => card.parentElement as HTMLElement;
     expect(markets().style.getPropertyValue("--bookmakers")).toBe(String(ALL_BOOKMAKERS.length));
     expect(container).toContainElement(markets());
@@ -221,28 +221,28 @@ describe("MatchPage", () => {
     stubFetch(detail);
     renderPage();
 
-    const card = await screen.findByRole("article", { name: "Double chance" });
-    const row = within(card).getByRole("row", { name: /Borussia Dortmund ou nul/ });
-    expect(row).toHaveTextContent("LeoVegas: 1.07");
-    expect(row).toHaveTextContent("Merkur Bets: 1.08 (best price)");
+    const card = await screen.findByRole("article", { name: "Doppelte Chance" });
+    const row = within(card).getByRole("row", { name: /Borussia Dortmund oder Unentschieden/ });
+    expect(row).toHaveTextContent("LeoVegas: 1,07");
+    expect(row).toHaveTextContent("Merkur Bets: 1,08 (beste Quote)");
     // One bookmaker's price only: nothing to compare, no best.
-    expect(within(card).getByRole("row", { name: /Nul ou Werder Brême/ })).not.toHaveTextContent("best price");
+    expect(within(card).getByRole("row", { name: /Unentschieden oder Werder Brême/ })).not.toHaveTextContent("best price");
   });
 
   it("lays over/under lines out as a table, with each line's TRJ", async () => {
     stubFetch(detail);
     renderPage();
 
-    const card = await screen.findByRole("article", { name: "Nombre de buts" });
+    const card = await screen.findByRole("article", { name: "Tore gesamt" });
     const table = within(card).getByRole("table");
     expect(within(table).getAllByRole("columnheader").map((h) => h.textContent)).toEqual([
-      "Line",
-      "Over",
-      "Under",
-      "Payout",
+      "Linie",
+      "Über",
+      "Unter",
+      "Auszahlung",
     ]);
-    const line = within(table).getByRole("row", { name: /2.5/ });
-    expect(line).toHaveTextContent("101.2");
+    const line = within(table).getByRole("row", { name: /2,5/ });
+    expect(line).toHaveTextContent("101,2");
     expect(line).toHaveTextContent("Surebet");
   });
 
@@ -250,12 +250,12 @@ describe("MatchPage", () => {
     stubFetch(detail);
     renderPage();
 
-    const card = await screen.findByRole("article", { name: "Buteur" });
+    const card = await screen.findByRole("article", { name: "Torschütze (jederzeit)" });
     expect(within(card).getAllByRole("row")).toHaveLength(10);
-    fireEvent.change(within(card).getByRole("searchbox", { name: "Search in Buteur" }), { target: { value: "guir" } });
+    fireEvent.change(within(card).getByRole("searchbox", { name: "In Torschütze (jederzeit) suchen" }), { target: { value: "guir" } });
     expect(within(card).getAllByRole("row").map((r) => r.querySelector("th")?.textContent)).toEqual(["Serhou Guirassy"]);
     fireEvent.change(within(card).getByRole("searchbox"), { target: { value: "" } });
-    fireEvent.click(within(card).getByRole("button", { name: "Show the 24 others" }));
+    fireEvent.click(within(card).getByRole("button", { name: "Die anderen 24 anzeigen" }));
     expect(within(card).getAllByRole("row")).toHaveLength(34);
   });
 
@@ -263,16 +263,16 @@ describe("MatchPage", () => {
     stubFetch(detail);
     renderPage();
 
-    const toggle = await screen.findByRole("button", { name: "Seulement at LeoVegas, 1 market" });
+    const toggle = await screen.findByRole("button", { name: "Nur bei LeoVegas, 1 Markt" });
     expect(toggle).toHaveAttribute("aria-expanded", "false");
     expect(screen.queryByRole("article", { name: "Remplaçant buteur" })).not.toBeInTheDocument();
 
-    fireEvent.click(within(screen.getByRole("navigation", { name: "Sections" })).getByRole("button", { name: "Seulement at LeoVegas" }));
+    fireEvent.click(within(screen.getByRole("navigation", { name: "Rubriken" })).getByRole("button", { name: "Nur bei LeoVegas" }));
     expect(toggle).toHaveAttribute("aria-expanded", "true");
     expect(screen.getByRole("article", { name: "Remplaçant buteur" })).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: "Buts, 1 market" }));
-    expect(screen.queryByRole("article", { name: "Nombre de buts" })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Tore, 1 Markt" }));
+    expect(screen.queryByRole("article", { name: "Tore gesamt" })).not.toBeInTheDocument();
   });
 
   it("goes back to the list by its link, which also works as a plain link", async () => {
@@ -280,7 +280,7 @@ describe("MatchPage", () => {
     const onBack = vi.fn();
     renderPage({ onBack });
 
-    const back = await screen.findByRole("link", { name: "All matches" });
+    const back = await screen.findByRole("link", { name: "Alle Spiele" });
     expect(back).toHaveAttribute("href", "?sport=football&sort=trj");
     fireEvent.click(back);
     expect(onBack).toHaveBeenCalled();
@@ -289,7 +289,7 @@ describe("MatchPage", () => {
   it("says so when the match is no longer offered", async () => {
     stubFetch({ error: "not found" }, 404);
     renderPage();
-    expect(await screen.findByText(/This match is no longer offered/)).toBeInTheDocument();
+    expect(await screen.findByText(/Dieses Spiel wird nicht mehr angeboten/)).toBeInTheDocument();
   });
 
   it("reports how fresh its prices are, and tries again after a failure", async () => {
@@ -301,7 +301,7 @@ describe("MatchPage", () => {
 
     await waitFor(() => expect(onStatus).toHaveBeenLastCalledWith({ refreshing: false, failed: true }));
     stubFetch(detail);
-    fireEvent.click(screen.getByRole("button", { name: "Try again" }));
+    fireEvent.click(screen.getByRole("button", { name: "Erneut versuchen" }));
     await waitFor(() => expect(onStatus).toHaveBeenLastCalledWith(expect.objectContaining({ failed: false, updated: expect.any(Date) })));
   });
 });

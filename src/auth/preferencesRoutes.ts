@@ -22,7 +22,7 @@ export function preferencesRouter(auth: AuthContext): Router {
   router.put("/", (req, res) => {
     const preferences = parsePreferences(req.body);
     if (!preferences) {
-      res.status(400).json({ error: "invalid", message: "Invalid settings." });
+      res.status(400).json({ error: "invalid", message: "Ungültige Einstellungen." });
       return;
     }
     savePreferences(auth.db, req.user!.id, preferences, auth.now());

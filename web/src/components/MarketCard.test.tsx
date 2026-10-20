@@ -9,7 +9,7 @@ const text = (el: Element | null) => (el?.textContent ?? "").replace(/\u00a0/g, 
 // is a value bet, 10 % above the fair 2,00.
 const result: MarketDetail = {
   key: "1X2",
-  label: "Résultat du match",
+  label: "Spielergebnis (1X2)",
   kind: "list",
   compared: true,
   lines: [
@@ -18,7 +18,7 @@ const result: MarketDetail = {
       payoutRate: 0.95,
       outcomes: [
         { key: "1", label: "PSG", prices: { leovegas: 2.2, merkurbets: 2 }, best: ["leovegas"], fair: 2, edges: { leovegas: 0.1 } },
-        { key: "X", label: "Draw", prices: { leovegas: 3.2, merkurbets: 3.3 }, best: ["merkurbets"], fair: 3.4, edges: {} },
+        { key: "X", label: "Unentschieden", prices: { leovegas: 3.2, merkurbets: 3.3 }, best: ["merkurbets"], fair: 3.4, edges: {} },
         { key: "2", label: "OM", prices: { leovegas: 3.6, merkurbets: 3.7 }, best: ["merkurbets"], fair: 4, edges: {} },
       ],
     },
@@ -28,13 +28,13 @@ const result: MarketDetail = {
 describe("MarketCard", () => {
   it("shows the 1X2's fair odds under each outcome's prices, and marks its value bets", () => {
     const { container } = render(<MarketCard market={result} bookmakers={["leovegas", "merkurbets"]} />);
-    const lines = [...container.querySelectorAll('[title^="Fair odds"]')];
+    const lines = [...container.querySelectorAll('[title^="Faire Quote"]')];
     expect(lines).toHaveLength(3);
-    expect(text(lines[0])).toContain("Fair odds: 2.00");
-    expect(text(lines[0])).toContain("+10.0%");
+    expect(text(lines[0])).toContain("Faire Quote: 2,00");
+    expect(text(lines[0])).toContain("+10,0 %");
     expect(text(lines[1])).not.toContain("%");
 
-    const valueChip = screen.getByText("2.20").closest("[data-bookmaker]");
+    const valueChip = screen.getByText("2,20").closest("[data-bookmaker]");
     expect(valueChip).toHaveAttribute("data-value", "true");
     expect(container.querySelector('[data-bookmaker="merkurbets"]')).not.toHaveAttribute("data-value");
   });
@@ -59,16 +59,16 @@ describe("MarketCard", () => {
     };
     const { container } = render(<MarketCard market={boosted} bookmakers={["leovegas", "twentybet"]} />);
     const chip = container.querySelector('[data-bookmaker="twentybet"]');
-    expect(text(chip)).toContain("2.10");
-    expect(text(chip)).toContain("2.35");
-    expect(chip?.querySelector('[title="Odds boost: 2.35"]')).not.toBeNull();
-    expect(container.querySelectorAll('[title^="Odds boost"]')).toHaveLength(1);
+    expect(text(chip)).toContain("2,10");
+    expect(text(chip)).toContain("2,35");
+    expect(chip?.querySelector('[title="Quoten-Boost: 2,35"]')).not.toBeNull();
+    expect(container.querySelectorAll('[title^="Quoten-Boost"]')).toHaveLength(1);
   });
 
   it("leaves out an unticked bookmaker's value bet", () => {
     const { container } = render(<MarketCard market={result} bookmakers={["merkurbets"]} />);
     expect(container.querySelector("[data-value]")).toBeNull();
-    expect(text(container.querySelector('[title^="Fair odds"]'))).not.toContain("%");
+    expect(text(container.querySelector('[title^="Faire Quote"]'))).not.toContain("%");
   });
 
   it("shows no fair odds on a market without them", () => {
@@ -78,13 +78,13 @@ describe("MarketCard", () => {
       lines: [{ ...result.lines[0], outcomes: result.lines[0].outcomes.map(({ fair: _f, edges: _e, ...o }) => o) }],
     };
     const { container } = render(<MarketCard market={plain} bookmakers={["leovegas", "merkurbets"]} />);
-    expect(container.querySelector('[title^="Fair odds"]')).toBeNull();
+    expect(container.querySelector('[title^="Faire Quote"]')).toBeNull();
   });
 
   it("shows a scorer's fair odds from the exchange the same way", () => {
     const scorers: MarketDetail = {
       key: "anytime_scorer",
-      label: "Buteur",
+      label: "Torschütze (jederzeit)",
       kind: "list",
       compared: true,
       lines: [
@@ -99,17 +99,17 @@ describe("MarketCard", () => {
       ],
     };
     const { container } = render(<MarketCard market={scorers} bookmakers={["leovegas", "merkurbets"]} />);
-    const fair = container.querySelectorAll('[title^="Fair odds"]');
+    const fair = container.querySelectorAll('[title^="Faire Quote"]');
     expect(fair).toHaveLength(1);
-    expect(text(fair[0])).toContain("Fair odds: 2.00");
-    expect(text(fair[0])).toContain("+15.0%");
-    expect(screen.getByText("2.30").closest("[data-bookmaker]")).toHaveAttribute("data-value", "true");
+    expect(text(fair[0])).toContain("Faire Quote: 2,00");
+    expect(text(fair[0])).toContain("+15,0 %");
+    expect(screen.getByText("2,30").closest("[data-bookmaker]")).toHaveAttribute("data-value", "true");
   });
 
   it("shows a loosely priced scorer's ceiling, and an unpriced one's suspect price", () => {
     const scorers: MarketDetail = {
       key: "anytime_scorer",
-      label: "Buteur",
+      label: "Torschütze (jederzeit)",
       kind: "list",
       compared: true,
       lines: [
@@ -126,17 +126,17 @@ describe("MarketCard", () => {
       ],
     };
     const { container } = render(<MarketCard market={scorers} bookmakers={["leovegas", "merkurbets"]} />);
-    const ceiling = container.querySelector('[title^="Fair odds at most"]');
-    expect(text(ceiling)).toBe("Fair ≤ Fair odds: at most 2.60 · , best value: +7.7%");
-    const suspect = container.querySelector('[title^="Suspect price"]');
-    expect(text(suspect)).toBe("Suspect price · : +44.4% over the other bookmaker");
-    const chip = screen.getByText("13.00").closest("[data-bookmaker]");
+    const ceiling = container.querySelector('[title^="Faire Quote höchstens"]');
+    expect(text(ceiling)).toBe("Fair ≤ Faire Quote: höchstens 2,60 · , bester Value: +7,7 %");
+    const suspect = container.querySelector('[title^="Verdächtige Quote"]');
+    expect(text(suspect)).toBe("Verdächtige Quote · : +44,4 % über dem anderen Buchmacher");
+    const chip = screen.getByText("13,00").closest("[data-bookmaker]");
     expect(chip).toHaveAttribute("data-value", "true");
-    expect(text(chip)).toContain("(suspect price: +44.4% over the other bookmaker)");
+    expect(text(chip)).toContain("(verdächtige Quote: +44,4 % über dem anderen Buchmacher)");
 
     // Unticked, LeoVegas's suspect price goes, and its line with it.
     const { container: betclicOnly } = render(<MarketCard market={scorers} bookmakers={["merkurbets"]} />);
-    expect(betclicOnly.querySelector('[title^="Suspect price"]')).toBeNull();
+    expect(betclicOnly.querySelector('[title^="Verdächtige Quote"]')).toBeNull();
     expect(betclicOnly.querySelector("[data-value]")).toBeNull();
   });
 });

@@ -11,7 +11,7 @@ const bet = (overrides: Partial<ValueBet>): ValueBet => ({
   participants: ["PSG", "OM"],
   marketCount: 42,
   market: "1X2",
-  marketLabel: "Résultat du match",
+  marketLabel: "Spielergebnis (1X2)",
   selection: "1",
   label: "PSG",
   bookmaker: "merkurbets",
@@ -29,30 +29,30 @@ describe("ValueBetsTable", () => {
       <ValueBetsTable
         bets={[
           bet({}),
-          bet({ selection: "X", label: "Draw", bookmaker: "leovegas", price: 4.4, fair: 4.2, edge: 4.4 / 4.2 - 1 }),
+          bet({ selection: "X", label: "Unentschieden", bookmaker: "leovegas", price: 4.4, fair: 4.2, edge: 4.4 / 4.2 - 1 }),
         ]}
       />
     );
-    expect(screen.getByRole("heading", { level: 2, name: "Value bets" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Value Bets" })).toBeInTheDocument();
     expect(screen.getAllByRole("columnheader").map((th) => th.textContent)).toEqual([
-      "Kick-off",
-      "Match",
-      "Bet",
-      "Price",
-      "Fair (fair odds)",
-      "Edge over the fair odds",
+      "Anstoß",
+      "Spiel",
+      "Wette",
+      "Quote",
+      "Fair (faire Quote)",
+      "Vorteil gegenüber der fairen Quote",
     ]);
     const [first, second] = screen.getAllByRole("row").slice(1);
     const cells = within(first).getAllByRole("cell");
     expect(cells[0].querySelector("time")).toHaveAttribute("dateTime", "2099-01-01T20:00:00.000Z");
     expect(cells[1]).toHaveTextContent("⚽ PSG - OMLigue 1");
-    expect(cells[2]).toHaveTextContent("PSGRésultat du match");
+    expect(cells[2]).toHaveTextContent("PSGSpielergebnis (1X2)");
     expect(cells[3].querySelector('[data-bookmaker="merkurbets"]')).toHaveAttribute("data-value", "true");
-    expect(cells[3]).toHaveTextContent("Merkur Bets: 1.56 (value bet: +4.0% over the fair odds)");
-    expect(cells[4]).toHaveTextContent("1.50");
-    expect(cells[5]).toHaveTextContent("+4.0%");
-    expect(within(second).getAllByRole("cell")[2]).toHaveTextContent("Draw");
-    expect(within(second).getAllByRole("cell")[3]).toHaveTextContent("LeoVegas: 4.40");
+    expect(cells[3]).toHaveTextContent("Merkur Bets: 1,56 (Value Bet: +4,0 % über der fairen Quote)");
+    expect(cells[4]).toHaveTextContent("1,50");
+    expect(cells[5]).toHaveTextContent("+4,0 %");
+    expect(within(second).getAllByRole("cell")[2]).toHaveTextContent("Unentschieden");
+    expect(within(second).getAllByRole("cell")[3]).toHaveTextContent("LeoVegas: 4,40");
   });
 
   it("links each bet to its match's every market, opened in place on a plain click", () => {
@@ -65,7 +65,7 @@ describe("ValueBetsTable", () => {
       />
     );
 
-    const link = screen.getByRole("link", { name: "+41 markets for PSG - OM" });
+    const link = screen.getByRole("link", { name: "+41 Märkte für PSG - OM" });
     expect(link).toHaveAttribute("href", "?match=psg-om");
     fireEvent.click(link);
     expect(onOpenMatch).toHaveBeenCalledWith("psg-om");
@@ -73,7 +73,7 @@ describe("ValueBetsTable", () => {
     fireEvent.click(link, { ctrlKey: true });
     expect(onOpenMatch).toHaveBeenCalledTimes(1);
     // Nothing more than its 1X2: its title leads to the page, with no "+N markets".
-    expect(screen.getAllByRole("link").map((a) => a.textContent)).toEqual(["PSG - OM", "+41 markets", "Lens - Lille"]);
+    expect(screen.getAllByRole("link").map((a) => a.textContent)).toEqual(["PSG - OM", "+41 Märkte", "Lens - Lille"]);
   });
 
   it("names the sport of each row by its icon, and leads the match's title to its page", () => {
@@ -86,7 +86,7 @@ describe("ValueBetsTable", () => {
         sportHref={(sport, q) => `?sport=${sport}&q=${q}`}
       />
     );
-    expect(screen.getByRole("img", { name: "Football" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "Fußball" })).toBeInTheDocument();
     const title = screen.getByRole("link", { name: "PSG - OM" });
     expect(title).toHaveAttribute("href", "?match=psg-om");
     fireEvent.click(title);
@@ -115,11 +115,11 @@ describe("ValueBetsTable", () => {
     render(
       <ValueBetsTable
         bets={[
-          bet({ market: "anytime_scorer", marketLabel: "Buteur", selection: "Mbappé", label: "Mbappé", price: 2.3, fair: 2 }),
+          bet({ market: "anytime_scorer", marketLabel: "Torschütze (jederzeit)", selection: "Mbappé", label: "Mbappé", price: 2.3, fair: 2 }),
           // The same player scoring twice, at the same bookmaker: a row of its own.
           bet({
             market: "scorer_goals|2",
-            marketLabel: "Marque au moins 2 buts",
+            marketLabel: "Erzielt mindestens 2 Tore",
             selection: "Mbappé",
             label: "Mbappé",
             price: 7,
@@ -130,17 +130,17 @@ describe("ValueBetsTable", () => {
       />
     );
     const [scorer, twice] = screen.getAllByRole("row").slice(1).map((row) => within(row).getAllByRole("cell"));
-    expect(scorer[2]).toHaveTextContent("MbappéButeur");
-    expect(scorer[4]).toHaveTextContent("2.00");
-    expect(twice[2]).toHaveTextContent("MbappéMarque au moins 2 buts");
-    expect(twice[5]).toHaveTextContent("+7.7%");
+    expect(scorer[2]).toHaveTextContent("MbappéTorschütze (jederzeit)");
+    expect(scorer[4]).toHaveTextContent("2,00");
+    expect(twice[2]).toHaveTextContent("MbappéErzielt mindestens 2 Tore");
+    expect(twice[5]).toHaveTextContent("+7,7 %");
   });
 
   it("weighs a loosely priced player against the exchange's lay, and an unpriced one against the other bookmaker", () => {
     render(
       <ValueBetsTable
         bets={[
-          bet({ market: "anytime_scorer", marketLabel: "Buteur", selection: "Doué", label: "Doué", bookmaker: "leovegas", price: 2.8, basis: "lay", fair: 2.6, edge: 2.8 / 2.6 - 1 }),
+          bet({ market: "anytime_scorer", marketLabel: "Torschütze (jederzeit)", selection: "Doué", label: "Doué", bookmaker: "leovegas", price: 2.8, basis: "lay", fair: 2.6, edge: 2.8 / 2.6 - 1 }),
           bet({
             market: "first_scorer",
             marketLabel: "Premier buteur",
@@ -157,15 +157,15 @@ describe("ValueBetsTable", () => {
       />
     );
     const [lay, suspect] = screen.getAllByRole("row").slice(1).map((row) => within(row).getAllByRole("cell"));
-    expect(lay[2]).toHaveTextContent(/^DouéButeur$/);
-    expect(lay[4]).toHaveTextContent("≤ at most 2.60");
-    expect(lay[4]).toHaveAttribute("title", expect.stringMatching(/^Fair odds at most: the lay price at/));
-    expect(lay[3]).toHaveTextContent("(value bet: +7.7% over the fair odds)");
+    expect(lay[2]).toHaveTextContent(/^DouéTorschütze \(jederzeit\)$/);
+    expect(lay[4]).toHaveTextContent("≤ höchstens 2,60");
+    expect(lay[4]).toHaveAttribute("title", expect.stringMatching(/^Faire Quote höchstens: die Lay-Quote an/));
+    expect(lay[3]).toHaveTextContent("(Value Bet: +7,7 % über der fairen Quote)");
 
-    expect(suspect[2]).toHaveTextContent("LepaulPremier buteur · suspect price");
-    expect(suspect[3]).toHaveTextContent("LeoVegas: 13.00 (suspect price: +44.4% over the other bookmaker)");
-    expect(suspect[4]).toHaveTextContent("9.00 at Merkur Bets");
-    expect(suspect[4]).toHaveAttribute("title", expect.stringMatching(/does not price this player; the price at Merkur Bets$/));
-    expect(suspect[5]).toHaveTextContent("+44.4%");
+    expect(suspect[2]).toHaveTextContent("LepaulPremier buteur · verdächtige Quote");
+    expect(suspect[3]).toHaveTextContent("LeoVegas: 13,00 (verdächtige Quote: +44,4 % über dem anderen Buchmacher)");
+    expect(suspect[4]).toHaveTextContent("9,00 bei Merkur Bets");
+    expect(suspect[4]).toHaveAttribute("title", expect.stringMatching(/wird dieser Spieler nicht gehandelt; die Quote bei Merkur Bets$/));
+    expect(suspect[5]).toHaveTextContent("+44,4 %");
   });
 });

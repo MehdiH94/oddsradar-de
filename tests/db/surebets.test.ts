@@ -111,8 +111,8 @@ describe("getSurebets", () => {
           profit: expect.closeTo(100 * (rate - 1), 10),
           toVerify: false,
           legs: [
-            { selection: "over", label: "Over 9.5", source: "betclic", side: "back", price: 2.0, stake: expect.closeTo((100 * rate) / 2.0, 10) },
-            { selection: "under", label: "Under 9.5", source: "winamax", side: "back", price: 2.2, stake: expect.closeTo((100 * rate) / 2.2, 10) },
+            { selection: "over", label: "Über 9,5", source: "betclic", side: "back", price: 2.0, stake: expect.closeTo((100 * rate) / 2.0, 10) },
+            { selection: "under", label: "Unter 9,5", source: "winamax", side: "back", price: 2.2, stake: expect.closeTo((100 * rate) / 2.2, 10) },
           ],
         }),
       ]);
@@ -147,8 +147,8 @@ describe("getSurebets", () => {
   it("marks one over 110% to be checked, and sorts by TRJ or by kick-off", () => {
     upsertCanonicalEvents(db, [
       event("late", "basketball", ["A", "B"], {
-        winamax: main("Vainqueur du match", { "1": 2.6, "2": 1.4 }),
-        betclic: main("Vainqueur du match", { "1": 1.5, "2": 2.4 }),
+        winamax: main("Vainqueur du match", { "1": 2.4, "2": 1.75 }),
+        betclic: main("Vainqueur du match", { "1": 2.0, "2": 2.15 }),
       }, hoursFromNow(9)),
       event("soon", "basketball", ["C", "D"], {
         winamax: main("Vainqueur du match", { "1": 2.1, "2": 1.8 }),
@@ -160,9 +160,26 @@ describe("getSurebets", () => {
       ["late", true],
       ["soon", false],
     ]);
-    expect(byValue[0].payoutRate).toBeCloseTo(1 / (1 / 2.6 + 1 / 2.4), 10);
+    expect(byValue[0].payoutRate).toBeCloseTo(1 / (1 / 2.4 + 1 / 2.15), 10);
     expect(getSurebets(db, { sort: "start" }).map((s) => s.eventId)).toEqual(["soon", "late"]);
     expect(getSurebets(db, { q: "C - D" }).map((s) => s.eventId)).toEqual(["soon"]);
+  });
+
+  // Real cases (20/10/2026): Betway's 9.47 on K Olsa Brakel (W) where 20bet
+  // paid 2.07 made a "surebet" of 154.3 %; prices of the teams the other way
+  // round at one bookmaker make one too. Neither is one bet.
+  it("makes none of a price far out of line with the other sources' for its outcome", () => {
+    upsertCanonicalEvents(db, [
+      event("brugge-brakel", "football", ["Club Brugge II (W)", "K Olsa Brakel (W)"], {
+        twentybet: main("1X2", { "1": 2.63, X: 3.73, "2": 2.07 }),
+        betway: main("1X2", { "1": 1.3, X: 6.16, "2": 9.47 }),
+      }),
+      event("swapped", "basketball", ["A", "B"], {
+        winamax: main("Vainqueur du match", { "1": 2.6, "2": 1.4 }),
+        betclic: main("Vainqueur du match", { "1": 1.5, "2": 2.4 }),
+      }),
+    ]);
+    expect(getSurebets(db)).toEqual([]);
   });
 
   it("makes none of two bookmakers' different remainders, nor of a 1X2 short of its draw", () => {
@@ -244,10 +261,10 @@ describe("getSurebets", () => {
       const rate = 1 / (1 / 2.3 + 1 / netBack(3.75) + 1 / netBack(4.6));
       expect(netBack(3.75)).toBeCloseTo(1 + 2.75 * 0.97, 10);
       const surebet = getSurebets(db).find((s) => s.kind === "exchange")!;
-      expect(surebet).toMatchObject({ market: "1X2", marketLabel: "Match result", payoutRate: expect.closeTo(rate, 10) });
+      expect(surebet).toMatchObject({ market: "1X2", marketLabel: "Spielergebnis (1X2)", payoutRate: expect.closeTo(rate, 10) });
       expect(surebet.legs.map((l) => [l.label, l.source, l.price])).toEqual([
         ["PSG", "winamax", 2.3],
-        ["Draw", "exchange", 3.75],
+        ["Unentschieden", "exchange", 3.75],
         ["OM", "exchange", 4.6],
       ]);
       expect(surebet.legs.reduce((sum, l) => sum + l.stake, 0)).toBeCloseTo(100, 10);
@@ -258,6 +275,26 @@ describe("getSurebets", () => {
       // 15 EUR on the draw: the exchange is left out, and Winamax alone pays 96%.
       exchange(15);
       expect(getSurebets(db).filter((s) => s.kind !== "lay")).toEqual([]);
+    });
+
+    // Real case (20/10/2026): Avenida's lay at 1.64 shown as Chartres', against
+    // 2.40 to 2.54 at the bookmakers: a "surebet" of 144.9 %.
+    it("makes none of the exchange's prices of the teams the other way round", () => {
+      upsertCanonicalEvents(db, [event("swap", "football", ["Chartres", "Avenida"], { winamax: main("1X2", { "1": 4.0, X: 4.2, "2": 1.8 }) })]);
+      saveReferenceOdds(
+        db,
+        "swap",
+        {
+          fair: { "1": 1.8, X: 4.35, "2": 3.95 },
+          back: { "1": 1.78, X: 4.3, "2": 3.9 },
+          lay: { "1": 1.82, X: 4.4, "2": 4.0 },
+          backSize: { "1": 50, X: 50, "2": 50 },
+          laySize: { "1": 50, X: 50, "2": 50 },
+          matched: 5000,
+        },
+        now()
+      );
+      expect(getSurebets(db).filter((s) => s.eventId === "swap")).toEqual([]);
     });
 
     it("lays an outcome a bookmaker pays more than the exchange's lay, a player's too", () => {

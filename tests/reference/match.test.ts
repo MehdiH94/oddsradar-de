@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 import { parseSearch } from "../../src/reference/exchange";
-import { findOnExchange, listedTheOtherWay, referenceName, searchTerm } from "../../src/reference/match";
+import { findOnExchange, listedTheOtherWay, placeOnExchange, referenceName, searchTerm } from "../../src/reference/match";
 
 const searches = JSON.parse(gunzipSync(readFileSync(`${__dirname}/fixtures/exchange-search.json.gz`)).toString());
 const candidates = [...parseSearch(searches.arsenal), ...parseSearch(searches.poland), ...parseSearch(searches.barcelona)];
@@ -93,6 +93,19 @@ describe("findOnExchange", () => {
 
   it("finds nothing among no candidates", () => {
     expect(findOnExchange({ eventId: "e1", participants: ["Arsenal", "Leeds"], startTime: at(1791631800000) }, [])).toBeNull();
+  });
+});
+
+describe("placeOnExchange", () => {
+  // Real case (20/10/2026): the exchange lists "CB Avenida (W) v Chartres (W)",
+  // our match is "C Chartres Basket Feminin (W) - CB Avenida Salamanca (W)".
+  // Avenida's lay at 1.64 was shown as Chartres', a surebet of 144.9 % that
+  // wasn't.
+  it("gives each women's team its own side, though both names end alike", () => {
+    const startTime = "2026-10-21T17:00:00.000Z";
+    const target = { eventId: "e1", participants: ["C Chartres Basket Feminin (W)", "CB Avenida Salamanca (W)"], startTime };
+    const placed = placeOnExchange("basketball", target, [{ participants: ["CB Avenida (W)", "Chartres (W)"], startTime }]);
+    expect(placed?.homeFirst).toBe(false);
   });
 });
 

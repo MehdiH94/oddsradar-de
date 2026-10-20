@@ -1,6 +1,7 @@
 import { ALL_BOOKMAKERS, BOOKMAKER_BRANDING } from "../bookmakers";
 import { BookmakerLogo } from "../BookmakerLogo";
 import { Dropdown, MenuGroup, MenuOption } from "./Dropdown";
+import styles from "./BookmakerMenu.module.css";
 
 const bookmakerName = (bookmaker: string) => BOOKMAKER_BRANDING[bookmaker]?.name ?? bookmaker;
 
@@ -32,6 +33,7 @@ export function BookmakerMenu({
           >
             <BookmakerLogo bookmaker={bookmaker} size={18} decorative />
             {bookmakerName(bookmaker)}
+            {BOOKMAKER_BRANDING[bookmaker]?.unlicensed && <small className={styles.unlicensed}> · nicht GGL-lizenziert</small>}
           </MenuOption>
         ))}
       </MenuGroup>

@@ -20,4 +20,4 @@ export function valueEdge(
 // Where the fair odds come from, for their tooltips and explanations.
 // In the dative (and genitive) case, which the sentences around it need: "an
 // der Betfair-Wettbörse", "die fairen Quoten der Betfair-Wettbörse".
-export const REFERENCE_SOURCE = "der Betfair-Wettbörse (über Piwi247)";
+export const REFERENCE_SOURCE = "der Betfair-Wettbörse";

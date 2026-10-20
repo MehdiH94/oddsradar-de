@@ -165,6 +165,7 @@ export function FilterSheet({
           >
             <BookmakerLogo bookmaker={bookmaker} size={20} decorative />
             {bookmakerName(bookmaker)}
+            {BOOKMAKER_BRANDING[bookmaker]?.unlicensed && <small className={styles.unlicensed}> · nicht GGL-lizenziert</small>}
           </Option>
         ))}
       </Group>

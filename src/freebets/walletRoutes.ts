@@ -26,7 +26,7 @@ export function walletRouter(auth: AuthContext): Router {
   router.put("/", (req, res) => {
     const wallet = parseWallet(req.body?.wallet);
     if (!wallet) {
-      res.status(400).json({ error: "invalid", message: "Invalid freebet amounts." });
+      res.status(400).json({ error: "invalid", message: "Ungültige Freebet-Beträge." });
       return;
     }
     saveWallet(auth.db, req.user!.id, wallet, auth.now());

@@ -6,10 +6,10 @@ export function AppFooter() {
     <footer className={styles.footer}>
       <div className={styles.inner}>
         <p>
-          Odds read from {ALL_BOOKMAKERS_SENTENCE} at regular intervals. Always check the price at the bookmaker before
-          betting.
+          Quoten von {ALL_BOOKMAKERS_SENTENCE}, regelmäßig gelesen. Prüf die Quote immer beim Buchmacher, bevor du
+          wettest.
         </p>
-        <p className={styles.responsible}>Gambling is for adults only (18+).</p>
+        <p className={styles.responsible}>Glücksspiel nur für Erwachsene (18+).</p>
       </div>
     </footer>
   );

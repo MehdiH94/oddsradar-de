@@ -11,10 +11,10 @@ describe("GamblingBanner", () => {
   it("shows the responsible gambling notice", () => {
     render(<GamblingBanner />);
 
-    const banner = screen.getByRole("complementary", { name: "Responsible gambling" });
+    const banner = screen.getByRole("complementary", { name: "Verantwortungsvolles Spielen" });
     expect(banner).toHaveTextContent(
-      "18+. Gambling can be addictive: losing money, family conflicts, addiction… " +
-        "Help at check-dein-spiel.de (BZgA, free hotline 0800 1 37 27 00)",
+      "18+. Glücksspiel kann süchtig machen: Geldverlust, Konflikte in der Familie, Sucht… " +
+        "Hilfe unter check-dein-spiel.de (BZgA, kostenlose Hotline 0800 1 37 27 00)",
     );
   });
 
@@ -22,15 +22,15 @@ describe("GamblingBanner", () => {
     render(<GamblingBanner sportsBetting />);
 
     expect(screen.getByRole("complementary")).toHaveTextContent(
-      "18+. Sports betting can be addictive: know when to stop. " +
-        "Help at check-dein-spiel.de (BZgA, free hotline 0800 1 37 27 00)",
+      "18+. Sportwetten können süchtig machen: Hör rechtzeitig auf. " +
+        "Hilfe unter check-dein-spiel.de (BZgA, kostenlose Hotline 0800 1 37 27 00)",
     );
   });
 
   it("links the whole message to the federal help on gambling addiction", () => {
     render(<GamblingBanner />);
 
-    const link = screen.getByRole("link", { name: /Gambling can be addictive/ });
+    const link = screen.getByRole("link", { name: /Glücksspiel kann süchtig machen/ });
     expect(link).toHaveAttribute("href", "https://www.check-dein-spiel.de");
     expect(link).toHaveAttribute("rel", "noopener noreferrer");
   });

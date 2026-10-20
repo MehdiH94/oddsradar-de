@@ -4,7 +4,7 @@ import { Dropdown, MenuGroup, MenuOption } from "./Dropdown";
 
 const bookmakerName = (bookmaker: string) => BOOKMAKER_BRANDING[bookmaker]?.name ?? bookmaker;
 
-// "Bookmakers: All", opening on one checkbox per bookmaker, ticked when its
+// "Buchmacher: Alle", opening on one checkbox per bookmaker, ticked when its
 // prices are compared. Stays open to tick several.
 export function BookmakerMenu({
   selected,
@@ -21,8 +21,8 @@ export function BookmakerMenu({
   }
 
   return (
-    <Dropdown label="Bookmakers" summary={summarize(selected)}>
-      <MenuGroup legend="Bookmakers compared">
+    <Dropdown label="Buchmacher" summary={summarize(selected)}>
+      <MenuGroup legend="Verglichene Buchmacher">
         {ALL_BOOKMAKERS.map((bookmaker) => (
           <MenuOption
             key={bookmaker}
@@ -41,8 +41,8 @@ export function BookmakerMenu({
 
 function summarize(selected: readonly string[]): string {
   const ticked = ALL_BOOKMAKERS.filter((bookmaker) => selected.includes(bookmaker));
-  if (ticked.length === ALL_BOOKMAKERS.length) return "All";
-  if (ticked.length === 0) return "None";
+  if (ticked.length === ALL_BOOKMAKERS.length) return "Alle";
+  if (ticked.length === 0) return "Keine";
   if (ticked.length === 1) return bookmakerName(ticked[0]);
-  return `${ticked.length} of ${ALL_BOOKMAKERS.length}`;
+  return `${ticked.length} von ${ALL_BOOKMAKERS.length}`;
 }

@@ -21,22 +21,22 @@ describe("Pagination", () => {
   it("says which results are shown and marks the current page", () => {
     render(<Pagination page={2} pageSize={20} total={613} onChange={() => {}} />);
 
-    expect(screen.getByText("21–40 of 613")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Page 2" })).toHaveAttribute("aria-current", "page");
-    expect(screen.getByRole("button", { name: "Page 1" })).not.toHaveAttribute("aria-current");
-    expect(screen.getByRole("button", { name: "Page 31" })).toBeInTheDocument();
+    expect(screen.getByText("21–40 von 613")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Seite 2" })).toHaveAttribute("aria-current", "page");
+    expect(screen.getByRole("button", { name: "Seite 1" })).not.toHaveAttribute("aria-current");
+    expect(screen.getByRole("button", { name: "Seite 31" })).toBeInTheDocument();
   });
 
   it("moves page by page, and can't go before the first or past the last", () => {
     const onChange = vi.fn();
     const { rerender } = render(<Pagination page={1} pageSize={20} total={50} onChange={onChange} />);
 
-    expect(screen.getByRole("button", { name: "Previous" })).toBeDisabled();
-    fireEvent.click(screen.getByRole("button", { name: "Next" }));
+    expect(screen.getByRole("button", { name: "Zurück" })).toBeDisabled();
+    fireEvent.click(screen.getByRole("button", { name: "Weiter" }));
     expect(onChange).toHaveBeenCalledWith(2);
 
     rerender(<Pagination page={3} pageSize={20} total={50} onChange={onChange} />);
-    expect(screen.getByRole("button", { name: "Next" })).toBeDisabled();
-    expect(screen.getByText("41–50 of 50")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Weiter" })).toBeDisabled();
+    expect(screen.getByText("41–50 von 50")).toBeInTheDocument();
   });
 });

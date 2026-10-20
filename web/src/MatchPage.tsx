@@ -44,7 +44,7 @@ function Section({
           className={styles.toggle}
           aria-expanded={open}
           aria-controls={bodyId}
-          aria-label={`${section.label}, ${count} market${count === 1 ? "" : "s"}`}
+          aria-label={`${section.label}, ${count} ${count === 1 ? "Markt" : "Märkte"}`}
           onClick={onToggle}
         >
           {section.label}
@@ -77,7 +77,7 @@ export function MatchPage({
   bookmakers,
   onBookmakersChange,
   backHref,
-  backLabel = "All matches",
+  backLabel = "Alle Spiele",
   onBack,
   competitionHref,
   onOpenCompetition,
@@ -179,7 +179,7 @@ export function MatchPage({
         {back}
         {failed ? (
           <ErrorBanner onRetry={() => setRetries((n) => n + 1)}>
-            The markets of this match could not be loaded.
+            Die Märkte dieses Spiels konnten nicht geladen werden.
           </ErrorBanner>
         ) : (
           <Skeleton />
@@ -192,8 +192,8 @@ export function MatchPage({
     return (
       <div className={styles.page}>
         {back}
-        <EmptyState action={{ label: `Show ${backLabel.charAt(0).toLowerCase()}${backLabel.slice(1)}`, onClick: onBack }}>
-          This match is no longer offered: it has started, or the bookmakers have taken it down.
+        <EmptyState action={{ label: `${backLabel} anzeigen`, onClick: onBack }}>
+          Dieses Spiel wird nicht mehr angeboten: Es hat begonnen, oder die Buchmacher haben es entfernt.
         </EmptyState>
       </div>
     );
@@ -212,7 +212,7 @@ export function MatchPage({
               <a
                 href={competitionHref(detail.sport, detail.competitionFilter)}
                 className={styles.competition}
-                aria-label={`Show the matches: ${detail.competition}`}
+                aria-label={`Spiele anzeigen: ${detail.competition}`}
                 onClick={(e) => {
                   if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
                   e.preventDefault();
@@ -235,12 +235,12 @@ export function MatchPage({
           </p>
           <h2 className={styles.title}>{title}</h2>
           <p className={styles.summary}>
-            {detail.comparedCount} market{detail.comparedCount === 1 ? "" : "s"} compared
+            {detail.comparedCount} {detail.comparedCount === 1 ? "Markt" : "Märkte"} verglichen
             {detail.surebetCount > 0 && (
               <>
                 {" · "}
                 <strong className={styles.sure}>
-                  {detail.surebetCount} surebet{detail.surebetCount === 1 ? "" : "s"}
+                  {detail.surebetCount} Surebet{detail.surebetCount === 1 ? "" : "s"}
                 </strong>
               </>
             )}
@@ -251,17 +251,17 @@ export function MatchPage({
 
       {failed && (
         <ErrorBanner onRetry={() => setRetries((n) => n + 1)}>
-          The markets could not be refreshed: the ones shown may be out of date.
+          Die Märkte konnten nicht aktualisiert werden: Die angezeigten sind womöglich veraltet.
         </ErrorBanner>
       )}
 
       {bookmakers.length === 0 ? (
-        <EmptyState action={{ label: "Tick every bookmaker", onClick: () => onBookmakersChange([...ALL_BOOKMAKERS]) }}>
-          Tick at least one bookmaker to compare the odds.
+        <EmptyState action={{ label: "Alle Buchmacher auswählen", onClick: () => onBookmakersChange([...ALL_BOOKMAKERS]) }}>
+          Wähle mindestens einen Buchmacher, um die Quoten zu vergleichen.
         </EmptyState>
       ) : (
         <>
-          <nav className={styles.nav} aria-label="Sections">
+          <nav className={styles.nav} aria-label="Rubriken">
             {detail.sections.map((section) => (
               <button key={section.key} type="button" className={styles.navItem} onClick={() => goToSection(section.key)}>
                 {section.label}

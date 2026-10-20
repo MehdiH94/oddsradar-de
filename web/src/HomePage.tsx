@@ -21,33 +21,33 @@ const BOOKMAKER_COUNT = ALL_BOOKMAKERS.length;
 
 const FEATURES: ReadonlyArray<{ title: string; Icon: typeof Gem; text: ReactNode }> = [
   {
-    title: "Compare without going from site to site",
+    title: "Vergleichen, ohne von Seite zu Seite zu springen",
     Icon: ListOrdered,
     text: (
       <>
-        For each match, the price of each of the {BOOKMAKER_COUNT} bookmakers side by side. The best price of each outcome
-        is green and ticked. The payout sums up the bookmakers' margin: the closer it is to 100%, the less they take.
+        Für jedes Spiel die Quoten der {BOOKMAKER_COUNT} Buchmacher nebeneinander. Die beste Quote jedes Ausgangs ist grün
+        und abgehakt. Die Auszahlungsquote fasst die Marge der Buchmacher zusammen: Je näher an 100 %, desto weniger behalten sie.
       </>
     ),
   },
   {
-    title: "Spot the value bets",
+    title: "Value Bets erkennen",
     Icon: Gem,
     text: (
       <>
-        A price is a value bet when it is at least {formatPercent(VALUE_MIN_EDGE)} above the fair odds: the Betfair
-        exchange's price, without its margin. The edge is shown, so you know where to look first.
+        Eine Quote ist eine Value Bet, wenn sie mindestens {formatPercent(VALUE_MIN_EDGE)} über der fairen Quote liegt: dem Kurs
+        der Betfair-Wettbörse ohne ihre Marge. Der Vorteil wird angezeigt, damit du weißt, wo du zuerst hinschauen solltest.
       </>
     ),
   },
   {
-    title: "Get to the bottom of a match",
+    title: "Ein Spiel bis ins Detail",
     Icon: Layers,
     text: (
       <>
-        For the next 48 hours of football, tennis and basketball, the match's markets (scorers, totals, handicaps…) are
-        compared from one bookmaker to the other. When a market's best prices add up to a payout over 100%, it is flagged
-        as a surebet.
+        Für die nächsten 48 Stunden Fußball, Tennis und Basketball werden die Märkte eines Spiels (Torschützen, Über/Unter,
+        Handicaps…) zwischen den Buchmachern verglichen. Ergeben die besten Quoten eines Markts eine Auszahlungsquote über
+        100 %, wird er als Surebet markiert.
       </>
     ),
   },
@@ -55,83 +55,83 @@ const FEATURES: ReadonlyArray<{ title: string; Icon: typeof Gem; text: ReactNode
 
 const STEPS: ReadonlyArray<{ title: string; text: ReactNode }> = [
   {
-    title: "We read the odds",
-    text: `Every few minutes, we read the pre-match odds of ${ALL_BOOKMAKERS_SENTENCE}.`,
+    title: "Wir lesen die Quoten",
+    text: `Alle paar Minuten lesen wir die Pre-Match-Quoten von ${ALL_BOOKMAKERS_SENTENCE}.`,
   },
   {
-    title: "We weigh them against the fair odds",
-    text: "They come from the Betfair exchange, where bettors set the prices themselves, once its margin is taken out.",
+    title: "Wir vergleichen sie mit der fairen Quote",
+    text: "Sie stammt von der Betfair-Wettbörse, auf der die Wettenden die Kurse selbst bestimmen, abzüglich ihrer Marge.",
   },
   {
-    title: "You see the edge",
-    text: "A price above the fair odds is framed, with its edge: “+2.1%” means it pays 2.1% more.",
+    title: "Du siehst den Vorteil",
+    text: "Eine Quote über der fairen Quote wird umrahmt, mit ihrem Vorteil: „+2,1 %“ heißt, sie zahlt 2,1 % mehr.",
   },
 ];
 
 // The freebets' conversions, said in two ways: what each one asks of the account (the exchange's lay is advanced).
 const FREEBET_WAYS: ReadonlyArray<{ title: string; Icon: typeof Gem; text: ReactNode }> = [
   {
-    title: "Between bookmakers",
+    title: "Zwischen Buchmachern",
     Icon: ArrowLeftRight,
-    text: "Your freebets at several bookmakers, spread over a single bet or an accumulator of 2 or 3 matches, so as to collect the same amount whatever the result. No real money staked.",
+    text: "Deine Freebets bei mehreren Buchmachern, verteilt auf eine Einzelwette oder eine Kombi aus 2 oder 3 Spielen, sodass du bei jedem Ergebnis denselben Betrag bekommst. Kein echtes Geld im Einsatz.",
   },
   {
-    title: "Against the exchange",
+    title: "Gegen die Wettbörse",
     Icon: Scale,
-    text: "A bookmaker's freebets back an outcome, and the same outcome is laid on the exchange: the profit is guaranteed, within the money available on the exchange. The lay's liability is advanced, then returned after the match.",
+    text: "Mit den Freebets eines Buchmachers setzt du auf einen Ausgang, und derselbe Ausgang wird an der Wettbörse gelayt: Der Gewinn ist garantiert, im Rahmen des an der Wettbörse verfügbaren Gelds. Die Haftung des Lays streckst du vor, du bekommst sie nach dem Spiel zurück.",
   },
 ];
 
 const FAQ: ReadonlyArray<{ question: string; answer: ReactNode }> = [
   {
-    question: "What is a value bet?",
+    question: "Was ist eine Value Bet?",
     answer: (
       <>
-        A bet whose price is higher than what the outcome's chances are really worth. {APP_NAME} estimates that worth with
-        the fair odds of {REFERENCE_SOURCE} and flags any price at least {formatPercent(VALUE_MIN_EDGE)} above them (
-        {formatPercent(PLAYER_VALUE_MIN_EDGE)} on player markets). It is a pointer, not a certainty: a bet above the fair
-        odds can lose.
+        Eine Wette, deren Quote höher ist, als die Chancen des Ausgangs wirklich wert sind. {APP_NAME} schätzt diesen Wert mit
+        der fairen Quote {REFERENCE_SOURCE} und markiert jede Quote, die mindestens {formatPercent(VALUE_MIN_EDGE)} darüber liegt (
+        {formatPercent(PLAYER_VALUE_MIN_EDGE)} bei Spielermärkten). Das ist ein Hinweis, keine Gewissheit: Auch eine Wette über der
+        fairen Quote kann verlieren.
       </>
     ),
   },
   {
-    question: "Where do the fair odds come from?",
+    question: "Woher kommt die faire Quote?",
     answer: (
       <>
-        They are the price at {REFERENCE_SOURCE} once its margin is taken out. On an exchange, bettors set the prices: it
-        is the reference closest to the true probabilities. When the exchange has too little money on an outcome,{" "}
-        {APP_NAME} shows no fair odds.
+        Es ist der Kurs {REFERENCE_SOURCE} abzüglich ihrer Marge. An einer Wettbörse bestimmen die Wettenden die Kurse:
+        Das ist die Referenz, die den echten Wahrscheinlichkeiten am nächsten kommt. Ist an der Wettbörse zu wenig Geld auf einem
+        Ausgang,{" "}zeigt {APP_NAME} keine faire Quote.
       </>
     ),
   },
   {
-    question: "What is a surebet?",
+    question: "Was ist eine Surebet?",
     answer: (
       <>
-        A market whose best prices, put together, would guarantee a profit whatever happens (a payout over 100%). {APP_NAME}{" "}
-        lists them at the top of the value bets. But the rules of the same market can differ from one bookmaker to another
-        and a price can change before you bet: always check.
+        Ein Markt, dessen beste Quoten zusammen in jedem Fall einen Gewinn garantieren würden (eine Auszahlungsquote über 100 %).{" "}
+        {APP_NAME} zeigt sie oben bei den Value Bets. Aber die Regeln desselben Markts können sich von Buchmacher zu Buchmacher
+        unterscheiden, und eine Quote kann sich vor deiner Wette ändern: Prüf sie immer.
       </>
     ),
   },
   {
-    question: "What is a freebet, and how do you turn it into cash?",
+    question: "Was ist eine Freebet, und wie macht man daraus Geld?",
     answer: (
       <>
-        A freebet is a stake a bookmaker gives you: if it wins, you collect the winnings, but the stake is not returned. In
-        the Freebets tab, {APP_NAME} works out how to spread it to collect the same amount whatever the result: between
-        several bookmakers, or by backing the outcome at a bookmaker and laying it on the exchange. You get a share of the
-        freebet's value, never all of it, which depends on the current prices: check them before placing your bets.
+        Eine Freebet ist ein Einsatz, den dir ein Buchmacher schenkt: Gewinnt sie, bekommst du den Gewinn, aber nicht den Einsatz.
+        Im Bereich Freebets berechnet {APP_NAME}, wie du sie verteilst, um bei jedem Ergebnis denselben Betrag zu bekommen:
+        zwischen mehreren Buchmachern oder mit einer Wette beim Buchmacher und einem Lay an der Wettbörse. Du bekommst einen Teil
+        des Werts der Freebet, nie alles, je nach aktuellen Quoten: Prüf sie, bevor du deine Wetten platzierst.
       </>
     ),
   },
   {
-    question: `Do I need an account? Can I bet on ${APP_NAME}?`,
+    question: `Brauche ich ein Konto? Kann ich auf ${APP_NAME} wetten?`,
     answer: (
       <>
-        Yes, a free account (an email address and a password) gives access to the odds, the value bets, the surebets and
-        the freebet conversions. {APP_NAME} takes no bets: it is an information tool. The odds are read at regular
-        intervals and may have changed: always check the price at the bookmaker before betting.
+        Ja, ein kostenloses Konto (eine E-Mail-Adresse und ein Passwort) gibt dir Zugang zu den Quoten, den Value Bets, den
+        Surebets und den Freebet-Umwandlungen. {APP_NAME} nimmt keine Wetten an: Es ist ein Informationsangebot. Die Quoten
+        werden regelmäßig gelesen und können sich geändert haben: Prüf die Quote immer beim Buchmacher, bevor du wettest.
       </>
     ),
   },
@@ -143,15 +143,15 @@ function Actions() {
     <div className={styles.actions}>
       <Link href={valueBetsHref} className={styles.primary}>
         <Gem size={20} aria-hidden="true" />
-        See the value bets
+        Value Bets ansehen
       </Link>
       <Link href={oddsHref} className={styles.secondary}>
         <ListOrdered size={20} aria-hidden="true" />
-        Compare the odds
+        Quoten vergleichen
       </Link>
       <Link href={FREEBETS_PATH} className={styles.secondary}>
         <Gift size={20} aria-hidden="true" />
-        Convert my freebets
+        Meine Freebets umwandeln
       </Link>
     </div>
   );
@@ -171,16 +171,16 @@ export function HomePage() {
         <section className={styles.hero} aria-labelledby="hero-title">
           <Logo className={styles.radar} />
           <div className={styles.heroInner}>
-            <p className={styles.eyebrow}>Odds comparison · value bets · freebets</p>
+            <p className={styles.eyebrow}>Quotenvergleich · Value Bets · Freebets</p>
             <h1 id="hero-title" className={styles.title}>
-              The best odds of the German bookmakers, and the bets worth taking.
+              Die besten Quoten der deutschen Buchmacher, und die Wetten, die sich lohnen.
             </h1>
             <p className={styles.lead}>
-              {APP_NAME} compares the odds of {BOOKMAKER_COUNT} bookmakers and spots the ones that pay more than they are
-              really worth, measured on the Betfair exchange. It also turns your freebets into guaranteed cash.
+              {APP_NAME} vergleicht die Quoten von {BOOKMAKER_COUNT} Buchmachern und findet die, die mehr zahlen, als sie wirklich
+              wert sind, gemessen an der Betfair-Wettbörse. Außerdem macht es aus deinen Freebets garantiertes Geld.
             </p>
             <Actions />
-            <ul className={styles.trust} aria-label="Bookmakers compared">
+            <ul className={styles.trust} aria-label="Verglichene Buchmacher">
               {ALL_BOOKMAKERS.map((id) => (
                 <li key={id} className={styles.bookmaker}>
                   <BookmakerLogo bookmaker={id} size={20} decorative />
@@ -188,13 +188,13 @@ export function HomePage() {
                 </li>
               ))}
             </ul>
-            <p className={styles.note}>Free account · odds refreshed every few minutes</p>
+            <p className={styles.note}>Kostenloses Konto · Quoten alle paar Minuten aktualisiert</p>
           </div>
         </section>
 
         <section className={styles.section} aria-labelledby="live-title">
           <h2 id="live-title" className={styles.heading}>
-            Right now on {APP_NAME}
+            Gerade auf {APP_NAME}
           </h2>
           <LiveStats stats={stats} />
           <div className={styles.preview}>
@@ -204,7 +204,7 @@ export function HomePage() {
 
         <section className={styles.section} aria-labelledby="features-title">
           <h2 id="features-title" className={styles.heading}>
-            What {APP_NAME} changes
+            Was {APP_NAME} dir bringt
           </h2>
           <ul className={styles.features}>
             {FEATURES.map(({ title, Icon, text }) => (
@@ -221,11 +221,11 @@ export function HomePage() {
 
         <section className={styles.section} aria-labelledby="freebets-title">
           <h2 id="freebets-title" className={styles.heading}>
-            Your freebets, turned into cash
+            Deine Freebets, in Geld verwandelt
           </h2>
           <p className={styles.lede}>
-            A freebet is a stake a bookmaker gives you: if it wins, you collect the winnings, but the stake is not returned.{" "}
-            {APP_NAME} looks for how to get real money out of it, whatever the result.
+            Eine Freebet ist ein Einsatz, den dir ein Buchmacher schenkt: Gewinnt sie, bekommst du den Gewinn, aber nicht den Einsatz.{" "}
+            {APP_NAME} sucht, wie du daraus echtes Geld machst, egal wie das Spiel ausgeht.
           </p>
           <ul className={styles.ways}>
             {FREEBET_WAYS.map(({ title, Icon, text }) => (
@@ -239,15 +239,15 @@ export function HomePage() {
             ))}
           </ul>
           <p className={styles.lede}>
-            The three best conversions are offered, with the bets to place bookmaker by bookmaker. The prices are a guide:
-            check them before placing your bets.
+            Du bekommst die drei besten Umwandlungen, mit den Wetten, die du bei jedem Buchmacher platzierst. Die Quoten sind ein
+            Richtwert: Prüf sie, bevor du deine Wetten platzierst.
           </p>
-          <p className={styles.note}>A free account is all it takes: you save your freebets in it.</p>
+          <p className={styles.note}>Ein kostenloses Konto genügt: Darin speicherst du deine Freebets.</p>
         </section>
 
         <section className={styles.section} aria-labelledby="steps-title">
           <h2 id="steps-title" className={styles.heading}>
-            How it works
+            So funktioniert es
           </h2>
           <ol className={styles.steps}>
             {STEPS.map(({ title, text }, index) => (
@@ -265,7 +265,7 @@ export function HomePage() {
         {stats.sports !== null && stats.sports.length > 0 && (
           <section className={styles.section} aria-labelledby="sports-title">
             <h2 id="sports-title" className={styles.heading}>
-              The sports covered
+              Die Sportarten
             </h2>
             <ul className={styles.sports}>
               {stats.sports.map((sport) => (
@@ -279,7 +279,7 @@ export function HomePage() {
 
         <section className={styles.section} aria-labelledby="faq-title">
           <h2 id="faq-title" className={styles.heading}>
-            Frequently asked questions
+            Häufige Fragen
           </h2>
           <div className={styles.faq}>
             {FAQ.map(({ question, answer }) => (
@@ -297,7 +297,7 @@ export function HomePage() {
         <section className={`${styles.section} ${styles.closing}`} aria-labelledby="closing-title">
           <Logo className={styles.closingLogo} />
           <h2 id="closing-title" className={styles.heading}>
-            Today's odds are one click away.
+            Die Quoten von heute sind nur einen Klick entfernt.
           </h2>
           <Actions />
         </section>

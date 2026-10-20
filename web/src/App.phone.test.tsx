@@ -43,7 +43,7 @@ const BET = {
   participants: ["PSG", "OM"],
   marketCount: 42,
   market: "1X2",
-  marketLabel: "Résultat du match",
+  marketLabel: "Spielergebnis (1X2)",
   selection: "1",
   label: "PSG",
   bookmaker: "merkurbets",
@@ -83,32 +83,32 @@ describe("App on a phone", () => {
     render(<App />);
     await screen.findByText("PSG - OM");
 
-    expect(screen.getByRole("radio", { name: "Football" })).toBeChecked();
-    expect(screen.getByRole("combobox", { name: "Search for a match" })).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /^Sort:/ })).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /^Bookmakers :/ })).not.toBeInTheDocument();
+    expect(screen.getByRole("radio", { name: "Fußball" })).toBeChecked();
+    expect(screen.getByRole("combobox", { name: "Spiel suchen" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /^Sortieren:/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /^Buchmacher:/ })).not.toBeInTheDocument();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 
-    const open = screen.getByRole("button", { name: "Filters" });
+    const open = screen.getByRole("button", { name: "Filter" });
     expect(open).toHaveAttribute("aria-expanded", "false");
     fireEvent.click(open);
 
-    const sheet = screen.getByRole("dialog", { name: "Filters" });
+    const sheet = screen.getByRole("dialog", { name: "Filter" });
     expect(open).toHaveAttribute("aria-expanded", "true");
-    expect(within(sheet).getByRole("radio", { name: "Best payout" })).toBeChecked();
+    expect(within(sheet).getByRole("radio", { name: "Beste Auszahlungsquote" })).toBeChecked();
     expect(within(sheet).getByRole("checkbox", { name: "LeoVegas" })).toBeChecked();
     expect(within(sheet).getByRole("checkbox", { name: "Merkur Bets" })).toBeChecked();
-    expect(within(sheet).getByRole("radio", { name: "With player markets" })).not.toBeChecked();
+    expect(within(sheet).getByRole("radio", { name: "Mit Spielermärkten" })).not.toBeChecked();
   });
 
   it("applies a filter of the sheet at once, counts it on its button, and resets it", async () => {
     const fetchMock = stubFetch();
     render(<App />);
     await screen.findByText("PSG - OM");
-    fireEvent.click(screen.getByRole("button", { name: "Filters" }));
-    const sheet = screen.getByRole("dialog", { name: "Filters" });
+    fireEvent.click(screen.getByRole("button", { name: "Filter" }));
+    const sheet = screen.getByRole("dialog", { name: "Filter" });
 
-    fireEvent.click(within(sheet).getByRole("radio", { name: "Kick-off time" }));
+    fireEvent.click(within(sheet).getByRole("radio", { name: "Anstoßzeit" }));
     await waitFor(() =>
       expect(fetchMock).toHaveBeenCalledWith(
         "/api/events?sport=football&sort=start&kind=all&page=1&pageSize=20"
@@ -116,23 +116,23 @@ describe("App on a phone", () => {
     );
     expect(urlParams().sort).toBe("start");
 
-    fireEvent.click(within(sheet).getByRole("button", { name: "Reset" }));
-    expect(within(sheet).getByRole("radio", { name: "Best payout" })).toBeChecked();
-    expect(within(sheet).queryByRole("button", { name: "Reset" })).not.toBeInTheDocument();
+    fireEvent.click(within(sheet).getByRole("button", { name: "Zurücksetzen" }));
+    expect(within(sheet).getByRole("radio", { name: "Beste Auszahlungsquote" })).toBeChecked();
+    expect(within(sheet).queryByRole("button", { name: "Zurücksetzen" })).not.toBeInTheDocument();
 
     fireEvent.click(within(sheet).getByRole("checkbox", { name: "Merkur Bets" }));
-    fireEvent.click(within(sheet).getByRole("button", { name: "Show the 50 results" }));
+    fireEvent.click(within(sheet).getByRole("button", { name: "50 Ergebnisse anzeigen" }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Filters, 1 active" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Filter, 1 aktiv" })).toBeInTheDocument();
   });
 
   it("narrows to a competition from the sheet: the sport's, counted on the button, in the address, and reset", async () => {
     const fetchMock = stubFetch();
     render(<App />);
     await screen.findByText("PSG - OM");
-    fireEvent.click(screen.getByRole("button", { name: "Filters" }));
-    const sheet = screen.getByRole("dialog", { name: "Filters" });
-    expect(within(sheet).getByRole("radio", { name: "All competitions" })).toBeChecked();
+    fireEvent.click(screen.getByRole("button", { name: "Filter" }));
+    const sheet = screen.getByRole("dialog", { name: "Filter" });
+    expect(within(sheet).getByRole("radio", { name: "Alle Wettbewerbe" })).toBeChecked();
 
     fireEvent.click(within(sheet).getByRole("radio", { name: "Ligue 1" }));
     await waitFor(() =>
@@ -142,11 +142,11 @@ describe("App on a phone", () => {
     );
     expect(urlParams().competition).toBe("Ligue 1");
 
-    fireEvent.click(within(sheet).getByRole("button", { name: "Show the 50 results" }));
-    expect(screen.getByRole("button", { name: "Filters, 1 active" })).toBeInTheDocument();
+    fireEvent.click(within(sheet).getByRole("button", { name: "50 Ergebnisse anzeigen" }));
+    expect(screen.getByRole("button", { name: "Filter, 1 aktiv" })).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: "Filters, 1 active" }));
-    fireEvent.click(within(screen.getByRole("dialog", { name: "Filters" })).getByRole("button", { name: "Reset" }));
+    fireEvent.click(screen.getByRole("button", { name: "Filter, 1 aktiv" }));
+    fireEvent.click(within(screen.getByRole("dialog", { name: "Filter" })).getByRole("button", { name: "Zurücksetzen" }));
     await waitFor(() => expect(urlParams().competition).toBeUndefined());
   });
 
@@ -156,8 +156,8 @@ describe("App on a phone", () => {
     });
     render(<App />);
     await screen.findByText("PSG - OM");
-    fireEvent.click(screen.getByRole("button", { name: "Filters" }));
-    const sheet = screen.getByRole("dialog", { name: "Filters" });
+    fireEvent.click(screen.getByRole("button", { name: "Filter" }));
+    const sheet = screen.getByRole("dialog", { name: "Filter" });
     const names = () =>
       within(sheet)
         .getAllByRole("radio")
@@ -165,7 +165,7 @@ describe("App on a phone", () => {
         .map((radio) => radio.parentElement?.textContent);
 
     expect(names()).toEqual([
-      "All competitions",
+      "Alle Wettbewerbe",
       "Bundesliga",
       "Premier League",
       "Serie A",
@@ -174,10 +174,10 @@ describe("App on a phone", () => {
       "Coupe de France",
       "Eredivisie",
     ]);
-    fireEvent.click(within(sheet).getByRole("button", { name: "Show all 9 competitions" }));
+    fireEvent.click(within(sheet).getByRole("button", { name: "Alle 9 Wettbewerbe anzeigen" }));
     expect(names()).toHaveLength(10);
 
-    fireEvent.change(within(sheet).getByRole("searchbox", { name: "Search for a competition" }), { target: { value: "super" } });
+    fireEvent.change(within(sheet).getByRole("searchbox", { name: "Wettbewerb suchen" }), { target: { value: "super" } });
     expect(names()).toEqual(["Super Lig"]);
     fireEvent.click(within(sheet).getByRole("radio", { name: "Super Lig" }));
     await waitFor(() =>
@@ -191,10 +191,10 @@ describe("App on a phone", () => {
     stubFetch();
     render(<App />);
     await screen.findByText("PSG - OM");
-    const open = screen.getByRole("button", { name: "Filters" });
+    const open = screen.getByRole("button", { name: "Filter" });
     open.focus();
     fireEvent.click(open);
-    expect(screen.getByRole("dialog", { name: "Filters" })).toHaveFocus();
+    expect(screen.getByRole("dialog", { name: "Filter" })).toHaveFocus();
 
     fireEvent.keyDown(document, { key: "Escape" });
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -207,17 +207,17 @@ describe("App on a phone", () => {
     await screen.findByText("PSG - OM");
 
     // Merkur Bets's 1,55 is the best "1"; LeoVegas's 1,50 shows only once compared.
-    expect(screen.getByText("PSG: 1.55 at Merkur Bets")).toBeInTheDocument();
-    expect(screen.getByText("Draw: 4.10 at LeoVegas")).toBeInTheDocument();
-    expect(screen.queryByText("1.50")).not.toBeInTheDocument();
+    expect(screen.getByText("PSG: 1,55 bei Merkur Bets")).toBeInTheDocument();
+    expect(screen.getByText("Unentschieden: 4,10 bei LeoVegas")).toBeInTheDocument();
+    expect(screen.queryByText("1,50")).not.toBeInTheDocument();
 
-    const compare = screen.getByRole("button", { name: /^Compare the prices of 2 bookmakers for PSG - OM/ });
+    const compare = screen.getByRole("button", { name: /^Vergleichen: Quoten von 2 Buchmachern für PSG - OM/ });
     expect(compare).toHaveAttribute("aria-expanded", "false");
     fireEvent.click(compare);
     expect(compare).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByText("1.50").closest("[data-bookmaker]")).toHaveAttribute("data-bookmaker", "leovegas");
+    expect(screen.getByText("1,50").closest("[data-bookmaker]")).toHaveAttribute("data-bookmaker", "leovegas");
 
-    expect(screen.getByRole("link", { name: "+41 markets for PSG - OM" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "+41 Märkte für PSG - OM" })).toHaveAttribute(
       "href",
       "?sport=football&sort=trj&match=psg-om"
     );
@@ -228,8 +228,8 @@ describe("App on a phone", () => {
     render(<App />);
     await screen.findByText("PSG - OM");
 
-    expect(screen.queryByRole("navigation", { name: "Pagination" })).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Show 20 more matches" }));
+    expect(screen.queryByRole("navigation", { name: "Seitennavigation" })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "20 weitere Spiele laden" }));
     await waitFor(() =>
       expect(fetchMock).toHaveBeenCalledWith(
         "/api/events?sport=football&sort=trj&kind=all&page=1&pageSize=40"
@@ -246,14 +246,14 @@ describe("App on a phone", () => {
     fireEvent.click(screen.getByRole("radio", { name: "Tennis" }));
     await waitFor(() => expect(urlParams().sport).toBe("tennis"));
 
-    const nav = screen.getByRole("navigation", { name: "Main navigation" });
-    fireEvent.click(within(nav).getByRole("radio", { name: "Value bets" }));
+    const nav = screen.getByRole("navigation", { name: "Hauptnavigation" });
+    fireEvent.click(within(nav).getByRole("radio", { name: "Value Bets" }));
     await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/value-bets?sort=value"));
-    expect(screen.queryByRole("group", { name: "Sport" })).not.toBeInTheDocument();
-    expect(await screen.findByRole("link", { name: "Every market of the match PSG - OM" })).toBeInTheDocument();
+    expect(screen.queryByRole("group", { name: "Sportart" })).not.toBeInTheDocument();
+    expect(await screen.findByRole("link", { name: "Alle Märkte des Spiels PSG - OM" })).toBeInTheDocument();
 
     // Back to the sport left.
-    fireEvent.click(within(nav).getByRole("radio", { name: "Matches" }));
+    fireEvent.click(within(nav).getByRole("radio", { name: "Spiele" }));
     await waitFor(() => expect(urlParams().sport).toBe("tennis"));
     expect(screen.getByRole("radio", { name: "Tennis" })).toBeChecked();
   });
@@ -269,7 +269,7 @@ describe("App on a phone", () => {
     };
     expect(await run(container)).toEqual([]);
 
-    fireEvent.click(screen.getByRole("button", { name: "Filters" }));
-    expect(await run(screen.getByRole("dialog", { name: "Filters" }))).toEqual([]);
+    fireEvent.click(screen.getByRole("button", { name: "Filter" }));
+    expect(await run(screen.getByRole("dialog", { name: "Filter" }))).toEqual([]);
   });
 });

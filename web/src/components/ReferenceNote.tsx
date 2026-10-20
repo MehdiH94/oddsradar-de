@@ -1,5 +1,5 @@
 import { Info } from "lucide-react";
-import { formatPercent } from "../format";
+import { formatEdge, formatPercent } from "../format";
 import { PLAYER_VALUE_MIN_EDGE, REFERENCE_SOURCE, VALUE_MIN_EDGE } from "../value";
 import styles from "./ReferenceNote.module.css";
 
@@ -12,23 +12,23 @@ export function ReferenceNote({ players = false }: { players?: boolean }) {
     <details className={styles.note}>
       <summary className={styles.summary}>
         <Info size={16} aria-hidden="true" />
-        How to read the odds
+        So liest du die Quoten
       </summary>
       <div className={styles.body}>
         <p>
-          “Fair”: the price at {REFERENCE_SOURCE}, without its margin. A price at least {formatPercent(VALUE_MIN_EDGE)} above it
-          is a value bet: framed, with its edge shown (“+2.1%”).
+          „Fair“: die Quote an {REFERENCE_SOURCE}, ohne ihre Marge. Eine Quote, die mindestens{" "}
+          {formatPercent(VALUE_MIN_EDGE)} darüber liegt, ist eine Value Bet: eingerahmt, mit ihrem Vorteil („{formatEdge(0.021)}“).
           {players && (
             <>
               {" "}
-              On players, from {formatPercent(PLAYER_VALUE_MIN_EDGE)}. “≤”: the exchange prices them too loosely, so its lay
-              price serves as a ceiling.
+              Bei Spielern ab {formatPercent(PLAYER_VALUE_MIN_EDGE)}. „≤“: Die Börse bewertet sie zu ungenau, daher dient ihre
+              Lay-Quote als Obergrenze.
             </>
           )}
         </p>
         <p>
-          The best price of each outcome is green and ticked. The payout is that of the best prices: the closer it is to
-          100%, the less margin the bookmakers take; above it, it is a surebet.
+          Die beste Quote jedes Ausgangs ist grün und abgehakt. Die Auszahlungsquote ist die der besten Quoten: Je näher sie
+          an {formatPercent(1)} liegt, desto weniger Marge nehmen die Buchmacher; darüber ist es eine Surebet.
         </p>
       </div>
     </details>

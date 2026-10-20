@@ -83,12 +83,12 @@ const COMMON = new Set([
 ]);
 
 export function passwordProblem(password: string, email = ""): string | null {
-  if (password.length < PASSWORD_MIN) return `The password must be at least ${PASSWORD_MIN} characters long.`;
-  if (password.length > PASSWORD_MAX) return `The password must be at most ${PASSWORD_MAX} characters long.`;
+  if (password.length < PASSWORD_MIN) return `Das Passwort muss mindestens ${PASSWORD_MIN} Zeichen lang sein.`;
+  if (password.length > PASSWORD_MAX) return `Das Passwort darf höchstens ${PASSWORD_MAX} Zeichen lang sein.`;
   const lower = password.toLowerCase();
   const local = email.split("@")[0]?.toLowerCase() ?? "";
   if (COMMON.has(lower) || /^(.)\1+$/.test(password) || lower === email.toLowerCase() || (local.length >= 4 && lower.includes(local))) {
-    return "This password is too easy to guess.";
+    return "Dieses Passwort ist zu leicht zu erraten.";
   }
   return null;
 }

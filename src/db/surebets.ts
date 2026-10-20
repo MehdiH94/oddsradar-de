@@ -1,5 +1,5 @@
 import { DatabaseSync } from "node:sqlite";
-import { compareOutcomes, marketLabel, outcomeLabel, parseMarketKey, winnersOf } from "../markets/catalog";
+import { compareOutcomes, mainMarketLabel, marketLabel, outcomeLabel, parseMarketKey, winnersOf } from "../markets/catalog";
 import { MARKET_1X2, MARKET_MATCH_WINNER, MARKET_OUTRIGHT } from "../scraper/canonical";
 import { Grid, mainOutcomeLabel, outrightRateOf, payoutRateOf } from "./marketGrid";
 import { inChunks } from "./playerReference";
@@ -152,7 +152,8 @@ export const netBack = (price: number) => 1 + (price - 1) * (1 - EXCHANGE_COMMIS
 // commission on the lay's winnings.
 export const backLayRate = (back: number, lay: number) => (back * (1 - EXCHANGE_COMMISSION)) / (lay - EXCHANGE_COMMISSION);
 
-function labelsOf(market: string, participants: string[]): { market: string; outcome: (key: string) => string } {
+// How a market and its outcomes read (src/markets/catalog.ts).
+function labelsOf(market: string, participants: string[], sport: string): { market: string; outcome: (key: string) => string } {
   const parsed = parseMarketKey(market);
   if (parsed.kind === "family") {
     return {
@@ -160,9 +161,11 @@ function labelsOf(market: string, participants: string[]): { market: string; out
       outcome: (key) => outcomeLabel(parsed.family.key, key, participants, parsed.line),
     };
   }
-  if (market === MARKET_1X2) return { market: "Match result", outcome: (key) => mainOutcomeLabel(key, participants) };
-  if (market === MARKET_MATCH_WINNER) return { market: "Match winner", outcome: (key) => mainOutcomeLabel(key, participants) };
-  return { market, outcome: (key) => key };
+  if (market === MARKET_1X2 || market === MARKET_MATCH_WINNER) {
+    return { market: mainMarketLabel(market, sport), outcome: (key) => mainOutcomeLabel(key, participants) };
+  }
+  // A race's or a tournament's winner: its outcomes are the competitors.
+  return { market: mainMarketLabel(market, sport), outcome: (key) => key };
 }
 
 // A market's TRJ, by the rule of its kind.
@@ -354,7 +357,7 @@ function surebetsOf(
       });
 
     for (const [market, grid] of grids.get(event.id) ?? []) {
-      const labels = labelsOf(market, event.participants);
+      const labels = labelsOf(market, event.participants, event.sport);
       const onExchange = exchange.get(event.id)?.get(market);
 
       // The bookmakers' best prices, and the exchange's back too when it

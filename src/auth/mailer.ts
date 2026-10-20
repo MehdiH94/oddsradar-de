@@ -62,21 +62,21 @@ export function mailerFromEnv(env: NodeJS.ProcessEnv = process.env): Mailer {
   return logMailer;
 }
 
-// The emails. English, plain text: nothing to render, nothing to block.
+// The emails. German, plain text: nothing to render, nothing to block.
 export const mails = {
   verifyEmail: (to: string, link: string): Mail => ({
     to,
-    subject: `Confirm your email address · ${APP_NAME}`,
-    text: `Welcome to ${APP_NAME}.\n\nTo activate your account, confirm your address by opening this link (valid for 24 hours):\n${link}\n\nIf you did not create an account, ignore this message.`,
+    subject: `Bestätige deine E-Mail-Adresse · ${APP_NAME}`,
+    text: `Willkommen bei ${APP_NAME}.\n\nUm dein Konto zu aktivieren, bestätige deine Adresse über diesen Link (24 Stunden gültig):\n${link}\n\nWenn du kein Konto erstellt hast, ignoriere diese Nachricht.`,
   }),
   resetPassword: (to: string, link: string): Mail => ({
     to,
-    subject: `Reset your password · ${APP_NAME}`,
-    text: `You asked to reset your ${APP_NAME} password.\n\nOpen this link to choose a new one (valid for 1 hour):\n${link}\n\nIf you did not ask for this, ignore this message: your password stays the same.`,
+    subject: `Setze dein Passwort zurück · ${APP_NAME}`,
+    text: `Du hast angefordert, dein ${APP_NAME}-Passwort zurückzusetzen.\n\nÖffne diesen Link, um ein neues zu wählen (1 Stunde gültig):\n${link}\n\nWenn du das nicht angefordert hast, ignoriere diese Nachricht: Dein Passwort bleibt unverändert.`,
   }),
   alreadyRegistered: (to: string, link: string): Mail => ({
     to,
-    subject: `You already have an account · ${APP_NAME}`,
-    text: `Someone (perhaps you) tried to create a ${APP_NAME} account with this address, which already has one.\n\nForgot your password? Reset it here:\n${link}\n\nIf it was not you, ignore this message.`,
+    subject: `Du hast bereits ein Konto · ${APP_NAME}`,
+    text: `Jemand (vielleicht du) hat versucht, mit dieser Adresse ein ${APP_NAME}-Konto zu erstellen, aber es gibt schon eins.\n\nPasswort vergessen? Hier kannst du es zurücksetzen:\n${link}\n\nWenn du das nicht warst, ignoriere diese Nachricht.`,
   }),
 };

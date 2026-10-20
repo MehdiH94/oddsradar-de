@@ -23,7 +23,7 @@ describe("Sheet", () => {
 
   it("keeps Tab inside it", () => {
     renderSheet();
-    const close = screen.getByRole("button", { name: "Fermer" });
+    const close = screen.getByRole("button", { name: "Schließen" });
     const last = screen.getByRole("button", { name: "Show" });
 
     last.focus();
@@ -39,7 +39,7 @@ describe("Sheet", () => {
     renderSheet(onClose);
 
     fireEvent.keyDown(document, { key: "Escape" });
-    fireEvent.click(screen.getByRole("button", { name: "Fermer" }));
+    fireEvent.click(screen.getByRole("button", { name: "Schließen" }));
     fireEvent.click(document.querySelector("[aria-hidden='true']")!);
     expect(onClose).toHaveBeenCalledTimes(3);
   });

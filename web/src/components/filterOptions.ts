@@ -4,16 +4,16 @@ import type { EventSort } from "../api";
 // and the phone's sheet (FilterSheet).
 
 export const SORT_LABELS: Record<EventSort, string> = {
-  trj: "Best payout",
-  start: "Kick-off time",
-  value: "Best value",
+  trj: "Beste Auszahlungsquote",
+  start: "Anstoßzeit",
+  value: "Bester Value",
 };
 
 export const MARKETS_OPTIONS: ReadonlyArray<{ value: boolean; label: string; summary: string }> = [
-  { value: false, label: "All matches", summary: "All" },
-  { value: true, label: "With player markets", summary: "Players" },
+  { value: false, label: "Alle Spiele", summary: "Alle" },
+  { value: true, label: "Mit Spielermärkten", summary: "Spieler" },
 ];
 
 // The competition filter's first choice, which keeps them all (CompetitionMenu,
 // FilterSheet).
-export const ALL_COMPETITIONS_LABEL = "All competitions";
+export const ALL_COMPETITIONS_LABEL = "Alle Wettbewerbe";

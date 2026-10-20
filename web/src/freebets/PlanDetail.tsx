@@ -3,7 +3,7 @@ import { BOOKMAKER_BRANDING } from "../bookmakers";
 import { formatStartTime } from "../format";
 import { sportLabel } from "../sports";
 import { Card } from "./Card";
-import { formatEuro, formatFb, formatRate, readAt } from "./format";
+import { formatEuro, formatFb, formatOdds, formatRate, readAt } from "./format";
 import type { MatchView, PlanView } from "./freebetsApi";
 import { Kpis } from "./Kpis";
 import styles from "./PlanDetail.module.css";
@@ -15,7 +15,7 @@ function MatchRow({ match, number }: { match: MatchView; number: number }) {
   return (
     <li className={styles.match}>
       <div className={styles.when}>
-        Match {number} · {formatStartTime(match.startTime)}
+        Spiel {number} · {formatStartTime(match.startTime)}
       </div>
       <div className={styles.teams}>
         {match.participants.join(" – ")}
@@ -24,7 +24,7 @@ function MatchRow({ match, number }: { match: MatchView; number: number }) {
           {match.competition ? ` · ${match.competition}` : ""}
         </span>
       </div>
-      <ul className={styles.books} aria-label="Prices at the bookmakers where you hold FB">
+      <ul className={styles.books} aria-label="Quoten bei den Buchmachern, bei denen du FB hast">
         {Object.entries(match.prices).map(([bookmaker, prices]) => (
           <li key={bookmaker} className={styles.book}>
             <BookmakerLogo bookmaker={bookmaker} size={18} />
@@ -32,7 +32,7 @@ function MatchRow({ match, number }: { match: MatchView; number: number }) {
               {prices!.map((price, i) => (
                 <span key={match.outcomes[i].key} className={styles.price}>
                   <small>{keyLabel(match.outcomes[i].key)}</small>
-                  <b className="num">{price.toFixed(2)}</b>
+                  <b className="num">{formatOdds(price)}</b>
                 </span>
               ))}
             </span>
@@ -51,29 +51,29 @@ export function PlanDetail({ plan, total, legs }: { plan: PlanView; total: numbe
   return (
     <Card
       id="plan-heading"
-      title={`Conversion ${plan.rank} · the ${bets} bets to place`}
-      aside={<>Indicative prices read at <span className="num">{readAt(plan.oddsAt)}</span> · check before placing</>}
+      title={`Umwandlung ${plan.rank} · ${bets} Wetten platzieren`}
+      aside={<>Unverbindliche Quoten von <span className="num">{readAt(plan.oddsAt)}</span> Uhr · vor dem Platzieren prüfen</>}
     >
       <Kpis
         items={[
-          { label: "Conversion rate", value: formatRate(plan.rate), note: "guaranteed cash / FB converted", highlight: true },
-          { label: "Guaranteed cash return", value: formatEuro(plan.cash), note: "whatever the result" },
+          { label: "Umwandlungsrate", value: formatRate(plan.rate), note: "garantierter Betrag / umgewandelte FB", highlight: true },
+          { label: "Garantierte Auszahlung", value: formatEuro(plan.cash), note: "unabhängig vom Ergebnis" },
           {
-            label: "FB converted",
+            label: "Umgewandelte FB",
             value: `${formatFb(plan.used)} / ${formatFb(total)}`,
-            note: plan.left >= 0.01 ? `${formatFb(plan.left)} FB left` : "the whole balance is converted",
+            note: plan.left >= 0.01 ? `${formatFb(plan.left)} FB übrig` : "das ganze Guthaben wird umgewandelt",
           },
-          { label: "Bets to place", value: String(bets), note: `${names.length} bookmaker${names.length === 1 ? "" : "s"}, €0 staked` },
+          { label: "Zu platzierende Wetten", value: String(bets), note: `${names.length} Buchmacher, ${formatEuro(0)} eigener Einsatz` },
         ]}
       />
       <p className={styles.same}>
-        Each of the {bets} bets returns at least <strong>{formatEuro(plan.cash)}</strong> if it comes in. Only one will: the profit is the same, whatever
-        {legs > 1 ? ` the result of the ${legs} matches` : " the result of the match"}.
+        Jede der {bets} Wetten bringt mindestens <strong>{formatEuro(plan.cash)}</strong>, wenn sie gewinnt. Nur eine gewinnt: Der Gewinn ist derselbe, egal wie
+        {legs > 1 ? ` die ${legs} Spiele ausgehen` : " das Spiel ausgeht"}.
       </p>
       {!plan.exact && (
-        <p className={styles.note}>The search was cut short for this plan: a better one may exist.</p>
+        <p className={styles.note}>Die Suche wurde für diesen Plan abgekürzt: Es gibt vielleicht einen besseren.</p>
       )}
-      <h3 className={styles.heading}>{legs > 1 ? `The ${legs} matches` : "The match"}</h3>
+      <h3 className={styles.heading}>{legs > 1 ? `Die ${legs} Spiele` : "Das Spiel"}</h3>
       <ol className={styles.matches}>
         {plan.matches.map((match, i) => (
           <MatchRow key={match.eventId} match={match} number={i + 1} />

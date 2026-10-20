@@ -19,7 +19,7 @@ export interface CompetitionList {
   searching: boolean;
 }
 
-const alphabetical = (a: string, b: string) => a.localeCompare(b, "fr");
+const alphabetical = (a: string, b: string) => a.localeCompare(b, "de");
 
 // The competitions of a sport as the menu lists them. The one chosen is listed
 // even when the sport has none of it left (an address naming it), so that it

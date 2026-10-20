@@ -14,15 +14,18 @@ import styles from "./Results.module.css";
 
 const sameRequest = (a: ConversionRequest | null, b: ConversionRequest | null) => JSON.stringify(a) === JSON.stringify(b);
 
-const formatName = (legs: number) => (legs === 1 ? "single bet" : `${legs}-match accumulator`);
+const formatName = (legs: number) => (legs === 1 ? "Einzelwette" : `${legs}er-Kombiwette`);
+
+// "Top-3-Umwandlungen", or "Top-Umwandlungen" when there are fewer.
+const topTitle = (count: number) => (count === 3 ? "Top-3-Umwandlungen" : "Top-Umwandlungen");
 
 function BookmakersResults({ answer, busy, selected, onSelect }: { answer: BookmakersAnswer; busy: boolean; selected: number; onSelect: (index: number) => void }) {
   const plan = answer.plans[Math.min(selected, answer.plans.length - 1)];
   return (
     <>
       <TopThree
-        title={`Top ${answer.plans.length === 3 ? "3 " : ""}conversions · ${formatName(answer.legs)}`}
-        hint={`${answer.plans.length === 1 ? "One way" : `${answer.plans.length === 2 ? "Two" : "Three"} ways`} to convert your ${formatFb(answer.total)} FB, on different matches. Pick one, or compare them.`}
+        title={`${topTitle(answer.plans.length)} · ${formatName(answer.legs)}`}
+        hint={`${answer.plans.length === 1 ? "Eine Möglichkeit" : `${answer.plans.length === 2 ? "Zwei" : "Drei"} Möglichkeiten`}, deine ${formatFb(answer.total)} FB umzuwandeln, mit verschiedenen Spielen. Wähl eine aus oder vergleiche sie.`}
         cards={planCards(answer)}
         selected={selected}
         onSelect={onSelect}
@@ -41,11 +44,11 @@ function chainHint(chain: ExchangeAnswer["chain"] & object, name: string): strin
   const rest = chain.leftover > 0.005;
   if (chain.steps.length === 1) {
     return rest
-      ? `Only one match is on offer and the exchange's liquidity limits it: ${formatFb(chain.leftover)} FB of your ${name} balance will stay unconverted.`
-      : `A single conversion converts all of your ${name} balance.`;
+      ? `Nur ein Spiel ist im Angebot, und die Liquidität der Wettbörse begrenzt es: ${formatFb(chain.leftover)} FB deines Guthabens bei ${name} bleiben nicht umgewandelt.`
+      : `Eine einzige Umwandlung wandelt dein ganzes Guthaben bei ${name} um.`;
   }
-  const chained = `The exchange's liquidity limits each conversion: chain them, from no. 1 to no. ${chain.steps.length}`;
-  return rest ? `${chained}. ${formatFb(chain.leftover)} FB of your ${name} balance will stay unconverted.` : `${chained}, to convert all of your ${name} balance.`;
+  const chained = `Die Liquidität der Wettbörse begrenzt jede Umwandlung: Mach sie nacheinander, von Nr. 1 bis Nr. ${chain.steps.length}`;
+  return rest ? `${chained}. ${formatFb(chain.leftover)} FB deines Guthabens bei ${name} bleiben nicht umgewandelt.` : `${chained}, um dein ganzes Guthaben bei ${name} umzuwandeln.`;
 }
 
 function ExchangeResults({ answer, busy, selected, onSelect }: { answer: ExchangeAnswer; busy: boolean; selected: number; onSelect: (index: number) => void }) {
@@ -55,7 +58,7 @@ function ExchangeResults({ answer, busy, selected, onSelect }: { answer: Exchang
   return (
     <>
       <TopThree
-        title={`Top ${chain.steps.length === 3 ? "3 " : ""}conversions · ${name} · ${formatFb(answer.fb)} FB`}
+        title={`${topTitle(chain.steps.length)} · ${name} · ${formatFb(answer.fb)} FB`}
         hint={chainHint(chain, name)}
         cards={exchangeCards(chain, answer.fb)}
         selected={selected}
@@ -92,7 +95,7 @@ export function Results({
 
   if (!walletReady) return null;
   if (!request) {
-    return <EmptyState>Enter your freebets above: one bookmaker is enough to convert them against the exchange.</EmptyState>;
+    return <EmptyState>Trag oben deine Freebets ein: Ein Buchmacher reicht, um sie gegen die Wettbörse umzuwandeln.</EmptyState>;
   }
   const fresh = conversions.answer !== null && sameRequest(conversions.answered, request);
   const answer = fresh ? conversions.answer : null;
@@ -101,7 +104,7 @@ export function Results({
 
   const banner = error && (
     <ErrorBanner onRetry={conversions.reload}>
-      {answer ? `The conversions could not be refreshed: ${error}` : error}
+      {answer ? `Die Umwandlungen konnten nicht aktualisiert werden: ${error}` : error}
     </ErrorBanner>
   );
   if (!answer) {
@@ -117,29 +120,29 @@ export function Results({
   if (answer.mode === "bookmakers") {
     switch (answer.reason) {
       case "empty_wallet":
-        body = <EmptyState>Enter your freebets above to see how to convert them.</EmptyState>;
+        body = <EmptyState>Trag oben deine Freebets ein, um zu sehen, wie du sie umwandelst.</EmptyState>;
         break;
       case "single_bookmaker":
         body = (
-          <EmptyState action={{ label: "Convert against the exchange", onClick: onSwitchToExchange }}>
-            Your freebets are at one bookmaker only: converting between bookmakers takes at least two. Against the exchange, one is enough.
+          <EmptyState action={{ label: "Gegen die Wettbörse umwandeln", onClick: onSwitchToExchange }}>
+            Deine Freebets liegen nur bei einem Buchmacher: Zum Umwandeln zwischen Buchmachern brauchst du mindestens zwei. Gegen die Wettbörse reicht einer.
           </EmptyState>
         );
         break;
       case "no_match":
         body = (
           <EmptyState>
-            No match to convert with these settings for now. Tick other sports, or come back later: bookmakers put their matches online day by day (the coming week is taken into account).
+            Mit diesen Einstellungen gibt es gerade kein Spiel zum Umwandeln. Wähle andere Sportarten oder schau später wieder vorbei: Die Buchmacher stellen ihre Spiele nach und nach online (die kommende Woche wird berücksichtigt).
           </EmptyState>
         );
         break;
       case "no_plan":
-        body = <EmptyState>No guaranteed conversion is possible with these matches and your freebets. Try another format or other sports.</EmptyState>;
+        body = <EmptyState>Mit diesen Spielen und deinen Freebets ist keine garantierte Umwandlung möglich. Probier ein anderes Format oder andere Sportarten.</EmptyState>;
         break;
       default:
         body = (
           <>
-            {answer.partial && <p className={styles.note}>The calculation ran out of time: better conversions may exist.</p>}
+            {answer.partial && <p className={styles.note}>Die Zeit für die Berechnung war zu knapp: Es gibt vielleicht bessere Umwandlungen.</p>}
             <BookmakersResults answer={answer} busy={busy} selected={selected} onSelect={(index) => setChoice({ key: requestKey, index })} />
           </>
         );
@@ -147,13 +150,13 @@ export function Results({
   } else {
     switch (answer.reason) {
       case "no_freebets":
-        body = <EmptyState>You have no freebets at this bookmaker.</EmptyState>;
+        body = <EmptyState>Du hast keine Freebets bei diesem Buchmacher.</EmptyState>;
         break;
       case "no_match":
-        body = <EmptyState>No match of this bookmaker has money to lay on the exchange with these settings for now. Tick other sports or come back later.</EmptyState>;
+        body = <EmptyState>Mit diesen Einstellungen hat gerade kein Spiel dieses Buchmachers Geld für einen Lay an der Wettbörse. Wähle andere Sportarten oder schau später wieder vorbei.</EmptyState>;
         break;
       case "no_plan":
-        body = <EmptyState>No guaranteed conversion is possible against the exchange with these matches.</EmptyState>;
+        body = <EmptyState>Mit diesen Spielen ist keine garantierte Umwandlung gegen die Wettbörse möglich.</EmptyState>;
         break;
       default:
         body = <ExchangeResults answer={answer} busy={busy} selected={selected} onSelect={(index) => setChoice({ key: requestKey, index })} />;

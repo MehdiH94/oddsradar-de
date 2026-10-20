@@ -44,23 +44,23 @@ export function PriceChip({
       <span className="visually-hidden">{name}: </span>
       <span className={styles.price}>{price === undefined ? "-" : formatPrice(price)}</span>
       {boosted !== undefined && price !== undefined && (
-        <span className={styles.boost} title={`Odds boost: ${formatPrice(boosted)}`}>
+        <span className={styles.boost} title={`Quoten-Boost: ${formatPrice(boosted)}`}>
           <Zap size={11} strokeWidth={2.5} aria-hidden="true" />
           {formatPrice(boosted)}
-          <span className="visually-hidden"> (boosted)</span>
+          <span className="visually-hidden"> (geboostet)</span>
         </span>
       )}
       {best && (
         <>
           <Check size={12} strokeWidth={3} className={styles.check} aria-hidden="true" />
-          <span className="visually-hidden"> (best price)</span>
+          <span className="visually-hidden"> (beste Quote)</span>
         </>
       )}
       {edge !== undefined && (
         <span className="visually-hidden">
           {suspect
-            ? ` (suspect price: ${formatEdge(edge)} over the other bookmaker)`
-            : ` (value bet: ${formatEdge(edge)} over the fair odds)`}
+            ? ` (verdächtige Quote: ${formatEdge(edge)} über dem anderen Buchmacher)`
+            : ` (Value Bet: ${formatEdge(edge)} über der fairen Quote)`}
         </span>
       )}
     </span>

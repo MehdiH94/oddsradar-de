@@ -2,7 +2,7 @@ import { DatabaseSync } from "node:sqlite";
 import { CanonicalEvent, EventSource, EventWithOdds, RawOdds } from "../types";
 import { normalizeName } from "../matcher/normalize";
 import { keepsSidesOrder } from "../matcher/match";
-import { marketLabel, outcomeLabel, parseMarketKey, PLAYER_FAMILIES } from "../markets/catalog";
+import { mainMarketLabel, mainOutcomeLabel, marketLabel, outcomeLabel, parseMarketKey, PLAYER_FAMILIES } from "../markets/catalog";
 import { payoutRate } from "./payoutRate";
 import { Grid, payoutRateOf } from "./marketGrid";
 import { loadReferences, Reference } from "./reference";
@@ -619,7 +619,7 @@ export interface ValueBet {
   market: string;
   marketLabel: string;
   // The outcome ("1", "X", "2" or a player) and how it reads: the team,
-  // "Nul", the player.
+  // "Unentschieden", the player.
   selection: string;
   label: string;
   bookmaker: string;
@@ -680,13 +680,9 @@ export function getValueBets(
       bets.push({
         ...match,
         market: reference!.market,
-        marketLabel: outright ? "Tournament winner" : reference!.market === MARKET_1X2 ? "Match result" : "Match winner",
+        marketLabel: mainMarketLabel(reference!.market, event.sport),
         selection: bet.selection,
-        label: outright
-          ? bet.selection
-          : bet.selection === "X"
-            ? "Draw"
-            : (event.participants[bet.selection === "1" ? 0 : 1] ?? bet.selection),
+        label: outright ? bet.selection : mainOutcomeLabel(bet.selection, event.participants),
         bookmaker: bet.bookmaker,
         price: bet.price,
         basis: "fair",

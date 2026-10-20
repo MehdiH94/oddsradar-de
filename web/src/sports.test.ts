@@ -3,13 +3,13 @@ import { hasMarkets, sportEmoji, sportLabel } from "./sports";
 
 describe("sportLabel", () => {
   it("capitalizes the API's lowercased sport keys", () => {
-    expect(sportLabel("hockey sur glace")).toBe("Ice hockey");
-    expect(sportLabel("formule 1")).toBe("Formula 1");
+    expect(sportLabel("hockey sur glace")).toBe("Eishockey");
+    expect(sportLabel("formule 1")).toBe("Formel 1");
   });
 
   it("writes acronyms and roman numerals in capitals", () => {
-    expect(sportLabel("rugby à xv")).toBe("Rugby union");
-    expect(sportLabel("rugby à xiii")).toBe("Rugby league");
+    expect(sportLabel("rugby à xv")).toBe("Rugby Union");
+    expect(sportLabel("rugby à xiii")).toBe("Rugby League");
     expect(sportLabel("mma")).toBe("MMA");
   });
 });
@@ -24,7 +24,7 @@ describe("sportEmoji", () => {
     expect(sportEmoji("badminton")).toBe("🏸");
     expect(sportEmoji("tennis de table")).toBe("🏓");
     expect(sportEmoji("judo")).toBe("🥋");
-    expect(sportLabel("tennis de table")).toBe("Table tennis");
+    expect(sportLabel("tennis de table")).toBe("Tischtennis");
   });
 });
 

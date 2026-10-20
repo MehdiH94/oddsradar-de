@@ -40,7 +40,7 @@ describe("OddsBlitzer's deployment and documentation", () => {
   });
 
   it("deploy to OddsBlitzer's server and sites only", () => {
-    for (const workflow of ["deploy.yml", "deploy-staging.yml"]) {
+    for (const workflow of ["deploy.yml"]) {
       const text = readFileSync(join(ROOT, ".github/workflows", workflow), "utf8");
       expect(text).toMatch(/^\s*DEPLOY_HOST: 141\.95\.86\.176$/m);
       expect(text).toMatch(/'https:\/\/(?:staging\.)?odds-blitzer\.de'/);

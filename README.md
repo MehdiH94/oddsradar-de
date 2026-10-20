@@ -696,6 +696,16 @@ lisent les utilisateurs : secret GitHub `DISCORD_ADMIN_WEBHOOK_URL` (le webhook
 d'un salon prive), que le deploiement de la production ecrit dans `.env`.
 Sans lui, la page `/admin` reste la seule source.
 
+### Prix suspects (administrateurs)
+
+Un surebet dont une cote s'ecarte de plus de 15 points de probabilite des
+autres sources pour la meme issue n'est pas affiche (`SUREBET_OUT_OF_LINE`,
+`src/db/surebets.ts`) : equipes inversees, vieux prix ou autre match chez une
+source. Apres chaque cycle de reference, le worker signale chacun une fois
+dans le salon Discord des administrateurs (`DISCORD_ADMIN_WEBHOOK_URL`,
+`src/alerts/quality.ts`), 5 par cycle au plus, avec les cotes et le lien du
+match. Un suspect encore la apres 7 jours est signale de nouveau.
+
 ### Retours des testeurs
 
 Le bouton « Send feedback » de l'en-tete (icone bulle, comptes connectes)
@@ -907,6 +917,14 @@ journalctl -u oddsradar-worker -f   # Ctrl+C pour quitter
 ```
 
 ### Environnement de test
+
+> **Plus utilise depuis le 20/10/2026.** Le site n'ayant ni trafic ni
+> clients, il n'y a plus qu'un environnement, la production : les pull
+> requests vont directement sur `main` (CONTRIBUTING.md, section 6), et les
+> workflows `deploy-staging` et `sync-development` sont supprimes. Pour
+> arreter les anciens services sur le VPS :
+> `sudo systemctl disable --now oddsradar-staging-worker oddsradar-staging-web`.
+> La suite decrit l'ancienne mise en place, gardee pour pouvoir la refaire.
 
 `staging.odds-blitzer.de` montre toujours le dernier etat de la branche
 `development`. C'est le meme VPS que la production, mais un autre dossier

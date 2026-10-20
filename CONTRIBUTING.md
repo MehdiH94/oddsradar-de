@@ -6,20 +6,17 @@ serveur. Ici, on part d'un projet déjà en production.
 
 ## En bref
 
-1. Créer une branche `feat/…` ou `fix/…` **depuis `development`**.
+1. Créer une branche `feat/…` ou `fix/…` **depuis `main`**.
 2. Modifier le code et ajouter un test qui couvre la modification.
 3. Lancer les vérifications, les mêmes que la CI (section 5).
-4. Ouvrir une pull request **vers `development`**. La CI la teste ; une fois
-   fusionnée, GitHub Actions déploie `development` sur le site de test
-   <https://staging.odds-blitzer.de> en 1 à 2 minutes.
-5. Vérifier la modification sur le site de test.
-6. Pour une mise en production, ouvrir une pull request
-   **`development` → `main`**. Une fois fusionnée, le commit est déployé sur
-   <https://odds-blitzer.de>, à condition d'avoir tourné sur le site de test.
+4. Ouvrir une pull request **vers `main`**. La CI la teste ; une fois
+   fusionnée (merge commit), GitHub Actions la déploie sur
+   <https://odds-blitzer.de> en 1 à 2 minutes.
 
-Rien n'arrive sur `main` autrement que par `development`, et un commit qui
-échoue aux tests ou qui n'est pas passé par le site de test n'est jamais
-déployé en production (section 6).
+Un seul environnement, la production, tant que le site n'a ni trafic ni
+clients : il n'y a plus de site de test. Rien n'arrive sur `main` autrement
+que par une pull request, et un commit qui échoue aux tests ou qui n'est pas
+le merge d'une pull request n'est jamais déployé (section 6).
 
 ## 1. Organisation du projet
 
@@ -50,8 +47,8 @@ qui partagent le même fichier SQLite :
 | `tests/` | Tests du backend, même arborescence que `src/`. `tests/scraper/fixtures/` contient de vraies réponses des bookmakers. |
 | `e2e/` | Tests end-to-end (Playwright) des chemins critiques, section 5 : `server.ts` lance la vraie API sur une base semée (`seed.ts`), `fixtures.ts` dit ce que le semis contient, un fichier `*.spec.ts` par famille de parcours. |
 | `web/src/` | Site React : la page d'accueil (`/`, `HomePage.tsx`) et le dashboard (`/odds`, `App.tsx`), choisis par `Root.tsx`. Chaque composant a son test à côté (`OddsTable.tsx` et `OddsTable.test.tsx`). |
-| `deploy/` | Script de déploiement et unités systemd ; `deploy/staging/` : ceux du site de test. |
-| `.github/workflows/` | `test.yml` (les vérifications : les tests, puis le job `e2e`), `ci.yml` (les pull requests), `deploy-staging.yml` (déploiement de `development`), `deploy.yml` (déploiement de `main`, gardé par le job `gate`), `sync-development.yml`. |
+| `deploy/` | Script de déploiement et unités systemd ; `deploy/staging/` : ceux de l'ancien site de test, plus déployé. |
+| `.github/workflows/` | `test.yml` (les vérifications : les tests, puis le job `e2e`), `ci.yml` (les pull requests), `deploy.yml` (déploiement de `main`, gardé par le job `gate`). |
 
 Le backend (racine) et le dashboard (`web/`) sont deux packages npm séparés.
 Chacun a son `package.json`, son `package-lock.json` et ses tests.
@@ -319,54 +316,39 @@ Pour **ajouter un parcours critique**, ou en changer un :
 
 ## 6. Le parcours d'une modification : de la branche à la production
 
-Deux branches durables, trois environnements :
+Une branche durable, un environnement :
 
 | Branche | Site | Déployé par |
 | --- | --- | --- |
 | `feat/…`, `fix/…` | aucun (tests de la CI seulement) | |
-| `development` | <https://staging.odds-blitzer.de> (site de test) | `deploy-staging` à chaque push |
 | `main` | <https://odds-blitzer.de> (production) | `deploy` à chaque push, si le `gate` passe |
+
+L'ancien site de test (`development`, <https://staging.odds-blitzer.de>) n'est
+plus déployé depuis le 20/10/2026 : le site n'a ni trafic ni clients, et deux
+environnements ralentissaient chaque modification.
 
 ### Une modification (feature ou bug)
 
 ```bash
-git switch development && git pull
+git switch main && git pull
 git switch -c feat/ma-modification     # ou fix/…
 # … modifier, tester, commiter (section 5) …
 git push -u origin feat/ma-modification
-gh pr create --base development
+gh pr create --base main
 ```
 
 La pull request lance le workflow `ci` : les vérifications de la section 5
-sur une machine GitHub. Fusionner avec un **merge commit** quand elle est
-verte. Le push sur `development` lance `deploy-staging` : tests, déploiement
-sur le VPS dans `/opt/oddsradar-staging`, vérification que le site de test
-répond. Vérifier alors la modification sur le site de test.
+sur une machine GitHub. La fusionner avec un **merge commit** quand elle est
+verte : la modification part aussitôt en production. Comme il n'y a plus de
+site de test, les vérifications locales de la section 5 se lancent toujours
+avant de pousser.
 
-Le site de test a ses propres bases (jamais celles de la production), son
-propre worker, qui scrape toutes les 45 minutes plutôt que toutes les 5 (même
-IP que la production : voir `deploy/staging/.env.staging.example`), et pas
-d'alertes Discord.
-
-### Mettre en production
-
-Quand `development` contient ce qu'on veut livrer, et que le site de test a
-été vérifié :
-
-```bash
-gh pr create --base main --head development --title "Release: …"
-```
-
-Le workflow `ci` teste la pull request, et son job `promotion-guard` échoue
-si elle ne vient pas de `development`. Fusionner avec un **merge commit**.
 Le push sur `main` lance le workflow `deploy`, qui comporte trois jobs :
 
 1. **test** : les vérifications de la section 5 ;
-2. **gate**, seulement si `test` est vert : le commit doit venir de
-   `development`, et ce code doit avoir été déployé avec succès sur le site
-   de test (tests et vérification de santé compris), et `main` ne doit rien
-   contenir de plus que lui. Sinon rien n'est déployé et le log dit
-   pourquoi ;
+2. **gate**, seulement si `test` est vert : le commit doit être le merge
+   commit d'une pull request. Un commit poussé directement sur `main` n'est
+   jamais déployé, et le log dit pourquoi ;
 3. **deploy**, seulement si `gate` est vert. Le job se connecte au VPS en
    SSH et lance `deploy/deploy.sh` sur le commit testé. Le script :
    - récupère ce commit ;
@@ -377,28 +359,24 @@ Le push sur `main` lance le workflow `deploy`, qui comporte trois jobs :
 
    Le job vérifie enfin que le site répond depuis l'extérieur.
 
-Le tout prend environ 1 à 2 minutes. Un seul déploiement par environnement
-tourne à la fois et il n'est jamais interrompu. Si plusieurs pushes arrivent
-pendant qu'il tourne, seul le plus récent est déployé ensuite. Après la
-mise en production, `sync-development` fusionne `main` dans `development`
-pour que les deux branches restent alignées.
+Le tout prend environ 1 à 2 minutes. Un seul déploiement tourne à la fois et
+il n'est jamais interrompu. Si plusieurs pushes arrivent pendant qu'il tourne,
+seul le plus récent est déployé ensuite.
 
 ### Hotfix
 
 Un bug en production se corrige comme tout le reste : branche `fix/…` depuis
-`development`, pull request vers `development`, vérification sur le site de
-test, pull request vers `main`. Il n'y a pas de raccourci vers `main` : le
-`gate` refuserait de le déployer.
+`main`, pull request vers `main`, CI verte, fusion. Il n'y a pas de raccourci :
+le `gate` refuserait de déployer un commit poussé directement.
 
 ### Ce qui garantit la règle
 
 GitHub ne propose pas les protections de branche sur un dépôt privé gratuit.
-La règle « rien sur `main` sans être passé par `development` » repose donc
-sur :
+La règle « rien sur `main` sans pull request testée » repose donc sur :
 
-- `promotion-guard` et les tests de `ci` sur chaque pull request ;
-- le `gate` du déploiement de production : un commit poussé directement sur
-  `main` n'est jamais déployé ;
+- les tests de `ci` sur chaque pull request ;
+- le `gate` du déploiement : un commit poussé directement sur `main` n'est
+  jamais déployé ;
 - les règles de `.claude/rules/git-workflow.md` et les permissions de
   `.claude/settings.json` pour Claude Code.
 
@@ -418,26 +396,23 @@ voir l'étape fautive et son log.
 toujours sur la version précédente. Corriger, relancer les vérifications en
 local, puis pousser à nouveau.
 
-**Le job `gate` est rouge** (production). Le log dit pourquoi : le commit a
-été poussé directement sur `main`, ou le site de test n'a pas encore reçu ce
-code. Dans le second cas, attendre que `deploy-staging` soit vert sur
-`development`, puis relancer le run (« Re-run all jobs »). Dans le premier,
-corriger par `development` : un commit poussé à la main sur `main` ne sera
-jamais déployé.
+**Le job `gate` est rouge.** Le commit a été poussé directement sur `main`
+au lieu de passer par une pull request : il ne sera jamais déployé. Refaire
+la modification sur une branche `fix/…` et l'amener par une pull request.
 
-**Le job `deploy` est rouge** (production ou test). Le message `[deploy] ERROR: …` du log indique
+**Le job `deploy` est rouge.** Le message `[deploy] ERROR: …` du log indique
 la cause :
 
 | Message | Cause probable et solution |
 | --- | --- |
-| `Secrets VPS_SSH_KEY / VPS_KNOWN_HOSTS manquants` (pour le site de test : `STAGING_VPS_SSH_KEY`), `Permission denied`, `Host key verification failed` | Les secrets GitHub ou la clé du serveur ont changé : refaire la mise en place du README (« Deploiement automatique »). |
+| `Secrets VPS_SSH_KEY / VPS_KNOWN_HOSTS manquants`, `Permission denied`, `Host key verification failed` | Les secrets GitHub ou la clé du serveur ont changé : refaire la mise en place du README (« Deploiement automatique »). |
 | `git fetch failed` | Le VPS ne peut plus lire le dépôt : voir la clé de déploiement dans le README. |
 | `the API does not answer`, `… is not running` | La nouvelle version plante au démarrage. Lire les logs sur le VPS, puis corriger ou revenir en arrière. |
 
 **Revenir en arrière.** Le plus propre est d'annuler le commit fautif. Le
 retour arrière suit alors le même chemin qu'une modification normale : une
-branche `fix/…` depuis `development` qui contient le `git revert`, puis les
-pull requests vers `development` et vers `main` du parcours de la section 6.
+branche `fix/…` depuis `main` qui contient le `git revert`, puis la pull
+request vers `main` du parcours de la section 6.
 
 ```bash
 git revert <sha-du-commit>      # ou -m 1 <sha> pour un merge commit
@@ -455,15 +430,13 @@ journalctl -u oddsradar-web -n 100                     # 100 dernières lignes d
 journalctl -u oddsradar-worker -f                      # log en direct (Ctrl+C pour quitter)
 /opt/oddsradar/deploy/deploy.sh                        # redéployer main à la main
 /opt/oddsradar/deploy/deploy.sh <sha>                  # redéployer un commit précis de main
-journalctl -u oddsradar-staging-worker -n 100          # le site de test : mêmes commandes
-                                                       # avec oddsradar-staging-web/-worker
+sudo systemctl disable --now oddsradar-staging-worker oddsradar-staging-web
+                                                       # arrêter l'ancien site de test
 ```
 
 ## 8. Ce que le déploiement automatique ne fait pas
 
-Ces changements se font à la main sur le VPS, en plus du push (pour le site de
-test : `/opt/oddsradar-staging`, ses services `oddsradar-staging-*` et ses
-unités dans `deploy/staging/`) :
+Ces changements se font à la main sur le VPS, en plus du push :
 
 - **Réglages dans `.env`** (`PORT`, `POLL_INTERVAL_MINUTES`,
   `MARKETS_INTERVAL_MINUTES`, `DB_PATH`) :
@@ -506,11 +479,10 @@ unités dans `deploy/staging/`) :
 ## 9. Avec Claude Code
 
 On peut aussi demander une modification à Claude Code, en français, en
-décrivant le résultat attendu. Il crée une branche depuis `development`,
-modifie le code et les tests, lance les vérifications de la section 5, ouvre
-la pull request vers `development` et suit le déploiement sur le site de test
-jusqu'au vert. Il ne pousse ni ne fusionne jamais sur `main` : la mise en
-production (pull request `development` → `main`) ne se fait que sur demande
-explicite. Ses règles sont dans `.claude/rules/git-workflow.md`. Les règles
+décrivant le résultat attendu. Il crée une branche depuis `main`, modifie le
+code et les tests, lance les vérifications de la section 5, ouvre la pull
+request vers `main`, la fusionne lui-même dès que la CI est verte et suit le
+déploiement en production jusqu'au vert. Il ne pousse jamais directement sur
+`main`. Ses règles sont dans `.claude/rules/git-workflow.md`. Les règles
 de ce guide s'appliquent de la même façon, en particulier la dernière de la
 section 8 : ne jamais lui donner de clé privée.

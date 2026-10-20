@@ -87,6 +87,14 @@ export interface Surebet {
 
 export type SurebetSort = "value" | "start";
 
+// A surebet left out because one leg's price is out of line with the other
+// sources' (SUREBET_OUT_OF_LINE): its leg, and the others' median price of
+// that outcome. The admins' Discord is told about it (src/alerts/quality.ts):
+// a swapped or stale price is a bug to find.
+export interface SuspectSurebet extends Surebet {
+  suspect: { leg: SurebetLeg; others: number };
+}
+
 export interface ExchangeOutcome {
   back?: number;
   backSize?: number;
@@ -234,6 +242,19 @@ export function getSurebets(
   );
 }
 
+// The surebets left out because a leg is out of line (SuspectSurebet), every
+// bookmaker's, by TRJ.
+export function getSuspectSurebets(db: DatabaseSync, opts: ListingOptions = {}): SuspectSurebet[] {
+  const oddsSince = oddsCutoff(opts);
+  const marketsSince = marketsCutoff(opts);
+  const ids = matchingEventIds(db, undefined, undefined, oddsSince);
+  const suspects: SuspectSurebet[] = [];
+  for (let start = 0; start < ids.length; start += SUREBET_CHUNK) {
+    surebetsOf(db, ids.slice(start, start + SUREBET_CHUNK), oddsSince, marketsSince, undefined, suspects);
+  }
+  return suspects.sort((a, b) => b.payoutRate - a.payoutRate);
+}
+
 // None when they fail, logged: the value bets beside them still show, and
 // still alert.
 export function surebetsOrNone(db: DatabaseSync, opts: Parameters<typeof getSurebets>[1]): Surebet[] {
@@ -288,7 +309,9 @@ function surebetsOf(
   ids: string[],
   oddsSince: string,
   marketsSince: string,
-  bookmakers: readonly string[] | undefined
+  bookmakers: readonly string[] | undefined,
+  // Where the surebets left out as out of line go, when given.
+  suspects?: SuspectSurebet[]
 ): Surebet[] {
   const events = loadEvents(db, ids, oddsSince, marketsSince);
   const exchange = loadExchangeOutcomes(db, ids, oddsSince);
@@ -349,8 +372,7 @@ function surebetsOf(
       participants: event.participants,
       marketCount: 0,
     };
-    const add = (market: string, label: string, kind: SurebetKind, payoutRate: number, legs: SurebetLeg[]) =>
-      surebets.push({
+    const build = (market: string, label: string, kind: SurebetKind, payoutRate: number, legs: SurebetLeg[]): Surebet => ({
         ...match,
         market,
         marketLabel: label,
@@ -367,17 +389,25 @@ function surebetsOf(
     for (const [market, grid] of grids.get(event.id) ?? []) {
       const labels = labelsOf(market, event.participants, event.sport);
       const onExchange = exchange.get(event.id)?.get(market);
-      // Whether a leg is out of line with the other sources' prices of its
-      // outcome (SUREBET_OUT_OF_LINE): a back against the other bookmakers'
-      // and the exchange's back, a lay against the bookmakers'.
-      const outOfLine = (leg: SurebetLeg): boolean => {
+      // A leg out of line with the other sources' prices of its outcome
+      // (SUREBET_OUT_OF_LINE), and their median: a back against the other
+      // bookmakers' and the exchange's back, a lay against the bookmakers'.
+      const outOfLine = (leg: SurebetLeg): SuspectSurebet["suspect"] | undefined => {
         const others = [...(grid.get(leg.selection) ?? [])]
           .filter(([source]) => leg.side === "lay" || source !== leg.source)
           .map(([, price]) => price);
         const exchangeBack = onExchange?.get(leg.selection)?.back;
         if (leg.side === "back" && leg.source !== EXCHANGE && exchangeBack) others.push(exchangeBack);
-        if (others.length === 0) return false;
-        return Math.abs(1 / leg.price - 1 / median(others)) > SUREBET_OUT_OF_LINE;
+        if (others.length === 0) return undefined;
+        const line = median(others);
+        return Math.abs(1 / leg.price - 1 / line) > SUREBET_OUT_OF_LINE ? { leg, others: line } : undefined;
+      };
+      // A surebet shown, or left out as a suspect when a leg is out of line.
+      const add = (market: string, label: string, kind: SurebetKind, payoutRate: number, legs: SurebetLeg[]) => {
+        const surebet = build(market, label, kind, payoutRate, legs);
+        const suspect = legs.map(outOfLine).find((s) => s !== undefined);
+        if (!suspect) surebets.push(surebet);
+        else suspects?.push({ ...surebet, suspect });
       };
 
       // The bookmakers' best prices, and the exchange's back too when it
@@ -405,7 +435,7 @@ function surebetsOf(
       }
       if (best) {
         const legs = backLegs(market, best.grid, best.rate, labels.outcome, exchangeRaw);
-        if (!legs.some(outOfLine)) add(market, labels.market, legs.some((l) => l.source === EXCHANGE) ? "exchange" : "bookmakers", best.rate, legs);
+        add(market, labels.market, legs.some((l) => l.source === EXCHANGE) ? "exchange" : "bookmakers", best.rate, legs);
       }
 
       // Each outcome backed at its best bookmaker and laid on the exchange.
@@ -426,7 +456,6 @@ function surebetsOf(
           liability: layStake * (lay.lay - 1),
           size: lay.laySize,
         };
-        if (outOfLine(layLeg)) continue;
         add(market, labels.market, "lay", layRate, [
           { selection, label: labels.outcome(selection), source: bookmaker, side: "back", price, stake: TOTAL_STAKE },
           layLeg,

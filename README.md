@@ -696,6 +696,16 @@ lisent les utilisateurs : secret GitHub `DISCORD_ADMIN_WEBHOOK_URL` (le webhook
 d'un salon prive), que le deploiement de la production ecrit dans `.env`.
 Sans lui, la page `/admin` reste la seule source.
 
+### Prix suspects (administrateurs)
+
+Un surebet dont une cote s'ecarte de plus de 15 points de probabilite des
+autres sources pour la meme issue n'est pas affiche (`SUREBET_OUT_OF_LINE`,
+`src/db/surebets.ts`) : equipes inversees, vieux prix ou autre match chez une
+source. Apres chaque cycle de reference, le worker signale chacun une fois
+dans le salon Discord des administrateurs (`DISCORD_ADMIN_WEBHOOK_URL`,
+`src/alerts/quality.ts`), 5 par cycle au plus, avec les cotes et le lien du
+match. Un suspect encore la apres 7 jours est signale de nouveau.
+
 ### Retours des testeurs
 
 Le bouton « Send feedback » de l'en-tete (icone bulle, comptes connectes)

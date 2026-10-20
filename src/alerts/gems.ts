@@ -111,7 +111,7 @@ const BOOKMAKER_NAMES: Record<string, string> = {
   winamaxde: "Winamax",
   [EXCHANGE]: "Exchange",
 };
-const bookmakerName = (id: string) => BOOKMAKER_NAMES[id] ?? id;
+export const bookmakerName = (id: string) => BOOKMAKER_NAMES[id] ?? id;
 // Every bookmaker the site lists: an alert's links name them all, so that a gem
 // is never hidden by the site's default selection when opened.
 export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = [
@@ -139,7 +139,7 @@ const formatEdge = (edge: number) => `+${(edge * 100).toFixed(1)}%`;
 const formatPercent = (rate: number) => `${Math.round(rate * 100)}%`;
 const formatRate = (rate: number) => `${(rate * 100).toFixed(1)}%`;
 
-type Send = (
+export type Send = (
   url: string,
   init: { method: "POST"; headers: Record<string, string>; body: string; signal: AbortSignal }
 ) => Promise<{ ok: boolean; status: number; headers?: { get(name: string): string | null } }>;
@@ -255,7 +255,7 @@ function retryAfterMs(res: { headers?: { get(name: string): string | null } }): 
   return Number.isFinite(seconds) && seconds >= 0 ? Math.ceil(seconds * 1000) : undefined;
 }
 
-async function post(send: Send, url: string, message: DiscordMessage, sleep: (ms: number) => Promise<void>): Promise<void> {
+export async function post(send: Send, url: string, message: DiscordMessage, sleep: (ms: number) => Promise<void>): Promise<void> {
   assertSendable(message);
   for (let retry = 0; ; retry++) {
     const res = await send(url, {

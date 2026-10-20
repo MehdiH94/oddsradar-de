@@ -83,8 +83,8 @@ describe("the stored preferences", () => {
     expect(db.prepare("SELECT COUNT(*) AS n FROM user_preferences").get()).toEqual({ n: 0 });
   });
 
-  it("is on the schema's version 4 (the subscriptions column and the freebets wallet came after)", () => {
-    expect(openAuthDb(":memory:").prepare("PRAGMA user_version").get()).toEqual({ user_version: 4 });
+  it("is on the schema's version 5 (the subscriptions column, the freebets wallet and the feedback came after)", () => {
+    expect(openAuthDb(":memory:").prepare("PRAGMA user_version").get()).toEqual({ user_version: 5 });
   });
 });
 

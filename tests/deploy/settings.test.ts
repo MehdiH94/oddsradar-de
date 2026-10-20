@@ -50,6 +50,13 @@ describe("deploy.sh's settings", () => {
     expect(readFileSync(env, "utf8")).toBe("PORT=3000\nPOLL_INTERVAL_MINUTES=5\n");
   });
 
+  it("writes the administrators' webhook, and refuses one that is no Discord webhook", () => {
+    const ADMIN = "https://discord.com/api/webhooks/987654321098765432/Admin_Token-1";
+    expect(apply(`DISCORD_ADMIN_WEBHOOK_URL=${ADMIN}\n`).status).toBe(0);
+    expect(readFileSync(env, "utf8")).toContain(`DISCORD_ADMIN_WEBHOOK_URL=${ADMIN}\n`);
+    expect(apply("DISCORD_ADMIN_WEBHOOK_URL=https://evil.example/hook\n").status).not.toBe(0);
+  });
+
   it("takes nothing from an empty standard input", () => {
     expect(apply("").status).toBe(0);
     expect(readFileSync(env, "utf8")).toBe("PORT=3000\nPOLL_INTERVAL_MINUTES=5\n");

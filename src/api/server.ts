@@ -6,6 +6,7 @@ import { surebetsOrNone, withoutSurebets } from "../db/surebets";
 import { getEventDetail } from "../db/eventDetail";
 import { getPlayerStats } from "../db/playerStats";
 import { getAlertStatus } from "../db/alerts";
+import { listBookmakerStatus } from "../db/bookmakerStatus";
 import { ttlCache } from "./cache";
 import helmet from "helmet";
 import { AuthContext } from "../auth/context";
@@ -13,6 +14,7 @@ import { authRouter } from "../auth/routes";
 import { loadSession, requireAuth, requireRole } from "../auth/middleware";
 import { adminRouter } from "../auth/adminRoutes";
 import { preferencesRouter } from "../auth/preferencesRoutes";
+import { feedbackRouter } from "../auth/feedbackRoutes";
 import { walletRouter } from "../freebets/walletRoutes";
 import { conversionsRouter } from "../freebets/conversionsRoutes";
 import { createConversionsService } from "../freebets/conversions";
@@ -89,6 +91,8 @@ export function createServer(
   });
   app.use("/api", requireAuth);
   app.use("/api/preferences", preferencesRouter(auth));
+  // What a tester tells the team, read on the administration page.
+  app.use("/api/feedback", feedbackRouter(auth));
   // The freebets an account holds, at their exact path, and what the Freebets
   // page converts them into, next to it under /api/freebets.
   app.use("/api/freebets/wallet", walletRouter(auth));
@@ -97,6 +101,12 @@ export function createServer(
   const freebetMarkets = ttlCache<ReturnType<typeof loadFreebetMarkets>>(freebetsCacheMs);
   const conversions = createConversionsService({ markets: () => freebetMarkets("markets", () => loadFreebetMarkets(db, listing)), pool: freebetsPool });
   app.use("/api/freebets/conversions", conversionsRouter({ auth, service: conversions, cacheMs: freebetsCacheMs }));
+  // Each bookmaker's last read and health (src/db/bookmakerStatus.ts), from the
+  // odds' database, which the accounts' admin router does not open.
+  app.get("/api/admin/bookmakers", requireRole("admin"), (_req, res) => {
+    res.set("Cache-Control", "no-store");
+    res.json({ bookmakers: listBookmakerStatus(db) });
+  });
   app.use("/api/admin", requireRole("admin"), adminRouter(auth));
   // Value bets and surebets read every upcoming match's prices: the slowest
   // answer by far, and the same for everyone until the worker's next cycle.

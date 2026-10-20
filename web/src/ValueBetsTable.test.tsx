@@ -11,7 +11,7 @@ const bet = (overrides: Partial<ValueBet>): ValueBet => ({
   participants: ["PSG", "OM"],
   marketCount: 42,
   market: "1X2",
-  marketLabel: "Résultat du match",
+  marketLabel: "Spielergebnis (1X2)",
   selection: "1",
   label: "PSG",
   bookmaker: "merkurbets",
@@ -29,7 +29,7 @@ describe("ValueBetsTable", () => {
       <ValueBetsTable
         bets={[
           bet({}),
-          bet({ selection: "X", label: "Draw", bookmaker: "leovegas", price: 4.4, fair: 4.2, edge: 4.4 / 4.2 - 1 }),
+          bet({ selection: "X", label: "Unentschieden", bookmaker: "leovegas", price: 4.4, fair: 4.2, edge: 4.4 / 4.2 - 1 }),
         ]}
       />
     );
@@ -46,12 +46,12 @@ describe("ValueBetsTable", () => {
     const cells = within(first).getAllByRole("cell");
     expect(cells[0].querySelector("time")).toHaveAttribute("dateTime", "2099-01-01T20:00:00.000Z");
     expect(cells[1]).toHaveTextContent("⚽ PSG - OMLigue 1");
-    expect(cells[2]).toHaveTextContent("PSGRésultat du match");
+    expect(cells[2]).toHaveTextContent("PSGSpielergebnis (1X2)");
     expect(cells[3].querySelector('[data-bookmaker="merkurbets"]')).toHaveAttribute("data-value", "true");
     expect(cells[3]).toHaveTextContent("Merkur Bets: 1,56 (Value Bet: +4,0 % über der fairen Quote)");
     expect(cells[4]).toHaveTextContent("1,50");
     expect(cells[5]).toHaveTextContent("+4,0 %");
-    expect(within(second).getAllByRole("cell")[2]).toHaveTextContent("Draw");
+    expect(within(second).getAllByRole("cell")[2]).toHaveTextContent("Unentschieden");
     expect(within(second).getAllByRole("cell")[3]).toHaveTextContent("LeoVegas: 4,40");
   });
 
@@ -115,11 +115,11 @@ describe("ValueBetsTable", () => {
     render(
       <ValueBetsTable
         bets={[
-          bet({ market: "anytime_scorer", marketLabel: "Buteur", selection: "Mbappé", label: "Mbappé", price: 2.3, fair: 2 }),
+          bet({ market: "anytime_scorer", marketLabel: "Torschütze (jederzeit)", selection: "Mbappé", label: "Mbappé", price: 2.3, fair: 2 }),
           // The same player scoring twice, at the same bookmaker: a row of its own.
           bet({
             market: "scorer_goals|2",
-            marketLabel: "Marque au moins 2 buts",
+            marketLabel: "Erzielt mindestens 2 Tore",
             selection: "Mbappé",
             label: "Mbappé",
             price: 7,
@@ -130,9 +130,9 @@ describe("ValueBetsTable", () => {
       />
     );
     const [scorer, twice] = screen.getAllByRole("row").slice(1).map((row) => within(row).getAllByRole("cell"));
-    expect(scorer[2]).toHaveTextContent("MbappéButeur");
+    expect(scorer[2]).toHaveTextContent("MbappéTorschütze (jederzeit)");
     expect(scorer[4]).toHaveTextContent("2,00");
-    expect(twice[2]).toHaveTextContent("MbappéMarque au moins 2 buts");
+    expect(twice[2]).toHaveTextContent("MbappéErzielt mindestens 2 Tore");
     expect(twice[5]).toHaveTextContent("+7,7 %");
   });
 
@@ -140,7 +140,7 @@ describe("ValueBetsTable", () => {
     render(
       <ValueBetsTable
         bets={[
-          bet({ market: "anytime_scorer", marketLabel: "Buteur", selection: "Doué", label: "Doué", bookmaker: "leovegas", price: 2.8, basis: "lay", fair: 2.6, edge: 2.8 / 2.6 - 1 }),
+          bet({ market: "anytime_scorer", marketLabel: "Torschütze (jederzeit)", selection: "Doué", label: "Doué", bookmaker: "leovegas", price: 2.8, basis: "lay", fair: 2.6, edge: 2.8 / 2.6 - 1 }),
           bet({
             market: "first_scorer",
             marketLabel: "Premier buteur",
@@ -157,7 +157,7 @@ describe("ValueBetsTable", () => {
       />
     );
     const [lay, suspect] = screen.getAllByRole("row").slice(1).map((row) => within(row).getAllByRole("cell"));
-    expect(lay[2]).toHaveTextContent(/^DouéButeur$/);
+    expect(lay[2]).toHaveTextContent(/^DouéTorschütze \(jederzeit\)$/);
     expect(lay[4]).toHaveTextContent("≤ höchstens 2,60");
     expect(lay[4]).toHaveAttribute("title", expect.stringMatching(/^Faire Quote höchstens: die Lay-Quote an/));
     expect(lay[3]).toHaveTextContent("(Value Bet: +7,7 % über der fairen Quote)");

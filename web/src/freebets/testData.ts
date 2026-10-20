@@ -12,7 +12,7 @@ const match = (id: string, home: string, away: string, prices: MatchView["prices
   market: "1X2",
   outcomes: [
     { key: "1", label: home },
-    { key: "X", label: "Draw" },
+    { key: "X", label: "Unentschieden" },
     { key: "2", label: away },
   ],
   prices,
@@ -31,7 +31,7 @@ export const PLAN_ONE: PlanView = {
   matches: [match("psg-om", "Paris SG", "Marseille", { leovegas: [2.2, 3.1, 3.5], merkurbets: [2.0, 3.3, 3.7] })],
   bookmakers: [
     { bookmaker: "leovegas", fb: 30, used: 28.4, bets: [bet("Paris SG", 2.2, 12.4), bet("Marseille", 3.5, 16)] },
-    { bookmaker: "merkurbets", fb: 25.5, used: 24, bets: [bet("Draw", 3.3, 24)] },
+    { bookmaker: "merkurbets", fb: 25.5, used: 24, bets: [bet("Unentschieden", 3.3, 24)] },
   ],
 };
 
@@ -100,7 +100,7 @@ export const CHAIN: ChainView = {
   liability: 74.62,
   steps: [
     step(1, {}),
-    step(2, { participants: ["Augsbourg", "Hambourg"], selection: "X", label: "Draw", back: 3.9, lay: 3.95, laySize: 9, fb: 12.17, layStake: 9, cash: 8.73, rate: 0.7173, liability: 26.55, ifWins: { gain: 35.29, pays: 26.55, net: 8.74 }, ifLoses: { net: 8.73 } }),
+    step(2, { participants: ["Augsbourg", "Hambourg"], selection: "X", label: "Unentschieden", back: 3.9, lay: 3.95, laySize: 9, fb: 12.17, layStake: 9, cash: 8.73, rate: 0.7173, liability: 26.55, ifWins: { gain: 35.29, pays: 26.55, net: 8.74 }, ifLoses: { net: 8.73 } }),
     step(3, { participants: ["Lille", "Lens"], label: "Lens", back: 3.85, lay: 3.9, laySize: 120, fb: 3.71, layStake: 2.73, cash: 2.65, rate: 0.7143, liability: 7.92, ifWins: { gain: 10.57, pays: 7.92, net: 2.65 }, ifLoses: { net: 2.65 }, limited: false }),
   ],
 };

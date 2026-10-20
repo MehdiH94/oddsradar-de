@@ -9,7 +9,7 @@ const text = (el: Element | null) => (el?.textContent ?? "").replace(/\u00a0/g, 
 // is a value bet, 10 % above the fair 2,00.
 const result: MarketDetail = {
   key: "1X2",
-  label: "Résultat du match",
+  label: "Spielergebnis (1X2)",
   kind: "list",
   compared: true,
   lines: [
@@ -18,7 +18,7 @@ const result: MarketDetail = {
       payoutRate: 0.95,
       outcomes: [
         { key: "1", label: "PSG", prices: { leovegas: 2.2, merkurbets: 2 }, best: ["leovegas"], fair: 2, edges: { leovegas: 0.1 } },
-        { key: "X", label: "Draw", prices: { leovegas: 3.2, merkurbets: 3.3 }, best: ["merkurbets"], fair: 3.4, edges: {} },
+        { key: "X", label: "Unentschieden", prices: { leovegas: 3.2, merkurbets: 3.3 }, best: ["merkurbets"], fair: 3.4, edges: {} },
         { key: "2", label: "OM", prices: { leovegas: 3.6, merkurbets: 3.7 }, best: ["merkurbets"], fair: 4, edges: {} },
       ],
     },
@@ -84,7 +84,7 @@ describe("MarketCard", () => {
   it("shows a scorer's fair odds from the exchange the same way", () => {
     const scorers: MarketDetail = {
       key: "anytime_scorer",
-      label: "Buteur",
+      label: "Torschütze (jederzeit)",
       kind: "list",
       compared: true,
       lines: [
@@ -109,7 +109,7 @@ describe("MarketCard", () => {
   it("shows a loosely priced scorer's ceiling, and an unpriced one's suspect price", () => {
     const scorers: MarketDetail = {
       key: "anytime_scorer",
-      label: "Buteur",
+      label: "Torschütze (jederzeit)",
       kind: "list",
       compared: true,
       lines: [

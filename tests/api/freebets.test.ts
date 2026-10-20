@@ -205,7 +205,7 @@ describe("GET /api/freebets/conversions", () => {
       expect(res.body).toMatchObject({ mode: "exchange", bookmaker: "merkurbets", fb: 30, reason: null, eligibleSports: ["football"] });
       const chain = res.body.chain;
       expect(chain.steps.map((s: { eventId: string }) => s.eventId)).toEqual(["brest", "augsburg", "lille"]);
-      expect(chain.steps.map((s: { label: string }) => s.label)).toEqual(["Auxerre", "Draw", "Lens"]);
+      expect(chain.steps.map((s: { label: string }) => s.label)).toEqual(["Auxerre", "Unentschieden", "Lens"]);
       expect(chain.steps.map((s: { fb: number }) => s.fb)).toEqual([14.12, 12.17, 3.71]);
       expect(chain.steps.map((s: { cash: number }) => s.cash)).toEqual([10.67, 8.73, 2.65]);
       expect(chain.steps.map((s: { limited: boolean }) => s.limited)).toEqual([true, true, false]);

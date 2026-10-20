@@ -46,7 +46,7 @@ test("freebets at two bookmakers become the three best bets, with where to place
   await expect(leovegas.getByRole("listitem").nth(0)).toHaveText(/Lyon\s*20,69 FB/);
   await expect(leovegas.getByRole("listitem").nth(1)).toHaveText(/Lille\s*9,31 FB/);
   const merkurbets = page.getByRole("article", { name: "Merkur Bets" });
-  await expect(merkurbets.getByRole("listitem")).toHaveText([/Draw\s*11,83 FB/, /Lille\s*8,17 FB/]);
+  await expect(merkurbets.getByRole("listitem")).toHaveText([/Unentschieden\s*11,83 FB/, /Lille\s*8,17 FB/]);
 
   // What the figures are worth: indicative prices, and stake limits the calculation does not know.
   await expect(page.getByRole("note")).toContainText("Unverbindliche Quoten.");

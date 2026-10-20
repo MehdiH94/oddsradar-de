@@ -1,9 +1,8 @@
-# The checks every change goes through: called by ci.yml (pull requests),
-# deploy-staging.yml (development) and deploy.yml (main), so that the three
-# run exactly the same ones. CONTRIBUTING.md, section 5, runs them locally.
+# The checks every change goes through: called by ci.yml (pull requests) and
+# deploy.yml (main), so that both run exactly the same ones. CONTRIBUTING.md, section 5, runs them locally.
 # Two jobs: the unit tests and the build, then the end-to-end specs (e2e/) on
 # the critical paths. Their callers wait for the whole workflow, so a red
-# e2e blocks the pull request and the deployments alike.
+# e2e blocks the pull request and the deployment alike.
 name: test
 
 on:

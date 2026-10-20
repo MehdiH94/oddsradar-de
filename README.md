@@ -918,6 +918,14 @@ journalctl -u oddsradar-worker -f   # Ctrl+C pour quitter
 
 ### Environnement de test
 
+> **Plus utilise depuis le 20/10/2026.** Le site n'ayant ni trafic ni
+> clients, il n'y a plus qu'un environnement, la production : les pull
+> requests vont directement sur `main` (CONTRIBUTING.md, section 6), et les
+> workflows `deploy-staging` et `sync-development` sont supprimes. Pour
+> arreter les anciens services sur le VPS :
+> `sudo systemctl disable --now oddsradar-staging-worker oddsradar-staging-web`.
+> La suite decrit l'ancienne mise en place, gardee pour pouvoir la refaire.
+
 `staging.odds-blitzer.de` montre toujours le dernier etat de la branche
 `development`. C'est le meme VPS que la production, mais un autre dossier
 (`/opt/oddsradar-staging`), d'autres services (`oddsradar-staging-worker`,

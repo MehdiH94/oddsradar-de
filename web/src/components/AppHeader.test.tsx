@@ -10,6 +10,12 @@ describe("AppHeader", () => {
     expect(screen.getByRole("status")).toHaveTextContent("Aktualisiert um 10:42");
   });
 
+  it("says the site is a beta next to the brand", () => {
+    render(<AppHeader lastUpdated={null} refreshing={false} failed={false} onRefresh={() => {}} />);
+
+    expect(screen.getByText("Beta")).toHaveAttribute("title", expect.stringContaining("Beta-Version"));
+  });
+
   it("says so when the last update failed", () => {
     render(<AppHeader lastUpdated={new Date(2026, 8, 29, 10, 42)} refreshing={false} failed onRefresh={() => {}} />);
 

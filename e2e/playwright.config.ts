@@ -15,9 +15,9 @@ export default defineConfig({
   outputDir: path.join(root, "test-results"),
   use: {
     baseURL: BASE_URL,
-    // The site's pages are read in French, in Paris time (the kick-offs).
-    locale: "fr-FR",
-    timezoneId: "Europe/Paris",
+    // The site's pages are read in German, in Berlin time (the kick-offs).
+    locale: "de-DE",
+    timezoneId: "Europe/Berlin",
     // The table layout, from 1024 px (useIsTable); the phone's cards are not
     // what these specs are about.
     viewport: { width: 1280, height: 900 },

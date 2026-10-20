@@ -5,6 +5,7 @@ import { ADMIN_PATH } from "../routes";
 import { APP_NAME } from "../brand";
 import { Logo } from "./Logo";
 import { FeedbackButton } from "./FeedbackButton";
+import { BetaBadge } from "./BetaBadge";
 import styles from "./AppHeader.module.css";
 
 const TIME_FORMAT = new Intl.DateTimeFormat("de-DE", { hour: "2-digit", minute: "2-digit" });
@@ -44,6 +45,7 @@ export function AppHeader({
         <a className={styles.brand} href="/" aria-label={`${APP_NAME}, Startseite`}>
           <Logo className={styles.logo} />
           <span className={styles.name}>{APP_NAME}</span>
+          <BetaBadge />
         </a>
         {children && <div className={styles.nav}>{children}</div>}
         <div className={styles.status}>

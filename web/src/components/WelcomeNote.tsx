@@ -2,7 +2,7 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import { FREEBETS_PATH } from "../routes";
 import { Link } from "./Link";
-import { APP_NAME } from "../brand";
+import { APP_NAME, DISCORD_INVITE_URL } from "../brand";
 import styles from "./WelcomeNote.module.css";
 
 // The dashboard's first visit: what the three lists are for, in three lines,
@@ -54,7 +54,13 @@ export function WelcomeNote() {
           <Link href={FREEBETS_PATH}>Freebets</Link>: Wir berechnen, wie du deine Freebets in echtes Geld umwandelst.
         </li>
       </ul>
-      <p className={styles.hint}>Etwas stimmt nicht oder fehlt? Die Sprechblase oben rechts schickt uns dein Feedback.</p>
+      <p className={styles.hint}>
+        Etwas stimmt nicht oder fehlt? Die Sprechblase oben rechts schickt uns dein Feedback. Die Alerts kommen auf{" "}
+        <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">
+          unserem Discord
+        </a>
+        .
+      </p>
     </aside>
   );
 }

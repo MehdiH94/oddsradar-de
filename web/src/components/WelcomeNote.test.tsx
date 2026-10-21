@@ -15,6 +15,7 @@ describe("WelcomeNote", () => {
     expect(note).toHaveTextContent("Surebets");
     expect(screen.getByRole("link", { name: "Freebets" })).toHaveAttribute("href", "/freebets");
     expect(note).toHaveTextContent("Feedback");
+    expect(screen.getByRole("link", { name: "unserem Discord" })).toHaveAttribute("href", "https://discord.gg/VypnxkRMc");
   });
 
   it("stays closed once closed, on the next visit too", () => {

@@ -24,6 +24,7 @@ import { LoadMore } from "./components/LoadMore";
 import { Pagination } from "./components/Pagination";
 import { ResultsSummary } from "./components/ResultsSummary";
 import { ReferenceNote } from "./components/ReferenceNote";
+import { WelcomeNote } from "./components/WelcomeNote";
 import { EmptyState, ErrorBanner, Skeleton } from "./components/StatusViews";
 import { ALL_BOOKMAKERS, DEFAULT_BOOKMAKERS, isDefaultBookmakers } from "./bookmakers";
 import { DEFAULT_SPORT, readUrlFilters, urlFiltersQuery } from "./urlFilters";
@@ -551,6 +552,7 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
               !loadFailed && <Skeleton />
             ) : (
               <>
+                <WelcomeNote />
                 <div className={styles.summary}>
                   <ResultsSummary
                     total={total}

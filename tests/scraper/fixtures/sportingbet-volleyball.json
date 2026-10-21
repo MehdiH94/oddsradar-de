@@ -1,0 +1,1469 @@
+{
+ "fixtures": [
+  {
+   "optionMarkets": [
+    {
+     "id": 69502786,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 168202547,
+       "status": "Visible",
+       "name": {
+        "value": "LKPS Lublin"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 413395649,
+        "numerator": 19,
+        "denominator": 100,
+        "odds": 1.19,
+        "americanOdds": -525
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4916160
+       }
+      },
+      {
+       "id": 168202548,
+       "status": "Visible",
+       "name": {
+        "value": "Trefl Gdansk"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 413395652,
+        "numerator": 10,
+        "denominator": 3,
+        "odds": 4.33,
+        "americanOdds": 333
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4916161
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Set"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "hrw6l1vwy"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "86ac2823-2449-425b-bf57-7e8d5c16bf6c",
+        "marketGroupItemId": "b4957396-311f-47f8-956e-fe79203d91ff",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 4916160,
+     "participantId": 770283,
+     "name": {
+      "value": "LKPS Lublin"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 4916161,
+     "participantId": 770455,
+     "name": {
+      "value": "Trefl Gdansk"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "5:1297642",
+   "name": {
+    "value": "LKPS Lublin - Trefl Gdansk",
+    "sign": "cefizQ=="
+   },
+   "sourceId": 1297642,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|5:1297642_53_any",
+   "addons": {
+    "betRadar": 72764906,
+    "statistics": true,
+    "rule4Expected": false,
+    "isResulted": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 72764906,
+     "coverageLevel": 3
+    },
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "sportId": 18,
+    "id": "5:1297642",
+    "period": "-",
+    "periodId": 0,
+    "sets": [
+     [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ],
+     [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ]
+    ],
+    "setsValues": {
+     "player1": [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ],
+     "player2": [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ]
+    },
+    "points": [],
+    "turn": "None",
+    "started": false
+   },
+   "startDate": "2026-10-21T15:30:00Z",
+   "cutOffDate": "2026-10-21T18:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 18,
+    "name": {
+     "value": "Volleyball"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 18,
+    "compoundId": "2:106390",
+    "type": "Competition",
+    "id": 106390,
+    "parentId": 22,
+    "name": {
+     "value": "Plus liga"
+    }
+   },
+   "region": {
+    "code": "POL",
+    "sportId": 18,
+    "type": "Region",
+    "id": 22,
+    "parentId": 18,
+    "name": {
+     "value": "Poland"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 10,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|5:1297642_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 69396627,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 167971705,
+       "status": "Visible",
+       "name": {
+        "value": "SSC Schwerin (Women)"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 412722183,
+        "numerator": 1,
+        "denominator": 25,
+        "odds": 1.04,
+        "americanOdds": -2500
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4916146
+       }
+      },
+      {
+       "id": 167971706,
+       "status": "Visible",
+       "name": {
+        "value": "Schwarz-Weiss Erfurt (Women)"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 412722186,
+        "numerator": 19,
+        "denominator": 2,
+        "odds": 10.5,
+        "americanOdds": 950
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4916147
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Set"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "hrw6l1vwy"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "86ac2823-2449-425b-bf57-7e8d5c16bf6c",
+        "marketGroupItemId": "b4957396-311f-47f8-956e-fe79203d91ff",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 4916146,
+     "participantId": 770221,
+     "name": {
+      "value": "SSC Schwerin (Women)"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 4916147,
+     "participantId": 770220,
+     "name": {
+      "value": "Schwarz-Weiss Erfurt (Women)"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "5:1297635",
+   "name": {
+    "value": "SSC Schwerin (Women) - Schwarz-Weiss Erfurt (Women)",
+    "sign": "XYFT8w=="
+   },
+   "sourceId": 1297635,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|5:1297635_53_any",
+   "addons": {
+    "betRadar": 72525018,
+    "statistics": true,
+    "rule4Expected": false,
+    "isResulted": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 72525018,
+     "coverageLevel": 2
+    },
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "sportId": 18,
+    "id": "5:1297635",
+    "period": "-",
+    "periodId": 0,
+    "sets": [
+     [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ],
+     [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ]
+    ],
+    "setsValues": {
+     "player1": [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ],
+     "player2": [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ]
+    },
+    "points": [],
+    "turn": "None",
+    "started": false
+   },
+   "startDate": "2026-10-21T16:00:00Z",
+   "cutOffDate": "2026-10-21T18:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 18,
+    "name": {
+     "value": "Volleyball"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 18,
+    "compoundId": "2:106278",
+    "type": "Competition",
+    "id": 106278,
+    "parentId": 17,
+    "name": {
+     "value": "1. Bundesliga, Women"
+    }
+   },
+   "region": {
+    "code": "GER",
+    "sportId": 18,
+    "type": "Region",
+    "id": 17,
+    "parentId": 18,
+    "name": {
+     "value": "Germany"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 3,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|5:1297635_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 69731184,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 168696396,
+       "status": "Visible",
+       "name": {
+        "value": "Berlin RV"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 414796190,
+        "numerator": 1,
+        "denominator": 40,
+        "odds": 1.03,
+        "americanOdds": -4000
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4597193
+       }
+      },
+      {
+       "id": 168696397,
+       "status": "Visible",
+       "name": {
+        "value": "FT 1844 Freiburg"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 414796193,
+        "numerator": 13,
+        "denominator": 1,
+        "odds": 14,
+        "americanOdds": 1300
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4597194
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Set"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "hrw6l1vwy"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "86ac2823-2449-425b-bf57-7e8d5c16bf6c",
+        "marketGroupItemId": "b4957396-311f-47f8-956e-fe79203d91ff",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 4597193,
+     "participantId": 770231,
+     "name": {
+      "value": "Berlin RV"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 4597194,
+     "participantId": 770239,
+     "name": {
+      "value": "FT 1844 Freiburg"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "5:1196143",
+   "name": {
+    "value": "Berlin RV - FT 1844 Freiburg",
+    "sign": "BbS52Q=="
+   },
+   "sourceId": 1196143,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|5:1196143_53_any",
+   "addons": {
+    "betRadar": 72524622,
+    "statistics": true,
+    "rule4Expected": false,
+    "isResulted": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 72524622,
+     "coverageLevel": 3
+    },
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "sportId": 18,
+    "id": "5:1196143",
+    "period": "-",
+    "periodId": 0,
+    "sets": [
+     [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ],
+     [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ]
+    ],
+    "setsValues": {
+     "player1": [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ],
+     "player2": [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ]
+    },
+    "points": [],
+    "turn": "None",
+    "started": false
+   },
+   "startDate": "2026-10-21T17:00:00Z",
+   "cutOffDate": "2026-10-21T19:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 18,
+    "name": {
+     "value": "Volleyball"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 18,
+    "compoundId": "2:106378",
+    "type": "Competition",
+    "id": 106378,
+    "parentId": 17,
+    "name": {
+     "value": "1st Bundesliga"
+    }
+   },
+   "region": {
+    "code": "GER",
+    "sportId": 18,
+    "type": "Region",
+    "id": 17,
+    "parentId": 18,
+    "name": {
+     "value": "Germany"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 3,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|5:1196143_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 69731136,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 168696294,
+       "status": "Visible",
+       "name": {
+        "value": "Netzhoppers Konigs Wusterhausen"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 414795920,
+        "numerator": 31,
+        "denominator": 10,
+        "odds": 4.1,
+        "americanOdds": 310
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4916152
+       }
+      },
+      {
+       "id": 168696295,
+       "status": "Visible",
+       "name": {
+        "value": "TSV Giesen Grizzlys"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 414795923,
+        "numerator": 21,
+        "denominator": 100,
+        "odds": 1.21,
+        "americanOdds": -475
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4916153
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Set"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "hrw6l1vwy"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "86ac2823-2449-425b-bf57-7e8d5c16bf6c",
+        "marketGroupItemId": "b4957396-311f-47f8-956e-fe79203d91ff",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 4916153,
+     "participantId": 770240,
+     "name": {
+      "value": "TSV Giesen Grizzlys"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 4916152,
+     "participantId": 770230,
+     "name": {
+      "value": "Netzhoppers Konigs Wusterhausen"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "5:1297638",
+   "name": {
+    "value": "Netzhoppers Konigs Wusterhausen - TSV Giesen Grizzlys",
+    "sign": "iwJXyw=="
+   },
+   "sourceId": 1297638,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|5:1297638_53_any",
+   "addons": {
+    "betRadar": 72524624,
+    "statistics": true,
+    "rule4Expected": false,
+    "isResulted": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 72524624,
+     "coverageLevel": 1
+    },
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "sportId": 18,
+    "id": "5:1297638",
+    "period": "-",
+    "periodId": 0,
+    "sets": [
+     [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ],
+     [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ]
+    ],
+    "setsValues": {
+     "player1": [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ],
+     "player2": [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ]
+    },
+    "points": [],
+    "turn": "None",
+    "started": false
+   },
+   "startDate": "2026-10-21T17:00:00Z",
+   "cutOffDate": "2026-10-21T17:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 18,
+    "name": {
+     "value": "Volleyball"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 18,
+    "compoundId": "2:106378",
+    "type": "Competition",
+    "id": 106378,
+    "parentId": 17,
+    "name": {
+     "value": "1st Bundesliga"
+    }
+   },
+   "region": {
+    "code": "GER",
+    "sportId": 18,
+    "type": "Region",
+    "id": 17,
+    "parentId": 18,
+    "name": {
+     "value": "Germany"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 10,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|5:1297638_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 69807108,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 168860900,
+       "status": "Visible",
+       "name": {
+        "value": "Wwk Volleys Munich"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 415248686,
+        "numerator": 31,
+        "denominator": 10,
+        "odds": 4.1,
+        "americanOdds": 310
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4597191
+       }
+      },
+      {
+       "id": 168860901,
+       "status": "Visible",
+       "name": {
+        "value": "VfB Friedrichshafen"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 415248689,
+        "numerator": 21,
+        "denominator": 100,
+        "odds": 1.21,
+        "americanOdds": -475
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4597192
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Set"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "hrw6l1vwy"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "86ac2823-2449-425b-bf57-7e8d5c16bf6c",
+        "marketGroupItemId": "b4957396-311f-47f8-956e-fe79203d91ff",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 4597191,
+     "participantId": 858628,
+     "name": {
+      "value": "Wwk Volleys Munich"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 4597192,
+     "participantId": 770243,
+     "name": {
+      "value": "VfB Friedrichshafen"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "5:1196142",
+   "name": {
+    "value": "Wwk Volleys Munich - VfB Friedrichshafen",
+    "sign": "s+mc9A=="
+   },
+   "sourceId": 1196142,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|5:1196142_53_any",
+   "addons": {
+    "betRadar": 72524626,
+    "statistics": true,
+    "rule4Expected": false,
+    "isResulted": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 72524626,
+     "coverageLevel": 3
+    },
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "sportId": 18,
+    "id": "5:1196142",
+    "period": "-",
+    "periodId": 0,
+    "sets": [
+     [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ],
+     [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ]
+    ],
+    "setsValues": {
+     "player1": [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ],
+     "player2": [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ]
+    },
+    "points": [],
+    "turn": "None",
+    "started": false
+   },
+   "startDate": "2026-10-21T17:30:00Z",
+   "cutOffDate": "2026-10-21T20:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 18,
+    "name": {
+     "value": "Volleyball"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 18,
+    "compoundId": "2:106378",
+    "type": "Competition",
+    "id": 106378,
+    "parentId": 17,
+    "name": {
+     "value": "1st Bundesliga"
+    }
+   },
+   "region": {
+    "code": "GER",
+    "sportId": 18,
+    "type": "Region",
+    "id": 17,
+    "parentId": 18,
+    "name": {
+     "value": "Germany"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 10,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|5:1196142_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 69666623,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 168556647,
+       "status": "Visible",
+       "name": {
+        "value": "Busto Arsizio Volley (Women)"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 414386651,
+        "numerator": 34,
+        "denominator": 100,
+        "odds": 1.34,
+        "americanOdds": -295
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4733674
+       }
+      },
+      {
+       "id": 168556648,
+       "status": "Visible",
+       "name": {
+        "value": "Cda Talmassons (Women)"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 414386654,
+        "numerator": 2,
+        "denominator": 1,
+        "odds": 3,
+        "americanOdds": 200
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 4733675
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Set"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "hrw6l1vwy"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "86ac2823-2449-425b-bf57-7e8d5c16bf6c",
+        "marketGroupItemId": "b4957396-311f-47f8-956e-fe79203d91ff",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": false
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 4733674,
+     "participantId": 770260,
+     "name": {
+      "value": "Busto Arsizio Volley (Women)"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 4733675,
+     "participantId": 770608,
+     "name": {
+      "value": "Cda Talmassons (Women)"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "5:1246614",
+   "name": {
+    "value": "Busto Arsizio Volley (Women) - Cda Talmassons (Women)",
+    "sign": "rh8V8A=="
+   },
+   "sourceId": 1246614,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|5:1246614_53_any",
+   "addons": {
+    "betRadar": 73076444,
+    "statistics": true,
+    "rule4Expected": false,
+    "isResulted": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 73076444,
+     "coverageLevel": 3
+    },
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "sportId": 18,
+    "id": "5:1246614",
+    "period": "-",
+    "periodId": 0,
+    "sets": [
+     [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ],
+     [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ]
+    ],
+    "setsValues": {
+     "player1": [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ],
+     "player2": [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ]
+    },
+    "points": [],
+    "turn": "None",
+    "started": false
+   },
+   "startDate": "2026-10-21T18:00:00Z",
+   "cutOffDate": "2026-10-21T20:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 18,
+    "name": {
+     "value": "Volleyball"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 18,
+    "compoundId": "2:106380",
+    "type": "Competition",
+    "id": 106380,
+    "parentId": 20,
+    "name": {
+     "value": "Serie A1 Women"
+    }
+   },
+   "region": {
+    "code": "ITA",
+    "sportId": 18,
+    "type": "Region",
+    "id": 20,
+    "parentId": 18,
+    "name": {
+     "value": "Italy"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 10,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|5:1246614_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  }
+ ],
+ "totalCount": 16
+}

@@ -1,0 +1,4199 @@
+{
+ "fixtures": [
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1568020354,
+     "name": {
+      "value": "3-Way - Result After Regular Time"
+     },
+     "results": [
+      {
+       "id": 2322793436,
+       "odds": 1.48,
+       "name": {
+        "value": "K-Espoo"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 10,
+       "denominator": 21,
+       "americanOdds": -210,
+       "playerId": 2563440,
+       "version": 11077706473
+      },
+      {
+       "id": 2322793437,
+       "odds": 5.0,
+       "name": {
+        "value": "X"
+       },
+       "sourceName": {
+        "value": "X"
+       },
+       "visibility": "Visible",
+       "numerator": 4,
+       "denominator": 1,
+       "americanOdds": 400,
+       "version": 11077710822
+      },
+      {
+       "id": 2322793438,
+       "odds": 5.0,
+       "name": {
+        "value": "Kookoo"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 4,
+       "denominator": 1,
+       "americanOdds": 400,
+       "playerId": 2563784,
+       "version": 11077710822
+      }
+     ],
+     "templateId": 51,
+     "categoryId": 64,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 64,
+      "name": {
+       "value": "Result (3Way)"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "ppanef2vg"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "6cb4ea19-1ce3-4c29-9503-a67b83465c66",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    },
+    {
+     "id": 1568020355,
+     "name": {
+      "value": "2-Way (Incl. Overtime And Penalties)"
+     },
+     "results": [
+      {
+       "id": 2322793439,
+       "odds": 1.28,
+       "name": {
+        "value": "K-Espoo"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 2,
+       "denominator": 7,
+       "americanOdds": -350,
+       "playerId": 2563440,
+       "version": 11077706474
+      },
+      {
+       "id": 2322793440,
+       "odds": 3.5,
+       "name": {
+        "value": "Kookoo"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 5,
+       "denominator": 2,
+       "americanOdds": 250,
+       "playerId": 2563784,
+       "version": 11077706474
+      }
+     ],
+     "templateId": 5545,
+     "categoryId": 65,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 65,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "riyhwb2ck"
+      ],
+      "detailed": [
+       {
+        "subIndex": 15,
+        "marketTabId": 4,
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f32b9f9f-b40e-4b56-918d-322b8891a68d",
+        "orderType": "None"
+       },
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "a187f771-4490-46b5-b356-b76f8d126f2d",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2563440,
+     "name": {
+      "value": "K-Espoo",
+      "short": "K-Espoo"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2563784,
+     "name": {
+      "value": "Kookoo",
+      "short": "Kookoo"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20019926",
+   "name": {
+    "value": "K-Espoo - Kookoo"
+   },
+   "sourceId": 20019926,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20019926",
+   "addons": {
+    "betRadar": 72116406,
+    "statistics": true,
+    "participantDividend": {},
+    "sportcastId": 599025,
+    "betBuilderConsumerFixtureId": "44882",
+    "betBuilderProvider": "Default",
+    "betBuilderId": "599025",
+    "betBuilderTradingV2FixtureId": "6:44882"
+   },
+   "stage": "PreMatch",
+   "groupId": 4443320,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T15:30:00Z",
+   "cutOffDate": "2026-10-21T15:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 12,
+    "name": {
+     "value": "Ice Hockey",
+     "sign": "KozAPA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 66,
+    "statistics": true,
+    "sportId": 12,
+    "compoundId": "1:66",
+    "type": "Competition",
+    "id": 66,
+    "parentId": 15,
+    "name": {
+     "value": "Liiga",
+     "sign": "dE5b0A=="
+    }
+   },
+   "region": {
+    "code": "FIN",
+    "sportId": 12,
+    "type": "Region",
+    "id": 15,
+    "parentId": 12,
+    "name": {
+     "value": "Finland",
+     "sign": "p+RCdQ=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 53,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20019926"
+   ],
+   "playerStats": [],
+   "sequence": 2761,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1568020471,
+     "name": {
+      "value": "3-Way - Result After Regular Time"
+     },
+     "results": [
+      {
+       "id": 2322793878,
+       "odds": 2.25,
+       "name": {
+        "value": "Tappara"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 5,
+       "denominator": 4,
+       "americanOdds": 125,
+       "playerId": 2564281,
+       "version": 11077984270
+      },
+      {
+       "id": 2322793879,
+       "odds": 3.75,
+       "name": {
+        "value": "X"
+       },
+       "sourceName": {
+        "value": "X"
+       },
+       "visibility": "Visible",
+       "numerator": 11,
+       "denominator": 4,
+       "americanOdds": 275,
+       "version": 11077984270
+      },
+      {
+       "id": 2322793880,
+       "odds": 2.7,
+       "name": {
+        "value": "Assat"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 17,
+       "denominator": 10,
+       "americanOdds": 170,
+       "playerId": 2565451,
+       "version": 11077984270
+      }
+     ],
+     "templateId": 51,
+     "categoryId": 64,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 64,
+      "name": {
+       "value": "Result (3Way)"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "ppanef2vg"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "6cb4ea19-1ce3-4c29-9503-a67b83465c66",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    },
+    {
+     "id": 1568020472,
+     "name": {
+      "value": "2-Way (Incl. Overtime And Penalties)"
+     },
+     "results": [
+      {
+       "id": 2322793881,
+       "odds": 1.75,
+       "name": {
+        "value": "Tappara"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 3,
+       "denominator": 4,
+       "americanOdds": -135,
+       "playerId": 2564281,
+       "version": 11077984271
+      },
+      {
+       "id": 2322793882,
+       "odds": 2.0,
+       "name": {
+        "value": "Assat"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 1,
+       "denominator": 1,
+       "americanOdds": 100,
+       "playerId": 2565451,
+       "version": 11077984271
+      }
+     ],
+     "templateId": 5545,
+     "categoryId": 65,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 65,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "riyhwb2ck"
+      ],
+      "detailed": [
+       {
+        "subIndex": 15,
+        "marketTabId": 4,
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f32b9f9f-b40e-4b56-918d-322b8891a68d",
+        "orderType": "None"
+       },
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "a187f771-4490-46b5-b356-b76f8d126f2d",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2564281,
+     "name": {
+      "value": "Tappara",
+      "short": "Tappara"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2565451,
+     "name": {
+      "value": "Assat",
+      "short": "Assat"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20019927",
+   "name": {
+    "value": "Tappara - Assat"
+   },
+   "sourceId": 20019927,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20019927",
+   "addons": {
+    "betRadar": 72116408,
+    "statistics": true,
+    "participantDividend": {},
+    "sportcastId": 599026,
+    "betBuilderConsumerFixtureId": "44883",
+    "betBuilderProvider": "Default",
+    "betBuilderId": "599026",
+    "betBuilderTradingV2FixtureId": "6:44883"
+   },
+   "stage": "PreMatch",
+   "groupId": 4443321,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T15:30:00Z",
+   "cutOffDate": "2026-10-21T15:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 12,
+    "name": {
+     "value": "Ice Hockey",
+     "sign": "KozAPA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 66,
+    "statistics": true,
+    "sportId": 12,
+    "compoundId": "1:66",
+    "type": "Competition",
+    "id": 66,
+    "parentId": 15,
+    "name": {
+     "value": "Liiga",
+     "sign": "dE5b0A=="
+    }
+   },
+   "region": {
+    "code": "FIN",
+    "sportId": 12,
+    "type": "Region",
+    "id": 15,
+    "parentId": 12,
+    "name": {
+     "value": "Finland",
+     "sign": "p+RCdQ=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 53,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20019927"
+   ],
+   "playerStats": [],
+   "sequence": 1506,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1568149481,
+     "name": {
+      "value": "3-Way - Result After Regular Time"
+     },
+     "results": [
+      {
+       "id": 2323154686,
+       "odds": 1.85,
+       "name": {
+        "value": "HC AZ Havirov 2010"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 17,
+       "denominator": 20,
+       "americanOdds": -118,
+       "playerId": 2693297,
+       "version": 11074639040
+      },
+      {
+       "id": 2323154687,
+       "odds": 4.33,
+       "name": {
+        "value": "X"
+       },
+       "sourceName": {
+        "value": "X"
+       },
+       "visibility": "Visible",
+       "numerator": 10,
+       "denominator": 3,
+       "americanOdds": 333,
+       "version": 11074639479
+      },
+      {
+       "id": 2323154688,
+       "odds": 2.95,
+       "name": {
+        "value": "HC Banik Sokolov"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 2,
+       "denominator": 1,
+       "americanOdds": 195,
+       "playerId": 2564522,
+       "version": 11074639479
+      }
+     ],
+     "templateId": 51,
+     "categoryId": 64,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 64,
+      "name": {
+       "value": "Result (3Way)"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "ppanef2vg"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "6cb4ea19-1ce3-4c29-9503-a67b83465c66",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    },
+    {
+     "id": 1568149483,
+     "name": {
+      "value": "2-Way (Incl. Overtime And Penalties)"
+     },
+     "results": [
+      {
+       "id": 2323154691,
+       "odds": 1.55,
+       "name": {
+        "value": "HC AZ Havirov 2010"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 11,
+       "denominator": 20,
+       "americanOdds": -185,
+       "playerId": 2693297,
+       "version": 11074639041
+      },
+      {
+       "id": 2323154692,
+       "odds": 2.35,
+       "name": {
+        "value": "HC Banik Sokolov"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 27,
+       "denominator": 20,
+       "americanOdds": 135,
+       "playerId": 2564522,
+       "version": 11074639041
+      }
+     ],
+     "templateId": 5545,
+     "categoryId": 65,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 65,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "riyhwb2ck"
+      ],
+      "detailed": [
+       {
+        "subIndex": 15,
+        "marketTabId": 4,
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f32b9f9f-b40e-4b56-918d-322b8891a68d",
+        "orderType": "None"
+       },
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "a187f771-4490-46b5-b356-b76f8d126f2d",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2693297,
+     "name": {
+      "value": "HC AZ Havirov 2010",
+      "short": "HC AZ Havirov 2010"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2564522,
+     "name": {
+      "value": "HC Banik Sokolov",
+      "short": "HC Banik Sokolov"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20020759",
+   "name": {
+    "value": "HC AZ Havirov 2010 - HC Banik Sokolov"
+   },
+   "sourceId": 20020759,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20020759",
+   "addons": {
+    "betRadar": 72118940,
+    "statistics": true,
+    "participantDividend": {},
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4443479,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T15:30:00Z",
+   "cutOffDate": "2026-10-21T15:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 12,
+    "name": {
+     "value": "Ice Hockey",
+     "sign": "KozAPA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 4604,
+    "statistics": true,
+    "sportId": 12,
+    "compoundId": "1:4604",
+    "type": "Competition",
+    "id": 4604,
+    "parentId": 12,
+    "name": {
+     "value": "1.Liga",
+     "sign": "UWtBWA=="
+    }
+   },
+   "region": {
+    "code": "CZE",
+    "sportId": 12,
+    "type": "Region",
+    "id": 12,
+    "parentId": 12,
+    "name": {
+     "value": "Czech Republic",
+     "sign": "faTdPQ=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 6,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20020759"
+   ],
+   "playerStats": [],
+   "sequence": 53,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1568149492,
+     "name": {
+      "value": "3-Way - Result After Regular Time"
+     },
+     "results": [
+      {
+       "id": 2323154710,
+       "odds": 3.2,
+       "name": {
+        "value": "Pirati Chomutov"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 11,
+       "denominator": 5,
+       "americanOdds": 220,
+       "playerId": 2658185,
+       "version": 11074640774
+      },
+      {
+       "id": 2323154711,
+       "odds": 4.33,
+       "name": {
+        "value": "X"
+       },
+       "sourceName": {
+        "value": "X"
+       },
+       "visibility": "Visible",
+       "numerator": 10,
+       "denominator": 3,
+       "americanOdds": 333,
+       "version": 11074640774
+      },
+      {
+       "id": 2323154712,
+       "odds": 1.78,
+       "name": {
+        "value": "HC Dukla Jihlava"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 4,
+       "denominator": 5,
+       "americanOdds": -130,
+       "playerId": 2564135,
+       "version": 11074640774
+      }
+     ],
+     "templateId": 51,
+     "categoryId": 64,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 64,
+      "name": {
+       "value": "Result (3Way)"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "ppanef2vg"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "6cb4ea19-1ce3-4c29-9503-a67b83465c66",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    },
+    {
+     "id": 1568149494,
+     "name": {
+      "value": "2-Way (Incl. Overtime And Penalties)"
+     },
+     "results": [
+      {
+       "id": 2323154719,
+       "odds": 2.5,
+       "name": {
+        "value": "Pirati Chomutov"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 6,
+       "denominator": 4,
+       "americanOdds": 150,
+       "playerId": 2658185,
+       "version": 11074640775
+      },
+      {
+       "id": 2323154720,
+       "odds": 1.5,
+       "name": {
+        "value": "HC Dukla Jihlava"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 1,
+       "denominator": 2,
+       "americanOdds": -200,
+       "playerId": 2564135,
+       "version": 11074640775
+      }
+     ],
+     "templateId": 5545,
+     "categoryId": 65,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 65,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "riyhwb2ck"
+      ],
+      "detailed": [
+       {
+        "subIndex": 15,
+        "marketTabId": 4,
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f32b9f9f-b40e-4b56-918d-322b8891a68d",
+        "orderType": "None"
+       },
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "a187f771-4490-46b5-b356-b76f8d126f2d",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2658185,
+     "name": {
+      "value": "Pirati Chomutov",
+      "short": "Pirati Chomutov"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2564135,
+     "name": {
+      "value": "HC Dukla Jihlava",
+      "short": "HC Dukla Jihlava"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20020760",
+   "name": {
+    "value": "Pirati Chomutov - HC Dukla Jihlava"
+   },
+   "sourceId": 20020760,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20020760",
+   "addons": {
+    "betRadar": 74512214,
+    "statistics": true,
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 74512214,
+     "coverageLevel": 3
+    },
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4443480,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T15:30:00Z",
+   "cutOffDate": "2026-10-21T15:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 12,
+    "name": {
+     "value": "Ice Hockey",
+     "sign": "KozAPA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 4604,
+    "statistics": true,
+    "sportId": 12,
+    "compoundId": "1:4604",
+    "type": "Competition",
+    "id": 4604,
+    "parentId": 12,
+    "name": {
+     "value": "1.Liga",
+     "sign": "UWtBWA=="
+    }
+   },
+   "region": {
+    "code": "CZE",
+    "sportId": 12,
+    "type": "Region",
+    "id": 12,
+    "parentId": 12,
+    "name": {
+     "value": "Czech Republic",
+     "sign": "faTdPQ=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 6,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20020760"
+   ],
+   "playerStats": [],
+   "sequence": 52,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1568149505,
+     "name": {
+      "value": "3-Way - Result After Regular Time"
+     },
+     "results": [
+      {
+       "id": 2323154742,
+       "odds": 1.4,
+       "name": {
+        "value": "SK Horacka Slavia Trebic"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 2,
+       "denominator": 5,
+       "americanOdds": -250,
+       "playerId": 2565304,
+       "version": 11074642164
+      },
+      {
+       "id": 2323154743,
+       "odds": 5.0,
+       "name": {
+        "value": "X"
+       },
+       "sourceName": {
+        "value": "X"
+       },
+       "visibility": "Visible",
+       "numerator": 4,
+       "denominator": 1,
+       "americanOdds": 400,
+       "version": 11074642164
+      },
+      {
+       "id": 2323154744,
+       "odds": 5.0,
+       "name": {
+        "value": "HC Zubr Prerov"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 4,
+       "denominator": 1,
+       "americanOdds": 400,
+       "playerId": 2565374,
+       "version": 11074642164
+      }
+     ],
+     "templateId": 51,
+     "categoryId": 64,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 64,
+      "name": {
+       "value": "Result (3Way)"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "ppanef2vg"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "6cb4ea19-1ce3-4c29-9503-a67b83465c66",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    },
+    {
+     "id": 1568149506,
+     "name": {
+      "value": "2-Way (Incl. Overtime And Penalties)"
+     },
+     "results": [
+      {
+       "id": 2323154745,
+       "odds": 1.25,
+       "name": {
+        "value": "SK Horacka Slavia Trebic"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 1,
+       "denominator": 4,
+       "americanOdds": -400,
+       "playerId": 2565304,
+       "version": 11074642178
+      },
+      {
+       "id": 2323154746,
+       "odds": 3.7,
+       "name": {
+        "value": "HC Zubr Prerov"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 11,
+       "denominator": 4,
+       "americanOdds": 270,
+       "playerId": 2565374,
+       "version": 11074642178
+      }
+     ],
+     "templateId": 5545,
+     "categoryId": 65,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 65,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "riyhwb2ck"
+      ],
+      "detailed": [
+       {
+        "subIndex": 15,
+        "marketTabId": 4,
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f32b9f9f-b40e-4b56-918d-322b8891a68d",
+        "orderType": "None"
+       },
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "a187f771-4490-46b5-b356-b76f8d126f2d",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2565304,
+     "name": {
+      "value": "SK Horacka Slavia Trebic",
+      "short": "SK Horacka Slavia Trebic"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2565374,
+     "name": {
+      "value": "HC Zubr Prerov",
+      "short": "HC Zubr Prerov"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20020761",
+   "name": {
+    "value": "SK Horacka Slavia Trebic - HC Zubr Prerov"
+   },
+   "sourceId": 20020761,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20020761",
+   "addons": {
+    "betRadar": 72118942,
+    "statistics": true,
+    "participantDividend": {},
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4443481,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T15:30:00Z",
+   "cutOffDate": "2026-10-21T15:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 12,
+    "name": {
+     "value": "Ice Hockey",
+     "sign": "KozAPA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 4604,
+    "statistics": true,
+    "sportId": 12,
+    "compoundId": "1:4604",
+    "type": "Competition",
+    "id": 4604,
+    "parentId": 12,
+    "name": {
+     "value": "1.Liga",
+     "sign": "UWtBWA=="
+    }
+   },
+   "region": {
+    "code": "CZE",
+    "sportId": 12,
+    "type": "Region",
+    "id": 12,
+    "parentId": 12,
+    "name": {
+     "value": "Czech Republic",
+     "sign": "faTdPQ=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 6,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20020761"
+   ],
+   "playerStats": [],
+   "sequence": 51,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1568149515,
+     "name": {
+      "value": "3-Way - Result After Regular Time"
+     },
+     "results": [
+      {
+       "id": 2323154764,
+       "odds": 2.15,
+       "name": {
+        "value": "PSG Zlin"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 23,
+       "denominator": 20,
+       "americanOdds": 115,
+       "playerId": 2565568,
+       "version": 11074643938
+      },
+      {
+       "id": 2323154765,
+       "odds": 3.9,
+       "name": {
+        "value": "X"
+       },
+       "sourceName": {
+        "value": "X"
+       },
+       "visibility": "Visible",
+       "numerator": 29,
+       "denominator": 10,
+       "americanOdds": 290,
+       "version": 11074643938
+      },
+      {
+       "id": 2323154766,
+       "odds": 2.6,
+       "name": {
+        "value": "Slavia Praha"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 8,
+       "denominator": 5,
+       "americanOdds": 160,
+       "playerId": 2564930,
+       "version": 11074643938
+      }
+     ],
+     "templateId": 51,
+     "categoryId": 64,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 64,
+      "name": {
+       "value": "Result (3Way)"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "ppanef2vg"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "6cb4ea19-1ce3-4c29-9503-a67b83465c66",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    },
+    {
+     "id": 1568149516,
+     "name": {
+      "value": "2-Way (Incl. Overtime And Penalties)"
+     },
+     "results": [
+      {
+       "id": 2323154767,
+       "odds": 1.72,
+       "name": {
+        "value": "PSG Zlin"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 8,
+       "denominator": 11,
+       "americanOdds": -140,
+       "playerId": 2565568,
+       "version": 11074643939
+      },
+      {
+       "id": 2323154768,
+       "odds": 2.05,
+       "name": {
+        "value": "Slavia Praha"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 21,
+       "denominator": 20,
+       "americanOdds": 105,
+       "playerId": 2564930,
+       "version": 11074643939
+      }
+     ],
+     "templateId": 5545,
+     "categoryId": 65,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 65,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "riyhwb2ck"
+      ],
+      "detailed": [
+       {
+        "subIndex": 15,
+        "marketTabId": 4,
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f32b9f9f-b40e-4b56-918d-322b8891a68d",
+        "orderType": "None"
+       },
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "a187f771-4490-46b5-b356-b76f8d126f2d",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2565568,
+     "name": {
+      "value": "PSG Zlin",
+      "short": "PSG Zlin"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2564930,
+     "name": {
+      "value": "HC Slavia Praha",
+      "short": "Slavia Praha"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20020762",
+   "name": {
+    "value": "PSG Zlin - HC Slavia Praha"
+   },
+   "sourceId": 20020762,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20020762",
+   "addons": {
+    "betRadar": 72118938,
+    "statistics": true,
+    "participantDividend": {},
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4443482,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T15:30:00Z",
+   "cutOffDate": "2026-10-21T15:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 12,
+    "name": {
+     "value": "Ice Hockey",
+     "sign": "KozAPA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 4604,
+    "statistics": true,
+    "sportId": 12,
+    "compoundId": "1:4604",
+    "type": "Competition",
+    "id": 4604,
+    "parentId": 12,
+    "name": {
+     "value": "1.Liga",
+     "sign": "UWtBWA=="
+    }
+   },
+   "region": {
+    "code": "CZE",
+    "sportId": 12,
+    "type": "Region",
+    "id": 12,
+    "parentId": 12,
+    "name": {
+     "value": "Czech Republic",
+     "sign": "faTdPQ=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 6,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20020762"
+   ],
+   "playerStats": [],
+   "sequence": 51,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 1566686434,
+     "name": {
+      "value": "3-Way - Result After Regular Time"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 2319040632,
+       "status": "Visible",
+       "name": {
+        "value": "Panthers"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 7,
+        "denominator": 5,
+        "odds": 2.4,
+        "americanOdds": 140,
+        "priceHistory": []
+       },
+       "participantId": 2563426
+      },
+      {
+       "id": 2319040633,
+       "status": "Visible",
+       "name": {
+        "value": "X"
+       },
+       "sourceName": {
+        "value": "X"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 29,
+        "denominator": 10,
+        "odds": 3.9,
+        "americanOdds": 290,
+        "priceHistory": []
+       }
+      },
+      {
+       "id": 2319040634,
+       "status": "Visible",
+       "name": {
+        "value": "Senators"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 29,
+        "denominator": 20,
+        "odds": 2.45,
+        "americanOdds": 145,
+        "priceHistory": []
+       },
+       "participantId": 2563456
+      }
+     ],
+     "parameters": [
+      {
+       "key": "TemplateId",
+       "type": "Integer",
+       "value": "51"
+      },
+      {
+       "key": "CategoryId",
+       "type": "Integer",
+       "value": "64"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "ppanef2vg"
+      ],
+      "detailed": [
+       {
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "6cb4ea19-1ce3-4c29-9503-a67b83465c66",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 64,
+      "name": {
+       "value": "Result (3Way)"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoEventCombo",
+     "minCombo": 1,
+     "resultOrder": "Default",
+     "source": "V1",
+     "isBetBuilder": false
+    },
+    {
+     "id": 1566686433,
+     "name": {
+      "value": "2-Way (including overtime and shoot-outs)"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 2319040630,
+       "status": "Visible",
+       "name": {
+        "value": "Panthers"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 10,
+        "denominator": 11,
+        "odds": 1.91,
+        "americanOdds": -110,
+        "priceHistory": []
+       },
+       "participantId": 2563426
+      },
+      {
+       "id": 2319040631,
+       "status": "Visible",
+       "name": {
+        "value": "Senators"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 10,
+        "denominator": 11,
+        "odds": 1.91,
+        "americanOdds": -110,
+        "priceHistory": []
+       },
+       "participantId": 2563456
+      }
+     ],
+     "parameters": [
+      {
+       "key": "TemplateId",
+       "type": "Integer",
+       "value": "5612"
+      },
+      {
+       "key": "CategoryId",
+       "type": "Integer",
+       "value": "65"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "riyhwb2ck"
+      ],
+      "detailed": [
+       {
+        "subIndex": 4,
+        "marketTabId": 4,
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f32b9f9f-b40e-4b56-918d-322b8891a68d",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 0,
+        "marketTabId": 4,
+        "displayType": "Regular",
+        "marketGroupId": "d5f57213-e866-43dc-a1d3-f6aa8d85a915",
+        "marketGroupItemId": "f896090a-529a-43a1-8fb2-cdccca3ef0f8",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 65,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoEventCombo",
+     "minCombo": 1,
+     "resultOrder": "Default",
+     "source": "V1",
+     "isBetBuilder": true
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "participantId": 2563426,
+     "name": {
+      "value": "Florida Panthers",
+      "short": "Panthers"
+     },
+     "image": {
+      "jersey": "2563426_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2563456,
+     "name": {
+      "value": "Ottawa Senators",
+      "short": "Senators"
+     },
+     "image": {
+      "jersey": "2563456_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2852718,
+     "name": {
+      "value": "Sergei Bobrovsky (Fla)",
+      "short": "Sergei Bobrovsky"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2852721,
+     "name": {
+      "value": "Mike Hoffman (Fla)",
+      "short": "M. Hoffman"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2852726,
+     "name": {
+      "value": "Aleksander Barkov Jr (Fla)",
+      "short": "Aleksander Barkov Jr"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2853077,
+     "name": {
+      "value": "Evgenii Dadonov (Fla)",
+      "short": "E. Dadonov"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2853078,
+     "name": {
+      "value": "Noel Acciari (Fla)",
+      "short": "N. Acciari"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2853079,
+     "name": {
+      "value": "Brett Connolly (Fla)",
+      "short": "B. Connolly"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2853080,
+     "name": {
+      "value": "Frank Vatrano (Fla)",
+      "short": "F. Vatrano"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2853081,
+     "name": {
+      "value": "Brian Boyle (Fla)",
+      "short": "B. Boyle"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2853082,
+     "name": {
+      "value": "Mark Pysyk (Fla)",
+      "short": "M. Pysyk"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2853083,
+     "name": {
+      "value": "Erik Haula (Fla)",
+      "short": "E. Haula"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2853085,
+     "name": {
+      "value": "Colton Sceviour (Fla)",
+      "short": "C. Sceviour"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2853086,
+     "name": {
+      "value": "Lucas Wallmark (Fla)",
+      "short": "L. Wallmark"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2864342,
+     "name": {
+      "value": "Aaron Ekblad (Fla)",
+      "short": "Aaron Ekblad"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2864345,
+     "name": {
+      "value": "Anthony Duclair (Fla)",
+      "short": "Anthony Duclair"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2864348,
+     "name": {
+      "value": "Eetu Luostarinen (Fla)",
+      "short": "Eetu Luostarinen"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2867204,
+     "name": {
+      "value": "Carter Verhaeghe (Fla)",
+      "short": "Carter Verhaeghe"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2870268,
+     "name": {
+      "value": "Sam Bennett (Fla)",
+      "short": "Sam Bennett"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2893981,
+     "name": {
+      "value": "Anton Lundell (Fla)",
+      "short": "Anton Lundell"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2895969,
+     "name": {
+      "value": "Claude Giroux (Fla)",
+      "short": "Claude Giroux"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2895970,
+     "name": {
+      "value": "Connor Bunnaman (Fla)",
+      "short": "C. Bunnaman"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2898897,
+     "name": {
+      "value": "Sam Reinhart (Fla)",
+      "short": "Sam Reinhart"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2907454,
+     "name": {
+      "value": "Nick Cousins (Fla)",
+      "short": "Nick Cousins"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2907455,
+     "name": {
+      "value": "Colin White (Fla)",
+      "short": "Colin White"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2907456,
+     "name": {
+      "value": "Rudolfs Balcers (Fla)",
+      "short": "Rudolfs Balcers"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2907457,
+     "name": {
+      "value": "Alex Lyon (Fla)",
+      "short": "Alex Lyon"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2907458,
+     "name": {
+      "value": "Anthony Bitetto (Fla)",
+      "short": "Anthony Bitetto"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2907459,
+     "name": {
+      "value": "Marc Staal (Fla)",
+      "short": "Marc Staal"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2907460,
+     "name": {
+      "value": "Michael Del Zotto (Fla)",
+      "short": "Michael Del Zotto"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2915488,
+     "name": {
+      "value": "Matthew Tkachuk (Fla)",
+      "short": "Matthew Tkachuk"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2915489,
+     "name": {
+      "value": "Chris Tierney (Fla)",
+      "short": "Chris Tierney"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2917532,
+     "name": {
+      "value": "Gustav Forsling (Flo)",
+      "short": "Gustav Forsling"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2925052,
+     "name": {
+      "value": "Anton Levtchi (Fla)",
+      "short": "Anton Levtchi"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2925054,
+     "name": {
+      "value": "Givani Smith (Fla)",
+      "short": "Givani Smith"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2925220,
+     "name": {
+      "value": "Radko Gudas (Fla)",
+      "short": "Radko Gudas"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2930544,
+     "name": {
+      "value": "Aleksander Barkov (Fla)",
+      "short": "Aleksander Barkov"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2934461,
+     "name": {
+      "value": "Dmitry Kulikov (Fla)",
+      "short": "Dmitry Kulikov"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2934462,
+     "name": {
+      "value": "Niko Mikkola (Fla)",
+      "short": "Niko Mikkola"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2934465,
+     "name": {
+      "value": "Evan Rodrigues (Fla)",
+      "short": "Evan Rodrigues"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2934468,
+     "name": {
+      "value": "Rasmus Asplund (Fla)",
+      "short": "Rasmus Asplund"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2951450,
+     "name": {
+      "value": "Uvis Balinskis (FLA)",
+      "short": "Uvis Balinskis"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2952443,
+     "name": {
+      "value": "Tobias Bjornfot (FLA)",
+      "short": "Tobias Bjornfot"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2966354,
+     "name": {
+      "value": "Jesper Boqvist (FLA)",
+      "short": "Jesper Boqvist"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2966357,
+     "name": {
+      "value": "Tomas Nosek (FLA)",
+      "short": "Tomas Nosek"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2966383,
+     "name": {
+      "value": "A.J. Greer (FLA)",
+      "short": "A.J. Greer"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2966802,
+     "name": {
+      "value": "Jonah Gadjovich (FLA)",
+      "short": "Jonah Gadjovich"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2969051,
+     "name": {
+      "value": "Patrick Giles (FLA)",
+      "short": "Patrick Giles"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2978495,
+     "name": {
+      "value": "Seth Jones (FLA)",
+      "short": "Seth Jones"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2978926,
+     "name": {
+      "value": "Nico Sturm (FLA)",
+      "short": "Nico Sturm"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2978978,
+     "name": {
+      "value": "Brad Marchand (FLA)",
+      "short": "Brad Marchand"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2981922,
+     "name": {
+      "value": "Jaycob Megna (FLA)",
+      "short": "Jaycob Megna"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2988730,
+     "name": {
+      "value": "Jack Devine (FLA)",
+      "short": "Jack Devine"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2990664,
+     "name": {
+      "value": "Daniil Tarasov (FLA)",
+      "short": "Daniil Tarasov"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3001260,
+     "name": {
+      "value": "Luke Kunin (FLA)",
+      "short": "Luke Kunin"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3002068,
+     "name": {
+      "value": "Cole Schwindt (FLA)",
+      "short": "Cole Schwindt"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3002069,
+     "name": {
+      "value": "Tyler Motte (FLA)",
+      "short": "Tyler Motte"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3002070,
+     "name": {
+      "value": "Noah Gregor (FLA)",
+      "short": "Noah Gregor"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3002071,
+     "name": {
+      "value": "Jack Studnicka (FLA)",
+      "short": "Jack Studnicka"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3002072,
+     "name": {
+      "value": "Nolan Foote (FLA)",
+      "short": "Nolan Foote"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3002073,
+     "name": {
+      "value": "Brandon Bussi (FLA)",
+      "short": "Brandon Bussi"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3005970,
+     "name": {
+      "value": "Donovan Sebrango (FLA)",
+      "short": "Donovan Sebrango"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3010998,
+     "name": {
+      "value": "Sandis Vilmanis (FLA)",
+      "short": "Sandis Vilmanis"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3016419,
+     "name": {
+      "value": "Vinnie Hinostroza (FLA)",
+      "short": "Vinnie Hinostroza"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3017228,
+     "name": {
+      "value": "Cole Reinhardt (FLA)",
+      "short": "Cole Reinhardt"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3017716,
+     "name": {
+      "value": "Michael Benning (FLA)",
+      "short": "Michael Benning"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3018828,
+     "name": {
+      "value": "Mikulas Hovorka (FLA)",
+      "short": "Mikulas Hovorka"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3019349,
+     "name": {
+      "value": "Ludvig Jansson (FLA)",
+      "short": "Ludvig Jansson"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3019350,
+     "name": {
+      "value": "Marek Alscher (FLA)",
+      "short": "Marek Alscher"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3026462,
+     "name": {
+      "value": "Brady Tkachuk (FLA)",
+      "short": "Brady Tkachuk"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3027038,
+     "name": {
+      "value": "Garnet Hathaway (FLA)",
+      "short": "Garnet Hathaway"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3027242,
+     "name": {
+      "value": "Jacob Markstrom (FLA)",
+      "short": "Jacob Markstrom"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3027243,
+     "name": {
+      "value": "Angus Crookshank (FLA)",
+      "short": "Angus Crookshank"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3027244,
+     "name": {
+      "value": "Akira Schmid (FLA)",
+      "short": "Akira Schmid"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3027482,
+     "name": {
+      "value": "Sam Lafferty (FLA)",
+      "short": "Sam Lafferty"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3027483,
+     "name": {
+      "value": "Lars Eller (FLA)",
+      "short": "Lars Eller"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3027484,
+     "name": {
+      "value": "Bokondji Imama (FLA)",
+      "short": "Bokondji Imama"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3027485,
+     "name": {
+      "value": "John Beecher (FLA)",
+      "short": "John Beecher"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 3033721,
+     "name": {
+      "value": "Nathan Bastian (FLA)",
+      "short": "Nathan Bastian"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563426
+     },
+     "options": []
+    },
+    {
+     "participantId": 2864272,
+     "name": {
+      "value": "Artem Zub (Ott)",
+      "short": "Artem Zub"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2864282,
+     "name": {
+      "value": "Drake Batherson (Ott)",
+      "short": "Drake Batherson"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2864286,
+     "name": {
+      "value": "Josh Norris (Ott)",
+      "short": "Josh Norris"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2864291,
+     "name": {
+      "value": "Thomas Chabot (Ott)",
+      "short": "Thomas Chabot"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2864292,
+     "name": {
+      "value": "Tim Stutzle (Ott)",
+      "short": "Tim Stutzle"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2869084,
+     "name": {
+      "value": "Artem Anisimov (Ott)",
+      "short": "A. Anisimov"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2886267,
+     "name": {
+      "value": "Filip Gustavsson (Ott)",
+      "short": "F. Gustavsson"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2888603,
+     "name": {
+      "value": "Egor Sokolov (Ott)",
+      "short": "E. Sokolov"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2892584,
+     "name": {
+      "value": "Tyler Ennis (Ott)",
+      "short": "T. Ennis"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2896722,
+     "name": {
+      "value": "Mads Sogaard (Ott)",
+      "short": "Mads Sogaard"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2907405,
+     "name": {
+      "value": "Cam Talbot (Ott)",
+      "short": "Cam Talbot"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2907406,
+     "name": {
+      "value": "Alexander Debrincat (Ott)",
+      "short": "Alexander Debrincat"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2907407,
+     "name": {
+      "value": "Jacob Larsson (Ott)",
+      "short": "Jacob Larsson"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2907409,
+     "name": {
+      "value": "Kristians Rubins (Ott)",
+      "short": "Kristians Rubins"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2907410,
+     "name": {
+      "value": "Scott Sabourin (Ott)",
+      "short": "Scott Sabourin"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2916176,
+     "name": {
+      "value": "Claude Giroux (Ott)",
+      "short": "Claude Giroux"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2917023,
+     "name": {
+      "value": "Jake Sanderson (Ott)",
+      "short": "Jake Sanderson"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2917024,
+     "name": {
+      "value": "Shane Pinto (Ott)",
+      "short": "Shane Pinto"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2924994,
+     "name": {
+      "value": "Kevin Mandolese (Ott)",
+      "short": "Kevin Mandolese"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2925279,
+     "name": {
+      "value": "Julien Gauthier (Ott)",
+      "short": "J. Gauthier"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2925917,
+     "name": {
+      "value": "Dylan Ferguson (Ott)",
+      "short": "Dylan Ferguson"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2934536,
+     "name": {
+      "value": "Matthew Highmore (Ott)",
+      "short": "Matthew Highmore"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2940301,
+     "name": {
+      "value": "Ridly Greig (Ott)",
+      "short": "Ridly Greig"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2950591,
+     "name": {
+      "value": "Boris Katchouk (OTT)",
+      "short": "Boris Katchouk"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2950592,
+     "name": {
+      "value": "Jiri Smejkal (OTT)",
+      "short": "Jiri Smejkal"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2950593,
+     "name": {
+      "value": "Mark Kastelic (OTT)",
+      "short": "Mark Kastelic"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2950594,
+     "name": {
+      "value": "Maxence Guenette (OTT)",
+      "short": "Maxence Guenette"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2950595,
+     "name": {
+      "value": "Zack Ostapchuk (OTT)",
+      "short": "Zack Ostapchuk"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2958293,
+     "name": {
+      "value": "Carter Yakemchuk (OTT)",
+      "short": "Carter Yakemchuk"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2966360,
+     "name": {
+      "value": "Michael Amadio (OTT)",
+      "short": "Michael Amadio"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2966361,
+     "name": {
+      "value": "Noah Gregor (OTT)",
+      "short": "Noah Gregor"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2966362,
+     "name": {
+      "value": "Nick Cousins (OTT)",
+      "short": "Nick Cousins"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2966363,
+     "name": {
+      "value": "Nick Jensen (OTT)",
+      "short": "Nick Jensen"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2966364,
+     "name": {
+      "value": "Linus Ullmark (OTT)",
+      "short": "Linus Ullmark"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2966887,
+     "name": {
+      "value": "Tyler Kleven (OTT)",
+      "short": "Tyler Kleven"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2969075,
+     "name": {
+      "value": "Cole Reinhardt (OTT)",
+      "short": "Cole Reinhardt"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2975326,
+     "name": {
+      "value": "Nikolas Matinpalo (OTT)",
+      "short": "Nikolas Matinpalo"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2978429,
+     "name": {
+      "value": "Jan Jenik (OTT)",
+      "short": "Jan Jenik"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2978979,
+     "name": {
+      "value": "Fabian Zetterlund (OTT)",
+      "short": "Fabian Zetterlund"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2978980,
+     "name": {
+      "value": "Tristen Robins (OTT)",
+      "short": "Tristen Robins"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2978992,
+     "name": {
+      "value": "Dylan Cozens (OTT)",
+      "short": "Dylan Cozens"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2978993,
+     "name": {
+      "value": "Dennis Gilbert (OTT)",
+      "short": "Dennis Gilbert"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 2990668,
+     "name": {
+      "value": "Jordan Spence (OTT)",
+      "short": "Jordan Spence"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3001245,
+     "name": {
+      "value": "Lars Eller (OTT)",
+      "short": "Lars Eller"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3001246,
+     "name": {
+      "value": "Arthur Kaliyev (OTT)",
+      "short": "Arthur Kaliyev"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3002017,
+     "name": {
+      "value": "Kurtis MacDermid (OTT)",
+      "short": "Kurtis MacDermid"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3002902,
+     "name": {
+      "value": "Olle Lycksell (OTT)",
+      "short": "Olle Lycksell"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3006745,
+     "name": {
+      "value": "Hayden Hodgson (OTT)",
+      "short": "Hayden Hodgson"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3007960,
+     "name": {
+      "value": "Stephen Halliday (OTT)",
+      "short": "Stephen Halliday"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3012318,
+     "name": {
+      "value": "Xavier Bourgault (OTT)",
+      "short": "Xavier Bourgault"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3016363,
+     "name": {
+      "value": "Warren Foegele (OTT)",
+      "short": "Warren Foegele"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3016428,
+     "name": {
+      "value": "Graeme Clark (OTT)",
+      "short": "Graeme Clark"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3034316,
+     "name": {
+      "value": "Cameron Crotty (OTT)",
+      "short": "Cameron Crotty"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3019851,
+     "name": {
+      "value": "James Reimer (OTT)",
+      "short": "James Reimer"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3026802,
+     "name": {
+      "value": "Brandon Svoboda (OTT)",
+      "short": "Brandon Svoboda"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3026803,
+     "name": {
+      "value": "Kasper Halttunen (OTT)",
+      "short": "Kasper Halttunen"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3026804,
+     "name": {
+      "value": "William Eklund (OTT)",
+      "short": "William Eklund"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3027044,
+     "name": {
+      "value": "Andre Burakovsky (OTT)",
+      "short": "Andre Burakovsky"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3027045,
+     "name": {
+      "value": "Samuel Ersson (OTT)",
+      "short": "Samuel Ersson"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3027535,
+     "name": {
+      "value": "Sammy Blais (OTT)",
+      "short": "Sammy Blais"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3027536,
+     "name": {
+      "value": "Philip Tomasino (OTT)",
+      "short": "Philip Tomasino"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3027537,
+     "name": {
+      "value": "Ryan Suzuki (OTT)",
+      "short": "Ryan Suzuki"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3033740,
+     "name": {
+      "value": "Scott Harrington (OTT)",
+      "short": "Scott Harrington"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3033741,
+     "name": {
+      "value": "Ben Hutton (OTT)",
+      "short": "Ben Hutton"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3033742,
+     "name": {
+      "value": "Vadim Zherenko (OTT)",
+      "short": "Vadim Zherenko"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    },
+    {
+     "participantId": 3033743,
+     "name": {
+      "value": "Jonas Johansson (OTT)",
+      "short": "Jonas Johansson"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2563456
+     },
+     "options": []
+    }
+   ],
+   "id": "20008293",
+   "name": {
+    "value": "Florida Panthers at Ottawa Senators"
+   },
+   "sourceId": 20008293,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20008293",
+   "addons": {
+    "betRadar": 72909148,
+    "statistics": true,
+    "videoStream": {
+     "provider": "Betradar",
+     "status": "Scheduled",
+     "providerStreamId": "32665555",
+     "providerEventId": "7116293",
+     "streamType": "Mobile"
+    },
+    "participantDividend": {},
+    "sportcastId": 602625,
+    "betBuilderConsumerFixtureId": "45776",
+    "betBuilderProvider": "Default",
+    "betBuilderId": "602625",
+    "betBuilderTradingV2FixtureId": "6:45776"
+   },
+   "stage": "PreMatch",
+   "groupId": 4440912,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T23:38:00Z",
+   "cutOffDate": "2026-10-21T23:38:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 12,
+    "name": {
+     "value": "Ice Hockey",
+     "sign": "KozAPA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 34,
+    "statistics": true,
+    "sportId": 12,
+    "compoundId": "1:34",
+    "imageProfile": {
+     "logo": "be0c497a.svg",
+     "logoColor": "C4CED3"
+    },
+    "type": "Competition",
+    "id": 34,
+    "parentId": 9,
+    "name": {
+     "value": "NHL",
+     "sign": "3qHT/A=="
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 12,
+    "type": "Region",
+    "id": 9,
+    "parentId": 12,
+    "name": {
+     "value": "North America",
+     "sign": "94++pQ=="
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 53,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "tv2RelatedFixtureId": "6:45776",
+   "linkedTv1EventIds": [],
+   "hybridFixtureData": {
+    "fixtureId": "6:45776",
+    "status": "Unavailable"
+   },
+   "contexts": [
+    "v1|en|20008293"
+   ],
+   "playerStats": [],
+   "sequence": 2418,
+   "isPlannedInPlay": false
+  }
+ ],
+ "totalCount": 73
+}

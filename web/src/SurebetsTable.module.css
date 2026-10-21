@@ -193,10 +193,16 @@
 }
 
 .legStake {
-  grid-column: 1 / -1;
+  grid-column: 1;
   font-size: var(--text-xs);
   color: var(--color-text-muted);
   font-variant-numeric: tabular-nums;
+}
+
+/* The match's page at the bookmaker, beside the stake. */
+.legCheck {
+  grid-column: 2;
+  justify-self: end;
 }
 
 /* The TRJ in the best prices' green (PriceChip's). */
@@ -327,10 +333,11 @@
   }
 
   .leg {
-    grid-template-columns: minmax(8rem, 1.4fr) minmax(7rem, 1fr) minmax(6rem, auto);
+    grid-template-columns: minmax(8rem, 1.4fr) minmax(7rem, 1fr) minmax(6rem, auto) auto;
   }
 
-  .legStake {
+  .legStake,
+  .legCheck {
     grid-column: auto;
   }
 

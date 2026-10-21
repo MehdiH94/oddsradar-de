@@ -3,6 +3,7 @@ import { compareOutcomes, mainMarketLabel, marketLabel, outcomeLabel, parseMarke
 import { MARKET_1X2, MARKET_MATCH_WINNER, MARKET_OUTRIGHT } from "../scraper/canonical";
 import { Grid, mainOutcomeLabel, outrightRateOf, payoutRateOf } from "./marketGrid";
 import { inChunks } from "./playerReference";
+import { loadBookmakerLinks } from "./bookmakerLinks";
 import { countMarkets, ListingOptions, loadEvents, marketsCutoff, matchingEventIds, oddsCutoff } from "./repository";
 
 // The surebets of the matches and races not started yet: every market whose
@@ -62,6 +63,9 @@ export interface SurebetLeg {
   // A lay's money offered on the exchange, in euros (under SUREBET_MIN_SIZE,
   // the surebet is thin: only that much can be laid).
   size?: number;
+  // A bookmaker's back: the match's page at the bookmaker, when its address
+  // can be built (./bookmakerLinks.ts), to check the price there.
+  url?: string;
 }
 
 export interface Surebet {
@@ -234,7 +238,14 @@ export function getSurebets(
     for (const surebet of surebetsOf(db, chunk, oddsSince, marketsSince, opts.bookmakers)) surebets.push(surebet);
   }
   const counts = countMarkets(db, [...new Set(surebets.map((s) => s.eventId))], oddsSince, marketsSince);
-  for (const surebet of surebets) surebet.marketCount = counts.get(surebet.eventId) ?? 0;
+  const links = loadBookmakerLinks(db, [...new Set(surebets.map((s) => s.eventId))]);
+  for (const surebet of surebets) {
+    surebet.marketCount = counts.get(surebet.eventId) ?? 0;
+    for (const leg of surebet.legs) {
+      const url = leg.source === EXCHANGE ? undefined : links.get(surebet.eventId)?.[leg.source];
+      if (url) leg.url = url;
+    }
+  }
   return surebets.sort((a, b) =>
     opts.sort === "start"
       ? a.startTime.localeCompare(b.startTime) || b.payoutRate - a.payoutRate

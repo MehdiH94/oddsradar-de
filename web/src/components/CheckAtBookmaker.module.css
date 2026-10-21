@@ -1,0 +1,24 @@
+/* Small, in the brand's colour; on a phone, as tall as a finger needs
+   (--tap), its text still small. */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--tap);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-brand);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.link:hover,
+.link:focus-visible {
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .link {
+    min-height: 0;
+  }
+}

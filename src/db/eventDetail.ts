@@ -14,6 +14,7 @@ import {
 } from "../markets/catalog";
 import { ListingOptions, marketsCutoff, notStartedCutoff, oddsCutoff } from "./repository";
 import { competitionName } from "./competition";
+import { loadBookmakerLinks } from "./bookmakerLinks";
 import { loadReferences } from "./reference";
 import { loadPlayerExchange } from "./playerReference";
 import { ExchangePlayer, PLAYER_MARKET_KEYS, PlayerSignal, siteSignals } from "./playerValue";
@@ -102,6 +103,9 @@ export interface EventDetail {
   // guarantee a profit.
   comparedCount: number;
   surebetCount: number;
+  // By bookmaker pricing it (of those requested): the match's page at the
+  // bookmaker, when its address can be built (./bookmakerLinks.ts).
+  links: Record<string, string>;
 }
 
 interface Row {
@@ -336,5 +340,12 @@ export function getEventDetail(
     sections,
     comparedCount,
     surebetCount,
+    links: linksOf(db, event.id, rows, opts.bookmakers),
   };
+}
+
+// The bookmakers' addresses of the match, for those with a current price of it.
+function linksOf(db: DatabaseSync, id: string, rows: readonly Row[], bookmakers: readonly string[] | undefined): Record<string, string> {
+  const pricing = new Set(rows.map((r) => r.bookmakerId).filter((b) => !bookmakers || bookmakers.includes(b)));
+  return Object.fromEntries(Object.entries(loadBookmakerLinks(db, [id]).get(id) ?? {}).filter(([b]) => pricing.has(b)));
 }

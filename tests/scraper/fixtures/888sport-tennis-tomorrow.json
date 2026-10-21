@@ -1,0 +1,477 @@
+{
+ "selection_pointers": [
+  {
+   "event_id": 8435985,
+   "market_id": 11904,
+   "selection_id": 16874761749
+  },
+  {
+   "event_id": 8435985,
+   "market_id": 11904,
+   "selection_id": 16874761750
+  },
+  {
+   "event_id": 8437505,
+   "market_id": 11904,
+   "selection_id": 16875056662
+  },
+  {
+   "event_id": 8437505,
+   "market_id": 11904,
+   "selection_id": 16875056663
+  },
+  {
+   "event_id": 8436761,
+   "market_id": 11904,
+   "selection_id": 16874936928
+  },
+  {
+   "event_id": 8436761,
+   "market_id": 11904,
+   "selection_id": 16874936929
+  },
+  {
+   "event_id": 8436757,
+   "market_id": 11904,
+   "selection_id": 16874935844
+  },
+  {
+   "event_id": 8436757,
+   "market_id": 11904,
+   "selection_id": 16874935845
+  }
+ ],
+ "events": {
+  "8437505": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8437505,
+   "tournament_id": 518998,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "ATP Lyon",
+   "sport_name": "Tennis",
+   "sport_id": 4,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": null
+   },
+   "category_slug": "france",
+   "start_time": "2026-10-22T10:00:00+00:00",
+   "tournament_slug": "atp-lyon",
+   "tournament_display_name": "ATP Lyon",
+   "scheduled_date": "2026-10-22",
+   "active": true,
+   "sport_slug": "tennis",
+   "slug": "valentin-vacherot-vs-luca-van-assche",
+   "category_name": "France",
+   "racing_name": null,
+   "name": "Valentin Vacherot vs Luca Van Assche",
+   "markets": {
+    "11904": {
+     "tradable": true,
+     "name": "To Win Match",
+     "betable": true,
+     "selections": {
+      "16875056662": {
+       "fraction_price": "4/7",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16875056662,
+       "name": "Valentin Vacherot",
+       "decimal_price": "1.571",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16875056663": {
+       "fraction_price": "11/8",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16875056663,
+       "name": "Luca Van Assche",
+       "decimal_price": "2.375",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 25,
+     "id": 11904,
+     "default_line_selections": []
+    }
+   },
+   "tradable": false,
+   "competitors": {
+    "298981": {
+     "slug": "valentin-vacherot",
+     "order": 1,
+     "is_home_team": true,
+     "id": 298981,
+     "name": "Valentin Vacherot"
+    },
+    "295286": {
+     "slug": "luca-van-assche",
+     "order": 2,
+     "is_home_team": false,
+     "id": 295286,
+     "name": "Luca Van Assche"
+    }
+   },
+   "category_id": 27067,
+   "sport_slug_i18n": "tennis",
+   "category_slug_i18n": "france",
+   "tournament_slug_i18n": "atp-lyon",
+   "event_slug_i18n": "valentin-vacherot-vs-luca-van-assche",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  },
+  "8435985": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8435985,
+   "tournament_id": 544186,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "ATP Challenger Lisbon",
+   "sport_name": "Tennis",
+   "sport_id": 4,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": null
+   },
+   "category_slug": "portugal",
+   "start_time": "2026-10-22T09:00:00+00:00",
+   "tournament_slug": "atp-challenger-lisbon",
+   "tournament_display_name": "ATP Challenger Lisbon",
+   "scheduled_date": "2026-10-22",
+   "active": true,
+   "sport_slug": "tennis",
+   "slug": "sumit-nagal-vs-benjamin-hassan",
+   "category_name": "Portugal",
+   "racing_name": null,
+   "name": "Sumit Nagal vs Benjamin Hassan",
+   "markets": {
+    "11904": {
+     "tradable": true,
+     "name": "To Win Match",
+     "betable": true,
+     "selections": {
+      "16874761749": {
+       "fraction_price": "5/4",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16874761749,
+       "name": "Benjamin Hassan",
+       "decimal_price": "2.250",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16874761750": {
+       "fraction_price": "4/7",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16874761750,
+       "name": "Sumit Nagal",
+       "decimal_price": "1.571",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 25,
+     "id": 11904,
+     "default_line_selections": []
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "294329": {
+     "slug": "benjamin-hassan",
+     "order": 2,
+     "is_home_team": false,
+     "id": 294329,
+     "name": "Benjamin Hassan"
+    },
+    "294330": {
+     "slug": "sumit-nagal",
+     "order": 1,
+     "is_home_team": true,
+     "id": 294330,
+     "name": "Sumit Nagal"
+    }
+   },
+   "category_id": 40406,
+   "sport_slug_i18n": "tennis",
+   "category_slug_i18n": "portugal",
+   "tournament_slug_i18n": "atp-challenger-lisbon",
+   "event_slug_i18n": "sumit-nagal-vs-benjamin-hassan",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  },
+  "8436757": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8436757,
+   "tournament_id": 549188,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "WTA Osaka Doubles",
+   "sport_name": "Tennis",
+   "sport_id": 4,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": null
+   },
+   "category_slug": "japan",
+   "start_time": "2026-10-22T04:00:00+00:00",
+   "tournament_slug": "wta-osaka-doubles",
+   "tournament_display_name": "WTA Osaka Doubles",
+   "scheduled_date": "2026-10-22",
+   "active": true,
+   "sport_slug": "tennis",
+   "slug": "ingrid-neelgiuliana-olmos-vs-isabelle-haverlaglilli-tagger",
+   "category_name": "Japan",
+   "racing_name": null,
+   "name": "Ingrid Neel/Giuliana Olmos vs Isabelle Haverlag/Lilli Tagger",
+   "markets": {
+    "11904": {
+     "tradable": true,
+     "name": "To Win Match",
+     "betable": true,
+     "selections": {
+      "16874935844": {
+       "fraction_price": "7/4",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16874935844,
+       "name": "Isabelle Haverlag/Lilli Tagger",
+       "decimal_price": "2.750",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16874935845": {
+       "fraction_price": "2/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16874935845,
+       "name": "Ingrid Neel/Giuliana Olmos",
+       "decimal_price": "1.400",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 25,
+     "id": 11904,
+     "default_line_selections": []
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "514137": {
+     "slug": "ingrid-neelgiuliana-olmos",
+     "order": 1,
+     "is_home_team": true,
+     "id": 514137,
+     "name": "Ingrid Neel/Giuliana Olmos"
+    },
+    "535750": {
+     "slug": "isabelle-haverlaglilli-tagger",
+     "order": 2,
+     "is_home_team": false,
+     "id": 535750,
+     "name": "Isabelle Haverlag/Lilli Tagger"
+    }
+   },
+   "category_id": 32889,
+   "sport_slug_i18n": "tennis",
+   "category_slug_i18n": "japan",
+   "tournament_slug_i18n": "wta-osaka-doubles",
+   "event_slug_i18n": "ingrid-neelgiuliana-olmos-vs-isabelle-haverlaglilli-tagger",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  },
+  "8436761": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8436761,
+   "tournament_id": 518998,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "ATP Lyon",
+   "sport_name": "Tennis",
+   "sport_id": 4,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": null
+   },
+   "category_slug": "france",
+   "start_time": "2026-10-22T10:00:00+00:00",
+   "tournament_slug": "atp-lyon",
+   "tournament_display_name": "ATP Lyon",
+   "scheduled_date": "2026-10-22",
+   "active": true,
+   "sport_slug": "tennis",
+   "slug": "borna-gojo-vs-daniel-altmaier",
+   "category_name": "France",
+   "racing_name": null,
+   "name": "Borna Gojo vs Daniel Altmaier",
+   "markets": {
+    "11904": {
+     "tradable": true,
+     "name": "To Win Match",
+     "betable": true,
+     "selections": {
+      "16874936928": {
+       "fraction_price": "10/11",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16874936928,
+       "name": "Borna Gojo",
+       "decimal_price": "1.909",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16874936929": {
+       "fraction_price": "10/11",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16874936929,
+       "name": "Daniel Altmaier",
+       "decimal_price": "1.909",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 25,
+     "id": 11904,
+     "default_line_selections": []
+    }
+   },
+   "tradable": false,
+   "competitors": {
+    "295881": {
+     "slug": "daniel-altmaier",
+     "order": 2,
+     "is_home_team": false,
+     "id": 295881,
+     "name": "Daniel Altmaier"
+    },
+    "336374": {
+     "slug": "borna-gojo",
+     "order": 1,
+     "is_home_team": true,
+     "id": 336374,
+     "name": "Borna Gojo"
+    }
+   },
+   "category_id": 27067,
+   "sport_slug_i18n": "tennis",
+   "category_slug_i18n": "france",
+   "tournament_slug_i18n": "atp-lyon",
+   "event_slug_i18n": "borna-gojo-vs-daniel-altmaier",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  }
+ },
+ "event_order": [
+  {
+   "event_id": 8435985,
+   "grouped_market_ids": [],
+   "market_id": 11904
+  },
+  {
+   "event_id": 8437505,
+   "grouped_market_ids": [],
+   "market_id": 11904
+  },
+  {
+   "event_id": 8436761,
+   "grouped_market_ids": [],
+   "market_id": 11904
+  },
+  {
+   "event_id": 8436757,
+   "grouped_market_ids": [],
+   "market_id": 11904
+  }
+ ],
+ "match_request_limit": false
+}

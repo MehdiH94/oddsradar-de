@@ -1,0 +1,285 @@
+{
+ "selection_pointers": [
+  {
+   "event_id": 8427676,
+   "market_id": 1632241,
+   "selection_id": 16873361689
+  },
+  {
+   "event_id": 8427676,
+   "market_id": 1632241,
+   "selection_id": 16873361690
+  },
+  {
+   "event_id": 8427676,
+   "market_id": 1632241,
+   "selection_id": 16873361691
+  },
+  {
+   "event_id": 8417423,
+   "market_id": 1632241,
+   "selection_id": 16870721761
+  },
+  {
+   "event_id": 8417423,
+   "market_id": 1632241,
+   "selection_id": 16870721762
+  },
+  {
+   "event_id": 8417423,
+   "market_id": 1632241,
+   "selection_id": 16870721763
+  }
+ ],
+ "events": {
+  "8417423": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8417423,
+   "tournament_id": 553627,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "Australian A-League Women",
+   "sport_name": "Football",
+   "sport_id": 2,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": false
+   },
+   "category_slug": "australia",
+   "start_time": "2026-10-24T04:00:00+00:00",
+   "tournament_slug": "australian-a-league-women",
+   "tournament_display_name": "Australian A-League Women",
+   "scheduled_date": "2026-10-24",
+   "active": true,
+   "sport_slug": "football",
+   "slug": "central-coast-mariners-women-vs-canberra-utd-women",
+   "category_name": "Australia",
+   "racing_name": null,
+   "name": "Central Coast Mariners Women vs Canberra Utd Women",
+   "markets": {
+    "1632241": {
+     "tradable": true,
+     "name": "Match Winner",
+     "betable": true,
+     "selections": {
+      "16870721761": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16870721761,
+       "name": "Canberra Utd Women",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16870721762": {
+       "fraction_price": "12/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 2,
+       "id": 16870721762,
+       "name": "Draw",
+       "decimal_price": "3.400",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "X"
+      },
+      "16870721763": {
+       "fraction_price": "23/10",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16870721763,
+       "name": "Central Coast Mariners Women",
+       "decimal_price": "3.300",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 1,
+     "id": 1632241,
+     "default_line_selections": []
+    }
+   },
+   "tradable": false,
+   "competitors": {
+    "370758": {
+     "slug": "central-coast-mariners-women",
+     "order": 1,
+     "is_home_team": true,
+     "id": 370758,
+     "name": "Central Coast Mariners Women"
+    },
+    "370911": {
+     "slug": "canberra-utd-women",
+     "order": 2,
+     "is_home_team": false,
+     "id": 370911,
+     "name": "Canberra Utd Women"
+    }
+   },
+   "category_id": 84,
+   "sport_slug_i18n": "football",
+   "category_slug_i18n": "australia",
+   "tournament_slug_i18n": "australian-a-league-women",
+   "event_slug_i18n": "central-coast-mariners-women-vs-canberra-utd-women",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  },
+  "8427676": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8427676,
+   "tournament_id": 545384,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "US National Women's Soccer League",
+   "sport_name": "Football",
+   "sport_id": 2,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": false
+   },
+   "category_slug": "united-states",
+   "start_time": "2026-10-25T23:00:00+00:00",
+   "tournament_slug": "us-national-womens-soccer-league",
+   "tournament_display_name": "US National Women's Soccer League",
+   "scheduled_date": "2026-10-25",
+   "active": true,
+   "sport_slug": "football",
+   "slug": "san-diego-wave-women-vs-boston-legacy-fc-women",
+   "category_name": "United States",
+   "racing_name": null,
+   "name": "San Diego Wave Women vs Boston Legacy FC Women",
+   "markets": {
+    "1632241": {
+     "tradable": true,
+     "name": "Match Winner",
+     "betable": true,
+     "selections": {
+      "16873361689": {
+       "fraction_price": "11/4",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 2,
+       "id": 16873361689,
+       "name": "Draw",
+       "decimal_price": "3.750",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "X"
+      },
+      "16873361690": {
+       "fraction_price": "3/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16873361690,
+       "name": "San Diego Wave Women",
+       "decimal_price": "1.600",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16873361691": {
+       "fraction_price": "17/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16873361691,
+       "name": "Boston Legacy FC Women",
+       "decimal_price": "4.400",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 1,
+     "id": 1632241,
+     "default_line_selections": []
+    }
+   },
+   "tradable": false,
+   "competitors": {
+    "498074": {
+     "slug": "boston-legacy-fc-women",
+     "order": 2,
+     "is_home_team": false,
+     "id": 498074,
+     "name": "Boston Legacy FC Women"
+    },
+    "356021": {
+     "slug": "san-diego-wave-women",
+     "order": 1,
+     "is_home_team": true,
+     "id": 356021,
+     "name": "San Diego Wave Women"
+    }
+   },
+   "category_id": 48524,
+   "sport_slug_i18n": "football",
+   "category_slug_i18n": "united-states",
+   "tournament_slug_i18n": "us-national-womens-soccer-league",
+   "event_slug_i18n": "san-diego-wave-women-vs-boston-legacy-fc-women",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  }
+ },
+ "event_order": [
+  {
+   "event_id": 8427676,
+   "grouped_market_ids": [],
+   "market_id": 1632241
+  },
+  {
+   "event_id": 8417423,
+   "grouped_market_ids": [],
+   "market_id": 1632241
+  }
+ ],
+ "match_request_limit": "+7 days"
+}

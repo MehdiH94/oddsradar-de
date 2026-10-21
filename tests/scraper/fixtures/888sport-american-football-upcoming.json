@@ -1,0 +1,233 @@
+{
+ "selection_pointers": [
+  {
+   "event_id": 7628161,
+   "market_id": 1395454
+  },
+  {
+   "event_id": 7628161,
+   "market_id": 1395448
+  },
+  {
+   "event_id": 7628161,
+   "market_id": 1395469
+  }
+ ],
+ "events": {
+  "7628161": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 7628161,
+   "tournament_id": 595729,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "NFL",
+   "sport_name": "American Football",
+   "sport_id": 6,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": null
+   },
+   "category_slug": "united-states",
+   "start_time": "2026-10-23T00:15:00+00:00",
+   "tournament_slug": "nfl",
+   "tournament_display_name": "NFL",
+   "scheduled_date": "2026-10-23",
+   "active": true,
+   "sport_slug": "american-football",
+   "slug": "new-england-patriots-chicago-bears",
+   "category_name": "United States",
+   "racing_name": null,
+   "name": "New England Patriots @ Chicago Bears",
+   "markets": {
+    "1395448": {
+     "tradable": true,
+     "name": "Total Points Over/Under",
+     "betable": true,
+     "selections": {
+      "16867170705": {
+       "fraction_price": "10/11",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 8,
+       "id": 16867170705,
+       "name": "Under (50.5)",
+       "decimal_price": "1.909",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "50.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Under"
+      },
+      "16867170694": {
+       "fraction_price": "10/11",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 6,
+       "id": 16867170694,
+       "name": "Over (50.5)",
+       "decimal_price": "1.909",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "50.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Over"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 12,
+     "id": 1395448,
+     "default_line_selections": [
+      16867170694,
+      16867170705
+     ]
+    },
+    "1395469": {
+     "tradable": true,
+     "name": "Money Line",
+     "betable": true,
+     "selections": {
+      "16867170808": {
+       "fraction_price": "4/7",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16867170808,
+       "name": "Chicago Bears",
+       "decimal_price": "1.571",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16867170809": {
+       "fraction_price": "11/8",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16867170809,
+       "name": "New England Patriots",
+       "decimal_price": "2.375",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 25,
+     "id": 1395469,
+     "default_line_selections": [
+      16867170808,
+      16867170809
+     ]
+    },
+    "1395454": {
+     "tradable": true,
+     "name": "Point Spread",
+     "betable": true,
+     "selections": {
+      "16867170802": {
+       "fraction_price": "4/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16867170802,
+       "name": "New England Patriots  (+3.5)",
+       "decimal_price": "1.800",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "+3.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16867170807": {
+       "fraction_price": "1/1",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16867170807,
+       "name": "Chicago Bears  (-3.5)",
+       "decimal_price": "2.000",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "-3.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 23,
+     "id": 1395454,
+     "default_line_selections": [
+      16867170807,
+      16867170802
+     ]
+    }
+   },
+   "tradable": false,
+   "competitors": {
+    "482401": {
+     "slug": "chicago-bears",
+     "order": 1,
+     "is_home_team": true,
+     "id": 482401,
+     "name": "Chicago Bears"
+    },
+    "482450": {
+     "slug": "new-england-patriots",
+     "order": 2,
+     "is_home_team": false,
+     "id": 482450,
+     "name": "New England Patriots"
+    }
+   },
+   "category_id": 48327,
+   "sport_slug_i18n": "american-football",
+   "category_slug_i18n": "united-states",
+   "tournament_slug_i18n": "nfl",
+   "event_slug_i18n": "new-england-patriots-chicago-bears",
+   "usesThreeMarketView": true,
+   "isUsFormat": true,
+   "is_streaming_available": false,
+   "tournament_logos": {
+    "showTeamLogo": true,
+    "showTournamentLogo": true,
+    "showTournamentSportLogo": true
+   }
+  }
+ },
+ "event_order": [
+  {
+   "event_id": 7628161,
+   "grouped_market_ids": [
+    1395454,
+    1395448,
+    1395469
+   ],
+   "market_id": 1395469
+  }
+ ],
+ "match_request_limit": "+28 days"
+}

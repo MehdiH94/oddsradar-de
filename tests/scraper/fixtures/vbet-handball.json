@@ -1,0 +1,132 @@
+{
+ "data": {
+  "sport": {
+   "29": {
+    "id": 29,
+    "alias": "Handball",
+    "region": {
+     "900029": {
+      "id": 900029,
+      "name": "Germany",
+      "competition": {
+       "985": {
+        "id": 985,
+        "name": "Bundesliga",
+        "game": {
+         "31241129": {
+          "id": 31241129,
+          "team1_name": "TVB 1898 Stuttgart",
+          "team2_name": "SG BBM Bietigheim",
+          "start_ts": 1792688400,
+          "type": 0,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2502168824": {
+            "id": 2502168824,
+            "name": "Match Result",
+            "type": "P1XP2",
+            "event": {
+             "7368524029": {
+              "price": 9.5,
+              "id": 7368524029,
+              "name": "Draw",
+              "type": "X"
+             },
+             "7368524030": {
+              "id": 7368524030,
+              "name": "W2",
+              "type": "P2",
+              "price": 5.2
+             },
+             "7368524028": {
+              "name": "W1",
+              "type": "P1",
+              "price": 1.25,
+              "id": 7368524028
+             }
+            }
+           }
+          }
+         },
+         "31253441": {
+          "is_blocked": 0,
+          "market": {
+           "2502168833": {
+            "type": "P1XP2",
+            "event": {
+             "7368524058": {
+              "type": "P1",
+              "price": 1.58,
+              "id": 7368524058,
+              "name": "W1"
+             },
+             "7368524059": {
+              "id": 7368524059,
+              "name": "Draw",
+              "type": "X",
+              "price": 7.8
+             },
+             "7368524060": {
+              "name": "W2",
+              "type": "P2",
+              "price": 2.95,
+              "id": 7368524060
+             }
+            },
+            "id": 2502168833,
+            "name": "Match Result"
+           }
+          },
+          "id": 31253441,
+          "team1_name": "TSV Hannover-Burgdorf",
+          "team2_name": "TBV Lemgo",
+          "start_ts": 1792778400,
+          "type": 0,
+          "is_started": 0
+         },
+         "31262773": {
+          "market": {
+           "2502168836": {
+            "id": 2502168836,
+            "name": "Match Result",
+            "type": "P1XP2",
+            "event": {
+             "7368524066": {
+              "id": 7368524066,
+              "name": "W1",
+              "type": "P1",
+              "price": 4.6
+             },
+             "7368524067": {
+              "type": "X",
+              "price": 9.4,
+              "id": 7368524067,
+              "name": "Draw"
+             },
+             "7368524068": {
+              "id": 7368524068,
+              "name": "W2",
+              "type": "P2",
+              "price": 1.29
+             }
+            }
+           }
+          },
+          "id": 31262773,
+          "team1_name": "HC Erlangen",
+          "team2_name": "THW Kiel",
+          "start_ts": 1792857600,
+          "type": 0,
+          "is_started": 0,
+          "is_blocked": 0
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

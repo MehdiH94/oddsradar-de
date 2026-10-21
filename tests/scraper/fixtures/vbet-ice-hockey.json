@@ -1,0 +1,228 @@
+{
+ "data": {
+  "sport": {
+   "2": {
+    "id": 2,
+    "alias": "IceHockey",
+    "region": {
+     "50002": {
+      "id": 50002,
+      "name": "North America",
+      "competition": {
+       "1732": {
+        "id": 1732,
+        "name": "NHL",
+        "game": {
+         "31275460": {
+          "id": 31275460,
+          "team1_name": "Ottawa Senators",
+          "team2_name": "Florida Panthers",
+          "start_ts": 1792625820,
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2503630079": {
+            "type": "P1XP2",
+            "event": {
+             "7372359830": {
+              "name": "W2",
+              "type": "P2",
+              "price": 2.38,
+              "id": 7372359830
+             },
+             "7372359831": {
+              "id": 7372359831,
+              "name": "Draw",
+              "type": "X",
+              "price": 3.97
+             },
+             "7372359832": {
+              "id": 7372359832,
+              "name": "W1",
+              "type": "P1",
+              "price": 2.42
+             }
+            },
+            "id": 2503630079,
+            "name": "Match Result (Regular Time)"
+           }
+          }
+         },
+         "31275461": {
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2503630076": {
+            "id": 2503630076,
+            "name": "Match Result (Regular Time)",
+            "type": "P1XP2",
+            "event": {
+             "7372359823": {
+              "id": 7372359823,
+              "name": "Draw",
+              "type": "X",
+              "price": 4.1
+             },
+             "7372359824": {
+              "id": 7372359824,
+              "name": "W1",
+              "type": "P1",
+              "price": 1.88
+             },
+             "7372359822": {
+              "price": 3.2,
+              "id": 7372359822,
+              "name": "W2",
+              "type": "P2"
+             }
+            }
+           }
+          },
+          "id": 31275461,
+          "team1_name": "Buffalo Sabres",
+          "team2_name": "Philadelphia Flyers",
+          "start_ts": 1792625820,
+          "type": 2
+         }
+        }
+       }
+      }
+     },
+     "900002": {
+      "id": 900002,
+      "name": "Germany",
+      "competition": {
+       "1726": {
+        "id": 1726,
+        "name": "DEL 2",
+        "game": {
+         "31296598": {
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2503277599": {
+            "id": 2503277599,
+            "name": "Match Result (Regular Time)",
+            "type": "P1XP2",
+            "event": {
+             "7371402035": {
+              "id": 7371402035,
+              "name": "W1",
+              "type": "P1",
+              "price": 1.94
+             },
+             "7371402036": {
+              "id": 7371402036,
+              "name": "Draw",
+              "type": "X",
+              "price": 4.1
+             },
+             "7371402037": {
+              "type": "P2",
+              "price": 2.86,
+              "id": 7371402037,
+              "name": "W2"
+             }
+            }
+           }
+          },
+          "id": 31296598,
+          "team1_name": "Lausitzer Fuchse",
+          "team2_name": "EHC Freiburg Wolfe",
+          "start_ts": 1792776600,
+          "type": 0
+         }
+        }
+       }
+      }
+     },
+     "2210002": {
+      "id": 2210002,
+      "name": "Sweden",
+      "competition": {
+       "1744": {
+        "id": 1744,
+        "name": "SHL",
+        "game": {
+         "31154678": {
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2500815774": {
+            "name": "Match Result (Regular Time)",
+            "type": "P1XP2",
+            "event": {
+             "7364501900": {
+              "type": "P1",
+              "price": 1.94,
+              "id": 7364501900,
+              "name": "W1"
+             },
+             "7364501902": {
+              "id": 7364501902,
+              "name": "Draw",
+              "type": "X",
+              "price": 3.78
+             },
+             "7364501903": {
+              "price": 3.02,
+              "id": 7364501903,
+              "name": "W2",
+              "type": "P2"
+             }
+            },
+            "id": 2500815774
+           }
+          },
+          "id": 31154678,
+          "team1_name": "Vaxjo Lakers HC",
+          "team2_name": "Lulea HF",
+          "start_ts": 1792688400
+         },
+         "31154679": {
+          "id": 31154679,
+          "team1_name": "Timra IK",
+          "team2_name": "Farjestad BK",
+          "start_ts": 1792688400,
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2500815485": {
+            "id": 2500815485,
+            "name": "Match Result (Regular Time)",
+            "type": "P1XP2",
+            "event": {
+             "7364501188": {
+              "id": 7364501188,
+              "name": "W1",
+              "type": "P1",
+              "price": 3.3
+             },
+             "7364501189": {
+              "type": "X",
+              "price": 3.77,
+              "id": 7364501189,
+              "name": "Draw"
+             },
+             "7364501190": {
+              "id": 7364501190,
+              "name": "W2",
+              "type": "P2",
+              "price": 1.84
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

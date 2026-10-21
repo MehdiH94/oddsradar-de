@@ -19,3 +19,8 @@
 .responsible {
   font-weight: 500;
 }
+
+.link {
+  color: var(--color-brand);
+  font-weight: 600;
+}

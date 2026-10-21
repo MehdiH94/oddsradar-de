@@ -48,3 +48,8 @@
 .hint {
   color: var(--color-text-muted);
 }
+
+.hint a {
+  color: var(--color-brand);
+  font-weight: 600;
+}

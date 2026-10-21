@@ -1,0 +1,793 @@
+{
+ "selection_pointers": [
+  {
+   "event_id": 7777024,
+   "market_id": 1383387
+  },
+  {
+   "event_id": 7777024,
+   "market_id": 1383381
+  },
+  {
+   "event_id": 7777024,
+   "market_id": 1383384
+  },
+  {
+   "event_id": 8429572,
+   "market_id": 1383387
+  },
+  {
+   "event_id": 8429572,
+   "market_id": 1383381
+  },
+  {
+   "event_id": 8429572,
+   "market_id": 1383384
+  },
+  {
+   "event_id": 8017673,
+   "market_id": 1383387
+  },
+  {
+   "event_id": 8017673,
+   "market_id": 1383381
+  },
+  {
+   "event_id": 8017673,
+   "market_id": 1383384
+  },
+  {
+   "event_id": 7790987,
+   "market_id": 1383387
+  },
+  {
+   "event_id": 7790987,
+   "market_id": 1383381
+  },
+  {
+   "event_id": 7790987,
+   "market_id": 1383384
+  }
+ ],
+ "events": {
+  "7777024": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 7777024,
+   "tournament_id": 568338,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "Swiss National League",
+   "sport_name": "Ice Hockey",
+   "sport_id": 362,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": null
+   },
+   "category_slug": "switzerland",
+   "start_time": "2026-10-23T17:45:00+00:00",
+   "tournament_slug": "swiss-national-league",
+   "tournament_display_name": "Swiss National League",
+   "scheduled_date": "2026-10-23",
+   "active": true,
+   "sport_slug": "ice-hockey",
+   "slug": "hc-davos-vs-sc-bern",
+   "category_name": "Switzerland",
+   "racing_name": null,
+   "name": "HC Davos vs SC Bern",
+   "markets": {
+    "1383384": {
+     "tradable": null,
+     "name": "Money Line",
+     "betable": false,
+     "selections": [],
+     "active": null,
+     "is_extra_time": false,
+     "selection_schema": 25,
+     "id": 1383384,
+     "default_line_selections": []
+    },
+    "1383387": {
+     "tradable": null,
+     "name": "Puck Line",
+     "betable": false,
+     "selections": [],
+     "active": null,
+     "is_extra_time": false,
+     "selection_schema": 23,
+     "id": 1383387,
+     "default_line_selections": []
+    },
+    "9421": {
+     "tradable": true,
+     "name": "60 Minutes Betting",
+     "betable": true,
+     "selections": {
+      "16875307531": {
+       "fraction_price": "2/1",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16875307531,
+       "name": "SC Bern",
+       "decimal_price": "3.000",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16875307532": {
+       "fraction_price": "3/1",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 2,
+       "id": 16875307532,
+       "name": "Draw",
+       "decimal_price": "4.000",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "X"
+      },
+      "16875307533": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16875307533,
+       "name": "HC Davos",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 1,
+     "id": 9421,
+     "default_line_selections": []
+    },
+    "1383381": {
+     "tradable": null,
+     "name": "Total Match Goals Over/Under",
+     "betable": false,
+     "selections": [],
+     "active": null,
+     "is_extra_time": false,
+     "selection_schema": 12,
+     "id": 1383381,
+     "default_line_selections": []
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "402368": {
+     "slug": "hc-davos",
+     "order": 1,
+     "is_home_team": true,
+     "id": 402368,
+     "name": "HC Davos"
+    },
+    "425913": {
+     "slug": "sc-bern",
+     "order": 2,
+     "is_home_team": false,
+     "id": 425913,
+     "name": "SC Bern"
+    }
+   },
+   "category_id": 3072,
+   "sport_slug_i18n": "ice-hockey",
+   "category_slug_i18n": "switzerland",
+   "tournament_slug_i18n": "swiss-national-league",
+   "event_slug_i18n": "hc-davos-vs-sc-bern",
+   "usesThreeMarketView": true,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  },
+  "8429572": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8429572,
+   "tournament_id": 567896,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "Slovakian Extraliga",
+   "sport_name": "Ice Hockey",
+   "sport_id": 362,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": null
+   },
+   "category_slug": "slovakia",
+   "start_time": "2026-10-23T16:00:00+00:00",
+   "tournament_slug": "slovakian-extraliga",
+   "tournament_display_name": "Slovakian Extraliga",
+   "scheduled_date": "2026-10-23",
+   "active": true,
+   "sport_slug": "ice-hockey",
+   "slug": "hk-nitra-vs-hc-kosice",
+   "category_name": "Slovakia",
+   "racing_name": null,
+   "name": "HK Nitra vs HC Kosice",
+   "markets": {
+    "1383384": {
+     "tradable": null,
+     "name": "Money Line",
+     "betable": false,
+     "selections": [],
+     "active": null,
+     "is_extra_time": false,
+     "selection_schema": 25,
+     "id": 1383384,
+     "default_line_selections": []
+    },
+    "1383387": {
+     "tradable": null,
+     "name": "Puck Line",
+     "betable": false,
+     "selections": [],
+     "active": null,
+     "is_extra_time": false,
+     "selection_schema": 23,
+     "id": 1383387,
+     "default_line_selections": []
+    },
+    "9421": {
+     "tradable": true,
+     "name": "60 Minutes Betting",
+     "betable": true,
+     "selections": {
+      "16875328792": {
+       "fraction_price": "3/1",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 2,
+       "id": 16875328792,
+       "name": "Draw",
+       "decimal_price": "4.000",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "X"
+      },
+      "16875328790": {
+       "fraction_price": "4/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16875328790,
+       "name": "HK Nitra",
+       "decimal_price": "1.800",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16875328791": {
+       "fraction_price": "2/1",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16875328791,
+       "name": "HC Kosice",
+       "decimal_price": "3.000",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 1,
+     "id": 9421,
+     "default_line_selections": []
+    },
+    "1383381": {
+     "tradable": null,
+     "name": "Total Match Goals Over/Under",
+     "betable": false,
+     "selections": [],
+     "active": null,
+     "is_extra_time": false,
+     "selection_schema": 12,
+     "id": 1383381,
+     "default_line_selections": []
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "401322": {
+     "slug": "hk-nitra",
+     "order": 1,
+     "is_home_team": true,
+     "id": 401322,
+     "name": "HK Nitra"
+    },
+    "402522": {
+     "slug": "hc-kosice",
+     "order": 2,
+     "is_home_team": false,
+     "id": 402522,
+     "name": "HC Kosice"
+    }
+   },
+   "category_id": 3079,
+   "sport_slug_i18n": "ice-hockey",
+   "category_slug_i18n": "slovakia",
+   "tournament_slug_i18n": "slovakian-extraliga",
+   "event_slug_i18n": "hk-nitra-vs-hc-kosice",
+   "usesThreeMarketView": true,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  },
+  "8017673": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8017673,
+   "tournament_id": 568284,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "Denmark Metal Ligaen",
+   "sport_name": "Ice Hockey",
+   "sport_id": 362,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": null
+   },
+   "category_slug": "denmark",
+   "start_time": "2026-10-23T17:30:00+00:00",
+   "tournament_slug": "denmark-metal-ligaen",
+   "tournament_display_name": "Denmark Metal Ligaen",
+   "scheduled_date": "2026-10-23",
+   "active": true,
+   "sport_slug": "ice-hockey",
+   "slug": "rodovre-mighty-bulls-vs-herlev-eagles",
+   "category_name": "Denmark",
+   "racing_name": null,
+   "name": "Rodovre Mighty Bulls vs Herlev Eagles",
+   "markets": {
+    "1383384": {
+     "tradable": true,
+     "name": "Money Line",
+     "betable": true,
+     "selections": {
+      "16874913481": {
+       "fraction_price": "4/11",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16874913481,
+       "name": "Herlev Eagles",
+       "decimal_price": "1.364",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16874913482": {
+       "fraction_price": "2/1",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16874913482,
+       "name": "Rodovre Mighty Bulls",
+       "decimal_price": "3.000",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 25,
+     "id": 1383384,
+     "default_line_selections": [
+      16874913482,
+      16874913481
+     ]
+    },
+    "1383387": {
+     "tradable": true,
+     "name": "Puck Line",
+     "betable": true,
+     "selections": {
+      "16874913457": {
+       "fraction_price": "7/10",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16874913457,
+       "name": "Rodovre Mighty Bulls  (+1.5)",
+       "decimal_price": "1.700",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "+1.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16874913453": {
+       "fraction_price": "21/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16874913453,
+       "name": "Herlev Eagles  (-1.5)",
+       "decimal_price": "2.050",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "-1.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 23,
+     "id": 1383387,
+     "default_line_selections": [
+      16874913457,
+      16874913453
+     ]
+    },
+    "1383381": {
+     "tradable": true,
+     "name": "Total Match Goals Over/Under",
+     "betable": true,
+     "selections": {
+      "16874913444": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 8,
+       "id": 16874913444,
+       "name": "Under (5.5)",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "5.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Under"
+      },
+      "16874913445": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 6,
+       "id": 16874913445,
+       "name": "Over (5.5)",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "5.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Over"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 12,
+     "id": 1383381,
+     "default_line_selections": [
+      16874913445,
+      16874913444
+     ]
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "430441": {
+     "slug": "herlev-eagles",
+     "order": 2,
+     "is_home_team": false,
+     "id": 430441,
+     "name": "Herlev Eagles"
+    },
+    "430447": {
+     "slug": "rodovre-mighty-bulls",
+     "order": 1,
+     "is_home_team": true,
+     "id": 430447,
+     "name": "Rodovre Mighty Bulls"
+    }
+   },
+   "category_id": 3209,
+   "sport_slug_i18n": "ice-hockey",
+   "category_slug_i18n": "denmark",
+   "tournament_slug_i18n": "denmark-metal-ligaen",
+   "event_slug_i18n": "rodovre-mighty-bulls-vs-herlev-eagles",
+   "usesThreeMarketView": true,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  },
+  "7790987": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 7790987,
+   "tournament_id": 568294,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "French Ligue Magnus",
+   "sport_name": "Ice Hockey",
+   "sport_id": 362,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": null
+   },
+   "category_slug": "france",
+   "start_time": "2026-10-23T18:00:00+00:00",
+   "tournament_slug": "french-ligue-magnus",
+   "tournament_display_name": "French Ligue Magnus",
+   "scheduled_date": "2026-10-23",
+   "active": true,
+   "sport_slug": "ice-hockey",
+   "slug": "nice-aigles-vs-gap-rapaces",
+   "category_name": "France",
+   "racing_name": null,
+   "name": "Nice Aigles vs GAP Rapaces",
+   "markets": {
+    "1383384": {
+     "tradable": true,
+     "name": "Money Line",
+     "betable": true,
+     "selections": {
+      "16870773202": {
+       "fraction_price": "2/1",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16870773202,
+       "name": "GAP Rapaces",
+       "decimal_price": "3.000",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16870773203": {
+       "fraction_price": "4/11",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16870773203,
+       "name": "Nice Aigles",
+       "decimal_price": "1.364",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 25,
+     "id": 1383384,
+     "default_line_selections": [
+      16870773203,
+      16870773202
+     ]
+    },
+    "1383387": {
+     "tradable": true,
+     "name": "Puck Line",
+     "betable": true,
+     "selections": {
+      "16870773212": {
+       "fraction_price": "8/11",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16870773212,
+       "name": "GAP Rapaces  (+1.5)",
+       "decimal_price": "1.727",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "+1.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16870773213": {
+       "fraction_price": "1/1",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16870773213,
+       "name": "Nice Aigles  (-1.5)",
+       "decimal_price": "2.000",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "-1.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 23,
+     "id": 1383387,
+     "default_line_selections": [
+      16870773213,
+      16870773212
+     ]
+    },
+    "1383381": {
+     "tradable": true,
+     "name": "Total Match Goals Over/Under",
+     "betable": true,
+     "selections": {
+      "16870773208": {
+       "fraction_price": "4/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 6,
+       "id": 16870773208,
+       "name": "Over (5.5)",
+       "decimal_price": "1.800",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "5.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Over"
+      },
+      "16870773206": {
+       "fraction_price": "10/11",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 8,
+       "id": 16870773206,
+       "name": "Under (5.5)",
+       "decimal_price": "1.909",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "5.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Under"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 12,
+     "id": 1383381,
+     "default_line_selections": [
+      16870773208,
+      16870773206
+     ]
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "449976": {
+     "slug": "nice-aigles",
+     "order": 1,
+     "is_home_team": true,
+     "id": 449976,
+     "name": "Nice Aigles"
+    },
+    "449923": {
+     "slug": "gap-rapaces",
+     "order": 2,
+     "is_home_team": false,
+     "id": 449923,
+     "name": "GAP Rapaces"
+    }
+   },
+   "category_id": 31832,
+   "sport_slug_i18n": "ice-hockey",
+   "category_slug_i18n": "france",
+   "tournament_slug_i18n": "french-ligue-magnus",
+   "event_slug_i18n": "nice-aigles-vs-gap-rapaces",
+   "usesThreeMarketView": true,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  }
+ },
+ "event_order": [
+  {
+   "event_id": 7777024,
+   "grouped_market_ids": [
+    1383387,
+    1383381,
+    1383384
+   ],
+   "market_id": 1383381
+  },
+  {
+   "event_id": 8429572,
+   "grouped_market_ids": [
+    1383387,
+    1383381,
+    1383384
+   ],
+   "market_id": 1383381
+  },
+  {
+   "event_id": 8017673,
+   "grouped_market_ids": [
+    1383387,
+    1383381,
+    1383384
+   ],
+   "market_id": 1383387
+  },
+  {
+   "event_id": 7790987,
+   "grouped_market_ids": [
+    1383387,
+    1383381,
+    1383384
+   ],
+   "market_id": 1383387
+  }
+ ],
+ "match_request_limit": "+28 days"
+}

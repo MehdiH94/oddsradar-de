@@ -1,0 +1,1147 @@
+{
+ "selection_pointers": [
+  {
+   "event_id": 8404356,
+   "market_id": 1632241,
+   "selection_id": 16868175456
+  },
+  {
+   "event_id": 8404356,
+   "market_id": 1632241,
+   "selection_id": 16868175457
+  },
+  {
+   "event_id": 8404356,
+   "market_id": 1632241,
+   "selection_id": 16868175458
+  },
+  {
+   "event_id": 8404353,
+   "market_id": 1632241,
+   "selection_id": 16868174692
+  },
+  {
+   "event_id": 8404353,
+   "market_id": 1632241,
+   "selection_id": 16868174693
+  },
+  {
+   "event_id": 8404353,
+   "market_id": 1632241,
+   "selection_id": 16868174694
+  },
+  {
+   "event_id": 8404355,
+   "market_id": 1632241,
+   "selection_id": 16868175695
+  },
+  {
+   "event_id": 8404355,
+   "market_id": 1632241,
+   "selection_id": 16868175696
+  },
+  {
+   "event_id": 8404355,
+   "market_id": 1632241,
+   "selection_id": 16868175697
+  },
+  {
+   "event_id": 8404359,
+   "market_id": 1632241,
+   "selection_id": 16868178475
+  },
+  {
+   "event_id": 8404359,
+   "market_id": 1632241,
+   "selection_id": 16868178476
+  },
+  {
+   "event_id": 8404359,
+   "market_id": 1632241,
+   "selection_id": 16868178477
+  },
+  {
+   "event_id": 8404361,
+   "market_id": 1632241,
+   "selection_id": 16868177967
+  },
+  {
+   "event_id": 8404361,
+   "market_id": 1632241,
+   "selection_id": 16868177968
+  },
+  {
+   "event_id": 8404361,
+   "market_id": 1632241,
+   "selection_id": 16868177969
+  },
+  {
+   "event_id": 8404866,
+   "market_id": 1632241,
+   "selection_id": 16868245127
+  },
+  {
+   "event_id": 8404866,
+   "market_id": 1632241,
+   "selection_id": 16868245128
+  },
+  {
+   "event_id": 8404866,
+   "market_id": 1632241,
+   "selection_id": 16868245129
+  },
+  {
+   "event_id": 8417285,
+   "market_id": 1632241,
+   "selection_id": 16870682302
+  },
+  {
+   "event_id": 8417285,
+   "market_id": 1632241,
+   "selection_id": 16870682303
+  },
+  {
+   "event_id": 8417285,
+   "market_id": 1632241,
+   "selection_id": 16870682304
+  },
+  {
+   "event_id": 8417416,
+   "market_id": 1632241,
+   "selection_id": 16870722098
+  },
+  {
+   "event_id": 8417416,
+   "market_id": 1632241,
+   "selection_id": 16870722099
+  },
+  {
+   "event_id": 8417416,
+   "market_id": 1632241,
+   "selection_id": 16870722100
+  }
+ ],
+ "events": {
+  "8404353": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8404353,
+   "tournament_id": 322101,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "UEFA Champions League",
+   "sport_name": "Football",
+   "sport_id": 2,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": true
+   },
+   "category_slug": "europe",
+   "start_time": "2026-10-21T19:00:00+00:00",
+   "tournament_slug": "uefa-champions-league",
+   "tournament_display_name": "UEFA Champions League",
+   "scheduled_date": "2026-10-21",
+   "active": true,
+   "sport_slug": "football",
+   "slug": "bayern-munich-vs-arsenal",
+   "category_name": "Europe",
+   "racing_name": null,
+   "name": "Bayern Munich vs Arsenal",
+   "markets": {
+    "1632241": {
+     "tradable": true,
+     "name": "Match Winner",
+     "betable": true,
+     "selections": {
+      "16868174692": {
+       "fraction_price": "15/8",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16868174692,
+       "name": "Arsenal",
+       "decimal_price": "2.875",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16868174693": {
+       "fraction_price": "6/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16868174693,
+       "name": "Bayern Munich",
+       "decimal_price": "2.200",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16868174694": {
+       "fraction_price": "27/10",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 2,
+       "id": 16868174694,
+       "name": "Draw",
+       "decimal_price": "3.700",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "X"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 1,
+     "id": 1632241,
+     "default_line_selections": []
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "334384": {
+     "slug": "bayern-munich",
+     "order": 1,
+     "is_home_team": true,
+     "id": 334384,
+     "name": "Bayern Munich"
+    },
+    "333080": {
+     "slug": "arsenal",
+     "order": 2,
+     "is_home_team": false,
+     "id": 333080,
+     "name": "Arsenal"
+    }
+   },
+   "category_id": 29858,
+   "sport_slug_i18n": "football",
+   "category_slug_i18n": "europe",
+   "tournament_slug_i18n": "uefa-champions-league",
+   "event_slug_i18n": "bayern-munich-vs-arsenal",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": {
+    "showTeamLogo": true,
+    "showTournamentLogo": false,
+    "showTournamentSportLogo": false
+   }
+  },
+  "8404866": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8404866,
+   "tournament_id": 564829,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "Copa Sudamericana",
+   "sport_name": "Football",
+   "sport_id": 2,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": false
+   },
+   "category_slug": "south-america",
+   "start_time": "2026-10-21T22:00:00+00:00",
+   "tournament_slug": "copa-sudamericana",
+   "tournament_display_name": "Copa Sudamericana",
+   "scheduled_date": "2026-10-21",
+   "active": true,
+   "sport_slug": "football",
+   "slug": "torque-vs-atletico-mineiro",
+   "category_name": "South America",
+   "racing_name": null,
+   "name": "Torque vs Atletico Mineiro",
+   "markets": {
+    "1632241": {
+     "tradable": true,
+     "name": "Match Winner",
+     "betable": true,
+     "selections": {
+      "16868245128": {
+       "fraction_price": "23/10",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 2,
+       "id": 16868245128,
+       "name": "Draw",
+       "decimal_price": "3.300",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "X"
+      },
+      "16868245129": {
+       "fraction_price": "19/10",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16868245129,
+       "name": "Torque",
+       "decimal_price": "2.900",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16868245127": {
+       "fraction_price": "5/4",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16868245127,
+       "name": "Atletico Mineiro",
+       "decimal_price": "2.250",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 1,
+     "id": 1632241,
+     "default_line_selections": []
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "356805": {
+     "slug": "torque",
+     "order": 1,
+     "is_home_team": true,
+     "id": 356805,
+     "name": "Torque"
+    },
+    "385982": {
+     "slug": "atletico-mineiro",
+     "order": 2,
+     "is_home_team": false,
+     "id": 385982,
+     "name": "Atletico Mineiro"
+    }
+   },
+   "category_id": 327141,
+   "sport_slug_i18n": "football",
+   "category_slug_i18n": "south-america",
+   "tournament_slug_i18n": "copa-sudamericana",
+   "event_slug_i18n": "torque-vs-atletico-mineiro",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  },
+  "8404355": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8404355,
+   "tournament_id": 322101,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "UEFA Champions League",
+   "sport_name": "Football",
+   "sport_id": 2,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": true
+   },
+   "category_slug": "europe",
+   "start_time": "2026-10-21T19:00:00+00:00",
+   "tournament_slug": "uefa-champions-league",
+   "tournament_display_name": "UEFA Champions League",
+   "scheduled_date": "2026-10-21",
+   "active": true,
+   "sport_slug": "football",
+   "slug": "aston-villa-vs-viking",
+   "category_name": "Europe",
+   "racing_name": null,
+   "name": "Aston Villa vs Viking",
+   "markets": {
+    "1632241": {
+     "tradable": true,
+     "name": "Match Winner",
+     "betable": true,
+     "selections": {
+      "16868175696": {
+       "fraction_price": "10/1",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16868175696,
+       "name": "Viking",
+       "decimal_price": "11.000",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16868175697": {
+       "fraction_price": "2/9",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16868175697,
+       "name": "Aston Villa",
+       "decimal_price": "1.222",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16868175695": {
+       "fraction_price": "5/1",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 2,
+       "id": 16868175695,
+       "name": "Draw",
+       "decimal_price": "6.000",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "X"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 1,
+     "id": 1632241,
+     "default_line_selections": []
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "361305": {
+     "slug": "viking",
+     "order": 2,
+     "is_home_team": false,
+     "id": 361305,
+     "name": "Viking"
+    },
+    "329725": {
+     "slug": "aston-villa",
+     "order": 1,
+     "is_home_team": true,
+     "id": 329725,
+     "name": "Aston Villa"
+    }
+   },
+   "category_id": 29858,
+   "sport_slug_i18n": "football",
+   "category_slug_i18n": "europe",
+   "tournament_slug_i18n": "uefa-champions-league",
+   "event_slug_i18n": "aston-villa-vs-viking",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": {
+    "showTeamLogo": true,
+    "showTournamentLogo": false,
+    "showTournamentSportLogo": false
+   }
+  },
+  "8404356": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8404356,
+   "tournament_id": 322101,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "UEFA Champions League",
+   "sport_name": "Football",
+   "sport_id": 2,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": true
+   },
+   "category_slug": "europe",
+   "start_time": "2026-10-21T16:45:00+00:00",
+   "tournament_slug": "uefa-champions-league",
+   "tournament_display_name": "UEFA Champions League",
+   "scheduled_date": "2026-10-21",
+   "active": true,
+   "sport_slug": "football",
+   "slug": "lille-vs-galatasaray",
+   "category_name": "Europe",
+   "racing_name": null,
+   "name": "Lille vs Galatasaray",
+   "markets": {
+    "1632241": {
+     "tradable": true,
+     "name": "Match Winner",
+     "betable": true,
+     "selections": {
+      "16868175456": {
+       "fraction_price": "2/1",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16868175456,
+       "name": "Galatasaray",
+       "decimal_price": "3.000",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16868175457": {
+       "fraction_price": "23/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16868175457,
+       "name": "Lille",
+       "decimal_price": "2.150",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16868175458": {
+       "fraction_price": "5/2",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 2,
+       "id": 16868175458,
+       "name": "Draw",
+       "decimal_price": "3.500",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "X"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 1,
+     "id": 1632241,
+     "default_line_selections": []
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "328366": {
+     "slug": "galatasaray",
+     "order": 2,
+     "is_home_team": false,
+     "id": 328366,
+     "name": "Galatasaray"
+    },
+    "329799": {
+     "slug": "lille",
+     "order": 1,
+     "is_home_team": true,
+     "id": 329799,
+     "name": "Lille"
+    }
+   },
+   "category_id": 29858,
+   "sport_slug_i18n": "football",
+   "category_slug_i18n": "europe",
+   "tournament_slug_i18n": "uefa-champions-league",
+   "event_slug_i18n": "lille-vs-galatasaray",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": {
+    "showTeamLogo": true,
+    "showTournamentLogo": false,
+    "showTournamentSportLogo": false
+   }
+  },
+  "8404359": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8404359,
+   "tournament_id": 322101,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "UEFA Champions League",
+   "sport_name": "Football",
+   "sport_id": 2,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": true
+   },
+   "category_slug": "europe",
+   "start_time": "2026-10-21T19:00:00+00:00",
+   "tournament_slug": "uefa-champions-league",
+   "tournament_display_name": "UEFA Champions League",
+   "scheduled_date": "2026-10-21",
+   "active": true,
+   "sport_slug": "football",
+   "slug": "inter-milan-vs-shakhtar-donetsk",
+   "category_name": "Europe",
+   "racing_name": null,
+   "name": "Inter Milan vs Shakhtar Donetsk",
+   "markets": {
+    "1632241": {
+     "tradable": true,
+     "name": "Match Winner",
+     "betable": true,
+     "selections": {
+      "16868178475": {
+       "fraction_price": "11/2",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 2,
+       "id": 16868178475,
+       "name": "Draw",
+       "decimal_price": "6.500",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "X"
+      },
+      "16868178476": {
+       "fraction_price": "10/1",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16868178476,
+       "name": "Shakhtar Donetsk",
+       "decimal_price": "11.000",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16868178477": {
+       "fraction_price": "1/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16868178477,
+       "name": "Inter Milan",
+       "decimal_price": "1.200",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 1,
+     "id": 1632241,
+     "default_line_selections": []
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "334080": {
+     "slug": "inter-milan",
+     "order": 1,
+     "is_home_team": true,
+     "id": 334080,
+     "name": "Inter Milan"
+    },
+    "328355": {
+     "slug": "shakhtar-donetsk",
+     "order": 2,
+     "is_home_team": false,
+     "id": 328355,
+     "name": "Shakhtar Donetsk"
+    }
+   },
+   "category_id": 29858,
+   "sport_slug_i18n": "football",
+   "category_slug_i18n": "europe",
+   "tournament_slug_i18n": "uefa-champions-league",
+   "event_slug_i18n": "inter-milan-vs-shakhtar-donetsk",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": {
+    "showTeamLogo": true,
+    "showTournamentLogo": false,
+    "showTournamentSportLogo": false
+   }
+  },
+  "8404361": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8404361,
+   "tournament_id": 322101,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "UEFA Champions League",
+   "sport_name": "Football",
+   "sport_id": 2,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": true
+   },
+   "category_slug": "europe",
+   "start_time": "2026-10-21T19:00:00+00:00",
+   "tournament_slug": "uefa-champions-league",
+   "tournament_display_name": "UEFA Champions League",
+   "scheduled_date": "2026-10-21",
+   "active": true,
+   "sport_slug": "football",
+   "slug": "club-brugge-vs-lens",
+   "category_name": "Europe",
+   "racing_name": null,
+   "name": "Club Brugge vs Lens",
+   "markets": {
+    "1632241": {
+     "tradable": true,
+     "name": "Match Winner",
+     "betable": true,
+     "selections": {
+      "16868177968": {
+       "fraction_price": "12/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16868177968,
+       "name": "Lens",
+       "decimal_price": "3.400",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16868177969": {
+       "fraction_price": "3/1",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 2,
+       "id": 16868177969,
+       "name": "Draw",
+       "decimal_price": "4.000",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "X"
+      },
+      "16868177967": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16868177967,
+       "name": "Club Brugge",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 1,
+     "id": 1632241,
+     "default_line_selections": []
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "331409": {
+     "slug": "lens",
+     "order": 2,
+     "is_home_team": false,
+     "id": 331409,
+     "name": "Lens"
+    },
+    "329759": {
+     "slug": "club-brugge",
+     "order": 1,
+     "is_home_team": true,
+     "id": 329759,
+     "name": "Club Brugge"
+    }
+   },
+   "category_id": 29858,
+   "sport_slug_i18n": "football",
+   "category_slug_i18n": "europe",
+   "tournament_slug_i18n": "uefa-champions-league",
+   "event_slug_i18n": "club-brugge-vs-lens",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": {
+    "showTeamLogo": true,
+    "showTournamentLogo": false,
+    "showTournamentSportLogo": false
+   }
+  },
+  "8417285": {
+   "event_type": "INPLAY",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PAUSED",
+   "inplay": true,
+   "is_odds_boost": false,
+   "id": 8417285,
+   "tournament_id": 533542,
+   "extra_info": {
+    "total_periods": "2",
+    "period_length": "45",
+    "event_id": 8417285,
+    "hasCoverage": "1",
+    "score": "0:1",
+    "time": "47:00"
+   },
+   "match_status": "PAUSED",
+   "tournament_name": "Japanese J-League 2",
+   "sport_name": "Football",
+   "sport_id": 2,
+   "type": "INPLAY",
+   "metadata": {
+    "impact_sub": false
+   },
+   "category_slug": "japan",
+   "start_time": "2026-10-21T10:03:08+00:00",
+   "tournament_slug": "japanese-j-league-2",
+   "tournament_display_name": "Japanese J-League 2",
+   "scheduled_date": "2026-10-21",
+   "active": true,
+   "sport_slug": "football",
+   "slug": "vegalta-sendai-vs-imabari",
+   "category_name": "Japan",
+   "racing_name": null,
+   "name": "Vegalta Sendai vs Imabari",
+   "markets": {
+    "1632241": {
+     "tradable": true,
+     "name": "Match Winner",
+     "betable": true,
+     "selections": {
+      "16870682304": {
+       "fraction_price": "7/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16870682304,
+       "name": "Imabari",
+       "decimal_price": "2.400",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16870682302": {
+       "fraction_price": "9/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 2,
+       "id": 16870682302,
+       "name": "Draw",
+       "decimal_price": "2.800",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "X"
+      },
+      "16870682303": {
+       "fraction_price": "9/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16870682303,
+       "name": "Vegalta Sendai",
+       "decimal_price": "2.800",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 1,
+     "id": 1632241,
+     "default_line_selections": []
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "335249": {
+     "slug": "vegalta-sendai",
+     "order": 1,
+     "is_home_team": true,
+     "id": 335249,
+     "name": "Vegalta Sendai"
+    },
+    "351669": {
+     "slug": "imabari",
+     "order": 2,
+     "is_home_team": false,
+     "id": 351669,
+     "name": "Imabari"
+    }
+   },
+   "category_id": 34,
+   "sport_slug_i18n": "football",
+   "category_slug_i18n": "japan",
+   "tournament_slug_i18n": "japanese-j-league-2",
+   "event_slug_i18n": "vegalta-sendai-vs-imabari",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  },
+  "8417416": {
+   "event_type": "INPLAY",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "1P",
+   "inplay": true,
+   "is_odds_boost": false,
+   "id": 8417416,
+   "tournament_id": 553612,
+   "extra_info": {
+    "total_periods": "2",
+    "period_length": "45",
+    "event_id": 8417416,
+    "hasCoverage": "1",
+    "score": "1:0",
+    "time": "47:00"
+   },
+   "match_status": "1P",
+   "tournament_name": "Japanese J-League",
+   "sport_name": "Football",
+   "sport_id": 2,
+   "type": "INPLAY",
+   "metadata": {
+    "impact_sub": false
+   },
+   "category_slug": "japan",
+   "start_time": "2026-10-21T10:03:15+00:00",
+   "tournament_slug": "japanese-j-league",
+   "tournament_display_name": "Japanese J-League",
+   "scheduled_date": "2026-10-21",
+   "active": true,
+   "sport_slug": "football",
+   "slug": "kyoto-vs-kashima-antlers",
+   "category_name": "Japan",
+   "racing_name": null,
+   "name": "Kyoto vs Kashima Antlers",
+   "markets": {
+    "1632241": {
+     "tradable": true,
+     "name": "Match Winner",
+     "betable": true,
+     "selections": {
+      "16870722098": {
+       "fraction_price": "21/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16870722098,
+       "name": "Kyoto",
+       "decimal_price": "2.050",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16870722099": {
+       "fraction_price": "19/10",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 2,
+       "id": 16870722099,
+       "name": "Draw",
+       "decimal_price": "2.900",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "X"
+      },
+      "16870722100": {
+       "fraction_price": "13/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16870722100,
+       "name": "Kashima Antlers",
+       "decimal_price": "3.600",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 1,
+     "id": 1632241,
+     "default_line_selections": []
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "333088": {
+     "slug": "kashima-antlers",
+     "order": 2,
+     "is_home_team": false,
+     "id": 333088,
+     "name": "Kashima Antlers"
+    },
+    "334180": {
+     "slug": "kyoto",
+     "order": 1,
+     "is_home_team": true,
+     "id": 334180,
+     "name": "Kyoto"
+    }
+   },
+   "category_id": 34,
+   "sport_slug_i18n": "football",
+   "category_slug_i18n": "japan",
+   "tournament_slug_i18n": "japanese-j-league",
+   "event_slug_i18n": "kyoto-vs-kashima-antlers",
+   "usesThreeMarketView": false,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  }
+ },
+ "event_order": [
+  {
+   "event_id": 8404356,
+   "grouped_market_ids": [],
+   "market_id": 1632241
+  },
+  {
+   "event_id": 8404353,
+   "grouped_market_ids": [],
+   "market_id": 1632241
+  },
+  {
+   "event_id": 8404355,
+   "grouped_market_ids": [],
+   "market_id": 1632241
+  },
+  {
+   "event_id": 8404359,
+   "grouped_market_ids": [],
+   "market_id": 1632241
+  },
+  {
+   "event_id": 8404361,
+   "grouped_market_ids": [],
+   "market_id": 1632241
+  },
+  {
+   "event_id": 8404866,
+   "grouped_market_ids": [],
+   "market_id": 1632241
+  },
+  {
+   "event_id": 8417285,
+   "grouped_market_ids": [],
+   "market_id": 1632241
+  },
+  {
+   "event_id": 8417416,
+   "grouped_market_ids": [],
+   "market_id": 1632241
+  }
+ ],
+ "match_request_limit": false
+}

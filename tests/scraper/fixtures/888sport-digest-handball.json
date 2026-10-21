@@ -1,0 +1,10 @@
+{
+ "sport_slug": "handball",
+ "sport_id": 430,
+ "live": 0,
+ "starting_soon": 0,
+ "today": 0,
+ "tomorrow": 1,
+ "upcoming": [],
+ "display_day_tabs": false
+}

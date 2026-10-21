@@ -706,6 +706,15 @@ dans le salon Discord des administrateurs (`DISCORD_ADMIN_WEBHOOK_URL`,
 `src/alerts/quality.ts`), 5 par cycle au plus, avec les cotes et le lien du
 match. Un suspect encore la apres 7 jours est signale de nouveau.
 
+### Mises en production (administrateurs)
+
+Apres chaque deploiement, le job `announce` de `deploy.yml` previent le salon
+Discord des administrateurs (`DISCORD_ADMIN_WEBHOOK_URL`) : chaque
+fonctionnalite ou correction arrivee en production (pull request d'une branche
+`feat/…` ou `fix/…`, avec son titre et son lien) et chaque deploiement en
+echec. La documentation, la CI et les taches de maintenance ne sont pas
+annoncees (`deploy/announce.sh`).
+
 ### Retours des testeurs
 
 Le bouton « Send feedback » de l'en-tete (icone bulle, comptes connectes)

@@ -114,3 +114,34 @@ jobs:
           done
           echo "::error::$APP_URL does not answer"
           exit 1
+
+  # The administrators' Discord hears of every feature or fix that reached
+  # production, and of every failed deploy (deploy/announce.sh decides).
+  announce:
+    needs: deploy
+    if: always() && github.ref == 'refs/heads/main' && needs.deploy.result != 'skipped' && needs.deploy.result != 'cancelled'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - name: Tell the administrators' Discord
+        env:
+          DISCORD_ADMIN_WEBHOOK_URL: ${{ secrets.DISCORD_ADMIN_WEBHOOK_URL }}
+          RESULT: ${{ needs.deploy.result }}
+        run: |
+          set -euo pipefail
+          if [ -z "$DISCORD_ADMIN_WEBHOOK_URL" ]; then
+            echo "No DISCORD_ADMIN_WEBHOOK_URL secret: nothing to announce"
+            exit 0
+          fi
+          payload="$(git log -1 --format=%B "$GITHUB_SHA" | deploy/announce.sh "$RESULT" "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" "$APP_URL")"
+          if [ -z "$payload" ]; then
+            echo "Nothing worth announcing"
+            exit 0
+          fi
+          curl -fsS --max-time 15 -H 'Content-Type: application/json' -d "$payload" \
+            "$(printf '%s' "$DISCORD_ADMIN_WEBHOOK_URL" | tr -d '[:space:]')" -o /dev/null \
+            && echo "Announced on the administrators' Discord" \
+            || echo "::warning::Discord did not take the announcement"

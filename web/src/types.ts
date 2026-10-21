@@ -61,6 +61,8 @@ export interface SurebetLeg {
   liability?: number;
   // A lay's money offered on the exchange, in euros.
   size?: number;
+  // A bookmaker's back: the match's page there, when its address can be built.
+  url?: string;
 }
 
 // A market whose best prices guarantee a profit whatever happens: between
@@ -172,4 +174,7 @@ export interface EventDetail {
   sections: SectionDetail[];
   comparedCount: number;
   surebetCount: number;
+  // By bookmaker: the match's page there, when its address can be built.
+  // Optional: an API from before it sends none.
+  links?: Record<string, string>;
 }

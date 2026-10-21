@@ -45,6 +45,66 @@ describe("SurebetsTable", () => {
     expect(cells[3]).not.toHaveTextContent("zu prüfen");
   });
 
+  it("links each bookmaker's bet to the match's page there, in a new tab; none for the exchange or without a link", () => {
+    render(
+      <SurebetsTable
+        surebets={[
+          surebet({}),
+          surebet({
+            eventId: "psg",
+            participants: ["PSG", "OM"],
+            market: "anytime_scorer",
+            kind: "lay",
+            legs: [
+              {
+                selection: "Dembélé",
+                label: "Dembélé",
+                source: "betway",
+                side: "back",
+                price: 2.5,
+                stake: 100,
+                url: "https://betway.de/de/de/sports/event/17260272",
+              },
+              { selection: "Dembélé", label: "Dembélé", source: "exchange", side: "lay", price: 2.3, stake: 109.65, liability: 142.54 },
+            ],
+          }),
+          surebet({
+            eventId: "lal",
+            legs: [
+              {
+                selection: "over",
+                label: "Über 9,5",
+                source: "leovegas",
+                side: "back",
+                price: 2,
+                stake: 52.38,
+                url: "https://www.leovegas.de/de-de/sportwetten#event/1028036087",
+              },
+              { selection: "under", label: "Unter 9,5", source: "twentybet", side: "back", price: 2.2, stake: 47.62 },
+            ],
+          }),
+        ]}
+      />
+    );
+    const [, first, lay, mixed] = screen.getAllByRole("row");
+    expect(within(first).queryByRole("link", { name: /prüfen$/ })).not.toBeInTheDocument();
+
+    const [back, layLeg] = within(lay).getAllByRole("listitem");
+    const betway = within(back).getByRole("link", { name: "Bei Betway prüfen" });
+    expect(betway).toHaveTextContent("Seite prüfen");
+    expect(betway).toHaveAttribute("href", "https://betway.de/de/de/sports/event/17260272");
+    expect(betway).toHaveAttribute("target", "_blank");
+    expect(betway).toHaveAttribute("rel", "noopener noreferrer");
+    expect(within(layLeg).queryByRole("link")).not.toBeInTheDocument();
+
+    const [leovegas, twentybet] = within(mixed).getAllByRole("listitem");
+    expect(within(leovegas).getByRole("link", { name: "Bei LeoVegas prüfen" })).toHaveAttribute(
+      "href",
+      "https://www.leovegas.de/de-de/sportwetten#event/1028036087"
+    );
+    expect(within(twentybet).queryByRole("link")).not.toBeInTheDocument();
+  });
+
   it("reads a lay on the exchange, with what it risks, and marks a TRJ over 110% to be checked", () => {
     render(
       <SurebetsTable

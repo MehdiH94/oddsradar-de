@@ -1,0 +1,114 @@
+{
+ "data": {
+  "sport": {
+   "6": {
+    "alias": "AmericanFootball",
+    "region": {
+     "2420006": {
+      "id": 2420006,
+      "name": "USA",
+      "competition": {
+       "575": {
+        "game": {
+         "29767420": {
+          "id": 29767420,
+          "team1_name": "New Orleans Saints",
+          "team2_name": "Pittsburgh Steelers",
+          "start_ts": 1792935000,
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2498433128": {
+            "id": 2498433128,
+            "name": "Money Line (Including Overtime)",
+            "type": "P1P2",
+            "event": {
+             "7358065765": {
+              "price": 1.51,
+              "id": 7358065765,
+              "name": "W2",
+              "type": "P2"
+             },
+             "7358065766": {
+              "price": 2.39,
+              "id": 7358065766,
+              "name": "W1",
+              "type": "P1"
+             }
+            }
+           }
+          }
+         },
+         "31217795": {
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2498677286": {
+            "name": "Money Line (Including Overtime)",
+            "type": "P1P2",
+            "event": {
+             "7358816714": {
+              "id": 7358816714,
+              "name": "W2",
+              "type": "P2",
+              "price": 2.7
+             },
+             "7358816715": {
+              "id": 7358816715,
+              "name": "W1",
+              "type": "P1",
+              "price": 1.4
+             }
+            },
+            "id": 2498677286
+           }
+          },
+          "id": 31217795,
+          "team1_name": "New York Jets",
+          "team2_name": "Miami Dolphins",
+          "start_ts": 1792947600
+         },
+         "31217798": {
+          "team1_name": "Chicago Bears",
+          "team2_name": "New England Patriots",
+          "start_ts": 1792714500,
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2493303745": {
+            "type": "P1P2",
+            "event": {
+             "7344037517": {
+              "id": 7344037517,
+              "name": "W2",
+              "type": "P2",
+              "price": 2.27
+             },
+             "7344037518": {
+              "name": "W1",
+              "type": "P1",
+              "price": 1.56,
+              "id": 7344037518
+             }
+            },
+            "id": 2493303745,
+            "name": "Money Line (Including Overtime)"
+           }
+          },
+          "id": 31217798
+         }
+        },
+        "id": 575,
+        "name": "NFL"
+       }
+      }
+     }
+    },
+    "id": 6
+   }
+  }
+ }
+}

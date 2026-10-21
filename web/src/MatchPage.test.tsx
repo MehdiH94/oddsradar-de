@@ -188,6 +188,40 @@ describe("MatchPage", () => {
     });
   });
 
+  describe("the match at each bookmaker", () => {
+    const links = {
+      leovegas: "https://www.leovegas.de/de-de/sportwetten#event/1028036087",
+      betway: "https://betway.de/de/de/sports/event/17260272",
+    };
+
+    it("links to its page at each ticked bookmaker that has one, in a new tab", async () => {
+      stubFetch({ ...detail, links });
+      renderPage({ bookmakers: ["leovegas", "merkurbets", "betway"] });
+      await screen.findByRole("heading", { level: 2 });
+      const list = screen.getByRole("list", { name: "Das Spiel bei den Buchmachern" });
+      const items = within(list).getAllByRole("listitem");
+      expect(items.map((li) => li.textContent)).toEqual(["LeoVegasSeite prüfen", "BetwaySeite prüfen"]);
+      const leovegas = within(list).getByRole("link", { name: "Bei LeoVegas prüfen" });
+      expect(leovegas).toHaveAttribute("href", links.leovegas);
+      expect(leovegas).toHaveAttribute("target", "_blank");
+      expect(leovegas).toHaveAttribute("rel", "noopener noreferrer");
+      expect(within(list).getByRole("link", { name: "Bei Betway prüfen" })).toHaveAttribute("href", links.betway);
+    });
+
+    it("links to none of an unticked bookmaker, nor when the API gives no link", async () => {
+      stubFetch({ ...detail, links });
+      const { unmount } = renderPage({ bookmakers: ["merkurbets"] });
+      await screen.findByRole("heading", { level: 2 });
+      expect(screen.queryByRole("list", { name: "Das Spiel bei den Buchmachern" })).not.toBeInTheDocument();
+      unmount();
+
+      stubFetch(detail);
+      renderPage();
+      await screen.findByRole("heading", { level: 2 });
+      expect(screen.queryByRole("link", { name: /prüfen$/ })).not.toBeInTheDocument();
+    });
+  });
+
   it("asks only for the ticked bookmakers' prices", async () => {
     const fetchMock = stubFetch(detail);
     renderPage({ bookmakers: ["merkurbets"] });

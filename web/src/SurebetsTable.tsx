@@ -5,6 +5,7 @@ import { formatPayoutRate, formatPrice, formatStartParts } from "./format";
 import { BOOKMAKER_BRANDING } from "./bookmakers";
 import { BookmakerLogo } from "./BookmakerLogo";
 import { EventTitle } from "./components/EventTitle";
+import { CheckAtBookmaker } from "./components/CheckAtBookmaker";
 import { useIsWide } from "./useMediaQuery";
 import groupStyles from "./GroupedOddsTables.module.css";
 import styles from "./SurebetsTable.module.css";
@@ -31,7 +32,8 @@ const KIND_TITLES: Record<Surebet["kind"], string> = {
 };
 
 // One bet of a surebet: where, at what price, and how much (out of 100 € in
-// all; a lay's stake and what it risks).
+// all; a lay's stake and what it risks); a bookmaker's, the match's page there
+// when the API gives it, to check the price before betting.
 function Leg({ leg }: { leg: SurebetLeg }) {
   return (
     <li className={styles.leg} data-source={leg.source} data-side={leg.side}>
@@ -51,6 +53,9 @@ function Leg({ leg }: { leg: SurebetLeg }) {
         {leg.size !== undefined && leg.size < THIN_SIZE && (
           <span className={styles.thinSize}> · nur {euros(leg.size)} zum Layen</span>
         )}
+      </span>
+      <span className={styles.legCheck}>
+        {leg.source !== EXCHANGE && <CheckAtBookmaker bookmaker={leg.source} url={leg.url} />}
       </span>
     </li>
   );

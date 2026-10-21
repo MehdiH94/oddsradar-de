@@ -1,0 +1,853 @@
+{
+ "selection_pointers": [
+  {
+   "event_id": 8427435,
+   "market_id": 1312002
+  },
+  {
+   "event_id": 8427435,
+   "market_id": 1356470
+  },
+  {
+   "event_id": 8427435,
+   "market_id": 1334087
+  },
+  {
+   "event_id": 8435202,
+   "market_id": 1312002
+  },
+  {
+   "event_id": 8435202,
+   "market_id": 1356470
+  },
+  {
+   "event_id": 8435202,
+   "market_id": 1334087
+  },
+  {
+   "event_id": 8435204,
+   "market_id": 1312002
+  },
+  {
+   "event_id": 8435204,
+   "market_id": 1356470
+  },
+  {
+   "event_id": 8435204,
+   "market_id": 1334087
+  },
+  {
+   "event_id": 8430299,
+   "market_id": 1312002
+  },
+  {
+   "event_id": 8430299,
+   "market_id": 1356470
+  },
+  {
+   "event_id": 8430299,
+   "market_id": 1334087
+  }
+ ],
+ "events": {
+  "8435202": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8435202,
+   "tournament_id": 605145,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "Chinese Cba",
+   "sport_name": "Basketball",
+   "sport_id": 229,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": null
+   },
+   "category_slug": "china",
+   "start_time": "2026-10-21T11:35:00+00:00",
+   "tournament_slug": "chinese-cba",
+   "tournament_display_name": "Chinese Cba",
+   "scheduled_date": "2026-10-21",
+   "active": true,
+   "sport_slug": "basketball",
+   "slug": "zhejiang-golden-bulls-vs-shandong-heroes",
+   "category_name": "China",
+   "racing_name": null,
+   "name": "Zhejiang Golden Bulls vs Shandong Heroes",
+   "markets": {
+    "1312002": {
+     "tradable": true,
+     "name": "Point Spread",
+     "betable": true,
+     "selections": {
+      "16874547457": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16874547457,
+       "name": "Zhejiang Golden Bulls  (-7.5)",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "-7.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16874547460": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16874547460,
+       "name": "Shandong Heroes  (+7.5)",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "+7.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 23,
+     "id": 1312002,
+     "default_line_selections": [
+      16874547457,
+      16874547460
+     ]
+    },
+    "1356470": {
+     "tradable": true,
+     "name": "Total Points Over/Under",
+     "betable": true,
+     "selections": {
+      "16875448163": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 8,
+       "id": 16875448163,
+       "name": "Under (171.5)",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "171.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Under"
+      },
+      "16875448164": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 6,
+       "id": 16875448164,
+       "name": "Over (171.5)",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "171.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Over"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 12,
+     "id": 1356470,
+     "default_line_selections": [
+      16875448164,
+      16875448163
+     ]
+    },
+    "1334087": {
+     "tradable": true,
+     "name": "Money Line",
+     "betable": true,
+     "selections": {
+      "16874546254": {
+       "fraction_price": "5/2",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16874546254,
+       "name": "Shandong Heroes",
+       "decimal_price": "3.500",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16874546255": {
+       "fraction_price": "2/7",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16874546255,
+       "name": "Zhejiang Golden Bulls",
+       "decimal_price": "1.286",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 25,
+     "id": 1334087,
+     "default_line_selections": [
+      16874546255,
+      16874546254
+     ]
+    }
+   },
+   "tradable": true,
+   "competitors": {
+    "508643": {
+     "slug": "shandong-heroes",
+     "order": 2,
+     "is_home_team": false,
+     "id": 508643,
+     "name": "Shandong Heroes"
+    },
+    "508836": {
+     "slug": "zhejiang-golden-bulls",
+     "order": 1,
+     "is_home_team": true,
+     "id": 508836,
+     "name": "Zhejiang Golden Bulls"
+    }
+   },
+   "category_id": 2709,
+   "sport_slug_i18n": "basketball",
+   "category_slug_i18n": "china",
+   "tournament_slug_i18n": "chinese-cba",
+   "event_slug_i18n": "zhejiang-golden-bulls-vs-shandong-heroes",
+   "usesThreeMarketView": true,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  },
+  "8427435": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8427435,
+   "tournament_id": 320686,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "ULEB Eurocup",
+   "sport_name": "Basketball",
+   "sport_id": 229,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": null
+   },
+   "category_slug": "europe",
+   "start_time": "2026-10-21T17:30:00+00:00",
+   "tournament_slug": "uleb-eurocup",
+   "tournament_display_name": "ULEB Eurocup",
+   "scheduled_date": "2026-10-21",
+   "active": true,
+   "sport_slug": "basketball",
+   "slug": "jl-bourg-v-aquila-basket-trento",
+   "category_name": "Europe",
+   "racing_name": null,
+   "name": "JL Bourg v Aquila Basket Trento",
+   "markets": {
+    "1312002": {
+     "tradable": true,
+     "name": "Point Spread",
+     "betable": true,
+     "selections": {
+      "16875083464": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16875083464,
+       "name": "JL Bourg",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "-6.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16875083463": {
+       "fraction_price": "4/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16875083463,
+       "name": "Aquila Basket Trento",
+       "decimal_price": "1.800",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "6.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 23,
+     "id": 1312002,
+     "default_line_selections": [
+      16875083464,
+      16875083463
+     ]
+    },
+    "1356470": {
+     "tradable": true,
+     "name": "Total Points Over/Under",
+     "betable": true,
+     "selections": {
+      "16873689560": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 6,
+       "id": 16873689560,
+       "name": "Over",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "167.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Over"
+      },
+      "16873689559": {
+       "fraction_price": "4/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 8,
+       "id": 16873689559,
+       "name": "Under",
+       "decimal_price": "1.800",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "167.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Under"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 12,
+     "id": 1356470,
+     "default_line_selections": [
+      16873689560,
+      16873689559
+     ]
+    },
+    "1334087": {
+     "tradable": true,
+     "name": "Money Line",
+     "betable": true,
+     "selections": {
+      "16873682598": {
+       "fraction_price": "19/10",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16873682598,
+       "name": "Aquila Basket Trento",
+       "decimal_price": "2.900",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16873682599": {
+       "fraction_price": "4/11",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16873682599,
+       "name": "JL Bourg",
+       "decimal_price": "1.364",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 25,
+     "id": 1334087,
+     "default_line_selections": [
+      16873682599,
+      16873682598
+     ]
+    }
+   },
+   "tradable": false,
+   "competitors": {
+    "7908": {
+     "slug": "dolomiti-energia-trento",
+     "order": 2,
+     "is_home_team": false,
+     "id": 7908,
+     "name": "Aquila Basket Trento"
+    },
+    "14103": {
+     "slug": "jl-bourg",
+     "order": 1,
+     "is_home_team": true,
+     "id": 14103,
+     "name": "JL Bourg"
+    }
+   },
+   "category_id": 13953,
+   "sport_slug_i18n": "basketball",
+   "category_slug_i18n": "europe",
+   "tournament_slug_i18n": "uleb-eurocup",
+   "event_slug_i18n": "jl-bourg-v-aquila-basket-trento",
+   "usesThreeMarketView": true,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  },
+  "8435204": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8435204,
+   "tournament_id": 605145,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "Chinese Cba",
+   "sport_name": "Basketball",
+   "sport_id": 229,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": null
+   },
+   "category_slug": "china",
+   "start_time": "2026-10-21T11:35:00+00:00",
+   "tournament_slug": "chinese-cba",
+   "tournament_display_name": "Chinese Cba",
+   "scheduled_date": "2026-10-21",
+   "active": true,
+   "sport_slug": "basketball",
+   "slug": "qingdao-eagles-vs-liaoning-flying-leopards",
+   "category_name": "China",
+   "racing_name": null,
+   "name": "Qingdao Eagles vs Liaoning Flying Leopards",
+   "markets": {
+    "1312002": {
+     "tradable": true,
+     "name": "Point Spread",
+     "betable": true,
+     "selections": {
+      "16875350857": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16875350857,
+       "name": "Liaoning Flying Leopards  (+8.5)",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "+8.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16875350858": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16875350858,
+       "name": "Qingdao Eagles  (-8.5)",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "-8.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 23,
+     "id": 1312002,
+     "default_line_selections": [
+      16875350858,
+      16875350857
+     ]
+    },
+    "1356470": {
+     "tradable": true,
+     "name": "Total Points Over/Under",
+     "betable": true,
+     "selections": {
+      "16874748726": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 6,
+       "id": 16874748726,
+       "name": "Over (177.5)",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "177.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Over"
+      },
+      "16874748727": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 8,
+       "id": 16874748727,
+       "name": "Under (177.5)",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "177.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Under"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 12,
+     "id": 1356470,
+     "default_line_selections": [
+      16874748726,
+      16874748727
+     ]
+    },
+    "1334087": {
+     "tradable": true,
+     "name": "Money Line",
+     "betable": true,
+     "selections": {
+      "16874546317": {
+       "fraction_price": "12/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16874546317,
+       "name": "Liaoning Flying Leopards",
+       "decimal_price": "3.400",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      },
+      "16874546318": {
+       "fraction_price": "3/10",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16874546318,
+       "name": "Qingdao Eagles",
+       "decimal_price": "1.300",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 25,
+     "id": 1334087,
+     "default_line_selections": [
+      16874546318,
+      16874546317
+     ]
+    }
+   },
+   "tradable": false,
+   "competitors": {
+    "534354": {
+     "slug": "qingdao-eagles",
+     "order": 1,
+     "is_home_team": true,
+     "id": 534354,
+     "name": "Qingdao Eagles"
+    },
+    "534356": {
+     "slug": "liaoning-flying-leopards",
+     "order": 2,
+     "is_home_team": false,
+     "id": 534356,
+     "name": "Liaoning Flying Leopards"
+    }
+   },
+   "category_id": 2709,
+   "sport_slug_i18n": "basketball",
+   "category_slug_i18n": "china",
+   "tournament_slug_i18n": "chinese-cba",
+   "event_slug_i18n": "qingdao-eagles-vs-liaoning-flying-leopards",
+   "usesThreeMarketView": true,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  },
+  "8430299": {
+   "event_type": "NORMAL",
+   "betable": true,
+   "odds_boost_count": 0,
+   "event_status": "PENDING",
+   "inplay": false,
+   "is_odds_boost": false,
+   "id": 8430299,
+   "tournament_id": 344375,
+   "extra_info": [],
+   "match_status": "PENDING",
+   "tournament_name": "Slovakian Extraliga Women",
+   "sport_name": "Basketball",
+   "sport_id": 229,
+   "type": "NORMAL",
+   "metadata": {
+    "impact_sub": null
+   },
+   "category_slug": "slovakia",
+   "start_time": "2026-10-21T16:00:00+00:00",
+   "tournament_slug": "slovakia-extraliga-women",
+   "tournament_display_name": "Slovakian Extraliga Women",
+   "scheduled_date": "2026-10-21",
+   "active": true,
+   "sport_slug": "basketball",
+   "slug": "piestanske-cajky-women-v-young-angels-kosice-women",
+   "category_name": "Slovakia",
+   "racing_name": null,
+   "name": "Piestanske Cajky Women v Young Angels Kosice Women",
+   "markets": {
+    "1312002": {
+     "tradable": true,
+     "name": "Point Spread",
+     "betable": true,
+     "selections": {
+      "16875489548": {
+       "fraction_price": "4/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 1,
+       "id": 16875489548,
+       "name": "Piestanske Cajky Women",
+       "decimal_price": "1.800",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "-26.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "1"
+      },
+      "16875489549": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 3,
+       "id": 16875489549,
+       "name": "Young Angels Kosice Women",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "26.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "2"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 23,
+     "id": 1312002,
+     "default_line_selections": [
+      16875489548,
+      16875489549
+     ]
+    },
+    "1356470": {
+     "tradable": true,
+     "name": "Total Points Over/Under",
+     "betable": true,
+     "selections": {
+      "16874827400": {
+       "fraction_price": "4/5",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 8,
+       "id": 16874827400,
+       "name": "Under",
+       "decimal_price": "1.800",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "141.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Under"
+      },
+      "16874827399": {
+       "fraction_price": "17/20",
+       "betable": true,
+       "boosted_odds": false,
+       "active": true,
+       "selection_type_id": 6,
+       "id": 16874827399,
+       "name": "Over",
+       "decimal_price": "1.850",
+       "ranking_place": null,
+       "tradable": true,
+       "special_odds_value": "141.5",
+       "sp_only": false,
+       "outcome": "UNSETTLED",
+       "type": "Over"
+      }
+     },
+     "active": true,
+     "is_extra_time": false,
+     "selection_schema": 12,
+     "id": 1356470,
+     "default_line_selections": [
+      16874827399,
+      16874827400
+     ]
+    },
+    "1334087": {
+     "tradable": null,
+     "name": "Money Line",
+     "betable": false,
+     "selections": [],
+     "active": null,
+     "is_extra_time": false,
+     "selection_schema": 25,
+     "id": 1334087,
+     "default_line_selections": []
+    }
+   },
+   "tradable": false,
+   "competitors": {
+    "1330": {
+     "slug": "piestanske-cajky-women",
+     "order": 1,
+     "is_home_team": true,
+     "id": 1330,
+     "name": "Piestanske Cajky Women"
+    },
+    "69357": {
+     "slug": "young-angels-kosice-women",
+     "order": 2,
+     "is_home_team": false,
+     "id": 69357,
+     "name": "Young Angels Kosice Women"
+    }
+   },
+   "category_id": 2308,
+   "sport_slug_i18n": "basketball",
+   "category_slug_i18n": "slovakia",
+   "tournament_slug_i18n": "slovakia-extraliga-women",
+   "event_slug_i18n": "piestanske-cajky-women-v-young-angels-kosice-women",
+   "usesThreeMarketView": true,
+   "isUsFormat": false,
+   "is_streaming_available": false,
+   "tournament_logos": null
+  }
+ },
+ "event_order": [
+  {
+   "event_id": 8427435,
+   "grouped_market_ids": [
+    1312002,
+    1356470,
+    1334087
+   ],
+   "market_id": 1356470
+  },
+  {
+   "event_id": 8435202,
+   "grouped_market_ids": [
+    1312002,
+    1356470,
+    1334087
+   ],
+   "market_id": 1356470
+  },
+  {
+   "event_id": 8435204,
+   "grouped_market_ids": [
+    1312002,
+    1356470,
+    1334087
+   ],
+   "market_id": 1356470
+  },
+  {
+   "event_id": 8430299,
+   "grouped_market_ids": [
+    1312002,
+    1356470,
+    1334087
+   ],
+   "market_id": 1334087
+  }
+ ],
+ "match_request_limit": false
+}

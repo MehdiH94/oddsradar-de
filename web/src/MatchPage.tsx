@@ -2,11 +2,13 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowLeft, ChevronDown } from "lucide-react";
 import { fetchEventDetail } from "./api";
 import type { EventDetail, SectionDetail } from "./types";
-import { ALL_BOOKMAKERS } from "./bookmakers";
+import { ALL_BOOKMAKERS, BOOKMAKER_BRANDING } from "./bookmakers";
 import { formatStartParts } from "./format";
 import { sportEmoji } from "./sports";
 import { BookmakerMenu } from "./components/BookmakerMenu";
 import { MarketCard } from "./components/MarketCard";
+import { CheckAtBookmaker } from "./components/CheckAtBookmaker";
+import { BookmakerLogo } from "./BookmakerLogo";
 import { EmptyState, ErrorBanner, Skeleton } from "./components/StatusViews";
 import styles from "./MatchPage.module.css";
 
@@ -201,6 +203,8 @@ export function MatchPage({
 
   const start = formatStartParts(detail.startTime, new Date());
   const title = detail.participants.join(" – ");
+  // The ticked bookmakers whose page of the match the API gives, in the filter's order.
+  const checks = ALL_BOOKMAKERS.filter((b) => bookmakers.includes(b) && detail.links?.[b]);
   return (
     <div className={styles.page}>
       {back}
@@ -248,6 +252,18 @@ export function MatchPage({
         </div>
         <BookmakerMenu selected={bookmakers} onChange={onBookmakersChange} />
       </header>
+
+      {checks.length > 0 && (
+        <ul className={styles.checks} aria-label="Das Spiel bei den Buchmachern">
+          {checks.map((bookmaker) => (
+            <li key={bookmaker} className={styles.check}>
+              <BookmakerLogo bookmaker={bookmaker} size={16} decorative />
+              <span>{BOOKMAKER_BRANDING[bookmaker]?.name ?? bookmaker}</span>
+              <CheckAtBookmaker bookmaker={bookmaker} url={detail.links?.[bookmaker]} />
+            </li>
+          ))}
+        </ul>
+      )}
 
       {failed && (
         <ErrorBanner onRetry={() => setRetries((n) => n + 1)}>

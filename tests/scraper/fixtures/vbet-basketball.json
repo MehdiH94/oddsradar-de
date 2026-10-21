@@ -1,0 +1,192 @@
+{
+ "data": {
+  "sport": {
+   "3": {
+    "id": 3,
+    "alias": "Basketball",
+    "region": {
+     "20003": {
+      "id": 20003,
+      "name": "Europe",
+      "competition": {
+       "684": {
+        "game": {
+         "31240535": {
+          "start_ts": 1792598400,
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2503985258": {
+            "id": 2503985258,
+            "name": "Match Winner",
+            "type": "P1P2",
+            "event": {
+             "7373193648": {
+              "id": 7373193648,
+              "name": "W1",
+              "type": "P1",
+              "price": 3.45
+             },
+             "7373193649": {
+              "id": 7373193649,
+              "name": "W2",
+              "type": "P2",
+              "price": 1.21
+             }
+            }
+           }
+          },
+          "id": 31240535,
+          "team1_name": "Duran Maquinaria Ensino (Wom)",
+          "team2_name": "AZS AJP Gorzow Wielkopolski (Wom)"
+         }
+        },
+        "id": 684,
+        "name": "EuroCup - Women"
+       },
+       "686": {
+        "id": 686,
+        "name": "Euroleague",
+        "game": {
+         "31142871": {
+          "market": {
+           "2494855955": {
+            "id": 2494855955,
+            "name": "Match Winner",
+            "type": "P1P2",
+            "event": {
+             "7347962522": {
+              "id": 7347962522,
+              "name": "W2",
+              "type": "P2",
+              "price": 3.3
+             },
+             "7347962521": {
+              "id": 7347962521,
+              "name": "W1",
+              "type": "P1",
+              "price": 1.23
+             }
+            }
+           }
+          },
+          "id": 31142871,
+          "team1_name": "Hapoel Tel-Aviv",
+          "team2_name": "Virtus Bologna",
+          "start_ts": 1792598400,
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0
+         },
+         "31154650": {
+          "team2_name": "Besiktas JK",
+          "start_ts": 1792690200,
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2496903606": {
+            "id": 2496903606,
+            "name": "Match Winner",
+            "type": "P1P2",
+            "event": {
+             "7353887700": {
+              "id": 7353887700,
+              "name": "W1",
+              "type": "P1",
+              "price": 1.46
+             },
+             "7353887701": {
+              "id": 7353887701,
+              "name": "W2",
+              "type": "P2",
+              "price": 2.28
+             }
+            }
+           }
+          },
+          "id": 31154650,
+          "team1_name": "Anadolu Efes SK"
+         }
+        }
+       }
+      }
+     },
+     "50003": {
+      "id": 50003,
+      "name": "North America",
+      "competition": {
+       "756": {
+        "game": {
+         "30692071": {
+          "is_blocked": 0,
+          "market": {
+           "2458544814": {
+            "type": "P1P2",
+            "event": {
+             "7254518170": {
+              "id": 7254518170,
+              "name": "W2",
+              "type": "P2",
+              "price": 2.04
+             },
+             "7254518171": {
+              "id": 7254518171,
+              "name": "W1",
+              "type": "P1",
+              "price": 1.58
+             }
+            },
+            "id": 2458544814,
+            "name": "Match Winner"
+           }
+          },
+          "id": 30692071,
+          "team1_name": "Orlando Magic",
+          "team2_name": "Atlanta Hawks",
+          "start_ts": 1792623600,
+          "type": 2,
+          "is_started": 0
+         },
+         "30692075": {
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2458545026": {
+            "id": 2458545026,
+            "name": "Match Winner",
+            "type": "P1P2",
+            "event": {
+             "7254518780": {
+              "id": 7254518780,
+              "name": "W2",
+              "type": "P2",
+              "price": 2.28
+             },
+             "7254518781": {
+              "id": 7254518781,
+              "name": "W1",
+              "type": "P1",
+              "price": 1.46
+             }
+            }
+           }
+          },
+          "id": 30692075,
+          "team1_name": "Washington Wizards",
+          "team2_name": "Milwaukee Bucks",
+          "start_ts": 1792623600,
+          "type": 2
+         }
+        },
+        "id": 756,
+        "name": "NBA"
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

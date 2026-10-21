@@ -1,0 +1,300 @@
+{
+ "data": {
+  "sport": {
+   "1": {
+    "alias": "Soccer",
+    "region": {
+     "20001": {
+      "id": 20001,
+      "name": "Europe",
+      "competition": {
+       "566": {
+        "name": "UEFA Champions League",
+        "game": {
+         "31142860": {
+          "team1_name": "Lille OSC",
+          "team2_name": "Galatasaray",
+          "start_ts": 1792601100,
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2490860843": {
+            "name": "Match Result",
+            "type": "P1XP2",
+            "event": {
+             "7337786652": {
+              "type": "P1",
+              "price": 2.13,
+              "id": 7337786652,
+              "name": "W1"
+             },
+             "7337786653": {
+              "id": 7337786653,
+              "name": "Draw",
+              "type": "X",
+              "price": 3.56
+             },
+             "7337786654": {
+              "price": 3.03,
+              "id": 7337786654,
+              "name": "W2",
+              "type": "P2"
+             }
+            },
+            "id": 2490860843
+           }
+          },
+          "id": 31142860
+         },
+         "31142861": {
+          "start_ts": 1792601100,
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2490860845": {
+            "id": 2490860845,
+            "name": "Match Result",
+            "type": "P1XP2",
+            "event": {
+             "7337786658": {
+              "name": "W1",
+              "type": "P1",
+              "price": 2.29,
+              "id": 7337786658
+             },
+             "7337786659": {
+              "name": "Draw",
+              "type": "X",
+              "price": 3.81,
+              "id": 7337786659
+             },
+             "7337786660": {
+              "id": 7337786660,
+              "name": "W2",
+              "type": "P2",
+              "price": 2.94
+             }
+            }
+           }
+          },
+          "id": 31142861,
+          "team1_name": "FC Como",
+          "team2_name": "Manchester United"
+         }
+        },
+        "id": 566
+       }
+      }
+     },
+     "210001": {
+      "id": 210001,
+      "name": "Australia",
+      "competition": {
+       "9171": {
+        "id": 9171,
+        "name": "A-League - Women",
+        "game": {
+         "31178160": {
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2495996036": {
+            "id": 2495996036,
+            "name": "Match Result",
+            "type": "P1XP2",
+            "event": {
+             "7351098123": {
+              "id": 7351098123,
+              "name": "W2",
+              "type": "P2",
+              "price": 1.82
+             },
+             "7351098121": {
+              "id": 7351098121,
+              "name": "W1",
+              "type": "P1",
+              "price": 3.32
+             },
+             "7351098122": {
+              "price": 3.59,
+              "id": 7351098122,
+              "name": "Draw",
+              "type": "X"
+             }
+            }
+           }
+          },
+          "id": 31178160,
+          "team1_name": "Central Coast Mariners (Wom)",
+          "team2_name": "Canberra United (Wom)",
+          "start_ts": 1792814400
+         },
+         "31178161": {
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2495996051": {
+            "name": "Match Result",
+            "type": "P1XP2",
+            "event": {
+             "7351098149": {
+              "name": "W1",
+              "type": "P1",
+              "price": 2.81,
+              "id": 7351098149
+             },
+             "7351098150": {
+              "type": "X",
+              "price": 3.27,
+              "id": 7351098150,
+              "name": "Draw"
+             },
+             "7351098152": {
+              "id": 7351098152,
+              "name": "W2",
+              "type": "P2",
+              "price": 2.14
+             }
+            },
+            "id": 2495996051
+           }
+          },
+          "id": 31178161,
+          "team1_name": "Western Sydney Wanderers (Wom)",
+          "team2_name": "Brisbane Roar (Wom)",
+          "start_ts": 1792811700,
+          "type": 2
+         }
+        }
+       }
+      }
+     },
+     "900001": {
+      "id": 900001,
+      "name": "Germany",
+      "competition": {
+       "541": {
+        "id": 541,
+        "name": "Bundesliga",
+        "game": {
+         "31165393": {
+          "team2_name": "Borussia Monchengladbach",
+          "start_ts": 1792780200,
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2483530530": {
+            "id": 2483530530,
+            "name": "Match Result",
+            "type": "P1XP2",
+            "event": {
+             "7318808765": {
+              "id": 7318808765,
+              "name": "Draw",
+              "type": "X",
+              "price": 5.5
+             },
+             "7318808766": {
+              "id": 7318808766,
+              "name": "W2",
+              "type": "P2",
+              "price": 6.4
+             },
+             "7318808764": {
+              "id": 7318808764,
+              "name": "W1",
+              "type": "P1",
+              "price": 1.35
+             }
+            }
+           }
+          },
+          "id": 31165393,
+          "team1_name": "VfB Stuttgart"
+         },
+         "31177728": {
+          "id": 31177728,
+          "team1_name": "RB Leipzig",
+          "team2_name": "SV Elversberg",
+          "start_ts": 1792848600,
+          "type": 2,
+          "is_started": 0,
+          "is_blocked": 0,
+          "market": {
+           "2483530533": {
+            "name": "Match Result",
+            "type": "P1XP2",
+            "event": {
+             "7318808773": {
+              "id": 7318808773,
+              "name": "W1",
+              "type": "P1",
+              "price": 1.38
+             },
+             "7318808774": {
+              "id": 7318808774,
+              "name": "Draw",
+              "type": "X",
+              "price": 5
+             },
+             "7318808775": {
+              "id": 7318808775,
+              "name": "W2",
+              "type": "P2",
+              "price": 6.4
+             }
+            },
+            "id": 2483530533
+           }
+          }
+         },
+         "31177729": {
+          "is_blocked": 0,
+          "market": {
+           "2483530536": {
+            "id": 2483530536,
+            "name": "Match Result",
+            "type": "P1XP2",
+            "event": {
+             "7318808782": {
+              "id": 7318808782,
+              "name": "W1",
+              "type": "P1",
+              "price": 2.17
+             },
+             "7318808783": {
+              "id": 7318808783,
+              "name": "Draw",
+              "type": "X",
+              "price": 3.6
+             },
+             "7318808784": {
+              "id": 7318808784,
+              "name": "W2",
+              "type": "P2",
+              "price": 2.93
+             }
+            }
+           }
+          },
+          "id": 31177729,
+          "team1_name": "Paderborn 07",
+          "team2_name": "Hamburger SV",
+          "start_ts": 1792848600,
+          "type": 2,
+          "is_started": 0
+         }
+        }
+       }
+      }
+     }
+    },
+    "id": 1
+   }
+  }
+ }
+}

@@ -1,0 +1,2132 @@
+{
+ "fixtures": [
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1569551526,
+     "name": {
+      "value": "Money Line"
+     },
+     "results": [
+      {
+       "id": 2326945979,
+       "odds": 2.25,
+       "name": {
+        "value": "Rain or Shine Elasto Painters"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 5,
+       "denominator": 4,
+       "americanOdds": 125,
+       "playerId": 2559563,
+       "version": 11077965807
+      },
+      {
+       "id": 2326945980,
+       "odds": 1.55,
+       "name": {
+        "value": "Magnolia Hotshots"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 11,
+       "denominator": 20,
+       "americanOdds": -185,
+       "playerId": 2929652,
+       "version": 11077965807
+      }
+     ],
+     "templateId": 66,
+     "categoryId": 43,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "balanced": 1,
+     "spread": 0.7,
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 13,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 11,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false,
+     "oddsKey": 108.96
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2559563,
+     "name": {
+      "value": "Rain or Shine Elasto Painters",
+      "short": "Rain or Shine Elasto Painters"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2929652,
+     "name": {
+      "value": "Magnolia Hotshots",
+      "short": "Magnolia Hotshots"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20032582",
+   "name": {
+    "value": "Rain or Shine Elasto Painters - Magnolia Hotshots"
+   },
+   "sourceId": 20032582,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20032582",
+   "addons": {
+    "betRadar": 72449486,
+    "statistics": true,
+    "participantDividend": {},
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4445888,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T11:30:00Z",
+   "cutOffDate": "2026-10-21T11:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 19027,
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:19027",
+    "type": "Competition",
+    "id": 19027,
+    "parentId": 184,
+    "name": {
+     "value": "PBA",
+     "sign": "Ei8RaQ=="
+    }
+   },
+   "region": {
+    "code": "PHI",
+    "sportId": 7,
+    "type": "Region",
+    "id": 184,
+    "parentId": 7,
+    "name": {
+     "value": "Philippines",
+     "sign": "jDAflA=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 26,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20032582"
+   ],
+   "playerStats": [],
+   "sequence": 438,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1567968937,
+     "name": {
+      "value": "Money Line"
+     },
+     "results": [
+      {
+       "id": 2322658297,
+       "odds": 1.34,
+       "name": {
+        "value": "Zhejiang Chouzhou"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 1,
+       "denominator": 3,
+       "americanOdds": -295,
+       "playerId": 2650334,
+       "version": 11078131849
+      },
+      {
+       "id": 2322658298,
+       "odds": 3.1,
+       "name": {
+        "value": "Shandong"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 21,
+       "denominator": 10,
+       "americanOdds": 210,
+       "playerId": 2650331,
+       "version": 11078131849
+      }
+     ],
+     "templateId": 66,
+     "categoryId": 43,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "balanced": 1,
+     "spread": 1.76,
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 13,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 11,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false,
+     "oddsKey": 106.88
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2650334,
+     "name": {
+      "value": "Zhejiang Chouzhou",
+      "short": "Zhejiang Chouzhou"
+     },
+     "image": {
+      "jersey": "2650334_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2650331,
+     "name": {
+      "value": "Shandong",
+      "short": "Shandong"
+     },
+     "image": {
+      "jersey": "2650331_3",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20019476",
+   "name": {
+    "value": "Zhejiang Chouzhou - Shandong"
+   },
+   "sourceId": 20019476,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20019476",
+   "addons": {
+    "betRadar": 74786742,
+    "statistics": true,
+    "participantDividend": {},
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4443215,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T11:35:00Z",
+   "cutOffDate": "2026-10-21T11:35:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 14386,
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:14386",
+    "type": "Competition",
+    "id": 14386,
+    "parentId": 57,
+    "name": {
+     "value": "Chinese Basketball Association",
+     "sign": "Vmydow=="
+    }
+   },
+   "region": {
+    "code": "CHN",
+    "sportId": 7,
+    "type": "Region",
+    "id": 57,
+    "parentId": 7,
+    "name": {
+     "value": "China",
+     "sign": "2fRUTQ=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 40,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20019476"
+   ],
+   "playerStats": [],
+   "sequence": 1558,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1567777809,
+     "name": {
+      "value": "Money Line"
+     },
+     "results": [
+      {
+       "id": 2322121235,
+       "odds": 17.0,
+       "name": {
+        "value": "Mgs Panseraikos"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 16,
+       "denominator": 1,
+       "americanOdds": 1600,
+       "playerId": 2913699,
+       "version": 11077874621
+      },
+      {
+       "id": 2322121236,
+       "odds": 1.01,
+       "name": {
+        "value": "Lattes Montpellier"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Suspended",
+       "numerator": 1,
+       "denominator": 100,
+       "americanOdds": -10000,
+       "playerId": 2668552,
+       "version": 11075618055
+      }
+     ],
+     "templateId": 66,
+     "categoryId": 43,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "balanced": 1,
+     "spread": 15.99,
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 13,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 11,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false,
+     "oddsKey": 104.89
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2913699,
+     "name": {
+      "value": "Mgs Panseraikos",
+      "short": "Mgs Panseraikos"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2668552,
+     "name": {
+      "value": "Lattes Montpellier",
+      "short": "Lattes Montpellier"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20017693",
+   "name": {
+    "value": "Mgs Panseraikos - Lattes Montpellier"
+   },
+   "sourceId": 20017693,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20017693",
+   "addons": {
+    "betRadar": 75214566,
+    "statistics": true,
+    "participantDividend": {},
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4442860,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T14:00:00Z",
+   "cutOffDate": "2026-10-21T14:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 7143,
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:7143",
+    "type": "Competition",
+    "id": 7143,
+    "parentId": 7,
+    "name": {
+     "value": "Eurocup - Women",
+     "sign": "ovkZFQ=="
+    }
+   },
+   "region": {
+    "code": "EUR",
+    "sportId": 7,
+    "type": "Region",
+    "id": 7,
+    "parentId": 7,
+    "name": {
+     "value": "Europe",
+     "sign": "S8loYQ=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 14,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20017693"
+   ],
+   "playerStats": [],
+   "sequence": 394,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1567999980,
+     "name": {
+      "value": "Money Line"
+     },
+     "results": [
+      {
+       "id": 2322741213,
+       "odds": 2.0,
+       "name": {
+        "value": "Amyntas BC"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 1,
+       "denominator": 1,
+       "americanOdds": 100,
+       "playerId": 2795323,
+       "version": 11075538977
+      },
+      {
+       "id": 2322741214,
+       "odds": 1.7,
+       "name": {
+        "value": "Koroivos Amaliadas"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 7,
+       "denominator": 10,
+       "americanOdds": -145,
+       "playerId": 2652846,
+       "version": 11075538977
+      }
+     ],
+     "templateId": 66,
+     "categoryId": 43,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "balanced": 1,
+     "spread": 0.3,
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 13,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 11,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false,
+     "oddsKey": 108.82
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2795323,
+     "name": {
+      "value": "Amyntas BC",
+      "short": "Amyntas BC"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2652846,
+     "name": {
+      "value": "Koroivos Amaliadas",
+      "short": "Koroivos Amaliadas"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20019759",
+   "name": {
+    "value": "Amyntas BC - Koroivos Amaliadas"
+   },
+   "sourceId": 20019759,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20019759",
+   "addons": {
+    "betRadar": 73113256,
+    "statistics": true,
+    "participantDividend": {},
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4443280,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T14:00:00Z",
+   "cutOffDate": "2026-10-21T14:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 4491,
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:4491",
+    "type": "Competition",
+    "id": 4491,
+    "parentId": 18,
+    "name": {
+     "value": "Elite - Men",
+     "sign": "HBXxRQ=="
+    }
+   },
+   "region": {
+    "code": "GRE",
+    "sportId": 7,
+    "type": "Region",
+    "id": 18,
+    "parentId": 7,
+    "name": {
+     "value": "Greece",
+     "sign": "s6JI3Q=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 15,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20019759"
+   ],
+   "playerStats": [],
+   "sequence": 230,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1567999981,
+     "name": {
+      "value": "Money Line"
+     },
+     "results": [
+      {
+       "id": 2322741215,
+       "odds": 4.4,
+       "name": {
+        "value": "AS Anagennisi Petralonon"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 17,
+       "denominator": 5,
+       "americanOdds": 340,
+       "playerId": 2806443,
+       "version": 11077850592
+      },
+      {
+       "id": 2322741216,
+       "odds": 1.16,
+       "name": {
+        "value": "Panionios"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 2,
+       "denominator": 13,
+       "americanOdds": -625,
+       "playerId": 2555084,
+       "version": 11077850592
+      }
+     ],
+     "templateId": 66,
+     "categoryId": 43,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "balanced": 1,
+     "spread": 3.24,
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 13,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 11,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false,
+     "oddsKey": 108.93
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2806443,
+     "name": {
+      "value": "AS Anagennisi Petralonon",
+      "short": "AS Anagennisi Petralonon"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2555084,
+     "name": {
+      "value": "Panionios",
+      "short": "Panionios"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20019760",
+   "name": {
+    "value": "AS Anagennisi Petralonon - Panionios"
+   },
+   "sourceId": 20019760,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20019760",
+   "addons": {
+    "participantDividend": {},
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4443281,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T14:00:00Z",
+   "cutOffDate": "2026-10-21T14:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 4491,
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:4491",
+    "type": "Competition",
+    "id": 4491,
+    "parentId": 18,
+    "name": {
+     "value": "Elite - Men",
+     "sign": "HBXxRQ=="
+    }
+   },
+   "region": {
+    "code": "GRE",
+    "sportId": 7,
+    "type": "Region",
+    "id": 18,
+    "parentId": 7,
+    "name": {
+     "value": "Greece",
+     "sign": "s6JI3Q=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 15,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20019760"
+   ],
+   "playerStats": [],
+   "sequence": 292,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1567999983,
+     "name": {
+      "value": "Money Line"
+     },
+     "results": [
+      {
+       "id": 2322741219,
+       "odds": 1.18,
+       "name": {
+        "value": "Komotini"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 2,
+       "denominator": 11,
+       "americanOdds": -550,
+       "playerId": 2557124,
+       "version": 11075530656
+      },
+      {
+       "id": 2322741220,
+       "odds": 4.1,
+       "name": {
+        "value": "AS Papagou"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 31,
+       "denominator": 10,
+       "americanOdds": 310,
+       "playerId": 2557849,
+       "version": 11075530656
+      }
+     ],
+     "templateId": 66,
+     "categoryId": 43,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "balanced": 1,
+     "spread": 2.92,
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 13,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 11,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false,
+     "oddsKey": 109.14
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2557124,
+     "name": {
+      "value": "Komotini",
+      "short": "Komotini"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2557849,
+     "name": {
+      "value": "AS Papagou",
+      "short": "AS Papagou"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20019762",
+   "name": {
+    "value": "Komotini - AS Papagou"
+   },
+   "sourceId": 20019762,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20019762",
+   "addons": {
+    "betRadar": 73113252,
+    "statistics": true,
+    "participantDividend": {},
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4443283,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T14:00:00Z",
+   "cutOffDate": "2026-10-21T14:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 4491,
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:4491",
+    "type": "Competition",
+    "id": 4491,
+    "parentId": 18,
+    "name": {
+     "value": "Elite - Men",
+     "sign": "HBXxRQ=="
+    }
+   },
+   "region": {
+    "code": "GRE",
+    "sportId": 7,
+    "type": "Region",
+    "id": 18,
+    "parentId": 7,
+    "name": {
+     "value": "Greece",
+     "sign": "s6JI3Q=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 15,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20019762"
+   ],
+   "playerStats": [],
+   "sequence": 229,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 1551545227,
+     "name": {
+      "value": "Money Line"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 2277392641,
+       "status": "Visible",
+       "name": {
+        "value": "Hawks"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 59,
+        "denominator": 50,
+        "odds": 2.18,
+        "americanOdds": 118,
+        "priceHistory": []
+       },
+       "participantId": 2554151,
+       "version": 10906500613
+      },
+      {
+       "id": 2277392642,
+       "status": "Visible",
+       "name": {
+        "value": "Magic"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": -1,
+        "numerator": 7,
+        "denominator": 10,
+        "odds": 1.7,
+        "americanOdds": -145,
+        "priceHistory": []
+       },
+       "participantId": 2554186,
+       "version": 10906500613
+      }
+     ],
+     "parameters": [
+      {
+       "key": "TemplateId",
+       "type": "Integer",
+       "value": "3450"
+      },
+      {
+       "key": "CategoryId",
+       "type": "Integer",
+       "value": "43"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 12,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 10,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "spread": 0.48,
+     "balanced": 1,
+     "isMain": true,
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "comboPrevention": "NoEventCombo",
+     "minCombo": 1,
+     "resultOrder": "Default",
+     "source": "V1",
+     "isBetBuilder": true,
+     "oddsKey": 104.7
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "participantId": 2554151,
+     "name": {
+      "value": "Atlanta Hawks",
+      "short": "Hawks"
+     },
+     "image": {
+      "jersey": "2554151_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2554186,
+     "name": {
+      "value": "Orlando Magic",
+      "short": "Magic"
+     },
+     "image": {
+      "jersey": "2554186_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2877642,
+     "name": {
+      "value": "Jalen Johnson (ATL)",
+      "short": "Jalen Johnson"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 2891482,
+     "name": {
+      "value": "Onyeka Okongwu (Atl)",
+      "short": "Onyeka Okongwu"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 2937984,
+     "name": {
+      "value": "Mouhamed Gueye (Atl)",
+      "short": "Mouhamed Gueye"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 2958319,
+     "name": {
+      "value": "Dyson Daniels (ATL)",
+      "short": "Dyson Daniels"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 2989371,
+     "name": {
+      "value": "Kristaps Porzingis (ATL)",
+      "short": "Kristaps Porzingis"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 2990438,
+     "name": {
+      "value": "Asa Newell (ATL)",
+      "short": "A. Newell"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 2990911,
+     "name": {
+      "value": "Nickeil Alexander-Walker (ATL)",
+      "short": "Nickeil Alexander-Walker"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3010914,
+     "name": {
+      "value": "Corey Kispert (ATL)",
+      "short": "Corey Kispert"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3010915,
+     "name": {
+      "value": "CJ McCollum (ATL)",
+      "short": "CJ McCollum"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3012710,
+     "name": {
+      "value": "Duop Reath (ATL)",
+      "short": "Duop Reath"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3013229,
+     "name": {
+      "value": "Jock Landale (ATL)",
+      "short": "Jock Landale"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3013236,
+     "name": {
+      "value": "Buddy Hield (ATL)",
+      "short": "Buddy Hield"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3013288,
+     "name": {
+      "value": "Gabe Vincent (ATL)",
+      "short": "Gabe Vincent"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3015069,
+     "name": {
+      "value": "Caleb Houstan (ATL)",
+      "short": "Caleb Houstan"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3019370,
+     "name": {
+      "value": "Tony Bradley (ATL)",
+      "short": "Tony Bradley"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3026644,
+     "name": {
+      "value": "Kingston Flemings (ATL)",
+      "short": "Kingston Flemings"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3026659,
+     "name": {
+      "value": "Zuby Ejiofor (ATL)",
+      "short": "Zuby Ejiofor"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3028688,
+     "name": {
+      "value": "Ryan Nembhard (ATL)",
+      "short": "Ryan Nembhard"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3028689,
+     "name": {
+      "value": "Luguentz Dort (ATL)",
+      "short": "Luguentz Dort"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3031080,
+     "name": {
+      "value": "Aaron Wiggins (ATL)",
+      "short": "Aaron Wiggins"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 3031081,
+     "name": {
+      "value": "Devin Carter (ATL)",
+      "short": "Devin Carter"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554151
+     },
+     "options": []
+    },
+    {
+     "participantId": 2769823,
+     "name": {
+      "value": "Jonathan Isaac (Orl)",
+      "short": "Jonathan Isaac"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 2868256,
+     "name": {
+      "value": "Wendell Carter Jr. (ORL)",
+      "short": "Wendell Carter Jr."
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 2886277,
+     "name": {
+      "value": "Moritz Wagner (Orl)",
+      "short": "Moritz Wagner"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 2877621,
+     "name": {
+      "value": "Jalen Suggs (ORL)",
+      "short": "Jalen Suggs"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 2877622,
+     "name": {
+      "value": "Franz Wagner (ORL)",
+      "short": "Franz Wagner"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 2916787,
+     "name": {
+      "value": "Paolo Banchero (ORL)",
+      "short": "Paolo Banchero"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 2937950,
+     "name": {
+      "value": "Anthony Black (ORL)",
+      "short": "Anthony Black"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 2937956,
+     "name": {
+      "value": "Jett Howard (Orl)",
+      "short": "Jett Howard"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 2946407,
+     "name": {
+      "value": "Goga Bitadze (ORL)",
+      "short": "Goga Bitadze"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 2958150,
+     "name": {
+      "value": "Tristan da Silva (ORL)",
+      "short": "Tristan da Silva"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 2988500,
+     "name": {
+      "value": "Desmond Bane (ORL)",
+      "short": "Desmond Bane"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 2990440,
+     "name": {
+      "value": "Jase Richardson (ORL)",
+      "short": "Jase Richardson"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 2990484,
+     "name": {
+      "value": "Noah Penda (ORL)",
+      "short": "Noah Penda"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 3016157,
+     "name": {
+      "value": "Jevon Carter (ORL)",
+      "short": "Jevon Carter"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 3017865,
+     "name": {
+      "value": "Jamal Cain (ORL)",
+      "short": "Jamal Cain"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    },
+    {
+     "participantId": 2769829,
+     "name": {
+      "value": "Nikola Vucevic (Orl)",
+      "short": "N. Vucevic"
+     },
+     "image": {
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "Player",
+      "team": 2554186
+     },
+     "options": []
+    }
+   ],
+   "id": "19883985",
+   "name": {
+    "value": "Atlanta Hawks at Orlando Magic"
+   },
+   "sourceId": 19883985,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|19883985",
+   "addons": {
+    "betRadar": 73719332,
+    "statistics": true,
+    "videoStream": {
+     "provider": "Betradar",
+     "status": "Scheduled",
+     "providerStreamId": "33425167",
+     "providerEventId": "7253785",
+     "streamType": "Mobile"
+    },
+    "participantDividend": {},
+    "angstromBetBuilderId": "b4696c6f-75ed-469b-a94b-5e8713b488a4",
+    "betBuilderProvider": "Angstrom",
+    "betBuilderId": "b4696c6f-75ed-469b-a94b-5e8713b488a4",
+    "betBuilderTradingV2FixtureId": "6:48208"
+   },
+   "stage": "PreMatch",
+   "groupId": 4415620,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T23:10:00Z",
+   "cutOffDate": "2026-10-21T23:10:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 6004,
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:6004",
+    "imageProfile": {
+     "logo": "3b8e2756.svg",
+     "logoColor": "C4CED3"
+    },
+    "type": "Competition",
+    "id": 6004,
+    "parentId": 9,
+    "name": {
+     "value": "NBA",
+     "sign": "pL+WdA=="
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 7,
+    "type": "Region",
+    "id": 9,
+    "parentId": 7,
+    "name": {
+     "value": "North America",
+     "sign": "94++pQ=="
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 3,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "tv2RelatedFixtureId": "6:48208",
+   "linkedTv1EventIds": [],
+   "hybridFixtureData": {
+    "fixtureId": "6:48208",
+    "status": "Unavailable"
+   },
+   "contexts": [
+    "v1|en|19883985"
+   ],
+   "playerStats": [],
+   "sequence": 325,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1569553274,
+     "name": {
+      "value": "Money Line"
+     },
+     "results": [
+      {
+       "id": 2326950890,
+       "odds": 6.25,
+       "name": {
+        "value": "San Miguel Beermen"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 21,
+       "denominator": 4,
+       "americanOdds": 525,
+       "version": 11078209046
+      },
+      {
+       "id": 2326950891,
+       "odds": 1.07,
+       "name": {
+        "value": "Road Warriors"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 1,
+       "denominator": 14,
+       "americanOdds": -1400,
+       "version": 11078209046
+      }
+     ],
+     "templateId": 66,
+     "categoryId": 43,
+     "resultOrder": "Default",
+     "combo1": "OtherLiveEvents",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "balanced": 1,
+     "spread": 5.18,
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 43,
+      "name": {
+       "value": "Money Line"
+      },
+      "category": "Gridable",
+      "dynamicCategories": []
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "xt229vkj8"
+      ],
+      "detailed": [
+       {
+        "subIndex": 13,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+        "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 11,
+        "marketTabId": 8,
+        "optionColumnId": 3,
+        "displayType": "SixPack",
+        "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+        "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false,
+     "oddsKey": 109.46
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2559564,
+     "name": {
+      "value": "San Miguel Beermen",
+      "short": "San Miguel Beermen"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2848219,
+     "name": {
+      "value": "Road Warriors",
+      "short": "Road Warriors"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20032608",
+   "name": {
+    "value": "San Miguel Beermen - Road Warriors"
+   },
+   "sourceId": 20032608,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20032608",
+   "addons": {
+    "betRadar": 72449578,
+    "statistics": true,
+    "participantDividend": {},
+    "betBuilderProvider": "None"
+   },
+   "stage": "Live",
+   "groupId": 4445887,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "scoreboard": {
+    "totalPoints": {
+     "player1": {
+      "1": 30,
+      "3": 30,
+      "5": 24,
+      "255": 84
+     },
+     "player2": {
+      "1": 32,
+      "3": 36,
+      "5": 32,
+      "255": 100
+     }
+    },
+    "matchType": 2,
+    "sportId": 7,
+    "id": "20032608",
+    "period": "Q3",
+    "periodId": 5,
+    "points": [],
+    "turn": "Player01",
+    "score": "84:100",
+    "indicator": "< 04:15",
+    "started": true
+   },
+   "startDate": "2026-10-21T09:15:00Z",
+   "cutOffDate": "2026-10-21T12:15:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 7,
+    "name": {
+     "value": "Basketball",
+     "sign": "WotGFA=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 19027,
+    "statistics": true,
+    "sportId": 7,
+    "compoundId": "1:19437",
+    "type": "Competition",
+    "id": 19437,
+    "parentId": 184,
+    "name": {
+     "value": "PBA",
+     "sign": "KxrpvQ=="
+    }
+   },
+   "region": {
+    "code": "PHI",
+    "sportId": 7,
+    "type": "Region",
+    "id": 184,
+    "parentId": 7,
+    "name": {
+     "value": "Philippines",
+     "sign": "jDAflA=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 14,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20032608"
+   ],
+   "playerStats": [],
+   "sequence": 38626,
+   "isPlannedInPlay": false
+  }
+ ],
+ "totalCount": 208
+}

@@ -1,0 +1,2911 @@
+{
+ "fixtures": [
+  {
+   "optionMarkets": [
+    {
+     "id": 206494613,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 797308016,
+       "status": "Visible",
+       "name": {
+        "value": "Khankendi FK"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 2767742665,
+        "numerator": 1,
+        "denominator": 14,
+        "odds": 1.07,
+        "americanOdds": -1400
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39462162
+       }
+      },
+      {
+       "id": 797308017,
+       "status": "Visible",
+       "name": {
+        "value": "X"
+       },
+       "price": {
+        "id": 2767742666,
+        "numerator": 25,
+        "denominator": 2,
+        "odds": 13.5,
+        "americanOdds": 1250
+       },
+       "parameters": {
+        "optionTypes": [
+         "Draw"
+        ]
+       }
+      },
+      {
+       "id": 797308018,
+       "status": "Visible",
+       "name": {
+        "value": "Energetik Mingechevir"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 2767742667,
+        "numerator": 23,
+        "denominator": 2,
+        "odds": 12.5,
+        "americanOdds": 1150
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39462163
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "3way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "ls8o6ll2v",
+       "r8evumgiw"
+      ],
+      "detailed": [
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "ca6c08a7-ac26-4223-bc5e-90f9a5183c51",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "de4a529a-f75b-4092-af1c-b5580fe74746",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "d9b540b5-eb43-44cc-ba85-77bffc266fce",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "7412ebb3-5daa-4bdb-b27f-2d6ebad9b881",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "4deb5b14-cb63-4700-84ec-e273e929fc4e",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "c8aa178a-ff0c-400a-b744-7e8961320e0a",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorntest",
+       "bbplus",
+       "abpopular",
+       "game",
+       "bbplustest",
+       "bbplusdach",
+       "gamedach",
+       "bbplus_module",
+       "matchresult_module",
+       "bbplusmgm",
+       "gameprops",
+       "bbplusoddset",
+       "gameoddset"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 39462162,
+     "participantId": 726255,
+     "name": {
+      "value": "Khankendi FK"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 39462163,
+     "participantId": 319207,
+     "name": {
+      "value": "Energetik Mingechevir"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "2:7896599",
+   "name": {
+    "value": "Khankendi FK - Energetik Mingechevir",
+    "sign": "i41Szg=="
+   },
+   "sourceId": 7896599,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|2:7896599_53_any",
+   "addons": {
+    "betRadar": 73730304,
+    "statistics": true,
+    "rule4Expected": false,
+    "isResulted": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 73730304,
+     "coverageLevel": 3
+    },
+    "betBuilderProvider": "BybFootball",
+    "betBuilderId": "2:7896599",
+    "betBuilderTradingV2FixtureId": "2:7896599"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "corners": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "redCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "yellowCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "offsides": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "throwIns": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "penalties": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "substitutions": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "goalKicks": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "freeKicks": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "scoreDetailed": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "sportId": 4,
+    "id": "2:7896599",
+    "period": "Not Started",
+    "periodId": 0,
+    "points": [],
+    "score": "0:0",
+    "timer": {
+     "running": false,
+     "base": "2026-10-21T10:25:56Z",
+     "visible": true,
+     "seconds": 0
+    },
+    "started": false
+   },
+   "startDate": "2026-10-21T11:00:00Z",
+   "cutOffDate": "2026-10-21T13:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 4,
+    "name": {
+     "value": "Football"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 4,
+    "compoundId": "2:104433",
+    "type": "Competition",
+    "id": 104433,
+    "parentId": 77,
+    "name": {
+     "value": "I Divizion"
+    }
+   },
+   "region": {
+    "code": "AZE",
+    "sportId": 4,
+    "type": "Region",
+    "id": 77,
+    "parentId": 4,
+    "name": {
+     "value": "Azerbaijan"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 14,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|2:7896599_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 206494863,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 797310295,
+       "status": "Visible",
+       "name": {
+        "value": "Shahdagh-Samur Gusar"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 2767753498,
+        "numerator": 29,
+        "denominator": 20,
+        "odds": 2.45,
+        "americanOdds": 145
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39462172
+       }
+      },
+      {
+       "id": 797310296,
+       "status": "Visible",
+       "name": {
+        "value": "X"
+       },
+       "price": {
+        "id": 2767753499,
+        "numerator": 21,
+        "denominator": 10,
+        "odds": 3.1,
+        "americanOdds": 210
+       },
+       "parameters": {
+        "optionTypes": [
+         "Draw"
+        ]
+       }
+      },
+      {
+       "id": 797310297,
+       "status": "Visible",
+       "name": {
+        "value": "Sabail FK"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 2767753500,
+        "numerator": 31,
+        "denominator": 20,
+        "odds": 2.55,
+        "americanOdds": 155
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39462173
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "3way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "ls8o6ll2v",
+       "r8evumgiw"
+      ],
+      "detailed": [
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "ca6c08a7-ac26-4223-bc5e-90f9a5183c51",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "de4a529a-f75b-4092-af1c-b5580fe74746",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "d9b540b5-eb43-44cc-ba85-77bffc266fce",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "7412ebb3-5daa-4bdb-b27f-2d6ebad9b881",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "4deb5b14-cb63-4700-84ec-e273e929fc4e",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "c8aa178a-ff0c-400a-b744-7e8961320e0a",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorntest",
+       "bbplus",
+       "abpopular",
+       "game",
+       "bbplustest",
+       "bbplusdach",
+       "gamedach",
+       "bbplus_module",
+       "matchresult_module",
+       "bbplusmgm",
+       "gameprops",
+       "bbplusoddset",
+       "gameoddset"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 39462172,
+     "participantId": 464609,
+     "name": {
+      "value": "Shahdagh Samur Gusar"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 39462173,
+     "participantId": 193795,
+     "name": {
+      "value": "Sabail FK"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "2:7896604",
+   "name": {
+    "value": "Shahdagh-Samur Gusar - Sabail FK",
+    "sign": "mlKNAQ=="
+   },
+   "sourceId": 7896604,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|2:7896604_53_any",
+   "addons": {
+    "betRadar": 73730302,
+    "statistics": true,
+    "rule4Expected": false,
+    "isResulted": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 73730302,
+     "coverageLevel": 1
+    },
+    "betBuilderProvider": "BybFootball",
+    "betBuilderId": "2:7896604",
+    "betBuilderTradingV2FixtureId": "2:7896604"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "corners": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "redCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "yellowCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "offsides": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "throwIns": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "penalties": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "substitutions": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "goalKicks": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "freeKicks": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "scoreDetailed": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "sportId": 4,
+    "id": "2:7896604",
+    "period": "Not Started",
+    "periodId": 0,
+    "points": [],
+    "score": "0:0",
+    "timer": {
+     "running": false,
+     "base": "2026-10-21T10:25:40Z",
+     "visible": true,
+     "seconds": 0
+    },
+    "started": false
+   },
+   "startDate": "2026-10-21T11:00:00Z",
+   "cutOffDate": "2026-10-21T13:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 4,
+    "name": {
+     "value": "Football"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 4,
+    "compoundId": "2:104433",
+    "type": "Competition",
+    "id": 104433,
+    "parentId": 77,
+    "name": {
+     "value": "I Divizion"
+    }
+   },
+   "region": {
+    "code": "AZE",
+    "sportId": 4,
+    "type": "Region",
+    "id": 77,
+    "parentId": 4,
+    "name": {
+     "value": "Azerbaijan"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 14,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|2:7896604_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 206486677,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 797229678,
+       "status": "Visible",
+       "name": {
+        "value": "Persija Jakarta"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 2767350338,
+        "numerator": 3,
+        "denominator": 10,
+        "odds": 1.3,
+        "americanOdds": -325
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39461307
+       }
+      },
+      {
+       "id": 797229679,
+       "status": "Visible",
+       "name": {
+        "value": "X"
+       },
+       "price": {
+        "id": 2767350339,
+        "numerator": 4,
+        "denominator": 1,
+        "odds": 5,
+        "americanOdds": 400
+       },
+       "parameters": {
+        "optionTypes": [
+         "Draw"
+        ]
+       }
+      },
+      {
+       "id": 797229680,
+       "status": "Visible",
+       "name": {
+        "value": "Arema FC"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 2767350340,
+        "numerator": 25,
+        "denominator": 4,
+        "odds": 7.25,
+        "americanOdds": 625
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39461308
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "3way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "ls8o6ll2v",
+       "r8evumgiw"
+      ],
+      "detailed": [
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "ca6c08a7-ac26-4223-bc5e-90f9a5183c51",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "de4a529a-f75b-4092-af1c-b5580fe74746",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "d9b540b5-eb43-44cc-ba85-77bffc266fce",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "7412ebb3-5daa-4bdb-b27f-2d6ebad9b881",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "4deb5b14-cb63-4700-84ec-e273e929fc4e",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "c8aa178a-ff0c-400a-b744-7e8961320e0a",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorntest",
+       "bbplus",
+       "abpopular",
+       "game",
+       "bbplustest",
+       "bbplusdach",
+       "gamedach",
+       "bbplus_module",
+       "matchresult_module",
+       "bbplusmgm",
+       "gameprops",
+       "bbplusoddset",
+       "gameoddset"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 39461307,
+     "participantId": 196162,
+     "name": {
+      "value": "Persija Jakarta"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 39461308,
+     "participantId": 196178,
+     "name": {
+      "value": "Arema FC"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "2:7896414",
+   "name": {
+    "value": "Persija Jakarta - Arema FC",
+    "sign": "qySfUw=="
+   },
+   "sourceId": 7896414,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|2:7896414_53_any",
+   "addons": {
+    "betRadar": 73577174,
+    "statistics": true,
+    "runningBall": "1boxwhrd5iyui5e8g8aluyvis",
+    "rule4Expected": false,
+    "isResulted": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 73577174,
+     "coverageLevel": 2
+    },
+    "betBuilderProvider": "BybFootball",
+    "betBuilderId": "2:7896414",
+    "betBuilderTradingV2FixtureId": "2:7896414"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "corners": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "redCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "yellowCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "offsides": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "throwIns": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "penalties": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "substitutions": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "goalKicks": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "freeKicks": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "scoreDetailed": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "sportId": 4,
+    "id": "2:7896414",
+    "period": "Not Started",
+    "periodId": 0,
+    "points": [],
+    "score": "0:0",
+    "timer": {
+     "running": false,
+     "base": "0001-01-01T00:01:00Z",
+     "visible": true,
+     "seconds": 0
+    },
+    "started": false
+   },
+   "startDate": "2026-10-21T12:00:00Z",
+   "cutOffDate": "2026-10-21T14:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 4,
+    "name": {
+     "value": "Football"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 4,
+    "compoundId": "2:102200",
+    "type": "Competition",
+    "id": 102200,
+    "parentId": 135,
+    "name": {
+     "value": "Liga 1"
+    }
+   },
+   "region": {
+    "code": "INA",
+    "sportId": 4,
+    "type": "Region",
+    "id": 135,
+    "parentId": 4,
+    "name": {
+     "value": "Indonesia"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 16,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|2:7896414_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 206494847,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 797310034,
+       "status": "Visible",
+       "name": {
+        "value": "FK Zvijezda 09"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 2767752664,
+        "numerator": 13,
+        "denominator": 20,
+        "odds": 1.65,
+        "americanOdds": -155
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39462170
+       }
+      },
+      {
+       "id": 797310035,
+       "status": "Visible",
+       "name": {
+        "value": "X"
+       },
+       "price": {
+        "id": 2767752665,
+        "numerator": 13,
+        "denominator": 5,
+        "odds": 3.6,
+        "americanOdds": 260
+       },
+       "parameters": {
+        "optionTypes": [
+         "Draw"
+        ]
+       }
+      },
+      {
+       "id": 797310036,
+       "status": "Visible",
+       "name": {
+        "value": "FK Omarska"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 2767752666,
+        "numerator": 16,
+        "denominator": 5,
+        "odds": 4.2,
+        "americanOdds": 320
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39462171
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "3way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "ls8o6ll2v",
+       "r8evumgiw"
+      ],
+      "detailed": [
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "ca6c08a7-ac26-4223-bc5e-90f9a5183c51",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "de4a529a-f75b-4092-af1c-b5580fe74746",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "d9b540b5-eb43-44cc-ba85-77bffc266fce",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "7412ebb3-5daa-4bdb-b27f-2d6ebad9b881",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "4deb5b14-cb63-4700-84ec-e273e929fc4e",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "c8aa178a-ff0c-400a-b744-7e8961320e0a",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorntest",
+       "bbplus",
+       "abpopular",
+       "game",
+       "bbplustest",
+       "bbplusdach",
+       "gamedach",
+       "bbplus_module",
+       "matchresult_module",
+       "bbplusmgm",
+       "gameprops",
+       "bbplusoddset",
+       "gameoddset"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 39462170,
+     "participantId": 174193,
+     "name": {
+      "value": "FK Zvijezda 09",
+      "short": "FK Zvijezda"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 39462171,
+     "participantId": 246526,
+     "name": {
+      "value": "FK Omarska",
+      "short": "Omarska"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "2:7896603",
+   "name": {
+    "value": "FK Zvijezda 09 - FK Omarska",
+    "sign": "VGbB6g=="
+   },
+   "sourceId": 7896603,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|2:7896603_53_any",
+   "addons": {
+    "betRadar": 74173800,
+    "statistics": true,
+    "runningBall": "cqd5ff6ctyfm2rnpghflkzw9g",
+    "rule4Expected": false,
+    "isResulted": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 74173800,
+     "coverageLevel": 3
+    },
+    "betBuilderProvider": "BybFootball",
+    "betBuilderId": "2:7896603",
+    "betBuilderTradingV2FixtureId": "2:7896603"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "corners": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "redCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "yellowCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "offsides": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "throwIns": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "penalties": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "substitutions": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "goalKicks": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "freeKicks": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "scoreDetailed": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "sportId": 4,
+    "id": "2:7896603",
+    "period": "Not Started",
+    "periodId": 0,
+    "points": [],
+    "score": "0:0",
+    "timer": {
+     "running": false,
+     "base": "1970-01-01T00:00:00Z",
+     "visible": true,
+     "seconds": 0
+    },
+    "started": false
+   },
+   "startDate": "2026-10-21T12:00:00Z",
+   "cutOffDate": "2026-10-21T14:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 4,
+    "name": {
+     "value": "Football"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 4,
+    "compoundId": "2:101579",
+    "type": "Competition",
+    "id": 101579,
+    "parentId": 86,
+    "name": {
+     "value": "Prva Liga, Rep Srpska"
+    }
+   },
+   "region": {
+    "code": "BIH",
+    "sportId": 4,
+    "type": "Region",
+    "id": 86,
+    "parentId": 4,
+    "name": {
+     "value": "Bosnia and Herzegovina"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 16,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|2:7896603_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 206767728,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 799288736,
+       "status": "Visible",
+       "name": {
+        "value": "Ethiopia Coffee SC"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 2779222089,
+        "numerator": 6,
+        "denominator": 4,
+        "odds": 2.5,
+        "americanOdds": 150
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39566589
+       }
+      },
+      {
+       "id": 799288737,
+       "status": "Visible",
+       "name": {
+        "value": "X"
+       },
+       "price": {
+        "id": 2779222090,
+        "numerator": 33,
+        "denominator": 20,
+        "odds": 2.65,
+        "americanOdds": 165
+       },
+       "parameters": {
+        "optionTypes": [
+         "Draw"
+        ]
+       }
+      },
+      {
+       "id": 799288738,
+       "status": "Visible",
+       "name": {
+        "value": "Negele Arsi Ketema"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 2779222091,
+        "numerator": 15,
+        "denominator": 8,
+        "odds": 2.87,
+        "americanOdds": 188
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39566590
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "3way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "ls8o6ll2v",
+       "r8evumgiw"
+      ],
+      "detailed": [
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "ca6c08a7-ac26-4223-bc5e-90f9a5183c51",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "de4a529a-f75b-4092-af1c-b5580fe74746",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "d9b540b5-eb43-44cc-ba85-77bffc266fce",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "7412ebb3-5daa-4bdb-b27f-2d6ebad9b881",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "4deb5b14-cb63-4700-84ec-e273e929fc4e",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "c8aa178a-ff0c-400a-b744-7e8961320e0a",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorntest",
+       "bbplus",
+       "abpopular",
+       "game",
+       "bbplustest",
+       "bbplusdach",
+       "gamedach",
+       "bbplus_module",
+       "matchresult_module",
+       "bbplusmgm",
+       "gameprops",
+       "bbplusoddset",
+       "gameoddset"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 39566589,
+     "participantId": 211239,
+     "name": {
+      "value": "Ethiopia Coffee SC"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 39566590,
+     "participantId": 520598,
+     "name": {
+      "value": "Negele Arsi Ketema"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "2:7900299",
+   "name": {
+    "value": "Ethiopia Coffee SC - Negele Arsi Ketema",
+    "sign": "eoaxoA=="
+   },
+   "sourceId": 7900299,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|2:7900299_53_any",
+   "addons": {
+    "betRadar": 75798530,
+    "statistics": true,
+    "runningBall": "3vrs36jd1gi7oah50v591lij8",
+    "rule4Expected": false,
+    "isResulted": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 75798530,
+     "coverageLevel": 3
+    },
+    "betBuilderProvider": "BybFootball",
+    "betBuilderId": "2:7900299",
+    "betBuilderTradingV2FixtureId": "2:7900299"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "corners": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "redCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "yellowCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "offsides": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "throwIns": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "penalties": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "substitutions": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "goalKicks": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "freeKicks": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "scoreDetailed": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "sportId": 4,
+    "id": "2:7900299",
+    "period": "Not Started",
+    "periodId": 0,
+    "points": [],
+    "score": "0:0",
+    "timer": {
+     "running": false,
+     "base": "1970-01-01T00:00:00Z",
+     "visible": true,
+     "seconds": 0
+    },
+    "started": false
+   },
+   "startDate": "2026-10-21T12:00:00Z",
+   "cutOffDate": "2026-10-21T14:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 4,
+    "name": {
+     "value": "Football"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 4,
+    "compoundId": "2:102600",
+    "type": "Competition",
+    "id": 102600,
+    "parentId": 115,
+    "name": {
+     "value": "Premier League"
+    }
+   },
+   "region": {
+    "code": "ETH",
+    "sportId": 4,
+    "type": "Region",
+    "id": 115,
+    "parentId": 4,
+    "name": {
+     "value": "Ethiopia"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 14,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|2:7900299_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 206494519,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 797306839,
+       "status": "Visible",
+       "name": {
+        "value": "FK Leotar Trebinje"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 2767738065,
+        "numerator": 2,
+        "denominator": 9,
+        "odds": 1.22,
+        "americanOdds": -450
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39462150
+       }
+      },
+      {
+       "id": 797306840,
+       "status": "Visible",
+       "name": {
+        "value": "X"
+       },
+       "price": {
+        "id": 2767738066,
+        "numerator": 19,
+        "denominator": 4,
+        "odds": 5.75,
+        "americanOdds": 475
+       },
+       "parameters": {
+        "optionTypes": [
+         "Draw"
+        ]
+       }
+      },
+      {
+       "id": 797306841,
+       "status": "Visible",
+       "name": {
+        "value": "Velez Nevesinje"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 2767738067,
+        "numerator": 33,
+        "denominator": 4,
+        "odds": 9.25,
+        "americanOdds": 825
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39462151
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "3way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "ls8o6ll2v",
+       "r8evumgiw"
+      ],
+      "detailed": [
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "ca6c08a7-ac26-4223-bc5e-90f9a5183c51",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "de4a529a-f75b-4092-af1c-b5580fe74746",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "d9b540b5-eb43-44cc-ba85-77bffc266fce",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "7412ebb3-5daa-4bdb-b27f-2d6ebad9b881",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "4deb5b14-cb63-4700-84ec-e273e929fc4e",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "c8aa178a-ff0c-400a-b744-7e8961320e0a",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorntest",
+       "bbplus",
+       "abpopular",
+       "game",
+       "bbplustest",
+       "bbplusdach",
+       "gamedach",
+       "bbplus_module",
+       "matchresult_module",
+       "bbplusmgm",
+       "gameprops",
+       "bbplusoddset",
+       "gameoddset"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 39462150,
+     "participantId": 175149,
+     "name": {
+      "value": "FK Leotar Trebinje",
+      "short": "Leotar Trebinje"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 39462151,
+     "participantId": 245759,
+     "name": {
+      "value": "Velez Nevesinje"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "2:7896593",
+   "name": {
+    "value": "FK Leotar Trebinje - Velez Nevesinje",
+    "sign": "XvZj/g=="
+   },
+   "sourceId": 7896593,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|2:7896593_53_any",
+   "addons": {
+    "betRadar": 74173788,
+    "statistics": true,
+    "runningBall": "crqrxhdvyb0uunj8ki5l37w9g",
+    "rule4Expected": false,
+    "isResulted": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 74173788,
+     "coverageLevel": 1
+    },
+    "betBuilderProvider": "BybFootball",
+    "betBuilderId": "2:7896593",
+    "betBuilderTradingV2FixtureId": "2:7896593"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "corners": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "redCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "yellowCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "offsides": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "throwIns": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "penalties": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "substitutions": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "goalKicks": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "freeKicks": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "scoreDetailed": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "sportId": 4,
+    "id": "2:7896593",
+    "period": "Not Started",
+    "periodId": 0,
+    "points": [],
+    "score": "0:0",
+    "timer": {
+     "running": false,
+     "base": "0001-01-01T00:01:00Z",
+     "visible": true,
+     "seconds": 0
+    },
+    "started": false
+   },
+   "startDate": "2026-10-21T12:30:00Z",
+   "cutOffDate": "2026-10-21T14:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 4,
+    "name": {
+     "value": "Football"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 4,
+    "compoundId": "2:101579",
+    "type": "Competition",
+    "id": 101579,
+    "parentId": 86,
+    "name": {
+     "value": "Prva Liga, Rep Srpska"
+    }
+   },
+   "region": {
+    "code": "BIH",
+    "sportId": 4,
+    "type": "Region",
+    "id": 86,
+    "parentId": 4,
+    "name": {
+     "value": "Bosnia and Herzegovina"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 16,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|2:7896593_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 206485193,
+     "name": {
+      "value": "Match Result"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 797208093,
+       "status": "Visible",
+       "name": {
+        "value": "Nojima Stella Kanagawa Sagamihara (Women)"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 2767262499,
+        "numerator": 11,
+        "denominator": 5,
+        "odds": 3.2,
+        "americanOdds": 220
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39461044
+       }
+      },
+      {
+       "id": 797208094,
+       "status": "Visible",
+       "name": {
+        "value": "X"
+       },
+       "price": {
+        "id": 2767262500,
+        "numerator": 98,
+        "denominator": 100,
+        "odds": 1.98,
+        "americanOdds": -102
+       },
+       "parameters": {
+        "optionTypes": [
+         "Draw"
+        ]
+       }
+      },
+      {
+       "id": 797208095,
+       "status": "Visible",
+       "name": {
+        "value": "Albirex Niigata (JAP) (Women)"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 2767262501,
+        "numerator": 11,
+        "denominator": 5,
+        "odds": 3.2,
+        "americanOdds": 220
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 39461045
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Goal"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "3way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "RegularTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "ls8o6ll2v",
+       "r8evumgiw"
+      ],
+      "detailed": [
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "ca6c08a7-ac26-4223-bc5e-90f9a5183c51",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "e51b4b83-d87c-4592-8296-9d6b75cfca27",
+        "marketGroupItemId": "de4a529a-f75b-4092-af1c-b5580fe74746",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "d9b540b5-eb43-44cc-ba85-77bffc266fce",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "7412ebb3-5daa-4bdb-b27f-2d6ebad9b881",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "marketHelpPath": "Football/Match Result (Regular Time)",
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "4deb5b14-cb63-4700-84ec-e273e929fc4e",
+        "orderType": "None"
+       },
+       {
+        "marketTabId": 1,
+        "displayType": "Regular",
+        "marketGroupId": "fbb41fa9-997a-4eaa-8a8a-1d5fd008fb3d",
+        "marketGroupItemId": "c8aa178a-ff0c-400a-b744-7e8961320e0a",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorntest",
+       "bbplus",
+       "abpopular",
+       "game",
+       "bbplustest",
+       "bbplusdach",
+       "gamedach",
+       "bbplus_module",
+       "matchresult_module",
+       "bbplusmgm",
+       "gameprops",
+       "bbplusoddset",
+       "gameoddset"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 39461044,
+     "participantId": 260355,
+     "name": {
+      "value": "Nojima Stella Kanagawa Sagamihara (Women)"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 39461045,
+     "participantId": 258891,
+     "name": {
+      "value": "Albirex Niigata (JAP) (Women)"
+     },
+     "status": "NotDefined",
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "2:7896305",
+   "name": {
+    "value": "Nojima Stella Kanagawa Sagamihara (Women) - Albirex Niigata (JAP) (Women)",
+    "sign": "FWSuAg=="
+   },
+   "sourceId": 7896305,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|2:7896305_53_any",
+   "addons": {
+    "betRadar": 72339036,
+    "statistics": true,
+    "rule4Expected": false,
+    "isResulted": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 72339036,
+     "coverageLevel": 3
+    },
+    "betBuilderProvider": "BybFootball",
+    "betBuilderId": "2:7896305",
+    "betBuilderTradingV2FixtureId": "2:7896305"
+   },
+   "stage": "Live",
+   "liveAlert": true,
+   "scoreboard": {
+    "corners": {
+     "player1": {
+      "253": 0,
+      "254": 3,
+      "255": 3
+     },
+     "player2": {
+      "253": 0,
+      "254": 1,
+      "255": 1
+     }
+    },
+    "redCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "yellowCards": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "offsides": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "throwIns": {
+     "player1": {
+      "253": 0,
+      "254": 14,
+      "255": 14
+     },
+     "player2": {
+      "253": 0,
+      "254": 28,
+      "255": 28
+     }
+    },
+    "penalties": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "substitutions": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "goalKicks": {
+     "player1": {
+      "253": 0,
+      "254": 3,
+      "255": 3
+     },
+     "player2": {
+      "253": 0,
+      "254": 7,
+      "255": 7
+     }
+    },
+    "freeKicks": {
+     "player1": {
+      "253": 0,
+      "254": 5,
+      "255": 5
+     },
+     "player2": {
+      "253": 0,
+      "254": 3,
+      "255": 3
+     }
+    },
+    "scoreDetailed": {
+     "player1": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     },
+     "player2": {
+      "253": 0,
+      "254": 0,
+      "255": 0
+     }
+    },
+    "sportId": 4,
+    "id": "2:7896305",
+    "period": "2H",
+    "periodId": 3,
+    "points": [],
+    "score": "0:0",
+    "timer": {
+     "running": true,
+     "base": "2026-10-21T10:42:04Z",
+     "visible": true,
+     "seconds": 3194
+    },
+    "started": true
+   },
+   "startDate": "2026-10-21T09:30:00Z",
+   "cutOffDate": "2026-10-21T11:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 4,
+    "name": {
+     "value": "Football"
+    }
+   },
+   "competition": {
+    "statistics": true,
+    "sportId": 4,
+    "compoundId": "2:102931",
+    "type": "Competition",
+    "id": 102931,
+    "parentId": 52,
+    "name": {
+     "value": "WE League - Women"
+    }
+   },
+   "region": {
+    "code": "JPN",
+    "sportId": 4,
+    "type": "Region",
+    "id": 52,
+    "parentId": 4,
+    "name": {
+     "value": "Japan"
+    }
+   },
+   "viewType": "NotSet",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 15,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|2:7896305_53_any"
+   ],
+   "playerStats": [
+    {
+     "sportId": 4,
+     "source": "V2",
+     "stats": {},
+     "id": "2:7896305",
+     "regularTimeStats": []
+    }
+   ],
+   "isPlannedInPlay": true
+  }
+ ],
+ "totalCount": 658
+}

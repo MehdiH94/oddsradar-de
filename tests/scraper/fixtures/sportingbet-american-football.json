@@ -1,0 +1,4512 @@
+{
+ "fixtures": [
+  {
+   "optionMarkets": [
+    {
+     "id": 4085640,
+     "name": {
+      "value": "Moneyline"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 6573705,
+       "status": "Visible",
+       "name": {
+        "value": "New England Patriots"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 22911898,
+        "numerator": 5,
+        "denominator": 4,
+        "odds": 2.25,
+        "americanOdds": 125
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730395
+       }
+      },
+      {
+       "id": 6573706,
+       "status": "Visible",
+       "name": {
+        "value": "Chicago Bears"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 22911916,
+        "numerator": 8,
+        "denominator": 13,
+        "odds": 1.61,
+        "americanOdds": -165
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730394
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2way"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Point"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "gipidqpdd"
+      ],
+      "detailed": [
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "5debd627-c059-4ba5-b98a-58effe742a44",
+        "orderType": "None"
+       }
+      ]
+     },
+     "spread": 0.64,
+     "balanced": 1,
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "bbplus_row",
+       "bbplus_row_game",
+       "bbplus_module_row",
+       "bbplus_module_row_gamelines"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true,
+     "oddsKey": 106.56
+    },
+    {
+     "id": 4085880,
+     "name": {
+      "value": "Spread"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 6574162,
+       "status": "Visible",
+       "name": {
+        "value": "New England Patriots (+3)"
+       },
+       "price": {
+        "id": 22913992,
+        "numerator": 5,
+        "denominator": 6,
+        "odds": 1.83,
+        "americanOdds": -120
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730395
+       }
+      },
+      {
+       "id": 6574163,
+       "status": "Visible",
+       "name": {
+        "value": "Chicago Bears (-3)"
+       },
+       "price": {
+        "id": 22914009,
+        "numerator": 93,
+        "denominator": 100,
+        "odds": 1.93,
+        "americanOdds": -108
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730394
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "DecimalHandicap",
+       "type": "Decimal",
+       "value": "-3.0000"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Point"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2wayHandicap"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "c6jgebjaf"
+      ],
+      "detailed": [
+       {
+        "subIndex": -1,
+        "marketTabId": 65,
+        "displayType": "Spread",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "58723c96-fd88-423b-98f7-04ed1fdada70",
+        "orderType": "LineValue"
+       },
+       {
+        "subIndex": -1,
+        "marketTabId": 65,
+        "displayType": "Spread",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "8ea36ebb-a099-4db5-bbbb-ac863eddfa76",
+        "orderType": "None"
+       },
+       {
+        "subIndex": -1,
+        "marketTabId": 65,
+        "displayType": "Spread",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "499c8648-1fa8-4802-b339-84baad88b521",
+        "orderType": "None"
+       },
+       {
+        "subIndex": -1,
+        "marketTabId": 65,
+        "displayType": "Spread",
+        "marketGroupId": "df1ff203-ccfa-4868-8f67-e14281476a4a",
+        "marketGroupItemId": "e66bb1e4-8e05-4e1f-a970-92ae6eb3b667",
+        "orderType": "LineValue"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "5debd627-c059-4ba5-b98a-58effe742a44",
+        "orderType": "None"
+       }
+      ]
+     },
+     "attr": "-3",
+     "spread": 0.1,
+     "balanced": 1,
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "alternatespreadscfb",
+       "bbplus_row",
+       "bbplus_row_game",
+       "bbplus_module_row",
+       "bbplus_module_row_gamelines",
+       "bbplus_betmgm_mod",
+       "bb_game"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true,
+     "oddsKey": 106.46
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 763367,
+     "participantId": 832912,
+     "name": {
+      "value": "Sam Roush"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763368,
+     "participantId": 351975,
+     "name": {
+      "value": "Kalif Raymond"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763369,
+     "participantId": 573230,
+     "name": {
+      "value": "Rome Odunze"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763377,
+     "participantId": 354161,
+     "name": {
+      "value": "Rhamondre Stevenson"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763380,
+     "participantId": 353662,
+     "name": {
+      "value": "Cole Kmet"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763381,
+     "participantId": 669445,
+     "name": {
+      "value": "TreVeyon Henderson"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763382,
+     "participantId": 714619,
+     "name": {
+      "value": "Efton Chism III"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763385,
+     "participantId": 832903,
+     "name": {
+      "value": "Eli Raridon"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763394,
+     "participantId": 357085,
+     "name": {
+      "value": "Caleb Williams"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763399,
+     "participantId": 669446,
+     "name": {
+      "value": "Luther Burden III"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763400,
+     "participantId": 669184,
+     "name": {
+      "value": "Colston Loveland"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763401,
+     "participantId": 354206,
+     "name": {
+      "value": "Hunter Henry"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763403,
+     "participantId": 754553,
+     "name": {
+      "value": "Corey Kiner"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763405,
+     "participantId": 353755,
+     "name": {
+      "value": "Romeo Doubs"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763406,
+     "participantId": 583281,
+     "name": {
+      "value": "Drake Maye"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763409,
+     "participantId": 354220,
+     "name": {
+      "value": "D'Andre Swift"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763410,
+     "participantId": 602217,
+     "name": {
+      "value": "CHI D/ST"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763411,
+     "participantId": 353306,
+     "name": {
+      "value": "Cameron Latu"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763412,
+     "participantId": 669944,
+     "name": {
+      "value": "Kyle Monangai"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763413,
+     "participantId": 354185,
+     "name": {
+      "value": "Demario Douglas"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 730394,
+     "participantId": 353513,
+     "name": {
+      "value": "Chicago Bears",
+      "short": "Bears"
+     },
+     "status": "Unknown",
+     "image": {
+      "jersey": "2_353513_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 730395,
+     "participantId": 354128,
+     "name": {
+      "value": "New England Patriots",
+      "short": "Patriots"
+     },
+     "status": "Unknown",
+     "image": {
+      "jersey": "2_354128_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763415,
+     "participantId": 602206,
+     "name": {
+      "value": "NE D/ST"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763416,
+     "participantId": 832913,
+     "name": {
+      "value": "Zavion Thomas"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763419,
+     "participantId": 354230,
+     "name": {
+      "value": "A.J. Brown"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763420,
+     "participantId": 669492,
+     "name": {
+      "value": "Kyle Williams"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763422,
+     "participantId": 352601,
+     "name": {
+      "value": "Zavier Scott"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763432,
+     "participantId": 353539,
+     "name": {
+      "value": "Cairo Santos"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763433,
+     "participantId": 669976,
+     "name": {
+      "value": "Andres Borregales"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 354128
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763441,
+     "participantId": 353613,
+     "name": {
+      "value": "Roschon Johnson"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353513
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "6:43657",
+   "name": {
+    "value": "New England Patriots @ Chicago Bears",
+    "sign": "wn7ByQ=="
+   },
+   "sourceId": 43657,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|6:43657_53_any",
+   "addons": {
+    "betRadar": 71515926,
+    "statistics": true,
+    "rule4Expected": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 71515926,
+     "coverageLevel": 3
+    },
+    "angstromBetBuilderId": "b89a8013-cd41-49cb-9f15-33b5d4ec8014",
+    "betBuilderProvider": "Angstrom",
+    "betBuilderId": "b89a8013-cd41-49cb-9f15-33b5d4ec8014",
+    "betBuilderTradingV2FixtureId": "6:43657"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "totalPoints": {
+     "player1": {},
+     "player2": {}
+    },
+    "touchdowns": {
+     "player1": {},
+     "player2": {}
+    },
+    "yardsToNextDown": 0,
+    "yardsDistance": 0,
+    "sportId": 11,
+    "id": "6:43657",
+    "period": "Not Started",
+    "periodId": 0,
+    "points": [],
+    "turn": "None",
+    "score": "-:-",
+    "timer": {
+     "running": false,
+     "base": "0001-01-01T00:01:00Z",
+     "visible": false,
+     "seconds": 0
+    },
+    "started": false
+   },
+   "startDate": "2026-10-23T00:15:00Z",
+   "cutOffDate": "2026-10-23T05:15:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 11,
+    "name": {
+     "value": "American Football"
+    }
+   },
+   "competition": {
+    "parentLeagueId": 35,
+    "statistics": true,
+    "sportId": 11,
+    "compoundId": "2:103489",
+    "imageProfile": {
+     "logo": "b623e611.svg"
+    },
+    "type": "Competition",
+    "id": 103489,
+    "parentId": 9,
+    "name": {
+     "value": "NFL"
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 11,
+    "type": "Region",
+    "id": 9,
+    "parentId": 11,
+    "name": {
+     "value": "North America"
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 274,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|6:43657_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 4085647,
+     "name": {
+      "value": "Moneyline"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 6573745,
+       "status": "Visible",
+       "name": {
+        "value": "Pittsburgh Steelers"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 22912038,
+        "numerator": 8,
+        "denominator": 15,
+        "odds": 1.53,
+        "americanOdds": -190
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730419
+       }
+      },
+      {
+       "id": 6573746,
+       "status": "Visible",
+       "name": {
+        "value": "New Orleans Saints"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 22912056,
+        "numerator": 29,
+        "denominator": 20,
+        "odds": 2.45,
+        "americanOdds": 145
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730418
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2way"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Point"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "gipidqpdd"
+      ],
+      "detailed": [
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "5debd627-c059-4ba5-b98a-58effe742a44",
+        "orderType": "None"
+       }
+      ]
+     },
+     "spread": 0.92,
+     "balanced": 1,
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "bbplus_row",
+       "bbplus_row_game",
+       "bbplus_module_row",
+       "bbplus_module_row_gamelines"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true,
+     "oddsKey": 106.18
+    },
+    {
+     "id": 4092367,
+     "name": {
+      "value": "Spread"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 6591374,
+       "status": "Visible",
+       "name": {
+        "value": "Pittsburgh Steelers (-13.5)"
+       },
+       "price": {
+        "id": 23054269,
+        "numerator": 7,
+        "denominator": 2,
+        "odds": 4.5,
+        "americanOdds": 350
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730419
+       }
+      },
+      {
+       "id": 6591375,
+       "status": "Visible",
+       "name": {
+        "value": "New Orleans Saints (+13.5)"
+       },
+       "price": {
+        "id": 23054286,
+        "numerator": 1,
+        "denominator": 5,
+        "odds": 1.2,
+        "americanOdds": -500
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730418
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "DecimalHandicap",
+       "type": "Decimal",
+       "value": "13.5000"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Point"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2wayHandicap"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "c6jgebjaf"
+      ],
+      "detailed": [
+       {
+        "subIndex": 14,
+        "marketTabId": 65,
+        "displayType": "Spread",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "58723c96-fd88-423b-98f7-04ed1fdada70",
+        "orderType": "LineValue"
+       },
+       {
+        "subIndex": 14,
+        "marketTabId": 65,
+        "displayType": "Spread",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "8ea36ebb-a099-4db5-bbbb-ac863eddfa76",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 14,
+        "marketTabId": 65,
+        "displayType": "Spread",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "499c8648-1fa8-4802-b339-84baad88b521",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 14,
+        "marketTabId": 65,
+        "displayType": "Spread",
+        "marketGroupId": "df1ff203-ccfa-4868-8f67-e14281476a4a",
+        "marketGroupItemId": "e66bb1e4-8e05-4e1f-a970-92ae6eb3b667",
+        "orderType": "LineValue"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "5debd627-c059-4ba5-b98a-58effe742a44",
+        "orderType": "None"
+       }
+      ]
+     },
+     "attr": "13.5",
+     "spread": 3.3,
+     "balanced": 1,
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "alternatespreadscfb",
+       "bbplus_row",
+       "bbplus_row_game",
+       "bbplus_module_row",
+       "bbplus_module_row_gamelines",
+       "bbplus_betmgm_mod",
+       "bb_game"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true,
+     "oddsKey": 105.56
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 763649,
+     "participantId": 882499,
+     "name": {
+      "value": "Barion Brown"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763566,
+     "participantId": 352973,
+     "name": {
+      "value": "Chris Olave"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763569,
+     "participantId": 353215,
+     "name": {
+      "value": "Darnell Washington"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763570,
+     "participantId": 602233,
+     "name": {
+      "value": "PIT D/ST"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763572,
+     "participantId": 354599,
+     "name": {
+      "value": "Rico Dowdle"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763573,
+     "participantId": 835051,
+     "name": {
+      "value": "Kaden Wetjen"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763574,
+     "participantId": 354676,
+     "name": {
+      "value": "Aaron Rodgers"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763575,
+     "participantId": 888850,
+     "name": {
+      "value": "Treyton Welch"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763576,
+     "participantId": 716195,
+     "name": {
+      "value": "Saints D/ST"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763578,
+     "participantId": 574146,
+     "name": {
+      "value": "Devaughn Vele"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763580,
+     "participantId": 832859,
+     "name": {
+      "value": "Oscar Delp"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763581,
+     "participantId": 432785,
+     "name": {
+      "value": "Alvin Kamara"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763582,
+     "participantId": 832890,
+     "name": {
+      "value": "Germie Bernard"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763584,
+     "participantId": 893728,
+     "name": {
+      "value": "CJ Donaldson"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763585,
+     "participantId": 359679,
+     "name": {
+      "value": "Bryce Lance"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763587,
+     "participantId": 353221,
+     "name": {
+      "value": "Pat Freiermuth"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763591,
+     "participantId": 352501,
+     "name": {
+      "value": "Cedric Tillman"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763592,
+     "participantId": 354871,
+     "name": {
+      "value": "Brandon Smith"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763593,
+     "participantId": 835061,
+     "name": {
+      "value": "Riley Nowakowski"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763594,
+     "participantId": 352985,
+     "name": {
+      "value": "Kendre Miller"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763595,
+     "participantId": 354323,
+     "name": {
+      "value": "DK Metcalf"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763596,
+     "participantId": 669447,
+     "name": {
+      "value": "Tyler Shough"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763597,
+     "participantId": 354389,
+     "name": {
+      "value": "Noah Fant"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763601,
+     "participantId": 353171,
+     "name": {
+      "value": "Jaylen Warren"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 763602,
+     "participantId": 353034,
+     "name": {
+      "value": "Juwan Johnson"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352961
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 730418,
+     "participantId": 352961,
+     "name": {
+      "value": "New Orleans Saints",
+      "short": "Saints"
+     },
+     "status": "Unknown",
+     "image": {
+      "jersey": "2_352961_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 730419,
+     "participantId": 353140,
+     "name": {
+      "value": "Pittsburgh Steelers",
+      "short": "Steelers"
+     },
+     "status": "Unknown",
+     "image": {
+      "jersey": "2_353140_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765921,
+     "participantId": 353703,
+     "name": {
+      "value": "Lew Nichols"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765922,
+     "participantId": 353603,
+     "name": {
+      "value": "Travis Homer"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765923,
+     "participantId": 354420,
+     "name": {
+      "value": "Ben Skowronek"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765924,
+     "participantId": 353601,
+     "name": {
+      "value": "Robert Tonyan"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353140
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765925,
+     "participantId": 353849,
+     "name": {
+      "value": "Brandon Johnson"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "6:43669",
+   "name": {
+    "value": "Pittsburgh Steelers @ New Orleans Saints",
+    "sign": "1Y/xJw=="
+   },
+   "sourceId": 43669,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|6:43669_53_any",
+   "addons": {
+    "betRadar": 71488628,
+    "statistics": true,
+    "rule4Expected": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 71488628,
+     "coverageLevel": 3
+    },
+    "angstromBetBuilderId": "d678e1ee-f36a-44d8-850e-28fe57b4ad74",
+    "betBuilderProvider": "Angstrom",
+    "betBuilderId": "d678e1ee-f36a-44d8-850e-28fe57b4ad74",
+    "betBuilderTradingV2FixtureId": "6:43669"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "totalPoints": {
+     "player1": {},
+     "player2": {}
+    },
+    "touchdowns": {
+     "player1": {},
+     "player2": {}
+    },
+    "yardsToNextDown": 0,
+    "yardsDistance": 0,
+    "sportId": 11,
+    "id": "6:43669",
+    "period": "Not Started",
+    "periodId": 0,
+    "points": [],
+    "turn": "None",
+    "score": "-:-",
+    "timer": {
+     "running": false,
+     "base": "0001-01-01T00:01:00Z",
+     "visible": false,
+     "seconds": 0
+    },
+    "started": false
+   },
+   "startDate": "2026-10-25T13:30:00Z",
+   "cutOffDate": "2026-10-25T18:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 11,
+    "name": {
+     "value": "American Football"
+    }
+   },
+   "competition": {
+    "parentLeagueId": 35,
+    "statistics": true,
+    "sportId": 11,
+    "compoundId": "2:103489",
+    "imageProfile": {
+     "logo": "b623e611.svg"
+    },
+    "type": "Competition",
+    "id": 103489,
+    "parentId": 9,
+    "name": {
+     "value": "NFL"
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 11,
+    "type": "Region",
+    "id": 9,
+    "parentId": 11,
+    "name": {
+     "value": "North America"
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 220,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|6:43669_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 4085653,
+     "name": {
+      "value": "Moneyline"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 6573756,
+       "status": "Visible",
+       "name": {
+        "value": "Indianapolis Colts"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 22912151,
+        "numerator": 9,
+        "denominator": 4,
+        "odds": 3.25,
+        "americanOdds": 225
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730421
+       }
+      },
+      {
+       "id": 6573757,
+       "status": "Visible",
+       "name": {
+        "value": "Minnesota Vikings"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 22912169,
+        "numerator": 1,
+        "denominator": 3,
+        "odds": 1.33,
+        "americanOdds": -300
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730420
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2way"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Point"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "gipidqpdd"
+      ],
+      "detailed": [
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "5debd627-c059-4ba5-b98a-58effe742a44",
+        "orderType": "None"
+       }
+      ]
+     },
+     "spread": 1.92,
+     "balanced": 1,
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "bbplus_row",
+       "bbplus_row_game",
+       "bbplus_module_row",
+       "bbplus_module_row_gamelines"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true,
+     "oddsKey": 105.96
+    },
+    {
+     "id": 4106137,
+     "name": {
+      "value": "1st half totals"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 6617464,
+       "status": "Visible",
+       "name": {
+        "value": "Over 17.5"
+       },
+       "price": {
+        "id": 23258731,
+        "numerator": 1,
+        "denominator": 2,
+        "odds": 1.5,
+        "americanOdds": -200
+       },
+       "parameters": {
+        "optionTypes": [
+         "Over"
+        ]
+       }
+      },
+      {
+       "id": 6617465,
+       "status": "Visible",
+       "name": {
+        "value": "Under 17.5"
+       },
+       "price": {
+        "id": 23258749,
+        "numerator": 27,
+        "denominator": 20,
+        "odds": 2.35,
+        "americanOdds": 135
+       },
+       "parameters": {
+        "optionTypes": [
+         "Under"
+        ]
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "DecimalValue",
+       "type": "Decimal",
+       "value": "17.5000"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Point"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "Over/Under"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FirstHalf"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "xzowkqkpd"
+      ],
+      "detailed": [
+       {
+        "subIndex": 18,
+        "marketTabId": 2,
+        "displayType": "OverUnder",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "fe7d66b9-7247-4a75-a33b-9ad807c32f7d",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 18,
+        "marketTabId": 2,
+        "displayType": "OverUnder",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "fa8bee7a-0aa5-4dc2-9b5d-df836c1fe969",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 18,
+        "marketTabId": 2,
+        "displayType": "OverUnder",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "3020db8b-2615-436d-ab79-6a9a559d2d12",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 18,
+        "marketTabId": 2,
+        "displayType": "OverUnder",
+        "marketGroupId": "ec820ec3-74ad-4abd-ad8a-502888b12f1e",
+        "marketGroupItemId": "36fc64a2-4971-4d0d-b072-f311bee71f8c",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 18,
+        "displayType": "OverUnder",
+        "marketGroupId": "f6ca5893-a93d-497d-8124-78a01fe2841a",
+        "marketGroupItemId": "6784286a-158d-4a18-a099-4956f16dd757",
+        "orderType": "LineValue"
+       },
+       {
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "5debd627-c059-4ba5-b98a-58effe742a44",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "f6ca5893-a93d-497d-8124-78a01fe2841a",
+        "marketGroupItemId": "8e82d802-0075-412e-8a7d-9b27597d6a43",
+        "orderType": "None"
+       }
+      ]
+     },
+     "attr": "17,5",
+     "spread": 0.85,
+     "balanced": 1,
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "firsthalfcfb",
+       "bbplus_row",
+       "bbplus_row_game",
+       "bbplus_module_row",
+       "bbplus_module_row_gamelines",
+       "bbplus_betmgm_mod",
+       "bb_game"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true,
+     "oddsKey": 109.22
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 765232,
+     "participantId": 352679,
+     "name": {
+      "value": "Will Mallory"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765233,
+     "participantId": 669522,
+     "name": {
+      "value": "Tai Felton"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352779
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765234,
+     "participantId": 352783,
+     "name": {
+      "value": "Jordan Addison"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352779
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765235,
+     "participantId": 602223,
+     "name": {
+      "value": "IND D/ST"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765236,
+     "participantId": 352675,
+     "name": {
+      "value": "Mo Alie-Cox"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765237,
+     "participantId": 718159,
+     "name": {
+      "value": "Myles Price"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352779
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765241,
+     "participantId": 353257,
+     "name": {
+      "value": "Jordan Mason"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352779
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765242,
+     "participantId": 669989,
+     "name": {
+      "value": "Gavin Bartholomew"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352779
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765243,
+     "participantId": 602205,
+     "name": {
+      "value": "MIN D/ST"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352779
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765244,
+     "participantId": 720075,
+     "name": {
+      "value": "Drew Ogletree"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765246,
+     "participantId": 669919,
+     "name": {
+      "value": "D.J. Giddens"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765247,
+     "participantId": 352245,
+     "name": {
+      "value": "Laquon Treadwell"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765248,
+     "participantId": 352617,
+     "name": {
+      "value": "Ashton Dulin"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765249,
+     "participantId": 352859,
+     "name": {
+      "value": "T.J. Hockenson"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352779
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765250,
+     "participantId": 352600,
+     "name": {
+      "value": "Josh Downs"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765251,
+     "participantId": 354497,
+     "name": {
+      "value": "Daniel Jones"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765252,
+     "participantId": 887234,
+     "name": {
+      "value": "Deion Burks"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765253,
+     "participantId": 352796,
+     "name": {
+      "value": "Justin Jefferson"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352779
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765254,
+     "participantId": 576691,
+     "name": {
+      "value": "Anthony Gould"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765256,
+     "participantId": 354341,
+     "name": {
+      "value": "DeeJay Dallas"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352779
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765257,
+     "participantId": 835077,
+     "name": {
+      "value": "Max Bredeson"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352779
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765258,
+     "participantId": 439111,
+     "name": {
+      "value": "Jonathan Taylor"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765259,
+     "participantId": 353250,
+     "name": {
+      "value": "Jauan Jennings"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352779
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765260,
+     "participantId": 353704,
+     "name": {
+      "value": "Aaron Jones"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352779
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765261,
+     "participantId": 881617,
+     "name": {
+      "value": "Seth McGowan"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765262,
+     "participantId": 353964,
+     "name": {
+      "value": "Keenan Allen"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765263,
+     "participantId": 669187,
+     "name": {
+      "value": "Tyler Warren"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352599
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765264,
+     "participantId": 353421,
+     "name": {
+      "value": "Kyler Murray"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352779
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 730420,
+     "participantId": 352779,
+     "name": {
+      "value": "Minnesota Vikings",
+      "short": "Vikings"
+     },
+     "status": "Unknown",
+     "image": {
+      "jersey": "2_352779_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 730421,
+     "participantId": 352599,
+     "name": {
+      "value": "Indianapolis Colts",
+      "short": "Colts"
+     },
+     "status": "Unknown",
+     "image": {
+      "jersey": "2_352599_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "6:43670",
+   "name": {
+    "value": "Indianapolis Colts @ Minnesota Vikings",
+    "sign": "tsTuaQ=="
+   },
+   "sourceId": 43670,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|6:43670_53_any",
+   "addons": {
+    "betRadar": 71515936,
+    "statistics": true,
+    "rule4Expected": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 71515936,
+     "coverageLevel": 3
+    },
+    "angstromBetBuilderId": "ace8b603-7600-4d48-b5fc-89d7faa2ac90",
+    "betBuilderProvider": "Angstrom",
+    "betBuilderId": "ace8b603-7600-4d48-b5fc-89d7faa2ac90",
+    "betBuilderTradingV2FixtureId": "6:43670"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "totalPoints": {
+     "player1": {},
+     "player2": {}
+    },
+    "touchdowns": {
+     "player1": {},
+     "player2": {}
+    },
+    "yardsToNextDown": 0,
+    "yardsDistance": 0,
+    "sportId": 11,
+    "id": "6:43670",
+    "period": "Not Started",
+    "periodId": 0,
+    "points": [],
+    "turn": "None",
+    "score": "-:-",
+    "timer": {
+     "running": false,
+     "base": "0001-01-01T00:01:00Z",
+     "visible": false,
+     "seconds": 0
+    },
+    "started": false
+   },
+   "startDate": "2026-10-25T17:00:00Z",
+   "cutOffDate": "2026-10-25T22:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 11,
+    "name": {
+     "value": "American Football"
+    }
+   },
+   "competition": {
+    "parentLeagueId": 35,
+    "statistics": true,
+    "sportId": 11,
+    "compoundId": "2:103489",
+    "imageProfile": {
+     "logo": "b623e611.svg"
+    },
+    "type": "Competition",
+    "id": 103489,
+    "parentId": 9,
+    "name": {
+     "value": "NFL"
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 11,
+    "type": "Region",
+    "id": 9,
+    "parentId": 11,
+    "name": {
+     "value": "North America"
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 226,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|6:43670_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 4085674,
+     "name": {
+      "value": "Moneyline"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 6573797,
+       "status": "Visible",
+       "name": {
+        "value": "San Francisco 49ers"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 22912358,
+        "numerator": 11,
+        "denominator": 20,
+        "odds": 1.55,
+        "americanOdds": -185
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730423
+       }
+      },
+      {
+       "id": 6573798,
+       "status": "Visible",
+       "name": {
+        "value": "Atlanta Falcons"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 22912411,
+        "numerator": 7,
+        "denominator": 5,
+        "odds": 2.4,
+        "americanOdds": 140
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730422
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Point"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "gipidqpdd"
+      ],
+      "detailed": [
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "5debd627-c059-4ba5-b98a-58effe742a44",
+        "orderType": "None"
+       }
+      ]
+     },
+     "spread": 0.85,
+     "balanced": 1,
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "bbplus_row",
+       "bbplus_row_game",
+       "bbplus_module_row",
+       "bbplus_module_row_gamelines"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true,
+     "oddsKey": 106.18
+    },
+    {
+     "id": 4106168,
+     "name": {
+      "value": "1st quarter moneyline"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 6617538,
+       "status": "Visible",
+       "name": {
+        "value": "San Francisco 49ers"
+       },
+       "price": {
+        "id": 23259782,
+        "numerator": 3,
+        "denominator": 5,
+        "odds": 1.6,
+        "americanOdds": -165
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730423
+       }
+      },
+      {
+       "id": 6617539,
+       "status": "Visible",
+       "name": {
+        "value": "Atlanta Falcons"
+       },
+       "price": {
+        "id": 23259818,
+        "numerator": 21,
+        "denominator": 20,
+        "odds": 2.05,
+        "americanOdds": 105
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730422
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Point"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FirstQuarter"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "5w1xlc2z2",
+       "pxyb2sre0"
+      ],
+      "detailed": [
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "5debd627-c059-4ba5-b98a-58effe742a44",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "e7d27daf-2d8e-4484-b65d-fd433e1de4f8",
+        "marketGroupItemId": "28557a51-781d-4907-9918-6bd8e78792c0",
+        "orderType": "None"
+       }
+      ]
+     },
+     "spread": 0.45,
+     "balanced": 1,
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "firstquartercfb",
+       "bbplus_row",
+       "bbplus_row_game",
+       "bbplus_module_row",
+       "bbplus_module_row_gamelines"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true,
+     "oddsKey": 111.28
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 730423,
+     "participantId": 353233,
+     "name": {
+      "value": "San Francisco 49ers",
+      "short": "49ers"
+     },
+     "status": "Unknown",
+     "image": {
+      "jersey": "2_353233_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765867,
+     "participantId": 353326,
+     "name": {
+      "value": "Jahan Dotson"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352057
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765868,
+     "participantId": 352770,
+     "name": {
+      "value": "Luke Farrell"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765870,
+     "participantId": 353333,
+     "name": {
+      "value": "Brian Robinson Jr."
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352057
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765871,
+     "participantId": 353310,
+     "name": {
+      "value": "George Kittle"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765872,
+     "participantId": 353256,
+     "name": {
+      "value": "Christian McCaffrey"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765875,
+     "participantId": 606557,
+     "name": {
+      "value": "Michael Penix Jr."
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352057
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765876,
+     "participantId": 608310,
+     "name": {
+      "value": "Chris Blair"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352057
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765883,
+     "participantId": 352062,
+     "name": {
+      "value": "Drake London"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352057
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765888,
+     "participantId": 602234,
+     "name": {
+      "value": "SF D/ST"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765893,
+     "participantId": 669907,
+     "name": {
+      "value": "Jordan Watkins"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765895,
+     "participantId": 832894,
+     "name": {
+      "value": "Zachariah Branch"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352057
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765896,
+     "participantId": 353313,
+     "name": {
+      "value": "Charlie Woerner"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352057
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765897,
+     "participantId": 352064,
+     "name": {
+      "value": "Bijan Robinson"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352057
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765898,
+     "participantId": 602213,
+     "name": {
+      "value": "ATL D/ST"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352057
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765904,
+     "participantId": 353248,
+     "name": {
+      "value": "Brock Purdy"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765905,
+     "participantId": 832873,
+     "name": {
+      "value": "Kaelon Black"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765906,
+     "participantId": 353931,
+     "name": {
+      "value": "Austin Hooper"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352057
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765907,
+     "participantId": 352065,
+     "name": {
+      "value": "Kyle Pitts"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352057
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765908,
+     "participantId": 354581,
+     "name": {
+      "value": "Brandin Cooks"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765909,
+     "participantId": 572741,
+     "name": {
+      "value": "Jacob Cowing"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765911,
+     "participantId": 354231,
+     "name": {
+      "value": "Olamide Zaccheaus"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352057
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765912,
+     "participantId": 353274,
+     "name": {
+      "value": "Kyle Juszczyk"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 730422,
+     "participantId": 352057,
+     "name": {
+      "value": "Atlanta Falcons",
+      "short": "Falcons"
+     },
+     "status": "Unknown",
+     "image": {
+      "jersey": "2_352057_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765926,
+     "participantId": 352883,
+     "name": {
+      "value": "Mike Evans"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765927,
+     "participantId": 354301,
+     "name": {
+      "value": "Jack Stoll"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765928,
+     "participantId": 669915,
+     "name": {
+      "value": "Jordan James"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765929,
+     "participantId": 354421,
+     "name": {
+      "value": "Xavier Smith"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765930,
+     "participantId": 352613,
+     "name": {
+      "value": "Malik Turner"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 765931,
+     "participantId": 352382,
+     "name": {
+      "value": "Christian Kirk"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353233
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "6:43671",
+   "name": {
+    "value": "San Francisco 49ers @ Atlanta Falcons",
+    "sign": "RfLEAQ=="
+   },
+   "sourceId": 43671,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|6:43671_53_any",
+   "addons": {
+    "betRadar": 71515928,
+    "statistics": true,
+    "rule4Expected": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 71515928,
+     "coverageLevel": 3
+    },
+    "angstromBetBuilderId": "0f742702-a5e8-4ed8-b9a2-41abbc5c7f76",
+    "betBuilderProvider": "Angstrom",
+    "betBuilderId": "0f742702-a5e8-4ed8-b9a2-41abbc5c7f76",
+    "betBuilderTradingV2FixtureId": "6:43671"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "totalPoints": {
+     "player1": {},
+     "player2": {}
+    },
+    "touchdowns": {
+     "player1": {},
+     "player2": {}
+    },
+    "yardsToNextDown": 0,
+    "yardsDistance": 0,
+    "sportId": 11,
+    "id": "6:43671",
+    "period": "Not Started",
+    "periodId": 0,
+    "points": [],
+    "turn": "None",
+    "score": "-:-",
+    "timer": {
+     "running": false,
+     "base": "0001-01-01T00:01:00Z",
+     "visible": false,
+     "seconds": 0
+    },
+    "started": false
+   },
+   "startDate": "2026-10-25T17:00:00Z",
+   "cutOffDate": "2026-10-25T22:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 11,
+    "name": {
+     "value": "American Football"
+    }
+   },
+   "competition": {
+    "parentLeagueId": 35,
+    "statistics": true,
+    "sportId": 11,
+    "compoundId": "2:103489",
+    "imageProfile": {
+     "logo": "b623e611.svg"
+    },
+    "type": "Competition",
+    "id": 103489,
+    "parentId": 9,
+    "name": {
+     "value": "NFL"
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 11,
+    "type": "Region",
+    "id": 9,
+    "parentId": 11,
+    "name": {
+     "value": "North America"
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 214,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|6:43671_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 4085681,
+     "name": {
+      "value": "Moneyline"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 6573810,
+       "status": "Visible",
+       "name": {
+        "value": "Cleveland Browns"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 22912471,
+        "numerator": 77,
+        "denominator": 100,
+        "odds": 1.77,
+        "americanOdds": -130
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730425
+       }
+      },
+      {
+       "id": 6573811,
+       "status": "Visible",
+       "name": {
+        "value": "Tennessee Titans"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 22912489,
+        "numerator": 1,
+        "denominator": 1,
+        "odds": 2,
+        "americanOdds": 100
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730424
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Point"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2way"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "gipidqpdd"
+      ],
+      "detailed": [
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "5debd627-c059-4ba5-b98a-58effe742a44",
+        "orderType": "None"
+       }
+      ]
+     },
+     "spread": 0.23,
+     "balanced": 1,
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "bbplus_row",
+       "bbplus_row_game",
+       "bbplus_module_row",
+       "bbplus_module_row_gamelines"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true,
+     "oddsKey": 106.5
+    },
+    {
+     "id": 4090628,
+     "name": {
+      "value": "Totals"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 6587675,
+       "status": "Visible",
+       "name": {
+        "value": "Over 47"
+       },
+       "price": {
+        "id": 23002487,
+        "numerator": 29,
+        "denominator": 10,
+        "odds": 3.9,
+        "americanOdds": 290
+       },
+       "parameters": {
+        "optionTypes": [
+         "Over"
+        ]
+       }
+      },
+      {
+       "id": 6587676,
+       "status": "Visible",
+       "name": {
+        "value": "Under 47"
+       },
+       "price": {
+        "id": 23002505,
+        "numerator": 1,
+        "denominator": 4,
+        "odds": 1.25,
+        "americanOdds": -400
+       },
+       "parameters": {
+        "optionTypes": [
+         "Under"
+        ]
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "DecimalValue",
+       "type": "Decimal",
+       "value": "47.0000"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Point"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "Over/Under"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "uepttv0kt"
+      ],
+      "detailed": [
+       {
+        "subIndex": 48,
+        "marketTabId": 65,
+        "displayType": "OverUnder",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "fe7d66b9-7247-4a75-a33b-9ad807c32f7d",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 48,
+        "marketTabId": 65,
+        "displayType": "OverUnder",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "fa8bee7a-0aa5-4dc2-9b5d-df836c1fe969",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 48,
+        "marketTabId": 65,
+        "displayType": "OverUnder",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "3020db8b-2615-436d-ab79-6a9a559d2d12",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 48,
+        "marketTabId": 65,
+        "displayType": "OverUnder",
+        "marketGroupId": "ec820ec3-74ad-4abd-ad8a-502888b12f1e",
+        "marketGroupItemId": "36fc64a2-4971-4d0d-b072-f311bee71f8c",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "5debd627-c059-4ba5-b98a-58effe742a44",
+        "orderType": "None"
+       }
+      ]
+     },
+     "attr": "47",
+     "spread": 2.65,
+     "balanced": 1,
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "alternatetotalscfb",
+       "bbplus_row",
+       "bbplus_row_game",
+       "bbplus_module_row",
+       "bbplus_module_row_gamelines",
+       "bbplus_betmgm_mod",
+       "bb_game"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true,
+     "oddsKey": 105.64
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 764643,
+     "participantId": 602207,
+     "name": {
+      "value": "TEN D/ST"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353051
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764644,
+     "participantId": 354597,
+     "name": {
+      "value": "Tony Pollard"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353051
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764645,
+     "participantId": 669487,
+     "name": {
+      "value": "Harold Fannin Jr."
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352417
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764647,
+     "participantId": 717578,
+     "name": {
+      "value": "KC Concepcion"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352417
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 730424,
+     "participantId": 353051,
+     "name": {
+      "value": "Tennessee Titans",
+      "short": "Titans"
+     },
+     "status": "Unknown",
+     "image": {
+      "jersey": "2_353051_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 730425,
+     "participantId": 352417,
+     "name": {
+      "value": "Cleveland Browns",
+      "short": "Browns"
+     },
+     "status": "Unknown",
+     "image": {
+      "jersey": "2_352417_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764651,
+     "participantId": 669178,
+     "name": {
+      "value": "Cam Ward"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353051
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764654,
+     "participantId": 876344,
+     "name": {
+      "value": "Carnell Tate"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353051
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764657,
+     "participantId": 832865,
+     "name": {
+      "value": "Denzel Boston"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352417
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764625,
+     "participantId": 354563,
+     "name": {
+      "value": "Daniel Bellinger"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353051
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764626,
+     "participantId": 352707,
+     "name": {
+      "value": "Calvin Ridley"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353051
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764627,
+     "participantId": 353776,
+     "name": {
+      "value": "Jerry Jeudy"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352417
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764632,
+     "participantId": 669891,
+     "name": {
+      "value": "Gunnar Helm"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353051
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764633,
+     "participantId": 438349,
+     "name": {
+      "value": "Wan'Dale Robinson"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353051
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764635,
+     "participantId": 669905,
+     "name": {
+      "value": "Elic Ayomanor"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353051
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764636,
+     "participantId": 352423,
+     "name": {
+      "value": "Deshaun Watson"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352417
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764638,
+     "participantId": 353078,
+     "name": {
+      "value": "Tyjae Spears"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 353051
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 764640,
+     "participantId": 602219,
+     "name": {
+      "value": "CLE D/ST"
+     },
+     "status": "Unknown",
+     "properties": {
+      "type": "Player",
+      "team": 352417
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "6:43672",
+   "name": {
+    "value": "Cleveland Browns @ Tennessee Titans",
+    "sign": "ML+Z/g=="
+   },
+   "sourceId": 43672,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|6:43672_53_any",
+   "addons": {
+    "betRadar": 71515940,
+    "statistics": true,
+    "rule4Expected": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 71515940,
+     "coverageLevel": 3
+    },
+    "angstromBetBuilderId": "25d204fe-04bc-4ed7-b6d8-ea44cbc34d81",
+    "betBuilderProvider": "Angstrom",
+    "betBuilderId": "25d204fe-04bc-4ed7-b6d8-ea44cbc34d81",
+    "betBuilderTradingV2FixtureId": "6:43672"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "totalPoints": {
+     "player1": {},
+     "player2": {}
+    },
+    "touchdowns": {
+     "player1": {},
+     "player2": {}
+    },
+    "yardsToNextDown": 0,
+    "yardsDistance": 0,
+    "sportId": 11,
+    "id": "6:43672",
+    "period": "Not Started",
+    "periodId": 0,
+    "points": [],
+    "turn": "None",
+    "score": "-:-",
+    "timer": {
+     "running": false,
+     "base": "0001-01-01T00:01:00Z",
+     "visible": false,
+     "seconds": 0
+    },
+    "started": false
+   },
+   "startDate": "2026-10-25T17:00:00Z",
+   "cutOffDate": "2026-10-25T22:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 11,
+    "name": {
+     "value": "American Football"
+    }
+   },
+   "competition": {
+    "parentLeagueId": 35,
+    "statistics": true,
+    "sportId": 11,
+    "compoundId": "2:103489",
+    "imageProfile": {
+     "logo": "b623e611.svg"
+    },
+    "type": "Competition",
+    "id": 103489,
+    "parentId": 9,
+    "name": {
+     "value": "NFL"
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 11,
+    "type": "Region",
+    "id": 9,
+    "parentId": 11,
+    "name": {
+     "value": "North America"
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 199,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|6:43672_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  },
+  {
+   "optionMarkets": [
+    {
+     "id": 4085684,
+     "name": {
+      "value": "Moneyline"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 6573815,
+       "status": "Visible",
+       "name": {
+        "value": "New York Giants"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "price": {
+        "id": 22912544,
+        "numerator": 15,
+        "denominator": 4,
+        "odds": 4.75,
+        "americanOdds": 375
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730427
+       }
+      },
+      {
+       "id": 6573816,
+       "status": "Visible",
+       "name": {
+        "value": "Houston Texans"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "price": {
+        "id": 22912579,
+        "numerator": 19,
+        "denominator": 100,
+        "odds": 1.19,
+        "americanOdds": -525
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730426
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2way"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Point"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "gipidqpdd"
+      ],
+      "detailed": [
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 2,
+        "displayType": "SixPack",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "5debd627-c059-4ba5-b98a-58effe742a44",
+        "orderType": "None"
+       }
+      ]
+     },
+     "spread": 3.56,
+     "balanced": 1,
+     "isMain": true,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "bbplus_row",
+       "bbplus_row_game",
+       "bbplus_module_row",
+       "bbplus_module_row_gamelines"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true,
+     "oddsKey": 105.09
+    },
+    {
+     "id": 4089328,
+     "name": {
+      "value": "Spread"
+     },
+     "status": "Visible",
+     "options": [
+      {
+       "id": 6585203,
+       "status": "Visible",
+       "name": {
+        "value": "New York Giants (+4)"
+       },
+       "price": {
+        "id": 22968910,
+        "numerator": 2,
+        "denominator": 1,
+        "odds": 3,
+        "americanOdds": 200
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730427
+       }
+      },
+      {
+       "id": 6585204,
+       "status": "Visible",
+       "name": {
+        "value": "Houston Texans (-4)"
+       },
+       "price": {
+        "id": 22968927,
+        "numerator": 37,
+        "denominator": 100,
+        "odds": 1.37,
+        "americanOdds": -275
+       },
+       "parameters": {
+        "optionTypes": [
+         "Max"
+        ],
+        "fixtureParticipant": 730426
+       }
+      }
+     ],
+     "parameters": [
+      {
+       "key": "DecimalHandicap",
+       "type": "Decimal",
+       "value": "-4.0000"
+      },
+      {
+       "key": "Happening",
+       "type": "String",
+       "value": "Point"
+      },
+      {
+       "key": "MarketType",
+       "type": "String",
+       "value": "2wayHandicap"
+      },
+      {
+       "key": "Period",
+       "type": "String",
+       "value": "FullTime"
+      }
+     ],
+     "grouping": {
+      "gridGroups": [
+       "c6jgebjaf"
+      ],
+      "detailed": [
+       {
+        "subIndex": -2,
+        "marketTabId": 65,
+        "displayType": "Spread",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "58723c96-fd88-423b-98f7-04ed1fdada70",
+        "orderType": "LineValue"
+       },
+       {
+        "subIndex": -2,
+        "marketTabId": 65,
+        "displayType": "Spread",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "8ea36ebb-a099-4db5-bbbb-ac863eddfa76",
+        "orderType": "None"
+       },
+       {
+        "subIndex": -2,
+        "marketTabId": 65,
+        "displayType": "Spread",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "499c8648-1fa8-4802-b339-84baad88b521",
+        "orderType": "None"
+       },
+       {
+        "subIndex": -2,
+        "marketTabId": 65,
+        "displayType": "Spread",
+        "marketGroupId": "df1ff203-ccfa-4868-8f67-e14281476a4a",
+        "marketGroupItemId": "e66bb1e4-8e05-4e1f-a970-92ae6eb3b667",
+        "orderType": "LineValue"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "6103a977-1466-4342-b6d8-c98d13f53350",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 1,
+        "displayType": "SixPack",
+        "marketGroupId": "3b194af8-494c-4453-bedc-d041f0b1cccb",
+        "marketGroupItemId": "10610846-683f-4b22-a7e9-c36c6b060978",
+        "orderType": "None"
+       },
+       {
+        "optionColumnId": 0,
+        "displayType": "SixPack",
+        "marketGroupId": "cc2ea028-8567-4d4a-ab0a-39317fa1cf37",
+        "marketGroupItemId": "5debd627-c059-4ba5-b98a-58effe742a44",
+        "orderType": "None"
+       }
+      ]
+     },
+     "attr": "-4",
+     "spread": 1.63,
+     "balanced": 1,
+     "isMain": false,
+     "templateCategory": {
+      "id": 0,
+      "category": "Gridable",
+      "dynamicCategories": [
+       "alternatespreadscfb",
+       "bbplus_row",
+       "bbplus_row_game",
+       "bbplus_module_row",
+       "bbplus_module_row_gamelines",
+       "bbplus_betmgm_mod",
+       "bb_game"
+      ]
+     },
+     "comboPrevention": "NoFixtureCombo",
+     "minCombo": 1,
+     "isEachWay": false,
+     "source": "V2",
+     "isBetBuilder": true,
+     "oddsKey": 106.33
+    }
+   ],
+   "games": [],
+   "participants": [
+    {
+     "id": 730426,
+     "participantId": 352326,
+     "name": {
+      "value": "Houston Texans",
+      "short": "Texans"
+     },
+     "status": "Unknown",
+     "image": {
+      "jersey": "2_352326_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "HomeTeam"
+     },
+     "options": [],
+     "source": "V2"
+    },
+    {
+     "id": 730427,
+     "participantId": 354489,
+     "name": {
+      "value": "New York Giants",
+      "short": "Giants"
+     },
+     "status": "Unknown",
+     "image": {
+      "jersey": "2_354489_1",
+      "rotateJersey": true,
+      "isParticipantProfile": false
+     },
+     "properties": {
+      "type": "AwayTeam"
+     },
+     "options": [],
+     "source": "V2"
+    }
+   ],
+   "id": "6:43673",
+   "name": {
+    "value": "New York Giants @ Houston Texans",
+    "sign": "EVAm4Q=="
+   },
+   "sourceId": 43673,
+   "source": "V2",
+   "fixtureType": "PairGame",
+   "context": "v2|en|6:43673_53_any",
+   "addons": {
+    "betRadar": 71515934,
+    "statistics": true,
+    "rule4Expected": false,
+    "pricingState": "None",
+    "participantDividend": {},
+    "liveMatchTracker": {
+     "sportradarId": 71515934,
+     "coverageLevel": 3
+    },
+    "angstromBetBuilderId": "4be1ecf8-e046-4826-853d-6fde7fbf7ef9",
+    "betBuilderProvider": "Angstrom",
+    "betBuilderId": "4be1ecf8-e046-4826-853d-6fde7fbf7ef9",
+    "betBuilderTradingV2FixtureId": "6:43673"
+   },
+   "stage": "PreMatch",
+   "liveAlert": true,
+   "scoreboard": {
+    "totalPoints": {
+     "player1": {},
+     "player2": {}
+    },
+    "touchdowns": {
+     "player1": {},
+     "player2": {}
+    },
+    "yardsToNextDown": 0,
+    "yardsDistance": 0,
+    "sportId": 11,
+    "id": "6:43673",
+    "period": "Not Started",
+    "periodId": 0,
+    "points": [],
+    "turn": "None",
+    "score": "-:-",
+    "timer": {
+     "running": false,
+     "base": "0001-01-01T00:01:00Z",
+     "visible": false,
+     "seconds": 0
+    },
+    "started": false
+   },
+   "startDate": "2026-10-25T17:00:00Z",
+   "cutOffDate": "2026-10-25T22:00:00Z",
+   "sport": {
+    "type": "Sport",
+    "isEsport": false,
+    "id": 11,
+    "name": {
+     "value": "American Football"
+    }
+   },
+   "competition": {
+    "parentLeagueId": 35,
+    "statistics": true,
+    "sportId": 11,
+    "compoundId": "2:103489",
+    "imageProfile": {
+     "logo": "b623e611.svg"
+    },
+    "type": "Competition",
+    "id": 103489,
+    "parentId": 9,
+    "name": {
+     "value": "NFL"
+    }
+   },
+   "region": {
+    "code": "N-A",
+    "sportId": 11,
+    "type": "Region",
+    "id": 9,
+    "parentId": 11,
+    "name": {
+     "value": "North America"
+    }
+   },
+   "viewType": "American",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 152,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v2|en|6:43673_53_any"
+   ],
+   "playerStats": [],
+   "isPlannedInPlay": true
+  }
+ ],
+ "totalCount": 14
+}

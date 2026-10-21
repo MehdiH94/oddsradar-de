@@ -1,0 +1,1458 @@
+{
+ "fixtures": [
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1568445884,
+     "name": {
+      "value": "Match Winner"
+     },
+     "results": [
+      {
+       "id": 2323963444,
+       "odds": 2.0,
+       "name": {
+        "value": "N. Lammons/J. Withrow"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 1,
+       "denominator": 1,
+       "americanOdds": 100,
+       "playerId": 2811813,
+       "version": 11077940471
+      },
+      {
+       "id": 2323963445,
+       "odds": 1.72,
+       "name": {
+        "value": "J. Schnaitter/M. Wallner"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 8,
+       "denominator": 11,
+       "americanOdds": -140,
+       "playerId": 2911535,
+       "version": 11077940471
+      }
+     ],
+     "templateId": 62,
+     "categoryId": 33,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 33,
+      "name": {
+       "value": "2Way - Winner"
+      },
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorndctest"
+      ]
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "33ucep4lc"
+      ],
+      "detailed": [
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "6e97222e-c303-4375-a779-15bd7ef44d7e",
+        "marketGroupItemId": "0a7ff3ec-6ddf-4bd8-adb0-899f48ebff9b",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "4124bf6e-ee25-4b6e-871f-99f9023d6a43",
+        "marketGroupItemId": "df04fe40-ca12-4086-887c-62c9de3e5bc3",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": true
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2811813,
+     "name": {
+      "value": "N. Lammons/J. Withrow",
+      "short": "N. Lammons/J. Withrow"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2911535,
+     "name": {
+      "value": "J. Schnaitter/M. Wallner",
+      "short": "J. Schnaitter/M. Wallner"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20023387",
+   "name": {
+    "value": "N. Lammons/J. Withrow - J. Schnaitter/M. Wallner"
+   },
+   "sourceId": 20023387,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20023387",
+   "addons": {
+    "betRadar": 75713184,
+    "statistics": true,
+    "videoStream": {
+     "provider": "Betradar",
+     "status": "OnAir",
+     "providerStreamId": "33719081",
+     "providerEventId": "7305919",
+     "streamType": "Mobile"
+    },
+    "participantDividend": {},
+    "surface": "IndoorCourt",
+    "liveMatchTracker": {
+     "sportradarId": 75713184,
+     "coverageLevel": 3
+    },
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4443978,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T11:15:00Z",
+   "cutOffDate": "2026-10-21T11:15:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 5,
+    "name": {
+     "value": "Tennis",
+     "sign": "LtiLkw=="
+    }
+   },
+   "competition": {
+    "parentTournamentId": 6,
+    "statistics": false,
+    "sportId": 5,
+    "compoundId": "1:97770",
+    "type": "Competition",
+    "id": 97770,
+    "parentId": 6,
+    "name": {
+     "value": "ATP Almaty (KAZ), Doubles - Hard",
+     "sign": "/ptS2A=="
+    }
+   },
+   "region": {
+    "code": "WRL",
+    "sportId": 5,
+    "type": "Region",
+    "id": 6,
+    "parentId": 5,
+    "name": {
+     "value": "World",
+     "sign": "pJ/1hw=="
+    }
+   },
+   "tournament": {
+    "type": "Tournament",
+    "id": 6,
+    "parentId": 5,
+    "name": {
+     "value": "ATP",
+     "sign": "B5wVyg=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 2,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20023387"
+   ],
+   "playerStats": [],
+   "sequence": 112,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1569619675,
+     "name": {
+      "value": "Match Winner"
+     },
+     "results": [
+      {
+       "id": 2327135206,
+       "odds": 2.25,
+       "name": {
+        "value": "E. Alexandrova"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 5,
+       "denominator": 4,
+       "americanOdds": 125,
+       "playerId": 2665462,
+       "version": 11076468246
+      },
+      {
+       "id": 2327135207,
+       "odds": 1.62,
+       "name": {
+        "value": "Mart. Kostyuk"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 8,
+       "denominator": 13,
+       "americanOdds": -160,
+       "playerId": 2756831,
+       "version": 11076468246
+      }
+     ],
+     "templateId": 62,
+     "categoryId": 33,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 33,
+      "name": {
+       "value": "2Way - Winner"
+      },
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorndctest"
+      ]
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "33ucep4lc"
+      ],
+      "detailed": [
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "6e97222e-c303-4375-a779-15bd7ef44d7e",
+        "marketGroupItemId": "0a7ff3ec-6ddf-4bd8-adb0-899f48ebff9b",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "4124bf6e-ee25-4b6e-871f-99f9023d6a43",
+        "marketGroupItemId": "df04fe40-ca12-4086-887c-62c9de3e5bc3",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": true
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2665462,
+     "name": {
+      "value": "Ekaterina Alexandrova (RUS)",
+      "short": "E. Alexandrova"
+     },
+     "image": {
+      "jersey": "2665462",
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2756831,
+     "name": {
+      "value": "Marta Kostyuk (UKR)",
+      "short": "Mart. Kostyuk"
+     },
+     "image": {
+      "jersey": "2756831",
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20032957",
+   "name": {
+    "value": "Ekaterina Alexandrova (RUS) - Marta Kostyuk (UKR)"
+   },
+   "sourceId": 20032957,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20032957",
+   "addons": {
+    "betRadar": 75656892,
+    "statistics": true,
+    "participantDividend": {},
+    "surface": "HardCourt",
+    "betBuilderProvider": "BybFootball",
+    "betBuilderId": "20032957",
+    "betBuilderTradingV2FixtureId": "20032957"
+   },
+   "stage": "PreMatch",
+   "groupId": 4445949,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T11:15:00Z",
+   "cutOffDate": "2026-10-21T11:15:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 5,
+    "name": {
+     "value": "Tennis",
+     "sign": "LtiLkw=="
+    }
+   },
+   "competition": {
+    "parentTournamentId": 7,
+    "statistics": false,
+    "sportId": 5,
+    "compoundId": "1:35966",
+    "type": "Competition",
+    "id": 35966,
+    "parentId": 6,
+    "name": {
+     "value": "WTA Ningbo (CHN) - Hard",
+     "sign": "qA3wEg=="
+    }
+   },
+   "region": {
+    "code": "WRL",
+    "sportId": 5,
+    "type": "Region",
+    "id": 6,
+    "parentId": 5,
+    "name": {
+     "value": "World",
+     "sign": "pJ/1hw=="
+    }
+   },
+   "tournament": {
+    "type": "Tournament",
+    "id": 7,
+    "parentId": 5,
+    "name": {
+     "value": "WTA",
+     "sign": "b+Psbw=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 11,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20032957"
+   ],
+   "playerStats": [],
+   "sequence": 508,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1569609085,
+     "name": {
+      "value": "Match Winner"
+     },
+     "results": [
+      {
+       "id": 2327105213,
+       "odds": 1.19,
+       "name": {
+        "value": "O. Roca Batalla"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 2,
+       "denominator": 11,
+       "americanOdds": -525,
+       "playerId": 2659319,
+       "version": 11077512126
+      },
+      {
+       "id": 2327105214,
+       "odds": 4.2,
+       "name": {
+        "value": "D. Sakellaridis"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 16,
+       "denominator": 5,
+       "americanOdds": 320,
+       "playerId": 2912674,
+       "version": 11077512126
+      }
+     ],
+     "templateId": 62,
+     "categoryId": 33,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 33,
+      "name": {
+       "value": "2Way - Winner"
+      },
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorndctest"
+      ]
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "33ucep4lc"
+      ],
+      "detailed": [
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "6e97222e-c303-4375-a779-15bd7ef44d7e",
+        "marketGroupItemId": "0a7ff3ec-6ddf-4bd8-adb0-899f48ebff9b",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "4124bf6e-ee25-4b6e-871f-99f9023d6a43",
+        "marketGroupItemId": "df04fe40-ca12-4086-887c-62c9de3e5bc3",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": true
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2659319,
+     "name": {
+      "value": "Oriol Roca Batalla (ESP)",
+      "short": "O. Roca Batalla"
+     },
+     "image": {
+      "jersey": "2659319",
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2912674,
+     "name": {
+      "value": "Dimitris Sakellaridis (GRE)",
+      "short": "D. Sakellaridis"
+     },
+     "image": {
+      "jersey": "2912674",
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20032870",
+   "name": {
+    "value": "Oriol Roca Batalla (ESP) - Dimitris Sakellaridis (GRE)"
+   },
+   "sourceId": 20032870,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20032870",
+   "addons": {
+    "betRadar": 75655578,
+    "statistics": true,
+    "videoStream": {
+     "provider": "Betradar_4Sight",
+     "status": "Scheduled",
+     "providerStreamId": "33734749",
+     "providerEventId": "7309005",
+     "streamType": "Mobile"
+    },
+    "participantDividend": {},
+    "surface": "Clay",
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4445929,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T11:30:00Z",
+   "cutOffDate": "2026-10-21T11:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 5,
+    "name": {
+     "value": "Tennis",
+     "sign": "LtiLkw=="
+    }
+   },
+   "competition": {
+    "parentTournamentId": 10,
+    "statistics": false,
+    "sportId": 5,
+    "compoundId": "1:68135",
+    "type": "Competition",
+    "id": 68135,
+    "parentId": 6,
+    "name": {
+     "value": "ATP Challenger - Florence (ITA) - Clay",
+     "sign": "PXbjlw=="
+    }
+   },
+   "region": {
+    "code": "WRL",
+    "sportId": 5,
+    "type": "Region",
+    "id": 6,
+    "parentId": 5,
+    "name": {
+     "value": "World",
+     "sign": "pJ/1hw=="
+    }
+   },
+   "tournament": {
+    "type": "Tournament",
+    "id": 10,
+    "parentId": 5,
+    "name": {
+     "value": "Challenger",
+     "sign": "yOmnKw=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 1,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20032870"
+   ],
+   "playerStats": [],
+   "sequence": 339,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1569609161,
+     "name": {
+      "value": "Match Winner"
+     },
+     "results": [
+      {
+       "id": 2327105413,
+       "odds": 2.15,
+       "name": {
+        "value": "M. Ribecai"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 23,
+       "denominator": 20,
+       "americanOdds": 115,
+       "playerId": 2923518,
+       "version": 11076343578
+      },
+      {
+       "id": 2327105414,
+       "odds": 1.62,
+       "name": {
+        "value": "M. Houkes"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 8,
+       "denominator": 13,
+       "americanOdds": -160,
+       "playerId": 2793211,
+       "version": 11076343578
+      }
+     ],
+     "templateId": 62,
+     "categoryId": 33,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 33,
+      "name": {
+       "value": "2Way - Winner"
+      },
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorndctest"
+      ]
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "33ucep4lc"
+      ],
+      "detailed": [
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "6e97222e-c303-4375-a779-15bd7ef44d7e",
+        "marketGroupItemId": "0a7ff3ec-6ddf-4bd8-adb0-899f48ebff9b",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "4124bf6e-ee25-4b6e-871f-99f9023d6a43",
+        "marketGroupItemId": "df04fe40-ca12-4086-887c-62c9de3e5bc3",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": true
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2923518,
+     "name": {
+      "value": "Michele Ribecai (ITA)",
+      "short": "M. Ribecai"
+     },
+     "image": {
+      "jersey": "2923518",
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2793211,
+     "name": {
+      "value": "Max Houkes (NED)",
+      "short": "M. Houkes"
+     },
+     "image": {
+      "jersey": "2793211",
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20032872",
+   "name": {
+    "value": "Michele Ribecai (ITA) - Max Houkes (NED)"
+   },
+   "sourceId": 20032872,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20032872",
+   "addons": {
+    "betRadar": 75655582,
+    "statistics": true,
+    "videoStream": {
+     "provider": "Betradar_4Sight",
+     "status": "Scheduled",
+     "providerStreamId": "33734685",
+     "providerEventId": "7308999",
+     "streamType": "Mobile"
+    },
+    "participantDividend": {},
+    "surface": "Clay",
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4445931,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T11:30:00Z",
+   "cutOffDate": "2026-10-21T11:30:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 5,
+    "name": {
+     "value": "Tennis",
+     "sign": "LtiLkw=="
+    }
+   },
+   "competition": {
+    "parentTournamentId": 10,
+    "statistics": false,
+    "sportId": 5,
+    "compoundId": "1:68135",
+    "type": "Competition",
+    "id": 68135,
+    "parentId": 6,
+    "name": {
+     "value": "ATP Challenger - Florence (ITA) - Clay",
+     "sign": "PXbjlw=="
+    }
+   },
+   "region": {
+    "code": "WRL",
+    "sportId": 5,
+    "type": "Region",
+    "id": 6,
+    "parentId": 5,
+    "name": {
+     "value": "World",
+     "sign": "pJ/1hw=="
+    }
+   },
+   "tournament": {
+    "type": "Tournament",
+    "id": 10,
+    "parentId": 5,
+    "name": {
+     "value": "Challenger",
+     "sign": "yOmnKw=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 1,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20032872"
+   ],
+   "playerStats": [],
+   "sequence": 515,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1568472699,
+     "name": {
+      "value": "Match Winner"
+     },
+     "results": [
+      {
+       "id": 2324036299,
+       "odds": 1.36,
+       "name": {
+        "value": "G. Andreozzi/M. Guinard"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 4,
+       "denominator": 11,
+       "americanOdds": -275,
+       "playerId": 2997223,
+       "version": 11076022195
+      },
+      {
+       "id": 2324036300,
+       "odds": 2.9,
+       "name": {
+        "value": "M. Geerts/J. Vliegen"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 19,
+       "denominator": 10,
+       "americanOdds": 190,
+       "playerId": 2912461,
+       "version": 11076022195
+      }
+     ],
+     "templateId": 62,
+     "categoryId": 33,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 33,
+      "name": {
+       "value": "2Way - Winner"
+      },
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorndctest"
+      ]
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "33ucep4lc"
+      ],
+      "detailed": [
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "6e97222e-c303-4375-a779-15bd7ef44d7e",
+        "marketGroupItemId": "0a7ff3ec-6ddf-4bd8-adb0-899f48ebff9b",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "4124bf6e-ee25-4b6e-871f-99f9023d6a43",
+        "marketGroupItemId": "df04fe40-ca12-4086-887c-62c9de3e5bc3",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": true
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2997223,
+     "name": {
+      "value": "G. Andreozzi/M. Guinard",
+      "short": "G. Andreozzi/M. Guinard"
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2912461,
+     "name": {
+      "value": "M. Geerts/J. Vliegen",
+      "short": "M. Geerts/J. Vliegen"
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20023624",
+   "name": {
+    "value": "G. Andreozzi/M. Guinard - M. Geerts/J. Vliegen"
+   },
+   "sourceId": 20023624,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20023624",
+   "addons": {
+    "betRadar": 75719556,
+    "statistics": true,
+    "videoStream": {
+     "provider": "Betradar",
+     "status": "Scheduled",
+     "providerStreamId": "33719565",
+     "providerEventId": "7305981",
+     "streamType": "Mobile"
+    },
+    "participantDividend": {},
+    "surface": "IndoorCourt",
+    "liveMatchTracker": {
+     "sportradarId": 75719556,
+     "coverageLevel": 3
+    },
+    "betBuilderProvider": "None"
+   },
+   "stage": "PreMatch",
+   "groupId": 4444010,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T11:45:00Z",
+   "cutOffDate": "2026-10-21T11:45:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 5,
+    "name": {
+     "value": "Tennis",
+     "sign": "LtiLkw=="
+    }
+   },
+   "competition": {
+    "parentTournamentId": 6,
+    "statistics": false,
+    "sportId": 5,
+    "compoundId": "1:101444",
+    "type": "Competition",
+    "id": 101444,
+    "parentId": 6,
+    "name": {
+     "value": "ATP Brussels (BEL), Doubles - Hard",
+     "sign": "9edltQ=="
+    }
+   },
+   "region": {
+    "code": "WRL",
+    "sportId": 5,
+    "type": "Region",
+    "id": 6,
+    "parentId": 5,
+    "name": {
+     "value": "World",
+     "sign": "pJ/1hw=="
+    }
+   },
+   "tournament": {
+    "type": "Tournament",
+    "id": 6,
+    "parentId": 5,
+    "name": {
+     "value": "ATP",
+     "sign": "B5wVyg=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 2,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20023624"
+   ],
+   "playerStats": [],
+   "sequence": 44,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1569590561,
+     "name": {
+      "value": "Match Winner"
+     },
+     "results": [
+      {
+       "id": 2327055004,
+       "odds": 2.4,
+       "name": {
+        "value": "M. Navone"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 7,
+       "denominator": 5,
+       "americanOdds": 140,
+       "playerId": 2801827,
+       "version": 11078166816
+      },
+      {
+       "id": 2327055005,
+       "odds": 1.56,
+       "name": {
+        "value": "T. Griekspoor"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 14,
+       "denominator": 25,
+       "americanOdds": -180,
+       "playerId": 2710606,
+       "version": 11078166816
+      }
+     ],
+     "templateId": 62,
+     "categoryId": 33,
+     "resultOrder": "Default",
+     "combo1": "NoEventCombo",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 33,
+      "name": {
+       "value": "2Way - Winner"
+      },
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorndctest"
+      ]
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "33ucep4lc"
+      ],
+      "detailed": [
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "6e97222e-c303-4375-a779-15bd7ef44d7e",
+        "marketGroupItemId": "0a7ff3ec-6ddf-4bd8-adb0-899f48ebff9b",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "4124bf6e-ee25-4b6e-871f-99f9023d6a43",
+        "marketGroupItemId": "df04fe40-ca12-4086-887c-62c9de3e5bc3",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": true
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2801827,
+     "name": {
+      "value": "Mariano Navone (ARG)",
+      "short": "M. Navone"
+     },
+     "image": {
+      "jersey": "2801827",
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2710606,
+     "name": {
+      "value": "Tallon Griekspoor (NED)",
+      "short": "T. Griekspoor"
+     },
+     "image": {
+      "jersey": "2710606",
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20032781",
+   "name": {
+    "value": "Mariano Navone (ARG) - Tallon Griekspoor (NED)"
+   },
+   "sourceId": 20032781,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20032781",
+   "addons": {
+    "betRadar": 75621166,
+    "statistics": true,
+    "videoStream": {
+     "provider": "Betradar_4Sight",
+     "status": "Scheduled",
+     "providerStreamId": "33719485",
+     "providerEventId": "7305973",
+     "streamType": "Mobile"
+    },
+    "participantDividend": {},
+    "surface": "IndoorCourt",
+    "betBuilderProvider": "BybFootball",
+    "betBuilderId": "20032781",
+    "betBuilderTradingV2FixtureId": "20032781"
+   },
+   "stage": "PreMatch",
+   "groupId": 4445912,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "startDate": "2026-10-21T11:45:00Z",
+   "cutOffDate": "2026-10-21T11:45:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 5,
+    "name": {
+     "value": "Tennis",
+     "sign": "LtiLkw=="
+    }
+   },
+   "competition": {
+    "parentTournamentId": 6,
+    "statistics": false,
+    "sportId": 5,
+    "compoundId": "1:101446",
+    "type": "Competition",
+    "id": 101446,
+    "parentId": 6,
+    "name": {
+     "value": "ATP Brussels (BEL) - Hard",
+     "sign": "PTV3EQ=="
+    }
+   },
+   "region": {
+    "code": "WRL",
+    "sportId": 5,
+    "type": "Region",
+    "id": 6,
+    "parentId": 5,
+    "name": {
+     "value": "World",
+     "sign": "pJ/1hw=="
+    }
+   },
+   "tournament": {
+    "type": "Tournament",
+    "id": 6,
+    "parentId": 5,
+    "name": {
+     "value": "ATP",
+     "sign": "B5wVyg=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 11,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20032781"
+   ],
+   "playerStats": [],
+   "sequence": 806,
+   "isPlannedInPlay": false
+  },
+  {
+   "optionMarkets": [],
+   "games": [
+    {
+     "id": 1568298787,
+     "name": {
+      "value": "Match Winner"
+     },
+     "results": [
+      {
+       "id": 2323562346,
+       "odds": 1.28,
+       "name": {
+        "value": "D. Prizmic"
+       },
+       "sourceName": {
+        "value": "1"
+       },
+       "visibility": "Visible",
+       "numerator": 2,
+       "denominator": 7,
+       "americanOdds": -350,
+       "version": 11078212327
+      },
+      {
+       "id": 2323562347,
+       "odds": 3.5,
+       "name": {
+        "value": "D. Dzumhur"
+       },
+       "sourceName": {
+        "value": "2"
+       },
+       "visibility": "Visible",
+       "numerator": 5,
+       "denominator": 2,
+       "americanOdds": 250,
+       "version": 11078212327
+      }
+     ],
+     "templateId": 62,
+     "categoryId": 33,
+     "resultOrder": "Default",
+     "combo1": "OtherLiveEvents",
+     "combo2": "Single",
+     "visibility": "Visible",
+     "category": "Gridable",
+     "templateCategory": {
+      "id": 33,
+      "name": {
+       "value": "2Way - Winner"
+      },
+      "category": "Gridable",
+      "dynamicCategories": [
+       "popcorndctest"
+      ]
+     },
+     "isMain": true,
+     "grouping": {
+      "gridGroups": [
+       "33ucep4lc"
+      ],
+      "detailed": [
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "6e97222e-c303-4375-a779-15bd7ef44d7e",
+        "marketGroupItemId": "0a7ff3ec-6ddf-4bd8-adb0-899f48ebff9b",
+        "orderType": "None"
+       },
+       {
+        "subIndex": 0,
+        "displayType": "Regular",
+        "marketGroupId": "4124bf6e-ee25-4b6e-871f-99f9023d6a43",
+        "marketGroupItemId": "df04fe40-ca12-4086-887c-62c9de3e5bc3",
+        "orderType": "None"
+       }
+      ]
+     },
+     "isBetBuilder": false
+    }
+   ],
+   "participants": [
+    {
+     "participantId": 2849193,
+     "name": {
+      "value": "Dino Prizmic (CRO)",
+      "short": "D. Prizmic"
+     },
+     "image": {
+      "jersey": "2849193",
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    },
+    {
+     "participantId": 2662525,
+     "name": {
+      "value": "Damir Dzumhur (BIH)",
+      "short": "D. Dzumhur"
+     },
+     "image": {
+      "jersey": "2662525",
+      "rotateJersey": false,
+      "isParticipantProfile": false
+     },
+     "options": [],
+     "source": "V1"
+    }
+   ],
+   "id": "20022365",
+   "name": {
+    "value": "Dino Prizmic (CRO) - Damir Dzumhur (BIH)"
+   },
+   "sourceId": 20022365,
+   "source": "V1",
+   "fixtureType": "Standard",
+   "context": "v1|en|20022365",
+   "addons": {
+    "betRadar": 75698094,
+    "statistics": true,
+    "videoStream": {
+     "provider": "Betradar_4Sight",
+     "status": "OnAir",
+     "providerStreamId": "33719541",
+     "providerEventId": "7305977",
+     "streamType": "Mobile"
+    },
+    "participantDividend": {},
+    "surface": "IndoorCourt",
+    "liveMatchTracker": {
+     "sportradarId": 75698094,
+     "coverageLevel": 3
+    },
+    "betBuilderProvider": "None"
+   },
+   "stage": "Live",
+   "groupId": 4443775,
+   "liveType": "NotSet",
+   "liveAlert": true,
+   "scoreboard": {
+    "gameMode": "Best of 3",
+    "sportId": 5,
+    "id": "20022365",
+    "period": "1st Set",
+    "periodId": 1,
+    "sets": [
+     [
+      "6",
+      "-",
+      "-"
+     ],
+     [
+      "6",
+      "-",
+      "-"
+     ]
+    ],
+    "setsValues": {
+     "player1": [
+      "6",
+      "-",
+      "-"
+     ],
+     "player2": [
+      "6",
+      "-",
+      "-"
+     ]
+    },
+    "points": [
+     "5",
+     "3"
+    ],
+    "turn": "Player01",
+    "started": true
+   },
+   "startDate": "2026-10-21T08:34:00Z",
+   "cutOffDate": "2026-10-21T14:45:00Z",
+   "sport": {
+    "type": "Sport",
+    "id": 5,
+    "name": {
+     "value": "Tennis",
+     "sign": "LtiLkw=="
+    }
+   },
+   "competition": {
+    "parentLeagueId": 101446,
+    "parentTournamentId": 6,
+    "statistics": false,
+    "sportId": 5,
+    "compoundId": "1:101447",
+    "type": "Competition",
+    "id": 101447,
+    "parentId": 6,
+    "name": {
+     "value": "ATP Brussels (BEL) - Hard",
+     "sign": "nKVg+Q=="
+    }
+   },
+   "region": {
+    "code": "WRL",
+    "sportId": 5,
+    "type": "Region",
+    "id": 6,
+    "parentId": 5,
+    "name": {
+     "value": "World",
+     "sign": "pJ/1hw=="
+    }
+   },
+   "tournament": {
+    "type": "Tournament",
+    "id": 6,
+    "parentId": 5,
+    "name": {
+     "value": "ATP",
+     "sign": "B5wVyg=="
+    }
+   },
+   "viewType": "European",
+   "isOpenForBetting": true,
+   "isVirtual": false,
+   "taggedLocations": [],
+   "totalMarketsCount": 9,
+   "conferences": [],
+   "marketGroups": {
+    "outrightMarketGroupIds": [],
+    "specialMarketGroupIds": [],
+    "type": "MarketGroups",
+    "id": 0
+   },
+   "priceBoostCount": 0,
+   "linkedTv1EventIds": [],
+   "contexts": [
+    "v1|en|20022365"
+   ],
+   "playerStats": [],
+   "sequence": 24532,
+   "isPlannedInPlay": false
+  }
+ ],
+ "totalCount": 64
+}

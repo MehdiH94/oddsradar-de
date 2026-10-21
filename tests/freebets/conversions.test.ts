@@ -53,8 +53,8 @@ describe("what is asked of the engine", () => {
   const wallet = { leovegas: 20, merkurbets: 15.5 };
 
   it("puts the freebets by the site's order of bookmakers, 0 where there are none", () => {
-    expect(freebetsByIndex(wallet)).toEqual([20, 15.5, 0, 0, 0, 0, 0, 0, 0]);
-    expect(freebetsByIndex({ merkurbets: 15.5 })).toEqual([0, 15.5, 0, 0, 0, 0, 0, 0, 0]);
+    expect(freebetsByIndex(wallet)).toEqual([20, 15.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    expect(freebetsByIndex({ merkurbets: 15.5 })).toEqual([0, 15.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     expect(holdingBookmakers(wallet)).toEqual(["leovegas", "merkurbets"]);
     expect(holdingBookmakers({})).toEqual([]);
   });
@@ -68,7 +68,7 @@ describe("what is asked of the engine", () => {
     const matches = engineMatches(markets, freebetsByIndex(wallet));
     expect(matches.map((m) => [m.id, m.outcomes])).toEqual([["both", 3], ["tennis", 2]]);
     // The others holding none, their prices are left out.
-    expect(matches[0].odds).toEqual([[2, 3, 4], [2.2, 3, 4], null, null, null, null, null, null, null]);
+    expect(matches[0].odds).toEqual([[2, 3, 4], [2.2, 3, 4], null, null, null, null, null, null, null, null, null, null]);
     // Merkur Bets holding no freebets, its prices never reach the engine: no match
     // is priced by two holders then.
     expect(engineMatches(markets, freebetsByIndex({ leovegas: 20 }))).toEqual([]);

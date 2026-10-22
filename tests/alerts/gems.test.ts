@@ -76,7 +76,7 @@ describe("a golf tournament's winner", () => {
       ],
       SITE
     ) as { embeds: { title: string; description?: string; fields: { name: string; value: string }[] }[] };
-    expect(message.embeds[0].title).toBe("💎 +20.0%");
+    expect(message.embeds[0].title).toBe("💎 +20,0\u00a0%");
     expect(message.embeds[0].description).toBeUndefined();
     expect(message.embeds[0].fields[0].value).toBe("Baycurrent Classic 2026 · Baycurrent Classic");
   });
@@ -135,9 +135,9 @@ describe("a gem", () => {
       SITE
     );
     const text = JSON.stringify(message.embeds);
-    expect(message.embeds![0].title).toBe("💎 +12.5%");
+    expect(message.embeds![0].title).toBe("💎 +12,5\u00a0%");
     for (const hidden of ["Akbou Olympique", "Résultat", "Betsson", "4,05", "3,60", "44"]) expect(text).not.toContain(hidden);
-    expect(message.embeds![0].fields.map((f) => f.name)).toEqual(["Match", "Kick-off", "Match page"]);
+    expect(message.embeds![0].fields.map((f) => f.name)).toEqual(["Spiel", "Anstoß", "Spielseite"]);
   });
 });
 
@@ -223,10 +223,10 @@ describe("runGemAlerts", () => {
     expect(send.mock.calls.every(([url, init]) => url === WEBHOOK && init.method === "POST")).toBe(true);
     const [hello, gems] = bodies();
     expect(hello.content).toBe(
-      "✅ OddsBlitzer is connected to this channel. An alert will come here for each new gem: a 1X2 or match winner " +
-        "value bet (football, tennis, basketball, baseball, American football, hockey, rugby, MMA) 5% or more above the " +
-        "fair odds, or a player, games or sets bet 15% or more; and each surebet (payout over 100%, " +
-        "up to 110%). Only prices still offered at two reads in a row. A single alert per match, market and outcome." +
+      "✅ OddsBlitzer ist mit diesem Kanal verbunden. Hier erscheint eine Nachricht für jede neue Value Bet: auf 1X2 oder Sieger " +
+        "(Fußball, Tennis, Basketball, Baseball, American Football, Eishockey, Rugby, MMA) ab 5\u00a0% über der " +
+        "fairen Quote, auf Spieler, Games oder Sätze ab 15\u00a0%; und für jede Surebet (Auszahlung über 100\u00a0%, " +
+        "bis 110\u00a0%). Nur Quoten, die bei zwei Abrufen nacheinander noch angeboten werden. Eine einzige Nachricht pro Spiel, Markt und Ausgang." +
         "\n" +
         `${SITE}/?sport=value-bets&sort=value&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde`
     );
@@ -234,20 +234,20 @@ describe("runGemAlerts", () => {
     expect([hello.allowed_mentions, gems.allowed_mentions]).toEqual([{ parse: [] }, { parse: [] }]);
 
     // Biggest edge first: Doué (16.7%), Mbappé (15%), France (5%).
-    expect(gems.content).toBe("💎 3 new gems");
-    expect(gems.embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +16.7%", "💎 +15.0%", "💎 +5.0%"]);
+    expect(gems.content).toBe("💎 3 neue Value Bets");
+    expect(gems.embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +16,7\u00a0%", "💎 +15,0\u00a0%", "💎 +5,0\u00a0%"]);
     const [, , france] = gems.embeds;
     const kickOff = KICK_OFF.getTime() / 1000;
     expect(france).toEqual({
-      title: "💎 +5.0%",
+      title: "💎 +5,0\u00a0%",
       url: `${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde`,
       color: 0xd97706,
       fields: [
-        { name: "Match", value: "France - Italie · Ligue des Nations" },
-        { name: "Kick-off", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
+        { name: "Spiel", value: "France - Italie · Ligue des Nations" },
+        { name: "Anstoß", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
         {
-          name: "Match page",
-          value: `[See the match on OddsBlitzer](${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde)`,
+          name: "Spielseite",
+          value: `[Spiel auf OddsBlitzer ansehen](${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde)`,
         },
       ],
     });
@@ -287,22 +287,22 @@ describe("runGemAlerts", () => {
     // The hello, the gems, the surebets.
     expect(send).toHaveBeenCalledTimes(3);
     const surebets = bodies()[2];
-    expect(surebets.content).toBe("⚖️ New surebet");
+    expect(surebets.content).toBe("⚖️ Neue Surebet");
     expect(surebets.allowed_mentions).toEqual({ parse: [] });
     const kickOff = KICK_OFF.getTime() / 1000;
     const [sure] = surebets.embeds;
     expect(surebets.embeds).toEqual([
       {
-        title: "⚖️ 107.4%",
+        title: "⚖️ 107,4\u00a0%",
         url: `${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde`,
         color: 0x16a34a,
         fields: [
-          { name: "Match", value: "Lakers - Celtics · NBA" },
-          { name: "Kick-off", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
-          { name: "Profit", value: "+7.4%", inline: true },
+          { name: "Spiel", value: "Lakers - Celtics · NBA" },
+          { name: "Anstoß", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
+          { name: "Gewinn", value: "+7,4\u00a0%", inline: true },
           {
-            name: "Match page",
-            value: `[See the match on OddsBlitzer](${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde)`,
+            name: "Spielseite",
+            value: `[Spiel auf OddsBlitzer ansehen](${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde)`,
           },
         ],
       },
@@ -322,7 +322,7 @@ describe("runGemAlerts", () => {
     expect(send).toHaveBeenCalledTimes(4);
     expect(bodies()[3].embeds).toHaveLength(1);
     // 1 / (1/2.25 + 1/2.1): 108.6 %, on the same match as the first, in a card of its own.
-    expect(bodies()[3].embeds[0].title).toBe("⚖️ 108.6%");
+    expect(bodies()[3].embeds[0].title).toBe("⚖️ 108,6\u00a0%");
     expect(bodies()[3].embeds[0].url).toBe(sure.url);
     expect(
       getAlertStatus(db)
@@ -404,7 +404,7 @@ describe("runGemAlerts", () => {
     // The hello, the gems, the surebets.
     expect(send).toHaveBeenCalledTimes(3);
     const [, gems, surebets] = bodies();
-    expect(gems.embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +16.7%", "💎 +5.0%"]);
+    expect(gems.embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +16,7\u00a0%", "💎 +5,0\u00a0%"]);
     expect(surebets.embeds).toHaveLength(1);
     expect(getAlertStatus(db, 50).sent.filter((g) => g.basis.startsWith("surebet")).map((g) => g.label)).toEqual([
       expect.stringMatching(/^Mbappé @ LeoVegas 2.30/),
@@ -451,21 +451,21 @@ describe("runGemAlerts", () => {
     );
     await runTwice();
     expect(send).toHaveBeenCalledTimes(3);
-    expect(bodies()[2].content).toBe("💎 New gem");
+    expect(bodies()[2].content).toBe("💎 Neue Value Bet");
     // Dembélé's +25,0 %: nothing else of the bet is told.
-    expect(bodies()[2].embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +25.0%"]);
+    expect(bodies()[2].embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +25,0\u00a0%"]);
 
     const other = "https://discord.com/api/webhooks/2/other-token";
     await run(other);
     expect(send).toHaveBeenCalledTimes(4);
     expect(send.mock.calls[3][0]).toBe(other);
-    expect(bodies()[3].content).toMatch(/^✅ OddsBlitzer is connected/);
+    expect(bodies()[3].content).toMatch(/^✅ OddsBlitzer ist mit diesem Kanal verbunden/);
 
     // Removed, then put back: greeted again.
     await run(null);
     await run(other);
     expect(send).toHaveBeenCalledTimes(5);
-    expect(bodies()[4].content).toMatch(/^✅ OddsBlitzer is connected/);
+    expect(bodies()[4].content).toMatch(/^✅ OddsBlitzer ist mit diesem Kanal verbunden/);
   });
 
   it("sends an outcome once, at the best bookmaker's price, not once per bookmaker", async () => {
@@ -476,7 +476,7 @@ describe("runGemAlerts", () => {
       new Date().toISOString()
     );
     await runTwice();
-    expect(bodies()[1].embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +20.0%", "💎 +16.7%", "💎 +5.0%"]);
+    expect(bodies()[1].embeds.map((e: { title: string }) => e.title)).toEqual(["💎 +20,0\u00a0%", "💎 +16,7\u00a0%", "💎 +5,0\u00a0%"]);
     expect(getAlertStatus(db).sent).toHaveLength(3);
 
     // LeoVegas's Mbappé is still a gem: nothing more for the same outcome.
@@ -684,14 +684,14 @@ describe("the link to the match", () => {
   it("is the title's and a line of its own, on a gem and a surebet", () => {
     for (const embed of [gemEmbed(gem, "https://cote-radar.fr"), surebetEmbed(surebet, "https://cote-radar.fr")]) {
       expect(embed.url).toBe(url);
-      expect(embed.fields.at(-1)).toEqual({ name: "Match page", value: `[See the match on OddsBlitzer](${url})` });
+      expect(embed.fields.at(-1)).toEqual({ name: "Spielseite", value: `[Spiel auf OddsBlitzer ansehen](${url})` });
     }
   });
 
   it("is left out without the site's address, and keeps a Markdown link whole", () => {
     for (const [embed, names] of [
-      [gemEmbed(gem), ["Match", "Kick-off"]],
-      [surebetEmbed(surebet), ["Match", "Kick-off", "Profit"]],
+      [gemEmbed(gem), ["Spiel", "Anstoß"]],
+      [surebetEmbed(surebet), ["Spiel", "Anstoß", "Gewinn"]],
     ] as const) {
       expect(embed.url).toBeUndefined();
       expect(embed.fields.map((f) => f.name)).toEqual(names);

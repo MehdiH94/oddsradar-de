@@ -7,6 +7,6 @@ describe("ReferenceNote", () => {
     render(<ReferenceNote />);
     const note = screen.getByText("So liest du die Quoten").closest("details")!;
     expect(note).toHaveTextContent(/Alle Quoten nach Abzug der Wettsteuer \(5\s% bzw\. 5,3\s% des Einsatzes, je nach Buchmacher\)/);
-    expect(note).toHaveTextContent("20bet zieht keine ab, bei Tipico und Winamax ist sie nicht abgezogen");
+    expect(note).toHaveTextContent("20bet, Tipico und Winamax ziehen keine ab");
   });
 });

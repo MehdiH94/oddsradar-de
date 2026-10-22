@@ -47,8 +47,8 @@ export function isDefaultBookmakers(selected: readonly string[]): boolean {
 // name in the filter, as a fact, with no link to it.
 // `stakeTax`: the German betting tax its prices are shown net of, as the
 // scrapers take it off (src/scraper/, stakeTax.ts): 0 when it takes none;
-// none given when its prices are shown as read, tax not taken off (Tipico and
-// Winamax, through The Odds API).
+// 0 too for Tipico and Winamax, which pay it themselves (src/scraper/oddsApi.ts).
+// None given: not known, the price shown as read.
 export const BOOKMAKER_BRANDING: Record<string, { name: string; logo?: string; unlicensed?: boolean; stakeTax?: number } | undefined> = {
   leovegas: { name: "LeoVegas", logo: leovegasLogo, stakeTax: 0.05 },
   merkurbets: { name: "Merkur Bets", logo: merkurbetsLogo, stakeTax: 0.05 },
@@ -60,8 +60,8 @@ export const BOOKMAKER_BRANDING: Record<string, { name: string; logo?: string; u
   sportingbet: { name: "Sportingbet", logo: sportingbetLogo, stakeTax: 0.05 },
   vbet: { name: "VBET", logo: vbetLogo, stakeTax: 0.05 },
   "888sport": { name: "888sport", stakeTax: 0.05 },
-  tipico: { name: "Tipico" },
-  winamaxde: { name: "Winamax", logo: winamaxdeLogo },
+  tipico: { name: "Tipico", stakeTax: 0 },
+  winamaxde: { name: "Winamax", logo: winamaxdeLogo, stakeTax: 0 },
 };
 
 // What a bookmaker's prices are net of, for the price's tooltip: "Quote nach

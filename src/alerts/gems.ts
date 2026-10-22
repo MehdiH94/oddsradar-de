@@ -133,17 +133,22 @@ export const ALL_BOOKMAKER_IDS: readonly BookmakerId[] = [
 ];
 const ALL_BOOKMAKERS_QUERY = `bookmakers=${ALL_BOOKMAKER_IDS.join(",")}`;
 // A match's page on the site (none without PUBLIC_URL). Parentheses are
-// escaped: the address ends a Markdown link in the "Page du match" field.
+// escaped: the address ends a Markdown link in the "Spielseite" field.
 export const matchUrl = (eventId: string, publicUrl?: string) =>
   publicUrl
     ? `${publicUrl}/?match=${encodeURIComponent(eventId).replace(/\(/g, "%28").replace(/\)/g, "%29")}&${ALL_BOOKMAKERS_QUERY}`
     : undefined;
 // The embed's last field: the title is a link too, but a quiet one.
-const matchLinkFields = (url?: string) => (url ? [{ name: "Match page", value: `[See the match on ${APP_NAME}](${url})` }] : []);
+const matchLinkFields = (url?: string) => (url ? [{ name: "Spielseite", value: `[Spiel auf ${APP_NAME} ansehen](${url})` }] : []);
+// The stored label's price (the administration's list), as the scrapers read it.
 const formatPrice = (price: number) => price.toFixed(2);
-const formatEdge = (edge: number) => `+${(edge * 100).toFixed(1)}%`;
-const formatPercent = (rate: number) => `${Math.round(rate * 100)}%`;
-const formatRate = (rate: number) => `${(rate * 100).toFixed(1)}%`;
+// The testers read German numbers, as on the site (web/src/format.ts): a
+// decimal comma, and a no-break space before "%".
+const PERCENT_SIGN = "\u00a0%";
+const decimal = (value: number, digits: number) => value.toFixed(digits).replace(".", ",");
+const formatEdge = (edge: number) => `+${decimal(edge * 100, 1)}${PERCENT_SIGN}`;
+const formatPercent = (rate: number) => `${Math.round(rate * 100)}${PERCENT_SIGN}`;
+const formatRate = (rate: number) => `${decimal(rate * 100, 1)}${PERCENT_SIGN}`;
 
 export type Send = (
   url: string,
@@ -166,12 +171,12 @@ export function helloMessage(publicUrl?: string): DiscordMessage {
     username: APP_NAME,
     allowed_mentions: { parse: [] },
     content:
-      `✅ ${APP_NAME} is connected to this channel. An alert will come here for each new gem: a 1X2 ` +
-      `or match winner value bet (football, tennis, basketball, baseball, American football, hockey, rugby, MMA) ` +
-      `${formatPercent(GEM_MIN_EDGE.match)} or more above the fair odds, ` +
-      `or a player, games or sets bet ${formatPercent(GEM_MIN_EDGE.players)} or more; and each surebet (payout over ` +
-      `100%, up to ${formatPercent(SUREBET_TO_VERIFY)}). Only prices still offered at two reads in a row. ` +
-      `A single alert per match, market and outcome.${link}`,
+      `✅ ${APP_NAME} ist mit diesem Kanal verbunden. Hier erscheint eine Nachricht für jede neue Value Bet: auf 1X2 ` +
+      `oder Sieger (Fußball, Tennis, Basketball, Baseball, American Football, Eishockey, Rugby, MMA) ` +
+      `ab ${formatPercent(GEM_MIN_EDGE.match)} über der fairen Quote, ` +
+      `auf Spieler, Games oder Sätze ab ${formatPercent(GEM_MIN_EDGE.players)}; und für jede Surebet (Auszahlung über ` +
+      `${formatPercent(1)}, bis ${formatPercent(SUREBET_TO_VERIFY)}). Nur Quoten, die bei zwei Abrufen nacheinander noch angeboten werden. ` +
+      `Eine einzige Nachricht pro Spiel, Markt und Ausgang.${link}`,
   };
 }
 
@@ -187,8 +192,8 @@ export function gemEmbed(gem: ValueBet, publicUrl?: string): Embed {
     ...(link ? { url: link } : {}),
     color: GEM_COLOR,
     fields: [
-      { name: "Match", value: fieldValue(`${gem.participants.join(" - ")}${gem.competition ? ` · ${gem.competition}` : ""}`) },
-      { name: "Kick-off", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
+      { name: "Spiel", value: fieldValue(`${gem.participants.join(" - ")}${gem.competition ? ` · ${gem.competition}` : ""}`) },
+      { name: "Anstoß", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
       ...matchLinkFields(link),
     ],
   };
@@ -198,7 +203,7 @@ export function gemsMessage(gems: readonly ValueBet[], publicUrl?: string): Disc
   return {
     username: APP_NAME,
     allowed_mentions: { parse: [] },
-    content: gems.length === 1 ? "💎 New gem" : `💎 ${gems.length} new gems`,
+    content: gems.length === 1 ? "💎 Neue Value Bet" : `💎 ${gems.length} neue Value Bets`,
     embeds: gems.map((gem) => gemEmbed(gem, publicUrl)),
   };
 }
@@ -231,9 +236,9 @@ export function surebetEmbed(s: Surebet, publicUrl?: string): Embed {
     ...(link ? { url: link } : {}),
     color: SUREBET_COLOR,
     fields: [
-      { name: "Match", value: fieldValue(`${s.participants.join(" - ")}${s.competition ? ` · ${s.competition}` : ""}`) },
-      { name: "Kick-off", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
-      { name: "Profit", value: formatEdge(s.payoutRate - 1), inline: true },
+      { name: "Spiel", value: fieldValue(`${s.participants.join(" - ")}${s.competition ? ` · ${s.competition}` : ""}`) },
+      { name: "Anstoß", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
+      { name: "Gewinn", value: formatEdge(s.payoutRate - 1), inline: true },
       ...matchLinkFields(link),
     ],
   };
@@ -243,7 +248,7 @@ export function surebetsMessage(surebets: readonly Surebet[], publicUrl?: string
   return {
     username: APP_NAME,
     allowed_mentions: { parse: [] },
-    content: surebets.length === 1 ? "⚖️ New surebet" : `⚖️ ${surebets.length} new surebets`,
+    content: surebets.length === 1 ? "⚖️ Neue Surebet" : `⚖️ ${surebets.length} neue Surebets`,
     embeds: surebets.map((s) => surebetEmbed(s, publicUrl)),
   };
 }

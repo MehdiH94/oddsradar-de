@@ -641,8 +641,8 @@ value bets sur le site, n'en declenchent pas.
 Apres chaque cycle de la reference (toutes les 5 min), il envoie les gems
 qu'il n'a pas encore envoyees : une carte par gem, qui dit ou regarder et
 pas quoi parier (ecart, match, coup d'envoi a l'heure du lecteur, lien vers
-la page du match, sur le titre et sur une ligne « See the match on
-OddsBlitzer »), ni l'issue, ni le bookmaker, ni la cote), 10 au
+la page du match, sur le titre et sur une ligne « Spiel auf OddsBlitzer
+ansehen »), en allemand comme le site, ni l'issue, ni le bookmaker, ni la cote), 10 au
 plus par message et 6000 caracteres de texte au plus pour l'ensemble des
 cartes (la limite de Discord), la suite au cycle suivant. Chaque message est
 verifie avant d'etre envoye. **Une seule alerte par match, marche (son
@@ -677,7 +677,7 @@ Mise en place, une seule fois :
    secret, nom `DISCORD_WEBHOOK_URL`, valeur l'URL copiee. C'est un secret :
    qui l'a peut ecrire dans le salon ;
 3. relancer le deploiement (Actions > deploy > Run workflow). Le message
-   « OddsBlitzer is connected to this channel » arrive aussitot : c'est la preuve
+   « OddsBlitzer ist mit diesem Kanal verbunden » arrive aussitot : c'est la preuve
    que tout marche.
 
 Le deploiement ecrit le secret dans le `.env` du VPS (voir « Deploiement

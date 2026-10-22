@@ -17,9 +17,12 @@ import { validateRawEvent } from "./validateRawEvent";
 // MAX_PRICE_AGE_MS (credits spent, the API down) is left out, so that no old
 // price is shown or alerted on.
 //
-// The prices are the bookmakers' as the API gives them: no German betting tax
-// taken off (whether Tipico and Winamax.de take it off the stake or the
-// winnings was not checked).
+// The prices are the bookmakers' as the API gives them, with no German betting
+// tax taken off: Tipico and Winamax.de both pay the tax themselves rather than
+// take it off the stake or the winnings, so a price pays as shown (sport1.de,
+// eurosport.de, wettbasis.com, buli-tipphilfe.de, 22/10/2026; their own terms
+// could not be read from here). Like 20bet's, these prices need no
+// netOfStakeTax.
 
 const API = "https://api.the-odds-api.com/v4";
 

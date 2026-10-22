@@ -11,7 +11,9 @@ describe("PriceChip", () => {
     expect(chip("betway")).toHaveAttribute("title", "Quote nach Abzug von 5,3 % Wettsteuer");
     expect(chip("vbet")).toHaveAttribute("title", "Quote nach Abzug von 5 % Wettsteuer");
     expect(chip("twentybet")).toHaveAttribute("title", "Quote ohne Wettsteuer");
-    expect(chip("tipico")).toHaveAttribute("title", "Quote wie angeboten, Wettsteuer nicht abgezogen");
+    expect(chip("tipico")).toHaveAttribute("title", "Quote ohne Wettsteuer");
+    expect(chip("winamaxde")).toHaveAttribute("title", "Quote ohne Wettsteuer");
+    expect(chip("unknown")).toHaveAttribute("title", "Quote wie angeboten, Wettsteuer nicht abgezogen");
   });
 
   it("has no tooltip without a price", () => {

@@ -51,8 +51,8 @@ export function WelcomeNote() {
           Gewinn bringen. Prüf die Quoten immer beim Buchmacher.
         </li>
         <li>
-          <strong>Quoten</strong>: nach Abzug der Wettsteuer (5 % bzw. 5,3 % des Einsatzes, je nach Buchmacher); 20bet
-          zieht keine ab, bei Tipico und Winamax ist sie nicht abgezogen. Beim Buchmacher siehst du daher eine etwas höhere Quote.
+          <strong>Quoten</strong>: nach Abzug der Wettsteuer (5 % bzw. 5,3 % des Einsatzes, je nach Buchmacher); 20bet,
+          Tipico und Winamax ziehen keine ab. Beim Buchmacher siehst du daher eine etwas höhere Quote.
         </li>
         <li>
           <Link href={FREEBETS_PATH}>Freebets</Link>: Wir berechnen, wie du deine Freebets in echtes Geld umwandelst.

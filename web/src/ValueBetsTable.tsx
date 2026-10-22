@@ -4,6 +4,7 @@ import type { ValueBet } from "./types";
 import { formatEdge, formatPrice, formatStartParts } from "./format";
 import { EventTitle } from "./components/EventTitle";
 import { PriceChip } from "./components/PriceChip";
+import { CheckAtBookmaker } from "./components/CheckAtBookmaker";
 import { BestPrice } from "./components/BestPrice";
 import { useIsWide } from "./useMediaQuery";
 import { REFERENCE_SOURCE } from "./value";
@@ -165,6 +166,7 @@ export function ValueBetsTable({
                         edge={bet.edge}
                         suspect={bet.basis === "bookmaker"}
                       />
+                      <CheckAtBookmaker bookmaker={bet.bookmaker} url={bet.url} />
                     </td>
                     <td className={styles.fair} data-label="Fair" title={referenceTitle(bet)}>
                       <Reference bet={bet} />
@@ -188,6 +190,7 @@ export function ValueBetsTable({
                             : "Fair"
                       }
                     />
+                    <CheckAtBookmaker bookmaker={bet.bookmaker} url={bet.url} />
                   </td>
                 )}
                 <td className={styles.edge} data-label="Vorteil">

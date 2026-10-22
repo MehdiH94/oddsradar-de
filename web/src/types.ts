@@ -115,6 +115,9 @@ export interface ValueBet {
   // 0.021 for +2.1%: price / fair - 1.
   edge: number;
   matched: number;
+  // The match's page at the bookmaker, when the API can build it
+  // (src/db/bookmakerLinks.ts).
+  url?: string;
 }
 
 // One match's page (GET /api/events/:id, src/db/eventDetail.ts).

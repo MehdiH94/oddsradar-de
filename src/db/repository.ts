@@ -8,6 +8,7 @@ import { Grid, payoutRateOf } from "./marketGrid";
 import { loadReferences, Reference } from "./reference";
 import { bestValue, Value, valueBetsOf } from "./value";
 import { loadBookmakerPlayerPrices, loadPlayerExchange } from "./playerReference";
+import { loadBookmakerLinks } from "./bookmakerLinks";
 import { PLAYER_MARKET_KEYS, PlayerBasis, siteSignals } from "./playerValue";
 import { MARKET_1X2, MARKET_MATCH_WINNER, MARKET_OUTRIGHT } from "../scraper/canonical";
 import { competitionKey, competitionName, isCompetitionEventSql } from "./competition";
@@ -633,6 +634,9 @@ export interface ValueBet {
   edge: number;
   // Amount matched on the exchange's market, in euros; 0 when it has none.
   matched: number;
+  // The match's page at the bookmaker, when its address can be built
+  // (./bookmakerLinks.ts), to check the price there.
+  url?: string;
 }
 
 // "value": biggest edge first, ties by kick-off. "start": soonest kick-off
@@ -740,6 +744,11 @@ export function getValueBets(
   // Stable: the "start" order is the events' kick-off order, each one's bets
   // by edge.
   const bets = byEvent.flat();
+  const links = loadBookmakerLinks(db, [...new Set(bets.map((b) => b.eventId))]);
+  for (const bet of bets) {
+    const url = links.get(bet.eventId)?.[bet.bookmaker];
+    if (url) bet.url = url;
+  }
   if (opts.sort !== "start") bets.sort((a, b) => b.edge - a.edge);
   return { bets, total: bets.length };
 }

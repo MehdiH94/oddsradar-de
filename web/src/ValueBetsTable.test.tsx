@@ -1,7 +1,8 @@
-import { describe, it, expect, vi } from "vitest";
+import { afterEach, describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent, within } from "@testing-library/react";
 import { ValueBetsTable } from "./ValueBetsTable";
 import type { ValueBet } from "./types";
+import { mockPhone } from "./testUtils";
 
 const bet = (overrides: Partial<ValueBet>): ValueBet => ({
   eventId: "psg-om",
@@ -53,6 +54,27 @@ describe("ValueBetsTable", () => {
     expect(cells[5]).toHaveTextContent("+4,0 %");
     expect(within(second).getAllByRole("cell")[2]).toHaveTextContent("Unentschieden");
     expect(within(second).getAllByRole("cell")[3]).toHaveTextContent("LeoVegas: 4,40");
+  });
+
+  describe("the bookmaker's page", () => {
+    afterEach(() => vi.unstubAllGlobals());
+    const URL = "https://www.leovegas.de/de-de/sportwetten#event/1028036087";
+    const bets = [bet({}), bet({ selection: "X", label: "Unentschieden", bookmaker: "leovegas", url: URL })];
+
+    it.each([
+      ["a computer", () => {}],
+      ["a phone", mockPhone],
+    ])("is linked under the price when the API gives it, on %s", (_screen, setUp) => {
+      setUp();
+      render(<ValueBetsTable bets={bets} />);
+      const [first, second] = screen.getAllByRole("row").slice(1);
+      expect(within(first).queryByRole("link", { name: /prüfen$/ })).not.toBeInTheDocument();
+      const link = within(second).getByRole("link", { name: "Bei LeoVegas prüfen" });
+      expect(link).toHaveTextContent("Seite prüfen");
+      expect(link).toHaveAttribute("href", URL);
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    });
   });
 
   it("links each bet to its match's every market, opened in place on a plain click", () => {

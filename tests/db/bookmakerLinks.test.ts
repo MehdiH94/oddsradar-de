@@ -1,10 +1,11 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { DatabaseSync } from "node:sqlite";
 import { openDb } from "../../src/db/client";
-import { upsertCanonicalEvents } from "../../src/db/repository";
+import { getValueBets, upsertCanonicalEvents } from "../../src/db/repository";
 import { bookmakerEventUrl, loadBookmakerLinks } from "../../src/db/bookmakerLinks";
 import { getSurebets } from "../../src/db/surebets";
 import { getEventDetail } from "../../src/db/eventDetail";
+import { saveReferenceOdds } from "../../src/db/reference";
 import { MARKET_MATCH_WINNER } from "../../src/scraper/canonical";
 import { CanonicalEvent } from "../../src/types";
 
@@ -119,6 +120,36 @@ describe("the bookmakers' links of the stored matches", () => {
       ["twentybet", undefined],
     ]);
     expect(surebet.legs[1]).not.toHaveProperty("url");
+  });
+
+  it("gives a value bet its bookmaker's link, and none to a bookmaker without one", () => {
+    const oneXTwo = (one: number) => [
+      { market: "1X2", selection: "1", price: one },
+      { market: "1X2", selection: "X", price: 3 },
+      { market: "1X2", selection: "2", price: 4 },
+    ];
+    upsertCanonicalEvents(db, [
+      {
+        id: "fcb-ars",
+        sport: "football",
+        competition: "Champions League",
+        startTime: hoursFromNow(5),
+        participants: ["Bayern München", "Arsenal"],
+        byBookmaker: { leovegas: oneXTwo(2.2), twentybet: oneXTwo(2.1) },
+        sources: {
+          leovegas: { sourceId: "1028036087", participants: ["Bayern München", "Arsenal"] },
+          twentybet: { sourceId: "11336345", participants: ["Bayern München", "Arsenal"] },
+        },
+      },
+    ]);
+    const fair = { "1": 2, X: 3.4, "2": 4.2 };
+    saveReferenceOdds(db, "fcb-ars", { fair, back: fair, lay: fair, matched: 1500 }, new Date().toISOString());
+    const bets = getValueBets(db).bets;
+    expect(bets.map((b) => [b.bookmaker, b.url])).toEqual([
+      ["leovegas", "https://www.leovegas.de/de-de/sportwetten#event/1028036087"],
+      ["twentybet", undefined],
+    ]);
+    expect(bets[1]).not.toHaveProperty("url");
   });
 
   it("gives a match's page the links of the requested bookmakers that price it", () => {

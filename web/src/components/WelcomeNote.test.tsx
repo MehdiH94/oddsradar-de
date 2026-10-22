@@ -13,6 +13,7 @@ describe("WelcomeNote", () => {
     const note = screen.getByRole("complementary", { name: /Willkommen bei/ });
     expect(note).toHaveTextContent("Value Bets");
     expect(note).toHaveTextContent("Surebets");
+    expect(note).toHaveTextContent(/nach Abzug der Wettsteuer \(5\s% bzw\. 5,3\s% des Einsatzes, je nach Buchmacher\); 20bet zieht keine ab/);
     expect(screen.getByRole("link", { name: "Freebets" })).toHaveAttribute("href", "/freebets");
     expect(note).toHaveTextContent("Feedback");
     expect(screen.getByRole("link", { name: "unserem Discord" })).toHaveAttribute("href", "https://discord.gg/VypnxkRMc");

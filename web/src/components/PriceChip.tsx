@@ -1,5 +1,5 @@
 import { Check, Zap } from "lucide-react";
-import { BOOKMAKER_BRANDING } from "../bookmakers";
+import { BOOKMAKER_BRANDING, stakeTaxNote } from "../bookmakers";
 import { BookmakerLogo } from "../BookmakerLogo";
 import { formatEdge, formatPrice } from "../format";
 import styles from "./PriceChip.module.css";
@@ -14,7 +14,8 @@ import styles from "./PriceChip.module.css";
 // showing many bookmakers side by side (the chip then has under 3 rem). A
 // boosted outcome (20bet's odds boost, `boosted`) shows its boosted price
 // after the price, with a lightning: never the best price nor a value bet,
-// which the price alone decides.
+// which the price alone decides. Its tooltip says what tax the price is net
+// of (stakeTaxNote).
 export function PriceChip({
   bookmaker,
   price,
@@ -39,7 +40,13 @@ export function PriceChip({
     .filter(Boolean)
     .join(" ");
   return (
-    <span className={className} data-bookmaker={bookmaker} data-best={best || undefined} data-value={edge !== undefined || undefined}>
+    <span
+      className={className}
+      data-bookmaker={bookmaker}
+      data-best={best || undefined}
+      data-value={edge !== undefined || undefined}
+      title={price === undefined ? undefined : stakeTaxNote(bookmaker)}
+    >
       {showLogo && <BookmakerLogo bookmaker={bookmaker} size={16} decorative />}
       <span className="visually-hidden">{name}: </span>
       <span className={styles.price}>{price === undefined ? "-" : formatPrice(price)}</span>

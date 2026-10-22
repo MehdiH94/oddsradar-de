@@ -27,6 +27,10 @@ export function ReferenceNote({ players = false }: { players?: boolean }) {
           )}
         </p>
         <p>
+          Alle Quoten nach Abzug der Wettsteuer (5 % bzw. 5,3 % des Einsatzes, je nach Buchmacher); 20bet zieht keine ab, bei Tipico
+          und Winamax ist sie nicht abgezogen. Beim Buchmacher siehst du daher eine etwas höhere Quote.
+        </p>
+        <p>
           Die Betfair-Wettbörse hat keine deutsche Lizenz (GGL): Ihre Kurse dienen hier nur als Referenz für die faire Quote.
         </p>
         <p>

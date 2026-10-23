@@ -34,6 +34,10 @@ describe("passwordProblem", () => {
 
   it("refuses the obvious: common, repeated, or the email itself", () => {
     expect(passwordProblem("password1234")).toMatch(/zu leicht/);
+    for (const german of ["Passwort1234", "qwertzuiop12", "Bayernmünchen", "oddsblitzer2026", "schalke04schalke"]) {
+      expect(passwordProblem(german)).toMatch(/zu leicht/);
+    }
+    expect(passwordProblem("schalke04wintermantel")).toBeNull();
     expect(passwordProblem("aaaaaaaaaaaaaa")).toMatch(/zu leicht/);
     expect(passwordProblem("adalovelace2026!", "adalovelace@example.com")).toMatch(/zu leicht/);
   });

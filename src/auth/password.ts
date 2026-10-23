@@ -80,6 +80,20 @@ const COMMON = new Set([
   "coteradar1234",
   "coteradar2026",
   "footballfootball",
+  // The German testers' own (beta, 10/2026): their keyboard's row, their words.
+  "passwort1234",
+  "passwort12345",
+  "hallo1234567",
+  "qwertzuiop12",
+  "qwertzuiopue",
+  "qwertzuiopü1",
+  "schalke04schalke",
+  "bayernmuenchen",
+  "bayernmünchen",
+  "borussiadortmund",
+  "fussballfussball",
+  "oddsblitzer1234",
+  "oddsblitzer2026",
 ]);
 
 export function passwordProblem(password: string, email = ""): string | null {

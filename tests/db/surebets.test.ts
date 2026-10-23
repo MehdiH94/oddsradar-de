@@ -182,6 +182,22 @@ describe("getSurebets", () => {
     expect(getSurebets(db)).toEqual([]);
   });
 
+  it("makes none whose every outcome is at a single bookmaker", () => {
+    upsertCanonicalEvents(db, [
+      // Betway alone pays 104 % on its own two outcomes; LeoVegas pays less on both.
+      event("solo", "basketball", ["A", "B"], {
+        betway: main("Vainqueur du match", { "1": 2.1, "2": 2.06 }),
+        leovegas: main("Vainqueur du match", { "1": 1.9, "2": 1.9 }),
+      }),
+      // The same prices split between two bookmakers: a surebet.
+      event("pair", "basketball", ["C", "D"], {
+        betway: main("Vainqueur du match", { "1": 2.1, "2": 1.9 }),
+        leovegas: main("Vainqueur du match", { "1": 1.9, "2": 2.06 }),
+      }),
+    ]);
+    expect(getSurebets(db).map((s) => [s.eventId, s.legs.map((l) => l.source)])).toEqual([["pair", ["betway", "leovegas"]]]);
+  });
+
   it("makes none of two bookmakers' different remainders, nor of a 1X2 short of its draw", () => {
     upsertCanonicalEvents(db, [
       event("cs", "football", ["G", "H"], {
@@ -399,10 +415,11 @@ describe("getSurebets", () => {
       ]);
       expect(surebet.legs.reduce((sum, l) => sum + l.stake, 0)).toBeCloseTo(100, 10);
 
-      // With 20 EUR on C's back too, its 4.20 net 4.136 pays more: all four at the exchange.
+      // With 20 EUR on C's back too, its 4.20 net 4.136 pays more: all four at
+      // the exchange, a single source, so no surebet (one outcome at least
+      // elsewhere, the owner's rule).
       saveReferenceMarkets(db, "open", listed(20), now());
-      const all = getSurebets(db).find((s) => s.eventId === "open" && s.kind === "exchange")!;
-      expect(all.legs.map((l) => l.source)).toEqual(["exchange", "exchange", "exchange", "exchange"]);
+      expect(getSurebets(db).filter((s) => s.eventId === "open" && s.kind === "exchange")).toEqual([]);
 
       // Nobody with 20 EUR at the back: Winamax alone, 108%, nothing.
       saveReferenceMarkets(db, "open", listed(10).map((r) => ({ ...r, backSize: 10 })), now());

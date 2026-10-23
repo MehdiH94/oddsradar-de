@@ -311,9 +311,9 @@ describe("runGemAlerts", () => {
     // Nothing new: nothing sent.
     await run();
     expect(send).toHaveBeenCalledTimes(3);
-    // Merkur Bets's Lakers up to 2.25: another combination, sent too, once
-    // the next cycle has it as well.
-    upsertCanonicalEvents(db, [nba("lal-bos", ["Lakers", "Celtics"], winner(2.2, 1.7), winner(2.25, 2.1))]);
+    // Merkur Bets's Lakers up to 2.25 and LeoVegas's Celtics to 2.15: another
+    // combination, sent too, once the next cycle has it as well.
+    upsertCanonicalEvents(db, [nba("lal-bos", ["Lakers", "Celtics"], winner(2.2, 2.15), winner(2.25, 2.1))]);
     rescrape();
     await run();
     expect(send).toHaveBeenCalledTimes(3);
@@ -321,15 +321,15 @@ describe("runGemAlerts", () => {
     await run();
     expect(send).toHaveBeenCalledTimes(4);
     expect(bodies()[3].embeds).toHaveLength(1);
-    // 1 / (1/2.25 + 1/2.1): 108.6 %, on the same match as the first, in a card of its own.
-    expect(bodies()[3].embeds[0].title).toBe("⚖️ 108,6\u00a0%");
+    // 1 / (1/2.25 + 1/2.15): 109.9 %, on the same match as the first, in a card of its own.
+    expect(bodies()[3].embeds[0].title).toBe("⚖️ 109,9\u00a0%");
     expect(bodies()[3].embeds[0].url).toBe(sure.url);
     expect(
       getAlertStatus(db)
         .sent.filter((g) => g.basis.startsWith("surebet"))
         .map((g) => [g.matchLabel, g.label])
     ).toEqual([
-      ["Lakers - Celtics", "Lakers @ Merkur Bets 2.25 / Celtics @ Merkur Bets 2.10"],
+      ["Lakers - Celtics", "Lakers @ Merkur Bets 2.25 / Celtics @ LeoVegas 2.15"],
       ["Lakers - Celtics", "Lakers @ LeoVegas 2.20 / Celtics @ Merkur Bets 2.10"],
     ]);
   });

@@ -415,6 +415,9 @@ function surebetsOf(
       };
       // A surebet shown, or left out as a suspect when a leg is out of line.
       const add = (market: string, label: string, kind: SurebetKind, payoutRate: number, legs: SurebetLeg[]) => {
+        // Every outcome at one bookmaker is its own mistake or its own odds
+        // boost, not a surebet: at least two sources (the owner, 23/10/2026).
+        if (new Set(legs.map((l) => l.source)).size < 2) return;
         const surebet = build(market, label, kind, payoutRate, legs);
         const suspect = legs.map(outOfLine).find((s) => s !== undefined);
         if (!suspect) surebets.push(surebet);

@@ -106,11 +106,11 @@ describe("savePreferences", () => {
   it("tells the session ended on a 401", async () => {
     vi.stubGlobal("fetch", vi.fn(() => reply({ error: "unauthenticated" }, 401)));
     const heard = vi.fn();
-    window.addEventListener("coteradar:unauthorized", heard);
+    window.addEventListener("oddsblitzer:unauthorized", heard);
 
     await expect(savePreferences(PREFS)).resolves.toBe(false);
 
-    window.removeEventListener("coteradar:unauthorized", heard);
+    window.removeEventListener("oddsblitzer:unauthorized", heard);
     expect(heard).toHaveBeenCalledOnce();
   });
 });

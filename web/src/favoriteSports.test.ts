@@ -10,7 +10,7 @@ import {
   useFavoriteSports,
 } from "./favoriteSports";
 
-const KEY = "coteradar.favoriteSports";
+const KEY = "oddsblitzer.favoriteSports";
 
 describe("orderSports", () => {
   const sports = ["basketball", "football", "golf", "tennis"];
@@ -98,6 +98,16 @@ describe("the stored favorites", () => {
     saveFavorites(["tennis", "football"]);
 
     expect(JSON.parse(localStorage.getItem(KEY)!)).toEqual(["tennis", "football"]);
+    expect(loadFavorites()).toEqual(["tennis", "football"]);
+  });
+
+  it("are moved from CoteRadar's old key, once, so a tester keeps them", () => {
+    localStorage.setItem("coteradar.favoriteSports", JSON.stringify(["tennis", "football"]));
+    expect(loadFavorites()).toEqual(["tennis", "football"]);
+    expect(localStorage.getItem(KEY)).toBe(JSON.stringify(["tennis", "football"]));
+    expect(localStorage.getItem("coteradar.favoriteSports")).toBeNull();
+    // The new key wins over an old one left behind.
+    localStorage.setItem("coteradar.favoriteSports", JSON.stringify(["golf"]));
     expect(loadFavorites()).toEqual(["tennis", "football"]);
   });
 

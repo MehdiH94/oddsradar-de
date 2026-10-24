@@ -2,7 +2,7 @@ import { DEFAULT_BOOKMAKERS } from "./bookmakers";
 import { VALUE_BETS } from "./sports";
 import { urlFiltersQuery } from "./urlFilters";
 
-// The site's two pages: the home (what CoteRadar is, and the way in) and the
+// The site's two pages: the home (what OddsBlitzer is, and the way in) and the
 // odds dashboard (the matches' prices and the value bets, App). The server
 // answers the dashboard's path with the same index.html as the home's
 // (SPA_PATHS in src/api/server.ts): change both together.
@@ -72,7 +72,7 @@ export function matchHref(id: string): string {
   })}`;
 }
 
-const NAVIGATE_EVENT = "coteradar:navigate";
+const NAVIGATE_EVENT = "oddsblitzer:navigate";
 
 // Moves to another page without reloading: a new history entry (Back returns),
 // and the listeners of onPathChange told.

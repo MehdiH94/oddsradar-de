@@ -394,7 +394,7 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
 
   // A match's page is a new history entry: Back returns to the list.
   function openMatch(id: string) {
-    window.history.pushState({ coteradarMatch: true }, "", matchHref(id));
+    window.history.pushState({ oddsblitzerMatch: true }, "", matchHref(id));
     setMatchStatus({ refreshing: true, failed: false });
     setMatchId(id);
     window.scrollTo?.({ top: 0 });
@@ -402,7 +402,7 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
 
   function closeMatch() {
     // Opened from the list: going back keeps the browser's history in step.
-    if ((window.history.state as { coteradarMatch?: boolean } | null)?.coteradarMatch) {
+    if ((window.history.state as { oddsblitzerMatch?: boolean } | null)?.oddsblitzerMatch) {
       window.history.back();
     } else {
       setMatchId(null);

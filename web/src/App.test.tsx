@@ -1034,7 +1034,7 @@ describe("App", () => {
     });
 
     it("starts the favorite sports from the account's, not this browser's", async () => {
-      localStorage.setItem("coteradar.favoriteSports", JSON.stringify(["golf"]));
+      localStorage.setItem("oddsblitzer.favoriteSports", JSON.stringify(["golf"]));
       window.history.replaceState(null, "", "/odds");
       stubFetch(["football", "golf", "tennis"]);
       render(<App preferences={SAVED} />);

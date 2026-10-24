@@ -5,7 +5,10 @@ export const MAX_FAVORITES = 3;
 // Kept with the account (web/src/preferences.ts), not in the URL: a link
 // someone shares (or an alert's) shouldn't carry the sender's favorites. This
 // browser keeps a copy too, for when the server doesn't answer.
-const STORAGE_KEY = "coteradar.favoriteSports";
+const STORAGE_KEY = "oddsblitzer.favoriteSports";
+// The key the site kept them under while it was CoteRadar: read once when the
+// new one is empty, then moved, so that a tester keeps their favorites.
+const LEGACY_STORAGE_KEY = "coteradar.favoriteSports";
 
 // The favorites first, in the order they were starred, then the other sports
 // as they came. A favorite with no odds today has no chip to show.
@@ -34,7 +37,15 @@ export function toggleFavorite(favorites: readonly string[], sport: string, avai
 // favorites then last as long as the page does.
 export function loadFavorites(): string[] {
   try {
-    const stored: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+    let raw = localStorage.getItem(STORAGE_KEY);
+    if (raw === null) {
+      raw = localStorage.getItem(LEGACY_STORAGE_KEY);
+      if (raw !== null) {
+        localStorage.setItem(STORAGE_KEY, raw);
+        localStorage.removeItem(LEGACY_STORAGE_KEY);
+      }
+    }
+    const stored: unknown = JSON.parse(raw ?? "[]");
     if (!Array.isArray(stored)) return [];
     const names = stored.filter((sport): sport is string => typeof sport === "string");
     return [...new Set(names)].slice(0, MAX_FAVORITES);

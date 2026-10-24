@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { openDb } from "../db/client";
 import { oddsMaxAgeForPollInterval } from "../db/repository";
-import { currentSurebetReadGaps, formatSurebetReport, sentSurebetsByPair } from "../db/surebetReport";
+import { currentSurebetReadGaps, formatSurebetReport, sentSurebetsAbove, sentSurebetsByPair } from "../db/surebetReport";
 
 // npm run surebet-report -- [days]
 // Which sources the surebets come from, and how far apart their legs were
@@ -16,7 +16,7 @@ function main(): void {
   const db = openDb(process.env.DB_PATH ?? "./data/coteradar.sqlite");
   const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
   const listing = { oddsMaxAgeMs: oddsMaxAgeForPollInterval(Number(process.env.POLL_INTERVAL_MINUTES ?? "5")) };
-  console.log(formatSurebetReport(sentSurebetsByPair(db, since), currentSurebetReadGaps(db, listing), since));
+  console.log(formatSurebetReport(sentSurebetsByPair(db, since), currentSurebetReadGaps(db, listing), since, sentSurebetsAbove(db, since)));
   db.close();
 }
 

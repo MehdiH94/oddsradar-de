@@ -3,7 +3,7 @@ import { DatabaseSync } from "node:sqlite";
 import { openDb } from "../../src/db/client";
 import { upsertCanonicalEvents } from "../../src/db/repository";
 import { saveReferenceOdds } from "../../src/db/reference";
-import { currentSurebetReadGaps, formatSurebetReport, sentSurebetsByPair, sourcePair } from "../../src/db/surebetReport";
+import { currentSurebetReadGaps, formatSurebetReport, sentSurebetsAbove, sentSurebetsByPair, sourcePair } from "../../src/db/surebetReport";
 
 const hoursFromNow = (h: number) => new Date(Date.now() + h * 3600e3).toISOString();
 const oneXTwo = (one: number) => [
@@ -55,6 +55,31 @@ describe("the surebet report", () => {
       { pair: "exchange lay + twentybet back", count: 2, meanEdge: expect.closeTo(0.03, 10) },
       { pair: "betway back + leovegas back + twentybet back", count: 1, meanEdge: expect.closeTo(0.01, 10) },
     ]);
+  });
+
+  it("lists the surebets sent at +5 % or more, the highest first, with their legs", () => {
+    const insert = db.prepare(
+      `INSERT INTO gem_alerts (event_id, market, selection, bookmaker, basis, price, fair, edge, label, market_label, match_label, start_time, sent_at)
+       VALUES (@id, '1X2', 'surebet', '1@merkurbets:back,2@twentybet:back', @basis, 1, 1, @edge, @label, 'Sieger', @match, '2026-10-23T18:00:00.000Z', @sentAt)`
+    );
+    insert.run({ id: "a", basis: "surebet:back", edge: 0.155, label: "A @ Merkur Bets 3,10 / B @ 20bet 2,60", match: "A - B", sentAt: "2026-10-22T10:00:00.000Z" });
+    insert.run({ id: "b", basis: "surebet:back", edge: 0.02, label: "C @ Merkur Bets 2,10 / D @ 20bet 2,00", match: "C - D", sentAt: "2026-10-22T11:00:00.000Z" });
+    insert.run({ id: "c", basis: "surebet:lay", edge: 0.069, label: "E @ Betway 2,20 / E @ Exchange 2,00", match: "E - F", sentAt: "2026-10-22T12:00:00.000Z" });
+    insert.run({ id: "d", basis: "surebet:back", edge: 0.3, label: "old", match: "G - H", sentAt: "2026-10-01T10:00:00.000Z" });
+    // A value bet, not a surebet.
+    insert.run({ id: "e", basis: "fair", edge: 0.2, label: "value", match: "I - J", sentAt: "2026-10-22T13:00:00.000Z" });
+
+    const high = sentSurebetsAbove(db, "2026-10-20T00:00:00.000Z");
+    expect(high.map((h) => [h.matchLabel, h.edge])).toEqual([["A - B", 0.155], ["E - F", 0.069]]);
+
+    const text = formatSurebetReport([], [], "2026-10-20T00:00:00.000Z", high);
+    expect(text).toContain(
+      "Surebets sent at 5.0% or more, to check (highest first):\n" +
+        "  15.5% A - B · Sieger · kick-off 2026-10-23T18:00:00.000Z, sent 2026-10-22T10:00:00.000Z\n" +
+        "    A @ Merkur Bets 3,10 / B @ 20bet 2,60\n" +
+        "  6.9% E - F · Sieger"
+    );
+    expect(formatSurebetReport([], [], "2026-10-20T00:00:00.000Z")).toContain("to check (highest first):\n  none");
   });
 
   it("gives each surebet shown its legs' read times and how far apart they are", () => {

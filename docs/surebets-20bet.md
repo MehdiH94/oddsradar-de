@@ -94,9 +94,13 @@ sudo -u oddsradar npm run surebet-report -- 3   # des 3 derniers jours
 Il donne :
 
 1. les surebets envoyés sur Discord par paire de sources, et leur profit moyen ;
-2. les surebets affichés maintenant par paire, avec l'écart de lecture
+2. les surebets envoyés à +5 % ou plus, du plus haut au plus bas : le match,
+   le marché, chaque jambe avec sa cote, le coup d'envoi et l'heure d'envoi,
+   pour vérifier à la main s'il s'agit d'un mauvais match ou d'une vraie cote
+   (Merkur Bets + 20bet à +15,5 % en moyenne, rapport du 24/10/2026) ;
+3. les surebets affichés maintenant par paire, avec l'écart de lecture
    médian et maximal de leurs jambes ;
-3. chaque surebet affiché : ses jambes, leur cote, l'argent du lay, l'heure de
+4. chaque surebet affiché : ses jambes, leur cote, l'argent du lay, l'heure de
    lecture de chacune.
 
 Colle le résultat dans le salon Discord de feedback : l'agent backlog en fera

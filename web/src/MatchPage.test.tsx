@@ -137,6 +137,17 @@ describe("MatchPage", () => {
     expect(screen.getByText("1 Surebet")).toBeInTheDocument();
   });
 
+  it("names the match in the browser tab while it is open, and gives the old title back", async () => {
+    document.title = "Quoten und Value Bets · OddsBlitzer";
+    stubFetch(detail);
+    const { unmount } = renderPage();
+
+    await screen.findByRole("heading", { level: 2, name: "Borussia Dortmund – Werder Brême" });
+    expect(document.title).toBe("Borussia Dortmund – Werder Brême · OddsBlitzer");
+    unmount();
+    expect(document.title).toBe("Quoten und Value Bets · OddsBlitzer");
+  });
+
   describe("the competition", () => {
     const competitionHref = (sport: string, competition: string) =>
       `?sport=${sport}&sort=trj&competition=${encodeURIComponent(competition)}`;

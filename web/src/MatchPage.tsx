@@ -5,6 +5,7 @@ import type { EventDetail, SectionDetail } from "./types";
 import { ALL_BOOKMAKERS, BOOKMAKER_BRANDING } from "./bookmakers";
 import { formatStartParts } from "./format";
 import { sportEmoji } from "./sports";
+import { APP_NAME } from "./brand";
 import { BookmakerMenu } from "./components/BookmakerMenu";
 import { MarketCard } from "./components/MarketCard";
 import { CheckAtBookmaker } from "./components/CheckAtBookmaker";
@@ -116,6 +117,18 @@ export function MatchPage({
   useEffect(() => {
     statusRef.current = onStatus;
   });
+
+  // The browser tab names the open match ("Bayern München – Arsenal ·
+  // OddsBlitzer"), and gives the dashboard's title back when it closes.
+  const tabTitle = detail ? `${detail.participants.join(" – ")} · ${APP_NAME}` : undefined;
+  useEffect(() => {
+    if (!tabTitle) return;
+    const previous = document.title;
+    document.title = tabTitle;
+    return () => {
+      document.title = previous;
+    };
+  }, [tabTitle]);
 
   useEffect(() => {
     let cancelled = false;

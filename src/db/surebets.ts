@@ -87,6 +87,10 @@ export interface Surebet {
   // what it offers only.
   thin: boolean;
   legs: SurebetLeg[];
+  // Left out as out of line, and shown anyway when asked for (withSuspects):
+  // a leg's price far from the other sources' (SUREBET_OUT_OF_LINE), their
+  // median price of that outcome. A real price at times, to check.
+  suspect?: { leg: SurebetLeg; others: number };
 }
 
 export type SurebetSort = "value" | "start";
@@ -94,7 +98,8 @@ export type SurebetSort = "value" | "start";
 // A surebet left out because one leg's price is out of line with the other
 // sources' (SUREBET_OUT_OF_LINE): its leg, and the others' median price of
 // that outcome. The admins' Discord is told about it (src/alerts/quality.ts):
-// a swapped or stale price is a bug to find.
+// a swapped or stale price, or a real one the owner wants to know of
+// (24/10/2026). The site shows it marked (getSurebets' withSuspects).
 export interface SuspectSurebet extends Surebet {
   suspect: { leg: SurebetLeg; others: number };
 }
@@ -225,27 +230,25 @@ function backLegs(
   );
 }
 
+// `withSuspects`: the surebets left out as out of line too, each with its
+// `suspect` (the site's list, never the testers' alerts).
 export function getSurebets(
   db: DatabaseSync,
-  opts: { q?: string; sort?: SurebetSort; bookmakers?: readonly string[] } & ListingOptions = {}
+  opts: { q?: string; sort?: SurebetSort; bookmakers?: readonly string[]; withSuspects?: boolean } & ListingOptions = {}
 ): Surebet[] {
   const oddsSince = oddsCutoff(opts);
   const marketsSince = marketsCutoff(opts);
   const ids = matchingEventIds(db, undefined, opts.q, oddsSince);
   const surebets: Surebet[] = [];
+  const suspects: SuspectSurebet[] | undefined = opts.withSuspects ? [] : undefined;
   for (let start = 0; start < ids.length; start += SUREBET_CHUNK) {
     const chunk = ids.slice(start, start + SUREBET_CHUNK);
-    for (const surebet of surebetsOf(db, chunk, oddsSince, marketsSince, opts.bookmakers)) surebets.push(surebet);
+    for (const surebet of surebetsOf(db, chunk, oddsSince, marketsSince, opts.bookmakers, suspects)) surebets.push(surebet);
   }
+  surebets.push(...(suspects ?? []));
   const counts = countMarkets(db, [...new Set(surebets.map((s) => s.eventId))], oddsSince, marketsSince);
-  const links = loadBookmakerLinks(db, [...new Set(surebets.map((s) => s.eventId))]);
-  for (const surebet of surebets) {
-    surebet.marketCount = counts.get(surebet.eventId) ?? 0;
-    for (const leg of surebet.legs) {
-      const url = leg.source === EXCHANGE ? undefined : links.get(surebet.eventId)?.[leg.source];
-      if (url) leg.url = url;
-    }
-  }
+  for (const surebet of surebets) surebet.marketCount = counts.get(surebet.eventId) ?? 0;
+  addBookmakerLinks(db, surebets);
   return surebets.sort((a, b) =>
     opts.sort === "start"
       ? a.startTime.localeCompare(b.startTime) || b.payoutRate - a.payoutRate
@@ -263,7 +266,19 @@ export function getSuspectSurebets(db: DatabaseSync, opts: ListingOptions = {}):
   for (let start = 0; start < ids.length; start += SUREBET_CHUNK) {
     surebetsOf(db, ids.slice(start, start + SUREBET_CHUNK), oddsSince, marketsSince, undefined, suspects);
   }
+  addBookmakerLinks(db, suspects);
   return suspects.sort((a, b) => b.payoutRate - a.payoutRate);
+}
+
+// Each bookmaker's leg its match's page there, when it can be built.
+function addBookmakerLinks(db: DatabaseSync, surebets: readonly Surebet[]): void {
+  const links = loadBookmakerLinks(db, [...new Set(surebets.map((s) => s.eventId))]);
+  for (const surebet of surebets) {
+    for (const leg of surebet.legs) {
+      const url = leg.source === EXCHANGE ? undefined : links.get(surebet.eventId)?.[leg.source];
+      if (url) leg.url = url;
+    }
+  }
 }
 
 // None when they fail, logged: the value bets beside them still show, and

@@ -87,6 +87,10 @@ export interface Surebet {
   // A lay has under 20 € on the exchange: the profit holds for that much only.
   thin: boolean;
   legs: SurebetLeg[];
+  // A leg's price far out of line with the other sources' (their median,
+  // `others`): a swapped team, an old price, or a real one to check before
+  // betting. Shown marked (src/db/surebets.ts).
+  suspect?: { leg: SurebetLeg; others: number };
 }
 
 export interface ValueBet {

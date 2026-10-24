@@ -146,8 +146,10 @@ export function createServer(
     const key = JSON.stringify([q, sort, bookmakers && [...bookmakers].sort()]);
     res.json(
       cachedValueBets(key, () => {
-        const surebets = surebetsOrNone(db, opts);
-        const bets = withoutSurebets(getValueBets(db, opts).bets, surebets);
+        // The suspects too, marked: the owner checks them before betting
+        // (24/10/2026). A value bet is left out for the others only.
+        const surebets = surebetsOrNone(db, { ...opts, withSuspects: true });
+        const bets = withoutSurebets(getValueBets(db, opts).bets, surebets.filter((s) => !s.suspect));
         return { bets, total: bets.length, surebets };
       })
     );

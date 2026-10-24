@@ -135,6 +135,24 @@ describe("SurebetsTable", () => {
     expect(cells[3]).toHaveAttribute("title", expect.stringContaining("an der Börse gelayt"));
   });
 
+  it("marks a suspect: the row, \"verdächtig\" by its TRJ, the other sources' price on its leg only", () => {
+    const leg = { selection: "over", label: "Über 9,5", source: "merkurbets", side: "back" as const, price: 2, stake: 52.38 };
+    render(<SurebetsTable surebets={[surebet({ toVerify: true, suspect: { leg, others: 1.45 } }), surebet({ eventId: "real" })]} />);
+    const [suspect, real] = screen.getAllByRole("row").slice(1);
+    expect(suspect).toHaveAttribute("data-suspect", "true");
+    expect(real).not.toHaveAttribute("data-suspect");
+    const cells = within(suspect).getAllByRole("cell");
+    expect(within(cells[2]).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
+      "Über 9,5Merkur Bets2,00Einsatz 52,38\u00a0€ · ⚠️ andere Quellen 1,45: Quote prüfen",
+      "Unter 9,5LeoVegas2,20Einsatz 47,62\u00a0€",
+    ]);
+    // "verdächtig" says more than "zu prüfen": one of them only.
+    expect(cells[3]).toHaveTextContent("⚠️ verdächtig");
+    expect(cells[3]).not.toHaveTextContent("zu prüfen");
+    expect(within(cells[3]).getByText("⚠️ verdächtig")).toHaveAttribute("title", expect.stringMatching(/Vor dem Wetten beim Buchmacher prüfen$/));
+    expect(within(real).getAllByRole("cell")[3]).not.toHaveTextContent("verdächtig");
+  });
+
   it("says how little a lay offers when the exchange has under €20 on it", () => {
     render(
       <SurebetsTable

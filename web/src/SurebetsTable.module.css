@@ -246,6 +246,17 @@
   color: var(--color-value-text);
 }
 
+/* A suspect's leg out of line: the other sources' price beside its stake,
+   the row edged in the value bets' amber. */
+.suspectNote {
+  color: var(--color-value-text);
+  font-weight: 600;
+}
+
+.row[data-suspect] {
+  box-shadow: inset 3px 0 0 var(--color-value-text);
+}
+
 /* --- From 768 px: a table --- */
 
 @media (min-width: 768px) {

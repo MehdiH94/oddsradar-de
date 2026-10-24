@@ -41,6 +41,32 @@ export function sentSurebetsByPair(db: DatabaseSync, since: string): PairCount[]
   );
 }
 
+// The profit from which a sent surebet is listed for checking.
+export const HIGH_EDGE = 0.05;
+
+export interface SentSurebet {
+  matchLabel: string;
+  marketLabel: string;
+  // Its legs as the alert gave them: "Bayern München @ 20bet 2,30 / …".
+  label: string;
+  edge: number;
+  startTime: string;
+  sentAt: string;
+}
+
+// The surebets sent to Discord since `since` with a profit of at least
+// `minEdge`, the highest first: so few pay that much that each is worth a
+// look (a wrong match, a stale price), as the owner found Merkur Bets + 20bet
+// at +15.5 % on average (24/10/2026).
+export function sentSurebetsAbove(db: DatabaseSync, since: string, minEdge = HIGH_EDGE): SentSurebet[] {
+  return db
+    .prepare(
+      `SELECT match_label AS matchLabel, market_label AS marketLabel, label, edge, start_time AS startTime, sent_at AS sentAt
+       FROM gem_alerts WHERE basis LIKE 'surebet:%' AND sent_at >= @since AND edge >= @minEdge ORDER BY edge DESC, sent_at`
+    )
+    .all({ since, minEdge }) as unknown as SentSurebet[];
+}
+
 function countByPair(items: readonly { pair: string; edge: number }[]): PairCount[] {
   const byPair = new Map<string, { count: number; total: number }>();
   for (const { pair, edge } of items) {
@@ -98,12 +124,24 @@ export function currentSurebetReadGaps(db: DatabaseSync, opts: ListingOptions = 
 
 const percent = (edge: number) => `${(edge * 100).toFixed(1)}%`;
 
-// The report as text: the sent surebets by sources, then the current ones by
-// sources with their read gaps, then each current one.
-export function formatSurebetReport(sent: readonly PairCount[], current: readonly SurebetReadGap[], since: string): string {
+// The report as text: the sent surebets by sources, those that paid the most,
+// then the current ones by sources with their read gaps, then each current one.
+export function formatSurebetReport(
+  sent: readonly PairCount[],
+  current: readonly SurebetReadGap[],
+  since: string,
+  high: readonly SentSurebet[] = []
+): string {
   const lines = [`Surebets sent to Discord since ${since}, by sources:`];
   if (sent.length === 0) lines.push("  none");
   for (const p of sent) lines.push(`  ${p.count} × ${p.pair} (mean profit ${percent(p.meanEdge)})`);
+
+  lines.push("", `Surebets sent at ${percent(HIGH_EDGE)} or more, to check (highest first):`);
+  if (high.length === 0) lines.push("  none");
+  for (const h of high) {
+    lines.push(`  ${percent(h.edge)} ${h.matchLabel} · ${h.marketLabel} · kick-off ${h.startTime}, sent ${h.sentAt}`);
+    lines.push(`    ${h.label}`);
+  }
 
   lines.push("", "Surebets shown now, by sources:");
   const currentPairs = countByPair(current.map((c) => ({ pair: c.pair, edge: c.surebet.payoutRate - 1 })));

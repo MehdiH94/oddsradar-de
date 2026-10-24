@@ -1,0 +1,66 @@
+# Asks the production VPS for a read-only report (deploy/vps-report.sh):
+# the surebet report, the geo-blocked bookmakers' probe, or the services'
+# state. Started by hand (Actions > vps-report > Run workflow), by the owner
+# or by Claude Code; the report is in the job's log and its artifact.
+# Its own SSH key, whose forced command is that script: it can run nothing
+# else, and never deploys. One-time setup: README, "Rapports du VPS".
+name: vps-report
+
+on:
+  workflow_dispatch:
+    inputs:
+      report:
+        description: Which report
+        type: choice
+        options: [surebet-report, probe, status]
+        default: surebet-report
+      days:
+        description: Days of sent surebets (surebet-report only)
+        type: number
+        default: 7
+
+# One report at a time.
+concurrency:
+  group: vps-report
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  DEPLOY_HOST: 141.95.86.176
+  DEPLOY_USER: oddsradar
+
+jobs:
+  report:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Ask the VPS
+        env:
+          SSH_KEY: ${{ secrets.VPS_REPORT_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+          REPORT: ${{ inputs.report }}
+          DAYS: ${{ inputs.days }}
+        run: |
+          set -euo pipefail
+          if [ -z "$SSH_KEY" ] || [ -z "$KNOWN_HOSTS" ]; then
+            echo "::error::Secret VPS_REPORT_SSH_KEY (or VPS_KNOWN_HOSTS) missing: see the README, \"Rapports du VPS\"."
+            exit 1
+          fi
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" | tr -d '\r' > ~/.ssh/report_key
+          chmod 600 ~/.ssh/report_key
+          printf '%s\n' "$KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
+          command="$REPORT"
+          if [ "$REPORT" = surebet-report ]; then command="$REPORT $DAYS"; fi
+          ssh -i ~/.ssh/report_key -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes \
+            "$DEPLOY_USER@$DEPLOY_HOST" "$command" 2>&1 | tee report.txt
+      - name: Keep the report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: vps-report-${{ inputs.report }}
+          path: report.txt
+          if-no-files-found: ignore
+          retention-days: 14

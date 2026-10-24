@@ -925,6 +925,51 @@ sudo systemctl status oddsradar-worker oddsradar-web
 journalctl -u oddsradar-worker -f   # Ctrl+C pour quitter
 ```
 
+### Rapports du VPS
+
+Le workflow `vps-report` (Actions > vps-report > Run workflow) demande au VPS
+un rapport en lecture seule et le met dans son log et dans un artefact :
+
+- `surebet-report` : `npm run surebet-report`, sur le nombre de jours choisi ;
+- `probe` : la sonde des bookmakers bloques hors d'Allemagne
+  (`scripts/probe-geo-bookmakers.mjs`), puis son fichier ;
+- `status` : le commit deploye, la place libre, l'etat des services et leurs
+  dernieres lignes de log.
+
+Claude Code le lance lui-meme quand il a besoin d'un de ces rapports. Il passe
+par sa propre cle SSH, dont la commande forcee est `deploy/vps-report.sh` :
+quoi qu'on lui demande, le VPS n'execute que ce script, qui refuse tout ce qui
+n'est pas dans la liste ci-dessus. Il n'ecrit dans aucune base, ne redemarre
+rien, ne deploie pas et n'affiche aucun reglage.
+
+#### Mise en place (une seule fois)
+
+Sur le VPS, en tant que l'utilisateur des services (`sudo -iu oddsradar`
+depuis le compte `ubuntu`). La premiere commande doit afficher `oddsradar`
+puis le chemin du script :
+
+```bash
+whoami && ls /opt/oddsradar/deploy/vps-report.sh
+```
+
+Puis, en un seul bloc :
+
+```bash
+ssh-keygen -t ed25519 -N "" -C github-report -f ~/.ssh/github_report \
+&& { [ -z "$(tail -c1 ~/.ssh/authorized_keys)" ] || echo >> ~/.ssh/authorized_keys; } \
+&& echo "command=\"/opt/oddsradar/deploy/vps-report.sh\",restrict $(cat ~/.ssh/github_report.pub)" >> ~/.ssh/authorized_keys \
+&& cat ~/.ssh/github_report
+```
+
+Dans GitHub : Settings > Secrets and variables > Actions > New repository
+secret, `VPS_REPORT_SSH_KEY` : toute la sortie de la derniere commande, lignes
+`BEGIN` et `END` comprises (`VPS_KNOWN_HOSTS` sert deja au deploiement). C'est
+une cle privee : la copier uniquement dans ce secret, puis la supprimer du VPS
+avec `rm ~/.ssh/github_report ~/.ssh/github_report.pub`.
+
+Facultatif, pour que `status` montre aussi les logs des services (depuis le
+compte `ubuntu`) : `sudo usermod -aG systemd-journal oddsradar`.
+
 ### Environnement de test
 
 > **Plus utilise depuis le 20/10/2026.** Le site n'ayant ni trafic ni

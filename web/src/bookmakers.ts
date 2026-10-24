@@ -10,11 +10,11 @@ import vbetLogo from "./assets/bookmakers/vbet.ico";
 import winamaxdeLogo from "./assets/bookmakers/winamaxde.png";
 
 // The fixed set of bookmakers this project scrapes (src/scraper/kambi.ts for
-// LeoVegas.de, src/scraper/merkurbets.ts for Merkur Bets, src/scraper/twentybet.ts for 20bet, src/scraper/admiralbet.ts for Admiralbet, src/scraper/betathome.ts for bet-at-home, src/scraper/oddset.ts for ODDSET, src/scraper/betway.ts for Betway, src/scraper/sportingbet.ts for Sportingbet, src/scraper/vbet.ts for VBET, src/scraper/888sport.ts for 888sport, src/scraper/oddsApi.ts for Tipico and Winamax.de). Unlike sports there is no
+// LeoVegas.de, src/scraper/merkurbets.ts for Merkur Bets, src/scraper/twentybet.ts for 20bet, src/scraper/admiralbet.ts for Admiralbet, src/scraper/betathome.ts for bet-at-home, src/scraper/oddset.ts for ODDSET, src/scraper/betway.ts for Betway, src/scraper/sportingbet.ts for Sportingbet, src/scraper/vbet.ts for VBET, src/scraper/888sport.ts for 888sport, src/scraper/neobet.ts for neobet, src/scraper/oddsApi.ts for Tipico and Winamax.de). Unlike sports there is no
 // /api/bookmakers endpoint -- they are hardcoded scrapers, so the frontend's
 // list mirrors that directly rather than being derived from a fetched response.
 // The order is the filter's, and everywhere the bookmakers are listed.
-export const ALL_BOOKMAKERS = ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "oddset", "betway", "sportingbet", "vbet", "888sport", "tipico", "winamaxde"] as const;
+export const ALL_BOOKMAKERS = ["leovegas", "merkurbets", "twentybet", "admiralbet", "betathome", "oddset", "betway", "sportingbet", "vbet", "888sport", "neobet", "tipico", "winamaxde"] as const;
 
 // What the filter shows ticked when the URL doesn't say. Not "all": the API's
 // own default (no `bookmakers` parameter) still is every bookmaker.
@@ -29,6 +29,7 @@ export const DEFAULT_BOOKMAKERS: readonly string[] = [
   "sportingbet",
   "vbet",
   "888sport",
+  "neobet",
   "tipico",
   "winamaxde",
 ];
@@ -60,6 +61,7 @@ export const BOOKMAKER_BRANDING: Record<string, { name: string; logo?: string; u
   sportingbet: { name: "Sportingbet", logo: sportingbetLogo, stakeTax: 0.05 },
   vbet: { name: "VBET", logo: vbetLogo, stakeTax: 0.05 },
   "888sport": { name: "888sport", stakeTax: 0.05 },
+  neobet: { name: "neobet", stakeTax: 0.05 },
   tipico: { name: "Tipico", stakeTax: 0 },
   winamaxde: { name: "Winamax", logo: winamaxdeLogo, stakeTax: 0 },
 };

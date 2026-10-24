@@ -11,6 +11,7 @@ import { ODDSET_TAX } from "../../src/scraper/oddset";
 import { SPORTINGBET_TAX } from "../../src/scraper/sportingbet";
 import { VBET_TAX } from "../../src/scraper/vbet";
 import { SPORT888_TAX } from "../../src/scraper/888sport";
+import { NEOBET_TAX } from "../../src/scraper/neobet";
 
 describe("netOfStakeTax", () => {
   it("takes the tax off the price, to the thousandth", () => {
@@ -33,6 +34,7 @@ const RATES: Record<string, number> = {
   merkurbets: 0.05,
   sportingbet: 0.05,
   "888sport": 0.05,
+  neobet: 0.05,
   vbet: 0.05033238,
   admiralbet: 0.053,
   betathome: 0.053,
@@ -47,6 +49,7 @@ describe("the bookmakers' betting tax", () => {
       merkurbets: MERKURBETS_TAX_ON_STAKE,
       sportingbet: SPORTINGBET_TAX,
       "888sport": SPORT888_TAX,
+      neobet: NEOBET_TAX,
       vbet: VBET_TAX,
       admiralbet: ADMIRALBET_TAX_ON_STAKE,
       betathome: BETATHOME_TAX,

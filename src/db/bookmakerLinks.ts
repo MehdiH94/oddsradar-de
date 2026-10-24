@@ -14,6 +14,8 @@ import { inChunks } from "./playerReference";
 //   names ("/fussball/champions-league/ligaphase/bayern-muenchen-vs-arsenal"),
 //   which its snapshot doesn't give;
 // - Tipico and Winamax.de: their id is The Odds API's, not theirs.
+// - neobet: its site refuses visitors outside Germany, the address of a
+//   match could not be checked.
 //
 // LeoVegas.de (Kambi): its sportsbook opens the event by its Kambi id.
 // Merkur Bets: www.merkurbets.de refuses visitors outside Germany; its

@@ -135,7 +135,8 @@ export type BookmakerId =
   | "betway"
   | "sportingbet"
   | "vbet"
-  | "888sport";
+  | "888sport"
+  | "neobet";
 
 // The canonical key is the lowercased Winamax display name: the dashboard is in
 // French and renders the sport string as-is (section headings, the sport
@@ -404,11 +405,13 @@ const CANONICAL_BY_BOOKMAKER: Record<BookmakerId, Map<string, string>> = {
   betathome: canonicalByName((s) => s.betathome),
   oddset: canonicalByName((s) => s.oddset),
   betway: canonicalByName((s) => s.betway),
-  // Sportingbet reads ODDSET's platform (./entain.ts); VBET and 888sport write
-  // the canonical keys themselves (./vbet.ts, ./888sport.ts).
+  // Sportingbet reads ODDSET's platform (./entain.ts); VBET, 888sport and
+  // neobet write the canonical keys themselves (./vbet.ts, ./888sport.ts,
+  // ./neobet.ts).
   sportingbet: canonicalByName((s) => s.oddset),
   vbet: canonicalByName((s) => s.canonical),
   "888sport": canonicalByName((s) => s.canonical),
+  neobet: canonicalByName((s) => s.canonical),
   tipico: canonicalByName((s) => s.oddsapi),
   winamaxde: canonicalByName((s) => s.oddsapi),
 };

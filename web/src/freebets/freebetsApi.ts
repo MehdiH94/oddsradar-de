@@ -12,6 +12,7 @@ export type BookmakerId =
   | "sportingbet"
   | "vbet"
   | "888sport"
+  | "neobet"
   | "betway"
   | "tipico"
   | "winamaxde"

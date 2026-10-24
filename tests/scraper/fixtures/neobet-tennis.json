@@ -1,0 +1,289 @@
+[
+  {
+    "id": "NEO|TN-610271",
+    "tradingType": "Regular",
+    "begin": "2026-10-24T14:10:00Z",
+    "lastUpdated": 1792859906769,
+    "sport": "Tennis",
+    "region": "FR",
+    "league": "Lyon",
+    "home": "Cobolli, Flavio",
+    "away": "Musetti, Lorenzo",
+    "regionLabel": "France",
+    "contestStatus": {
+      "name": "Running",
+      "section": "SET3GAME12"
+    },
+    "betmarkets": [
+      {
+        "key": "Set_MATCH_HC2W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 7.8
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 1.06
+          }
+        ]
+      }
+    ],
+    "scores": [
+      {
+        "name": "SET1",
+        "score": [
+          "6",
+          "4"
+        ]
+      },
+      {
+        "name": "SET2",
+        "score": [
+          "2",
+          "6"
+        ]
+      },
+      {
+        "name": "SET3",
+        "score": [
+          "5",
+          "6"
+        ]
+      },
+      {
+        "name": "Match",
+        "score": [
+          "1",
+          "1"
+        ]
+      },
+      {
+        "name": "CurrentGame",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": false
+  },
+  {
+    "id": "NEO|TN-610258",
+    "tradingType": "Regular",
+    "begin": "2026-10-24T16:30:00Z",
+    "lastUpdated": 1792859913818,
+    "sport": "Tennis",
+    "region": "BE",
+    "league": "Brussels",
+    "home": "Fils, Arthur",
+    "away": "Struff, Jan-Lennard",
+    "regionLabel": "Belgium",
+    "contestStatus": {
+      "name": "Pregame",
+      "section": "SET1"
+    },
+    "betmarkets": [
+      {
+        "key": "Set_MATCH_HC2W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.18
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 4.6
+          }
+        ]
+      },
+      {
+        "key": "Set_MATCH_HC2W(-1.5)",
+        "bettingType": "Spread",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.65
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 2.15
+          }
+        ],
+        "handicap": -1.5
+      }
+    ],
+    "scores": [
+      {
+        "name": "SET1",
+        "score": [
+          "0",
+          "0"
+        ]
+      },
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      },
+      {
+        "name": "CurrentGame",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": false
+  },
+  {
+    "id": "NEO|TN-610465",
+    "tradingType": "Regular",
+    "begin": "2026-10-27T09:00:00Z",
+    "lastUpdated": 1792858857767,
+    "sport": "Tennis",
+    "region": "AT",
+    "league": "Vienna",
+    "home": "Zverev, Alexander",
+    "away": "Landaluce, Martin",
+    "regionLabel": "Austria",
+    "contestStatus": {
+      "name": "Pregame",
+      "section": "SET1"
+    },
+    "betmarkets": [
+      {
+        "key": "Set_MATCH_HC2W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.08
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 7.8
+          }
+        ]
+      },
+      {
+        "key": "Set_MATCH_HC2W(-1.5)",
+        "bettingType": "Spread",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.35
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 3.0
+          }
+        ],
+        "handicap": -1.5
+      }
+    ],
+    "scores": [
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      },
+      {
+        "name": "CurrentGame",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": false
+  },
+  {
+    "id": "NEO|TN-610459",
+    "tradingType": "Regular",
+    "begin": "2026-10-27T09:00:00Z",
+    "lastUpdated": 1792858843792,
+    "sport": "Tennis",
+    "region": "AT",
+    "league": "Vienna",
+    "home": "Khachanov, Karen",
+    "away": "Alcaraz, Carlos",
+    "regionLabel": "Austria",
+    "contestStatus": {
+      "name": "Pregame",
+      "section": "SET1"
+    },
+    "betmarkets": [
+      {
+        "key": "Set_MATCH_HC2W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 5.1
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 1.15
+          }
+        ]
+      },
+      {
+        "key": "Set_MATCH_HC2W(1.5)",
+        "bettingType": "Spread",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 2.3
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 1.57
+          }
+        ],
+        "handicap": 1.5
+      }
+    ],
+    "scores": [
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      },
+      {
+        "name": "CurrentGame",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": false
+  }
+]

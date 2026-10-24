@@ -228,7 +228,7 @@ describe("runGemAlerts", () => {
         "fairen Quote, auf Spieler, Games oder Sätze ab 15\u00a0%; und für jede Surebet (Auszahlung über 100\u00a0%, " +
         "bis 110\u00a0%). Nur Quoten, die bei zwei Abrufen nacheinander noch angeboten werden. Eine einzige Nachricht pro Spiel, Markt und Ausgang." +
         "\n" +
-        `${SITE}/?sport=value-bets&sort=value&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde`
+        `${SITE}/?sport=value-bets&sort=value&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,neobet,tipico,winamaxde`
     );
     // No one pinged by a name, ever.
     expect([hello.allowed_mentions, gems.allowed_mentions]).toEqual([{ parse: [] }, { parse: [] }]);
@@ -240,14 +240,14 @@ describe("runGemAlerts", () => {
     const kickOff = KICK_OFF.getTime() / 1000;
     expect(france).toEqual({
       title: "💎 +5,0\u00a0%",
-      url: `${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde`,
+      url: `${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,neobet,tipico,winamaxde`,
       color: 0xd97706,
       fields: [
         { name: "Spiel", value: "France - Italie · Ligue des Nations" },
         { name: "Anstoß", value: `<t:${kickOff}:f> (<t:${kickOff}:R>)`, inline: true },
         {
           name: "Spielseite",
-          value: `[Spiel auf OddsBlitzer ansehen](${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde)`,
+          value: `[Spiel auf OddsBlitzer ansehen](${SITE}/?match=fra-ita&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,neobet,tipico,winamaxde)`,
         },
       ],
     });
@@ -294,7 +294,7 @@ describe("runGemAlerts", () => {
     expect(surebets.embeds).toEqual([
       {
         title: "⚖️ 107,4\u00a0%",
-        url: `${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde`,
+        url: `${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,neobet,tipico,winamaxde`,
         color: 0x16a34a,
         fields: [
           { name: "Spiel", value: "Lakers - Celtics · NBA" },
@@ -302,7 +302,7 @@ describe("runGemAlerts", () => {
           { name: "Gewinn", value: "+7,4\u00a0%", inline: true },
           {
             name: "Spielseite",
-            value: `[Spiel auf OddsBlitzer ansehen](${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde)`,
+            value: `[Spiel auf OddsBlitzer ansehen](${SITE}/?match=lal-bos&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,neobet,tipico,winamaxde)`,
           },
         ],
       },
@@ -679,7 +679,7 @@ describe("the link to the match", () => {
     thin: false,
     legs: [{ selection: "1", label: "PSG", source: "leovegas", side: "back", price: 2.1, stake: 100 }],
   } as unknown as Surebet;
-  const url = "https://cote-radar.fr/?match=psg-om&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde";
+  const url = "https://cote-radar.fr/?match=psg-om&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,neobet,tipico,winamaxde";
 
   it("is the title's and a line of its own, on a gem and a surebet", () => {
     for (const embed of [gemEmbed(gem, "https://cote-radar.fr"), surebetEmbed(surebet, "https://cote-radar.fr")]) {
@@ -697,7 +697,7 @@ describe("the link to the match", () => {
       expect(embed.fields.map((f) => f.name)).toEqual(names);
     }
     const odd = gemEmbed({ ...gem, eventId: "a(b)c d" }, "https://cote-radar.fr");
-    expect(odd.url).toBe("https://cote-radar.fr/?match=a%28b%29c%20d&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,tipico,winamaxde");
+    expect(odd.url).toBe("https://cote-radar.fr/?match=a%28b%29c%20d&bookmakers=leovegas,merkurbets,twentybet,admiralbet,betathome,oddset,betway,sportingbet,vbet,888sport,neobet,tipico,winamaxde");
     // One "(" and one ")": the link's own.
     const value = odd.fields.at(-1)!.value;
     expect([value.split("(").length - 1, value.split(")").length - 1]).toEqual([1, 1]);

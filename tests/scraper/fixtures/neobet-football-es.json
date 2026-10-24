@@ -1,0 +1,422 @@
+[
+  {
+    "id": "NEO|FB-4091933",
+    "tradingType": "Regular",
+    "begin": "2026-10-25T20:00:00Z",
+    "lastUpdated": 1792859554041,
+    "sport": "Football",
+    "region": "ES",
+    "league": "La Liga",
+    "home": "FC Barcelona",
+    "away": "Real Madrid",
+    "regionLabel": "Spain",
+    "contestStatus": {
+      "name": "Pregame",
+      "section": "HT1"
+    },
+    "betmarkets": [
+      {
+        "key": "Goal_RT_HC3W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.6
+          },
+          {
+            "key": "X",
+            "outcome": "Draw",
+            "odds": 5.4
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 4.2
+          }
+        ]
+      },
+      {
+        "key": "Goal_RT_HC3W(-1.0)",
+        "bettingType": "Handicap",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 2.3
+          },
+          {
+            "key": "X",
+            "outcome": "Draw",
+            "odds": 4.5
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 2.3
+          }
+        ],
+        "handicap": -1.0
+      },
+      {
+        "key": "Goal_RT_OddsBoost(And,0.05,(BO(Goal_RT_PlayerOU(Kylian Mbappe,Away,0.5),+),BO(Goal_RT_PlayerOU(Lamine Yamal,Home,0.5),+)))",
+        "bettingType": "OddsBoost",
+        "odds": [
+          {
+            "key": "Y",
+            "outcome": "Yes",
+            "odds": 3.9,
+            "unboostedOdds": 3.4
+          }
+        ],
+        "translation": "Yamal and Mbappe to score at least 1 Goal"
+      },
+      {
+        "key": "Goal_RT_OU(4.5)",
+        "bettingType": "OverUnder",
+        "odds": [
+          {
+            "key": "-",
+            "outcome": "Under",
+            "odds": 1.72
+          },
+          {
+            "key": "+",
+            "outcome": "Over",
+            "odds": 2.05
+          }
+        ],
+        "boundary": 4.5
+      }
+    ],
+    "scores": [
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": false
+  },
+  {
+    "id": "NEO|FB-4091923",
+    "tradingType": "Regular",
+    "begin": "2026-10-24T16:30:00Z",
+    "lastUpdated": 1792859917062,
+    "sport": "Football",
+    "region": "ES",
+    "league": "La Liga",
+    "home": "Valencia CF",
+    "away": "Villarreal CF",
+    "regionLabel": "Spain",
+    "contestStatus": {
+      "name": "Running",
+      "section": "HT1",
+      "playingTime": {
+        "expected": 2700,
+        "current": 390,
+        "ticking": true
+      }
+    },
+    "betmarkets": [
+      {
+        "key": "Goal_RT_HC3W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 3.1
+          },
+          {
+            "key": "X",
+            "outcome": "Draw",
+            "odds": 3.4
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 2.15
+          }
+        ]
+      },
+      {
+        "key": "Goal_RT_HC3W(1.0)",
+        "bettingType": "Handicap",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.62
+          },
+          {
+            "key": "X",
+            "outcome": "Draw",
+            "odds": 4.0
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 4.0
+          }
+        ],
+        "handicap": 1.0
+      },
+      {
+        "key": "Goal_RT_OddsBoost(And,0.05,(BO(Goal_RT_BothTeamsToScore(1,0:0),Y),BO(Goal_RT_HC3W(0.0),2)))",
+        "bettingType": "OddsBoost",
+        "odds": [
+          {
+            "key": "Y",
+            "outcome": "Yes",
+            "odds": 4.7,
+            "unboostedOdds": 4.1
+          }
+        ],
+        "translation": "Villarreal CF to win and Both teams to score"
+      },
+      {
+        "key": "Goal_RT_OU(2.5)",
+        "bettingType": "OverUnder",
+        "odds": [
+          {
+            "key": "-",
+            "outcome": "Under",
+            "odds": 1.9
+          },
+          {
+            "key": "+",
+            "outcome": "Over",
+            "odds": 1.77
+          }
+        ],
+        "boundary": 2.5
+      }
+    ],
+    "scores": [
+      {
+        "name": "HT1",
+        "score": [
+          "0",
+          "0"
+        ]
+      },
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": false
+  },
+  {
+    "id": "NEO|FB-4091925",
+    "tradingType": "Regular",
+    "begin": "2026-10-24T19:00:00Z",
+    "lastUpdated": 1792859646131,
+    "sport": "Football",
+    "region": "ES",
+    "league": "La Liga",
+    "home": "Atletico Madrid",
+    "away": "RC Deportivo de A Coruna",
+    "regionLabel": "Spain",
+    "contestStatus": {
+      "name": "Pregame",
+      "section": "HT1"
+    },
+    "betmarkets": [
+      {
+        "key": "Goal_RT_HC3W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.25
+          },
+          {
+            "key": "X",
+            "outcome": "Draw",
+            "odds": 6.2
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 11.0
+          }
+        ]
+      },
+      {
+        "key": "Goal_RT_HC3W(-1.0)",
+        "bettingType": "Handicap",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.72
+          },
+          {
+            "key": "X",
+            "outcome": "Draw",
+            "odds": 4.0
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 3.8
+          }
+        ],
+        "handicap": -1.0
+      },
+      {
+        "key": "Goal_RT_OddsBoost(And,0.05,(BO(Goal_RT_HC3W(0.0),1),BO(Goal_RT_PlayerOU(Alexander Sorloth,Home,0.5),+)))",
+        "bettingType": "OddsBoost",
+        "odds": [
+          {
+            "key": "Y",
+            "outcome": "Yes",
+            "odds": 2.45,
+            "unboostedOdds": 2.2
+          }
+        ],
+        "translation": "Atletico Madrid to win and <Player> to score"
+      },
+      {
+        "key": "Goal_RT_OU(3.5)",
+        "bettingType": "OverUnder",
+        "odds": [
+          {
+            "key": "-",
+            "outcome": "Under",
+            "odds": 1.57
+          },
+          {
+            "key": "+",
+            "outcome": "Over",
+            "odds": 2.3
+          }
+        ],
+        "boundary": 3.5
+      }
+    ],
+    "scores": [
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": false
+  },
+  {
+    "id": "NEO|FB-4098282",
+    "tradingType": "Regular",
+    "begin": "2026-10-24T16:30:00Z",
+    "lastUpdated": 1792859917463,
+    "sport": "Football",
+    "region": "ES",
+    "league": "La Liga 2",
+    "home": "Girona",
+    "away": "Celta Vigo Reserve",
+    "regionLabel": "Spain",
+    "awayLabel": "Celta Vigo II",
+    "contestStatus": {
+      "name": "Running",
+      "section": "HT1",
+      "playingTime": {
+        "expected": 2700,
+        "current": 434,
+        "ticking": true
+      }
+    },
+    "betmarkets": [
+      {
+        "key": "Goal_RT_HC3W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.32
+          },
+          {
+            "key": "X",
+            "outcome": "Draw",
+            "odds": 4.8
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 7.4
+          }
+        ]
+      },
+      {
+        "key": "Goal_RT_HC3W(-1.0)",
+        "bettingType": "Handicap",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.92
+          },
+          {
+            "key": "X",
+            "outcome": "Draw",
+            "odds": 3.6
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 2.95
+          }
+        ],
+        "handicap": -1.0
+      },
+      {
+        "key": "Goal_RT_OU(2.5)",
+        "bettingType": "OverUnder",
+        "odds": [
+          {
+            "key": "-",
+            "outcome": "Under",
+            "odds": 2.15
+          },
+          {
+            "key": "+",
+            "outcome": "Over",
+            "odds": 1.55
+          }
+        ],
+        "boundary": 2.5
+      }
+    ],
+    "scores": [
+      {
+        "name": "HT1",
+        "score": [
+          "0",
+          "0"
+        ]
+      },
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": false
+  }
+]

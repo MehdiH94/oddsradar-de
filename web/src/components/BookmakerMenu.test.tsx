@@ -32,14 +32,14 @@ describe("BookmakerMenu", () => {
     open();
 
     // 20bet holds a Curaçao licence, no German one: said, as a fact.
-    expect(screen.getAllByRole("checkbox").map((box) => box.closest("label")?.textContent)).toEqual(["LeoVegas", "Merkur Bets", "20bet · nicht GGL-lizenziert", "Admiralbet", "bet-at-home", "ODDSET", "Betway", "Sportingbet", "VBET", "888sport", "Tipico", "Winamax"]);
+    expect(screen.getAllByRole("checkbox").map((box) => box.closest("label")?.textContent)).toEqual(["LeoVegas", "Merkur Bets", "20bet · nicht GGL-lizenziert", "Admiralbet", "bet-at-home", "ODDSET", "Betway", "Sportingbet", "VBET", "888sport", "neobet", "Tipico", "Winamax"]);
   });
 
   it("shows each bookmaker's icon and name, read once", () => {
     const { container } = render(<BookmakerMenu selected={ALL_BOOKMAKERS} onChange={() => {}} />);
     open();
 
-    for (const name of ["LeoVegas", "Merkur Bets", "20bet", "Admiralbet", "bet-at-home", "ODDSET", "Betway", "Sportingbet", "VBET", "888sport", "Tipico", "Winamax"]) expect(screen.getByText(name)).toBeInTheDocument();
+    for (const name of ["LeoVegas", "Merkur Bets", "20bet", "Admiralbet", "bet-at-home", "ODDSET", "Betway", "Sportingbet", "VBET", "888sport", "neobet", "Tipico", "Winamax"]) expect(screen.getByText(name)).toBeInTheDocument();
     // The icons sit next to the names: decorative, not read a second time.
     // One per bookmaker that has an icon; the others show their name alone.
     const withIcon = ALL_BOOKMAKERS.filter((id) => BOOKMAKER_BRANDING[id]?.logo).length;
@@ -64,7 +64,7 @@ describe("BookmakerMenu", () => {
     fireEvent.pointerDown(screen.getByText("LeoVegas"));
     fireEvent.click(screen.getByText("LeoVegas"));
 
-    expect(onChange).toHaveBeenCalledWith(["merkurbets", "twentybet", "admiralbet", "betathome", "oddset", "betway", "sportingbet", "vbet", "888sport", "tipico", "winamaxde"]);
+    expect(onChange).toHaveBeenCalledWith(["merkurbets", "twentybet", "admiralbet", "betathome", "oddset", "betway", "sportingbet", "vbet", "888sport", "neobet", "tipico", "winamaxde"]);
     expect(screen.getByRole("checkbox", { name: "Merkur Bets" })).toBeInTheDocument();
   });
 

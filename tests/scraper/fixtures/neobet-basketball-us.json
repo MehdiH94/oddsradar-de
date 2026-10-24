@@ -1,0 +1,318 @@
+[
+  {
+    "id": "NEO|BB-1143395",
+    "tradingType": "Regular",
+    "begin": "2026-10-24T23:30:00Z",
+    "lastUpdated": 1792859896939,
+    "sport": "Basketball",
+    "region": "US",
+    "league": "NBA",
+    "home": "Philadelphia 76ers",
+    "away": "Milwaukee Bucks",
+    "regionLabel": "USA",
+    "contestStatus": {
+      "name": "Pregame",
+      "section": "Q1"
+    },
+    "betmarkets": [
+      {
+        "key": "Point_FT_HC2W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.13
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 5.2
+          }
+        ]
+      },
+      {
+        "key": "Point_FT_HC2W(-12.5)",
+        "bettingType": "Spread",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.82
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 1.9
+          }
+        ],
+        "handicap": -12.5
+      },
+      {
+        "key": "Point_FT_OU(235.0)",
+        "bettingType": "OverUnder",
+        "odds": [
+          {
+            "key": "-",
+            "outcome": "Under",
+            "odds": 1.85
+          },
+          {
+            "key": "+",
+            "outcome": "Over",
+            "odds": 1.87
+          }
+        ],
+        "boundary": 235.0
+      }
+    ],
+    "scores": [
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": true
+  },
+  {
+    "id": "NEO|BB-1143396",
+    "tradingType": "Regular",
+    "begin": "2026-10-25T00:00:00Z",
+    "lastUpdated": 1792859615290,
+    "sport": "Basketball",
+    "region": "US",
+    "league": "NBA",
+    "home": "Dallas Mavericks",
+    "away": "San Antonio Spurs",
+    "regionLabel": "USA",
+    "contestStatus": {
+      "name": "Pregame",
+      "section": "Q1"
+    },
+    "betmarkets": [
+      {
+        "key": "Point_FT_HC2W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 5.1
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 1.14
+          }
+        ]
+      },
+      {
+        "key": "Point_FT_HC2W(12.5)",
+        "bettingType": "Spread",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.85
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 1.87
+          }
+        ],
+        "handicap": 12.5
+      },
+      {
+        "key": "Point_FT_OU(232.0)",
+        "bettingType": "OverUnder",
+        "odds": [
+          {
+            "key": "-",
+            "outcome": "Under",
+            "odds": 1.87
+          },
+          {
+            "key": "+",
+            "outcome": "Over",
+            "odds": 1.85
+          }
+        ],
+        "boundary": 232.0
+      }
+    ],
+    "scores": [
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": true
+  },
+  {
+    "id": "NEO|BB-1143393",
+    "tradingType": "Regular",
+    "begin": "2026-10-24T23:30:00Z",
+    "lastUpdated": 1792859879342,
+    "sport": "Basketball",
+    "region": "US",
+    "league": "NBA",
+    "home": "Cleveland Cavaliers",
+    "away": "Brooklyn Nets",
+    "regionLabel": "USA",
+    "contestStatus": {
+      "name": "Pregame",
+      "section": "Q1"
+    },
+    "betmarkets": [
+      {
+        "key": "Point_FT_HC2W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.17
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 4.5
+          }
+        ]
+      },
+      {
+        "key": "Point_FT_HC2W(-11.0)",
+        "bettingType": "Spread",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.82
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 1.9
+          }
+        ],
+        "handicap": -11.0
+      },
+      {
+        "key": "Point_FT_OU(228.5)",
+        "bettingType": "OverUnder",
+        "odds": [
+          {
+            "key": "-",
+            "outcome": "Under",
+            "odds": 1.8
+          },
+          {
+            "key": "+",
+            "outcome": "Over",
+            "odds": 1.92
+          }
+        ],
+        "boundary": 228.5
+      }
+    ],
+    "scores": [
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": true
+  },
+  {
+    "id": "NEO|BB-1143399",
+    "tradingType": "Regular",
+    "begin": "2026-10-25T02:00:00Z",
+    "lastUpdated": 1792859667016,
+    "sport": "Basketball",
+    "region": "US",
+    "league": "NBA",
+    "home": "Phoenix Suns",
+    "away": "Golden State Warriors",
+    "regionLabel": "USA",
+    "contestStatus": {
+      "name": "Pregame",
+      "section": "Q1"
+    },
+    "betmarkets": [
+      {
+        "key": "Point_FT_HC2W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.22
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 3.8
+          }
+        ]
+      },
+      {
+        "key": "Point_FT_HC2W(-9.0)",
+        "bettingType": "Spread",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.8
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 1.92
+          }
+        ],
+        "handicap": -9.0
+      },
+      {
+        "key": "Point_FT_OU(221.5)",
+        "bettingType": "OverUnder",
+        "odds": [
+          {
+            "key": "-",
+            "outcome": "Under",
+            "odds": 1.85
+          },
+          {
+            "key": "+",
+            "outcome": "Over",
+            "odds": 1.87
+          }
+        ],
+        "boundary": 221.5
+      }
+    ],
+    "scores": [
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": true
+  }
+]

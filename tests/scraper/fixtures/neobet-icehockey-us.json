@@ -1,0 +1,318 @@
+[
+  {
+    "id": "NEO|IH-795519",
+    "tradingType": "Regular",
+    "begin": "2026-10-24T23:00:00Z",
+    "lastUpdated": 1792859909143,
+    "sport": "Icehockey",
+    "region": "US",
+    "league": "NHL",
+    "home": "Edmonton Oilers",
+    "away": "Toronto Maple Leafs",
+    "regionLabel": "USA",
+    "contestStatus": {
+      "name": "Pregame",
+      "section": "TH1"
+    },
+    "betmarkets": [
+      {
+        "key": "Goal_FT_HC2W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.52
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 2.35
+          }
+        ]
+      },
+      {
+        "key": "Goal_FT_HC2W(-1.5)",
+        "bettingType": "Spread",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 2.2
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 1.57
+          }
+        ],
+        "handicap": -1.5
+      },
+      {
+        "key": "Goal_FT_OU(7.0)",
+        "bettingType": "OverUnder",
+        "odds": [
+          {
+            "key": "-",
+            "outcome": "Under",
+            "odds": 1.75
+          },
+          {
+            "key": "+",
+            "outcome": "Over",
+            "odds": 1.95
+          }
+        ],
+        "boundary": 7.0
+      }
+    ],
+    "scores": [
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": true
+  },
+  {
+    "id": "NEO|IH-795518",
+    "tradingType": "Regular",
+    "begin": "2026-10-24T23:00:00Z",
+    "lastUpdated": 1792859705211,
+    "sport": "Icehockey",
+    "region": "US",
+    "league": "NHL",
+    "home": "Columbus Blue Jackets",
+    "away": "Vegas Golden Knights",
+    "regionLabel": "USA",
+    "contestStatus": {
+      "name": "Pregame",
+      "section": "TH1"
+    },
+    "betmarkets": [
+      {
+        "key": "Goal_FT_HC2W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 2.05
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 1.67
+          }
+        ]
+      },
+      {
+        "key": "Goal_FT_HC2W(1.5)",
+        "bettingType": "Spread",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.42
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 2.65
+          }
+        ],
+        "handicap": 1.5
+      },
+      {
+        "key": "Goal_FT_OU(6.0)",
+        "bettingType": "OverUnder",
+        "odds": [
+          {
+            "key": "-",
+            "outcome": "Under",
+            "odds": 1.9
+          },
+          {
+            "key": "+",
+            "outcome": "Over",
+            "odds": 1.8
+          }
+        ],
+        "boundary": 6.0
+      }
+    ],
+    "scores": [
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": true
+  },
+  {
+    "id": "NEO|IH-795524",
+    "tradingType": "Regular",
+    "begin": "2026-10-24T23:00:00Z",
+    "lastUpdated": 1792859394533,
+    "sport": "Icehockey",
+    "region": "US",
+    "league": "NHL",
+    "home": "St. Louis Blues",
+    "away": "Carolina Hurricanes",
+    "regionLabel": "USA",
+    "contestStatus": {
+      "name": "Pregame",
+      "section": "TH1"
+    },
+    "betmarkets": [
+      {
+        "key": "Goal_FT_HC2W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 2.2
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 1.57
+          }
+        ]
+      },
+      {
+        "key": "Goal_FT_HC2W(1.5)",
+        "bettingType": "Spread",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.47
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 2.5
+          }
+        ],
+        "handicap": 1.5
+      },
+      {
+        "key": "Goal_FT_OU(6.0)",
+        "bettingType": "OverUnder",
+        "odds": [
+          {
+            "key": "-",
+            "outcome": "Under",
+            "odds": 1.92
+          },
+          {
+            "key": "+",
+            "outcome": "Over",
+            "odds": 1.77
+          }
+        ],
+        "boundary": 6.0
+      }
+    ],
+    "scores": [
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": true
+  },
+  {
+    "id": "NEO|IH-795517",
+    "tradingType": "Regular",
+    "begin": "2026-10-24T19:30:00Z",
+    "lastUpdated": 1792859691442,
+    "sport": "Icehockey",
+    "region": "US",
+    "league": "NHL",
+    "home": "New Jersey Devils",
+    "away": "Los Angeles Kings",
+    "regionLabel": "USA",
+    "contestStatus": {
+      "name": "Pregame",
+      "section": "TH1"
+    },
+    "betmarkets": [
+      {
+        "key": "Goal_FT_HC2W(0.0)",
+        "bettingType": "MatchWin",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 1.47
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 2.45
+          }
+        ]
+      },
+      {
+        "key": "Goal_FT_HC2W(-1.5)",
+        "bettingType": "Spread",
+        "odds": [
+          {
+            "key": "1",
+            "outcome": "Home",
+            "odds": 2.2
+          },
+          {
+            "key": "2",
+            "outcome": "Away",
+            "odds": 1.57
+          }
+        ],
+        "handicap": -1.5
+      },
+      {
+        "key": "Goal_FT_OU(5.5)",
+        "bettingType": "OverUnder",
+        "odds": [
+          {
+            "key": "-",
+            "outcome": "Under",
+            "odds": 1.95
+          },
+          {
+            "key": "+",
+            "outcome": "Over",
+            "odds": 1.75
+          }
+        ],
+        "boundary": 5.5
+      }
+    ],
+    "scores": [
+      {
+        "name": "Match",
+        "score": [
+          "0",
+          "0"
+        ]
+      }
+    ],
+    "metadata": {},
+    "atMode": true
+  }
+]

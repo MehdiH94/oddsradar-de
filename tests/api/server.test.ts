@@ -184,6 +184,38 @@ describe("GET /api/events", () => {
     expect((await request(createServer(db)).get("/api/value-bets?bookmakers=winamax")).body.surebets).toEqual([]);
   });
 
+  it("lists a surebet with a price out of line too, marked as a suspect (the owner checks it)", async () => {
+    // Real case (20/10/2026): Betway's 9.47 on K Olsa Brakel (W), where 20bet paid 2.07.
+    upsertCanonicalEvents(db, [
+      {
+        id: "brugge-brakel",
+        sport: "football",
+        competition: "Belgium. First Division. Women",
+        startTime: hoursFromNow(5),
+        participants: ["Club Brugge II (W)", "K Olsa Brakel (W)"],
+        byBookmaker: {
+          twentybet: [
+            { market: "1X2", selection: "1", price: 2.63 },
+            { market: "1X2", selection: "X", price: 3.73 },
+            { market: "1X2", selection: "2", price: 2.07 },
+          ],
+          betway: [
+            { market: "1X2", selection: "1", price: 1.3 },
+            { market: "1X2", selection: "X", price: 6.16 },
+            { market: "1X2", selection: "2", price: 9.47 },
+          ],
+        },
+      },
+    ]);
+    const res = await request(createServer(db)).get("/api/value-bets");
+    expect(res.body.surebets).toEqual([
+      expect.objectContaining({
+        eventId: "brugge-brakel",
+        suspect: { leg: expect.objectContaining({ source: "twentybet", selection: "1", price: 2.63 }), others: 1.3 },
+      }),
+    ]);
+  });
+
   it("sums up the players' markets since a time, the last 3 days by default", async () => {
     recordRunnerRead(
       db,

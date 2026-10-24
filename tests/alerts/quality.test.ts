@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { openDb } from "../../src/db/client";
 import { upsertCanonicalEvents } from "../../src/db/repository";
 import { getSuspectSurebets, getSurebets } from "../../src/db/surebets";
-import { MAX_QUALITY_ALERTS, runQualityAlerts } from "../../src/alerts/quality";
+import { MAX_QUALITY_ALERTS, runQualityAlerts, suspectMessage } from "../../src/alerts/quality";
 import { CanonicalEvent } from "../../src/types";
 
 const WEBHOOK = "https://discord.com/api/webhooks/1/admin";
@@ -43,6 +43,45 @@ describe("getSuspectSurebets", () => {
     // Its first leg out of line: 20bet's 2.63 on Brugge, where Betway pays 1.30.
     // With two sources, either may be the wrong one: the admins look.
     expect(suspect.suspect).toMatchObject({ leg: { source: "twentybet", selection: "1", price: 2.63 }, others: 1.3 });
+  });
+});
+
+describe("getSurebets withSuspects", () => {
+  it("gives the suspects too, marked, after asking for them only", () => {
+    const db = openDb(":memory:");
+    upsertCanonicalEvents(db, [brugge()]);
+    expect(getSurebets(db)).toEqual([]);
+    const [shown] = getSurebets(db, { withSuspects: true });
+    expect(shown).toMatchObject({ eventId: "brugge-brakel", suspect: { leg: { source: "twentybet" }, others: 1.3 } });
+    expect(shown.marketCount).toBe(1);
+  });
+});
+
+describe("suspectMessage", () => {
+  it("gives every bet for 100 €, its stake and the profit, then the price out of line", () => {
+    const db = openDb(":memory:");
+    upsertCanonicalEvents(db, [brugge()]);
+    const [suspect] = getSuspectSurebets(db);
+    const text = suspectMessage(suspect, "https://odds-blitzer.de").content;
+    const lines = text.split("\n");
+    expect(lines[0]).toMatch(/^🔎 \*\*Suspect surebet, \d+\.\d %\*\* \(\+\d+\.\d\d € on 100 €\): Club Brugge II \(W\) - K Olsa Brakel \(W\) \(Belgium\. First Division\. Women\), .*kick-off <t:\d+:f>/);
+    expect(lines.slice(1, 4)).toEqual([
+      expect.stringMatching(/^• back Club Brugge II \(W\) @ 20bet 2\.63: stake \d+\.\d\d €$/),
+      expect.stringMatching(/^• back .* @ Betway 6\.16: stake \d+\.\d\d €$/),
+      expect.stringMatching(/^• back K Olsa Brakel \(W\) @ Betway 9\.47: stake \d+\.\d\d €$/),
+    ]);
+    expect(lines[4]).toMatch(/^⚠️ 20bet pays 2\.63 on Club Brugge II \(W\), the other sources 1\.30: .*Check the price at the bookmaker before betting/);
+    expect(lines[5]).toMatch(/^https:\/\/odds-blitzer\.de\/\?match=brugge-brakel&/);
+  });
+
+  it("keeps a race's many legs under Discord's 2000 characters", () => {
+    const db = openDb(":memory:");
+    upsertCanonicalEvents(db, [brugge()]);
+    const [suspect] = getSuspectSurebets(db);
+    const many = { ...suspect, legs: Array.from({ length: 80 }, (_, i) => ({ ...suspect.legs[0], label: `Runner number ${i}` })) };
+    const text = suspectMessage(many).content;
+    expect(text.length).toBeLessThanOrEqual(2000);
+    expect(text).toMatch(/\n• and \d+ more, on the site\n⚠️/);
   });
 });
 

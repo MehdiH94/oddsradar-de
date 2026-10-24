@@ -699,12 +699,17 @@ Sans lui, la page `/admin` reste la seule source.
 ### Prix suspects (administrateurs)
 
 Un surebet dont une cote s'ecarte de plus de 15 points de probabilite des
-autres sources pour la meme issue n'est pas affiche (`SUREBET_OUT_OF_LINE`,
+autres sources pour la meme issue est un suspect (`SUREBET_OUT_OF_LINE`,
 `src/db/surebets.ts`) : equipes inversees, vieux prix ou autre match chez une
-source. Apres chaque cycle de reference, le worker signale chacun une fois
-dans le salon Discord des administrateurs (`DISCORD_ADMIN_WEBHOOK_URL`,
-`src/alerts/quality.ts`), 5 par cycle au plus, avec les cotes et le lien du
-match. Un suspect encore la apres 7 jours est signale de nouveau.
+source, ou une vraie cote, que le proprietaire veut pouvoir jouer
+(24/10/2026). Le site l'affiche quand meme dans la liste des surebets, marque
+« ⚠️ verdächtig », la cote en cause suivie du prix des autres sources. Il
+n'entre jamais dans les alertes des testeurs. Apres chaque cycle de reference,
+le worker signale chacun une fois dans le salon Discord des administrateurs
+(`DISCORD_ADMIN_WEBHOOK_URL`, `src/alerts/quality.ts`), 5 par cycle au plus :
+le match, le coup d'envoi, le profit, chaque pari pour 100 € avec sa mise et
+le lien de la page du match chez le bookmaker, puis la cote en cause et le
+lien du match. Un suspect encore la apres 7 jours est signale de nouveau.
 
 ### Mises en production (administrateurs)
 

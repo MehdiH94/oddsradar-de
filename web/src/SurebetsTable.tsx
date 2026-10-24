@@ -31,12 +31,24 @@ const KIND_TITLES: Record<Surebet["kind"], string> = {
   lay: "Beim Buchmacher gesetzt, an der Börse gelayt: 3\u00a0% Provision inbegriffen. Unter 20\u00a0€ zum Layen gilt der Gewinn nur für diesen Betrag",
 };
 
+// A surebet a leg of which is far out of line with the other sources'.
+const SUSPECT_TITLE =
+  "Eine Quote weicht stark von den anderen Quellen ab: vertauschte Teams, eine alte Quote oder ein anderes Spiel? Vor dem Wetten beim Buchmacher prüfen";
+
+// The other sources' price of the suspect's leg, for that leg only.
+const suspectOthers = (surebet: Surebet, leg: SurebetLeg): number | undefined => {
+  const s = surebet.suspect?.leg;
+  return s && s.selection === leg.selection && s.source === leg.source && s.side === leg.side ? surebet.suspect!.others : undefined;
+};
+
 // One bet of a surebet: where, at what price, and how much (out of 100 € in
 // all; a lay's stake and what it risks); a bookmaker's, the match's page there
 // when the API gives it, to check the price before betting.
-function Leg({ leg }: { leg: SurebetLeg }) {
+// `others`: the leg is the suspect's, out of line with the other sources'
+// price, said under it.
+function Leg({ leg, others }: { leg: SurebetLeg; others?: number }) {
   return (
-    <li className={styles.leg} data-source={leg.source} data-side={leg.side}>
+    <li className={styles.leg} data-source={leg.source} data-side={leg.side} data-suspect={others !== undefined || undefined}>
       <span className={styles.legOutcome}>
         {leg.side === "lay" && <span className={styles.lay}>Lay </span>}
         {leg.label}
@@ -52,6 +64,9 @@ function Leg({ leg }: { leg: SurebetLeg }) {
           : `Einsatz ${euros(leg.stake)}`}
         {leg.size !== undefined && leg.size < THIN_SIZE && (
           <span className={styles.thinSize}> · nur {euros(leg.size)} zum Layen</span>
+        )}
+        {others !== undefined && (
+          <span className={styles.suspectNote}> · ⚠️ andere Quellen {formatPrice(others)}: Quote prüfen</span>
         )}
       </span>
       <span className={styles.legCheck}>
@@ -110,7 +125,12 @@ export function SurebetsTable({
               onOpenMatch(surebet.eventId);
             };
             return (
-              <tr key={`${surebet.eventId}:${surebet.market}:${legsKey}`} className={styles.row} data-kind={surebet.kind}>
+              <tr
+                key={`${surebet.eventId}:${surebet.market}:${legsKey}`}
+                className={styles.row}
+                data-kind={surebet.kind}
+                data-suspect={surebet.suspect ? true : undefined}
+              >
                 <td className={styles.start}>
                   <time dateTime={surebet.startTime}>
                     {start === null ? (
@@ -148,14 +168,19 @@ export function SurebetsTable({
                 <td className={styles.legs} data-label={"Wetten für 100\u00a0€"}>
                   <ul className={styles.legList}>
                     {surebet.legs.map((leg) => (
-                      <Leg key={`${leg.selection}@${leg.source}:${leg.side}`} leg={leg} />
+                      <Leg key={`${leg.selection}@${leg.source}:${leg.side}`} leg={leg} others={suspectOthers(surebet, leg)} />
                     ))}
                   </ul>
                 </td>
                 <td className={styles.rate} title={KIND_TITLES[surebet.kind]}>
                   <strong className={styles.rateValue}>{formatPayoutRate(surebet.payoutRate)}</strong>
                   <span className={styles.profit}>+{euros(surebet.profit)}</span>
-                  {surebet.toVerify && <span className={styles.toVerify}>zu prüfen</span>}
+                  {surebet.suspect && (
+                    <span className={styles.toVerify} title={SUSPECT_TITLE}>
+                      ⚠️ verdächtig
+                    </span>
+                  )}
+                  {surebet.toVerify && !surebet.suspect && <span className={styles.toVerify}>zu prüfen</span>}
                   {surebet.thin && <span className={styles.toVerify}>geringe Liquidität</span>}
                   <span className={styles.kind}>{KIND_LABELS[surebet.kind]}</span>
                 </td>

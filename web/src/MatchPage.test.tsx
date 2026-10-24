@@ -143,7 +143,7 @@ describe("MatchPage", () => {
     const { unmount } = renderPage();
 
     await screen.findByRole("heading", { level: 2, name: "Borussia Dortmund – Werder Brême" });
-    expect(document.title).toBe("Borussia Dortmund – Werder Brême · OddsBlitzer");
+    await waitFor(() => expect(document.title).toBe("Borussia Dortmund – Werder Brême · OddsBlitzer"));
     unmount();
     expect(document.title).toBe("Quoten und Value Bets · OddsBlitzer");
   });

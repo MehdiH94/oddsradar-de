@@ -6,6 +6,7 @@ import { BOOKMAKER_BRANDING } from "./bookmakers";
 import { BookmakerLogo } from "./BookmakerLogo";
 import { EventTitle } from "./components/EventTitle";
 import { CheckAtBookmaker } from "./components/CheckAtBookmaker";
+import { ExchangePrices } from "./components/ExchangePrices";
 import { useIsWide } from "./useMediaQuery";
 import groupStyles from "./GroupedOddsTables.module.css";
 import styles from "./SurebetsTable.module.css";
@@ -68,6 +69,7 @@ function Leg({ leg, others }: { leg: SurebetLeg; others?: number }) {
         {others !== undefined && (
           <span className={styles.suspectNote}> · ⚠️ andere Quellen {formatPrice(others)}: Quote prüfen</span>
         )}
+        {leg.source !== EXCHANGE && <ExchangePrices prices={leg.exchange} />}
       </span>
       <span className={styles.legCheck}>
         {leg.source !== EXCHANGE && <CheckAtBookmaker bookmaker={leg.source} url={leg.url} />}

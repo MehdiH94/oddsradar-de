@@ -66,6 +66,10 @@ export interface SurebetLeg {
   // A bookmaker's back: the match's page at the bookmaker, when its address
   // can be built (./bookmakerLinks.ts), to check the price there.
   url?: string;
+  // The reference market's prices of this outcome, the exchange's back and
+  // lay and the money on each, when it prices it: what the leg is measured
+  // against, shown always (the owner, 24/10/2026).
+  exchange?: ExchangeOutcome;
 }
 
 export interface Surebet {
@@ -167,6 +171,29 @@ export function loadExchangeOutcomes(
     });
   }
   return byEvent;
+}
+
+// The exchange's prices of a market, to show beside a bet on it: its main
+// market's are stored as the 1X2's, a winner's included.
+export function referenceOutcomes(
+  byMarket: Map<string, Map<string, ExchangeOutcome>> | undefined,
+  market: string
+): Map<string, ExchangeOutcome> | undefined {
+  return byMarket?.get(market) ?? (market === MARKET_MATCH_WINNER ? byMarket?.get(MARKET_1X2) : undefined);
+}
+
+// Each bet the exchange's prices of its outcome, when it prices it (the
+// value bets' list: what each is measured against, the owner, 24/10/2026).
+export function withExchangePrices<T extends { eventId: string; market: string; selection: string }>(
+  db: DatabaseSync,
+  bets: readonly T[],
+  opts: ListingOptions = {}
+): (T & { exchange?: ExchangeOutcome })[] {
+  const exchange = loadExchangeOutcomes(db, [...new Set(bets.map((b) => b.eventId))], oddsCutoff(opts));
+  return bets.map((bet) => {
+    const prices = referenceOutcomes(exchange.get(bet.eventId), bet.market)?.get(bet.selection);
+    return prices?.back !== undefined || prices?.lay !== undefined ? { ...bet, exchange: { ...prices } } : bet;
+  });
 }
 
 // A back price on the exchange, net of its commission on the winnings.
@@ -434,6 +461,11 @@ function surebetsOf(
         // boost, not a surebet: at least two sources (the owner, 23/10/2026).
         if (new Set(legs.map((l) => l.source)).size < 2) return;
         const surebet = build(market, label, kind, payoutRate, legs);
+        const reference = referenceOutcomes(exchange.get(event.id), market);
+        for (const leg of surebet.legs.filter((l) => l.source !== EXCHANGE)) {
+          const prices = reference?.get(leg.selection);
+          if (prices?.back !== undefined || prices?.lay !== undefined) leg.exchange = { ...prices };
+        }
         const suspect = legs.map(outOfLine).find((s) => s !== undefined);
         if (!suspect) surebets.push(surebet);
         else suspects?.push({ ...surebet, suspect });

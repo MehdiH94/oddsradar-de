@@ -132,6 +132,9 @@ describe("GET /api/events", () => {
     ]);
     expect(res.body.bets.map((b: { selection: string; bookmaker: string }) => [b.selection, b.bookmaker])).toEqual([["2", "winamax"]]);
     expect(res.body.total).toBe(1);
+    // Each with the reference market's prices of its outcome (the owner, 24/10/2026).
+    expect(res.body.surebets[0].legs[0]).toMatchObject({ source: "winamax", exchange: { back: 2.04, lay: 2.08, laySize: 100 } });
+    expect(res.body.bets[0].exchange).toEqual({ back: 3.7, lay: 4.2, laySize: 100 });
   });
 
   it("still lists the value bets when the surebets fail", async () => {

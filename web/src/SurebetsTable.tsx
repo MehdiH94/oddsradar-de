@@ -43,7 +43,8 @@ const euros = (amount: number) => `${amount.toFixed(2).replace(".", ",")}\u00a0â
 const THIN_SIZE = 20;
 // A leg read this long before the surebet's newest is "Ã¤lter": its price may
 // have moved since. Over the 5-minute cycle and under the 15-minute markets
-// cycle's, so that a market's normal lag is not flagged.
+// cycle's, so that a market's normal lag is not flagged. The same as the
+// API's STALE_LEG_MS (src/db/surebets.ts), whose surebets the alerts leave out.
 const OLDER_LEG_MS = 10 * 60 * 1000;
 
 // How long ago a price was read: "gerade eben", "vor 4 Min.", "vor 2 Std.".

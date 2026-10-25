@@ -7,7 +7,7 @@ import { openDb } from "../../src/db/client";
 import { getLatestEvents, saveMarketOdds, upsertCanonicalEvents } from "../../src/db/repository";
 import { saveReferenceMarkets, saveReferenceOdds } from "../../src/db/reference";
 import { inChunks, savePlayerOdds } from "../../src/db/playerReference";
-import { backLayRate, getSurebets, netBack, withExchangePrices, withoutSurebets } from "../../src/db/surebets";
+import { backLayRate, getSurebets, hasStaleLeg, netBack, withExchangePrices, withoutSurebets } from "../../src/db/surebets";
 import { readWinamaxMarkets, WinamaxMatchReply } from "../../src/scraper/winamaxMarkets";
 import { readBetclicMarkets, readBetclicMatchPage } from "../../src/scraper/betclicMarkets";
 import { CanonicalEvent, RawOdds } from "../../src/types";
@@ -562,5 +562,16 @@ describe("withExchangePrices", () => {
       { eventId: "other", market: "1X2", selection: "1" },
     ];
     expect(withExchangePrices(db, bets).map((b) => b.exchange)).toEqual([{ back: 2.1, lay: 2.14, laySize: 55 }, undefined, undefined]);
+  });
+});
+
+describe("hasStaleLeg", () => {
+  const leg = (readAt?: string) => ({ selection: "1", label: "A", source: "leovegas", side: "back" as const, price: 2, stake: 50, readAt });
+  it("tells a surebet one of whose legs was read over 10 minutes before its newest", () => {
+    expect(hasStaleLeg({ legs: [leg("2026-10-25T12:00:00.000Z"), leg("2026-10-25T11:49:59.000Z")] })).toBe(true);
+    expect(hasStaleLeg({ legs: [leg("2026-10-25T12:00:00.000Z"), leg("2026-10-25T11:50:00.000Z")] })).toBe(false);
+    // A leg alone, or without a read time, is never stale.
+    expect(hasStaleLeg({ legs: [leg("2026-10-25T08:00:00.000Z")] })).toBe(false);
+    expect(hasStaleLeg({ legs: [leg("2026-10-25T12:00:00.000Z"), leg(undefined)] })).toBe(false);
   });
 });

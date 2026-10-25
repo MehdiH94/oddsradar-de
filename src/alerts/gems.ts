@@ -13,7 +13,7 @@ import {
   setAlertState,
   SUREBET_SELECTION,
 } from "../db/alerts";
-import { EXCHANGE, Surebet, SUREBET_TO_VERIFY, surebetsOrNone, withoutSurebets } from "../db/surebets";
+import { EXCHANGE, hasStaleLeg, Surebet, SUREBET_TO_VERIFY, surebetsOrNone, withoutSurebets } from "../db/surebets";
 import { BookmakerId, MARKET_1X2, MARKET_MATCH_WINNER } from "../scraper/canonical";
 
 // A gem: a value bet big enough for a Discord message. 5% above the fair odds
@@ -324,9 +324,12 @@ export async function runGemAlerts(db: DatabaseSync, opts: GemAlertOptions): Pro
     const gems = withoutSurebets(getValueBets(db, listing).bets, allSurebets)
       .filter(isGem)
       .filter((g) => prices.isCurrent(g.eventId, g.bookmaker, g.market, g.selection, g.price));
+    // Nor a surebet one of whose legs was read long before the others
+    // (hasStaleLeg): its price may have moved.
     const surebets = allSurebets.filter(
       (s) =>
         !s.toVerify &&
+        !hasStaleLeg(s) &&
         s.legs.every((l) => l.source === EXCHANGE || prices.isCurrent(s.eventId, l.source, s.market, l.selection, l.price))
     );
     // And only what the cycle before had too (confirmedAlerts).

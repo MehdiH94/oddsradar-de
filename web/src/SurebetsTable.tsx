@@ -1,4 +1,4 @@
-import type { MouseEvent } from "react";
+import { useState, type MouseEvent } from "react";
 import { ChevronRight } from "lucide-react";
 import type { Surebet, SurebetLeg } from "./types";
 import { formatPayoutRate, formatPrice, formatStartParts } from "./format";
@@ -10,6 +10,29 @@ import { ExchangePrices } from "./components/ExchangePrices";
 import { useIsWide } from "./useMediaQuery";
 import groupStyles from "./GroupedOddsTables.module.css";
 import styles from "./SurebetsTable.module.css";
+
+// Whether the surebets whose lay has under 20 € on it are shown: hidden unless
+// asked for, since such a lay cannot take a real stake (the owner's backlog,
+// #27). This browser remembers it; one that refuses its storage (a private
+// window) asks again on the next visit.
+const SHOW_THIN_KEY = "oddsblitzer.showThinLays";
+
+function loadShowThin(): boolean {
+  try {
+    return localStorage.getItem(SHOW_THIN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function saveShowThin(show: boolean): void {
+  try {
+    if (show) localStorage.setItem(SHOW_THIN_KEY, "1");
+    else localStorage.removeItem(SHOW_THIN_KEY);
+  } catch {
+    // Nothing to do: the choice lasts as long as the page.
+  }
+}
 
 // The exchange's legs, beside the bookmakers' (src/db/surebets.ts).
 const EXCHANGE = "exchange";
@@ -125,117 +148,136 @@ export function SurebetsTable({
 }) {
   const wide = useIsWide();
   const now = new Date();
+  const [showThin, setShowThin] = useState(loadShowThin);
+  const thinCount = surebets.filter((s) => s.thin).length;
+  const shown = showThin ? surebets : surebets.filter((s) => !s.thin);
   return (
     <section className={groupStyles.section} aria-labelledby="surebets-heading">
       <h2 id="surebets-heading" className={groupStyles.heading}>
         <span aria-hidden="true">⚖️</span> Surebets
       </h2>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th scope="col" className={styles.startHead}>
-              Anstoß
-            </th>
-            <th scope="col">Spiel</th>
-            <th scope="col">Wetten für 100&nbsp;€</th>
-            <th scope="col" className={styles.rateHead}>
-              Auszahlung
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {surebets.map((surebet) => {
-            const start = formatStartParts(surebet.startTime, now);
-            const teams = surebet.participants.join(" - ");
-            const legsKey = surebet.legs.map((l) => `${l.selection}@${l.source}:${l.side}`).join("|");
-            const hasPage = matchHref !== undefined && surebet.marketCount > 1;
-            const open = (e: MouseEvent<HTMLAnchorElement>) => {
-              if (!onOpenMatch || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-              e.preventDefault();
-              onOpenMatch(surebet.eventId);
-            };
-            return (
-              <tr
-                key={`${surebet.eventId}:${surebet.market}:${legsKey}`}
-                className={styles.row}
-                data-kind={surebet.kind}
-                data-suspect={surebet.suspect ? true : undefined}
-              >
-                <td className={styles.start}>
-                  <time dateTime={surebet.startTime}>
-                    {start === null ? (
-                      "-"
-                    ) : (
-                      <>
-                        <span className={styles.time}>{start.time}</span>
-                        <span className={styles.day}>{start.day}</span>
-                      </>
-                    )}
-                  </time>
-                </td>
-                <td className={styles.match}>
-                  <EventTitle
-                    className={styles.teams}
-                    eventId={surebet.eventId}
-                    sport={surebet.sport}
-                    title={teams}
-                    matchHref={matchHref}
-                    onOpenMatch={onOpenMatch}
-                    sportHref={sportHref}
-                  />
-                  <span className={styles.market}>{surebet.marketLabel}</span>
-                  {wide && hasPage && (
-                    <a
-                      className={styles.more}
-                      href={matchHref(surebet.eventId)}
-                      aria-label={`+${surebet.marketCount - 1} ${surebet.marketCount === 2 ? "Markt" : "Märkte"} für ${teams}`}
-                      onClick={open}
-                    >
-                      +{surebet.marketCount - 1} {surebet.marketCount === 2 ? "Markt" : "Märkte"}
-                    </a>
-                  )}
-                </td>
-                <td className={styles.legs} data-label={"Wetten für 100\u00a0€"}>
-                  <ul className={styles.legList}>
-                    {surebet.legs.map((leg) => (
-                      <Leg
-                        key={`${leg.selection}@${leg.source}:${leg.side}`}
-                        leg={leg}
-                        others={suspectOthers(surebet, leg)}
-                        newest={newestRead(surebet)}
-                        now={now}
-                      />
-                    ))}
-                  </ul>
-                </td>
-                <td className={styles.rate} title={KIND_TITLES[surebet.kind]}>
-                  <strong className={styles.rateValue}>{formatPayoutRate(surebet.payoutRate)}</strong>
-                  <span className={styles.profit}>+{euros(surebet.profit)}</span>
-                  {surebet.suspect && (
-                    <span className={styles.toVerify} title={SUSPECT_TITLE}>
-                      ⚠️ verdächtig
-                    </span>
-                  )}
-                  {surebet.toVerify && !surebet.suspect && <span className={styles.toVerify}>zu prüfen</span>}
-                  {surebet.thin && <span className={styles.toVerify}>geringe Liquidität</span>}
-                  <span className={styles.kind}>{KIND_LABELS[surebet.kind]}</span>
-                </td>
-                {!wide && hasPage && (
-                  <td className={styles.actions}>
-                    <a className={styles.allMarkets} href={matchHref(surebet.eventId)} onClick={open}>
-                      <span>
-                        Alle Märkte des Spiels{" "}
-                        <span className="visually-hidden">{teams}</span>
-                      </span>
-                      <ChevronRight size={16} aria-hidden="true" />
-                    </a>
+      {thinCount > 0 && (
+        <label className={styles.thinToggle}>
+          <input
+            type="checkbox"
+            checked={showThin}
+            onChange={(e) => {
+              setShowThin(e.target.checked);
+              saveShowThin(e.target.checked);
+            }}
+          />{" "}
+          Auch dünne Lays zeigen ({thinCount}): unter {THIN_SIZE}&nbsp;€ zum Layen
+        </label>
+      )}
+      {shown.length === 0 && <p className={styles.allThin}>Gerade nur Surebets mit dünnen Lays, ausgeblendet.</p>}
+      {shown.length > 0 && (
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th scope="col" className={styles.startHead}>
+                Anstoß
+              </th>
+              <th scope="col">Spiel</th>
+              <th scope="col">Wetten für 100&nbsp;€</th>
+              <th scope="col" className={styles.rateHead}>
+                Auszahlung
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {shown.map((surebet) => {
+              const start = formatStartParts(surebet.startTime, now);
+              const teams = surebet.participants.join(" - ");
+              const legsKey = surebet.legs.map((l) => `${l.selection}@${l.source}:${l.side}`).join("|");
+              const hasPage = matchHref !== undefined && surebet.marketCount > 1;
+              const open = (e: MouseEvent<HTMLAnchorElement>) => {
+                if (!onOpenMatch || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+                e.preventDefault();
+                onOpenMatch(surebet.eventId);
+              };
+              return (
+                <tr
+                  key={`${surebet.eventId}:${surebet.market}:${legsKey}`}
+                  className={styles.row}
+                  data-kind={surebet.kind}
+                  data-suspect={surebet.suspect ? true : undefined}
+                >
+                  <td className={styles.start}>
+                    <time dateTime={surebet.startTime}>
+                      {start === null ? (
+                        "-"
+                      ) : (
+                        <>
+                          <span className={styles.time}>{start.time}</span>
+                          <span className={styles.day}>{start.day}</span>
+                        </>
+                      )}
+                    </time>
                   </td>
-                )}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                  <td className={styles.match}>
+                    <EventTitle
+                      className={styles.teams}
+                      eventId={surebet.eventId}
+                      sport={surebet.sport}
+                      title={teams}
+                      matchHref={matchHref}
+                      onOpenMatch={onOpenMatch}
+                      sportHref={sportHref}
+                    />
+                    <span className={styles.market}>{surebet.marketLabel}</span>
+                    {wide && hasPage && (
+                      <a
+                        className={styles.more}
+                        href={matchHref(surebet.eventId)}
+                        aria-label={`+${surebet.marketCount - 1} ${surebet.marketCount === 2 ? "Markt" : "Märkte"} für ${teams}`}
+                        onClick={open}
+                      >
+                        +{surebet.marketCount - 1} {surebet.marketCount === 2 ? "Markt" : "Märkte"}
+                      </a>
+                    )}
+                  </td>
+                  <td className={styles.legs} data-label={"Wetten für 100\u00a0€"}>
+                    <ul className={styles.legList}>
+                      {surebet.legs.map((leg) => (
+                        <Leg
+                          key={`${leg.selection}@${leg.source}:${leg.side}`}
+                          leg={leg}
+                          others={suspectOthers(surebet, leg)}
+                          newest={newestRead(surebet)}
+                          now={now}
+                        />
+                      ))}
+                    </ul>
+                  </td>
+                  <td className={styles.rate} title={KIND_TITLES[surebet.kind]}>
+                    <strong className={styles.rateValue}>{formatPayoutRate(surebet.payoutRate)}</strong>
+                    <span className={styles.profit}>+{euros(surebet.profit)}</span>
+                    {surebet.suspect && (
+                      <span className={styles.toVerify} title={SUSPECT_TITLE}>
+                        ⚠️ verdächtig
+                      </span>
+                    )}
+                    {surebet.toVerify && !surebet.suspect && <span className={styles.toVerify}>zu prüfen</span>}
+                    {surebet.thin && <span className={styles.toVerify}>geringe Liquidität</span>}
+                    <span className={styles.kind}>{KIND_LABELS[surebet.kind]}</span>
+                  </td>
+                  {!wide && hasPage && (
+                    <td className={styles.actions}>
+                      <a className={styles.allMarkets} href={matchHref(surebet.eventId)} onClick={open}>
+                        <span>
+                          Alle Märkte des Spiels{" "}
+                          <span className="visually-hidden">{teams}</span>
+                        </span>
+                        <ChevronRight size={16} aria-hidden="true" />
+                      </a>
+                    </td>
+                  )}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
     </section>
   );
 }

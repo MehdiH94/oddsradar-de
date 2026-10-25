@@ -221,10 +221,40 @@ describe("SurebetsTable", () => {
         ]}
       />
     );
+    fireEvent.click(screen.getByRole("checkbox", { name: /Auch dünne Lays zeigen \(1\)/ }));
     const cells = within(screen.getAllByRole("row")[1]).getAllByRole("cell");
     expect(within(cells[2]).getAllByRole("listitem")[1]).toHaveTextContent("nur 4,50 € zum Layen");
     expect(cells[3]).toHaveTextContent("114,0 %+14,00 €geringe Liquidität");
     expect(cells[3]).not.toHaveTextContent("zu prüfen");
+  });
+
+  it("hides the thin lays unless asked for, and remembers the choice in the browser", () => {
+    localStorage.removeItem("oddsblitzer.showThinLays");
+    const thin = surebet({ eventId: "thin", thin: true });
+    const { unmount } = render(<SurebetsTable surebets={[surebet({}), thin]} />);
+    expect(screen.getAllByRole("row")).toHaveLength(2);
+    const toggle = screen.getByRole("checkbox", { name: "Auch dünne Lays zeigen (1): unter 20\u00a0€ zum Layen" });
+    expect(toggle).not.toBeChecked();
+    fireEvent.click(toggle);
+    expect(screen.getAllByRole("row")).toHaveLength(3);
+    expect(localStorage.getItem("oddsblitzer.showThinLays")).toBe("1");
+    unmount();
+
+    render(<SurebetsTable surebets={[surebet({}), thin]} />);
+    expect(screen.getByRole("checkbox", { name: /Auch dünne Lays zeigen/ })).toBeChecked();
+    expect(screen.getAllByRole("row")).toHaveLength(3);
+    fireEvent.click(screen.getByRole("checkbox", { name: /Auch dünne Lays zeigen/ }));
+    expect(localStorage.getItem("oddsblitzer.showThinLays")).toBeNull();
+  });
+
+  it("says so when every surebet is a thin lay, and offers no switch without one", () => {
+    localStorage.removeItem("oddsblitzer.showThinLays");
+    const { unmount } = render(<SurebetsTable surebets={[surebet({ thin: true })]} />);
+    expect(screen.queryByRole("table")).not.toBeInTheDocument();
+    expect(screen.getByText("Gerade nur Surebets mit dünnen Lays, ausgeblendet.")).toBeInTheDocument();
+    unmount();
+    render(<SurebetsTable surebets={[surebet({})]} />);
+    expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
   });
 
   it("links a match to its every market", () => {

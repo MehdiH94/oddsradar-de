@@ -133,6 +133,15 @@ describe("OddsTable", () => {
     expect(chip("3,10")).not.toHaveAttribute("data-best");
   });
 
+  it("shows under each outcome the exchange's back and lay, or that it has none", () => {
+    const withExchange: EventWithOdds[] = [{ ...events[0], exchange: { "1": { back: 1.6, backSize: 812, lay: 1.62, laySize: 95 } } }];
+    render(<OddsTable events={withExchange} />);
+    const one = screen.getByText("Börse 1,60 · 1,62");
+    expect(one).toHaveAttribute("title", expect.stringMatching(/^Back 1,60 \(812\s€\) · Lay 1,62 \(95\s€\)/));
+    // The draw and the away win: not priced.
+    expect(screen.getAllByText("Börse -")).toHaveLength(2);
+  });
+
   it("marks no best price with a single bookmaker ticked: one site can't take every outcome", () => {
     render(<OddsTable events={events} bookmakers={["leovegas"]} />);
 

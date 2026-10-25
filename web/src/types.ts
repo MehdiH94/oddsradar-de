@@ -14,6 +14,9 @@ export interface EventWithOdds {
   startTime: string;
   participants: string[];
   byBookmaker: Record<string, { scrapedAt: string; odds: RawOdds[] }>;
+  // The exchange's prices of its main market's outcomes, by outcome, when it
+  // prices them: the reference market (GET /api/events).
+  exchange?: Record<string, ExchangeOutcome>;
   // TRJ of the match's best prices among the requested bookmakers, computed
   // by the API (src/db/payoutRate.ts), which also sorts by it. Null when an
   // outcome has no price among them.

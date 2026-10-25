@@ -28,6 +28,15 @@ describe("deploy/vps-report.sh", () => {
     expect(status.out).toContain("systemctl status --no-pager --lines=0 oddsradar-worker oddsradar-web");
   });
 
+  it("checks the exchange's tunnel and proxy, through the proxy's own address", () => {
+    const exchange = report("exchange");
+    expect(exchange.status).toBe(0);
+    expect(exchange.out).toContain("systemctl status --no-pager --lines=0 oddsradar-exchange-vpn oddsradar-exchange-proxy");
+    expect(exchange.out).toContain("-x http://10.200.0.2:8888");
+    expect(exchange.out).toContain("https://exch.piwi247.com/customer/api/event/search?query=bayern");
+    expect(exchange.out).not.toContain(".env");
+  });
+
   it("refuses anything else, its arguments included", () => {
     for (const command of [
       undefined,
@@ -42,11 +51,12 @@ describe("deploy/vps-report.sh", () => {
       "surebet-report 7 8",
       "probe now",
       "status; cat .env",
+      "exchange now",
     ]) {
       const run = report(command);
       expect(run.status, String(command)).toBe(2);
       expect(run.out, String(command)).toBe("");
-      expect(run.err).toMatch(/^vps-report: .*Allowed: surebet-report \[days\], probe, status\.$/);
+      expect(run.err).toMatch(/^vps-report: .*Allowed: surebet-report \[days\], probe, status, exchange\.$/);
     }
   });
 

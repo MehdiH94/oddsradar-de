@@ -594,6 +594,31 @@ describe("matchEvents", () => {
       expect(keepsSidesOrder(["c chartres basket feminin women", "cb avenida salamanca women"], ["cb avenida women", "chartres women"])).toBe(false);
     });
 
+    // neobet's "FK Kauno Zalgiris - FK Zalgiris Vilnius" against 20bet's
+    // "FK Kauno Zalgiris - VMFD Zalgiris" (25/10/2026): "FK" was read as a
+    // person's initials, so Vilnius's club as Kaunas's, and neobet's 3.70 on
+    // Vilnius shown on Kaunas.
+    it("never reads a club's \"FK\" as initials: two clubs sharing a name keep their sides", () => {
+      expect(keepsSidesOrder(["FK Kauno Zalgiris", "FK Zalgiris Vilnius"], ["FK Kauno Zalgiris", "VMFD Zalgiris"])).toBe(true);
+      expect(keepsSidesOrder(["FK Zalgiris Vilnius", "FK Kauno Zalgiris"], ["FK Kauno Zalgiris", "VMFD Zalgiris"])).toBe(false);
+      const ev = (participants: string[], prices: number[]) => ({
+        sport: "football",
+        competition: "A Lyga",
+        startTime: "2026-10-26T16:45:00.000Z",
+        participants,
+        odds: ["1", "Draw", "2"].map((side, i) => ({ market: "1X2", selection: side === "1" ? participants[0] : side === "2" ? participants[1] : "Draw", price: prices[i] })),
+      });
+      const [event] = matchEvents({
+        twentybet: [ev(["FK Kauno Zalgiris", "VMFD Zalgiris"], [1.62, 3.54, 3.88])],
+        neobet: [ev(["FK Kauno Zalgiris", "FK Zalgiris Vilnius"], [1.634, 3.42, 3.515])],
+      });
+      expect(event.byBookmaker.neobet).toEqual([
+        { market: "1X2", selection: "1", price: 1.634 },
+        { market: "1X2", selection: "X", price: 3.42 },
+        { market: "1X2", selection: "2", price: 3.515 },
+      ]);
+    });
+
     it("keeps apart a nickname that starts like another but does not end like it", () => {
       const result = unibetAgainst("baseball", ["Minnesota Twins", "Tampa Bay Rays"], ["MIN TWolves", "TOR Raptors"]);
 

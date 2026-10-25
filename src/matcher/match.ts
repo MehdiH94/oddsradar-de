@@ -520,6 +520,10 @@ function isSameSurname(surname: string[], other: string[]): boolean {
 function isInitialsOfName(abbreviated: string, full: string): boolean {
   const [short, long] = [personWords(abbreviated), personWords(full)];
   if (short.length < 2 || long.length < 2 || short[0].length > 2) return false;
+  // A club-type word written as such ("FK", "SC"), not a person's initials:
+  // else "FK Zalgiris Vilnius" was "F. K. Zalgiris", so "FK Kauno Zalgiris",
+  // and neobet's sides swapped against the others' (25/10/2026).
+  if (IGNORED_NAME_WORDS.has(short[0]) && !/^\S+\./.test(abbreviated.trim())) return false;
   // The initials end at the first longer word: "A. De Minaur" has two, "C.
   // Mbilli Asso" one.
   const firstLonger = short.findIndex((w, i) => i > 0 && w.length > 2);

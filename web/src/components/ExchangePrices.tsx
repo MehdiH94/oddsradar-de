@@ -5,7 +5,7 @@ import styles from "./ExchangePrices.module.css";
 // Why the exchange has no price: it lists this match's market only from 48
 // hours before kick-off (src/reference/run.ts, REFERENCE_HORIZON_MS), and not
 // every competition.
-const NOT_PRICED = "Die Börse handelt diesen Ausgang nicht, oder das Spiel ist mehr als 48 Stunden entfernt";
+const NOT_PRICED = "Die Börse handelt diesen Ausgang nicht, oder das Spiel ist mehr als 7 Tage entfernt";
 
 // "300 €", the exchange's money on a price, to the euro.
 const euros = (amount: number) => `${Math.round(amount)} €`;

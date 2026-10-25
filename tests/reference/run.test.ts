@@ -252,13 +252,60 @@ describe("runReferenceCycle", () => {
     expect(Object.keys(sources(db)).sort()).toEqual(["paris", "pol"]);
   });
 
-  it("only looks at football matches starting within 48 h", async () => {
+  it("only looks at football matches starting within 7 days", async () => {
     upsertCanonicalEvents(db, [{ ...event("tennis", ["Pologne", "Suède"], POLAND_U21), sport: "tennis" }]);
     const search = searcher();
-    // 48 h later is between the two kick-offs.
-    const now = new Date(POLAND_U21 - 48 * 60 * 60 * 1000 + 20 * 60_000);
+    // 7 days later is between the two kick-offs.
+    const now = new Date(POLAND_U21 - 7 * 24 * 60 * 60 * 1000 + 20 * 60_000);
     await runReferenceCycle(db, { playerMarkets: noPlayers, search, prices: pricer(), now, searchedAt });
     expect(search.asked).toEqual(["poland"]);
+  });
+
+  describe("beyond 48 h", () => {
+    // Three days before the first match.
+    const FAR = new Date(POLAND_U21 - 72 * 60 * 60 * 1000);
+    const later = (minutes: number) => new Date(FAR.getTime() + minutes * 60_000);
+
+    it("prices the matches found every other cycle, and never lists their players' markets", async () => {
+      const pricedAt = new Map<string, number>();
+      const listed: string[] = [];
+      const playerMarkets = async (exchangeEventId: string) => {
+        listed.push(exchangeEventId);
+        return [];
+      };
+      const prices = pricer();
+      for (const minutes of [0, 5, 10, 15]) {
+        await runReferenceCycle(db, { playerMarkets, search: searcher(), prices, now: later(minutes), searchedAt, pricedAt });
+      }
+      // At 0 and 10 minutes; at 5 and 15 nothing to price, so nothing asked.
+      expect(prices.asked).toEqual([
+        ["1.263073956", "1.263007014"],
+        ["1.263073956", "1.263007014"],
+      ]);
+      expect(listed).toEqual([]);
+      expect([...loadReferences(db, ["pol", "paris"], LONG_AGO).keys()].sort()).toEqual(["paris", "pol"]);
+    });
+
+    it("prices a match every cycle once it is within 48 h", async () => {
+      const pricedAt = new Map<string, number>();
+      const prices = pricer();
+      // 48 h and 2 minutes before Poland, both are beyond 48 h; 5 minutes
+      // later Poland is within, Paris (45 minutes after it) is not.
+      const at = (minutes: number) => new Date(POLAND_U21 - 48 * 60 * 60 * 1000 - 2 * 60_000 + minutes * 60_000);
+      await runReferenceCycle(db, { playerMarkets: noPlayers, search: searcher(), prices, now: at(0), searchedAt, pricedAt });
+      await runReferenceCycle(db, { playerMarkets: noPlayers, search: searcher(), prices, now: at(5), searchedAt, pricedAt });
+      expect(prices.asked).toEqual([["1.263073956", "1.263007014"], ["1.263073956"]]);
+    });
+
+    it("searches a match it didn't find again 2 hours later, not half an hour", async () => {
+      await runReferenceCycle(db, { playerMarkets: noPlayers, search: searcher(), prices: pricer(), now: FAR, searchedAt });
+      const soon = searcher();
+      await runReferenceCycle(db, { playerMarkets: noPlayers, search: soon, prices: pricer(), now: later(31), searchedAt });
+      const after = searcher();
+      await runReferenceCycle(db, { playerMarkets: noPlayers, search: after, prices: pricer(), now: later(121), searchedAt });
+      expect(soon.asked).toEqual([]);
+      expect(after.asked).toEqual(["nulle", "ailleurs"]);
+    });
   });
 });
 

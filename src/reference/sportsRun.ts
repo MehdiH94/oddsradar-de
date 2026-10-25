@@ -19,21 +19,22 @@ import {
   sportPrices,
 } from "./sports";
 import { playerSearchTerm, tennisPrices } from "./tennis";
+import { dueForPrice, dueForSearch, isNear, REFERENCE_HORIZON_MS } from "./horizon";
 
 // The reference for the other head-to-head sports' main market
 // (./sports.ts), after football's and tennis's in the worker's reference
-// cycle: each match of the next 48 hours is searched on the exchange once,
-// by its sides' names, where it is listed is kept, and every cycle prices
-// all those found, like football's (./run.ts).
+// cycle: each match of the next 7 days (./horizon.ts) is searched on the
+// exchange once, by its sides' names, where it is listed is kept, and those
+// found are priced, those of the next 48 hours every cycle, the others every
+// other cycle, like football's (./run.ts).
 //
 // A basketball match has its handicap and total points too (./basketball.ts):
 // listed every half hour, priced with the winner, and saved with it, as a
-// write replaces all of a match's rows (saveReferenceMarkets).
+// write replaces all of a match's rows (saveReferenceMarkets); within 48
+// hours only.
 
-const HORIZON_MS = 48 * 60 * 60 * 1000;
 // Searches per cycle, every sport together, the soonest matches first.
 const MAX_SEARCHES_PER_CYCLE = 60;
-const RETRY_NOT_FOUND_MS = 30 * 60 * 1000;
 const MARKETS_REFRESH_MS = 30 * 60 * 1000;
 
 export interface SportsReferenceOptions {
@@ -48,6 +49,8 @@ export interface SportsReferenceOptions {
   searchedAt?: Map<string, number>;
   // Each basketball match's markets as listed, and when, across cycles.
   listings?: Map<string, BasketballListing>;
+  // When each match beyond 48 hours was last priced.
+  pricedAt?: Map<string, number>;
 }
 
 interface BasketballListing {
@@ -58,6 +61,7 @@ interface BasketballListing {
 
 const searchedInVain = new Map<string, number>();
 const listedBasketball = new Map<string, BasketballListing>();
+const farPricedAt = new Map<string, number>();
 
 // What a side is searched by: a team's longest telling word ("lightning"),
 // a fighter's surname.
@@ -82,7 +86,7 @@ async function findNew(
   // team's, the same club names, took that match's prices).
   const taken = new Set(targets.flatMap((t) => (t.source ? [t.source.exchangeEventId] : [])));
   for (const target of targets) {
-    if (target.source || now - (searchedAt.get(target.eventId) ?? 0) < RETRY_NOT_FOUND_MS) continue;
+    if (target.source || !dueForSearch(target, now, searchedAt)) continue;
     if (searches >= MAX_SEARCHES_PER_CYCLE) break;
     const candidates: SportEvent[] = [];
     for (const name of target.participants) {
@@ -147,21 +151,28 @@ export async function runSportsReferenceCycle(db: DatabaseSync, opts: SportsRefe
   const now = (opts.now ?? new Date()).getTime();
   const targets = getReferenceTargets(db, {
     from: new Date(now).toISOString(),
-    to: new Date(now + HORIZON_MS).toISOString(),
+    to: new Date(now + REFERENCE_HORIZON_MS).toISOString(),
     oddsSince: new Date(now - (opts.oddsMaxAgeMs ?? DEFAULT_ODDS_MAX_AGE_MS)).toISOString(),
     sports: REFERENCE_SPORTS,
   });
   if (targets.length === 0) return;
 
   const { searches, found } = await findNew(db, targets, search, now, opts.searchedAt ?? searchedInVain);
-  const placed = targets.filter((t) => t.source);
+  const pricedAt = opts.pricedAt ?? farPricedAt;
+  const placed = targets.filter((t) => t.source && dueForPrice(t, now, pricedAt));
   const fair = new Set<string>();
   if (placed.length > 0) {
-    await listBasketball(placed, listMarkets, listings, now);
+    await listBasketball(
+      placed.filter((t) => isNear(t.startTime, now)),
+      listMarkets,
+      listings,
+      now
+    );
     // A basketball match's lines some bookmaker lists: the exchange's 72
     // handicap lines and 141 totals are compared with those only.
     const lines = new Map(
       placed
+        .filter((t) => isNear(t.startTime, now))
         .filter((t) => listings.get(t.eventId)?.exchangeEventId === t.source!.exchangeEventId)
         .map((t) => [t.eventId, listedLines(db, t.eventId, ["spread", "total_points"])] as const)
     );
@@ -194,6 +205,6 @@ export async function runSportsReferenceCycle(db: DatabaseSync, opts: SportsRefe
     return [`${sport} ${ofSport.length}/${onExchange.length}/${onExchange.filter((t) => fair.has(t.eventId)).length}`];
   });
   console.log(
-    `[reference:sports] matches within 48 h / on the exchange / with fair odds: ${bySport.join(", ")} (${found} found now, ${searches} searches)`
+    `[reference:sports] matches within 7 days / on the exchange / priced this cycle with fair odds: ${bySport.join(", ")} (${found} found now, ${searches} searches)`
   );
 }

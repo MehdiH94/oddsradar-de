@@ -14,20 +14,19 @@ import {
 import { findOnExchange, searchTerm } from "./match";
 import { ExchangeReadTotals, findPlayerMarkets, PlacedMatch, playerMarketsToPrice, recordPlayerPrices, recordPlayerSignals } from "./players";
 import { recordPlayerCycle } from "../db/playerStats";
+import { dueForPrice, dueForSearch, isNear, REFERENCE_HORIZON_MS } from "./horizon";
 
 // The worker's third cycle: the reference's fair odds for the 1X2 of the
-// football matches starting soon. A match is searched on the exchange once,
-// by its teams' names; where the exchange lists it is kept, and every cycle
-// prices all the matches found.
+// football matches of the next 7 days (./horizon.ts). A match is searched on
+// the exchange once, by its teams' names; where the exchange lists it is kept,
+// and the matches found are priced, those of the next 48 hours every cycle,
+// with their players' markets, the others every other cycle.
 
-// Matches starting within this window, like the markets cycle.
-const REFERENCE_HORIZON_MS = 48 * 60 * 60 * 1000;
-// Searches per cycle: the first cycle searches every match, the next ones
-// only the new ones and those not found yet.
+// Searches per cycle, the soonest matches first: the first cycle searches
+// every match, the next ones only the new ones and those not found yet. A
+// match not found on the exchange (it doesn't list it, or names it too
+// differently) is searched again later (dueForSearch).
 const MAX_SEARCHES_PER_CYCLE = 80;
-// A match not found on the exchange (it doesn't list it, or names it too
-// differently) is searched again this long after.
-const RETRY_NOT_FOUND_MS = 30 * 60 * 1000;
 
 export interface ReferenceCycleOptions {
   search?: (query: string) => Promise<ExchangeMatch[]>;
@@ -43,10 +42,13 @@ export interface ReferenceCycleOptions {
   searchedAt?: Map<string, number>;
   // When each match's players' markets were last listed.
   playersCheckedAt?: Map<string, number>;
+  // When each match beyond 48 hours was last priced.
+  pricedAt?: Map<string, number>;
 }
 
 const searchedInVain = new Map<string, number>();
 const playersListedAt = new Map<string, number>();
+const farPricedAt = new Map<string, number>();
 
 const OUTCOMES: Outcome[] = ["1", "X", "2"];
 
@@ -66,7 +68,7 @@ async function findNewTargets(
   // team's, the same club names, took that match's prices).
   const taken = new Set(targets.flatMap((t) => (t.source ? [t.source.exchangeEventId] : [])));
   for (const target of targets) {
-    if (target.source || now - (searchedAt.get(target.eventId) ?? 0) < RETRY_NOT_FOUND_MS) continue;
+    if (target.source || !dueForSearch(target, now, searchedAt)) continue;
     if (searches >= MAX_SEARCHES_PER_CYCLE) break;
     // The home team's name first, then the away team's.
     const candidates: ExchangeMatch[] = [];
@@ -116,8 +118,13 @@ export async function runReferenceCycle(db: DatabaseSync, opts: ReferenceCycleOp
 
   const { searches, found } = await findNewTargets(db, targets, search, now, opts.searchedAt ?? searchedInVain);
 
-  const placed = targets.filter((t) => t.source);
-  const placedMatches: PlacedMatch[] = placed.map((t) => ({ eventId: t.eventId, exchangeEventId: t.source!.exchangeEventId }));
+  const pricedAt = opts.pricedAt ?? farPricedAt;
+  const placed = targets.filter((t) => t.source && dueForPrice(t, now, pricedAt));
+  // The players' markets of the next 48 hours' matches only.
+  const near = targets.filter((t) => isNear(t.startTime, now));
+  const placedMatches: PlacedMatch[] = placed
+    .filter((t) => isNear(t.startTime, now))
+    .map((t) => ({ eventId: t.eventId, exchangeEventId: t.source!.exchangeEventId }));
   await findPlayerMarkets(db, placedMatches, playerMarkets, now, opts.playersCheckedAt ?? playersListedAt);
   const players = playerMarketsToPrice(db, placedMatches);
 
@@ -162,11 +169,11 @@ export async function runReferenceCycle(db: DatabaseSync, opts: ReferenceCycleOp
 
   // The players' value bets and suspect prices of every match within 48 h,
   // the exchange's or not, and the cycle's totals.
-  if (targets.length > 0) {
+  if (near.length > 0) {
     const at = new Date().toISOString();
     const shown = recordPlayerSignals(
       db,
-      targets.map((t) => t.eventId),
+      near.map((t) => t.eventId),
       {
         at,
         exchangeSince: new Date(now - (opts.oddsMaxAgeMs ?? DEFAULT_ODDS_MAX_AGE_MS)).toISOString(),
@@ -179,6 +186,6 @@ export async function runReferenceCycle(db: DatabaseSync, opts: ReferenceCycleOp
     );
   }
   console.log(
-    `[reference] ${targets.length} matches within 48 h, ${placed.length} on the exchange (${found} found now, ${searches} searches), ${priced} with fair odds`
+    `[reference] ${targets.length} matches within 7 days (${near.length} within 48 h), ${targets.filter((t) => t.source).length} on the exchange (${found} found now, ${searches} searches), ${placed.length} priced this cycle, ${priced} with fair odds`
   );
 }

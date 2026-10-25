@@ -76,7 +76,7 @@ const listing = {
   marketsMaxAgeMs: marketsMaxAgeForInterval(marketsIntervalMinutes),
 };
 console.log(
-  `[worker] reference fair odds of the next 48 h's football, tennis, ${REFERENCE_SPORTS.join(", ")} matches, and of the next 7 days' golf tournaments and Formula 1 races, every ${intervalMinutes} min`
+  `[worker] reference fair odds of the next 7 days' football and ${REFERENCE_SPORTS.join(", ")} matches (beyond 48 h every other cycle), the next 48 h's tennis, and of the next 7 days' golf tournaments and Formula 1 races, every ${intervalMinutes} min`
 );
 // Then the gems those fair odds make, to Discord (src/alerts/gems.ts), even
 // when the cycle failed: the bookmakers' prices may have moved anyway.

@@ -63,6 +63,16 @@ export interface SurebetLeg {
   size?: number;
   // A bookmaker's back: the match's page there, when its address can be built.
   url?: string;
+  // The exchange's prices of this outcome, when it prices it: the reference market.
+  exchange?: ExchangeOutcome;
+}
+
+// The exchange's back and lay of an outcome, and the money on each, in euros.
+export interface ExchangeOutcome {
+  back?: number;
+  backSize?: number;
+  lay?: number;
+  laySize?: number;
 }
 
 // A market whose best prices guarantee a profit whatever happens: between
@@ -122,6 +132,8 @@ export interface ValueBet {
   // The match's page at the bookmaker, when the API can build it
   // (src/db/bookmakerLinks.ts).
   url?: string;
+  // The exchange's prices of this outcome, when it prices it: the reference market.
+  exchange?: ExchangeOutcome;
 }
 
 // One match's page (GET /api/events/:id, src/db/eventDetail.ts).

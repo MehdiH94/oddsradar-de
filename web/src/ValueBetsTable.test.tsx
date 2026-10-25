@@ -77,6 +77,14 @@ describe("ValueBetsTable", () => {
     });
   });
 
+  it("shows the reference market under the fair odds: the exchange's back and lay, or that it has none", () => {
+    render(<ValueBetsTable bets={[bet({ exchange: { back: 1.52, backSize: 950, lay: 1.54, laySize: 1210.5 } }), bet({ selection: "X", label: "Unentschieden" })]} />);
+    const [priced, unpriced] = screen.getAllByRole("row").slice(1);
+    const fair = (row: HTMLElement) => within(row).getAllByRole("cell")[4];
+    expect(fair(priced)).toHaveTextContent("1,50Börse: Back 1,52 (950 €) · Lay 1,54 (1211 €)");
+    expect(fair(unpriced)).toHaveTextContent("1,50keine Börsenquote");
+  });
+
   it("links each bet to its match's every market, opened in place on a plain click", () => {
     const onOpenMatch = vi.fn();
     render(

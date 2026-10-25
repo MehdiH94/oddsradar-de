@@ -5,6 +5,7 @@ import { formatEdge, formatPrice, formatStartParts } from "./format";
 import { EventTitle } from "./components/EventTitle";
 import { PriceChip } from "./components/PriceChip";
 import { CheckAtBookmaker } from "./components/CheckAtBookmaker";
+import { ExchangePrices } from "./components/ExchangePrices";
 import { BestPrice } from "./components/BestPrice";
 import { useIsWide } from "./useMediaQuery";
 import { REFERENCE_SOURCE } from "./value";
@@ -170,6 +171,7 @@ export function ValueBetsTable({
                     </td>
                     <td className={styles.fair} data-label="Fair" title={referenceTitle(bet)}>
                       <Reference bet={bet} />
+                      <ExchangePrices prices={bet.exchange} />
                     </td>
                   </>
                 ) : (
@@ -190,6 +192,7 @@ export function ValueBetsTable({
                             : "Fair"
                       }
                     />
+                    <ExchangePrices prices={bet.exchange} />
                     <CheckAtBookmaker bookmaker={bet.bookmaker} url={bet.url} />
                   </td>
                 )}

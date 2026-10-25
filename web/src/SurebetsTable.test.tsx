@@ -38,8 +38,8 @@ describe("SurebetsTable", () => {
     expect(cells[0].querySelector("time")).toHaveAttribute("dateTime", "2099-01-01T07:00:00.000Z");
     expect(cells[1]).toHaveTextContent("🎾 Alex De Minaur - Hubert HurkaczAces réussis par Hubert Hurkacz (9.5 aces)");
     expect(within(cells[2]).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
-      "Über 9,5Merkur Bets2,00Einsatz 52,38\u00a0€",
-      "Unter 9,5LeoVegas2,20Einsatz 47,62\u00a0€",
+      "Über 9,5Merkur Bets2,00Einsatz 52,38\u00a0€keine Börsenquote",
+      "Unter 9,5LeoVegas2,20Einsatz 47,62\u00a0€keine Börsenquote",
     ]);
     expect(cells[3]).toHaveTextContent("104,8 %+4,76 €");
     expect(cells[3]).not.toHaveTextContent("zu prüfen");
@@ -128,7 +128,7 @@ describe("SurebetsTable", () => {
     );
     const cells = within(screen.getAllByRole("row")[1]).getAllByRole("cell");
     expect(within(cells[2]).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
-      "DembéléMerkur Bets2,50Einsatz 100,00\u00a0€",
+      "DembéléMerkur Bets2,50Einsatz 100,00\u00a0€keine Börsenquote",
       "Lay DembéléBörse2,30Einsatz 109,65\u00a0€ (Haftung 142,54\u00a0€)",
     ]);
     expect(cells[3]).toHaveTextContent("112,0 %+12,00 €zu prüfen");
@@ -143,14 +143,32 @@ describe("SurebetsTable", () => {
     expect(real).not.toHaveAttribute("data-suspect");
     const cells = within(suspect).getAllByRole("cell");
     expect(within(cells[2]).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
-      "Über 9,5Merkur Bets2,00Einsatz 52,38\u00a0€ · ⚠️ andere Quellen 1,45: Quote prüfen",
-      "Unter 9,5LeoVegas2,20Einsatz 47,62\u00a0€",
+      "Über 9,5Merkur Bets2,00Einsatz 52,38\u00a0€ · ⚠️ andere Quellen 1,45: Quote prüfenkeine Börsenquote",
+      "Unter 9,5LeoVegas2,20Einsatz 47,62\u00a0€keine Börsenquote",
     ]);
     // "verdächtig" says more than "zu prüfen": one of them only.
     expect(cells[3]).toHaveTextContent("⚠️ verdächtig");
     expect(cells[3]).not.toHaveTextContent("zu prüfen");
     expect(within(cells[3]).getByText("⚠️ verdächtig")).toHaveAttribute("title", expect.stringMatching(/Vor dem Wetten beim Buchmacher prüfen$/));
     expect(within(real).getAllByRole("cell")[3]).not.toHaveTextContent("verdächtig");
+  });
+
+  it("gives each bookmaker's bet the exchange's prices of its outcome, the reference market", () => {
+    render(
+      <SurebetsTable
+        surebets={[
+          surebet({
+            legs: [
+              { selection: "over", label: "Über 9,5", source: "merkurbets", side: "back", price: 2, stake: 52.38, exchange: { back: 1.9, backSize: 312.4, lay: 1.95, laySize: 80 } },
+              { selection: "under", label: "Unter 9,5", source: "leovegas", side: "back", price: 2.2, stake: 47.62, exchange: { lay: 2.1 } },
+            ],
+          }),
+        ]}
+      />
+    );
+    const [over, under] = within(screen.getAllByRole("row")[1]).getAllByRole("listitem");
+    expect(within(over).getByText(/^Börse:/)).toHaveTextContent("Börse: Back 1,90 (312 €) · Lay 1,95 (80 €)");
+    expect(within(under).getByText(/^Börse:/)).toHaveTextContent("Börse: Back - · Lay 2,10");
   });
 
   it("says how little a lay offers when the exchange has under €20 on it", () => {

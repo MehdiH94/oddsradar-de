@@ -7,7 +7,7 @@ import { openDb } from "../../src/db/client";
 import { getLatestEvents, saveMarketOdds, upsertCanonicalEvents } from "../../src/db/repository";
 import { saveReferenceMarkets, saveReferenceOdds } from "../../src/db/reference";
 import { inChunks, savePlayerOdds } from "../../src/db/playerReference";
-import { backLayRate, getSurebets, netBack, withoutSurebets } from "../../src/db/surebets";
+import { backLayRate, getSurebets, netBack, withExchangePrices, withoutSurebets } from "../../src/db/surebets";
 import { readWinamaxMarkets, WinamaxMatchReply } from "../../src/scraper/winamaxMarkets";
 import { readBetclicMarkets, readBetclicMatchPage } from "../../src/scraper/betclicMarkets";
 import { CanonicalEvent, RawOdds } from "../../src/types";
@@ -334,7 +334,15 @@ describe("getSurebets", () => {
       expect(lay).toMatchObject({ market: "anytime_scorer", payoutRate: expect.closeTo(rate, 10), profit: expect.closeTo(100 * (rate - 1), 10) });
       const layStake = (100 * 2.5) / 2.27;
       expect(lay.legs).toEqual([
-        { selection: "Ousmane Dembélé", label: "Ousmane Dembélé", source: "betclic", side: "back", price: 2.5, stake: 100 },
+        {
+          selection: "Ousmane Dembélé",
+          label: "Ousmane Dembélé",
+          source: "betclic",
+          side: "back",
+          price: 2.5,
+          stake: 100,
+          exchange: { back: 2.2, backSize: 50, lay: 2.3, laySize: 40 },
+        },
         {
           selection: "Ousmane Dembélé",
           label: "Ousmane Dembélé",
@@ -529,5 +537,28 @@ describe("withoutSurebets", () => {
       ["Vainqueur du match", "netbet"],
       ["anytime_scorer", "winamax"],
     ]);
+  });
+});
+
+describe("withExchangePrices", () => {
+  it("gives a bet the exchange's prices of its outcome, a winner's from the 1X2's, and none it doesn't price", () => {
+    const db = openDb(":memory:");
+    upsertCanonicalEvents(db, [
+      { id: "tennis", sport: "tennis", competition: "ATP Wien", startTime: hoursFromNow(5), participants: ["A", "B"], byBookmaker: {} },
+    ]);
+    // The main market's prices, stored as the 1X2's.
+    const prices = { "1": 1.8, X: 30, "2": 2.1 };
+    saveReferenceOdds(
+      db,
+      "tennis",
+      { fair: prices, back: prices, lay: { "1": 1.82, X: 40, "2": 2.14 }, laySize: { "1": 40, X: 2, "2": 55 }, matched: 900 },
+      new Date().toISOString()
+    );
+    const bets = [
+      { eventId: "tennis", market: "Vainqueur du match", selection: "2" },
+      { eventId: "tennis", market: "anytime_scorer", selection: "Nobody" },
+      { eventId: "other", market: "1X2", selection: "1" },
+    ];
+    expect(withExchangePrices(db, bets).map((b) => b.exchange)).toEqual([{ back: 2.1, lay: 2.14, laySize: 55 }, undefined, undefined]);
   });
 });

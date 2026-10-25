@@ -330,6 +330,18 @@ export function legReadAt(db: DatabaseSync, surebet: Pick<Surebet, "eventId" | "
   return null;
 }
 
+// A leg read this long before its surebet's newest leg is stale: its price may
+// have moved since. The site marks it "älter" (web/src/SurebetsTable.tsx,
+// OLDER_LEG_MS, the same 10 minutes: over the 5-minute cycle, under the
+// markets cycle's 15) and the testers' alerts leave its surebet out.
+export const STALE_LEG_MS = 10 * 60 * 1000;
+
+// Whether a leg of the surebet was read over STALE_LEG_MS before its newest.
+export function hasStaleLeg(surebet: Pick<Surebet, "legs">): boolean {
+  const times = surebet.legs.flatMap((l) => (l.readAt ? [Date.parse(l.readAt)] : []));
+  return times.length > 1 && Math.max(...times) - Math.min(...times) > STALE_LEG_MS;
+}
+
 // Each bookmaker's leg its match's page there, when it can be built.
 function addBookmakerLinks(db: DatabaseSync, surebets: readonly Surebet[]): void {
   const links = loadBookmakerLinks(db, [...new Set(surebets.map((s) => s.eventId))]);

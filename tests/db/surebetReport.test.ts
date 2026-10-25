@@ -3,6 +3,7 @@ import { DatabaseSync } from "node:sqlite";
 import { openDb } from "../../src/db/client";
 import { upsertCanonicalEvents } from "../../src/db/repository";
 import { saveReferenceOdds } from "../../src/db/reference";
+import { getSurebets } from "../../src/db/surebets";
 import { currentSurebetReadGaps, formatSurebetReport, sentSurebetsAbove, sentSurebetsByPair, sourcePair } from "../../src/db/surebetReport";
 
 const hoursFromNow = (h: number) => new Date(Date.now() + h * 3600e3).toISOString();
@@ -86,6 +87,9 @@ describe("the surebet report", () => {
     db.prepare("UPDATE event_bookmaker_odds SET scraped_at = @at WHERE bookmaker_id = 'twentybet'").run({
       at: new Date(Date.now() - 12 * 60_000).toISOString(),
     });
+    // The site's list gives each leg its read time too.
+    const [shown] = getSurebets(db);
+    expect(shown.legs.map((l) => Date.now() - Date.parse(l.readAt!))).toEqual([expect.closeTo(12 * 60_000, -4), expect.closeTo(0, -4)]);
     const [gap] = currentSurebetReadGaps(db);
     expect(gap.pair).toBe("exchange lay + twentybet back");
     expect(gap.surebet.legs.map((l) => l.source)).toEqual(["twentybet", "exchange"]);

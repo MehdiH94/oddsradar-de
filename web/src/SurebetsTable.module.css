@@ -246,6 +246,15 @@
   color: var(--color-value-text);
 }
 
+/* How long ago a leg's price was read; "älter" when long before the others'. */
+.readAt {
+  color: var(--color-text-muted);
+}
+
+.older {
+  color: var(--color-value-text);
+}
+
 /* A suspect's leg out of line: the other sources' price beside its stake,
    the row edged in the value bets' amber. */
 .suspectNote {

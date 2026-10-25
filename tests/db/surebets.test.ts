@@ -111,8 +111,8 @@ describe("getSurebets", () => {
           profit: expect.closeTo(100 * (rate - 1), 10),
           toVerify: false,
           legs: [
-            { selection: "over", label: "Über 9,5", source: "betclic", side: "back", price: 2.0, stake: expect.closeTo((100 * rate) / 2.0, 10) },
-            { selection: "under", label: "Unter 9,5", source: "winamax", side: "back", price: 2.2, stake: expect.closeTo((100 * rate) / 2.2, 10) },
+            { selection: "over", label: "Über 9,5", source: "betclic", side: "back", price: 2.0, stake: expect.closeTo((100 * rate) / 2.0, 10), readAt: expect.any(String) },
+            { selection: "under", label: "Unter 9,5", source: "winamax", side: "back", price: 2.2, stake: expect.closeTo((100 * rate) / 2.2, 10), readAt: expect.any(String) },
           ],
         }),
       ]);
@@ -342,6 +342,7 @@ describe("getSurebets", () => {
           price: 2.5,
           stake: 100,
           exchange: { back: 2.2, backSize: 50, lay: 2.3, laySize: 40 },
+          readAt: expect.any(String),
         },
         {
           selection: "Ousmane Dembélé",
@@ -352,6 +353,7 @@ describe("getSurebets", () => {
           stake: expect.closeTo(layStake, 10),
           liability: expect.closeTo(layStake * 1.3, 10),
           size: 40,
+          readAt: expect.any(String),
         },
       ]);
       expect(lay.thin).toBe(false);

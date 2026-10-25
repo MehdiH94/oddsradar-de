@@ -133,12 +133,44 @@ describe("OddsTable", () => {
     expect(chip("3,10")).not.toHaveAttribute("data-best");
   });
 
-  it("highlights the best price among only the given bookmakers", () => {
-    // merkurbets (1.65) is the real best price, but it's filtered out here, so
-    // the sole remaining bookmaker's own price must be marked "best".
+  it("marks no best price with a single bookmaker ticked: one site can't take every outcome", () => {
     render(<OddsTable events={events} bookmakers={["leovegas"]} />);
 
-    expect(chip("1,50")).toHaveAttribute("data-best");
+    expect(chip("1,50")).not.toHaveAttribute("data-best");
+    expect(chip("3,20")).not.toHaveAttribute("data-best");
+  });
+
+  it("takes two sites at least: one with every best price gives up the outcome another costs the least on", () => {
+    // 20bet's 2.83, 3.24 and 2.69 are all best; neobet's draw (3.13) costs the least to take instead.
+    const one: EventWithOdds[] = [
+      {
+        ...events[0],
+        byBookmaker: {
+          twentybet: {
+            scrapedAt: "2026-09-20T10:00:00.000Z",
+            odds: [
+              { market: "1X2", selection: "1", price: 2.83 },
+              { market: "1X2", selection: "X", price: 3.24 },
+              { market: "1X2", selection: "2", price: 2.69 },
+            ],
+          },
+          neobet: {
+            scrapedAt: "2026-09-20T10:00:00.000Z",
+            odds: [
+              { market: "1X2", selection: "1", price: 2.66 },
+              { market: "1X2", selection: "X", price: 3.13 },
+              { market: "1X2", selection: "2", price: 2.52 },
+            ],
+          },
+        },
+      },
+    ];
+    render(<OddsTable events={one} bookmakers={["twentybet", "neobet"]} />);
+
+    expect(chip("2,83")).toHaveAttribute("data-best");
+    expect(chip("3,13")).toHaveAttribute("data-best");
+    expect(chip("3,24")).not.toHaveAttribute("data-best");
+    expect(chip("2,69")).toHaveAttribute("data-best");
   });
 
   it("shows 20bet's boosted price beside its price, which alone decides the best price", () => {

@@ -11,11 +11,6 @@
 #                          (scripts/probe-geo-bookmakers.mjs), then its file
 #   status                 the services' state, their last log lines, the
 #                          deployed commit and the free disk space
-#   rabona-sample <what>   one answer of Rabona's sportsbook (Altenar), which
-#                          refuses addresses outside Germany, to write and test
-#                          its scraper from: <what> is "menu" (the sports and
-#                          their competitions), "upcoming <sportId>" or
-#                          "champ <champId>[,<champId>...]", ids being numbers
 # REPORT_DRY_RUN=1 prints what would run instead (tests/deploy/vpsReport.test.ts).
 set -euo pipefail
 
@@ -26,7 +21,7 @@ read -r -a words <<<"${SSH_ORIGINAL_COMMAND:-}"
 name="${words[0]:-}"
 
 refuse() {
-  echo "vps-report: $1. Allowed: surebet-report [days], probe, status, rabona-sample menu|upcoming <id>|champ <ids>." >&2
+  echo "vps-report: $1. Allowed: surebet-report [days], probe, status." >&2
   exit 2
 }
 
@@ -48,29 +43,6 @@ case "$name" in
     run=(sh -c "git log -1 --format='deployed: %h %s (%ci)'; df -h / | tail -n 1; \
 systemctl status --no-pager --lines=0 $SERVICES || true; \
 journalctl --no-pager -n 150 -u oddsradar-worker -u oddsradar-web 2>&1 || true")
-    ;;
-  rabona-sample)
-    altenar="https://sb2frontend-altenar2.biahosted.com/api/widget"
-    common="culture=en-GB&timezoneOffset=0&integration=rabona&deviceType=1&numFormat=en-GB&countryCode=DE"
-    case "${words[1]:-}" in
-      menu)
-        [ "${#words[@]}" -eq 2 ] || refuse "rabona-sample menu takes no other argument"
-        url="$altenar/GetSportMenu?$common&period=0"
-        ;;
-      upcoming)
-        [ "${#words[@]}" -eq 3 ] && [[ "${words[2]}" =~ ^[0-9]{1,6}$ ]] || refuse "rabona-sample upcoming takes one sport id"
-        url="$altenar/GetUpcoming?$common&eventCount=100&sportId=${words[2]}"
-        ;;
-      champ)
-        [ "${#words[@]}" -eq 3 ] && [[ "${words[2]}" =~ ^[0-9]{1,7}(,[0-9]{1,7}){0,9}$ ]] || refuse "rabona-sample champ takes up to 10 competition ids, comma-separated"
-        url="$altenar/GetEventsByChamp?$common&champId=0&champIds=${words[2]//,/%2C}"
-        ;;
-      *)
-        refuse "rabona-sample: menu, upcoming <sportId> or champ <champIds>"
-        ;;
-    esac
-    # The site's own headers; at most 2 MB of the answer.
-    run=(sh -c 'curl -sS --max-time 30 -H "accept: application/json" -H "origin: https://rabona.com" -H "referer: https://rabona.com/" "$1" | head -c 2000000' rabona-sample "$url")
     ;;
   "")
     refuse "no command"

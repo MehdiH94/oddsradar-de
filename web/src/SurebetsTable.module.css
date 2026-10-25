@@ -246,6 +246,16 @@
   color: var(--color-value-text);
 }
 
+/* The switch that shows the thin lays too, and what is said when they are all
+   there is. */
+.thinToggle,
+.allThin {
+  display: block;
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
 /* How long ago a leg's price was read; "älter" when long before the others'. */
 .readAt {
   color: var(--color-text-muted);

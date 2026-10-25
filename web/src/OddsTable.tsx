@@ -1,7 +1,7 @@
 import { Fragment, useState, type CSSProperties, type MouseEvent } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import type { EventWithOdds } from "./types";
-import { getBestBookmakers } from "./bestOdds";
+import { getBestAcrossSites } from "./bestOdds";
 import { ALL_BOOKMAKERS } from "./bookmakers";
 import { dayHeading, formatStartParts } from "./format";
 import { PriceChip } from "./components/PriceChip";
@@ -132,6 +132,8 @@ export function OddsTable({
       <tbody>
         {events.map((event, i) => {
           const market = primaryMarket(event);
+          // Two sites at least, like the TRJ beside them (bestAcrossSites).
+          const bestBySelection = market ? getBestAcrossSites(event, market, selections, bookmakers) : {};
           // The ticked bookmakers that list the match: with five of them, the
           // others would only add dashes. Each price carries its bookmaker's
           // icon, so the order needs no column.
@@ -203,7 +205,7 @@ export function OddsTable({
                 )}
                 {hasBookmakers &&
                   selections.map((selection) => {
-                    const best = market ? getBestBookmakers(event, market, selection, bookmakers) : [];
+                    const best = bestBySelection[selection] ?? [];
                     // The reference prices one market, the 1X2 or the winner: not the
                     // other, nor a market a bookmaker shows instead.
                     const fair = market !== null && market === event.reference?.market ? event.reference.fair[selection] : undefined;

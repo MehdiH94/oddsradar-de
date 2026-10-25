@@ -28,12 +28,27 @@ describe("payoutRate", () => {
   });
 
   it("only uses the given bookmakers' prices", () => {
-    expect(payoutRate(football, ["winamax"])).toBeCloseTo(1 / (1 / 1.5 + 1 / 3.2 + 1 / 5.0), 10);
+    const three = event({ ...Object.fromEntries(Object.entries(football.byBookmaker).map(([bk, b]) => [bk, b.odds])), unibet: odds("1X2", { "1": 1.7, X: 3.0, "2": 4.0 }) });
+    expect(payoutRate(three, ["unibet", "winamax"])).toBeCloseTo(1 / (1 / 1.7 + 1 / 3.2 + 1 / 5.0), 10);
   });
 
   it("uses the two outcomes of a match without a draw", () => {
-    const tennis = event({ winamax: odds("Vainqueur du match", { "1": 2.0, "2": 2.0 }) });
-    expect(payoutRate(tennis)).toBe(1);
+    const tennis = event({ winamax: odds("Vainqueur du match", { "1": 2.0, "2": 2.0 }), betclic: odds("Vainqueur du match", { "1": 1.9, "2": 2.1 }) });
+    expect(payoutRate(tennis)).toBeCloseTo(1 / (1 / 2.0 + 1 / 2.1), 10);
+  });
+
+  // The owner, 25/10/2026: every outcome of a match can't be bet at one
+  // bookmaker, so its TRJ alone is no bet.
+  it("combines two sites at least: one with every best price gives up the outcome another costs the least on", () => {
+    const one = event({
+      twentybet: odds("1X2", { "1": 2.83, X: 3.24, "2": 2.69 }),
+      neobet: odds("1X2", { "1": 2.66, X: 3.13, "2": 2.52 }),
+    });
+    // Each other site's price costs 1/2.66 - 1/2.83, 1/3.13 - 1/3.24, 1/2.52 - 1/2.69: the draw's the least.
+    expect(payoutRate(one)).toBeCloseTo(1 / (1 / 2.83 + 1 / 3.13 + 1 / 2.69), 10);
+    // A single site prices the match: no TRJ.
+    expect(payoutRate(one, ["twentybet"])).toBeNull();
+    expect(payoutRate(event({ winamax: odds("1X2", { "1": 2, X: 3, "2": 4 }) }))).toBeNull();
   });
 
   it("is null when an outcome has no price among the given bookmakers", () => {
@@ -53,7 +68,8 @@ describe("payoutRate", () => {
       betclic: odds("1X2", { "1": 2.0, X: 4.0, "2": 4.0 }),
       winamax: odds("Vainqueur du match", { "1": 9.0, "2": 9.0 }),
     });
-    expect(payoutRate(mixed)).toBe(1);
+    // Betclic alone prices the 1X2: no two sites, no TRJ.
+    expect(payoutRate(mixed)).toBeNull();
   });
 
   it("prices the market most bookmakers list, though the first bookmaker's is another", () => {
@@ -64,8 +80,9 @@ describe("payoutRate", () => {
       vbet: odds("Vainqueur du match", { "1": 1.6, "2": 1.81 }),
       winamax: odds("Vainqueur du match", { "1": 1.72, "2": 1.98 }),
     });
-    expect(payoutRate(basketball)).toBeCloseTo(1 / (1 / 1.72 + 1 / 1.98), 10);
-    expect(payoutRate(basketball, ["vbet"])).toBeCloseTo(1 / (1 / 1.6 + 1 / 1.81), 10);
+    // Winamax has both best prices: VBET's 1.60 costs less than its 1.81.
+    expect(payoutRate(basketball)).toBeCloseTo(1 / (1 / 1.6 + 1 / 1.98), 10);
+    expect(payoutRate(basketball, ["vbet"])).toBeNull();
   });
 
   describe("winner-among-N markets", () => {

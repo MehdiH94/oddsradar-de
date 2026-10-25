@@ -213,14 +213,14 @@ describe("repository", () => {
 
     beforeEach(() => {
       upsertCanonicalEvents(db, [
-        // TRJ 93.75 %, soonest.
-        at("low", 1, [2.5, 3.0, 3.0]),
-        // TRJ 100 % with both bookmakers, 90 % with winamax alone.
-        at("high", 2, [2.7, 2.7, 2.7], [3.0, 3.0, 3.0]),
+        // TRJ 93.75 % (2.50 and 3.00 at Winamax, 3.00 at Betclic), soonest.
+        at("low", 1, [2.5, 3.0, 2.9], [2.4, 2.9, 3.0]),
+        // TRJ 100 %, each best price 3.00, on both sites.
+        at("high", 2, [3.0, 2.7, 3.0], [2.7, 3.0, 2.7]),
         // No draw price: no TRJ.
         { ...sampleEvent, id: "none", participants: ["none", "Rival"], startTime: hoursFromNow(3) },
-        // TRJ 100 %, like "high" with both bookmakers, but a later kick-off.
-        at("tie", 4, [3.0, 3.0, 3.0]),
+        // TRJ 100 %, like "high", but a later kick-off.
+        at("tie", 4, [3.0, 3.0, 2.9], [2.9, 2.9, 3.0]),
       ]);
     });
 
@@ -246,10 +246,11 @@ describe("repository", () => {
     });
 
     it("computes the TRJ, and the rank, from the requested bookmakers only", () => {
+      // Winamax alone: a single site, so no TRJ at all (the owner, 25/10/2026:
+      // every outcome can't be bet at one bookmaker), and the kick-off order.
       const page = getLatestEvents(db, { sort: "trj", bookmakers: ["winamax"] });
-
-      expect(ids(page)).toEqual(["tie", "low", "high", "none"]);
-      expect(page.events.find((e) => e.id === "high")!.payoutRate).toBeCloseTo(0.9, 10);
+      expect(ids(page)).toEqual(["low", "high", "none", "tie"]);
+      expect(page.events.map((e) => e.payoutRate)).toEqual([null, null, null, null]);
     });
 
     it("combines TRJ ranking with the sport filter and the search", () => {
@@ -400,8 +401,9 @@ describe("the winner of a match that a bookmaker's markets cycle gives", () => {
       { market: "1X2", selection: "X", price: 12 },
       ...winner(1.69, 1.94),
     ]);
-    // The table's TRJ is the winner's, over both bookmakers' best prices.
-    expect(event.payoutRate).toBeCloseTo(1 / (1 / 1.72 + 1 / 1.98), 10);
+    // The table's TRJ is the winner's, over both bookmakers: Winamax has
+    // both best prices, so Unibet's 1.69 on "1" (the cheaper to give up) stands in.
+    expect(event.payoutRate).toBeCloseTo(1 / (1 / 1.69 + 1 / 1.98), 10);
   });
 
   it("is not listed for a bookmaker that no longer lists the match", () => {

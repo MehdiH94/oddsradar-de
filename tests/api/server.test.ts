@@ -355,7 +355,8 @@ describe("GET /api/events", () => {
 describe("GET /api/events sorting", () => {
   let db: DatabaseSync;
   const hoursFromNow = (h: number) => new Date(Date.now() + h * 60 * 60 * 1000).toISOString();
-  const event = (id: string, startInHours: number, winamax: number, betclic: number): CanonicalEvent => ({
+  // Each bookmaker's best price on one side: the TRJ takes the two sites.
+  const event = (id: string, startInHours: number, best: number, other: number): CanonicalEvent => ({
     id,
     sport: "tennis",
     competition: "",
@@ -363,20 +364,20 @@ describe("GET /api/events sorting", () => {
     participants: [id, "Rival"],
     byBookmaker: {
       winamax: [
-        { market: "Vainqueur du match", selection: "1", price: winamax },
-        { market: "Vainqueur du match", selection: "2", price: winamax },
+        { market: "Vainqueur du match", selection: "1", price: best },
+        { market: "Vainqueur du match", selection: "2", price: other },
       ],
       betclic: [
-        { market: "Vainqueur du match", selection: "1", price: betclic },
-        { market: "Vainqueur du match", selection: "2", price: betclic },
+        { market: "Vainqueur du match", selection: "1", price: other },
+        { market: "Vainqueur du match", selection: "2", price: best },
       ],
     },
   });
 
   beforeEach(() => {
     db = openDb(":memory:");
-    // TRJ with both bookmakers: soon 95 %, later 100 %. Winamax alone: 95 %, 80 %.
-    upsertCanonicalEvents(db, [event("soon", 1, 1.9, 1.7), event("later", 2, 1.6, 2.0)]);
+    // TRJ with both bookmakers: soon 95 %, later 100 %. Winamax alone: none.
+    upsertCanonicalEvents(db, [event("soon", 1, 1.9, 1.7), event("later", 2, 2.0, 1.6)]);
   });
 
   const ids = (body: { events: { id: string }[] }) => body.events.map((e) => e.id);
@@ -393,9 +394,10 @@ describe("GET /api/events sorting", () => {
   });
 
   it("computes TRJ from the bookmakers listed in the bookmakers parameter", async () => {
+    // A single site: no TRJ (every outcome can't be bet at one bookmaker), kick-off order.
     const winamaxOnly = await request(createServer(db)).get("/api/events?sort=trj&bookmakers=winamax");
     expect(ids(winamaxOnly.body)).toEqual(["soon", "later"]);
-    expect(winamaxOnly.body.events[0].payoutRate).toBeCloseTo(0.95, 10);
+    expect(winamaxOnly.body.events.map((e: { payoutRate: number | null }) => e.payoutRate)).toEqual([null, null]);
 
     const none = await request(createServer(db)).get("/api/events?sort=trj&bookmakers=");
     expect(none.body.events.map((e: { payoutRate: number | null }) => e.payoutRate)).toEqual([null, null]);

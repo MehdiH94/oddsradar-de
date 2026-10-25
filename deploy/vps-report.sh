@@ -11,6 +11,9 @@
 #                          (scripts/probe-geo-bookmakers.mjs), then its file
 #   status                 the services' state, their last log lines, the
 #                          deployed commit and the free disk space
+#   exchange               the exchange's way out of Germany (deploy/
+#                          exchange-vpn.sh): its tunnel's and proxy's state
+#                          and last log lines, and a search through the proxy
 # REPORT_DRY_RUN=1 prints what would run instead (tests/deploy/vpsReport.test.ts).
 set -euo pipefail
 
@@ -21,7 +24,7 @@ read -r -a words <<<"${SSH_ORIGINAL_COMMAND:-}"
 name="${words[0]:-}"
 
 refuse() {
-  echo "vps-report: $1. Allowed: surebet-report [days], probe, status." >&2
+  echo "vps-report: $1. Allowed: surebet-report [days], probe, status, exchange." >&2
   exit 2
 }
 
@@ -43,6 +46,15 @@ case "$name" in
     run=(sh -c "git log -1 --format='deployed: %h %s (%ci)'; df -h / | tail -n 1; \
 systemctl status --no-pager --lines=0 $SERVICES || true; \
 journalctl --no-pager -n 150 -u oddsradar-worker -u oddsradar-web 2>&1 || true")
+    ;;
+  exchange)
+    [ "${#words[@]}" -eq 1 ] || refuse "exchange takes no argument"
+    # The proxy's address and the search are deploy/exchange-vpn.sh's own
+    # (its check), not read from .env.
+    run=(sh -c "systemctl status --no-pager --lines=0 oddsradar-exchange-vpn oddsradar-exchange-proxy || true; \
+curl -s -o /dev/null -w 'exchange search through the proxy: HTTP %{http_code}\\n' --max-time 20 -x http://10.200.0.2:8888 \
+-H 'Accept: application/json' 'https://exch.piwi247.com/customer/api/event/search?query=bayern' || echo 'exchange search through the proxy: no answer'; \
+journalctl --no-pager -n 60 -u oddsradar-exchange-vpn -u oddsradar-exchange-proxy 2>&1 || true")
     ;;
   "")
     refuse "no command"

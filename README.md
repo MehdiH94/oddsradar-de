@@ -939,7 +939,11 @@ un rapport en lecture seule et le met dans son log et dans un artefact :
 - `probe` : la sonde des bookmakers bloques hors d'Allemagne
   (`scripts/probe-geo-bookmakers.mjs`), puis son fichier ;
 - `status` : le commit deploye, la place libre, l'etat des services et leurs
-  dernieres lignes de log.
+  dernieres lignes de log ;
+- `exchange` : la sortie de l'exchange hors d'Allemagne
+  (`deploy/exchange-vpn.sh`) : l'etat du tunnel et du proxy, leurs dernieres
+  lignes de log, et une recherche sur l'exchange a travers le proxy (HTTP 200
+  quand tout va bien).
 
 Claude Code le lance lui-meme quand il a besoin d'un de ces rapports. Il passe
 par sa propre cle SSH, dont la commande forcee est `deploy/vps-report.sh` :

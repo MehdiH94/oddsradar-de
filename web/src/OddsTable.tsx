@@ -7,6 +7,7 @@ import { dayHeading, formatStartParts } from "./format";
 import { PriceChip } from "./components/PriceChip";
 import { PayoutBadge } from "./components/PayoutBadge";
 import { FairOdds } from "./components/FairOdds";
+import { ExchangePrices } from "./components/ExchangePrices";
 import { BestPrice } from "./components/BestPrice";
 import { valueEdge } from "./value";
 import { useIsTable } from "./useMediaQuery";
@@ -233,6 +234,7 @@ export function OddsTable({
                             edge={Number.isFinite(bestEdge) ? bestEdge : undefined}
                             boost={boost}
                           />
+                          <ExchangePrices prices={event.exchange?.[selection]} compact />
                           {isCompared && (
                             <span className={styles.prices} id={`${pricesId}-${selection}`}>
                               {listing.map((bookmaker, b) => (
@@ -267,6 +269,7 @@ export function OddsTable({
                         {fair !== undefined && (
                           <FairOdds fair={fair} edge={Number.isFinite(bestEdge) ? bestEdge : undefined} />
                         )}
+                        <ExchangePrices prices={event.exchange?.[selection]} compact />
                       </td>
                     );
                   })}

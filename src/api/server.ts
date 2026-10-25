@@ -2,7 +2,7 @@ import express, { Express } from "express";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { getLatestEvents, getDistinctSports, getEventSuggestions, getCompetitions, getValueBets, ListingOptions } from "../db/repository";
-import { surebetsOrNone, withExchangePrices, withoutSurebets } from "../db/surebets";
+import { surebetsOrNone, withExchangePrices, withMatchExchangePrices, withoutSurebets } from "../db/surebets";
 import { getEventDetail } from "../db/eventDetail";
 import { getPlayerStats } from "../db/playerStats";
 import { getAlertStatus } from "../db/alerts";
@@ -129,7 +129,9 @@ export function createServer(
     const kind = eventKind(req.query.kind);
     // "competition=Ligue 1": only that competition's events, its winner too.
     const competition = typeof req.query.competition === "string" ? req.query.competition : undefined;
-    res.json(getLatestEvents(db, { sport, q, page, pageSize, sort, bookmakers, players, kind, competition, ...listing }));
+    const listed = getLatestEvents(db, { sport, q, page, pageSize, sort, bookmakers, players, kind, competition, ...listing });
+    // Each match with the exchange's prices of its outcomes (the owner, 25/10/2026).
+    res.json({ ...listed, events: withMatchExchangePrices(db, listed.events, listing) });
   });
 
   // Every value bet (src/db/value.ts), biggest edge first or, on

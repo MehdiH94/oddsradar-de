@@ -135,6 +135,13 @@ describe("GET /api/events", () => {
     // Each with the reference market's prices of its outcome (the owner, 24/10/2026).
     expect(res.body.surebets[0].legs[0]).toMatchObject({ source: "winamax", exchange: { back: 2.04, lay: 2.08, laySize: 100 } });
     expect(res.body.bets[0].exchange).toEqual({ back: 3.7, lay: 4.2, laySize: 100 });
+    // The matches' list too, by outcome of the main market.
+    const listed = await request(createServer(db)).get("/api/events?sport=football");
+    expect(listed.body.events.find((e: { id: string }) => e.id === "evt1").exchange).toEqual({
+      "1": { back: 2.04, lay: 2.08, laySize: 100 },
+      X: { back: 3.5, lay: 3.7, laySize: 100 },
+      "2": { back: 3.7, lay: 4.2, laySize: 100 },
+    });
   });
 
   it("still lists the value bets when the surebets fail", async () => {

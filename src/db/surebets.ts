@@ -4,6 +4,8 @@ import { MARKET_1X2, MARKET_MATCH_WINNER, MARKET_OUTRIGHT } from "../scraper/can
 import { Grid, mainOutcomeLabel, outrightRateOf, payoutRateOf } from "./marketGrid";
 import { inChunks } from "./playerReference";
 import { loadBookmakerLinks } from "./bookmakerLinks";
+import { primaryMarket } from "./payoutRate";
+import { EventWithOdds } from "../types";
 import { countMarkets, ListingOptions, loadEvents, marketsCutoff, matchingEventIds, oddsCutoff } from "./repository";
 
 // The surebets of the matches and races not started yet: every market whose
@@ -196,6 +198,23 @@ export function withExchangePrices<T extends { eventId: string; market: string; 
   return bets.map((bet) => {
     const prices = referenceOutcomes(exchange.get(bet.eventId), bet.market)?.get(bet.selection);
     return prices?.back !== undefined || prices?.lay !== undefined ? { ...bet, exchange: { ...prices } } : bet;
+  });
+}
+
+// Each match of the matches' lists the exchange's prices of its main market's
+// outcomes, by outcome, when it prices them (the owner, 25/10/2026: the
+// reference market on the "Spiele" list too).
+export function withMatchExchangePrices<T extends EventWithOdds>(
+  db: DatabaseSync,
+  events: readonly T[],
+  opts: ListingOptions = {}
+): (T & { exchange?: Record<string, ExchangeOutcome> })[] {
+  const exchange = loadExchangeOutcomes(db, events.map((e) => e.id), oddsCutoff(opts));
+  return events.map((event) => {
+    const market = primaryMarket(event);
+    const outcomes = market ? referenceOutcomes(exchange.get(event.id), market) : undefined;
+    const priced = [...(outcomes ?? [])].filter(([, p]) => p.back !== undefined || p.lay !== undefined);
+    return priced.length > 0 ? { ...event, exchange: Object.fromEntries(priced.map(([k, p]) => [k, { ...p }])) } : event;
   });
 }
 

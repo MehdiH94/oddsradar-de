@@ -324,6 +324,39 @@ describe("the other sports' reference cycle", () => {
     expect(searches).toHaveLength(140);
   });
 
+  it("prices a match beyond 48 h every other cycle, without listing its handicaps and totals", async () => {
+    const far = new Date(NOW.getTime() + 72 * 3600e3);
+    upsertCanonicalEvents(db, [match("gsv", "basketball", ["Golden State Valkyries", "Las Vegas Aces"], { "1": 2.05, "2": 1.9 }, far)]);
+    // The exchange lists it three days ahead too.
+    const farSearch = async (query: string) => {
+      const answer = ANSWERS.get(query) as { content: { openDate: number }[] } | undefined;
+      return answer ? { ...answer, content: answer.content.map((e) => ({ ...e, openDate: far.getTime() })) } : { content: [] };
+    };
+    let reads = 0;
+    const listedMarkets: string[] = [];
+    const pricedAt = new Map<string, number>();
+    for (const minutes of [0, 5, 10, 15]) {
+      await runSportsReferenceCycle(db, {
+        search: farSearch,
+        prices: async (markets) => {
+          reads++;
+          return new Map([...parsePriceFrames(FRAMES)].filter(([id]) => markets.some((m) => m.marketId === id)));
+        },
+        markets: async (id) => {
+          listedMarkets.push(id);
+          return [];
+        },
+        now: later(minutes),
+        oddsMaxAgeMs: 24 * 3600e3,
+        searchedAt: new Map(),
+        pricedAt,
+      });
+    }
+    expect(reads).toBe(2);
+    expect(listedMarkets).toEqual([]);
+    expect(rows().map((r) => r.selection)).toEqual(["1", "2"]);
+  });
+
   it("leaves football, tennis and the sports without a reference to others", async () => {
     upsertCanonicalEvents(db, [
       match("f", "football", ["Paris SG", "Marseille"], {

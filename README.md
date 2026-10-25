@@ -428,7 +428,7 @@ detail de l'implementation.
 
 ## La reference (cote juste)
 
-Le worker cherche chaque match de foot des 48 h a venir sur l'exchange de
+Le worker cherche chaque match de foot des 7 jours a venir sur l'exchange de
 Piwi247 (plateforme Orbit, liquidite Betfair), par le nom de ses equipes (en
 anglais la-bas : les noms de pays sont traduits), une seule fois : le lien
 est garde, avec l'ordre de nos equipes qu'il suit. Un match peut changer
@@ -442,6 +442,15 @@ prix milieu entre le meilleur back et le meilleur lay, les trois issues
 ramenees a 100 % (la marge de l'exchange, environ 2 %, retiree). Pas de cote
 juste quand un lay depasse son back de plus de 10 % : trop peu de parieurs
 sur le marche pour s'y fier. Elle vieillit comme les cotes (3 cycles).
+
+Les matchs des 48 h a venir sont lus a chaque cycle, avec les marches des
+joueurs ; ceux de 48 h a 7 jours, dont les prix bougent peu, un cycle sur
+deux (toutes les 9 minutes au plus, sous les 15 minutes ou un prix reste
+affiche), sans les joueurs, et recherches de nouveau toutes les 2 heures
+quand l'exchange ne les a pas encore (30 minutes pour les plus proches) :
+le proprietaire veut la cote de Piwi sur chaque match du site (25/10/2026),
+et les bookmakers listent les matchs jusqu'a une semaine a l'avance
+(`src/reference/horizon.ts`).
 
 Les marches joueurs de l'exchange (buteur, premier buteur, 2 buts ou plus,
 triple) arrivent un jour ou deux avant le match, avec de l'argent surtout
@@ -502,7 +511,8 @@ lignes en ,5 sont gardees), score en sets, nombre de sets, vainqueur des
   ne les cote pas.
 
 Pour les autres sports de face-a-face (`src/reference/sports.ts`,
-`sportsRun.ts`), le worker cherche chaque match des 48 h a venir sur
+`sportsRun.ts`), le worker cherche chaque match des 7 jours a venir (comme
+le foot, ceux au-dela de 48 h un cycle sur deux) sur
 l'exchange par le nom d'une de ses equipes (« lightning »), ou le nom de
 famille d'un combattant (« volkanovski »), une fois, 60 recherches par
 cycle au plus, et lit le marche de l'exchange qui a la meme regle que celui

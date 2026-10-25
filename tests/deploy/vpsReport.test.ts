@@ -28,6 +28,24 @@ describe("deploy/vps-report.sh", () => {
     expect(status.out).toContain("systemctl status --no-pager --lines=0 oddsradar-worker oddsradar-web");
   });
 
+  it("fetches a sample of Rabona's sportsbook, its ids checked", () => {
+    expect(report("rabona-sample menu").out).toContain("GetSportMenu?culture=en-GB&timezoneOffset=0&integration=rabona");
+    expect(report("rabona-sample upcoming 66").out).toContain("GetUpcoming?culture=en-GB&timezoneOffset=0&integration=rabona&deviceType=1&numFormat=en-GB&countryCode=DE&eventCount=100&sportId=66");
+    expect(report("rabona-sample champ 2936,2941").out).toContain("champIds=2936%2C2941");
+    for (const command of [
+      "rabona-sample",
+      "rabona-sample menu x",
+      "rabona-sample upcoming",
+      "rabona-sample upcoming 66;id",
+      "rabona-sample upcoming $(id)",
+      "rabona-sample champ 1,2,3,4,5,6,7,8,9,10,11",
+      "rabona-sample champ 2936&x=1",
+      "rabona-sample https://example.com",
+    ]) {
+      expect(report(command).status, command).toBe(2);
+    }
+  });
+
   it("refuses anything else, its arguments included", () => {
     for (const command of [
       undefined,
@@ -46,7 +64,7 @@ describe("deploy/vps-report.sh", () => {
       const run = report(command);
       expect(run.status, String(command)).toBe(2);
       expect(run.out, String(command)).toBe("");
-      expect(run.err).toMatch(/^vps-report: .*Allowed: surebet-report \[days\], probe, status\.$/);
+      expect(run.err).toMatch(/^vps-report: .*Allowed: surebet-report \[days\], probe, status, rabona-sample menu\|upcoming <id>\|champ <ids>\.$/);
     }
   });
 

@@ -940,12 +940,17 @@ un rapport en lecture seule et le met dans son log et dans un artefact :
   (`scripts/probe-geo-bookmakers.mjs`), puis son fichier ;
 - `status` : le commit deploye, la place libre, l'etat des services et leurs
   dernieres lignes de log.
+- `rabona-sample` : une reponse du sportsbook de Rabona (Altenar), qui refuse
+  les adresses hors d'Allemagne, pour ecrire et tester son scraper : `menu`
+  (les sports et leurs competitions), `upcoming <id du sport>` ou
+  `champ <ids des competitions>`, des nombres verifies par le script.
 
 Claude Code le lance lui-meme quand il a besoin d'un de ces rapports. Il passe
 par sa propre cle SSH, dont la commande forcee est `deploy/vps-report.sh` :
 quoi qu'on lui demande, le VPS n'execute que ce script, qui refuse tout ce qui
 n'est pas dans la liste ci-dessus. Il n'ecrit dans aucune base, ne redemarre
-rien, ne deploie pas et n'affiche aucun reglage.
+rien, ne deploie pas et n'affiche aucun reglage ; `rabona-sample` ne lit que
+l'adresse fixe du sportsbook de Rabona.
 
 #### Mise en place (une seule fois)
 

@@ -12,12 +12,16 @@ on:
       report:
         description: Which report
         type: choice
-        options: [surebet-report, probe, status]
+        options: [surebet-report, probe, status, rabona-sample]
         default: surebet-report
       days:
         description: Days of sent surebets (surebet-report only)
         type: number
         default: 7
+      sample:
+        description: 'rabona-sample only: "menu", "upcoming <sportId>" or "champ <id,id...>"'
+        type: string
+        default: menu
 
 # One report at a time.
 concurrency:
@@ -42,6 +46,7 @@ jobs:
           KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
           REPORT: ${{ inputs.report }}
           DAYS: ${{ inputs.days }}
+          SAMPLE: ${{ inputs.sample }}
         run: |
           set -euo pipefail
           if [ -z "$SSH_KEY" ] || [ -z "$KNOWN_HOSTS" ]; then
@@ -54,6 +59,8 @@ jobs:
           printf '%s\n' "$KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
           command="$REPORT"
           if [ "$REPORT" = surebet-report ]; then command="$REPORT $DAYS"; fi
+          # The VPS checks the sample's words itself (deploy/vps-report.sh).
+          if [ "$REPORT" = rabona-sample ]; then command="$REPORT $SAMPLE"; fi
           ssh -i ~/.ssh/report_key -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes \
             "$DEPLOY_USER@$DEPLOY_HOST" "$command" 2>&1 | tee report.txt
       - name: Keep the report

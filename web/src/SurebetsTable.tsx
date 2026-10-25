@@ -18,6 +18,18 @@ const sourceName = (source: string) => (source === EXCHANGE ? "Börse" : (BOOKMA
 const euros = (amount: number) => `${amount.toFixed(2).replace(".", ",")}\u00a0€`;
 // What a lay offers under which the surebet is thin (SUREBET_MIN_SIZE).
 const THIN_SIZE = 20;
+// A leg read this long before the surebet's newest is "älter": its price may
+// have moved since. Over the 5-minute cycle and under the 15-minute markets
+// cycle's, so that a market's normal lag is not flagged.
+const OLDER_LEG_MS = 10 * 60 * 1000;
+
+// How long ago a price was read: "gerade eben", "vor 4 Min.", "vor 2 Std.".
+function readAgo(readAt: string, now: Date): string {
+  const minutes = Math.floor((now.getTime() - Date.parse(readAt)) / 60_000);
+  if (minutes < 1) return "gerade eben";
+  if (minutes < 60) return `vor ${minutes}\u00a0Min.`;
+  return `vor ${Math.floor(minutes / 60)}\u00a0Std.`;
+}
 
 // Said in the card, not in a tooltip only: a finger can't bring one up.
 const KIND_LABELS: Record<Surebet["kind"], string> = {
@@ -36,6 +48,12 @@ const KIND_TITLES: Record<Surebet["kind"], string> = {
 const SUSPECT_TITLE =
   "Eine Quote weicht stark von den anderen Quellen ab: vertauschte Teams, eine alte Quote oder ein anderes Spiel? Vor dem Wetten beim Buchmacher prüfen";
 
+// When the surebet's most recently read leg was, in ms; none read, none.
+const newestRead = (surebet: Surebet): number | undefined => {
+  const times = surebet.legs.flatMap((l) => (l.readAt ? [Date.parse(l.readAt)] : []));
+  return times.length > 0 ? Math.max(...times) : undefined;
+};
+
 // The other sources' price of the suspect's leg, for that leg only.
 const suspectOthers = (surebet: Surebet, leg: SurebetLeg): number | undefined => {
   const s = surebet.suspect?.leg;
@@ -47,7 +65,10 @@ const suspectOthers = (surebet: Surebet, leg: SurebetLeg): number | undefined =>
 // when the API gives it, to check the price before betting.
 // `others`: the leg is the suspect's, out of line with the other sources'
 // price, said under it.
-function Leg({ leg, others }: { leg: SurebetLeg; others?: number }) {
+// `newest`: when the surebet's most recently read leg was, and `now`, for how
+// long ago this one was read and whether it is "älter".
+function Leg({ leg, others, newest, now }: { leg: SurebetLeg; others?: number; newest?: number; now: Date }) {
+  const older = leg.readAt !== undefined && newest !== undefined && newest - Date.parse(leg.readAt) > OLDER_LEG_MS;
   return (
     <li className={styles.leg} data-source={leg.source} data-side={leg.side} data-suspect={others !== undefined || undefined}>
       <span className={styles.legOutcome}>
@@ -68,6 +89,13 @@ function Leg({ leg, others }: { leg: SurebetLeg; others?: number }) {
         )}
         {others !== undefined && (
           <span className={styles.suspectNote}> · ⚠️ andere Quellen {formatPrice(others)}: Quote prüfen</span>
+        )}
+        {leg.readAt && (
+          <span className={styles.readAt} title={`Quote gelesen: ${new Date(leg.readAt).toLocaleString("de-DE")}`}>
+            {" "}
+            · {readAgo(leg.readAt, now)}
+            {older && <strong className={styles.older}> · älter</strong>}
+          </span>
         )}
         {leg.source !== EXCHANGE && <ExchangePrices prices={leg.exchange} />}
       </span>
@@ -170,7 +198,13 @@ export function SurebetsTable({
                 <td className={styles.legs} data-label={"Wetten für 100\u00a0€"}>
                   <ul className={styles.legList}>
                     {surebet.legs.map((leg) => (
-                      <Leg key={`${leg.selection}@${leg.source}:${leg.side}`} leg={leg} others={suspectOthers(surebet, leg)} />
+                      <Leg
+                        key={`${leg.selection}@${leg.source}:${leg.side}`}
+                        leg={leg}
+                        others={suspectOthers(surebet, leg)}
+                        newest={newestRead(surebet)}
+                        now={now}
+                      />
                     ))}
                   </ul>
                 </td>

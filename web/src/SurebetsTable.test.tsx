@@ -171,6 +171,35 @@ describe("SurebetsTable", () => {
     expect(within(under).getByText(/^Börse:/)).toHaveTextContent("Börse: Back - · Lay 2,10");
   });
 
+  it("says how long ago each leg's price was read, and flags one read over 10 minutes before the newest", () => {
+    vi.useFakeTimers({ now: new Date("2026-10-25T12:00:00.000Z"), toFake: ["Date"] });
+    try {
+      render(
+        <SurebetsTable
+          surebets={[
+            surebet({
+              legs: [
+                { selection: "over", label: "Über 9,5", source: "merkurbets", side: "back", price: 2, stake: 52.38, readAt: "2026-10-25T11:59:40.000Z" },
+                { selection: "under", label: "Unter 9,5", source: "twentybet", side: "back", price: 2.2, stake: 47.62, readAt: "2026-10-25T11:46:00.000Z" },
+              ],
+            }),
+            surebet({ eventId: "fresh", legs: [{ selection: "over", label: "Über 9,5", source: "merkurbets", side: "back", price: 2, stake: 52.38, readAt: "2026-10-25T10:00:00.000Z" }] }),
+          ]}
+        />
+      );
+      const [first, second] = screen.getAllByRole("row").slice(1);
+      const [over, under] = within(first).getAllByRole("listitem");
+      expect(over).toHaveTextContent("· gerade eben");
+      expect(over).not.toHaveTextContent("älter");
+      expect(under).toHaveTextContent("· vor 14 Min. · älter");
+      // A leg alone is never older than itself.
+      expect(within(second).getByRole("listitem")).toHaveTextContent("· vor 2 Std.");
+      expect(within(second).getByRole("listitem")).not.toHaveTextContent("älter");
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("says how little a lay offers when the exchange has under €20 on it", () => {
     render(
       <SurebetsTable

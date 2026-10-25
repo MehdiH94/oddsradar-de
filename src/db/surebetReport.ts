@@ -1,6 +1,5 @@
 import { DatabaseSync } from "node:sqlite";
-import { MARKET_1X2 } from "../scraper/canonical";
-import { EXCHANGE, getSurebets, Surebet } from "./surebets";
+import { getSurebets, legReadAt, Surebet } from "./surebets";
 import { ListingOptions } from "./repository";
 
 // Which sources the surebets come from, and how far apart their prices were
@@ -86,30 +85,6 @@ export interface SurebetReadGap {
   // Minutes between the first and the last read of its legs; null when one is
   // missing.
   gapMinutes: number | null;
-}
-
-// When a leg's price was read: a bookmaker's from the listing's or the markets
-// cycle's prices, the exchange's from the reference's.
-function legReadAt(db: DatabaseSync, surebet: Surebet, leg: Surebet["legs"][number]): string | null {
-  const args = { eventId: surebet.eventId, market: surebet.market, selection: leg.selection, source: leg.source };
-  const queries =
-    leg.source === EXCHANGE
-      ? [
-          surebet.market === MARKET_1X2
-            ? "SELECT scraped_at AS at FROM reference_odds WHERE event_id = @eventId AND selection = @selection"
-            : "SELECT scraped_at AS at FROM reference_markets WHERE event_id = @eventId AND market = @market AND selection = @selection",
-          "SELECT scraped_at AS at FROM reference_player_odds WHERE event_id = @eventId AND market = @market AND player = @selection",
-        ]
-      : [
-          "SELECT scraped_at AS at FROM event_bookmaker_odds WHERE event_id = @eventId AND bookmaker_id = @source AND market = @market AND selection = @selection",
-          "SELECT scraped_at AS at FROM event_market_odds WHERE event_id = @eventId AND bookmaker_id = @source AND market = @market AND selection = @selection",
-        ];
-  for (const sql of queries) {
-    const params = Object.fromEntries(Object.entries(args).filter(([key]) => sql.includes(`@${key}`)));
-    const row = db.prepare(sql).get(params) as { at: string } | undefined;
-    if (row) return row.at;
-  }
-  return null;
 }
 
 // The surebets shown now, each with how far apart its legs were read.

@@ -65,6 +65,8 @@ export interface SurebetLeg {
   url?: string;
   // The exchange's prices of this outcome, when it prices it: the reference market.
   exchange?: ExchangeOutcome;
+  // When this price was read, ISO 8601.
+  readAt?: string;
 }
 
 // The exchange's back and lay of an outcome, and the money on each, in euros.

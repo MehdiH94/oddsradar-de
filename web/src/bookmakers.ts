@@ -47,26 +47,32 @@ export function isDefaultBookmakers(selected: readonly string[]): boolean {
 // How the UI shows each bookmaker: its own site icon (LeoVegas.de's favicon, Merkur Bets's sun, 20bet's app icon, Admiralbet's, bet-at-home's, ODDSET's, Betway's, Winamax's, 888sport's "888", neobet's "N", Tipico's "t"), with the name as alt text and
 // tooltip (BookmakerLogo). A bookmaker without an icon (yet) shows a badge with
 // its initial in its place.
+// `site`: its sportsbook's address, for a link when the match's own page can't
+// be built (CheckAtBookmaker, "Zur Website"): the site's root, which opens in
+// Germany whatever the visitor's page (checked 26/10/2026).
 // `unlicensed`: the bookmaker holds no German licence (GGL): said next to its
 // name in the filter, as a fact, with no link to it.
 // `stakeTax`: the German betting tax its prices are shown net of, as the
 // scrapers take it off (src/scraper/, stakeTax.ts): 0 when it takes none;
 // 0 too for Tipico and Winamax, which pay it themselves (src/scraper/oddsApi.ts).
 // None given: not known, the price shown as read.
-export const BOOKMAKER_BRANDING: Record<string, { name: string; logo?: string; unlicensed?: boolean; stakeTax?: number } | undefined> = {
-  leovegas: { name: "LeoVegas", logo: leovegasLogo, stakeTax: 0.05 },
-  merkurbets: { name: "Merkur Bets", logo: merkurbetsLogo, stakeTax: 0.05 },
-  twentybet: { name: "20bet", logo: twentybetLogo, unlicensed: true, stakeTax: 0 },
-  admiralbet: { name: "Admiralbet", logo: admiralbetLogo, stakeTax: 0.053 },
-  betathome: { name: "bet-at-home", logo: betathomeLogo, stakeTax: 0.053 },
-  oddset: { name: "ODDSET", logo: oddsetLogo, stakeTax: 0.053 },
-  betway: { name: "Betway", logo: betwayLogo, stakeTax: 0.053 },
-  sportingbet: { name: "Sportingbet", logo: sportingbetLogo, stakeTax: 0.05 },
-  vbet: { name: "VBET", logo: vbetLogo, stakeTax: 0.05 },
-  "888sport": { name: "888sport", logo: sport888Logo, stakeTax: 0.05 },
-  neobet: { name: "neobet", logo: neobetLogo, stakeTax: 0.05 },
-  tipico: { name: "Tipico", logo: tipicoLogo, stakeTax: 0 },
-  winamaxde: { name: "Winamax", logo: winamaxdeLogo, stakeTax: 0 },
+export const BOOKMAKER_BRANDING: Record<
+  string,
+  { name: string; logo?: string; site?: string; unlicensed?: boolean; stakeTax?: number } | undefined
+> = {
+  leovegas: { name: "LeoVegas", logo: leovegasLogo, site: "https://www.leovegas.de/de-de/sportwetten", stakeTax: 0.05 },
+  merkurbets: { name: "Merkur Bets", logo: merkurbetsLogo, site: "https://www.merkurbets.de", stakeTax: 0.05 },
+  twentybet: { name: "20bet", logo: twentybetLogo, site: "https://20bet.com/de", unlicensed: true, stakeTax: 0 },
+  admiralbet: { name: "Admiralbet", logo: admiralbetLogo, site: "https://www.admiralbet.de", stakeTax: 0.053 },
+  betathome: { name: "bet-at-home", logo: betathomeLogo, site: "https://www.bet-at-home.de", stakeTax: 0.053 },
+  oddset: { name: "ODDSET", logo: oddsetLogo, site: "https://www.oddset.de", stakeTax: 0.053 },
+  betway: { name: "Betway", logo: betwayLogo, site: "https://betway.de", stakeTax: 0.053 },
+  sportingbet: { name: "Sportingbet", logo: sportingbetLogo, site: "https://www.sportingbet.de", stakeTax: 0.05 },
+  vbet: { name: "VBET", logo: vbetLogo, site: "https://www.vbet.de", stakeTax: 0.05 },
+  "888sport": { name: "888sport", logo: sport888Logo, site: "https://www.888sport.de", stakeTax: 0.05 },
+  neobet: { name: "neobet", logo: neobetLogo, site: "https://neobet.de", stakeTax: 0.05 },
+  tipico: { name: "Tipico", logo: tipicoLogo, site: "https://www.tipico.de", stakeTax: 0 },
+  winamaxde: { name: "Winamax", logo: winamaxdeLogo, site: "https://www.winamax.de", stakeTax: 0 },
 };
 
 // What a bookmaker's prices are net of, for the price's tooltip: "Quote nach

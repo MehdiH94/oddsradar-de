@@ -6,8 +6,9 @@ import { inChunks } from "./playerReference";
 // before betting: built from the bookmaker's own id for the match (its
 // sourceId, event_sources). Only the addresses opened on the bookmaker's site
 // and seen to show that very match (21/10/2026, a real id of each, in
-// Chromium) are built; a bookmaker missing here gets no link rather than a
-// broken one:
+// Chromium) are built; a bookmaker missing here gets no match link rather than
+// a broken one (the dashboard then links its site, "Zur Website":
+// web/src/components/CheckAtBookmaker.tsx):
 // - 20bet: its site refuses visitors outside its countries, the address of a
 //   match could not be checked;
 // - Admiralbet: a match's address is its sport's, league's and teams' German

@@ -38,14 +38,24 @@ const euros = (amount: number) => `${amount.toFixed(2)} €`;
 // One suspect, in full, so that the owner can check it and bet it if its price
 // is a real one (24/10/2026): its match, kick-off and profit, each bet for
 // 100 € with its stake and its bookmaker's page, then the price out of line.
-export function suspectMessage(s: SuspectSurebet, publicUrl?: string): DiscordMessage {
+// How long ago a leg's price was read: "read just now", "read 12 min ago",
+// "read 3 h ago".
+export function readAgo(readAt: string, now: number): string {
+  const minutes = Math.max(0, Math.floor((now - Date.parse(readAt)) / 60_000));
+  if (minutes < 1) return "read just now";
+  if (minutes < 60) return `read ${minutes} min ago`;
+  return `read ${Math.floor(minutes / 60)} h ago`;
+}
+
+export function suspectMessage(s: SuspectSurebet, publicUrl?: string, now = Date.now()): DiscordMessage {
   const { leg, others } = s.suspect;
   const link = matchUrl(s.eventId, publicUrl);
   const kickOff = Math.floor(Date.parse(s.startTime) / 1000);
   const legLine = (l: SurebetLeg) => {
     const stake = l.side === "lay" && l.liability !== undefined ? `stake ${euros(l.stake)}, liability ${euros(l.liability)}` : `stake ${euros(l.stake)}`;
     const size = l.size !== undefined ? `, ${euros(l.size)} on the exchange` : "";
-    return `• ${l.side} ${l.label} @ ${sourceName(l.source)} ${l.price.toFixed(2)}: ${stake}${size}${l.url ? ` · <${l.url}>` : ""}`;
+    const read = l.readAt ? `, ${readAgo(l.readAt, now)}` : "";
+    return `• ${l.side} ${l.label} @ ${sourceName(l.source)} ${l.price.toFixed(2)}: ${stake}${size}${read}${l.url ? ` · <${l.url}>` : ""}`;
   };
   const head = `🔎 **Suspect surebet, ${(s.payoutRate * 100).toFixed(1)} %** (+${euros(s.profit)} on 100 €): ${s.participants.join(" - ")} (${s.competition || s.sport}), ${s.marketLabel}, kick-off <t:${kickOff}:f> (<t:${kickOff}:R>).`;
   const tail = [
@@ -84,7 +94,7 @@ export async function runQualityAlerts(db: DatabaseSync, opts: QualityAlertOptio
   const fresh = [...new Map(suspects.map((s) => [suspectKey(s), s])).values()].filter((s) => !told.get(suspectKey(s)));
   for (const suspect of fresh.slice(0, MAX_QUALITY_ALERTS)) {
     try {
-      await post(send, url, suspectMessage(suspect, opts.publicUrl), sleep);
+      await post(send, url, suspectMessage(suspect, opts.publicUrl, now), sleep);
       db.prepare("INSERT OR REPLACE INTO quality_alerts (key, sent_at) VALUES (?, ?)").run(suspectKey(suspect), new Date(now).toISOString());
     } catch (err) {
       console.error(`[alerts:quality] ${suspectKey(suspect)}: could not send the alert:`, err);

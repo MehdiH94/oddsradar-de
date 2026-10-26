@@ -639,6 +639,20 @@ que ces marches-la et ceux que l'exchange cote. Si les surebets echouent,
 l'API les renvoie vides (erreur dans les logs) et les value bets s'affichent
 quand meme.
 
+### Surebets pris et rappel avant le match
+
+Chaque surebet a un bouton « Genommen? » : un surebet marque pris est grise et
+passe en fin de liste, sur tous les appareils du compte
+(`user_taken_surebets` dans `auth.sqlite`, `/api/taken-surebets`,
+`src/auth/takenSurebets.ts`). Quand l'un de ses paris est sur l'exchange (un
+lay ou un back), la case « Erinnerung 1 Std. vorher » est cochee d'office :
+une heure avant le coup d'envoi, le compte recoit un e-mail (le SMTP des
+comptes) pour verifier que ce pari est bien matche sur le marche, un pari non
+matche laissant les autres sans couverture (le proprietaire, 26/10/2026). Le
+processus web l'envoie (`src/auth/surebetReminders.ts`, chaque minute), une
+fois ; un surebet est oublie deux jours apres le match, 200 au plus par
+compte.
+
 ## Alertes Discord
 
 Le worker previent un salon Discord a chaque nouvelle « gem », un gros value

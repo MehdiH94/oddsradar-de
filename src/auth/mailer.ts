@@ -79,4 +79,21 @@ export const mails = {
     subject: `Du hast bereits ein Konto · ${APP_NAME}`,
     text: `Jemand (vielleicht du) hat versucht, mit dieser Adresse ein ${APP_NAME}-Konto zu erstellen, aber es gibt schon eins.\n\nPasswort vergessen? Hier kannst du es zurücksetzen:\n${link}\n\nWenn du das nicht warst, ignoriere diese Nachricht.`,
   }),
+  // An hour before a taken surebet's match, when one of its bets is at the
+  // exchange, a lay or a back (src/auth/surebetReminders.ts).
+  surebetReminder: (to: string, label: string, startTime: string, link: string): Mail => {
+    const kickOff = new Date(startTime).toLocaleString("de-DE", {
+      timeZone: "Europe/Berlin",
+      weekday: "short",
+      day: "2-digit",
+      month: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return {
+      to,
+      subject: `Börsenwette prüfen: Anstoß ${kickOff} · ${APP_NAME}`,
+      text: `Dein Surebet beginnt in weniger als einer Stunde (Anstoß ${kickOff}):\n${label}\n\nPrüfe an der Börse, ob deine Wette dort vollständig gematcht ist. Ein nicht gematchter Teil ist nicht abgesichert: Storniere ihn oder passe ihn an, solange der Markt offen ist.\n\nDas Spiel auf ${APP_NAME}:\n${link}\n\nDu bekommst diese Erinnerung, weil du den Surebet als genommen markiert hast. Abbestellen: auf der Seite der Surebets "Erinnerung" abwählen.`,
+    };
+  },
 };

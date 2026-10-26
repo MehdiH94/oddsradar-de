@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent, within } from "@testing-library/react";
+import { render, screen, fireEvent, within, waitFor } from "@testing-library/react";
 import { SurebetsTable } from "./SurebetsTable";
 import type { Surebet } from "./types";
 
@@ -311,5 +311,91 @@ describe("SurebetsTable", () => {
     // Nothing more than its winner: no "+N markets" (the other links are the
     // bookmakers' sites).
     expect(screen.getAllByRole("link").filter((a) => a.getAttribute("target") !== "_blank")).toHaveLength(1);
+  });
+
+  describe("taken surebets", () => {
+    const withLay = surebet({
+      eventId: "gala-fener",
+      kind: "lay",
+      legs: [
+        { selection: "2", label: "Fenerbahçe", source: "twentybet", side: "back", price: 3.32, stake: 50 },
+        { selection: "2", label: "Fenerbahçe", source: "exchange", side: "lay", price: 3.2, stake: 52, liability: 114.4 },
+      ],
+    });
+    const LAY_KEY = "gala-fener:player_aces@2|9.5:2@twentybet:back|2@exchange:lay";
+
+    // The server: the account's list, then 204 to every change.
+    function server(taken: { key: string; remind: boolean }[] = []) {
+      const calls: { method: string; body: unknown }[] = [];
+      const fetchMock = vi.fn(async (_url: string, init?: RequestInit) => {
+        if (!init?.method) return new Response(JSON.stringify({ taken }), { status: 200 });
+        calls.push({ method: init.method, body: JSON.parse(String(init.body)) });
+        return new Response(null, { status: 204 });
+      });
+      vi.stubGlobal("fetch", fetchMock);
+      return calls;
+    }
+
+    it("marks a surebet taken: greyed, last, saved with the account, its exchange bet's reminder asked for", async () => {
+      const calls = server();
+      render(<SurebetsTable surebets={[withLay, surebet({})]} />);
+      // The surebet between bookmakers first: it goes last.
+      const [layRow, plainRow] = screen.getAllByRole("row").slice(1);
+      fireEvent.click(within(plainRow).getByRole("button", { name: "Genommen: Alex De Minaur - Hubert Hurkacz" }));
+      expect(screen.getAllByRole("row")[2]).toBe(plainRow);
+      // Then the one with a bet at the exchange.
+      fireEvent.click(within(layRow).getByRole("button", { name: /^Genommen/ }));
+
+      await waitFor(() => expect(calls).toHaveLength(2));
+      expect(calls[1]).toEqual({
+        method: "PUT",
+        body: {
+          key: LAY_KEY,
+          eventId: "gala-fener",
+          startTime: "2099-01-01T07:00:00.000Z",
+          label: "Alex De Minaur - Hubert Hurkacz, Aces réussis par Hubert Hurkacz (9.5 aces): Fenerbahçe @ 20bet 3,32 / Lay Fenerbahçe @ Börse 3,20",
+          remind: true,
+        },
+      });
+      expect(calls[0].body).toMatchObject({ remind: false });
+      const rows = screen.getAllByRole("row").slice(1);
+      expect(rows.every((row) => row.hasAttribute("data-taken"))).toBe(true);
+      expect(within(layRow).getByRole("button", { name: /^Genommen/ })).toHaveAttribute("aria-pressed", "true");
+      expect(within(layRow).getByRole("button", { name: /^Genommen/ })).toHaveTextContent("✓ Genommen");
+      // The reminder, for the surebet with an exchange bet only.
+      expect(within(layRow).getByRole("checkbox", { name: /Erinnerung 1\s*Std\. vorher/ })).toBeChecked();
+      expect(within(plainRow).queryByRole("checkbox")).not.toBeInTheDocument();
+    });
+
+    it("shows what the account took, last, and lets it change its mind", async () => {
+      const calls = server([{ key: LAY_KEY, remind: true }]);
+      render(<SurebetsTable surebets={[withLay, surebet({})]} />);
+      await waitFor(() => expect(screen.getAllByRole("row")[2]).toHaveAttribute("data-taken"));
+      const taken = screen.getAllByRole("row")[2];
+      expect(taken).toHaveAttribute("data-kind", "lay");
+
+      fireEvent.click(within(taken).getByRole("checkbox", { name: /Erinnerung/ }));
+      await waitFor(() => expect(calls).toHaveLength(1));
+      expect(calls[0]).toMatchObject({ method: "PUT", body: { key: LAY_KEY, remind: false } });
+
+      fireEvent.click(within(taken).getByRole("button", { name: /^Genommen/ }));
+      await waitFor(() => expect(calls).toHaveLength(2));
+      expect(calls[1]).toEqual({ method: "DELETE", body: { key: LAY_KEY } });
+      expect(screen.getAllByRole("row").slice(1).some((row) => row.hasAttribute("data-taken"))).toBe(false);
+    });
+
+    it("takes the mark back when the server refuses it", async () => {
+      vi.stubGlobal(
+        "fetch",
+        vi.fn(async (_url: string, init?: RequestInit) =>
+          init?.method ? new Response(null, { status: 400 }) : new Response(JSON.stringify({ taken: [] }), { status: 200 })
+        )
+      );
+      render(<SurebetsTable surebets={[surebet({})]} />);
+      const button = screen.getByRole("button", { name: /^Genommen/ });
+      fireEvent.click(button);
+      expect(button).toHaveAttribute("aria-pressed", "true");
+      await waitFor(() => expect(button).toHaveAttribute("aria-pressed", "false"));
+    });
   });
 });

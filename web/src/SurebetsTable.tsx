@@ -8,6 +8,7 @@ import { EventTitle } from "./components/EventTitle";
 import { CheckAtBookmaker } from "./components/CheckAtBookmaker";
 import { ExchangePrices } from "./components/ExchangePrices";
 import { useIsWide } from "./useMediaQuery";
+import { hasExchangeLeg, surebetKey, useTakenSurebets } from "./takenSurebets";
 import groupStyles from "./GroupedOddsTables.module.css";
 import styles from "./SurebetsTable.module.css";
 
@@ -130,6 +131,45 @@ function Leg({ leg, others, newest, now }: { leg: SurebetLeg; others?: number; n
   );
 }
 
+// Whether the account took the surebet ("Genommen", a toggle button), and,
+// when one of its bets is at the exchange, its reminder an hour before
+// kick-off to check that bet was matched there.
+function TakenControls({
+  teams,
+  taken,
+  remind,
+  exchange,
+  onTaken,
+  onRemind,
+}: {
+  teams: string;
+  taken: boolean;
+  remind: boolean;
+  exchange: boolean;
+  onTaken: (taken: boolean) => void;
+  onRemind: (remind: boolean) => void;
+}) {
+  return (
+    <span className={styles.takenControls}>
+      <button
+        type="button"
+        className={styles.takenButton}
+        aria-pressed={taken}
+        aria-label={`Genommen: ${teams}`}
+        title={taken ? "Als nicht genommen markieren" : "Als genommen markieren"}
+        onClick={() => onTaken(!taken)}
+      >
+        {taken ? "✓ Genommen" : "Genommen?"}
+      </button>
+      {taken && exchange && (
+        <label className={styles.remind} title="Eine E-Mail eine Stunde vor Anstoß: prüfen, ob die Börsenwette gematcht ist">
+          <input type="checkbox" checked={remind} onChange={(e) => onRemind(e.target.checked)} /> Erinnerung 1&nbsp;Std. vorher
+        </label>
+      )}
+    </span>
+  );
+}
+
 // The surebets of the value bets' category, above its value bets: one row
 // per market whose best prices guarantee a profit, with the bets to place for
 // 100 € and what they return. Over 110 %, "to verify": most likely two
@@ -150,8 +190,11 @@ export function SurebetsTable({
   const wide = useIsWide();
   const now = new Date();
   const [showThin, setShowThin] = useState(loadShowThin);
+  // The ones the account took: greyed and last (src/takenSurebets.ts).
+  const { taken, setTaken, setRemind } = useTakenSurebets();
   const thinCount = surebets.filter((s) => s.thin).length;
-  const shown = showThin ? surebets : surebets.filter((s) => !s.thin);
+  const visible = showThin ? surebets : surebets.filter((s) => !s.thin);
+  const shown = [...visible.filter((s) => !taken.has(surebetKey(s))), ...visible.filter((s) => taken.has(surebetKey(s)))];
   return (
     <section className={groupStyles.section} aria-labelledby="surebets-heading">
       <h2 id="surebets-heading" className={groupStyles.heading}>
@@ -189,7 +232,8 @@ export function SurebetsTable({
             {shown.map((surebet) => {
               const start = formatStartParts(surebet.startTime, now);
               const teams = surebet.participants.join(" - ");
-              const legsKey = surebet.legs.map((l) => `${l.selection}@${l.source}:${l.side}`).join("|");
+              const key = surebetKey(surebet);
+              const mark = taken.get(key);
               const hasPage = matchHref !== undefined && surebet.marketCount > 1;
               const open = (e: MouseEvent<HTMLAnchorElement>) => {
                 if (!onOpenMatch || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
@@ -198,10 +242,11 @@ export function SurebetsTable({
               };
               return (
                 <tr
-                  key={`${surebet.eventId}:${surebet.market}:${legsKey}`}
+                  key={key}
                   className={styles.row}
                   data-kind={surebet.kind}
                   data-suspect={surebet.suspect ? true : undefined}
+                  data-taken={mark ? true : undefined}
                 >
                   <td className={styles.start}>
                     <time dateTime={surebet.startTime}>
@@ -261,6 +306,14 @@ export function SurebetsTable({
                     {surebet.toVerify && !surebet.suspect && <span className={styles.toVerify}>zu prüfen</span>}
                     {surebet.thin && <span className={styles.toVerify}>geringe Liquidität</span>}
                     <span className={styles.kind}>{KIND_LABELS[surebet.kind]}</span>
+                    <TakenControls
+                      teams={teams}
+                      taken={mark !== undefined}
+                      remind={mark?.remind ?? false}
+                      exchange={hasExchangeLeg(surebet)}
+                      onTaken={(value) => setTaken(surebet, value)}
+                      onRemind={(value) => setRemind(surebet, value)}
+                    />
                   </td>
                   {!wide && hasPage && (
                     <td className={styles.actions}>

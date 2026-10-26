@@ -50,8 +50,9 @@ type OutcomePrices = { outcome: string; prices: { bookmaker: string; price: numb
 // two sites (the owner, 25/10/2026: every outcome of a match can't be bet at
 // one bookmaker, like a surebet, #42). When every best price is at the same
 // one, the outcome where another site costs the least goes to that site; with
-// a single site pricing the match, none. The dashboard marks the same ones
-// (web/src/bestOdds.ts, bestAcrossSites).
+// a single site pricing the match, none. For the TRJ only: the dashboard
+// still ticks each outcome's highest price (web/src/bestOdds.ts,
+// getBestPrices; the owner, 26/10/2026).
 export function bestAcrossSites(outcomes: readonly OutcomePrices[]): Map<string, { bookmakers: string[]; price: number }> | null {
   const best = new Map<string, { bookmakers: string[]; price: number }>();
   for (const { outcome, prices } of outcomes) {

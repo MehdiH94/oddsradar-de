@@ -149,8 +149,8 @@ describe("OddsTable", () => {
     expect(chip("3,20")).not.toHaveAttribute("data-best");
   });
 
-  it("takes two sites at least: one with every best price gives up the outcome another costs the least on", () => {
-    // 20bet's 2.83, 3.24 and 2.69 are all best; neobet's draw (3.13) costs the least to take instead.
+  it("ticks each outcome's highest price, even when one site has them all (Galatasaray - Fenerbahçe, 26/10/2026)", () => {
+    // 20bet's 2.83, 3.24 and 2.69 are all best: each is ticked, neobet's none.
     const one: EventWithOdds[] = [
       {
         ...events[0],
@@ -177,9 +177,9 @@ describe("OddsTable", () => {
     render(<OddsTable events={one} bookmakers={["twentybet", "neobet"]} />);
 
     expect(chip("2,83")).toHaveAttribute("data-best");
-    expect(chip("3,13")).toHaveAttribute("data-best");
-    expect(chip("3,24")).not.toHaveAttribute("data-best");
+    expect(chip("3,24")).toHaveAttribute("data-best");
     expect(chip("2,69")).toHaveAttribute("data-best");
+    for (const price of ["2,66", "3,13", "2,52"]) expect(chip(price)).not.toHaveAttribute("data-best");
   });
 
   it("shows 20bet's boosted price beside its price, which alone decides the best price", () => {

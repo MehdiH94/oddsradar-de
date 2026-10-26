@@ -706,6 +706,15 @@ lisent les utilisateurs : secret GitHub `DISCORD_ADMIN_WEBHOOK_URL` (le webhook
 d'un salon prive), que le deploiement de la production ecrit dans `.env`.
 Sans lui, la page `/admin` reste la seule source.
 
+L'exchange de reference est surveille de meme (`src/alerts/exchange.ts`) :
+quand toutes ses requetes echouent depuis 15 minutes (trois cycles), le
+salon des administrateurs recoit un message avec la derniere erreur et la
+reparation (relancer `oddsradar-exchange-vpn` et `oddsradar-exchange-proxy`,
+puis `sudo /usr/local/sbin/oddsradar-exchange-vpn check`), puis un autre
+quand il repond de nouveau. Le 25/10/2026, son tunnel hors d'Allemagne
+(`deploy/exchange-vpn.sh`) ne resolvait plus aucun nom : aucune cote de
+reference pendant des heures, sans que personne le sache.
+
 ### Prix suspects (administrateurs)
 
 Un surebet dont une cote s'ecarte de plus de 15 points de probabilite des

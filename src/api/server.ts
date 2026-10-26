@@ -16,6 +16,7 @@ import { adminRouter } from "../auth/adminRoutes";
 import { preferencesRouter } from "../auth/preferencesRoutes";
 import { feedbackRouter } from "../auth/feedbackRoutes";
 import { takenSurebetsRouter } from "../auth/takenSurebetsRoutes";
+import { promosRouter } from "../auth/promosRoutes";
 import { walletRouter } from "../freebets/walletRoutes";
 import { conversionsRouter } from "../freebets/conversionsRoutes";
 import { createConversionsService } from "../freebets/conversions";
@@ -33,7 +34,7 @@ const WEB_DIST = path.join(__dirname, "../../web/dist");
 // the home's, whose script shows one or the other from the address. A reload
 // or a shared link on it must find the page rather than a 404. Listed one by
 // one, so that any other unknown path still is a 404.
-const SPA_PATHS = ["/odds", "/login", "/signup", "/forgot-password", "/reset-password", "/verify-email", "/admin", "/freebets"];
+const SPA_PATHS = ["/odds", "/login", "/signup", "/forgot-password", "/reset-password", "/verify-email", "/admin", "/freebets", "/promos"];
 
 // The events listing's "kind": the winners of the competitions alone, or the
 // matches and the winners together; anything else is the matches.
@@ -95,6 +96,7 @@ export function createServer(
   // What a tester tells the team, read on the administration page.
   app.use("/api/feedback", feedbackRouter(auth));
   app.use("/api/taken-surebets", takenSurebetsRouter(auth));
+  app.use("/api/promos", promosRouter(auth));
   // The freebets an account holds, at their exact path, and what the Freebets
   // page converts them into, next to it under /api/freebets.
   app.use("/api/freebets/wallet", walletRouter(auth));

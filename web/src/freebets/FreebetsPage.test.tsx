@@ -614,12 +614,12 @@ describe("FreebetsPage", () => {
   });
 
   describe("the page", () => {
-    it("names the Freebets entry of the navigation as the page in, with the two lists beside it", async () => {
+    it("names the Freebets entry of the navigation as the page in, with the two lists and the Promos beside it", async () => {
       stubApi();
       renderPage();
       await screen.findByRole("heading", { name: /Top-3/ });
       const views = within(screen.getByRole("group", { name: "Anzeigen" })).getAllByRole("radio");
-      expect(views.map((radio) => radio.getAttribute("value"))).toEqual(["value-bets", "matches", "freebets"]);
+      expect(views.map((radio) => radio.getAttribute("value"))).toEqual(["value-bets", "matches", "freebets", "promos"]);
       expect(screen.getByRole("radio", { name: "Freebets" })).toBeChecked();
       expect(screen.getByRole("heading", { level: 1, name: "Freebets" })).toBeInTheDocument();
     });
@@ -631,6 +631,14 @@ describe("FreebetsPage", () => {
       fireEvent.click(screen.getByRole("radio", { name: "Value Bets" }));
       expect(window.location.pathname).toBe("/odds");
       expect(window.location.search).toContain("sport=value-bets");
+    });
+
+    it("goes to the Promos page from the navigation", async () => {
+      stubApi();
+      renderPage();
+      await screen.findByRole("heading", { name: /Top-3/ });
+      fireEvent.click(screen.getByRole("radio", { name: "Promos" }));
+      expect(window.location.pathname).toBe("/promos");
     });
 
     it("shows the time of the last answer", async () => {

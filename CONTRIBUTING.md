@@ -296,6 +296,7 @@ l'API) :
 | La page d'un match | `odds.spec.ts` | Ouverte depuis les value bets, tous ses marchés, le lien retour |
 | Les surebets | `odds.spec.ts` | Chaque jambe (bookmaker, cote, mise), le TRJ et le gain |
 | Les freebets | `freebets.spec.ts` | Un compte saisit ses FB (enregistrés avec le compte, relus au rechargement), voit le top 3 et où placer chaque pari, copie la liste ; le mode exchange (pari + lay, chaque cas) ; les réglages gardés dans l'adresse ; un compte neuf est invité à saisir ses FB ; un visiteur est renvoyé à `/login?next=…` et l'API lui répond 401 |
+| Les promos | `promos.spec.ts` | Le compte semé note une promo (rangée sous le nom du bookmaker), la marque prise, la retrouve ainsi au rechargement et la supprime ; un visiteur est renvoyé à `/login?next=…` et l'API lui répond 401 |
 
 Ce qui n'y est pas : le cycle du worker (il dépend des sites des bookmakers,
 et ses tests utilisent de vraies réponses enregistrées), l'accueil public et

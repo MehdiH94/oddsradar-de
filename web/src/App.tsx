@@ -35,7 +35,7 @@ import { hasMarkets, hasReference, VALUE_BETS } from "./sports";
 import { formatPercent } from "./format";
 import { PLAYER_VALUE_MIN_EDGE, VALUE_MIN_EDGE } from "./value";
 import { useIsWide } from "./useMediaQuery";
-import { FREEBETS_PATH, navigate } from "./routes";
+import { FREEBETS_PATH, navigate, PROMOS_PATH } from "./routes";
 import type { EventWithOdds, Surebet, ValueBet } from "./types";
 import styles from "./App.module.css";
 
@@ -410,9 +410,9 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
   }
 
   function changeView(next: View) {
-    // The Freebets page is a page of its own, not a list of this one.
-    if (next === "freebets") {
-      navigate(FREEBETS_PATH);
+    // The Freebets and Promos pages are pages of their own, not lists of this one.
+    if (next === "freebets" || next === "promos") {
+      navigate(next === "freebets" ? FREEBETS_PATH : PROMOS_PATH);
       return;
     }
     // Back to the list, from a match's page too.

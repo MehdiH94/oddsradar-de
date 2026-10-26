@@ -19,6 +19,8 @@ export const VERIFY_PATH = "/verify-email";
 export const ADMIN_PATH = "/admin";
 // The freebets' conversions, for accounts. Also listed in SPA_PATHS.
 export const FREEBETS_PATH = "/freebets";
+// The bookmakers' promotions, for accounts. Also listed in SPA_PATHS.
+export const PROMOS_PATH = "/promos";
 export const AUTH_PATHS: readonly string[] = [LOGIN_PATH, REGISTER_PATH, FORGOT_PATH, RESET_PATH, VERIFY_PATH];
 
 // Where to go after signing in: the page that sent the visitor here, taken

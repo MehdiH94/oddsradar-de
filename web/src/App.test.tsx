@@ -234,7 +234,7 @@ describe("App", () => {
       expect(sportChoices.map((radio) => radio.getAttribute("value"))).toEqual(["football", "tennis"]);
       const views = within(screen.getByRole("group", { name: "Anzeigen" })).getAllByRole("radio");
       // The Freebets page is the last entry: it moves to its own address.
-      expect(views.map((radio) => radio.getAttribute("value"))).toEqual(["value-bets", "matches", "freebets"]);
+      expect(views.map((radio) => radio.getAttribute("value"))).toEqual(["value-bets", "matches", "freebets", "promos"]);
       expect(screen.queryByRole("radio", { name: "All sports" })).not.toBeInTheDocument();
     });
 
@@ -626,6 +626,14 @@ describe("App", () => {
       await waitFor(() => expect(screen.getByRole("radio", { name: "Tennis" })).toBeInTheDocument());
       fireEvent.click(screen.getByRole("radio", { name: "Freebets" }));
       expect(window.location.pathname).toBe("/freebets");
+    });
+
+    it("goes to the Promos page, an address of its own, from the navigation", async () => {
+      stubFetch(["football", "tennis"]);
+      render(<App />);
+      await waitFor(() => expect(screen.getByRole("radio", { name: "Tennis" })).toBeInTheDocument());
+      fireEvent.click(screen.getByRole("radio", { name: "Promos" }));
+      expect(window.location.pathname).toBe("/promos");
     });
 
     it("shows every bet on one page, whatever the URL's page", async () => {

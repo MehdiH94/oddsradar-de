@@ -1,18 +1,19 @@
-import { Gem, Gift, ListOrdered, SlidersHorizontal } from "lucide-react";
+import { BadgePercent, Gem, Gift, ListOrdered, SlidersHorizontal } from "lucide-react";
 import styles from "./AppNav.module.css";
 
-export type View = "value-bets" | "matches" | "freebets";
+export type View = "value-bets" | "matches" | "freebets" | "promos";
 
 const VIEWS: ReadonlyArray<{ value: View; label: string; Icon: typeof Gem }> = [
   { value: "value-bets", label: "Value Bets", Icon: Gem },
   { value: "matches", label: "Spiele", Icon: ListOrdered },
   { value: "freebets", label: "Freebets", Icon: Gift },
+  { value: "promos", label: "Promos", Icon: BadgePercent },
 ];
 
 // The site's lists: the value bets (every sport's, the surebets above
 // them), the matches, sport by sport (with the winners of their competitions),
-// and the Freebets page beside them (its
-// own address: choosing it moves there, see App and FreebetsPage). On a phone a bar fixed at the bottom
+// and the Freebets and Promos pages beside them (each at its
+// own address: choosing one moves there, see App, FreebetsPage and PromosPage). On a phone a bar fixed at the bottom
 // of the screen, under the thumb, with the button that opens the filters'
 // sheet (`filters`); from 768 px a switch in the header. Native radio buttons
 // underneath, like the sports'.

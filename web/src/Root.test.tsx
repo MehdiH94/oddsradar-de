@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import axe from "axe-core";
-import { Root, FREEBETS_TITLE, HOME_TITLE, ODDS_TITLE } from "./Root";
+import { Root, FREEBETS_TITLE, HOME_TITLE, ODDS_TITLE, PROMOS_TITLE } from "./Root";
 
 // The dashboard is a chunk of its own, and heavy: a stand-in is enough to know
 // which page Root chose.
@@ -16,6 +16,7 @@ vi.mock("./App", () => ({
 
 // The Freebets page is a chunk of its own, and heavy too.
 vi.mock("./freebets/FreebetsPage", () => ({ FreebetsPage: () => <h1>Les freebets</h1> }));
+vi.mock("./promos/PromosPage", () => ({ PromosPage: () => <h1>Les promos</h1> }));
 
 const reply = (body: unknown, status = 200) =>
   Promise.resolve({ ok: status < 400, status, json: () => Promise.resolve(body) });
@@ -153,6 +154,29 @@ describe("the administration page", () => {
     render(<Root />);
     expect(await screen.findByRole("heading", { level: 1, name: "Anmelden" })).toBeInTheDocument();
     expect(address()).toBe("/login?next=%2Fadmin");
+  });
+});
+
+describe("the Promos page", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    window.history.replaceState(null, "", "/");
+  });
+
+  it("opens for an account, with its own title", async () => {
+    stubApi();
+    window.history.replaceState(null, "", "/promos");
+    render(<Root />);
+    expect(await screen.findByRole("heading", { level: 1, name: "Les promos" })).toBeInTheDocument();
+    expect(document.title).toBe(PROMOS_TITLE);
+  });
+
+  it("sends someone signed out to the login, remembering the page", async () => {
+    stubApi({ signedIn: false });
+    window.history.replaceState(null, "", "/promos");
+    render(<Root />);
+    expect(await screen.findByRole("heading", { level: 1, name: "Anmelden" })).toBeInTheDocument();
+    expect(address()).toBe("/login?next=%2Fpromos");
   });
 });
 

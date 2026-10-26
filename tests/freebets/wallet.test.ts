@@ -151,9 +151,9 @@ describe("the stored wallet", () => {
 });
 
 describe("the freebets table in the accounts database", () => {
-  it("is on the schema's version 6 (the feedback and the taken surebets came after), with its columns", () => {
+  it("is on the schema's version 7 (the feedback, the taken surebets and the promos came after), with its columns", () => {
     const db = openAuthDb(":memory:");
-    expect(db.prepare("PRAGMA user_version").get()).toEqual({ user_version: 6 });
+    expect(db.prepare("PRAGMA user_version").get()).toEqual({ user_version: 7 });
     const columns = (db.prepare("PRAGMA table_info(user_freebets)").all() as { name: string }[]).map((c) => c.name);
     expect(columns).toEqual(["user_id", "bookmaker", "amount_cents", "updated_at"]);
   });
@@ -164,7 +164,9 @@ describe("the freebets table in the accounts database", () => {
     const ada = createUser(db, { email: "ada@example.com", passwordHash: "x", verified: true }, now);
     const prefs: Preferences = { sport: "tennis", sort: "start", bookmakers: ["leovegas"], players: false, favoriteSports: [] };
     savePreferences(db, ada.id, prefs, now);
-    // The schema as it was before: no freebets table (nor the feedback and the taken surebets after it), version 3.
+    // The schema as it was before: no freebets table (nor the feedback, the taken surebets and the promos after it), version 3.
+    db.exec("DROP TABLE user_promo_taken");
+    db.exec("DROP TABLE promos");
     db.exec("DROP TABLE user_taken_surebets");
     db.exec("DROP TABLE feedback");
     db.exec("DROP TABLE user_freebets");
@@ -172,7 +174,7 @@ describe("the freebets table in the accounts database", () => {
 
     migrate(db);
 
-    expect(db.prepare("PRAGMA user_version").get()).toEqual({ user_version: 6 });
+    expect(db.prepare("PRAGMA user_version").get()).toEqual({ user_version: 7 });
     expect(db.prepare("SELECT email FROM users").all()).toEqual([{ email: "ada@example.com" }]);
     expect(getPreferences(db, ada.id)).toEqual(prefs);
     expect(getWallet(db, ada.id)).toEqual({});

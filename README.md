@@ -653,6 +653,25 @@ processus web l'envoie (`src/auth/surebetReminders.ts`, chaque minute), une
 fois ; un surebet est oublie deux jours apres le match, 200 au plus par
 compte.
 
+### Promos
+
+La page « Promos » (`/promos`, pour les comptes) range les promotions des
+bookmakers par site, une carte par bookmaker, celui dont une promo finit le
+plus tot en premier. Chaque promo a un titre, ses conditions, un lien, une
+date de fin, et un bouton « Genommen? » : une promo prise est grisee et passe
+en fin de liste, sur tous les appareils du compte (`promos` et
+`user_promo_taken` dans `auth.sqlite`, `/api/promos`, `src/auth/promos.ts`).
+
+Pour l'instant le compte les note lui-meme, depuis un e-mail ou un canal
+Telegram (le formulaire « Promo eintragen ») : un bookmaker que le site
+connait est reconnu sous son nom, un autre (un site crypto) garde celui
+qu'on a ecrit. 300 promos au plus par compte ; une promo est oubliee deux
+semaines apres sa fin. La table prevoit deja celles que le site trouvera
+lui-meme (`source` : `site`, `telegram`, `email`, visibles par tous les
+comptes, chacun les marquant pour lui) : les pages promotions des
+bookmakers et les canaux Telegram publics suivront (le proprietaire,
+26/10/2026).
+
 ## Alertes Discord
 
 Le worker previent un salon Discord a chaque nouvelle « gem », un gros value

@@ -15,6 +15,7 @@ import {
   navigate,
   ODDS_PATH,
   onPathChange,
+  PROMOS_PATH,
   REGISTER_PATH,
   RESET_PATH,
   safeNext,
@@ -30,10 +31,13 @@ const App = lazy(() => loadDashboard().then((module) => ({ default: module.App }
 const AdminPage = lazy(() => import("./admin/AdminPage").then((module) => ({ default: module.AdminPage })));
 // The Freebets page, a chunk of its own too.
 const FreebetsPage = lazy(() => import("./freebets/FreebetsPage").then((module) => ({ default: module.FreebetsPage })));
+// The Promos page, likewise.
+const PromosPage = lazy(() => import("./promos/PromosPage").then((module) => ({ default: module.PromosPage })));
 
 export const HOME_TITLE = `${APP_NAME} · Quotenvergleich und Value Bets`;
 export const ODDS_TITLE = `Quoten und Value Bets · ${APP_NAME}`;
 export const FREEBETS_TITLE = `Freebets · ${APP_NAME}`;
+export const PROMOS_TITLE = `Promos · ${APP_NAME}`;
 
 const PAGE_TITLES: Record<string, string> = {
   [ODDS_PATH]: ODDS_TITLE,
@@ -44,6 +48,7 @@ const PAGE_TITLES: Record<string, string> = {
   [VERIFY_PATH]: `E-Mail-Bestätigung · ${APP_NAME}`,
   [ADMIN_PATH]: `Administration · ${APP_NAME}`,
   [FREEBETS_PATH]: FREEBETS_TITLE,
+  [PROMOS_PATH]: PROMOS_TITLE,
 };
 
 const loadingView = (
@@ -53,7 +58,7 @@ const loadingView = (
 );
 
 // Which page the address asks for: the dashboard at ODDS_PATH (and the old
-// dashboard links at "/", see currentPath), the Freebets page, the account pages, the home
+// dashboard links at "/", see currentPath), the Freebets and Promos pages, the account pages, the home
 // anywhere else. There is no router library: a few pages, and App keeps its
 // own state in the query string with window.history.
 //
@@ -102,12 +107,13 @@ function Pages() {
   const onOdds = path === ODDS_PATH;
   const onAdmin = path === ADMIN_PATH;
   const onFreebets = path === FREEBETS_PATH;
+  const onPromos = path === PROMOS_PATH;
   const signInOrUp = path === LOGIN_PATH || path === REGISTER_PATH;
   useEffect(() => {
     document.title = PAGE_TITLES[path] ?? HOME_TITLE;
   }, [path]);
 
-  const mustLogIn = (onOdds || onAdmin || onFreebets) && status === "anonymous";
+  const mustLogIn = (onOdds || onAdmin || onFreebets || onPromos) && status === "anonymous";
   const alreadyIn = signInOrUp && status === "authenticated";
   // The administration is for admins: anyone else signed in is sent to the odds
   // (the server refuses them its data anyway).
@@ -127,6 +133,14 @@ function Pages() {
     return (
       <Suspense fallback={loadingView}>
         <FreebetsPage />
+      </Suspense>
+    );
+  }
+  if (onPromos) {
+    if (status !== "authenticated") return loadingView;
+    return (
+      <Suspense fallback={loadingView}>
+        <PromosPage />
       </Suspense>
     );
   }

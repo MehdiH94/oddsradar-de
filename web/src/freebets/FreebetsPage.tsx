@@ -4,7 +4,7 @@ import { AppFooter } from "../components/AppFooter";
 import { AppHeader } from "../components/AppHeader";
 import { AppNav, type View } from "../components/AppNav";
 import { GamblingBanner } from "../components/GamblingBanner";
-import { FREEBETS_PATH, navigate, oddsHref, valueBetsHref } from "../routes";
+import { FREEBETS_PATH, navigate, oddsHref, PROMOS_PATH, valueBetsHref } from "../routes";
 import { useIsWide } from "../useMediaQuery";
 import { ConversionControls } from "./ConversionControls";
 import { Results } from "./Results";
@@ -36,6 +36,7 @@ export function FreebetsPage() {
   function changeView(view: View) {
     if (view === "value-bets") navigate(valueBetsHref);
     else if (view === "matches") navigate(oddsHref);
+    else if (view === "promos") navigate(PROMOS_PATH);
   }
   const nav = <AppNav view="freebets" onChange={changeView} placement={wide ? "header" : "bar"} />;
   const waiting = wallet.save === "pending" || wallet.save === "saving";

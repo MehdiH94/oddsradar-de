@@ -115,6 +115,33 @@ const MIGRATIONS: string[] = [
   );
   CREATE INDEX user_taken_surebets_by_start ON user_taken_surebets(start_time);
   `,
+  // The bookmakers' promotions (src/auth/promos.ts): those an account adds
+  // itself (owner_id, its own only), and later those the site finds (no
+  // owner, everyone's; source_key their reader's own id, to update in place).
+  // Each account marks the ones it took.
+  `
+  CREATE TABLE promos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    owner_id TEXT REFERENCES users(id) ON DELETE CASCADE,
+    source TEXT NOT NULL CHECK (source IN ('manual', 'site', 'telegram', 'email')),
+    source_key TEXT,
+    bookmaker TEXT NOT NULL,
+    title TEXT NOT NULL,
+    details TEXT NOT NULL DEFAULT '',
+    url TEXT,
+    ends_at TEXT,
+    found_at TEXT NOT NULL,
+    UNIQUE (source, source_key)
+  );
+  CREATE INDEX promos_by_owner ON promos(owner_id);
+
+  CREATE TABLE user_promo_taken (
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    promo_id INTEGER NOT NULL REFERENCES promos(id) ON DELETE CASCADE,
+    taken_at TEXT NOT NULL,
+    PRIMARY KEY (user_id, promo_id)
+  );
+  `,
 ];
 
 export function migrate(db: DatabaseSync): void {

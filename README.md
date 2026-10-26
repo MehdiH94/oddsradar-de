@@ -960,6 +960,10 @@ un rapport en lecture seule et le met dans son log et dans un artefact :
   (`scripts/probe-geo-bookmakers.mjs`), puis son fichier ;
 - `status` : le commit deploye, la place libre, l'etat des services et leurs
   dernieres lignes de log ;
+- `bookmakers` : la derniere lecture de chaque bookmaker (`npm run
+  bookmaker-status`) : son etat (OK, FAILING, EMPTY, DOWN), quand il a ete lu,
+  combien de matchs, sa derniere bonne lecture et sa derniere erreur, comme
+  l'onglet « Bookmakers » de `/admin` ;
 - `exchange` : la sortie de l'exchange hors d'Allemagne
   (`deploy/exchange-vpn.sh`) : l'etat du tunnel et du proxy, leurs dernieres
   lignes de log, et une recherche sur l'exchange a travers le proxy (HTTP 200

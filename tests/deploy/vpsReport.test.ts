@@ -28,6 +28,10 @@ describe("deploy/vps-report.sh", () => {
     expect(status.out).toContain("systemctl status --no-pager --lines=0 oddsradar-worker oddsradar-web");
   });
 
+  it("lists each bookmaker's last read", () => {
+    expect(report("bookmakers")).toMatchObject({ status: 0, out: "npm run --silent bookmaker-status" });
+  });
+
   it("checks the exchange's tunnel and proxy, through the proxy's own address", () => {
     const exchange = report("exchange");
     expect(exchange.status).toBe(0);
@@ -52,11 +56,12 @@ describe("deploy/vps-report.sh", () => {
       "probe now",
       "status; cat .env",
       "exchange now",
+      "bookmakers all",
     ]) {
       const run = report(command);
       expect(run.status, String(command)).toBe(2);
       expect(run.out, String(command)).toBe("");
-      expect(run.err).toMatch(/^vps-report: .*Allowed: surebet-report \[days\], probe, status, exchange\.$/);
+      expect(run.err).toMatch(/^vps-report: .*Allowed: surebet-report \[days\], probe, status, bookmakers, exchange\.$/);
     }
   });
 

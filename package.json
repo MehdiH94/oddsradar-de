@@ -9,6 +9,7 @@
     "api": "ts-node src/api/index.ts",
     "create-admin": "ts-node src/auth/createAdmin.ts",
     "surebet-report": "node dist/tools/surebetReport.js",
+    "bookmaker-status": "node dist/tools/bookmakerStatus.js",
     "test": "vitest run",
     "icons": "node scripts/fetch-bookmaker-icons.mjs",
     "e2e": "npm run build --prefix web && playwright test -c e2e/playwright.config.ts"

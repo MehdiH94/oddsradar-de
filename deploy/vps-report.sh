@@ -11,6 +11,8 @@
 #                          (scripts/probe-geo-bookmakers.mjs), then its file
 #   status                 the services' state, their last log lines, the
 #                          deployed commit and the free disk space
+#   bookmakers             each bookmaker's last read, its error, its health
+#                          (npm run bookmaker-status)
 #   exchange               the exchange's way out of Germany (deploy/
 #                          exchange-vpn.sh): its tunnel's and proxy's state
 #                          and last log lines, and a search through the proxy
@@ -24,7 +26,7 @@ read -r -a words <<<"${SSH_ORIGINAL_COMMAND:-}"
 name="${words[0]:-}"
 
 refuse() {
-  echo "vps-report: $1. Allowed: surebet-report [days], probe, status, exchange." >&2
+  echo "vps-report: $1. Allowed: surebet-report [days], probe, status, bookmakers, exchange." >&2
   exit 2
 }
 
@@ -46,6 +48,10 @@ case "$name" in
     run=(sh -c "git log -1 --format='deployed: %h %s (%ci)'; df -h / | tail -n 1; \
 systemctl status --no-pager --lines=0 $SERVICES || true; \
 journalctl --no-pager -n 150 -u oddsradar-worker -u oddsradar-web 2>&1 || true")
+    ;;
+  bookmakers)
+    [ "${#words[@]}" -eq 1 ] || refuse "bookmakers takes no argument"
+    run=(npm run --silent bookmaker-status)
     ;;
   exchange)
     [ "${#words[@]}" -eq 1 ] || refuse "exchange takes no argument"

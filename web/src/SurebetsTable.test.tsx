@@ -38,8 +38,8 @@ describe("SurebetsTable", () => {
     expect(cells[0].querySelector("time")).toHaveAttribute("dateTime", "2099-01-01T07:00:00.000Z");
     expect(cells[1]).toHaveTextContent("🎾 Alex De Minaur - Hubert HurkaczAces réussis par Hubert Hurkacz (9.5 aces)");
     expect(within(cells[2]).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
-      "Über 9,5Merkur Bets2,00Einsatz 52,38\u00a0€keine Börsenquote",
-      "Unter 9,5LeoVegas2,20Einsatz 47,62\u00a0€keine Börsenquote",
+      "Über 9,5Merkur Bets2,00Einsatz 52,38\u00a0€keine BörsenquoteZur Website",
+      "Unter 9,5LeoVegas2,20Einsatz 47,62\u00a0€keine BörsenquoteZur Website",
     ]);
     expect(cells[3]).toHaveTextContent("104,8 %+4,76 €");
     expect(cells[3]).not.toHaveTextContent("zu prüfen");
@@ -102,7 +102,11 @@ describe("SurebetsTable", () => {
       "href",
       "https://www.leovegas.de/de-de/sportwetten#event/1028036087"
     );
-    expect(within(twentybet).queryByRole("link")).not.toBeInTheDocument();
+    // 20bet's match address can't be built: its site, said as such.
+    const site = within(twentybet).getByRole("link", { name: "Website von 20bet öffnen" });
+    expect(site).toHaveTextContent("Zur Website");
+    expect(site).toHaveAttribute("href", "https://20bet.com/de");
+    expect(site).toHaveAttribute("target", "_blank");
   });
 
   it("reads a lay on the exchange, with what it risks, and marks a TRJ over 110% to be checked", () => {
@@ -128,7 +132,7 @@ describe("SurebetsTable", () => {
     );
     const cells = within(screen.getAllByRole("row")[1]).getAllByRole("cell");
     expect(within(cells[2]).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
-      "DembéléMerkur Bets2,50Einsatz 100,00\u00a0€keine Börsenquote",
+      "DembéléMerkur Bets2,50Einsatz 100,00\u00a0€keine BörsenquoteZur Website",
       "Lay DembéléBörse2,30Einsatz 109,65\u00a0€ (Haftung 142,54\u00a0€)",
     ]);
     expect(cells[3]).toHaveTextContent("112,0 %+12,00 €zu prüfen");
@@ -143,8 +147,8 @@ describe("SurebetsTable", () => {
     expect(real).not.toHaveAttribute("data-suspect");
     const cells = within(suspect).getAllByRole("cell");
     expect(within(cells[2]).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
-      "Über 9,5Merkur Bets2,00Einsatz 52,38\u00a0€ · ⚠️ andere Quellen 1,45: Quote prüfenkeine Börsenquote",
-      "Unter 9,5LeoVegas2,20Einsatz 47,62\u00a0€keine Börsenquote",
+      "Über 9,5Merkur Bets2,00Einsatz 52,38\u00a0€ · ⚠️ andere Quellen 1,45: Quote prüfenkeine BörsenquoteZur Website",
+      "Unter 9,5LeoVegas2,20Einsatz 47,62\u00a0€keine BörsenquoteZur Website",
     ]);
     // "verdächtig" says more than "zu prüfen": one of them only.
     expect(cells[3]).toHaveTextContent("⚠️ verdächtig");
@@ -304,7 +308,8 @@ describe("SurebetsTable", () => {
     );
     expect(screen.getByRole("img", { name: "Skilanglauf" })).toHaveTextContent("🎿");
     expect(screen.getByRole("link", { name: race })).toHaveAttribute("href", "?match=relais");
-    // Nothing more than its winner: no "+N markets".
-    expect(screen.getAllByRole("link")).toHaveLength(1);
+    // Nothing more than its winner: no "+N markets" (the other links are the
+    // bookmakers' sites).
+    expect(screen.getAllByRole("link").filter((a) => a.getAttribute("target") !== "_blank")).toHaveLength(1);
   });
 });

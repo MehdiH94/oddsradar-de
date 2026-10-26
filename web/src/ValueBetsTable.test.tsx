@@ -103,7 +103,8 @@ describe("ValueBetsTable", () => {
     fireEvent.click(link, { ctrlKey: true });
     expect(onOpenMatch).toHaveBeenCalledTimes(1);
     // Nothing more than its 1X2: its title leads to the page, with no "+N markets".
-    expect(screen.getAllByRole("link").map((a) => a.textContent)).toEqual(["PSG - OM", "+41 Märkte", "Lens - Lille"]);
+    const inPlace = screen.getAllByRole("link").filter((a) => a.getAttribute("target") !== "_blank");
+    expect(inPlace.map((a) => a.textContent)).toEqual(["PSG - OM", "+41 Märkte", "Lens - Lille"]);
   });
 
   it("names the sport of each row by its icon, and leads the match's title to its page", () => {
@@ -137,8 +138,8 @@ describe("ValueBetsTable", () => {
     expect(title).toHaveAttribute("href", "?match=lens-lille");
     fireEvent.click(title);
     expect(onOpenMatch).toHaveBeenCalledWith("lens-lille");
-    // No "+N markets" next to it.
-    expect(screen.getAllByRole("link")).toHaveLength(1);
+    // No "+N markets" next to it (the other link is the bookmaker's site).
+    expect(screen.getAllByRole("link").filter((a) => a.getAttribute("target") !== "_blank")).toHaveLength(1);
   });
 
   it("shows a player's bet with its market, a row per market", () => {

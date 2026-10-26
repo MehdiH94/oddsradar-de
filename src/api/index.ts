@@ -5,6 +5,8 @@ import { openAuthDb } from "../auth/db";
 import { createAuthContext } from "../auth/context";
 import { mailerFromEnv } from "../auth/mailer";
 import { purgeExpired } from "../auth/store";
+import { purgeTakenSurebets } from "../auth/takenSurebets";
+import { runSurebetReminders } from "../auth/surebetReminders";
 import { marketsMaxAgeForInterval, oddsMaxAgeForPollInterval } from "../db/repository";
 import { createWorkerPool } from "../freebets/pool";
 
@@ -35,7 +37,13 @@ const auth = createAuthContext({
 });
 // Forget what has expired now, then every hour.
 purgeExpired(authDb);
-setInterval(() => purgeExpired(authDb), 60 * 60 * 1000).unref();
+purgeTakenSurebets(authDb);
+setInterval(() => {
+  purgeExpired(authDb);
+  purgeTakenSurebets(authDb);
+}, 60 * 60 * 1000).unref();
+// The taken surebets' reminders, an hour before kick-off (src/auth/surebetReminders.ts).
+setInterval(() => void runSurebetReminders(auth), 60 * 1000).unref();
 
 const trustProxy = Number(process.env.TRUST_PROXY ?? "0");
 const app = createServer(

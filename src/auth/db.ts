@@ -97,6 +97,24 @@ const MIGRATIONS: string[] = [
   );
   CREATE INDEX feedback_by_date ON feedback(created_at);
   `,
+  // The surebets an account has taken (src/auth/takenSurebets.ts): shown as
+  // such on every device, and, when asked, a reminder by email an hour before
+  // kick-off to check the exchange's lay was matched. Forgotten two days after
+  // the match.
+  `
+  CREATE TABLE user_taken_surebets (
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    surebet_key TEXT NOT NULL,
+    event_id TEXT NOT NULL,
+    start_time TEXT NOT NULL,
+    label TEXT NOT NULL,
+    remind INTEGER NOT NULL DEFAULT 0 CHECK (remind IN (0, 1)),
+    reminded_at TEXT,
+    created_at TEXT NOT NULL,
+    PRIMARY KEY (user_id, surebet_key)
+  );
+  CREATE INDEX user_taken_surebets_by_start ON user_taken_surebets(start_time);
+  `,
 ];
 
 export function migrate(db: DatabaseSync): void {

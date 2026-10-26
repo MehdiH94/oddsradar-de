@@ -131,6 +131,27 @@ test("a surebet shows each leg's bookmaker, price and stake, and what it earns",
   await expect(surebets).toContainText("+1,93 €");
 });
 
+test("a surebet marked as taken stays so after a reload, greyed, until the mark is taken off", async ({ page }) => {
+  await page.goto("/odds?sport=value-bets&sort=value");
+  const surebets = page.getByRole("region", { name: "Surebets" });
+  const row = surebets.getByRole("row").filter({ hasText: teams(SUREBET_MATCH) });
+  const button = row.getByRole("button", { name: `Genommen: ${teams(SUREBET_MATCH)}` });
+  await expect(button).toHaveAttribute("aria-pressed", "false");
+
+  await button.click();
+  await expect(button).toHaveText("✓ Genommen");
+  await expect(row).toHaveAttribute("data-taken", "true");
+
+  // Kept with the account, not the page.
+  await page.reload();
+  await expect(button).toHaveAttribute("aria-pressed", "true");
+
+  await button.click();
+  await expect(button).toHaveAttribute("aria-pressed", "false");
+  await page.reload();
+  await expect(button).toHaveAttribute("aria-pressed", "false");
+});
+
 test("a match page keeps every ticked bookmaker's price in view on a desktop", async ({ page }) => {
   // Every bookmaker ticked (the default).
   await page.goto(`/odds?match=${VALUE_MATCH.id}`);

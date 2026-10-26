@@ -12,6 +12,7 @@ import { REFERENCE_SPORTS } from "../reference/sports";
 import { GEM_MIN_EDGE, runGemAlerts } from "../alerts/gems";
 import { runHealthAlerts } from "../alerts/health";
 import { runQualityAlerts } from "../alerts/quality";
+import { runExchangeAlerts } from "../alerts/exchange";
 import { marketsMaxAgeForInterval, oddsMaxAgeForPollInterval } from "../db/repository";
 import { startScheduler } from "./scheduler";
 import { leovegasScraper } from "../scraper/kambi";
@@ -124,5 +125,8 @@ startScheduler(intervalMinutes, async () => {
     // The surebets left out as suspects, to the administrators' channel: a
     // swapped or stale price is a bug to find (src/alerts/quality.ts).
     await runQualityAlerts(db, { webhookUrl: adminWebhookUrl, publicUrl: process.env.PUBLIC_URL, listing });
+    // The exchange unreachable for 15 minutes, or back, to the same channel
+    // (src/alerts/exchange.ts).
+    await runExchangeAlerts(db, { webhookUrl: adminWebhookUrl });
   }
 });

@@ -24,44 +24,23 @@ export function getBestBookmakers(
   return best?.bookmakers ?? [];
 }
 
-// The bookmakers each outcome is shown best at, so that they make two sites at
-// least (the owner, 25/10/2026: every outcome of a match can't be bet at one
-// bookmaker): when every best price is at the same one, the outcome where
-// another site costs the least goes to that site; with a single site pricing
-// the match, none. The API's TRJ takes the same ones (src/db/payoutRate.ts,
-// bestAcrossSites).
-export function getBestAcrossSites(
+// The bookmakers each outcome is shown best at: its highest price, always,
+// even when one site has every outcome's (the owner, 26/10/2026: "la meilleure
+// cote n'est pas sélectionnée"). The TRJ beside them takes two sites at least
+// (src/db/payoutRate.ts, bestAcrossSites): every outcome of a match can't be
+// bet at one bookmaker, but each outcome's best price is still that one's. With
+// a single site pricing the match, none: no price is better than another.
+export function getBestPrices(
   event: EventWithOdds,
   market: string,
   selections: readonly string[],
   bookmakers?: readonly string[]
 ): Record<string, string[]> {
-  const priced = (selection: string) =>
-    Object.entries(event.byBookmaker).flatMap(([bookmaker, { odds }]) => {
-      if (bookmakers && !bookmakers.includes(bookmaker)) return [];
-      const price = odds.find((o) => o.market === market && o.selection === selection)?.price;
-      return price !== undefined && price > 0 ? [{ bookmaker, price }] : [];
-    });
-  const outcomes = selections.map((selection) => ({ selection, prices: priced(selection) }));
-  const best: Record<string, { bookmakers: string[]; price: number }> = {};
-  for (const { selection, prices } of outcomes) {
-    if (prices.length === 0) continue;
-    const top = Math.max(...prices.map((p) => p.price));
-    best[selection] = { bookmakers: prices.filter((p) => p.price === top).map((p) => p.bookmaker), price: top };
-  }
-  const sites = new Set(Object.values(best).flatMap((b) => b.bookmakers));
-  const result = (): Record<string, string[]> => Object.fromEntries(Object.entries(best).map(([s, b]) => [s, b.bookmakers]));
-  if (sites.size !== 1 || Object.keys(best).length < 2) return result();
-  const [only] = sites;
-  let swap: { selection: string; bookmakers: string[]; price: number; cost: number } | undefined;
-  for (const { selection, prices } of outcomes) {
-    const others = prices.filter((p) => p.bookmaker !== only);
-    if (others.length === 0 || !best[selection]) continue;
-    const top = Math.max(...others.map((p) => p.price));
-    const cost = 1 / top - 1 / best[selection].price;
-    if (!swap || cost < swap.cost) swap = { selection, bookmakers: others.filter((p) => p.price === top).map((p) => p.bookmaker), price: top, cost };
-  }
-  if (!swap) return {};
-  best[swap.selection] = { bookmakers: swap.bookmakers, price: swap.price };
-  return result();
+  const best = Object.fromEntries(selections.map((selection) => [selection, getBestBookmakers(event, market, selection, bookmakers)]));
+  const sites = new Set(
+    Object.entries(event.byBookmaker)
+      .filter(([bookmaker, { odds }]) => (!bookmakers || bookmakers.includes(bookmaker)) && odds.some((o) => o.market === market))
+      .map(([bookmaker]) => bookmaker)
+  );
+  return sites.size < 2 ? {} : best;
 }

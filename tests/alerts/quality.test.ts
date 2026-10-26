@@ -66,12 +66,23 @@ describe("suspectMessage", () => {
     const lines = text.split("\n");
     expect(lines[0]).toMatch(/^🔎 \*\*Suspect surebet, \d+\.\d %\*\* \(\+\d+\.\d\d € on 100 €\): Club Brugge II \(W\) - K Olsa Brakel \(W\) \(Belgium\. First Division\. Women\), .*kick-off <t:\d+:f>/);
     expect(lines.slice(1, 4)).toEqual([
-      expect.stringMatching(/^• back Club Brugge II \(W\) @ 20bet 2\.63: stake \d+\.\d\d €$/),
-      expect.stringMatching(/^• back .* @ Betway 6\.16: stake \d+\.\d\d €$/),
-      expect.stringMatching(/^• back K Olsa Brakel \(W\) @ Betway 9\.47: stake \d+\.\d\d €$/),
+      expect.stringMatching(/^• back Club Brugge II \(W\) @ 20bet 2\.63: stake \d+\.\d\d €, read just now$/),
+      expect.stringMatching(/^• back .* @ Betway 6\.16: stake \d+\.\d\d €, read just now$/),
+      expect.stringMatching(/^• back K Olsa Brakel \(W\) @ Betway 9\.47: stake \d+\.\d\d €, read just now$/),
     ]);
     expect(lines[4]).toMatch(/^⚠️ 20bet pays 2\.63 on Club Brugge II \(W\), the other sources 1\.30: .*Check the price at the bookmaker before betting/);
     expect(lines[5]).toMatch(/^https:\/\/odds-blitzer\.de\/\?match=brugge-brakel&/);
+  });
+
+  it("says how long ago each leg's price was read, so that an old one shows", () => {
+    const db = openDb(":memory:");
+    upsertCanonicalEvents(db, [brugge()]);
+    const [suspect] = getSuspectSurebets(db);
+    const readAt = Date.parse(suspect.legs[0].readAt!);
+    expect(suspectMessage(suspect, undefined, readAt + 12 * 60_000).content).toMatch(/@ 20bet 2\.63: stake \d+\.\d\d €, read 12 min ago/);
+    expect(suspectMessage(suspect, undefined, readAt + 3 * 3600_000 + 59_000).content).toMatch(/@ 20bet 2\.63: stake \d+\.\d\d €, read 3 h ago/);
+    const unread = { ...suspect, legs: suspect.legs.map((l) => ({ ...l, readAt: undefined })) };
+    expect(suspectMessage(unread).content).not.toContain(", read ");
   });
 
   it("keeps a race's many legs under Discord's 2000 characters", () => {

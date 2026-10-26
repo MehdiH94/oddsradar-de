@@ -321,6 +321,14 @@ export function getSuspectSurebets(db: DatabaseSync, opts: ListingOptions = {}):
   for (let start = 0; start < ids.length; start += SUREBET_CHUNK) {
     surebetsOf(db, ids.slice(start, start + SUREBET_CHUNK), oddsSince, marketsSince, undefined, suspects);
   }
+  // When each leg was read, as on the site: an old price tells itself from a
+  // real one at a glance (src/alerts/quality.ts).
+  for (const suspect of suspects) {
+    for (const leg of suspect.legs) {
+      const at = legReadAt(db, suspect, leg);
+      if (at) leg.readAt = at;
+    }
+  }
   addBookmakerLinks(db, suspects);
   return suspects.sort((a, b) => b.payoutRate - a.payoutRate);
 }

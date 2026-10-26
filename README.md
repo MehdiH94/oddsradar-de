@@ -726,9 +726,10 @@ source, ou une vraie cote, que le proprietaire veut pouvoir jouer
 n'entre jamais dans les alertes des testeurs. Apres chaque cycle de reference,
 le worker signale chacun une fois dans le salon Discord des administrateurs
 (`DISCORD_ADMIN_WEBHOOK_URL`, `src/alerts/quality.ts`), 5 par cycle au plus :
-le match, le coup d'envoi, le profit, chaque pari pour 100 € avec sa mise et
-le lien de la page du match chez le bookmaker, puis la cote en cause et le
-lien du match. Un suspect encore la apres 7 jours est signale de nouveau.
+le match, le coup d'envoi, le profit, chaque pari pour 100 € avec sa mise,
+l'heure de lecture de sa cote (« read 12 min ago » : un vieux prix se voit
+tout de suite) et le lien de la page du match chez le bookmaker, puis la cote
+en cause et le lien du match. Un suspect encore la apres 7 jours est signale de nouveau.
 
 ### Mises en production (administrateurs)
 

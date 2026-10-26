@@ -72,6 +72,14 @@
   border-style: dashed;
 }
 
+/* Many bookmakers from 768 px: a tighter side padding, so that a row of
+   every bookmaker's chip, each with its icon, still fits a market's column. */
+@media (min-width: 768px) {
+  .compact {
+    padding: 0 var(--space-1);
+  }
+}
+
 /* Many bookmakers on a phone: the columns are under 3 rem wide, so the icon
    (and the tick, beside it) goes over the price instead of beside it. From
    768 px the chips are as wide as they need. */

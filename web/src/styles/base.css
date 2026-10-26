@@ -117,10 +117,24 @@ th {
   color: var(--color-text-muted);
 }
 
+/* The initial of a bookmaker without an icon (BookmakerLogo), in the icon's
+   place and size. */
+.bookmaker-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 3px;
+  background: var(--color-text-muted);
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 1;
+}
+
 /* Some bookmakers' icons are dark on a transparent ground: on the dark theme
    they sit on a white tile, like on their own sites. */
 @media (prefers-color-scheme: dark) {
-  .bookmaker-logo {
+  .bookmaker-logo:not(.bookmaker-badge) {
     background: #ffffff;
     border-radius: 3px;
   }

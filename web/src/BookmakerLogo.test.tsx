@@ -13,14 +13,17 @@ describe("BookmakerLogo", () => {
     expect(screen.getByRole("img", { name: "LeoVegas" })).toBeInTheDocument();
   });
 
-  it("shows the name of a bookmaker that has no icon, and nothing beside a written name", () => {
-    BOOKMAKER_BRANDING.noicon = { name: "Sans icône" };
-    const { container, rerender } = render(<BookmakerLogo bookmaker="noicon" />);
-    expect(screen.getByText("Sans icône")).toBeInTheDocument();
-    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+  it("shows the initial of a bookmaker that has no icon, named for screen readers, hidden beside a written name", () => {
+    BOOKMAKER_BRANDING.noicon = { name: "sans icône" };
+    const { rerender } = render(<BookmakerLogo bookmaker="noicon" size={16} />);
+    const badge = screen.getByRole("img", { name: "sans icône" });
+    expect(badge).toHaveTextContent(/^S$/);
+    expect(badge).toHaveAttribute("title", "sans icône");
+    expect(badge).toHaveStyle({ width: "16px", height: "16px" });
 
     rerender(<BookmakerLogo bookmaker="noicon" decorative />);
-    expect(container).toBeEmptyDOMElement();
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    expect(screen.getByText("S")).toHaveAttribute("aria-hidden", "true");
   });
 
   it("keeps the id of a bookmaker it knows nothing of", () => {
@@ -28,11 +31,13 @@ describe("BookmakerLogo", () => {
     expect(screen.getByText("unknown")).toBeInTheDocument();
   });
 
-  it("names every bookmaker, with its icon when there is one", () => {
+  it("gives every bookmaker a name and its own icon, so that each site is recognized", () => {
     for (const id of ALL_BOOKMAKERS) {
       const brand = BOOKMAKER_BRANDING[id];
-      expect(brand?.name).toBeTruthy();
-      expect(brand?.logo === undefined || typeof brand.logo === "string").toBe(true);
+      expect(brand?.name, id).toBeTruthy();
+      expect(typeof brand?.logo, id).toBe("string");
     }
+    const logos = ALL_BOOKMAKERS.map((id) => BOOKMAKER_BRANDING[id]!.logo);
+    expect(new Set(logos).size).toBe(logos.length);
   });
 });

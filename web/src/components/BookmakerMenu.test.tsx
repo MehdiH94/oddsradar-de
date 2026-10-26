@@ -41,10 +41,9 @@ describe("BookmakerMenu", () => {
 
     for (const name of ["LeoVegas", "Merkur Bets", "20bet", "Admiralbet", "bet-at-home", "ODDSET", "Betway", "Sportingbet", "VBET", "888sport", "neobet", "Tipico", "Winamax"]) expect(screen.getByText(name)).toBeInTheDocument();
     // The icons sit next to the names: decorative, not read a second time.
-    // One per bookmaker that has an icon; the others show their name alone.
-    const withIcon = ALL_BOOKMAKERS.filter((id) => BOOKMAKER_BRANDING[id]?.logo).length;
-    expect(withIcon).toBe(10);
-    expect(container.querySelectorAll("img.bookmaker-logo")).toHaveLength(withIcon);
+    // One per bookmaker: every one has an icon.
+    expect(ALL_BOOKMAKERS.every((id) => BOOKMAKER_BRANDING[id]?.logo)).toBe(true);
+    expect(container.querySelectorAll("img.bookmaker-logo")).toHaveLength(ALL_BOOKMAKERS.length);
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
 

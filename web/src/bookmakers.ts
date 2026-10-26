@@ -7,6 +7,9 @@ import oddsetLogo from "./assets/bookmakers/oddset.png";
 import betwayLogo from "./assets/bookmakers/betway.png";
 import sportingbetLogo from "./assets/bookmakers/sportingbet.png";
 import vbetLogo from "./assets/bookmakers/vbet.ico";
+import sport888Logo from "./assets/bookmakers/888sport.png";
+import neobetLogo from "./assets/bookmakers/neobet.png";
+import tipicoLogo from "./assets/bookmakers/tipico.png";
 import winamaxdeLogo from "./assets/bookmakers/winamaxde.png";
 
 // The fixed set of bookmakers this project scrapes (src/scraper/kambi.ts for
@@ -41,9 +44,9 @@ export function isDefaultBookmakers(selected: readonly string[]): boolean {
   return selected.length === DEFAULT_BOOKMAKERS.length && selected.every((b, i) => b === DEFAULT_BOOKMAKERS[i]);
 }
 
-// How the UI shows each bookmaker: its own site icon (LeoVegas.de's favicon, Merkur Bets's sun, 20bet's app icon, Admiralbet's, bet-at-home's, ODDSET's, Betway's, Winamax's; Tipico's name alone), with the name as alt text and
-// tooltip (BookmakerLogo). A bookmaker without an icon (yet) shows its name in
-// its place.
+// How the UI shows each bookmaker: its own site icon (LeoVegas.de's favicon, Merkur Bets's sun, 20bet's app icon, Admiralbet's, bet-at-home's, ODDSET's, Betway's, Winamax's, 888sport's "888", neobet's "N", Tipico's "t"), with the name as alt text and
+// tooltip (BookmakerLogo). A bookmaker without an icon (yet) shows a badge with
+// its initial in its place.
 // `unlicensed`: the bookmaker holds no German licence (GGL): said next to its
 // name in the filter, as a fact, with no link to it.
 // `stakeTax`: the German betting tax its prices are shown net of, as the
@@ -60,9 +63,9 @@ export const BOOKMAKER_BRANDING: Record<string, { name: string; logo?: string; u
   betway: { name: "Betway", logo: betwayLogo, stakeTax: 0.053 },
   sportingbet: { name: "Sportingbet", logo: sportingbetLogo, stakeTax: 0.05 },
   vbet: { name: "VBET", logo: vbetLogo, stakeTax: 0.05 },
-  "888sport": { name: "888sport", stakeTax: 0.05 },
-  neobet: { name: "neobet", stakeTax: 0.05 },
-  tipico: { name: "Tipico", stakeTax: 0 },
+  "888sport": { name: "888sport", logo: sport888Logo, stakeTax: 0.05 },
+  neobet: { name: "neobet", logo: neobetLogo, stakeTax: 0.05 },
+  tipico: { name: "Tipico", logo: tipicoLogo, stakeTax: 0 },
   winamaxde: { name: "Winamax", logo: winamaxdeLogo, stakeTax: 0 },
 };
 

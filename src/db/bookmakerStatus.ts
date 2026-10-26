@@ -75,3 +75,20 @@ export function listBookmakerStatus(db: DatabaseSync, now = Date.now()): Bookmak
     .all() as unknown as Row[];
   return rows.map((row) => ({ ...row, health: healthOf(row, now), downAlerted: row.downAlerted === 1 }));
 }
+
+// Each bookmaker's last read, one line each, for `npm run bookmaker-status`
+// (vps-report bookmakers): its health, when it was last read and what it
+// gave, and its last error, so that a scraper failing in production shows
+// from outside the server.
+export function formatBookmakerStatus(statuses: readonly BookmakerStatus[], now = Date.now()): string {
+  if (statuses.length === 0) return "No bookmaker read yet.";
+  const ago = (iso: string | null) => (iso === null ? "never" : `${Math.round((now - Date.parse(iso)) / 60_000)} min ago`);
+  return statuses
+    .map((s) => {
+      const last = s.lastEvents === null ? "failed" : `${s.lastEvents} matches`;
+      const good = s.lastGoodAt === null ? "no good read" : `last good ${ago(s.lastGoodAt)} (${s.lastGoodEvents ?? 0} matches)`;
+      const error = s.lastError ? `\n    error: ${s.lastError.replace(/\s+/g, " ").slice(0, 300)}` : "";
+      return `${s.health.toUpperCase().padEnd(7)} ${s.bookmaker.padEnd(12)} read ${ago(s.lastReadAt)}: ${last}; ${good}${error}`;
+    })
+    .join("\n");
+}

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { openDb } from "../../src/db/client";
-import { DOWN_AFTER_MS, listBookmakerStatus, recordBookmakerRead } from "../../src/db/bookmakerStatus";
+import { DOWN_AFTER_MS, formatBookmakerStatus, listBookmakerStatus, recordBookmakerRead } from "../../src/db/bookmakerStatus";
 
 const T0 = Date.parse("2026-10-20T10:00:00.000Z");
 const at = (minutes: number) => new Date(T0 + minutes * 60_000).toISOString();
@@ -36,5 +36,24 @@ describe("the bookmakers' last reads", () => {
     // A good read again: ok, its error forgotten.
     recordBookmakerRead(db, "oddset", { events: 790 }, at(40));
     expect(listBookmakerStatus(db, T0 + 40 * 60_000).find((b) => b.bookmaker === "oddset")).toMatchObject({ health: "ok", lastError: null, lastGoodAt: at(40) });
+  });
+});
+
+describe("formatBookmakerStatus", () => {
+  it("gives each bookmaker's health, last read, last good read and error, one line each", () => {
+    const db = openDb(":memory:");
+    recordBookmakerRead(db, "betway", { events: 950 }, at(0));
+    recordBookmakerRead(db, "betway", { error: "Error: every betway\n  sport failed" }, at(40));
+    recordBookmakerRead(db, "neobet", { events: 412 }, at(40));
+    const now = T0 + 42 * 60_000;
+    expect(formatBookmakerStatus(listBookmakerStatus(db, now), now).split("\n")).toEqual([
+      "DOWN    betway       read 2 min ago: failed; last good 42 min ago (950 matches)",
+      "    error: Error: every betway sport failed",
+      "OK      neobet       read 2 min ago: 412 matches; last good 2 min ago (412 matches)",
+    ]);
+  });
+
+  it("says so when no bookmaker was read yet", () => {
+    expect(formatBookmakerStatus([])).toBe("No bookmaker read yet.");
   });
 });

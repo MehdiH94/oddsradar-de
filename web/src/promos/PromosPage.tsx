@@ -42,6 +42,10 @@ export function PromosPage() {
           </p>
         </div>
         <div className={styles.stack}>
+          <label className={styles.remind}>
+            <input type="checkbox" checked={promos.remind} onChange={(event) => promos.setRemind(event.target.checked)} />
+            E-Mail am Vortag, wenn eine offene Promo endet
+          </label>
           <AddPromo add={promos.add} />
           {promos.status === "error" && (
             <p className={styles.notice} role="alert">

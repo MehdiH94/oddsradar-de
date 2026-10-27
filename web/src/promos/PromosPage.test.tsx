@@ -29,7 +29,7 @@ const promo = (over: Partial<Promo>): Promo => ({
 });
 
 // The API as the page sees it: the list, and what is sent to it.
-function stubApi(promos: Promo[], refuse = false) {
+function stubApi(promos: Promo[], refuse = false, remind = true) {
   const sent: Array<{ url: string; method: string; body: unknown }> = [];
   const fetchMock = vi.fn((url: string, init?: RequestInit) => {
     if (init?.method) {
@@ -37,7 +37,7 @@ function stubApi(promos: Promo[], refuse = false) {
       if (refuse) return reply({ message: "Buchmacher und Titel angeben; der Link muss mit https:// beginnen." }, 400);
       return init.method === "POST" ? reply({ id: 9 }, 201) : reply(null, 204);
     }
-    return reply({ promos });
+    return reply({ promos, remind });
   });
   vi.stubGlobal("fetch", fetchMock);
   return { sent, fetchMock };
@@ -167,6 +167,31 @@ describe("PromosPage", () => {
     fireEvent.click(screen.getByRole("button", { name: "Promo speichern" }));
     expect(await screen.findByRole("alert")).toHaveTextContent("der Link muss mit https:// beginnen");
     expect(screen.getByRole("textbox", { name: "Titel" })).toHaveValue("Rakeback");
+  });
+
+  it("shows whether the e-mail the day before is on, and turns it off and on", async () => {
+    const { sent } = stubApi([], false, false);
+    renderPage();
+    const box = await screen.findByRole("checkbox", { name: "E-Mail am Vortag, wenn eine offene Promo endet" });
+    await waitFor(() => expect(box).not.toBeChecked());
+    fireEvent.click(box);
+    expect(box).toBeChecked();
+    fireEvent.click(box);
+    expect(box).not.toBeChecked();
+    await waitFor(() => expect(sent).toHaveLength(2));
+    expect(sent).toEqual([
+      { url: "/api/promos/settings", method: "PUT", body: { remind: true } },
+      { url: "/api/promos/settings", method: "PUT", body: { remind: false } },
+    ]);
+  });
+
+  it("puts the switch back when the server refuses it", async () => {
+    stubApi([], true);
+    renderPage();
+    const box = await screen.findByRole("checkbox", { name: "E-Mail am Vortag, wenn eine offene Promo endet" });
+    await screen.findByText(/Noch keine Promo/);
+    fireEvent.click(box);
+    await waitFor(() => expect(box).toBeChecked());
   });
 
   it("says when the promos cannot be read", async () => {

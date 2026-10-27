@@ -672,6 +672,13 @@ comptes, chacun les marquant pour lui) : les pages promotions des
 bookmakers et les canaux Telegram publics suivront (le proprietaire,
 26/10/2026).
 
+La veille de la fin d'une promo, le compte recoit un e-mail (le SMTP des
+comptes) qui liste ses promos ouvertes, non marquees prises, finissant dans
+les 24 heures, chacune une fois (`src/auth/promoReminders.ts`, toutes les
+10 minutes dans le processus web ; `user_promo_reminded`). La case « E-Mail
+am Vortag » de la page l'active ou le coupe (`user_promo_settings`, active
+par defaut ; `PUT /api/promos/settings`).
+
 ## Alertes Discord
 
 Le worker previent un salon Discord a chaque nouvelle « gem », un gros value

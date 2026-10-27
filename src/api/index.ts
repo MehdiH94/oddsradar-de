@@ -8,6 +8,7 @@ import { purgeExpired } from "../auth/store";
 import { purgeTakenSurebets } from "../auth/takenSurebets";
 import { purgePromos } from "../auth/promos";
 import { runSurebetReminders } from "../auth/surebetReminders";
+import { runPromoReminders } from "../auth/promoReminders";
 import { marketsMaxAgeForInterval, oddsMaxAgeForPollInterval } from "../db/repository";
 import { createWorkerPool } from "../freebets/pool";
 
@@ -47,6 +48,8 @@ setInterval(() => {
 }, 60 * 60 * 1000).unref();
 // The taken surebets' reminders, an hour before kick-off (src/auth/surebetReminders.ts).
 setInterval(() => void runSurebetReminders(auth), 60 * 1000).unref();
+// The promos' reminders, the day before they end (src/auth/promoReminders.ts).
+setInterval(() => void runPromoReminders(auth), 10 * 60 * 1000).unref();
 
 const trustProxy = Number(process.env.TRUST_PROXY ?? "0");
 const app = createServer(

@@ -4,7 +4,20 @@ import { openDb } from "../../src/db/client";
 import { openAuthDb } from "../../src/auth/db";
 import { createServer } from "../../src/api/server";
 import { createUser } from "../../src/auth/store";
-import { addPromo, listPromos, MAX_OWN, NewPromo, parseNewPromo, purgePromos, safeUrl, setPromoTaken } from "../../src/auth/promos";
+import {
+  addPromo,
+  duePromoReminders,
+  listPromos,
+  MAX_OWN,
+  NewPromo,
+  parseNewPromo,
+  promoRemindersOn,
+  purgePromos,
+  safeUrl,
+  setPromoReminders,
+  setPromoTaken,
+} from "../../src/auth/promos";
+import { runPromoReminders } from "../../src/auth/promoReminders";
 import { SITE, sessionCookie, testAuth } from "./helpers";
 
 const NOW = new Date("2026-10-10T10:00:00Z");
@@ -151,6 +164,19 @@ describe("/api/promos", () => {
     expect(res.body.promos).toEqual([]);
   });
 
+  it("tells whether the reminders are on, and turns them off and on", async () => {
+    const t = setup();
+    const cookie = await sessionCookie(t);
+    const ada = t.as(cookie);
+    expect((await ada.get()).body.remind).toBe(true);
+    const settings = (body: unknown) => request(t.app).put("/api/promos/settings").set({ Origin: SITE, Cookie: cookie }).send(body as object);
+    expect((await settings({ remind: "no" })).status).toBe(400);
+    expect((await settings({ remind: false })).status).toBe(204);
+    expect((await ada.get()).body.remind).toBe(false);
+    expect((await settings({ remind: true })).status).toBe(204);
+    expect((await ada.get()).body.remind).toBe(true);
+  });
+
   it("keeps each account's promos to itself", async () => {
     const t = setup();
     const ada = t.as(await sessionCookie(t, "ada@example.com"));
@@ -173,5 +199,77 @@ describe("/api/promos", () => {
     const foreign = await request(t.app).post("/api/promos").set({ Origin: "https://evil.test", Cookie: cookie }).send(PROMO);
     expect(foreign.status).toBe(403);
     expect((await ada.get()).body.promos).toEqual([]);
+  });
+});
+
+describe("the e-mail the day before a promo ends", () => {
+  const ends = (base: Date, hours: number) => new Date(base.getTime() + hours * 3600_000).toISOString();
+
+  it("lists, by account, the open promos it sees that end within a day, not taken, for the accounts that did not turn it off", () => {
+    const db = openAuthDb(":memory:");
+    const ada = createUser(db, { email: "ada@example.com", passwordHash: "x", verified: true }, NOW);
+    const bob = createUser(db, { email: "bob@example.com", passwordHash: "x", verified: true }, NOW);
+    const soon = addPromo(db, ada.id, { ...PROMO, title: "soon", endsAt: ends(NOW, 20) }, NOW)!;
+    const sooner = addPromo(db, ada.id, { ...PROMO, title: "sooner", endsAt: ends(NOW, 2) }, NOW)!;
+    addPromo(db, ada.id, { ...PROMO, title: "later", endsAt: ends(NOW, 30) }, NOW);
+    addPromo(db, ada.id, { ...PROMO, title: "ended", endsAt: ends(NOW, -1) }, NOW);
+    addPromo(db, ada.id, { ...PROMO, title: "no end", endsAt: null }, NOW);
+    const taken = addPromo(db, ada.id, { ...PROMO, title: "taken", endsAt: ends(NOW, 3) }, NOW)!;
+    setPromoTaken(db, ada.id, taken, true, NOW);
+    // The site's: everyone's.
+    db.prepare("INSERT INTO promos (source, source_key, bookmaker, title, ends_at, found_at) VALUES ('site', 'k', 'leovegas', 'site''s', ?, ?)").run(
+      ends(NOW, 5),
+      NOW.toISOString()
+    );
+    const due = duePromoReminders(db, NOW);
+    // Accounts in no particular order; each one's promos soonest end first.
+    expect(due.map((d) => [d.email, d.promos.map((p) => p.title)]).sort()).toEqual([
+      ["ada@example.com", ["sooner", "site's", "soon"]],
+      ["bob@example.com", ["site's"]],
+    ]);
+    expect(due.find((d) => d.userId === ada.id)!.promos.map((p) => p.id)).toContain(soon);
+    expect(due.find((d) => d.userId === ada.id)!.promos[0]).toEqual({ id: sooner, bookmaker: "winamaxde", title: "sooner", url: PROMO.url, endsAt: ends(NOW, 2) });
+
+    // Bob turns them off; Ada stays on, as everyone by default.
+    expect(promoRemindersOn(db, bob.id)).toBe(true);
+    setPromoReminders(db, bob.id, false);
+    expect(promoRemindersOn(db, bob.id)).toBe(false);
+    expect(duePromoReminders(db, NOW).map((d) => d.email)).toEqual(["ada@example.com"]);
+    setPromoReminders(db, bob.id, true);
+    expect(duePromoReminders(db, NOW).map((d) => d.email).sort()).toEqual(["ada@example.com", "bob@example.com"]);
+  });
+
+  it("sends one e-mail per account, each promo once, and tries again when it fails", async () => {
+    const t = testAuth();
+    const ada = createUser(t.auth.db, { email: "ada@example.com", passwordHash: "x", verified: true }, NOW);
+    addPromo(t.auth.db, ada.id, { ...PROMO, bookmaker: "Stake", title: "Rakeback 10 %", endsAt: ends(t.clock.now, 5) }, NOW);
+    addPromo(t.auth.db, ada.id, { ...PROMO, endsAt: ends(t.clock.now, 10) }, NOW);
+
+    const send = t.auth.mailer.send;
+    t.auth.mailer.send = async () => {
+      throw new Error("SMTP down");
+    };
+    const errors = console.error;
+    console.error = () => {};
+    expect(await runPromoReminders(t.auth)).toBe(0);
+    console.error = errors;
+    t.auth.mailer.send = send;
+
+    expect(await runPromoReminders(t.auth)).toBe(1);
+    expect(await runPromoReminders(t.auth)).toBe(0);
+    expect(t.sent).toHaveLength(1);
+    const [mail] = t.sent;
+    expect(mail.to).toBe("ada@example.com");
+    expect(mail.subject).toMatch(/^2 Promos enden bald · /);
+    expect(mail.text).toContain("- Stake: Rakeback 10 % (endet ");
+    expect(mail.text).toContain(`- winamaxde: ${PROMO.title} (endet `);
+    expect(mail.text).toContain(`\n  ${PROMO.url}`);
+    expect(mail.text).toContain(`${SITE}/promos`);
+
+    // A new one ending soon: its own e-mail, the others not again.
+    addPromo(t.auth.db, ada.id, { ...PROMO, bookmaker: "LeoVegas", title: "Quotenboost", endsAt: ends(t.clock.now, 3) }, NOW);
+    expect(await runPromoReminders(t.auth)).toBe(1);
+    expect(t.sent[1].subject).toMatch(/^Promo endet bald: LeoVegas · /);
+    expect(t.sent[1].text).not.toContain("Rakeback");
   });
 });

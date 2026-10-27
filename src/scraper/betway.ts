@@ -6,9 +6,13 @@ import { teamName } from "./twentybet";
 import { validateRawEvent } from "./validateRawEvent";
 
 // Betway.de's prices, from the API its site reads them from
-// (betway.de/de/services/api/events/v2, its pages' own, 19/10/2026,
-// tests/scraper/fixtures/betway-*.json): JSON POSTs, without an account or a
-// cookie. No challenge stands in front of it.
+// (betway.de/de/api/sports/content, its pages' own, 27/10/2026;
+// tests/scraper/fixtures/betway-*.json were read from its predecessor,
+// services/api/events/v2, whose answers are the same): JSON POSTs, without an
+// account or a cookie. No challenge stands in front of it. The old API's
+// markets method has answered 410 "gone" since about 22/10/2026, which is
+// when Betway went silent; its other methods still answered, the new ones
+// are used throughout.
 //
 // The API lists a sport's matches by competition only: its competitions
 // (GetCategoryDetails), then each one's matches (GetGroup), about 250 requests
@@ -18,7 +22,7 @@ import { validateRawEvent } from "./validateRawEvent";
 // market of 200 matches a request (GetEventsWithMultipleMarkets, which answers
 // 400 markets at most, half of it asked).
 
-const API = "https://betway.de/de/services/api/events/v2";
+const API = "https://betway.de/de/api/sports/content";
 // The site's own parameters: German brand and jurisdiction, the names in
 // English (the exchange's and the other bookmakers', src/matcher/).
 const SITE = { PremiumOnly: false, LanguageId: 1, ClientTypeId: 2, BrandId: 3, JurisdictionId: 3, ClientIntegratorId: 1 };
@@ -168,8 +172,12 @@ const HEADERS = {
   "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36",
 };
 
+// The methods keep the old API's names here ("GetGroup"); the new one spells
+// them in camel case ("getGroup").
+export const betwayPath = (method: string): string => `${API}/${method.charAt(0).toLowerCase()}${method.slice(1)}`;
+
 const platformPost: BetwayPost = async <T>(method: string, body: Record<string, unknown>): Promise<T> => {
-  const res = await fetch(`${API}/${method}`, {
+  const res = await fetch(betwayPath(method), {
     method: "POST",
     headers: HEADERS,
     body: JSON.stringify({ ...SITE, CorrelationId: crypto.randomUUID(), ...body }),
@@ -217,7 +225,10 @@ async function fetchSport(post: BetwayPost, category: string, now: number, delay
   for (let i = 0; i < ids.length; i += batch) {
     await sleep(delayMs);
     const reply = await post<BetwayMarkets>("GetEventsWithMultipleMarkets", {
-      EventMarketSets: [{ EventIds: ids.slice(i, i + batch), MarketCNames: markets }],
+      // Without IncludeAllMarkets the new API answers no market at all; with
+      // it, the asked markets' family ("win-draw-win-1up"…), of which
+      // parseBetwayMarkets keeps the asked one.
+      EventMarketSets: [{ EventIds: ids.slice(i, i + batch), IncludeAllMarkets: true, MarketCNames: markets }],
       ScoreboardRequest: { ScoreboardType: 0, IncidentRequest: {} },
     });
     events.push(...parseBetwayMarkets(reply, category, now));
@@ -236,7 +247,13 @@ export async function fetchBetway(opts: { post?: BetwayPost; now?: () => number;
   }
   // Every sport failing is the bookmaker failing (runScrapeCycle retries it);
   // one failing costs only its own matches.
-  if (read.every((r) => !r.ok)) throw new Error("every betway sport failed");
+  // The first sport's cause goes with it, so that the bookmakers' report
+  // (npm run bookmaker-status) says why.
+  if (read.every((r) => !r.ok)) {
+    const first = read[0];
+    const cause = first && !first.ok ? (first.reason instanceof Error ? first.reason.message : String(first.reason)) : "";
+    throw new Error(`every betway sport failed (${sports[0]}: ${cause})`);
+  }
   return read.flatMap((r, i) => {
     if (!r.ok) {
       console.warn(`[scraper:betway] sport ${sports[i]} failed, skipping it:`, r.reason);

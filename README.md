@@ -672,6 +672,16 @@ comptes, chacun les marquant pour lui) : les pages promotions des
 bookmakers et les canaux Telegram publics suivront (le proprietaire,
 26/10/2026).
 
+Le site lit aussi lui-meme les promos de certains bookmakers, sur leur page
+promotions publique (`src/promos/`, une minute apres le demarrage du
+processus web puis toutes les heures) : pour l'instant bet-at-home, dont la
+page porte sa liste en JSON (`promotionsData`), les promos sport seulement.
+Elles sont a tous les comptes (`source = 'site'`, une ligne par
+`source_key`, mise a jour sur place pour garder les marques « prise ») ; une
+promo qui quitte la page est retiree. Une page qui ne repond pas ou sans sa
+liste ne retire rien. Aucune protection anti-robot n'est contournee : un
+bookmaker qui en a une n'est pas lu.
+
 La veille de la fin d'une promo, le compte recoit un e-mail (le SMTP des
 comptes) qui liste ses promos ouvertes, non marquees prises, finissant dans
 les 24 heures, chacune une fois (`src/auth/promoReminders.ts`, toutes les

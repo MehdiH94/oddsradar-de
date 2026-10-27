@@ -9,6 +9,8 @@ import { purgeTakenSurebets } from "../auth/takenSurebets";
 import { purgePromos } from "../auth/promos";
 import { runSurebetReminders } from "../auth/surebetReminders";
 import { runPromoReminders } from "../auth/promoReminders";
+import { refreshSitePromos } from "../promos/sitePromos";
+import { fetchBetathomePromos } from "../promos/betathome";
 import { marketsMaxAgeForInterval, oddsMaxAgeForPollInterval } from "../db/repository";
 import { createWorkerPool } from "../freebets/pool";
 
@@ -50,6 +52,11 @@ setInterval(() => {
 setInterval(() => void runSurebetReminders(auth), 60 * 1000).unref();
 // The promos' reminders, the day before they end (src/auth/promoReminders.ts).
 setInterval(() => void runPromoReminders(auth), 10 * 60 * 1000).unref();
+// The promotions the site reads on the bookmakers' pages (src/promos/): a
+// minute after the start, then every hour.
+const promoReaders = { betathome: fetchBetathomePromos };
+setTimeout(() => void refreshSitePromos(authDb, promoReaders, new Date()), 60 * 1000).unref();
+setInterval(() => void refreshSitePromos(authDb, promoReaders, new Date()), 60 * 60 * 1000).unref();
 
 const trustProxy = Number(process.env.TRUST_PROXY ?? "0");
 const app = createServer(

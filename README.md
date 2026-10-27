@@ -1017,7 +1017,11 @@ un rapport en lecture seule et le met dans son log et dans un artefact :
 - `exchange` : la sortie de l'exchange hors d'Allemagne
   (`deploy/exchange-vpn.sh`) : l'etat du tunnel et du proxy, leurs dernieres
   lignes de log, et une recherche sur l'exchange a travers le proxy (HTTP 200
-  quand tout va bien).
+  quand tout va bien) ;
+- `promo-pages` : les pages promotions des bookmakers vues d'Allemagne
+  (`scripts/probe-promo-pages.mjs`) : leur reponse, une page anti-robot
+  eventuelle, les cles de leur etat et les adresses qui parlent de promos,
+  pour ecrire les lecteurs de `src/promos/`.
 
 Claude Code le lance lui-meme quand il a besoin d'un de ces rapports. Il passe
 par sa propre cle SSH, dont la commande forcee est `deploy/vps-report.sh` :

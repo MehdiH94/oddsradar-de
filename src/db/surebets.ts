@@ -201,6 +201,18 @@ export function withExchangePrices<T extends { eventId: string; market: string; 
   });
 }
 
+// Each value bet with when its price was read (legReadAt, as a surebet's
+// legs), so that an old price shows before betting.
+export function withReadAt<T extends { eventId: string; market: string; selection: string; bookmaker: string }>(
+  db: DatabaseSync,
+  bets: readonly T[]
+): (T & { readAt?: string })[] {
+  return bets.map((bet) => {
+    const at = legReadAt(db, bet, { source: bet.bookmaker, selection: bet.selection });
+    return at ? { ...bet, readAt: at } : bet;
+  });
+}
+
 // Each match of the matches' lists the exchange's prices of its main market's
 // outcomes, by outcome, when it prices them (the owner, 25/10/2026: the
 // reference market on the "Spiele" list too).
@@ -335,7 +347,7 @@ export function getSuspectSurebets(db: DatabaseSync, opts: ListingOptions = {}):
 
 // When a leg's price was read: a bookmaker's from the listing's or the markets
 // cycle's prices, the exchange's from the reference's.
-export function legReadAt(db: DatabaseSync, surebet: Pick<Surebet, "eventId" | "market">, leg: SurebetLeg): string | null {
+export function legReadAt(db: DatabaseSync, surebet: Pick<Surebet, "eventId" | "market">, leg: Pick<SurebetLeg, "source" | "selection">): string | null {
   const args = { eventId: surebet.eventId, market: surebet.market, selection: leg.selection, source: leg.source };
   const queries =
     leg.source === EXCHANGE

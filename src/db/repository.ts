@@ -637,6 +637,8 @@ export interface ValueBet {
   // The match's page at the bookmaker, when its address can be built
   // (./bookmakerLinks.ts), to check the price there.
   url?: string;
+  // When the price was read (withReadAt in ./surebets.ts, on /api/value-bets).
+  readAt?: string;
 }
 
 // "value": biggest edge first, ties by kick-off. "start": soonest kick-off

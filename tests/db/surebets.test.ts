@@ -7,7 +7,7 @@ import { openDb } from "../../src/db/client";
 import { getLatestEvents, saveMarketOdds, upsertCanonicalEvents } from "../../src/db/repository";
 import { saveReferenceMarkets, saveReferenceOdds } from "../../src/db/reference";
 import { inChunks, savePlayerOdds } from "../../src/db/playerReference";
-import { backLayRate, getSurebets, hasStaleLeg, netBack, withExchangePrices, withoutSurebets } from "../../src/db/surebets";
+import { backLayRate, getSurebets, hasStaleLeg, netBack, withExchangePrices, withoutSurebets, withReadAt } from "../../src/db/surebets";
 import { readWinamaxMarkets, WinamaxMatchReply } from "../../src/scraper/winamaxMarkets";
 import { readBetclicMarkets, readBetclicMatchPage } from "../../src/scraper/betclicMarkets";
 import { CanonicalEvent, RawOdds } from "../../src/types";
@@ -562,6 +562,24 @@ describe("withExchangePrices", () => {
       { eventId: "other", market: "1X2", selection: "1" },
     ];
     expect(withExchangePrices(db, bets).map((b) => b.exchange)).toEqual([{ back: 2.1, lay: 2.14, laySize: 55 }, undefined, undefined]);
+  });
+});
+
+describe("withReadAt", () => {
+  it("gives a value bet when its price was read: a main market's, a player's, none when not stored", () => {
+    const db = openDb(":memory:");
+    upsertCanonicalEvents(db, [
+      { id: "m", sport: "football", competition: "Ligue 1", startTime: hoursFromNow(5), participants: ["A", "B"], byBookmaker: { winamax: [{ market: "1X2", selection: "1", price: 2 }] } },
+    ]);
+    const mainAt = (db.prepare("SELECT scraped_at AS at FROM event_bookmaker_odds WHERE event_id = 'm'").get() as { at: string }).at;
+    const playerAt = "2026-10-27T03:00:00.000Z";
+    saveMarketOdds(db, [{ eventId: "m", bookmakerId: "winamax", odds: [{ market: "anytime_scorer", selection: "Mbappé", price: 3 }] }], playerAt);
+    const bets = [
+      { eventId: "m", market: "1X2", selection: "1", bookmaker: "winamax" },
+      { eventId: "m", market: "anytime_scorer", selection: "Mbappé", bookmaker: "winamax" },
+      { eventId: "m", market: "1X2", selection: "1", bookmaker: "vbet" },
+    ];
+    expect(withReadAt(db, bets).map((b) => b.readAt)).toEqual([mainAt, playerAt, undefined]);
   });
 });
 

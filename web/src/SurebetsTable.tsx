@@ -1,7 +1,7 @@
 import { useState, type MouseEvent } from "react";
 import { ChevronRight } from "lucide-react";
 import type { Surebet, SurebetLeg } from "./types";
-import { formatPayoutRate, formatPrice, formatStartParts } from "./format";
+import { formatPayoutRate, formatPrice, formatStartParts, readAgo } from "./format";
 import { BOOKMAKER_BRANDING } from "./bookmakers";
 import { BookmakerLogo } from "./BookmakerLogo";
 import { EventTitle } from "./components/EventTitle";
@@ -47,14 +47,6 @@ const THIN_SIZE = 20;
 // cycle's, so that a market's normal lag is not flagged. The same as the
 // API's STALE_LEG_MS (src/db/surebets.ts), whose surebets the alerts leave out.
 const OLDER_LEG_MS = 10 * 60 * 1000;
-
-// How long ago a price was read: "gerade eben", "vor 4 Min.", "vor 2 Std.".
-function readAgo(readAt: string, now: Date): string {
-  const minutes = Math.floor((now.getTime() - Date.parse(readAt)) / 60_000);
-  if (minutes < 1) return "gerade eben";
-  if (minutes < 60) return `vor ${minutes}\u00a0Min.`;
-  return `vor ${Math.floor(minutes / 60)}\u00a0Std.`;
-}
 
 // Said in the card, not in a tooltip only: a finger can't bring one up.
 const KIND_LABELS: Record<Surebet["kind"], string> = {

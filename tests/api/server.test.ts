@@ -135,6 +135,10 @@ describe("GET /api/events", () => {
     // Each with the reference market's prices of its outcome (the owner, 24/10/2026).
     expect(res.body.surebets[0].legs[0]).toMatchObject({ source: "winamax", exchange: { back: 2.04, lay: 2.08, laySize: 100 } });
     expect(res.body.bets[0].exchange).toEqual({ back: 3.7, lay: 4.2, laySize: 100 });
+    // And when its price was read, as a surebet's legs: an old price shows.
+    const read = db.prepare("SELECT scraped_at AS at FROM event_bookmaker_odds WHERE event_id = 'evt1' AND bookmaker_id = 'winamax' AND selection = '2'").get() as { at: string };
+    expect(res.body.bets[0].readAt).toBe(read.at);
+    expect(res.body.surebets[0].legs[0].readAt).toEqual(expect.any(String));
     // The matches' list too, by outcome of the main market.
     const listed = await request(createServer(db)).get("/api/events?sport=football");
     expect(listed.body.events.find((e: { id: string }) => e.id === "evt1").exchange).toEqual({

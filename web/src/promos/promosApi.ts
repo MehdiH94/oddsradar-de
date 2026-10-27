@@ -97,6 +97,9 @@ async function send(path: string, method: "POST" | "PUT" | "DELETE", body: unkno
 export interface PromosState {
   status: "loading" | "ready" | "error";
   promos: Promo[];
+  // The e-mail the day before an open promo ends (src/auth/promoReminders.ts).
+  remind: boolean;
+  setRemind: (remind: boolean) => void;
   updatedAt: Date | null;
   reload: () => void;
   // Null once added, else the message to show.
@@ -110,6 +113,7 @@ export interface PromosState {
 export function usePromos(): PromosState {
   const [status, setStatus] = useState<PromosState["status"]>("loading");
   const [promos, setPromos] = useState<Promo[]>([]);
+  const [remind, setRemindState] = useState(true);
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
   const [version, setVersion] = useState(0);
 
@@ -123,6 +127,7 @@ export function usePromos(): PromosState {
       .then((body) => {
         if (!alive) return;
         setPromos(readPromos(body));
+        setRemindState((body as { remind?: unknown } | null)?.remind !== false);
         setUpdatedAt(new Date());
         setStatus("ready");
       })
@@ -173,5 +178,12 @@ export function usePromos(): PromosState {
     [reload]
   );
 
-  return { status, promos, updatedAt, reload, add, setTaken, remove };
+  const setRemind = useCallback((next: boolean) => {
+    setRemindState(next);
+    void send("/api/promos/settings", "PUT", { remind: next }).then((res) => {
+      if (!res?.ok) setRemindState(!next);
+    });
+  }, []);
+
+  return { status, promos, remind, setRemind, updatedAt, reload, add, setTaken, remove };
 }

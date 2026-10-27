@@ -1,7 +1,7 @@
 import express, { Router } from "express";
 import { AuthContext } from "./context";
 import { sameSiteOnly } from "./middleware";
-import { addPromo, deletePromo, listPromos, MAX_OWN, parseNewPromo, setPromoTaken } from "./promos";
+import { addPromo, deletePromo, listPromos, MAX_OWN, parseNewPromo, promoRemindersOn, setPromoReminders, setPromoTaken } from "./promos";
 
 // Mounted under /api after requireAuth: req.user is always set here. The body
 // parser and the CSRF check are not global, so this router brings its own.
@@ -18,7 +18,18 @@ export function promosRouter(auth: AuthContext): Router {
   const idOf = (value: string): number | null => (/^\d{1,12}$/.test(value) ? Number(value) : null);
 
   router.get("/", (req, res) => {
-    res.json({ promos: listPromos(auth.db, req.user!.id) });
+    res.json({ promos: listPromos(auth.db, req.user!.id), remind: promoRemindersOn(auth.db, req.user!.id) });
+  });
+
+  // { remind: false } turns the e-mail the day before a promo ends off.
+  router.put("/settings", (req, res) => {
+    const remind = (req.body as { remind?: unknown } | undefined)?.remind;
+    if (typeof remind !== "boolean") {
+      res.status(400).json({ error: "invalid" });
+      return;
+    }
+    setPromoReminders(auth.db, req.user!.id, remind);
+    res.status(204).end();
   });
 
   router.post("/", (req, res) => {

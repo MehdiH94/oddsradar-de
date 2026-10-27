@@ -136,3 +136,60 @@ export function setPromoTaken(db: DatabaseSync, userId: string, id: number, take
 export function purgePromos(db: DatabaseSync, now = new Date()): void {
   db.prepare("DELETE FROM promos WHERE ends_at IS NOT NULL AND ends_at < ?").run(new Date(now.getTime() - KEEP_AFTER_END_MS).toISOString());
 }
+
+// --- The e-mail the day before a promo ends (./promoReminders.ts) ---------
+
+// A promo ending within this window is reminded.
+export const REMIND_BEFORE_END_MS = 24 * 60 * 60 * 1000;
+
+// Whether the account gets the reminders: on unless it turned them off.
+export function promoRemindersOn(db: DatabaseSync, userId: string): boolean {
+  const row = db.prepare("SELECT remind FROM user_promo_settings WHERE user_id = ?").get(userId) as { remind: number } | undefined;
+  return row?.remind !== 0;
+}
+
+export function setPromoReminders(db: DatabaseSync, userId: string, on: boolean): void {
+  db.prepare("INSERT INTO user_promo_settings (user_id, remind) VALUES (?, ?) ON CONFLICT(user_id) DO UPDATE SET remind = excluded.remind").run(
+    userId,
+    on ? 1 : 0
+  );
+}
+
+export interface DuePromoReminder {
+  userId: string;
+  email: string;
+  promos: Array<Pick<Promo, "id" | "bookmaker" | "title" | "url"> & { endsAt: string }>;
+}
+
+// The promos to remind, by account: those it sees (its own and the site's)
+// ending within REMIND_BEFORE_END_MS, not marked taken nor reminded yet, for
+// the active accounts that have not turned the reminders off.
+export function duePromoReminders(db: DatabaseSync, now = new Date()): DuePromoReminder[] {
+  const rows = db
+    .prepare(
+      `SELECT u.id AS userId, u.email, p.id, p.bookmaker, p.title, p.url, p.ends_at AS endsAt
+       FROM users u
+       JOIN promos p ON p.owner_id IS NULL OR p.owner_id = u.id
+       LEFT JOIN user_promo_settings s ON s.user_id = u.id
+       WHERE u.status = 'active' AND COALESCE(s.remind, 1) = 1
+         AND p.ends_at > @now AND p.ends_at <= @until
+         AND NOT EXISTS (SELECT 1 FROM user_promo_taken t WHERE t.user_id = u.id AND t.promo_id = p.id)
+         AND NOT EXISTS (SELECT 1 FROM user_promo_reminded r WHERE r.user_id = u.id AND r.promo_id = p.id)
+       ORDER BY u.id, p.ends_at, p.id`
+    )
+    .all({ now: now.toISOString(), until: new Date(now.getTime() + REMIND_BEFORE_END_MS).toISOString() }) as unknown as Array<
+    { userId: string; email: string } & DuePromoReminder["promos"][number]
+  >;
+  const byUser = new Map<string, DuePromoReminder>();
+  for (const { userId, email, ...promo } of rows) {
+    const due = byUser.get(userId) ?? { userId, email, promos: [] };
+    due.promos.push(promo);
+    byUser.set(userId, due);
+  }
+  return [...byUser.values()];
+}
+
+export function markPromosReminded(db: DatabaseSync, userId: string, promoIds: readonly number[], now = new Date()): void {
+  const insert = db.prepare("INSERT INTO user_promo_reminded (user_id, promo_id, reminded_at) VALUES (?, ?, ?) ON CONFLICT DO NOTHING");
+  for (const id of promoIds) insert.run(userId, id, now.toISOString());
+}

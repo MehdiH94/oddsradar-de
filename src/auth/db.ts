@@ -142,6 +142,21 @@ const MIGRATIONS: string[] = [
     PRIMARY KEY (user_id, promo_id)
   );
   `,
+  // 8: the e-mail the day before a promo ends (src/auth/promoReminders.ts):
+  // on unless the account turned it off, and each promo reminded once.
+  `
+  CREATE TABLE user_promo_settings (
+    user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+    remind INTEGER NOT NULL CHECK (remind IN (0, 1))
+  );
+
+  CREATE TABLE user_promo_reminded (
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    promo_id INTEGER NOT NULL REFERENCES promos(id) ON DELETE CASCADE,
+    reminded_at TEXT NOT NULL,
+    PRIMARY KEY (user_id, promo_id)
+  );
+  `,
 ];
 
 export function migrate(db: DatabaseSync): void {

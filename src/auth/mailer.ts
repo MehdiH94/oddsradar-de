@@ -96,4 +96,16 @@ export const mails = {
       text: `Dein Surebet beginnt in weniger als einer Stunde (Anstoß ${kickOff}):\n${label}\n\nPrüfe an der Börse, ob deine Wette dort vollständig gematcht ist. Ein nicht gematchter Teil ist nicht abgesichert: Storniere ihn oder passe ihn an, solange der Markt offen ist.\n\nDas Spiel auf ${APP_NAME}:\n${link}\n\nDu bekommst diese Erinnerung, weil du den Surebet als genommen markiert hast. Abbestellen: auf der Seite der Surebets "Erinnerung" abwählen.`,
     };
   },
+  // The account's open promos ending within a day (src/auth/promoReminders.ts).
+  promoReminder: (to: string, promos: ReadonlyArray<{ bookmaker: string; title: string; url: string | null; endsAt: string }>, link: string): Mail => {
+    const at = (iso: string) =>
+      new Date(iso).toLocaleString("de-DE", { timeZone: "Europe/Berlin", weekday: "short", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+    const lines = promos.map((p) => `- ${p.bookmaker}: ${p.title} (endet ${at(p.endsAt)})${p.url ? `\n  ${p.url}` : ""}`);
+    const one = promos.length === 1;
+    return {
+      to,
+      subject: one ? `Promo endet bald: ${promos[0].bookmaker} · ${APP_NAME}` : `${promos.length} Promos enden bald · ${APP_NAME}`,
+      text: `${one ? "Diese Aktion endet" : "Diese Aktionen enden"} in weniger als 24 Stunden und ${one ? "ist" : "sind"} noch nicht als genommen markiert:\n\n${lines.join("\n")}\n\nDeine Promos auf ${APP_NAME}:\n${link}\n\nAbbestellen: auf der Seite der Promos "E-Mail am Vortag" abwählen.`,
+    };
+  },
 };

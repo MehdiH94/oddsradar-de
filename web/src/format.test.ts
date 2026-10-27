@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { dayHeading, formatEdge, formatPayoutRate, formatPercent, formatPrice, formatStartParts, formatStartTime } from "./format";
+import { dayHeading, formatEdge, formatPayoutRate, formatPercent, formatPrice, formatStartParts, formatStartTime, readAgo } from "./format";
 
 // Local times, as the viewer's clock reads them: Sunday 4 October 2026.
 const NOW = new Date(2026, 9, 4, 12, 0);
@@ -50,5 +50,16 @@ describe("German start times", () => {
     expect(dayHeading(at(5, 21), NOW)?.label).toBe("Morgen");
     expect(dayHeading(at(10, 21), NOW)?.label).toBe("Samstag, 10. Oktober");
     expect(dayHeading(at(10, 9), NOW)?.key).toBe(dayHeading(at(10, 22), NOW)?.key);
+  });
+});
+
+describe("readAgo", () => {
+  const now = new Date("2026-10-27T10:00:00Z");
+  const ago = (ms: number) => readAgo(new Date(now.getTime() - ms).toISOString(), now);
+  it("says how long ago a price was read, in minutes then hours", () => {
+    expect(ago(30_000)).toBe("gerade eben");
+    expect(ago(4 * 60_000)).toBe("vor 4\u00a0Min.");
+    expect(ago(59 * 60_000)).toBe("vor 59\u00a0Min.");
+    expect(ago(2 * 3600_000 + 60_000)).toBe("vor 2\u00a0Std.");
   });
 });

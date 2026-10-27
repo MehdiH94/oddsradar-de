@@ -85,3 +85,12 @@ export function dayHeading(startTime: string, now = new Date()): { key: string; 
   const label = day === "today" ? "Heute" : day === "tomorrow" ? "Morgen" : LONG_DAY_FORMAT.format(date);
   return { key, label: label.charAt(0).toUpperCase() + label.slice(1) };
 }
+
+// How long ago a price was read: "gerade eben", "vor 4 Min.", "vor 2 Std."
+// (a surebet's legs, a value bet's price).
+export function readAgo(readAt: string, now: Date): string {
+  const minutes = Math.floor((now.getTime() - Date.parse(readAt)) / 60_000);
+  if (minutes < 1) return "gerade eben";
+  if (minutes < 60) return `vor ${minutes}\u00a0Min.`;
+  return `vor ${Math.floor(minutes / 60)}\u00a0Std.`;
+}

@@ -2,7 +2,7 @@ import express, { Express } from "express";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { getLatestEvents, getDistinctSports, getEventSuggestions, getCompetitions, getValueBets, ListingOptions } from "../db/repository";
-import { surebetsOrNone, withExchangePrices, withMatchExchangePrices, withoutSurebets } from "../db/surebets";
+import { surebetsOrNone, withExchangePrices, withMatchExchangePrices, withoutSurebets, withReadAt } from "../db/surebets";
 import { getEventDetail } from "../db/eventDetail";
 import { getPlayerStats } from "../db/playerStats";
 import { getAlertStatus } from "../db/alerts";
@@ -155,7 +155,7 @@ export function createServer(
         // The suspects too, marked: the owner checks them before betting
         // (24/10/2026). A value bet is left out for the others only.
         const surebets = surebetsOrNone(db, { ...opts, withSuspects: true });
-        const bets = withExchangePrices(db, withoutSurebets(getValueBets(db, opts).bets, surebets.filter((s) => !s.suspect)), listing);
+        const bets = withReadAt(db, withExchangePrices(db, withoutSurebets(getValueBets(db, opts).bets, surebets.filter((s) => !s.suspect)), listing));
         return { bets, total: bets.length, surebets };
       })
     );

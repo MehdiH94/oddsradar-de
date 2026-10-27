@@ -1,7 +1,7 @@
 import type { MouseEvent } from "react";
 import { ChevronRight } from "lucide-react";
 import type { ValueBet } from "./types";
-import { formatEdge, formatPrice, formatStartParts } from "./format";
+import { formatEdge, formatPrice, formatStartParts, readAgo } from "./format";
 import { EventTitle } from "./components/EventTitle";
 import { PriceChip } from "./components/PriceChip";
 import { CheckAtBookmaker } from "./components/CheckAtBookmaker";
@@ -56,6 +56,17 @@ function referenceTitle(bet: ValueBet): string {
     return `Verdächtige Quote: An ${REFERENCE_SOURCE} wird dieser Spieler nicht gehandelt; die Quote bei ${other}`;
   }
   return FAIR_TITLE;
+}
+
+// When the bet's price was read, "Quote vor 4 Min.", its exact time in the
+// tooltip: an old price shows before betting, as on a surebet's legs.
+function ReadAt({ readAt, now }: { readAt?: string; now: Date }) {
+  if (!readAt) return null;
+  return (
+    <span className={styles.readAt} title={`Quote gelesen: ${new Date(readAt).toLocaleString("de-DE")}`}>
+      Quote {readAgo(readAt, now)}
+    </span>
+  );
 }
 
 // The value bets' category: one row per bet, i.e. per bookmaker's price above
@@ -167,6 +178,7 @@ export function ValueBetsTable({
                         edge={bet.edge}
                         suspect={bet.basis === "bookmaker"}
                       />
+                      <ReadAt readAt={bet.readAt} now={now} />
                       <CheckAtBookmaker bookmaker={bet.bookmaker} url={bet.url} />
                     </td>
                     <td className={styles.fair} data-label="Fair" title={referenceTitle(bet)}>
@@ -192,6 +204,7 @@ export function ValueBetsTable({
                             : "Fair"
                       }
                     />
+                    <ReadAt readAt={bet.readAt} now={now} />
                     <ExchangePrices prices={bet.exchange} />
                     <CheckAtBookmaker bookmaker={bet.bookmaker} url={bet.url} />
                   </td>

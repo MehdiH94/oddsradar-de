@@ -77,6 +77,23 @@ describe("ValueBetsTable", () => {
     });
   });
 
+  describe("when the price was read", () => {
+    afterEach(() => vi.unstubAllGlobals());
+
+    it.each([
+      ["a computer", () => {}],
+      ["a phone", mockPhone],
+    ])("says it under the price, its exact time in the tooltip, and nothing when unknown, on %s", (_screen, setUp) => {
+      setUp();
+      const readAt = new Date(Date.now() - 4 * 60_000 - 5_000).toISOString();
+      render(<ValueBetsTable bets={[bet({ readAt }), bet({ selection: "X", label: "Unentschieden" })]} />);
+      const [read, unknown] = screen.getAllByRole("row").slice(1);
+      const ago = within(read).getByText(/^Quote vor 4\sMin\.$/);
+      expect(ago).toHaveAttribute("title", `Quote gelesen: ${new Date(readAt).toLocaleString("de-DE")}`);
+      expect(within(unknown).queryByText(/^Quote (vor|gerade)/)).not.toBeInTheDocument();
+    });
+  });
+
   it("shows the reference market under the fair odds: the exchange's back and lay, or that it has none", () => {
     render(<ValueBetsTable bets={[bet({ exchange: { back: 1.52, backSize: 950, lay: 1.54, laySize: 1210.5 } }), bet({ selection: "X", label: "Unentschieden" })]} />);
     const [priced, unpriced] = screen.getAllByRole("row").slice(1);

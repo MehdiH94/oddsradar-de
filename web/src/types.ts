@@ -139,6 +139,8 @@ export interface ValueBet {
   url?: string;
   // The exchange's prices of this outcome, when it prices it: the reference market.
   exchange?: ExchangeOutcome;
+  // When the price was read, like a surebet's legs (src/db/surebets.ts withReadAt).
+  readAt?: string;
 }
 
 // One match's page (GET /api/events/:id, src/db/eventDetail.ts).

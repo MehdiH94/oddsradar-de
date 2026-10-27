@@ -7,6 +7,7 @@ import {
   BetwayEventList,
   BetwayMarkets,
   BetwayPost,
+  betwayPath,
   fetchBetway,
   forgetBetwayLists,
   groupsOf,
@@ -14,7 +15,7 @@ import {
 } from "../../src/scraper/betway";
 
 // Real answers of Betway.de's API (betway.de/de/services/api/events/v2, in
-// English, 19/10/2026): football's competitions (four countries, three groups
+// English, 19/10/2026; its successor, api/sports/content, answers the same): football's competitions (four countries, three groups
 // each), the Bundesliga's matches, and main markets: six Bundesliga matches,
 // NBA and Euroleague games and a virtual one, NHL games, tennis matches.
 const fixture = <T>(name: string): T => JSON.parse(readFileSync(join(__dirname, `fixtures/betway-${name}.json`), "utf8"));
@@ -102,8 +103,10 @@ describe("fetchBetway", () => {
       if (method === "GetCategoryDetails") return football ? CATEGORY : { SubCategories: [] };
       if (method === "GetGroup") return body.GroupCName === "bundesliga" ? GROUP : { EventSummaries: [] };
       if (method === "GetUpcoming") return { EventSummaries: [] };
-      const [set] = body.EventMarketSets as { EventIds: number[]; MarketCNames: string[] }[];
+      const [set] = body.EventMarketSets as { EventIds: number[]; IncludeAllMarkets: boolean; MarketCNames: string[] }[];
       expect(set.MarketCNames).toEqual(["win-draw-win"]);
+      // Without it, the new API answers no market.
+      expect(set.IncludeAllMarkets).toBe(true);
       return { ...SOCCER, Events: SOCCER.Events!.filter((e) => set.EventIds.includes(e.Id!)) };
     }) as BetwayPost;
   }
@@ -137,6 +140,39 @@ describe("fetchBetway", () => {
     const failing = (async () => {
       throw new Error("refused");
     }) as BetwayPost;
-    await expect(fetchBetway({ post: failing, now: () => NOW, delayMs: 0 })).rejects.toThrow("every betway sport failed");
+    await expect(fetchBetway({ post: failing, now: () => NOW, delayMs: 0 })).rejects.toThrow("every betway sport failed (soccer: refused)");
+  });
+});
+
+describe("betwayPath", () => {
+  it("asks the new API, its methods in camel case", () => {
+    expect(betwayPath("GetEventsWithMultipleMarkets")).toBe("https://betway.de/de/api/sports/content/getEventsWithMultipleMarkets");
+    expect(betwayPath("GetGroup")).toBe("https://betway.de/de/api/sports/content/getGroup");
+  });
+});
+
+describe("parseBetwayMarkets, the asked market's family in the answer", () => {
+  it("keeps the asked market, not its variants (\"win-draw-win-1up\"), whatever their order", () => {
+    // The new API answers the whole family of the asked market: here each
+    // match's 1X2 preceded by a "1Up" variant at other prices.
+    let next = -1;
+    const variantOutcomes: NonNullable<BetwayMarkets["Outcomes"]> = [];
+    const variants = SOCCER.Markets!.filter((m) => m.MarketCName === "win-draw-win").map((m) => ({
+      ...m,
+      MarketCName: "win-draw-win-1up",
+      OutcomeGroups: Object.fromEntries(
+        Object.entries(m.OutcomeGroups ?? {}).map(([side, g]) => {
+          const real = SOCCER.Outcomes!.find((o) => o.Id === g.outcomes?.[0]);
+          const variant = { ...real, Id: next--, OddsDecimal: 99 };
+          variantOutcomes.push(variant);
+          return [side, { outcomes: [variant.Id] }];
+        })
+      ),
+    }));
+    const plain = parseBetwayMarkets(SOCCER, "soccer", NOW);
+    expect(plain).toHaveLength(6);
+    for (const markets of [[...variants, ...SOCCER.Markets!], [...SOCCER.Markets!, ...variants]]) {
+      expect(parseBetwayMarkets({ ...SOCCER, Markets: markets, Outcomes: [...SOCCER.Outcomes!, ...variantOutcomes] }, "soccer", NOW)).toEqual(plain);
+    }
   });
 });

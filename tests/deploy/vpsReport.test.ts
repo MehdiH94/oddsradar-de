@@ -41,6 +41,10 @@ describe("deploy/vps-report.sh", () => {
     expect(exchange.out).not.toContain(".env");
   });
 
+  it("probes the bookmakers' promotions pages", () => {
+    expect(report("promo-pages")).toMatchObject({ status: 0, out: "node scripts/probe-promo-pages.mjs" });
+  });
+
   it("refuses anything else, its arguments included", () => {
     for (const command of [
       undefined,
@@ -57,11 +61,12 @@ describe("deploy/vps-report.sh", () => {
       "status; cat .env",
       "exchange now",
       "bookmakers all",
+      "promo-pages betway",
     ]) {
       const run = report(command);
       expect(run.status, String(command)).toBe(2);
       expect(run.out, String(command)).toBe("");
-      expect(run.err).toMatch(/^vps-report: .*Allowed: surebet-report \[days\], probe, status, bookmakers, exchange\.$/);
+      expect(run.err).toMatch(/^vps-report: .*Allowed: surebet-report \[days\], probe, status, bookmakers, exchange, promo-pages\.$/);
     }
   });
 

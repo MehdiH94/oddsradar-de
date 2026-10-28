@@ -1028,7 +1028,10 @@ un rapport en lecture seule et le met dans son log et dans un artefact :
   (sans les cookies) et le debut de leur reponse ;
 - `promo-samples` : les listes de promos publiques trouvees ainsi
   (Sportingbet, neobet, Admiralbet, 20bet et son miroir), lues d'Allemagne et imprimees en
-  entier (`scripts/probe-promo-samples.mjs`), pour ecrire leurs lecteurs.
+  entier (`scripts/probe-promo-samples.mjs`), pour ecrire leurs lecteurs ;
+- `pinnacle` : si les cotes publiques de Pinnacle (l'API que lit son propre
+  site, sans cle) repondent depuis l'Allemagne : les ligues de football, puis
+  les matchs et les cotes de la Bundesliga, le debut de chaque reponse.
 
 Claude Code le lance lui-meme quand il a besoin d'un de ces rapports. Il passe
 par sa propre cle SSH, dont la commande forcee est `deploy/vps-report.sh` :

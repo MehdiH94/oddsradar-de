@@ -1,0 +1,443 @@
+[
+ {
+  "campaign": {
+   "id": 6062474,
+   "scheduledTime": "2024-08-25T22:00:00Z",
+   "endTime": "2031-01-30T23:00:00Z",
+   "targetGroup": "Generic",
+   "visibilityBoost": null
+  },
+  "actions": [
+   {
+    "action": {
+     "id": 4315690,
+     "name": "Info",
+     "type": "InfoMail",
+     "externalId": "770a88ac-4c5e-4684-90f8-4ec42984b586",
+     "status": "Assigned"
+    },
+    "banner": {
+     "title-text": "100% WildcardBet + 10€ FreeBet",
+     "subtitle-text": "Jetzt registrieren!",
+     "body-text": "",
+     "terms-and-conditions-text": "",
+     "key-terms-and-conditions-text": "",
+     "readmore-text": "",
+     "extended-promo-text": "",
+     "show-terms-and-conditions-text": "",
+     "desktop-img": "https://rmg-crm-at-static.gt-cdn.net/repository/images/ABDE%20Sport%20Teaser%20Designs/ADMbet_IGRAPH_40914__SPT_2.png",
+     "terminal-img": "",
+     "static-page-img": "",
+     "url": "https://www.admiralbet.de/de/registrieren",
+     "locations": [
+      "web"
+     ],
+     "name": "Website Teaser | Neukunden Promo 10€ FreeBet + JokerBet",
+     "category": "Generic"
+    }
+   }
+  ]
+ },
+ {
+  "campaign": {
+   "id": 6061920,
+   "scheduledTime": "2024-08-25T22:00:00Z",
+   "endTime": "2032-01-30T23:00:00Z",
+   "targetGroup": "Generic",
+   "visibilityBoost": null
+  },
+  "actions": [
+   {
+    "action": {
+     "id": 4315456,
+     "name": "Info",
+     "type": "InfoMail",
+     "externalId": "1d9bcc95-ce32-45ac-8e89-c4bb926b9dc9",
+     "status": "Assigned"
+    },
+    "banner": {
+     "textLine1": "100% WildcardBet + 10€ FreeBet",
+     "textLine2": "Exklusives 2 in 1 Angebot für unsere Neukunden:\n\nRegistrieren, einzahlen und Bonus sichern!",
+     "textLine3": "Registrieren",
+     "textLine4": "<div>1. Diese Bonusaktion (10€ FreeBet + 100% WildcardBet) ist ausschließlich für Neukunden gültig. Pro Neukunde kann diese Aktion nur einmal genutzt werden.</div><div><br></div><div>2. Nach vollständiger Verifizierung des Kundenkontos und Ersteinzahlung erhält jeder Kunde einmalig eine 10€ FreeBet (Endergebnis) als Registrierungsbonus, welche unter&nbsp;<strong><a href=\"https://www.admiralbet.de/de/sports/meine-praemien\">Prämien</a></strong>&nbsp;ersichtlich ist.&nbsp;</div><div><br></div><div><div>FreeBet (Endergebnis) Erklärung:</div><div>• Die FreeBet (Endergebnis) kann nur auf das Endergebnis 1, X oder 2 gesetzt werden. Der Einsatz auf andere Wettmärkte, wie beispielsweise Over/Under oder Sieg in der 1. Halbzeit, ist mit dieser FreeBet nicht möglich.</div></div><div><br></div><div>3. Ab einem Mindesteinzahlungsbetrag von 10€, bekommen Neukunden einmalig eine WildcardBet von 100 % der Ersteinzahlung bis zum Maximum von 90€. D.h. die Höhe der Ersteinzahlung entscheidet über die Höhe der WildcardBet.</div><div><br></div><div>Beispiele:</div><div>• Kunde A tätigt eine Ersteinzahlung von 30€ und bekommt eine 30€ WildcardBet gewährt.</div><div>• Kunde B tätigt eine Ersteinzahlung von 67€ und bekommt eine 60€ WildcardBet&nbsp; gewährt.</div><div>• Kunde C tätigt eine Ersteinzahlung von 150€ und bekommt eine 90€ WildcardBet (=das Maximum) gewährt.</div><div><br></div><div>4. Sobald die Ersteinzahlung auf dem Kundenkonto eingelangt ist, ist die 10€ FreeBet sowie die WildcardBet in&nbsp;der entsprechenden Höhe unter&nbsp;<a href=\"https://www.admiralbet.de/de/sports/sports-rewards\">Prämien</a>&nbsp;ersichtlich.</div><div><br></div><div>5. Um die WildcardBet einzusetzen, wählt der Kunde zuerst Events aus und legt diese in den Wettschein. Achtung: Der Ticketeinsatz muss zu 100% aus Echtgeld bestehen. Abschließend ist die WildcardBet direkt bei der Wettabgabe im Ticket zu aktivieren, bevor die Wette platziert wird.</div><div><br></div><div>6. Die WildcardBet muss innerhalb von 3 Tagen nach Erhalt umgesetzt werden, andernfalls verfällt die WildcardBet.</div><div><br></div><div><div>7. Verliert das Ticket, welches mit der WildcardBet platziert wurde, bekommt der Kunde den Ticket-Einsatz in Form von einer FreeBet zurück. Gewinnt das Ticket, welches mit der WildcardBet platziert wurde, bekommt der Kunde keine FreeBet zurück, da er gewonnen hat.</div><div><br></div><div><div>Beispiele:&nbsp;</div><div>• Kunde A platziert eine 30€ WildcardBet mit einem Ticket-Einsatz (Echtgeld) von 30€. Das Ticket verliert. Kunde A bekommt eine 1 x 30€ FreeBet gewährt.</div><div>• Kunde B platziert eine 60€ WildcardBet mit einem Ticket-Einsatz (Echtgeld) von 60€. Das Ticket gewinnt. Kunde B bekommt keine zusätzliche FreeBet gewährt, da er gewonnen hat.</div><div>• Kunde C platziert eine 90€ WildcardBet mit einem Ticket-Einsatz (Echtgeld) von 150€. Das Ticket verliert. Kunde C bekommt eine 1 x 90€ FreeBet gewährt, da die WildcardBet 90€ betragen hat.</div><div>• Kunde D platziert eine 40€ WildcardBet mit einem Ticket-Einsatz (Echtgeld) von 20€. Das Ticket verliert. Kunde D bekommt eine 1 x 20€ FreeBet gewährt. Die WildcardBet hat zwar 40€ betragen aber der Kunde hatte einen Ticket-Einsatz (Echtgeld) von 20€.</div></div></div><div><br></div><div>8. Für gewährten FreeBets gelten die zu diesem Zeitpunkt gültigen Bedingungen, welche direkt im&nbsp;<a href=\"https://www.admiralbet.de/de/sports/meine-praemien\">Prämien-Bereich</a>&nbsp;ersichtlich sind.</div><div><br></div><div>9. Die Auszahlung von Gewinnen unterliegt dem Mindestauszahlungsbetrag gemäß den&nbsp;<a href=\"https://www.admiralbet.de/de/agb\">Allgemeinen Geschäftsbedingungen</a>.</div><div><br></div><div>10. Eine vollständig und erfolgreich erfolgte Spielerkontoüberprüfung in Übereinstimmung mit den&nbsp;<a href=\"https://www.admiralbet.de/de/agb\">Allgemeinen Geschäftsbedingungen</a>&nbsp;ist Voraussetzung für die Teilnahme an dieser Promotion.</div><div><br></div><div>11. Von AdmiralBet.de ausgeschlossene Spieler können an dieser Promotion nicht teilnehmen.&nbsp;</div><div><br></div><div>12. AdmiralBet.de hat das Recht, Teilnehmer an dieser Promotion im Zusammenhang mit diesem Angebot zu kontaktieren (z. B. für Umfragen oder Feedbacks). Die Spieler nehmen auf freiwilliger Basis an solchen Umfragen und Feedbacks teil, ohne dass dies Auswirkungen auf diese Promotion hätte.&nbsp;</div><div><br></div><div>13. Der Spieler erkennt an, dass er durch die Teilnahme an dieser Promotion und die Annahme der entsprechenden Gewinne und/oder Preise zustimmt, dass AdmiralBet.de die Gewinne und/oder Preise ohne zusätzliche Bezahlung an den Spieler bewerben darf. Solche Promotions sind anonym, erfordern keine zusätzlichen Handlungen des Spielers und können auf den Vornamen oder Spielernamen des Spielers verweisen.&nbsp;</div><div><br></div><div>14. Jeder Versuch, eine Promotion zu manipulieren, führt zur sofortigen Sperrung des Spielerkontos und zum Ausschluss des Spielers von der AdmiralBet.de-Website.&nbsp;</div><div><br></div><div>15. AdmiralBet.de behält sich das Recht vor, Promotions und/oder aus diesen entstandenen Gewinnen im Fall von Missbrauch oder Irrtum zu widerrufen bzw. einzuziehen.&nbsp;</div><div><br></div><div>16. AdmiralBet.de behält sich das Recht vor, diese Promotion jederzeit zu ändern oder einzustellen. Teilnehmer werden darüber schnellstmöglich benachrichtigt.&nbsp;</div><div><br></div><div>17. Diese Promotion bewirkt keine Änderung des Spielverlaufs oder der Spielregeln außerhalb der Promotion.&nbsp;</div><div><br></div><div>18. Für zusätzliche Informationen zu dieser Promotion kannst du deine Fragen per Live-Chat oder per E-Mail an hilfe@admiralbet.de senden.&nbsp;</div><div><br></div><div>19. Glücksspiel dient der Unterhaltung, spiele verantwortungsbewusst! Weitere Informationen über sicheres Glücksspiel erhältst du unter&nbsp;<a href=\"https://www.bundesweit-gegen-gluecksspielsucht.de/\">https://www.bundesweit-gegen-gluecksspielsucht.de/</a>oder&nbsp;<a href=\"https://www.admiralbet.de/de/verantwortungsvolles-entertainment\">auf unserer Website</a>.</div><div><br></div><div>20. Es gelten die&nbsp;<a href=\"https://www.admiralbet.de/de/agb\">Allgemeinen Geschäftsbedingungen</a>.</div><div><br></div><div>21. Diese Bedingungen gelten zusätzlich zu den auf der Website www.admiralbet.de veröffentlichten&nbsp;<a href=\"https://www.admiralbet.de/de/agb\">Allgemeinen Geschäftsbedingungen</a>, die auch für diese Werbeaktion gelten.</div><div><br></div><div>22. Diese Aktion wird von Greentube Betting Malta Ltd. angeboten, die eine Erlaubnis zum Veranstalten von Sportwetten vom 13.10.2020 (erstmalig) und 13.12.2022 (verlängert) besitzt und unter Aufsicht der Gemeinsamen Glücksspielbehörde der Länder, einer Anstalt des öffentlichen Rechts (GGL), steht, siehe White-List.</div>",
+     "textLine5": "",
+     "textLine6": "Weitere Infos",
+     "textLine7": "<div>1. Auf AdmiralBet.de registrieren und identifizieren</div><div>Dein Konto muss vollständig verifiziert sein</div><div><br></div><div>2. Erste Einzahlung tätigen</div><div>Unter \"Einzahlen\" den Bereich \"Sportwetten\" auswählen</div><div><br></div><div>3. 10€ FreeBet (Endergebnis) und bis zu 90€ WildcardBet kassieren*</div><div>*Die WildacardBet erhältst du automatisch nach deiner Einzahlung und ist im Prämien-Bereich ersichtlich.</div>",
+     "textLine8": "",
+     "textLine9": "",
+     "title-text": "",
+     "subtitle-text": "",
+     "body-text": "",
+     "terms-text": "",
+     "key-terms-tcs-text": "",
+     "readmore-text": "",
+     "textLine16": "",
+     "extended-promo-text": "",
+     "bannerUrl1": "",
+     "bannerUrl2": "https://rmg-crm-at-static.gt-cdn.net/repository/images/ABDE%20Sport%20Teaser%20Designs/ADMbet_IGRAPH_40914__PTS_4.png",
+     "bannerUrl3": "",
+     "bannerUrl4": "",
+     "bannerUrl5": "https://rmg-crm-at-static.gt-cdn.net/repository/images/ABDE%20Sport%20Teaser%20Designs/ADMbet_IGRAPH_40914__PTS_5.png",
+     "bannerUrl6": "",
+     "bannerUrl7": "",
+     "bannerUrl8": "",
+     "desktop-img": "",
+     "terminal-img": "",
+     "actionUrl1": "https://www.admiralbet.de/de/registrieren",
+     "actionUrl2": "",
+     "locations": [
+      "web",
+      "home.promotion.main",
+      "promotion.filter.sports"
+     ],
+     "name": "Promotions Bereich | Neukundenbonus 10€ FreeBet + JokerBet (logged out)",
+     "category": "Default All"
+    }
+   }
+  ]
+ },
+ {
+  "campaign": {
+   "id": 4433622,
+   "scheduledTime": "2023-09-08T10:00:00Z",
+   "endTime": "2033-10-20T11:20:00Z",
+   "targetGroup": "Generic",
+   "visibilityBoost": null
+  },
+  "actions": [
+   {
+    "action": {
+     "id": 2979553,
+     "name": "Info",
+     "type": "InfoMail",
+     "externalId": "be026f00-d8ca-4294-9c6f-f68232e78cae",
+     "status": "Assigned"
+    },
+    "banner": {
+     "textLine1": "Jetzt schnell und bequem am Handy wetten",
+     "textLine2": "Hole dir die AdmiralBet-App auf dein Smartphone.",
+     "textLine3": "Zum Download",
+     "textLine4": "",
+     "textLine5": "",
+     "textLine6": "Weitere Infos",
+     "textLine7": "Mit der AdmiralBet-App für iOS und Android kannst du jetzt noch schneller, bequemer, einfacher wetten und super easy das Angebot der AdmiralBet-Welt entdecken.<div><ul><li>Wähle aus einer Vielzahl von Wettmöglichkeiten aus Fußball, Tennis, Eishockey, Basketball und vielen mehr.</li><li>Zu den Spielen gibt es zahlreiche Livewetten mit Topquoten.</li><li>Verfolge die Spiele aus den Topligen im Livestream direkt in der App.</li><li>Profitiere von unseren Promotions.</li></ul></div>",
+     "textLine8": "",
+     "textLine9": "",
+     "title-text": "",
+     "subtitle-text": "",
+     "body-text": "",
+     "terms-text": "",
+     "key-terms-tcs-text": "",
+     "readmore-text": "",
+     "textLine16": "",
+     "extended-promo-text": "",
+     "bannerUrl1": "",
+     "bannerUrl2": "https://rmg-crm-at-static.gt-cdn.net/repository/images/AdmiralBET_App_StaticPage_540x324_ios_android_2_.png",
+     "bannerUrl3": "",
+     "bannerUrl4": "",
+     "bannerUrl5": "https://rmg-crm-at-static.gt-cdn.net/repository/images/AdmiralBET_App_StaticPage_540x324_ios_android_2__1.png",
+     "bannerUrl6": "",
+     "bannerUrl7": "",
+     "bannerUrl8": "",
+     "desktop-img": "",
+     "terminal-img": "",
+     "actionUrl1": "https://app.adjust.com/136cciwd",
+     "actionUrl2": "",
+     "locations": [
+      "home.promotion.main",
+      "promotion.filter.sports"
+     ],
+     "name": "Promotions Bereich | AdmiralBet-App",
+     "category": "Default All"
+    }
+   }
+  ]
+ },
+ {
+  "campaign": {
+   "id": 7628150,
+   "scheduledTime": "2026-04-21T22:00:00Z",
+   "endTime": "2060-03-31T22:00:00Z",
+   "targetGroup": "Generic",
+   "visibilityBoost": null
+  },
+  "actions": [
+   {
+    "action": {
+     "id": 8057609,
+     "name": "Info",
+     "type": "InfoMail",
+     "externalId": "cc52a5e0-aa54-4bf2-b1c3-8d2b1643d69b",
+     "status": "Assigned"
+    },
+    "banner": {
+     "textLine1": "Deine persönliche Wildcard für Wetten auf alle Sportarten",
+     "textLine2": "Sichere dir jeden Montag deine WildcardBet, um dein Risiko zu minimieren.",
+     "textLine3": "Hier wetten",
+     "textLine4": "1. Die Promotion gilt jeden Montag von 00:00 Uhr CET bis 23:59 Uhr CEST („Aktionszeitraum”) und steht\nallen Kunden einmal während dem Aktionszeitraum zur Verfügung.<br><br>2. Jeder Kunde kann an der Promotion einmal an jedem Montag teilnehmen.<br><br>3. Um sich für die WildcardBet Montag Promo zu qualifizieren, gelten folgende Voraussetzungen:<br>- Nur Kunden, die über ein verifiziertes Wettkonto verfügen, sind an der Teilnahme berechtigt.<br>- Der Wettschein muss ausschließlich Events, die im Aktionszeitraum stattfinden, enthalten.<div>- Der Mindesteinsatz des abgegebenen Wettscheins muss 10€ betragen.&nbsp;<br>- Die Abgabe des Wettscheines inklusive WildcardBet muss im Aktionszeitraum erfolgen.<div>- Es qualifiziert sich nur das Ticket eines Kunden für die Promotion, wenn die WildcardBet im Wettschein aktiviert wird.<br>- Wird ein Match durch Verschiebung, Unterbrechungen oder Abbruch erst nach dem Aktionszeitraum bewertet, so qualifiziert sich das Ticket leider nicht für die FreeBet.<br>- Der Ticketeinsatz muss zu 100% aus Echtgeld (kein Bonusgeld bzw. keine FreeBet zulässig) bestehen, um die WildcardBet verwenden zu können.</div><div><br><div>4. Nur Kunden, deren Wettschein verloren gegangen ist, bekommen ihren Einsatz bis maximal 5 EUR als FreeBet rückerstattet.<br>Beispiel 1: Ticketeinsatz 10 EUR und verliert > Kunde bekommt 5 EUR FreeBet zurück;<br>Beispiel 2: Ticketeinsatz 25 EUR und verliert > Kunde bekommt das Maximum von 5 EUR FreeBet zurück</div><div>Beispiel 3: Ticketeinsatz 5 EUR und verliert > Kunde bekommt keine FreeBet zurück<br>Bei allen Beispielen handelt es sich um die Annahme, dass die platzierten Tickets während des Aktionszeitraums abgegeben wurden.</div><br>5. Die gewährte FreeBet ist nach vollständiger Abrechnung des Wettscheines, im <a href=\"https://www.admiralbet.de/de/sports/meine-praemien\"><strong>Prämien-Bereich</strong></a> automatisch verfügbar und muss einmal umgesetzt werden, um eine Auszahlung zu ermöglichen. Nähere Details befinden sich in den FreeBet-Informationen.<br><br>6. Die Auszahlung von Gewinnen unterliegt dem Mindestauszahlungsbetrag\ngemäß den Allgemeinen Geschäftsbedingungen.<br><br>7. Eine vollständig und erfolgreich erfolgte\nSpielerkontoüberprüfung, in Übereinstimmung mit den Allgemeinen\nGeschäftsbedingungen, ist Voraussetzung für die Teilnahme an dieser Promotion.<br><br>8. Von AdmiralBet.de ausgeschlossene Spieler können\nan dieser Promotion nicht teilnehmen.<br><br>9. AdmiralBet.de\nhat das Recht, Teilnehmer an dieser Promotion im Zusammenhang mit diesem\nAngebot zu kontaktieren (z. B. für Umfragen oder Feedbacks). Die Spieler nehmen\nauf freiwilliger Basis an solchen Umfragen und Feedbacks teil, ohne dass dies\nAuswirkungen auf diese Promotion hätte.<br><br>10. Der Spieler erkennt an, dass er durch die\nTeilnahme an dieser Promotion und die Annahme der entsprechenden Gewinne\nund/oder Preise zustimmt, dass AdmiralBet.de die Gewinne und/oder Preise ohne\nzusätzliche Bezahlung an den Spieler bewerben darf. Solche Promotions sind\nanonym, erfordern keine zusätzlichen Handlungen des Spielers und können auf den\nVornamen oder Spielernamen des Spielers verweisen.<br><br><div>11. Jeder\nVersuch, eine Promotion zu manipulieren, führt zur sofortigen Sperrung des\nSpielerkontos und zum Ausschluss des Spielers von der\nAdmiralBet.de-Website.&nbsp; &nbsp;</div><div><br>12. AdmiralBet.de\nbehält sich das Recht vor, Promotions und/oder aus diesen entstandene Gewinne\nim Fall von Missbrauch oder Irrtum zu widerrufen bzw. einzuziehen.&nbsp;&nbsp;</div><div><br>13. AdmiralBet.de behält sich das Recht vor, diese\nPromotion jederzeit zu ändern oder einzustellen. Teilnehmer werden darüber\nschnellstmöglich benachrichtigt.<br><br></div><div>14. Diese\nPromotion bewirkt keine Änderung des Spielverlaufs oder der Spielregeln\naußerhalb der Promotion.<br><br></div><div>15. Für\nzusätzliche Informationen zu dieser Promotion kannst du deine Fragen per E-Mail\nan hilfe@admiralbet.de senden oder die Hotline unter 0800 000 1874 anrufen.</div><div><br>16. Glücksspiel\ndient der Unterhaltung, spiele verantwortungsbewusst! Weitere Informationen\nüber sicheres Glücksspiel erhältst du unter\nhttps://www.bundesweit-gegen-gluecksspielsucht.de/, telefonisch unter der\nNummer 0800 000 1874 oder auf unserer Website.<br><br></div><div>17. Es gelten die Allgemeinen Geschäftsbedingungen\nder Greentube Betting Malta Ltd.&nbsp;<br></div></div></div>",
+     "textLine5": "",
+     "textLine6": "Weitere Infos",
+     "textLine7": "<div>Und so funktioniert es:</div><div><ol><li>Auf AdmiralBet.de einloggen <br><sub>Konto muss vollständig verifiziert sein</sub></li><li>WildcardBet sichern&nbsp;<br><sub>Folge dazu den Anweisungen die du Montags im Promotions Bereich findest</sub></li><li>Events deiner Wahl für Wettschein auswählen</li><li>WildcardBet im Wettschein aktivieren</li><li>Wette platzieren</li><li>Bei Verlust der Wette bekommst du eine FreeBet im Wert von 5 EUR<br></li></ol></div>",
+     "textLine8": "",
+     "textLine9": "",
+     "title-text": "",
+     "subtitle-text": "",
+     "body-text": "",
+     "terms-text": "",
+     "key-terms-tcs-text": "",
+     "readmore-text": "",
+     "textLine16": "",
+     "extended-promo-text": "",
+     "bannerUrl1": "",
+     "bannerUrl2": "https://rmg-crm-at-static.gt-cdn.net/repository/images/ABDE%20Sport%20Teaser%20Designs/ADMbet_IGRAPH_40831__PTS_2.png",
+     "bannerUrl3": "",
+     "bannerUrl4": "",
+     "bannerUrl5": "https://rmg-crm-at-static.gt-cdn.net/repository/images/ABDE%20Sport%20Teaser%20Designs/ADMbet_IGRAPH_40831__PTS_3.png",
+     "bannerUrl6": "",
+     "bannerUrl7": "",
+     "bannerUrl8": "",
+     "desktop-img": "",
+     "terminal-img": "",
+     "actionUrl1": "https://www.admiralbet.de/de/sports/",
+     "actionUrl2": "",
+     "locations": [
+      "home.promotion.main",
+      "promotion.filter.sports"
+     ],
+     "name": "Promotions Bereich | JokerBet Montag Info",
+     "category": "Default All"
+    }
+   }
+  ]
+ },
+ {
+  "campaign": {
+   "id": 8029305,
+   "scheduledTime": "2026-09-30T22:00:00Z",
+   "endTime": "2026-10-31T23:00:00Z",
+   "targetGroup": "Generic",
+   "visibilityBoost": null
+  },
+  "actions": [
+   {
+    "action": {
+     "id": 9509991,
+     "name": "Info",
+     "type": "InfoMail",
+     "externalId": "cea87ead-f9ed-44a5-8d12-64199bc9b0e4",
+     "status": "Assigned"
+    },
+    "banner": {
+     "textLine1": "Spiel des Monats Oktober ",
+     "textLine2": "Halloween Adventure hat sich durchgesetzt! ",
+     "textLine3": "JETZT SPIELEN",
+     "textLine4": "",
+     "textLine5": "",
+     "textLine6": "Mehr erfahren",
+     "textLine7": "<p>Süßes oder Spins? <strong>Halloween Adventure</strong> hat bei unserer Instagram-Wahl zum Spiel des Monats Oktober die meisten Stimmen bekommen!</p><p>Freu dich auf einen wunderbar designten Grusel-Slot von Merkur, der neben klassischen Mechaniken auch einige moderne Twists zu bieten hat, darunter aufregende Bonusrunden.</p>",
+     "textLine8": "",
+     "textLine9": "",
+     "title-text": "",
+     "subtitle-text": "",
+     "body-text": "",
+     "terms-text": "",
+     "key-terms-tcs-text": "",
+     "readmore-text": "",
+     "textLine16": "",
+     "extended-promo-text": "",
+     "bannerUrl1": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/ADMbet_40888-Halloween__MT_GameOfTheMonth-de.png",
+     "bannerUrl2": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/ADMbet_40888-Halloween__PTS_GameOfTheMonth-de.png",
+     "bannerUrl3": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/ADMbet_40888-Halloween__PTL_GameOfTheMonth-de.png",
+     "bannerUrl4": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/ADMbet_40888-Halloween__MTM_GameOfTheMonth-de.png",
+     "bannerUrl5": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/ADMbet_40888-Halloween__PTS_GameOfTheMonth-de.png",
+     "bannerUrl6": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/ADMbet_40888-Halloween__MTM_GameOfTheMonth-de.png",
+     "bannerUrl7": "",
+     "bannerUrl8": "",
+     "desktop-img": "",
+     "terminal-img": "",
+     "actionUrl1": "/de/slots/halloween-adventure/cash",
+     "actionUrl2": "",
+     "locations": [
+      "home.page.main",
+      "home.slot.main",
+      "home.promotion.main",
+      "promotion.static",
+      "promotion.filter.slots"
+     ],
+     "name": "ABDE_Casino_AH_VoteforGOTM_October_HalloweenAdventure_Info_TS_0926",
+     "category": "Default All"
+    }
+   }
+  ]
+ },
+ {
+  "campaign": {
+   "id": 4357227,
+   "scheduledTime": "2024-09-25T22:00:00Z",
+   "endTime": "2030-09-26T06:15:00Z",
+   "targetGroup": "Generic",
+   "visibilityBoost": null
+  },
+  "actions": [
+   {
+    "action": {
+     "id": 2930563,
+     "name": "Info",
+     "type": "InfoMail",
+     "externalId": "730bbce1-610d-49f4-ae58-ac0f7e2fc5ea",
+     "status": "Assigned"
+    },
+    "banner": {
+     "textLine1": "So spielst du verantwortungsvoll",
+     "textLine2": "Erfahre, wie du beim Spielen die Kontrolle behältst.",
+     "textLine3": "Mehr darüber",
+     "textLine4": "",
+     "textLine5": "",
+     "textLine6": "Weiterlesen",
+     "textLine7": "<p>Dein Spaß und deine Unterhaltung mit unseren Spielen sind uns wichtig. Noch wichtiger ist uns aber, dich vor den Gefahren des Suchtverhaltens zu schützen.</p><ul><li><p>Deshalb haben wir eine eigene <a href=\"https://www.admiralbet.de/de/verantwortungsvolles-entertainment\"><strong>Seite</strong></a> mit <strong>Tipps </strong>für deine Spiel- und Wettaktivitäten erstellt.</p></li><li><p>Unser <a href=\"https://www.admiralbet.de/de/user/spieleverlauf\"><strong>Selbst-Check</strong></a> hilft dir dabei, dein Spielverhalten zu bewerten.</p></li><li><p>Wir bieten Tools wie den <strong>Realitäts-Check</strong>, frei wählbare <a href=\"https://www.admiralbet.de/de/user/limits\"><strong>Limits</strong></a> und <a href=\"https://www.admiralbet.de/de/user/limits\"><strong>automatisierte Auszahlungen</strong></a> sowie die Möglichkeit, <a href=\"https://www.admiralbet.de/de/user/selbstaussschluss\"><strong>Sperren</strong></a> oder <a href=\"https://www.admiralbet.de/de/user/selbstaussschluss\"><strong>Spielpausen</strong></a> zu aktivieren, an.</p></li><li><p>Unser <a href=\"https://www.admiralbet.de/de/kontakt\"><strong>Kundenservice</strong></a> steht dir bei Fragen gern mit Rat und Tat zur Seite.</p></li></ul><p>Du findest bei uns außerdem zahlreiche Kontakte zu <strong>Beratungs-</strong> und <strong>Therapiestellen</strong>, falls du Hilfe brauchst.</p><p><a href=\"https://www.admiralbet.de/de/verantwortungsvolles-entertainment\"><strong>Hier geht es zur Infoseite für verantwortungsvolles Entertainment.</strong></a></p>",
+     "textLine8": "",
+     "textLine9": "",
+     "title-text": "",
+     "subtitle-text": "",
+     "body-text": "",
+     "terms-text": "",
+     "key-terms-tcs-text": "",
+     "readmore-text": "",
+     "textLine16": "",
+     "extended-promo-text": "",
+     "bannerUrl1": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/AdmiralBET_StaticPage_1920x500_ResponsibleGaming_1.jpg",
+     "bannerUrl2": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/AdmiralBET_Promo_540x324_ResponsibleGaming_1.jpg",
+     "bannerUrl3": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/AdmiralBET_StaticPage_1920x500_ResponsibleGaming_1.jpg",
+     "bannerUrl4": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/AdmiralBET_Promo_540x324_ResponsibleGaming_1.jpg",
+     "bannerUrl5": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/AdmiralBET_Promo_540x324_ResponsibleGaming_1.jpg",
+     "bannerUrl6": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/AdmiralBET_Promo_540x324_ResponsibleGaming_1.jpg",
+     "bannerUrl7": "",
+     "bannerUrl8": "",
+     "desktop-img": "",
+     "terminal-img": "",
+     "actionUrl1": "/de/verantwortungsvolles-entertainment",
+     "actionUrl2": "",
+     "locations": [
+      "home.slot.main",
+      "promotion.static",
+      "home.promotion.main",
+      "home.page.main",
+      "promotion.filter.slots",
+      "promotion.filter.sports"
+     ],
+     "name": "ABDE_Casino_RC_RGTools_Info_TS",
+     "category": "Default All"
+    }
+   }
+  ]
+ },
+ {
+  "campaign": {
+   "id": 7664782,
+   "scheduledTime": "2026-05-05T22:00:00Z",
+   "endTime": "2030-05-30T22:00:00Z",
+   "targetGroup": "Generic",
+   "visibilityBoost": null
+  },
+  "actions": [
+   {
+    "action": {
+     "id": 8178201,
+     "name": "Info",
+     "type": "InfoMail",
+     "externalId": "a804e968-ae3e-40bf-9d08-75b345cc3803",
+     "status": "Assigned"
+    },
+    "banner": {
+     "textLine1": "",
+     "textLine2": "",
+     "textLine3": "",
+     "textLine4": "",
+     "textLine5": "",
+     "textLine6": "",
+     "textLine7": "",
+     "textLine8": "",
+     "textLine9": "",
+     "textLine10": "",
+     "textLine11": "",
+     "textLine12": "",
+     "textLine13": "",
+     "textLine14": "",
+     "textLine15": "",
+     "bannerUrl1": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/SP_DesktopBackground_1920x1350_11.jpg",
+     "bannerUrl2": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/Modal_BG_1.jpg",
+     "bannerUrl3": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/SP_MobileBackground_768x1024_12.jpg",
+     "bannerUrl4": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/SP_PromotionLogo_500x155_9.png",
+     "bannerUrl5": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/SP_PromotionLogo_Desktop_720x100_9.png",
+     "bannerUrl6": "",
+     "bannerUrl7": "",
+     "bannerUrl8": "",
+     "bannerUrl9": "",
+     "bannerUrl10": "",
+     "actionUrl1": "",
+     "actionUrl2": "",
+     "locations": [
+      "promotion.dynamic.7.main"
+     ],
+     "name": "SportsPromo_Main",
+     "category": "Dynamic Promo Main"
+    }
+   }
+  ]
+ },
+ {
+  "campaign": {
+   "id": 7664783,
+   "scheduledTime": "2026-05-05T22:00:00Z",
+   "endTime": "2030-05-30T22:00:00Z",
+   "targetGroup": "Generic",
+   "visibilityBoost": null
+  },
+  "actions": [
+   {
+    "action": {
+     "id": 8178210,
+     "name": "Info",
+     "type": "InfoMail",
+     "externalId": "a9bcc640-3134-4f1c-a710-ba3b7b60a5c7",
+     "status": "Assigned"
+    },
+    "banner": {
+     "textLine1": "Jetzt wetten: ProfitBoost für den CL-Auftakt",
+     "textLine2": "",
+     "textLine3": "JETZT WETTEN",
+     "textLine4": "<ol><li><p>Die Promotion gilt vom 08.09.2026, 02:00 Uhr CET bis 10.09.2026, 23:59 Uhr CET („Aktionszeitraum”) und steht allen Kunden einmal während dem Aktionszeitraum zur Verfügung. Der 20% ProfitBoost ist auf die Champions League eingeschränkt. Die Mindestquote beträgt 2,00.</p></li><li><p>Jeder Kunde kann an dieser ProfitBoost Promotion einmal im Aktionszeitraum teilnehmen.</p></li><li><p>Um sich für die ProfitBoost Promo zu qualifizieren, gelten folgende Voraussetzungen:</p><ul><li><p>Nur Kunden, die über ein verifiziertes Wettkonto verfügen, sind an der Teilnahme berechtigt.</p></li><li><p>Der gewährte ProfitBoost muss über den Promotions Bereich aktiviert werden. Der ProfitBoost ist danach im Prämien-Bereich sichtbar und muss zusätzlich im Wettschein vor der Wettabgabe aktiviert werden, um den ProfitBoost nutzen zu können.</p></li><li><p>Die Abgabe des Wettscheines muss im Aktionszeitraum erfolgen. Nach Ablauf dieser Frist verfallen ungenutzte ProfitBoosts.</p></li><li><p>Es qualifiziert sich nur das Ticket eines Kunden für die Promotion, wenn die entsprechende Option „ProfitBoost“ im Wettschein selbst aktiviert wird. </p></li><li><p>Wird ein Event storniert, verfällt der eingesetzte ProfitBoost und wird nicht erstattet.</p></li><li><p>Der Ticketeinsatz muss zu 100% aus Echtgeld bestehen, um den ProfitBoost verwenden zu können.</p></li></ul></li><li><p>ProfitBoosts gelten nur für bestimmte Events.</p></li><li><p>Der aufgrund des ProfitBoosts zusätzlich gutgeschriebene Gewinn muss 1x, sofern nicht anders kommuniziert, auf eine beliebige Quote umgesetzt werden, um eine Auszahlung zu ermöglichen.</p></li><li><p>Ein ProfitBoost kann nicht für Saison- oder Langzeitwetten genutzt werden.</p></li><li><p>Jeder ProfitBoost unterliegt einer maximalen Gesamtquote und einem maximalen Einsatz, welche in den jeweiligen Angebotsdetails angegeben sind.</p></li><li><p>Ein ProfitBoost kann nur auf einem Wettschein angewendet werden und ist nicht teilbar.</p></li><li><p>Im Falle eines gewonnenen ProfitBoost-Tickets erhält der Kunde den gewonnenen Betrag sowie die Summe des errechneten Profit-Boosts. Beispiel: Bei einem gewonnenen ProfitBoost in der Höhe 20% und einem Einsatz von 10 Euro: 10 Euro (Einsatz) * 8,00 (Quote) = 80 Euro (Brutto-Gewinn); 80 Euro (Brutto-Gewinn) – 10 Euro (Einsatz) = 70 Euro (Netto-Gewinn); 70 Euro (Netto-Gewinn) * 20% ProfitBoost = 14 Euro zusätzlicher Gewinn.</p></li><li><p>Gewinne aus Wetten mit einem ProfitBoost werden dem Konto gutgeschrieben und können für weitere Wetten genutzt oder ausbezahlt werden.</p></li><li><p>Die Auszahlung von Gewinnen unterliegt dem Mindestauszahlungsbetrag gemäß den <a href=\"https://www.admiralbet.de/de/agb\">Allgemeinen Geschäftsbedingungen</a>.</p></li><li><p>Ein Cash-Out ist für Wettscheine mit ProfitBoost ausgeschlossen.</p></li><li><p>Falls die Wettlimits des Kunden unter dem durch den ProfitBoost bestimmten Mindestbetrag liegen, kann der Boost nicht genutzt werden.</p></li><li><p>Eine vollständig und erfolgreich erfolgte Spielerkontoüberprüfung, in Übereinstimmung mit den <a href=\"https://www.admiralbet.de/de/agb\">Allgemeinen Geschäftsbedingungen</a>, ist Voraussetzung für die Teilnahme an dieser Promotion.</p></li><li><p>Von AdmiralBet.de ausgeschlossene Spieler können an dieser Promotion nicht teilnehmen.</p></li><li><p><a href=\"https://www.admiralbet.de/de\">AdmiralBet.de</a> hat das Recht, Teilnehmer an dieser Werbeaktion im Zusammenhang mit diesem Angebot zu kontaktieren (z. B. für Umfragen oder Feedbacks). Die Spieler nehmen auf freiwilliger Basis an solchen Umfragen und Feedbacks teil, ohne dass dies Auswirkungen auf diese Werbeaktion hätte. </p></li><li><p>Der Spieler erkennt an, dass er durch die Teilnahme an dieser Werbeaktion und die Annahme der entsprechenden Gewinne und/oder Preise zustimmt, dass <a href=\"https://www.admiralbet.de/de/sports\">AdmiralBet.de</a> die Gewinne und/oder Preise ohne zusätzliche Bezahlung an den Spieler bewerben darf. Solche Werbeaktionen sind anonym, erfordern keine zusätzlichen Handlungen des Spielers und können auf den Vornamen oder Spielernamen des Spielers verweisen.</p></li><li><p>Jeder Versuch, eine Werbeaktion zu manipulieren, führt zur sofortigen Sperrung des Spielerkontos und zum Ausschluss des Spielers von der <a href=\"https://www.admiralbet.de/de\">AdmiralBet.de</a>-Website.</p></li><li><p><a href=\"https://www.admiralbet.de/de\">AdmiralBet.de</a> behält sich das Recht vor, Werbeaktionen und/oder aus diesen entstandene Gewinne im Fall von Missbrauch oder Irrtum zu widerrufen bzw. einzuziehen. </p></li><li><p><a href=\"https://www.admiralbet.de/de\">AdmiralBet.de</a> behält sich das Recht vor, diese Werbeaktion jederzeit zu ändern oder einzustellen. Teilnehmer werden darüber schnellstmöglich benachrichtigt. </p></li><li><p>Diese Werbeaktion bewirkt keine Änderung des Spielverlaufs oder der Spielregeln außerhalb der Werbeaktion. </p></li><li><p>Für zusätzliche Informationen zu dieser Werbeaktion kannst du deine Fragen per E-Mail an <a href=\"mailto:hilfe@admiralbet.de\">hilfe@admiralbet.de</a> senden oder uns per Live-Chat kontaktieren.</p></li><li><p>Glücksspiel dient der Unterhaltung, spiele verantwortungsbewusst! Weitere Informationen über sicheres Glücksspiel erhältst du unter <a href=\"https://www.bundesweit-gegen-gluecksspielsucht.de/\">https://www.bundesweit-gegen-gluecksspielsucht.de/</a> oder <a href=\"https://www.admiralbet.de/de/verantwortungsvolles-entertainment\">auf unserer Website</a>.</p></li><li><p>Es gelten die <a href=\"https://www.admiralbet.de/de/agb\">Allgemeinen Geschäftsbedingungen</a> der Greentube Betting Malta Ltd.</p></li></ol><p></p>",
+     "textLine5": "",
+     "textLine6": "",
+     "textLine7": "<p>Wer startet mit einem Sieg in die neue Champions League Saison?\nSei mittendrin und nutze unser CL-Kalender-Angebot für deine Wette: </p><ul><li><p><strong>+20% ProfitBoost</strong> für alle Spiele. </p></li><li><p>Das heißt: Ein<strong> hübsches Extrasümmchen</strong>, wenn die Wette aufgeht. </p></li><li><p>Mindestquote: <strong>2,00</strong></p></li><li><p>Nur <strong>Champions League Spiele.</strong></p></li></ul><p>Los geht’s!</p>",
+     "textLine8": "2026-09-08T02:00+02:00",
+     "textLine9": "2026-09-10T23:59+02:00",
+     "textLine10": "Öffnet am",
+     "textLine11": "",
+     "textLine12": "",
+     "textLine13": "",
+     "textLine14": "",
+     "textLine15": "",
+     "textLine16": "",
+     "bannerUrl1": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/IGRAPH-40142_10_QF.svg",
+     "bannerUrl2": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/1_7.png",
+     "bannerUrl3": "https://rmg-crm-at-static.gt-cdn.net/repository/images/contenthub/admiralbetde/Lock_4.png",
+     "bannerUrl4": "",
+     "bannerUrl5": "",
+     "bannerUrl6": "",
+     "bannerUrl7": "",
+     "bannerUrl8": "",
+     "bannerUrl9": "",
+     "bannerUrl10": "",
+     "actionUrl1": "/de/sports/sportwetten/fussball/champions-league?bonus=jS57spYkaGhZtuU32sqOQA2",
+     "actionUrl2": "",
+     "locations": [
+      "promotion.dynamic.7.level.1"
+     ],
+     "name": "SportsPromo_Level1",
+     "category": "Dynamic Promo Levels"
+    }
+   }
+  ]
+ }
+]

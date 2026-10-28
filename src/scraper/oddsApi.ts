@@ -4,6 +4,7 @@ import { RawEvent, RawOdds } from "../types";
 import { BookmakerScraper } from "./run";
 import { BookmakerId, canonicalMarketName, canonicalSport } from "./canonical";
 import { validateRawEvent } from "./validateRawEvent";
+import { ODDS_API_PINNACLE, PinnacleMatch, pinnacleMatchesOf } from "../reference/pinnacle";
 
 // Tipico's and Winamax.de's prices, which no request from the server reaches
 // (Akamai and CloudFront refuse it), from The Odds API (the-odds-api.com), an
@@ -178,7 +179,13 @@ export async function loadOddsApi(opts: OddsApiOptions = {}): Promise<OddsApiEve
         continue;
       }
       const res = await doFetch(
-        url(`/sports/${sportKey}/odds`, { bookmakers: Object.keys(ODDS_API_BOOKMAKERS).join(","), markets: "h2h", oddsFormat: "decimal" }),
+        // Pinnacle's prices too, the fair odds' reference (src/reference/
+        // pinnacle.ts): up to 10 bookmakers cost one credit, like two.
+        url(`/sports/${sportKey}/odds`, {
+          bookmakers: [...Object.keys(ODDS_API_BOOKMAKERS), ODDS_API_PINNACLE].join(","),
+          markets: "h2h",
+          oddsFormat: "decimal",
+        }),
         { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) }
       );
       const left = Number(res.headers.get("x-requests-remaining"));
@@ -206,6 +213,10 @@ const loadOnce = (): Promise<OddsApiEvent[]> => {
   if (!inFlight || now - inFlight.at > 60_000) inFlight = { at: now, promise: loadOddsApi() };
   return inFlight.promise;
 };
+
+// Pinnacle's football 1X2 from the same reads, for the reference cycle
+// (src/reference/pinnacleRun.ts).
+export const pinnacleOddsApiMatches = async (): Promise<PinnacleMatch[]> => pinnacleMatchesOf(await loadOnce());
 
 export const tipicoScraper: BookmakerScraper = { id: "tipico", fetch: async () => parseOddsApiEvents(await loadOnce(), "tipico") };
 export const winamaxdeScraper: BookmakerScraper = { id: "winamaxde", fetch: async () => parseOddsApiEvents(await loadOnce(), "winamaxde") };

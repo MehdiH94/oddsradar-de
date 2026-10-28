@@ -9,7 +9,7 @@ import { PayoutBadge } from "./components/PayoutBadge";
 import { FairOdds } from "./components/FairOdds";
 import { ExchangePrices } from "./components/ExchangePrices";
 import { BestPrice } from "./components/BestPrice";
-import { valueEdge } from "./value";
+import { passesControl, valueEdge } from "./value";
 import { useIsTable } from "./useMediaQuery";
 import styles from "./OddsTable.module.css";
 
@@ -215,7 +215,10 @@ export function OddsTable({
                       event.byBookmaker[bookmaker]?.odds.find((o) => market && o.market === market && o.selection === selection)
                     );
                     const prices = offers.map((o) => o?.price);
-                    const edges = prices.map((price) => valueEdge(price, fair));
+                    const sharp = fair !== undefined ? event.reference?.sharp : undefined;
+                    const edges = prices.map((price) =>
+                      price !== undefined && passesControl(price, selection, sharp) ? valueEdge(price, fair) : undefined
+                    );
                     const bestEdge = Math.max(...edges.map((edge) => edge ?? -Infinity));
                     if (!wide) {
                       const bestPrice = best.length > 0 ? prices[listing.indexOf(best[0])] : undefined;
@@ -268,7 +271,11 @@ export function OddsTable({
                           ))}
                         </span>
                         {fair !== undefined && (
-                          <FairOdds fair={fair} edge={Number.isFinite(bestEdge) ? bestEdge : undefined} />
+                          <FairOdds
+                            fair={fair}
+                            edge={Number.isFinite(bestEdge) ? bestEdge : undefined}
+                            pinnacle={event.reference?.source === "pinnacle"}
+                          />
                         )}
                         <ExchangePrices prices={event.exchange?.[selection]} compact />
                       </td>

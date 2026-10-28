@@ -17,7 +17,21 @@ export function valueEdge(
   return edge >= minEdge ? edge : undefined;
 }
 
+// PasBet's second check of a value bet, when the fair odds are Pinnacle's
+// (src/db/value.ts on the API's side): the price on the outcome with
+// Pinnacle's on the others must make a market paying 99% or more.
+export const CONTROL_MIN_PAYOUT = 0.99;
+
+export function passesControl(price: number, selection: string, sharp: Record<string, number> | undefined): boolean {
+  if (!sharp || sharp[selection] === undefined) return true;
+  const total = Object.entries(sharp).reduce((sum, [outcome, odds]) => sum + 1 / (outcome === selection ? price : odds), 0);
+  return 1 / total >= CONTROL_MIN_PAYOUT - 1e-9;
+}
+
 // Where the fair odds come from, for their tooltips and explanations.
 // In the dative (and genitive) case, which the sentences around it need: "an
 // der Betfair-Wettbörse", "die fairen Quoten der Betfair-Wettbörse".
 export const REFERENCE_SOURCE = "der Betfair-Wettbörse";
+
+// The football 1X2's fair odds when Pinnacle prices the match.
+export const PINNACLE_SOURCE = "Pinnacle";

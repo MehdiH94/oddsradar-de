@@ -119,7 +119,7 @@ describe("the listing and the reference", () => {
 
   it("gives each match its current reference and its best edge", () => {
     const events = Object.fromEntries(getLatestEvents(db, { sort: "start" }).events.map((e) => [e.id, e]));
-    expect(events.value.reference).toEqual({ market: "1X2", fair: FAIR, matched: 1500, scrapedAt: expect.any(String) });
+    expect(events.value.reference).toEqual({ market: "1X2", fair: FAIR, matched: 1500, scrapedAt: expect.any(String), source: "exchange" });
     expect(events.value.value).toEqual({ edge: expect.closeTo(0.1, 10), selection: "1", bookmaker: "winamax" });
     expect(events.nofair.reference).toBeNull();
     expect(events.nofair.value).toBeNull();

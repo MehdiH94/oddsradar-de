@@ -326,6 +326,7 @@ describe("reference storage", () => {
       fair: { "1": 1.6, X: 4.8, "2": 6.5 },
       matched: 100,
       scrapedAt: "2026-09-30T10:05:00.000Z",
+      source: "exchange",
     });
     // Too old for the listing.
     expect(loadReferences(db, ["pol"], "2026-09-30T10:06:00.000Z").size).toBe(0);

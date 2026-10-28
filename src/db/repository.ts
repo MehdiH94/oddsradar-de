@@ -354,6 +354,7 @@ function freshEventsFilter(
     });
     conditions.push(
       `(EXISTS (SELECT 1 FROM reference_odds r WHERE r.event_id = events.id AND r.scraped_at >= @referenceSince)
+        OR EXISTS (SELECT 1 FROM pinnacle_odds p WHERE p.event_id = events.id AND p.scraped_at >= @referenceSince)
         OR EXISTS (SELECT 1 FROM reference_markets t WHERE t.event_id = events.id AND t.scraped_at >= @referenceSince)
         OR EXISTS (SELECT 1 FROM event_market_odds v WHERE v.event_id = events.id AND v.scraped_at >= @valueMarketsSince
                    AND v.market IN (${playerMarkets.join(", ")})))`
@@ -979,6 +980,7 @@ export function forgetStartedEvents(db: DatabaseSync, before: string): number {
       "surebet_markets",
       "event_sources",
       "reference_odds",
+      "pinnacle_odds",
       "reference_sources",
       "reference_player_markets",
       "reference_player_odds",

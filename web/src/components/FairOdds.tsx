@@ -1,15 +1,27 @@
 import { formatEdge, formatPrice } from "../format";
-import { REFERENCE_SOURCE } from "../value";
+import { PINNACLE_SOURCE, REFERENCE_SOURCE } from "../value";
 import styles from "./FairOdds.module.css";
 
-// Under an outcome's prices: its fair odds (the reference exchange's price
-// without its margin), and its best value bet's edge when a price is one. A
-// player's can be a ceiling (`ceiling`): the exchange's lay, when it prices
-// them too loosely for fair odds.
-export function FairOdds({ fair, ceiling = false, edge }: { fair: number; ceiling?: boolean; edge?: number }) {
+// Under an outcome's prices: its fair odds (Pinnacle's price without its
+// margin, `pinnacle`, or else the reference exchange's), and its best value
+// bet's edge when a price is one. A player's can be a ceiling (`ceiling`):
+// the exchange's lay, when it prices them too loosely for fair odds.
+export function FairOdds({
+  fair,
+  ceiling = false,
+  edge,
+  pinnacle = false,
+}: {
+  fair: number;
+  ceiling?: boolean;
+  edge?: number;
+  pinnacle?: boolean;
+}) {
   const title = ceiling
     ? `Faire Quote höchstens: die Lay-Quote an ${REFERENCE_SOURCE}, die diesen Spieler zu ungenau bewertet, um eine faire Quote zu ergeben`
-    : `Faire Quote: die Quote an ${REFERENCE_SOURCE}, ohne ihre Marge`;
+    : pinnacle
+      ? `Faire Quote: die Quote von ${PINNACLE_SOURCE}, ohne ihre Marge (anteilig zur Quote verteilt)`
+      : `Faire Quote: die Quote an ${REFERENCE_SOURCE}, ohne ihre Marge`;
   return (
     <span className={styles.fair} title={title}>
       <span aria-hidden="true">{ceiling ? "Fair ≤ " : "Fair "}</span>

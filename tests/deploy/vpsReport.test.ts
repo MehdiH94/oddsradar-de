@@ -45,6 +45,7 @@ describe("deploy/vps-report.sh", () => {
     expect(report("promo-pages")).toMatchObject({ status: 0, out: "node scripts/probe-promo-pages.mjs" });
     expect(report("promo-network")).toMatchObject({ status: 0, out: "node scripts/probe-promo-network.mjs" });
     expect(report("promo-samples")).toMatchObject({ status: 0, out: "node scripts/probe-promo-samples.mjs" });
+    expect(report("pinnacle")).toMatchObject({ status: 0, out: expect.stringContaining("https://guest.api.arcadia.pinnacle.com/0.1/") });
   });
 
   it("refuses anything else, its arguments included", () => {
@@ -66,11 +67,12 @@ describe("deploy/vps-report.sh", () => {
       "promo-pages betway",
       "promo-network neobet",
       "promo-samples all",
+      "pinnacle 1842",
     ]) {
       const run = report(command);
       expect(run.status, String(command)).toBe(2);
       expect(run.out, String(command)).toBe("");
-      expect(run.err).toMatch(/^vps-report: .*Allowed: surebet-report \[days\], probe, status, bookmakers, exchange, promo-pages, promo-network, promo-samples\.$/);
+      expect(run.err).toMatch(/^vps-report: .*Allowed: surebet-report \[days\], probe, status, bookmakers, exchange, promo-pages, promo-network, promo-samples, pinnacle\.$/);
     }
   });
 

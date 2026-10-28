@@ -22,6 +22,9 @@
 #                          (scripts/probe-promo-network.mjs)
 #   promo-samples          the public promotions lists those requests found,
 #                          printed whole (scripts/probe-promo-samples.mjs)
+#   pinnacle               whether Pinnacle's public odds (the API its own
+#                          site reads, no key) answer from Germany: a
+#                          football league's list, matches and prices
 # REPORT_DRY_RUN=1 prints what would run instead (tests/deploy/vpsReport.test.ts).
 set -euo pipefail
 
@@ -32,7 +35,7 @@ read -r -a words <<<"${SSH_ORIGINAL_COMMAND:-}"
 name="${words[0]:-}"
 
 refuse() {
-  echo "vps-report: $1. Allowed: surebet-report [days], probe, status, bookmakers, exchange, promo-pages, promo-network, promo-samples." >&2
+  echo "vps-report: $1. Allowed: surebet-report [days], probe, status, bookmakers, exchange, promo-pages, promo-network, promo-samples, pinnacle." >&2
   exit 2
 }
 
@@ -79,6 +82,15 @@ journalctl --no-pager -n 60 -u oddsradar-exchange-vpn -u oddsradar-exchange-prox
   promo-samples)
     [ "${#words[@]}" -eq 1 ] || refuse "promo-samples takes no argument"
     run=(node scripts/probe-promo-samples.mjs)
+    ;;
+  pinnacle)
+    [ "${#words[@]}" -eq 1 ] || refuse "pinnacle takes no argument"
+    # Straight from the VPS, as every bookmaker's read: football's leagues,
+    # then the Bundesliga's (1842) matches and prices, each answer's start.
+    run=(sh -c "for path in sports/29/leagues?all=false leagues/1842/matchups leagues/1842/markets/straight; do \
+curl -s -o /tmp/vps-report-pinnacle.json -w \"pinnacle \$path: HTTP %{http_code}, %{size_download} bytes\\n\" --max-time 20 \
+-H 'Accept: application/json' \"https://guest.api.arcadia.pinnacle.com/0.1/\$path\" || echo \"pinnacle \$path: no answer\"; \
+head -c 400 /tmp/vps-report-pinnacle.json 2>/dev/null; echo; done")
     ;;
   "")
     refuse "no command"

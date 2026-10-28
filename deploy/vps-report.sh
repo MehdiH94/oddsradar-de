@@ -18,6 +18,8 @@
 #                          and last log lines, and a search through the proxy
 #   promo-pages            the bookmakers' promotions pages as seen from
 #                          Germany (scripts/probe-promo-pages.mjs)
+#   promo-network          the requests those pages make in a browser
+#                          (scripts/probe-promo-network.mjs)
 # REPORT_DRY_RUN=1 prints what would run instead (tests/deploy/vpsReport.test.ts).
 set -euo pipefail
 
@@ -28,7 +30,7 @@ read -r -a words <<<"${SSH_ORIGINAL_COMMAND:-}"
 name="${words[0]:-}"
 
 refuse() {
-  echo "vps-report: $1. Allowed: surebet-report [days], probe, status, bookmakers, exchange, promo-pages." >&2
+  echo "vps-report: $1. Allowed: surebet-report [days], probe, status, bookmakers, exchange, promo-pages, promo-network." >&2
   exit 2
 }
 
@@ -67,6 +69,10 @@ journalctl --no-pager -n 60 -u oddsradar-exchange-vpn -u oddsradar-exchange-prox
   promo-pages)
     [ "${#words[@]}" -eq 1 ] || refuse "promo-pages takes no argument"
     run=(node scripts/probe-promo-pages.mjs)
+    ;;
+  promo-network)
+    [ "${#words[@]}" -eq 1 ] || refuse "promo-network takes no argument"
+    run=(node scripts/probe-promo-network.mjs)
     ;;
   "")
     refuse "no command"

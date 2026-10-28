@@ -1021,7 +1021,10 @@ un rapport en lecture seule et le met dans son log et dans un artefact :
 - `promo-pages` : les pages promotions des bookmakers vues d'Allemagne
   (`scripts/probe-promo-pages.mjs`) : leur reponse, une page anti-robot
   eventuelle, les cles de leur etat et les adresses qui parlent de promos,
-  pour ecrire les lecteurs de `src/promos/`.
+  pour ecrire les lecteurs de `src/promos/` ;
+- `promo-network` : les requetes que ces pages font dans un navigateur
+  (`scripts/probe-promo-network.mjs`, le Chromium de Playwright de `probe`),
+  celles qui parlent de promos en premier, avec le debut de leur reponse.
 
 Claude Code le lance lui-meme quand il a besoin d'un de ces rapports. Il passe
 par sa propre cle SSH, dont la commande forcee est `deploy/vps-report.sh` :

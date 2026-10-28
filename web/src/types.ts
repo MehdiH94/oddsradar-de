@@ -45,6 +45,12 @@ export interface Reference {
   // The edge from which a price is a value bet, when it is not VALUE_MIN_EDGE:
   // a golf tournament's winner, whose players' prices are wider (5%).
   minEdge?: number;
+  // Where the fair odds come from: Pinnacle's prices (a football 1X2 it
+  // prices) or the exchange's.
+  source?: "pinnacle" | "exchange";
+  // Pinnacle's own prices by outcome, when they are the source: a value bet's
+  // control payout is weighed against them (passesControl).
+  sharp?: Record<string, number>;
 }
 
 // One value bet (GET /api/value-bets, src/db/repository.ts): a bookmaker's
@@ -157,6 +163,8 @@ export interface OutcomeDetail {
   // exchange's lay, when it prices them too loosely for fair odds.
   fair?: number;
   fairIsCeiling?: true;
+  // A 1X2's fair odds made of Pinnacle's prices rather than the exchange's.
+  fairFromPinnacle?: true;
   edges?: Record<string, number>;
   // A player the exchange doesn't price: each bookmaker's price 30% or more
   // above the other's, by how much (not sent for now, like `basis`

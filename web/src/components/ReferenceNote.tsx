@@ -1,6 +1,6 @@
 import { Info } from "lucide-react";
 import { formatEdge, formatPercent } from "../format";
-import { PLAYER_VALUE_MIN_EDGE, REFERENCE_SOURCE, VALUE_MIN_EDGE } from "../value";
+import { CONTROL_MIN_PAYOUT, PINNACLE_SOURCE, PLAYER_VALUE_MIN_EDGE, REFERENCE_SOURCE, VALUE_MIN_EDGE } from "../value";
 import styles from "./ReferenceNote.module.css";
 
 // What "Fair", the payout and the value bets' marks mean, above a list that shows
@@ -16,8 +16,11 @@ export function ReferenceNote({ players = false }: { players?: boolean }) {
       </summary>
       <div className={styles.body}>
         <p>
-          „Fair“: die Quote an {REFERENCE_SOURCE}, ohne ihre Marge. Eine Quote, die mindestens{" "}
-          {formatPercent(VALUE_MIN_EDGE)} darüber liegt, ist eine Value Bet: eingerahmt, mit ihrem Vorteil („{formatEdge(0.021)}“).
+          „Fair“: beim Fußball-1X2 die Quote von {PINNACLE_SOURCE}, deren Marge anteilig zur Quote abgezogen wird, sonst die
+          Quote an {REFERENCE_SOURCE}, ohne ihre Marge. Eine Quote, die mindestens {formatPercent(VALUE_MIN_EDGE)} darüber
+          liegt, ist eine Value Bet: eingerahmt, mit ihrem Vorteil („{formatEdge(0.021)}“). Gegen Pinnacle zählt sie nur, wenn
+          sie mit den Pinnacle-Quoten der anderen Ausgänge eine Auszahlungsquote von mindestens{" "}
+          {formatPercent(CONTROL_MIN_PAYOUT)} ergibt.
           {players && (
             <>
               {" "}
@@ -31,7 +34,8 @@ export function ReferenceNote({ players = false }: { players?: boolean }) {
           und Winamax ziehen keine ab. Beim Buchmacher siehst du daher eine etwas höhere Quote.
         </p>
         <p>
-          Die Betfair-Wettbörse hat keine deutsche Lizenz (GGL): Ihre Kurse dienen hier nur als Referenz für die faire Quote.
+          Pinnacle und die Betfair-Wettbörse haben keine deutsche Lizenz (GGL): Ihre Kurse dienen hier nur als Referenz für
+          die faire Quote.
         </p>
         <p>
           Die beste Quote jedes Ausgangs ist grün und abgehakt. Die Auszahlungsquote ist die der besten Quoten: Je näher sie

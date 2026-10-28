@@ -67,6 +67,22 @@ CREATE TABLE IF NOT EXISTS reference_sources (
   seen_at TEXT NOT NULL
 );
 
+-- A football match's 1X2 on Pinnacle (src/reference/pinnacleRun.ts), per
+-- outcome: Pinnacle's price (through The Odds API), the fair odds made of it
+-- (src/reference/pinnacleFair.ts), the match there, and our participants in
+-- the order the outcomes' "1" and "2" stand for. The fair odds the site
+-- shows when fresh, the exchange's otherwise.
+CREATE TABLE IF NOT EXISTS pinnacle_odds (
+  event_id TEXT NOT NULL REFERENCES events(id),
+  selection TEXT NOT NULL,
+  price REAL NOT NULL,
+  fair REAL NOT NULL,
+  pinnacle_id TEXT NOT NULL,
+  participants TEXT NOT NULL,
+  scraped_at TEXT NOT NULL,
+  PRIMARY KEY (event_id, selection)
+);
+
 -- Per outcome: the fair odds (the exchange's mid prices without their
 -- margin), the best back and lay they come from, and the market's matched
 -- volume.

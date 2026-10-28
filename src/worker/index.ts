@@ -3,6 +3,7 @@ import { openDb } from "../db/client";
 import { runScrapeCycle } from "../scraper/run";
 import { runMarketsCycle } from "../scraper/marketsRun";
 import { runReferenceCycle } from "../reference/run";
+import { runPinnacleCycle } from "../reference/pinnacleRun";
 import { runTennisReferenceCycle } from "../reference/tennisRun";
 import { runFootballMarketsReferenceCycle } from "../reference/footballRun";
 import { runSportsReferenceCycle } from "../reference/sportsRun";
@@ -26,7 +27,7 @@ import { sportingbetScraper } from "../scraper/sportingbet";
 import { vbetScraper } from "../scraper/vbet";
 import { sport888Scraper } from "../scraper/888sport";
 import { neobetScraper } from "../scraper/neobet";
-import { tipicoScraper, winamaxdeScraper } from "../scraper/oddsApi";
+import { pinnacleOddsApiMatches, tipicoScraper, winamaxdeScraper } from "../scraper/oddsApi";
 
 const dbPath = process.env.DB_PATH ?? "./data/coteradar.sqlite";
 const intervalMinutes = Number(process.env.POLL_INTERVAL_MINUTES ?? "5");
@@ -92,6 +93,13 @@ startScheduler(intervalMinutes, async () => {
     await runReferenceCycle(db, listing);
   } catch (err) {
     console.error("[reference] cycle failed:", err);
+  }
+  try {
+    // Pinnacle's football 1X2, the fair odds' reference where it prices the
+    // match (src/reference/pinnacleRun.ts), from The Odds API's last reads.
+    await runPinnacleCycle(db, { matches: pinnacleOddsApiMatches, oddsMaxAgeMs: listing.oddsMaxAgeMs });
+  } catch (err) {
+    console.error("[reference:pinnacle] cycle failed:", err);
   }
   try {
     // The main tours' tennis matches (src/reference/tennisRun.ts).

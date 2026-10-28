@@ -5,6 +5,7 @@ import { MARKET_1X2, MARKET_MATCH_WINNER, MARKET_OUTRIGHT } from "../scraper/can
 import { listedTheOtherWay } from "../reference/match";
 import { OUTRIGHT_VALUE_MIN_EDGE } from "./value";
 import { isCompetitionEventSql } from "./competition";
+import { loadPinnacleReferences } from "./pinnacle";
 
 // The reference's storage (src/reference/): where the exchange lists each
 // match, and its fair odds. Apart from the bookmakers' tables, so that no
@@ -242,6 +243,12 @@ export interface Reference {
   scrapedAt: string;
   // The edge from which a price is a value bet, when it is not VALUE_MIN_EDGE's.
   minEdge?: number;
+  // Where the fair odds come from: Pinnacle's prices (a football 1X2 it
+  // prices, src/db/pinnacle.ts) or the exchange's (the others).
+  source: "pinnacle" | "exchange";
+  // Pinnacle's own prices, by outcome, when they are the source: a value
+  // bet's control payout is weighed against them (src/db/value.ts).
+  sharp?: Record<string, number>;
 }
 
 // The given events' current reference, if any.
@@ -268,7 +275,7 @@ export function loadReferences(db: DatabaseSync, ids: readonly string[], since: 
     }
     for (const [eventId, entry] of partial) {
       if (OUTCOMES.every((o) => entry.fair[o] !== undefined)) {
-        references.set(eventId, { ...entry, market: MARKET_1X2, fair: entry.fair as Record<Outcome, number> });
+        references.set(eventId, { ...entry, market: MARKET_1X2, fair: entry.fair as Record<Outcome, number>, source: "exchange" });
       }
     }
     // The other sports' main market: a tennis or basketball winner, an ice
@@ -289,7 +296,7 @@ export function loadReferences(db: DatabaseSync, ids: readonly string[], since: 
     }[];
     const others = new Map<string, Reference>();
     for (const row of mains) {
-      const entry = others.get(row.eventId) ?? { market: row.market, fair: {}, matched: row.matched, scrapedAt: row.scrapedAt };
+      const entry = others.get(row.eventId) ?? { market: row.market, fair: {}, matched: row.matched, scrapedAt: row.scrapedAt, source: "exchange" as const };
       entry.fair[row.selection] = row.fair;
       others.set(row.eventId, entry);
     }
@@ -301,6 +308,20 @@ export function loadReferences(db: DatabaseSync, ids: readonly string[], since: 
         references.set(eventId, entry);
       }
     }
+  }
+  // A football 1X2 Pinnacle prices takes its fair odds from Pinnacle (the
+  // owner's choice, 28/10/2026), the exchange's matched volume kept.
+  for (const [eventId, pinnacle] of loadPinnacleReferences(db, ids, since)) {
+    const exchange = references.get(eventId);
+    if (exchange && exchange.market !== MARKET_1X2) continue;
+    references.set(eventId, {
+      market: MARKET_1X2,
+      fair: pinnacle.fair,
+      matched: exchange?.matched ?? 0,
+      scrapedAt: pinnacle.scrapedAt,
+      source: "pinnacle",
+      sharp: pinnacle.price,
+    });
   }
   return references;
 }

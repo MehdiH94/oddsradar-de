@@ -75,6 +75,20 @@ describe("loadOddsApi", () => {
     expect(calls.filter((p) => p.endsWith("/odds"))).toHaveLength(1);
   });
 
+  it("asks for Pinnacle's prices with Tipico's and Winamax's, in the same request", async () => {
+    const asked: URL[] = [];
+    const { fetchMock } = api();
+    const spy = vi.fn(async (input: URL | string) => {
+      asked.push(new URL(String(input)));
+      return fetchMock(input);
+    });
+    vi.spyOn(console, "log").mockImplementation(() => {});
+    await loadOddsApi({ key: "k", cacheFile: cacheFile(), now: () => NOW, fetch: spy as unknown as typeof fetch });
+    const odds = asked.filter((u) => u.pathname.endsWith("/odds"));
+    expect(odds).toHaveLength(1);
+    expect(odds[0].searchParams.get("bookmakers")).toBe("tipico_de,winamax_de,pinnacle");
+  });
+
   it("drops the matches that have started from the prices it keeps", async () => {
     const { fetchMock } = api();
     vi.spyOn(console, "log").mockImplementation(() => {});

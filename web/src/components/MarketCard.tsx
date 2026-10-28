@@ -48,7 +48,12 @@ function OutcomeFairOdds({ outcome, bookmakers }: { outcome: OutcomeDetail; book
   return (
     <>
       {outcome.fair !== undefined && (
-        <FairOdds fair={outcome.fair} ceiling={outcome.fairIsCeiling} edge={biggest(outcome.edges)} />
+        <FairOdds
+          fair={outcome.fair}
+          ceiling={outcome.fairIsCeiling}
+          edge={biggest(outcome.edges)}
+          pinnacle={outcome.fairFromPinnacle}
+        />
       )}
       {suspect !== undefined && <SuspectOdds gap={suspect} />}
     </>

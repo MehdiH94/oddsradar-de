@@ -26,6 +26,16 @@ const result: MarketDetail = {
 };
 
 describe("MarketCard", () => {
+  it("says when the 1X2's fair odds are Pinnacle's", () => {
+    const pinnacle: MarketDetail = {
+      ...result,
+      lines: [{ ...result.lines[0], outcomes: result.lines[0].outcomes.map((o) => ({ ...o, fairFromPinnacle: true as const })) }],
+    };
+    const { container } = render(<MarketCard market={pinnacle} bookmakers={["leovegas", "merkurbets"]} />);
+    const lines = [...container.querySelectorAll('[title^="Faire Quote"]')];
+    expect(lines[0]).toHaveAttribute("title", expect.stringContaining("die Quote von Pinnacle, ohne ihre Marge"));
+  });
+
   it("shows the 1X2's fair odds under each outcome's prices, and marks its value bets", () => {
     const { container } = render(<MarketCard market={result} bookmakers={["leovegas", "merkurbets"]} />);
     const lines = [...container.querySelectorAll('[title^="Faire Quote"]')];

@@ -50,6 +50,8 @@ export interface OutcomeDetail {
   // the other's, when the exchange has nothing.
   fair?: number;
   fairIsCeiling?: true;
+  // A 1X2's fair odds made of Pinnacle's prices rather than the exchange's.
+  fairFromPinnacle?: true;
   edges?: Record<string, number>;
   suspects?: Record<string, number>;
   // A bookmaker's boosted price of it (20bet's odds boost, RawOdds.boosted),
@@ -61,7 +63,7 @@ export interface OutcomeDetail {
 type Valuation = (
   key: string,
   prices: Record<string, number>
-) => Pick<OutcomeDetail, "fair" | "fairIsCeiling" | "edges" | "suspects"> | undefined;
+) => Pick<OutcomeDetail, "fair" | "fairIsCeiling" | "fairFromPinnacle" | "edges" | "suspects"> | undefined;
 
 export interface MarketLine {
   // The market's line when it has one: 2.5 for "over/under 2.5 goals".
@@ -268,7 +270,12 @@ export function getEventDetail(
         reference &&
         ((outcome, prices) => {
           const fair = reference.fair[outcome as keyof typeof reference.fair];
-          return fair === undefined ? undefined : { fair, edges: valueEdges(prices, fair) };
+          if (fair === undefined) return undefined;
+          return {
+            fair,
+            ...(reference.source === "pinnacle" ? { fairFromPinnacle: true as const } : {}),
+            edges: valueEdges(prices, fair, { selection: outcome, sharp: reference.sharp }),
+          };
         })
       );
     }

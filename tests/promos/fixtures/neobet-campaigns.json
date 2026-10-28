@@ -1,0 +1,611 @@
+[
+ {
+  "campaignId": "root-freebet",
+  "creativeId": "2025_freebets-25",
+  "name": "25 € Freiwetten",
+  "link": "",
+  "carouselOptions": {
+   "label": "Jetzt 25 € Freiwetten & 100 € Bonus sichern",
+   "primaryButtonLabel": "Nur 5 Minuten bis zu deinem Bonus",
+   "primaryLink": "#account/Account",
+   "carouselItemSize": "280x200"
+  },
+  "steps": [
+   {
+    "actions": [],
+    "reward": {
+     "rewardDesc": {
+      "key": "SportbetRewardDesc",
+      "props": {
+       "templateId": "freebet_25_5",
+       "rewardType": "FreeBet",
+       "currency": "EUR"
+      }
+     }
+    }
+   }
+  ],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|DE|LU|MT"
+   }
+  }
+ },
+ {
+  "campaignId": "profi",
+  "name": "Profi Bonus",
+  "link": "",
+  "carouselOptions": {
+   "label": "Profi Bonus - 100% bis zu 100€",
+   "primaryButtonLabel": "Jetzt Bonus sichern",
+   "primaryLink": "#account/Account",
+   "secondaryButtonLabel": "Mehr Infos",
+   "secondaryLink": "de/Bonus/Willkommen",
+   "carouselItemSize": "280x200"
+  },
+  "steps": [
+   {
+    "actions": [
+     {
+      "actionDesc": {
+       "key": "DepositActionDesc",
+       "props": {}
+      },
+      "actionDetailDesc": {
+       "key": "DepositActionDetailDesc",
+       "props": {
+        "providers": "PAYPAL|TRUSTLY|CREDITCARD|SOFORT|FINTEC|ADYEN_APPLEPAY|PAYSAFECARD|BANK|ADYEN_GOOGLEPAY|AIRCASH|AIRCASH_MARKETPLACE"
+       }
+      },
+      "amountDesc": {
+       "key": "AmountDesc",
+       "props": {}
+      }
+     }
+    ],
+    "reward": {
+     "rewardDesc": {
+      "key": "BonusMoneyRewardDesc",
+      "props": {
+       "percentage": "100%",
+       "realMoney": [
+        [
+         "Sportbet",
+         {
+          "value": 50,
+          "currency": "EUR"
+         }
+        ]
+       ],
+       "maxAmount": {
+        "value": 100,
+        "currency": "EUR"
+       },
+       "turnoverExpiry": 8640000000,
+       "sportbetTurnoverMinOdds": 1.5,
+       "sportbetAdjustedTurnoverFactor": 5,
+       "sportbetTurnoverFactor": 10,
+       "bonusMaximizingAmount": {
+        "value": 100,
+        "currency": "EUR"
+       }
+      }
+     }
+    }
+   }
+  ],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "DE|AT|LU"
+   }
+  }
+ },
+ {
+  "campaignId": "starter",
+  "name": "Starter Bonus",
+  "link": "",
+  "carouselOptions": {
+   "label": "Starter Bonus - 200% bis zu 50€",
+   "primaryButtonLabel": "Jetzt Bonus sichern",
+   "primaryLink": "#account/Account",
+   "secondaryButtonLabel": "Mehr Infos",
+   "secondaryLink": "de/Bonus/Willkommen",
+   "carouselItemSize": "280x200"
+  },
+  "steps": [
+   {
+    "actions": [
+     {
+      "actionDesc": {
+       "key": "DepositActionDesc",
+       "props": {}
+      },
+      "actionDetailDesc": {
+       "key": "DepositActionDetailDesc",
+       "props": {
+        "providers": "PAYPAL|TRUSTLY|CREDITCARD|SOFORT|FINTEC|MUCHBETTER|ADYEN_APPLEPAY|PAYSAFECARD|BANK|ADYEN_GOOGLEPAY|AIRCASH|AIRCASH_MARKETPLACE|DIMOCO|BRITE"
+       }
+      },
+      "amountDesc": {
+       "key": "AmountDesc",
+       "props": {}
+      }
+     }
+    ],
+    "reward": {
+     "rewardDesc": {
+      "key": "BonusMoneyRewardDesc",
+      "props": {
+       "percentage": "200%",
+       "realMoney": [
+        [
+         "Sportbet",
+         {
+          "value": 31.25,
+          "currency": "EUR"
+         }
+        ]
+       ],
+       "maxAmount": {
+        "value": 50,
+        "currency": "EUR"
+       },
+       "turnoverExpiry": 8640000000,
+       "sportbetTurnoverMinOdds": 1.5,
+       "sportbetAdjustedTurnoverFactor": 5,
+       "sportbetTurnoverFactor": 7.5,
+       "bonusMaximizingAmount": {
+        "value": 25,
+        "currency": "EUR"
+       }
+      }
+     }
+    }
+   }
+  ],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "DE|AT|LU"
+   }
+  }
+ },
+ {
+  "campaignId": "millions-bundesliga",
+  "name": "🇩🇪 Bundesliga",
+  "link": "",
+  "carouselOptions": {
+   "label": "6 Richtige bis zum Millionengewinn!",
+   "primaryButtonLabel": "Jetzt Spielen",
+   "primaryLink": "/de/Million",
+   "carouselItemSize": "280x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT|ZA"
+   }
+  },
+  "metadata": "https://neobet.de/de/Sportwetten?betslip=compact&mo=Combi&se=NEO%7CFB-4100779%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100772%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100763%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100773%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100760%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100754%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100752%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100748%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100750%21Goal_RT_HC3W%280.0%29%211&sy=1&sy=2&sy=3&sy=4&sy=5&sy=6&sy=7&sy=8&sy=9&st=5#betslip/Betslip"
+ },
+ {
+  "campaignId": "oddsBoost",
+  "name": "Quotenboosts",
+  "link": "",
+  "carouselOptions": {
+   "label": "Quotenboosts",
+   "primaryButtonLabel": "Jetzt Wetten",
+   "primaryLink": "#betslip/Betslip",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|FI|LU|MT|ZA"
+   }
+  },
+  "metadata": "5"
+ },
+ {
+  "campaignId": "millions-seriea",
+  "name": "🇮🇹 Serie A",
+  "link": "",
+  "carouselOptions": {
+   "label": "6 Richtige bis zum Millionengewinn!",
+   "primaryButtonLabel": "Jetzt Spielen",
+   "primaryLink": "/de/Million",
+   "carouselItemSize": "280x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT|ZA"
+   }
+  },
+  "metadata": "https://neobet.de/de/Sportwetten/Fussball/Europa-Top-Ligen?betslip=compact&mo=Combi&se=NEO%7CFB-4100756%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100743%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100745%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100767%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100747%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100770%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100769%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100746%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100744%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100751%21Goal_RT_HC3W%280.0%29%211&sy=1&sy=2&sy=3&sy=4&sy=5&sy=6&sy=7&sy=8&sy=9&sy=10&st=5#betslip/Betslip"
+ },
+ {
+  "campaignId": "millions-2.-bundesliga",
+  "name": "🇩🇪 2. Bundesliga",
+  "link": "",
+  "carouselOptions": {
+   "label": "6 Richtige bis zum Millionengewinn!",
+   "primaryButtonLabel": "Jetzt Spielen",
+   "primaryLink": "/de/Million",
+   "carouselItemSize": "280x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT|ZA"
+   }
+  },
+  "metadata": "https://neobet.de/de/Sportwetten/Fussball/Europa-Top-Ligen?betslip=compact&mo=Combi&se=NEO%7CFB-4100808%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100806%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100817%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100818%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100811%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100812%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100813%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100814%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4100816%21Goal_RT_HC3W%280.0%29%211&sy=1&sy=2&sy=3&sy=4&sy=5&sy=6&sy=7&sy=8&sy=9&st=5#betslip/Betslip"
+ },
+ {
+  "campaignId": "millions",
+  "creativeId": "millions",
+  "name": "Die NEO.bet Million",
+  "link": "",
+  "carouselOptions": {
+   "label": "6 Richtige bis zum Millionengewinn!",
+   "primaryButtonLabel": "Jetzt Spielen",
+   "primaryLink": "/de/Million",
+   "carouselItemSize": "280x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|DE|LU|MT"
+   }
+  }
+ },
+ {
+  "campaignId": "millions-premiereleague",
+  "name": "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League",
+  "link": "",
+  "carouselOptions": {
+   "label": "6 Richtige bis zum Millionengewinn!",
+   "primaryButtonLabel": "Jetzt Spielen",
+   "primaryLink": "/de/Million",
+   "carouselItemSize": "280x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT|ZA"
+   }
+  },
+  "metadata": "https://neobet.de/de/Sportwetten/Fussball/Europa-Top-Ligen?betslip=compact&mo=Combi&se=NEO%7CFB-4034592%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4036419%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4036421%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4036418%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4036417%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4036420%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4034593%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4099412%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4034595%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4036438%21Goal_RT_HC3W%280.0%29%211&sy=1&sy=2&sy=3&sy=4&sy=5&sy=6&sy=7&sy=8&sy=9&sy=10&st=5#betslip/Betslip"
+ },
+ {
+  "campaignId": "taxFree",
+  "name": "Steuerfrei",
+  "link": "/de/Infos/GebuehrenfreiWetten",
+  "carouselOptions": {
+   "label": "5% mehr Gewinn - Keine Gebühren für Kombiwetten",
+   "primaryButtonLabel": "Mehr Informationen",
+   "primaryLink": "/de/Infos/GebuehrenfreiWetten",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [
+   {
+    "actions": []
+   }
+  ],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "DE"
+   }
+  }
+ },
+ {
+  "campaignId": "responsiblegaming",
+  "name": "Spielerschutz",
+  "link": "",
+  "carouselOptions": {
+   "label": "Spielerschutz - Bleib im Spiel. Bleib im Limit.",
+   "primaryButtonLabel": "Mehr Informationen",
+   "primaryLink": "/de/Verantwortung",
+   "secondaryButtonLabel": "Hilfe unter buwei.de",
+   "secondaryLink": "https://www.bundesweit-gegen-gluecksspielsucht.de/",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|DE|LU|MT"
+   }
+  }
+ },
+ {
+  "campaignId": "winningTiers",
+  "name": "Gewinnklassen",
+  "link": "",
+  "carouselOptions": {
+   "label": "Entdecke den neuen Gewinnklassen-Modus im Wettschein!",
+   "primaryButtonLabel": "Jetzt Ausprobieren",
+   "primaryLink": "#betslip/Betslip",
+   "secondaryButtonLabel": "Mehr Informationen",
+   "secondaryLink": "/de/Infos/Gewinnklassen",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|DE|LU|MT"
+   }
+  }
+ },
+ {
+  "campaignId": "acca-boost",
+  "name": "Kombi Boost",
+  "link": "",
+  "carouselOptions": {
+   "label": "Kombi Boost",
+   "primaryButtonLabel": "Mehr Informationen",
+   "primaryLink": "/de/Infos/Kombi-Boost",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT"
+   }
+  }
+ },
+ {
+  "campaignId": "millions-dfbpokal",
+  "name": "🇩🇪 DFB Pokal",
+  "link": "",
+  "carouselOptions": {
+   "label": "6 Richtige bis zum Millionengewinn!",
+   "primaryButtonLabel": "Jetzt Spielen",
+   "primaryLink": "/de/Million",
+   "carouselItemSize": "280x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT|ZA"
+   }
+  },
+  "metadata": "https://neobet.de/de/Sportwetten/Fussball/Europa-Top-Ligen?betslip=compact&mo=Combi&se=NEO%7CFB-4054100%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4054109%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4055663%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4054107%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4055627%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4055653%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4055630%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4055632%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4055667%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4054122%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4054125%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4054101%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4054124%21Goal_RT_HC3W%280.0%29%212&se=NEO%7CFB-4054121%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4054116%21Goal_RT_HC3W%280.0%29%211&se=NEO%7CFB-4054115%21Goal_RT_HC3W%280.0%29%211&sy=1&sy=2&sy=14&sy=15&sy=16&st=5#betslip/Betslip"
+ },
+ {
+  "campaignId": "playerCover",
+  "creativeId": "PlayerGuarantee",
+  "name": "Spieler-Kasko",
+  "link": "",
+  "carouselOptions": {
+   "label": "Auswechslung oder Rote Karte in der 1. Halbzeit",
+   "primaryButtonLabel": "Mehr Informationen",
+   "primaryLink": "/de/Infos/Spieler-Kasko",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|DE|FI|LU|MT"
+   }
+  }
+ },
+ {
+  "campaignId": "xup-basketball",
+  "name": "XUP im Basketball",
+  "link": "",
+  "carouselOptions": {
+   "label": "15 oder 20 Punkte Vorsprung - Vorzeitig gewonnen!",
+   "primaryButtonLabel": "Jetzt Wetten",
+   "primaryLink": "/de/Sportwetten/Basketball",
+   "secondaryButtonLabel": "Mehr Informationen",
+   "secondaryLink": "/de/Infos/XUP/XUP-Basketball",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT|ZA"
+   }
+  }
+ },
+ {
+  "campaignId": "xup-handball",
+  "name": "XUP - Handball",
+  "link": "",
+  "carouselOptions": {
+   "label": "6 oder 9 Punkten Vorsprung - Vorzeitig gewonnen!",
+   "primaryButtonLabel": "Jetzt Wetten",
+   "primaryLink": "/de/Sportwetten/Handball",
+   "secondaryButtonLabel": "Mehr Informationen",
+   "secondaryLink": "/de/Infos/XUP/XUP-Handball",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT|ZA"
+   }
+  }
+ },
+ {
+  "campaignId": "xup-baseball",
+  "name": "XUP - Baseball",
+  "link": "",
+  "carouselOptions": {
+   "label": "5 Runs Vorsprung - Vorzeitig gewonnen!",
+   "primaryButtonLabel": "Jetzt Wetten",
+   "primaryLink": "/de/Sportwetten/Baseball",
+   "secondaryButtonLabel": "Mehr Informationen",
+   "secondaryLink": "/de/Infos/XUP/XUP-Baseball",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT|ZA"
+   }
+  }
+ },
+ {
+  "campaignId": "earlyPayout",
+  "name": "Early Payout",
+  "link": "/de/Infos/Early-Payout",
+  "carouselOptions": {
+   "label": "Vorzeitige Auswertung wenn deine Quote 2 Minuten 1.0 beträgt",
+   "primaryButtonLabel": "Mehr Informationen",
+   "primaryLink": "/de/Infos/Early-Payout",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [
+   {
+    "actions": []
+   }
+  ],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|DE|FI|LU|MT"
+   }
+  }
+ },
+ {
+  "campaignId": "xup-american-football",
+  "name": "XUP im American Football",
+  "link": "",
+  "carouselOptions": {
+   "label": "14 oder 17 Punkte Vorsprung - Vorzeitig gewonnen!",
+   "primaryButtonLabel": "Jetzt Wetten",
+   "primaryLink": "/de/Sportwetten/American-Football",
+   "secondaryButtonLabel": "Mehr Informationen",
+   "secondaryLink": "/de/Infos/XUP/XUP-American-Football",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT|ZA"
+   }
+  }
+ },
+ {
+  "campaignId": "topBets",
+  "name": "Top Wetten",
+  "link": "",
+  "carouselOptions": {
+   "label": "Die Top Gewinner aus den letzten 30 Tagen",
+   "primaryButtonLabel": "Mehr Informationen",
+   "primaryLink": "de/Infos/Topgewinner",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [
+   {
+    "actions": []
+   }
+  ],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|DE|FI|LU|MT"
+   }
+  }
+ },
+ {
+  "campaignId": "xup-football",
+  "name": "XUP im Fußball",
+  "link": "",
+  "carouselOptions": {
+   "label": "1 oder 2 Tore Vorsprung - Vorzeitig gewonnen!",
+   "primaryButtonLabel": "Jetzt Wetten",
+   "primaryLink": "/de/Sportwetten/Fussball",
+   "secondaryButtonLabel": "Mehr Informationen",
+   "secondaryLink": "/de/Infos/XUP/XUP-Fussball",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT|ZA"
+   }
+  }
+ },
+ {
+  "campaignId": "xup-icehockey",
+  "name": "XUP im Eishockey",
+  "link": "",
+  "carouselOptions": {
+   "label": "2 oder 3 Tore Vorsprung - Vorzeitig gewonnen!",
+   "primaryButtonLabel": "Jetzt Wetten",
+   "primaryLink": "/de/Sportwetten/Eishockey",
+   "secondaryButtonLabel": "Mehr Informationen",
+   "secondaryLink": "/de/Infos/XUP/XUP-Eishockey",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT|ZA"
+   }
+  }
+ },
+ {
+  "campaignId": "xup-rugby",
+  "name": "XUP - Rugby",
+  "link": "",
+  "carouselOptions": {
+   "label": "15 Punkte Vorsprung - Vorzeitig gewonnen!",
+   "primaryButtonLabel": "Jetzt Wetten",
+   "primaryLink": "/de/Sportwette/Rugby",
+   "secondaryButtonLabel": "Mehr Informationen",
+   "secondaryLink": "/de/Infos/XUP/XUP-Rugby",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT|ZA"
+   }
+  }
+ },
+ {
+  "campaignId": "xup-volleyball",
+  "name": "XUP - Volleyball",
+  "link": "",
+  "carouselOptions": {
+   "label": "2 Sätze Vorsprung - Vorzeitig gewonnen!",
+   "primaryButtonLabel": "Jetzt Wetten",
+   "primaryLink": "/de/Sportwetten/Volleyball",
+   "secondaryButtonLabel": "Mehr Informationen",
+   "secondaryLink": "/de/Infos/XUP/XUP-Volleyball",
+   "carouselItemSize": "140x200"
+  },
+  "steps": [],
+  "targetGroupDesc": {
+   "key": "CustomSelectionDesc",
+   "props": {
+    "countries": "AT|CA|DE|LU|MT|ZA"
+   }
+  }
+ }
+]

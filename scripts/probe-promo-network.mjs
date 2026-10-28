@@ -4,8 +4,8 @@
 // where they come from. A plain visit in a browser, like
 // probe-geo-bookmakers.mjs: nothing is clicked, nothing is worked around; a
 // page behind an anti-bot check is noted as such. Each page's XHR/fetch
-// calls are listed, those naming a promotion first, each with the start of
-// its answer. Run by `vps-report promo-network` (deploy/vps-report.sh);
+// calls are listed, those naming a promotion first (with their request
+// headers, cookies left out), each with the start of its answer. Run by `vps-report promo-network` (deploy/vps-report.sh);
 // Playwright's Chromium is the one `vps-report probe` uses.
 import { chromium } from "@playwright/test";
 
@@ -22,6 +22,7 @@ const SECONDS = 15;
 const DATA = /json|javascript-text|text\/plain/;
 const PROMO = /promo|bonus|campaign|offer|aktion|angebot/i;
 const SAMPLE = 500;
+const PRIVATE_HEADERS = /^(cookie|authorization|proxy-authorization)$/i;
 const MAX_LINES = 40;
 
 // PROBE_CHROMIUM: another Chromium than Playwright's own, to try it elsewhere.
@@ -45,7 +46,20 @@ for (const [name, url] of PAGES) {
       } catch {}
     }
     const promo = PROMO.test(req.url()) || PROMO.test(body.slice(0, 20_000));
-    calls.push({ promo, line: `  ${promo ? "*" : " "} ${res.status()} ${req.method()} ${req.url().slice(0, 220)}${body ? `\n        ${body.slice(0, SAMPLE)}` : ""}` });
+    // A promotion call's request headers, to ask for the same list without a
+    // browser; the session's own (cookies, authorization) left out.
+    let headers = "";
+    if (promo) {
+      const all = await req.allHeaders().catch(() => ({}));
+      headers = Object.entries(all)
+        .filter(([key]) => !PRIVATE_HEADERS.test(key))
+        .map(([key, value]) => `${key}: ${value.slice(0, 120)}`)
+        .join(" | ");
+    }
+    calls.push({
+      promo,
+      line: `  ${promo ? "*" : " "} ${res.status()} ${req.method()} ${req.url().slice(0, 220)}${headers ? `\n        > ${headers}` : ""}${body ? `\n        ${body.slice(0, SAMPLE)}` : ""}`,
+    });
   });
   page.on("websocket", (ws) => calls.push({ promo: false, line: `    WS ${ws.url().slice(0, 200)}` }));
   let status = "?";

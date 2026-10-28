@@ -1,6 +1,6 @@
 // The bookmakers' public promotions lists found by `vps-report promo-network`
 // (#76), fetched from the German VPS as plain GETs and printed whole (up to
-// MAX_CHARS each), to write the site's readers (src/promos/) and their tests
+// MAX_CHARS each, or the list's own cap), to write the site's readers (src/promos/) and their tests
 // from real answers: Sportingbet's and neobet's answer only from Germany,
 // 20bet's not from this session's US address either. Nothing is worked
 // around or written. Run by `vps-report promo-samples` (deploy/vps-report.sh).
@@ -10,8 +10,9 @@ const LISTS = [
   ["admiralbet", "https://rmg-crm-api-at.greentube.com/v3/bonus/banners?platform=admiralbetde&client=web&lang=de"],
   ["twentybet", "https://20bet.com/api/promotion/list?isUserAuthenticated=false&excludePromotionType=3&lang=de&_trlang=de"],
   // The mirror the promotions page called from the VPS (#76): 20bet.com
-  // itself answers "not available in your region" (#77).
-  ["twentybet-mirror", "https://20betz0ne1.com/api/promotion/list?isUserAuthenticated=false&excludePromotionType=3&lang=de&_trlang=de"],
+  // itself answers "not available in your region" (#77). Its list (184 kB,
+  // #80) printed whole, for its reader's test.
+  ["twentybet-mirror", "https://20betz0ne1.com/api/promotion/list?isUserAuthenticated=false&excludePromotionType=3&lang=de&_trlang=de", 400_000],
 ];
 const HEADERS = {
   accept: "application/json, text/plain, */*",
@@ -21,7 +22,7 @@ const HEADERS = {
 const MAX_CHARS = 60_000;
 
 const out = [`promotions lists, ${new Date().toISOString()}`];
-for (const [name, url] of LISTS) {
+for (const [name, url, maxChars = MAX_CHARS] of LISTS) {
   out.push("", `== ${name} ${url}`);
   try {
     const res = await fetch(url, { headers: HEADERS, redirect: "follow", signal: AbortSignal.timeout(25_000) });
@@ -33,7 +34,7 @@ for (const [name, url] of LISTS) {
     } catch {
       out.push("  (not JSON)");
     }
-    out.push(body.slice(0, MAX_CHARS));
+    out.push(body.slice(0, maxChars));
   } catch (err) {
     out.push(`  no answer: ${err.cause?.code ?? err.message}`);
   }

@@ -1,7 +1,8 @@
 # Asks the production VPS for a read-only report (deploy/vps-report.sh):
 # the surebet report, the geo-blocked bookmakers' probe, the services'
 # state, each bookmaker's last read, the exchange's tunnel and proxy, or the
-# bookmakers' promotions pages and the requests they make. Started by hand (Actions > vps-report > Run workflow), by the owner
+# bookmakers' promotions pages, the requests they make and the lists they
+# read. Started by hand (Actions > vps-report > Run workflow), by the owner
 # or by Claude Code; the report is in the job's log and its artifact.
 # Its own SSH key, whose forced command is that script: it can run nothing
 # else, and never deploys. One-time setup: README, "Rapports du VPS".
@@ -13,7 +14,7 @@ on:
       report:
         description: Which report
         type: choice
-        options: [surebet-report, probe, status, bookmakers, exchange, promo-pages, promo-network]
+        options: [surebet-report, probe, status, bookmakers, exchange, promo-pages, promo-network, promo-samples]
         default: surebet-report
       days:
         description: Days of sent surebets (surebet-report only)

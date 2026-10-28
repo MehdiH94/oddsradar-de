@@ -1024,9 +1024,10 @@ un rapport en lecture seule et le met dans son log et dans un artefact :
   pour ecrire les lecteurs de `src/promos/` ;
 - `promo-network` : les requetes que ces pages font dans un navigateur
   (`scripts/probe-promo-network.mjs`, le Chromium de Playwright de `probe`),
-  celles qui parlent de promos en premier, avec le debut de leur reponse ;
+  celles qui parlent de promos en premier, avec leurs en-tetes de requete
+  (sans les cookies) et le debut de leur reponse ;
 - `promo-samples` : les listes de promos publiques trouvees ainsi
-  (Sportingbet, neobet, Admiralbet, 20bet), lues d'Allemagne et imprimees en
+  (Sportingbet, neobet, Admiralbet, 20bet et son miroir), lues d'Allemagne et imprimees en
   entier (`scripts/probe-promo-samples.mjs`), pour ecrire leurs lecteurs.
 
 Claude Code le lance lui-meme quand il a besoin d'un de ces rapports. Il passe

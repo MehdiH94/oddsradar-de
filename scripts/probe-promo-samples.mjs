@@ -9,6 +9,9 @@ const LISTS = [
   ["neobet", "https://neobet.de/.crm/banner/campaigns?language=de&country=DE"],
   ["admiralbet", "https://rmg-crm-api-at.greentube.com/v3/bonus/banners?platform=admiralbetde&client=web&lang=de"],
   ["twentybet", "https://20bet.com/api/promotion/list?isUserAuthenticated=false&excludePromotionType=3&lang=de&_trlang=de"],
+  // The mirror the promotions page called from the VPS (#76): 20bet.com
+  // itself answers "not available in your region" (#77).
+  ["twentybet-mirror", "https://20betz0ne1.com/api/promotion/list?isUserAuthenticated=false&excludePromotionType=3&lang=de&_trlang=de"],
 ];
 const HEADERS = {
   accept: "application/json, text/plain, */*",

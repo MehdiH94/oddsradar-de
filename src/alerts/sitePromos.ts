@@ -17,7 +17,7 @@ import { DiscordMessage, post, Send } from "./gems";
 export const SITE_PROMOS_DOWN_AFTER_MS = 24 * 60 * 60 * 1000;
 const STATE_KEY = (bookmaker: string) => `site_promos_down:${bookmaker}`;
 
-interface ReaderState {
+export interface ReaderState {
   failingSince: number;
   lastError?: string;
   alerted?: true;
@@ -47,7 +47,8 @@ export function sitePromosUpMessage(bookmaker: string): DiscordMessage {
   return { username: APP_NAME, allowed_mentions: { parse: [] }, content: `✅ **${bookmaker}'s promotions** are read again.` };
 }
 
-function readState(db: DatabaseSync, bookmaker: string): ReaderState | undefined {
+// Also read by `npm run promo-status` (src/promos/status.ts).
+export function readState(db: DatabaseSync, bookmaker: string): ReaderState | undefined {
   const value = getAlertState(db, STATE_KEY(bookmaker));
   try {
     return value ? (JSON.parse(value) as ReaderState) : undefined;

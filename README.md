@@ -1031,7 +1031,11 @@ un rapport en lecture seule et le met dans son log et dans un artefact :
   entier (`scripts/probe-promo-samples.mjs`), pour ecrire leurs lecteurs ;
 - `pinnacle` : si les cotes publiques de Pinnacle (l'API que lit son propre
   site, sans cle) repondent depuis l'Allemagne : les ligues de football, puis
-  les matchs et les cotes de la Bundesliga, le debut de chaque reponse.
+  les matchs et les cotes de la Bundesliga, le debut de chaque reponse ;
+- `promos` : les promos que chaque lecteur de `src/promos/` a trouvees en
+  production (`npm run promo-status`, les bases ouvertes en lecture seule) :
+  combien, la derniere trouvee et quand, et l'etat de son alerte admin
+  (EMPTY s'il n'a rien, FAILING depuis quand, avec sa derniere erreur).
 
 Claude Code le lance lui-meme quand il a besoin d'un de ces rapports. Il passe
 par sa propre cle SSH, dont la commande forcee est `deploy/vps-report.sh` :

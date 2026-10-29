@@ -26,6 +26,9 @@
 #                          site reads, no key) answer from Germany: a
 #                          football league's list, matches and prices;
 #                          and PS3838's site and API
+#   promos                 each promo reader's promotions as production
+#                          holds them and its admin alert's state, the
+#                          databases opened read-only (npm run promo-status)
 # REPORT_DRY_RUN=1 prints what would run instead (tests/deploy/vpsReport.test.ts).
 set -euo pipefail
 
@@ -36,7 +39,7 @@ read -r -a words <<<"${SSH_ORIGINAL_COMMAND:-}"
 name="${words[0]:-}"
 
 refuse() {
-  echo "vps-report: $1. Allowed: surebet-report [days], probe, status, bookmakers, exchange, promo-pages, promo-network, promo-samples, pinnacle." >&2
+  echo "vps-report: $1. Allowed: surebet-report [days], probe, status, bookmakers, exchange, promo-pages, promo-network, promo-samples, pinnacle, promos." >&2
   exit 2
 }
 
@@ -97,6 +100,10 @@ head -c 400 /tmp/vps-report-pinnacle.json 2>/dev/null; echo; done; \
 for url in https://www.ps3838.com/ https://api.ps3838.com/v1/sports; do rm -f /tmp/vps-report-pinnacle.json; \
 curl -s -o /tmp/vps-report-pinnacle.json -w \"ps3838 \$url: HTTP %{http_code}, %{size_download} bytes\\n\" --max-time 20 \"\$url\" || echo \"ps3838 \$url: no answer\"; \
 head -c 300 /tmp/vps-report-pinnacle.json 2>/dev/null | tr -s '[:space:]' ' '; echo; done")
+    ;;
+  promos)
+    [ "${#words[@]}" -eq 1 ] || refuse "promos takes no argument"
+    run=(npm run --silent promo-status)
     ;;
   "")
     refuse "no command"

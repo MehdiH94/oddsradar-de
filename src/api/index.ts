@@ -13,6 +13,7 @@ import { refreshSitePromos } from "../promos/sitePromos";
 import { fetchAdmiralbetPromos } from "../promos/admiralbet";
 import { fetchBetathomePromos } from "../promos/betathome";
 import { fetchNeobetPromos } from "../promos/neobet";
+import { fetchTwentybetPromos } from "../promos/twentybet";
 import { marketsMaxAgeForInterval, oddsMaxAgeForPollInterval } from "../db/repository";
 import { createWorkerPool } from "../freebets/pool";
 
@@ -56,7 +57,7 @@ setInterval(() => void runSurebetReminders(auth), 60 * 1000).unref();
 setInterval(() => void runPromoReminders(auth), 10 * 60 * 1000).unref();
 // The promotions the site reads on the bookmakers' pages (src/promos/): a
 // minute after the start, then every hour.
-const promoReaders = { betathome: fetchBetathomePromos, neobet: fetchNeobetPromos, admiralbet: fetchAdmiralbetPromos };
+const promoReaders = { betathome: fetchBetathomePromos, neobet: fetchNeobetPromos, admiralbet: fetchAdmiralbetPromos, twentybet: fetchTwentybetPromos };
 setTimeout(() => void refreshSitePromos(authDb, promoReaders, new Date()), 60 * 1000).unref();
 setInterval(() => void refreshSitePromos(authDb, promoReaders, new Date()), 60 * 60 * 1000).unref();
 

@@ -10,6 +10,7 @@ import { purgePromos } from "../auth/promos";
 import { runSurebetReminders } from "../auth/surebetReminders";
 import { runPromoReminders } from "../auth/promoReminders";
 import { refreshSitePromos } from "../promos/sitePromos";
+import { runSitePromoAlerts } from "../alerts/sitePromos";
 import { fetchAdmiralbetPromos } from "../promos/admiralbet";
 import { fetchBetathomePromos } from "../promos/betathome";
 import { fetchMerkurbetsPromos } from "../promos/merkurbets";
@@ -59,8 +60,13 @@ setInterval(() => void runPromoReminders(auth), 10 * 60 * 1000).unref();
 // The promotions the site reads on the bookmakers' pages (src/promos/): a
 // minute after the start, then every hour.
 const promoReaders = { betathome: fetchBetathomePromos, neobet: fetchNeobetPromos, admiralbet: fetchAdmiralbetPromos, twentybet: fetchTwentybetPromos, merkurbets: fetchMerkurbetsPromos };
-setTimeout(() => void refreshSitePromos(authDb, promoReaders, new Date()), 60 * 1000).unref();
-setInterval(() => void refreshSitePromos(authDb, promoReaders, new Date()), 60 * 60 * 1000).unref();
+// A reader failing for a day is told to the admins (src/alerts/sitePromos.ts).
+const readSitePromos = async () => {
+  const reads = await refreshSitePromos(authDb, promoReaders, new Date());
+  await runSitePromoAlerts(db, reads, { webhookUrl: process.env.DISCORD_ADMIN_WEBHOOK_URL });
+};
+setTimeout(() => void readSitePromos(), 60 * 1000).unref();
+setInterval(() => void readSitePromos(), 60 * 60 * 1000).unref();
 
 const trustProxy = Number(process.env.TRUST_PROXY ?? "0");
 const app = createServer(

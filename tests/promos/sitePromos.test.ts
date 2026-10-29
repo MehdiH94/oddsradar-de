@@ -114,12 +114,19 @@ describe("the site's promotions in auth.sqlite", () => {
     const db = openAuthDb(":memory:");
     const errors = vi.spyOn(console, "error").mockImplementation(() => {});
     vi.spyOn(console, "log").mockImplementation(() => {});
-    await refreshSitePromos(db, {
+    const reads = await refreshSitePromos(db, {
       broken: async () => {
         throw new Error("HTTP 403");
       },
+      empty: async () => [],
       betathome: async (now) => parseBetathomePromos(PAGE, now),
     }, NOW);
+    // Each bookmaker's outcome, for the admins' alert: an empty read is suspect too.
+    expect(reads).toEqual([
+      { bookmaker: "broken", ok: false, error: "HTTP 403" },
+      { bookmaker: "empty", ok: false, error: "no promotion found" },
+      { bookmaker: "betathome", ok: true },
+    ]);
     expect(db.prepare("SELECT COUNT(*) AS n FROM promos WHERE source = 'site'").get()).toEqual({ n: 3 });
     expect(errors).toHaveBeenCalledWith("[site-promos] broken: could not read its promotions:", expect.any(Error));
     vi.restoreAllMocks();

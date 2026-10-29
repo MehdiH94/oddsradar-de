@@ -24,6 +24,17 @@ export interface AdminBookmaker {
   downAlerted: boolean;
 }
 
+// A promo reader's state (src/promos/status.ts, PromoReaderStatus): the
+// promotions it holds, and while its reads fail or find nothing, since when
+// (ms), its last error and whether the admins' Discord was told.
+export interface AdminPromoReader {
+  bookmaker: string;
+  count: number;
+  newestTitle: string | null;
+  newestFoundAt: string | null;
+  failing?: { failingSince: number; lastError?: string; alerted?: boolean };
+}
+
 // A tester's message (src/auth/feedback.ts, FeedbackItem).
 export interface AdminFeedback {
   id: number;
@@ -69,6 +80,8 @@ export const updateAdminUser = (id: string, change: AdminUserChange) =>
   }).then((r) => r.user);
 
 export const fetchAdminBookmakers = () => call<{ bookmakers: AdminBookmaker[] }>("/api/admin/bookmakers").then((r) => r.bookmakers);
+
+export const fetchAdminPromoReaders = () => call<{ readers: AdminPromoReader[] }>("/api/admin/promo-readers").then((r) => r.readers);
 
 export const fetchAdminFeedback = () => call<{ feedback: AdminFeedback[] }>("/api/admin/feedback").then((r) => r.feedback);
 

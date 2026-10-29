@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { AuthContext, type AuthValue } from "../auth/AuthContext";
 import { AdminPage } from "./AdminPage";
-import type { AdminBookmaker, AdminFeedback, AdminUser } from "./adminApi";
+import type { AdminBookmaker, AdminFeedback, AdminPromoReader, AdminUser } from "./adminApi";
 
 const reply = (body: unknown, status = 200) => Promise.resolve({ ok: status < 400, status, json: () => Promise.resolve(body) });
 
@@ -147,6 +147,33 @@ describe("AdminPage", () => {
     expect(within(oddset).getByText("(830 matches)")).toBeInTheDocument();
     expect(within(screen.getByRole("row", { name: /Betway/ })).getByText("OK").className).toContain("active");
     expect(fetchMock).toHaveBeenCalledWith("/api/admin/bookmakers", undefined);
+  });
+
+  it("shows each promo reader's state in its own tab, the failing ones in red with their error", async () => {
+    const readers: AdminPromoReader[] = [
+      { bookmaker: "neobet", count: 18, newestTitle: "Early Payout", newestFoundAt: "2026-10-28T04:20:00.000Z" },
+      { bookmaker: "twentybet", count: 9, newestTitle: "Bet Builder", newestFoundAt: "2026-10-29T01:05:00.000Z", failing: { failingSince: Date.parse("2026-10-29T08:00:00.000Z"), lastError: "HTTP 404", alerted: true } },
+      { bookmaker: "merkurbets", count: 0, newestTitle: null, newestFoundAt: null },
+    ];
+    const fetchMock = vi.fn((url: string) => reply(url.endsWith("/promo-readers") ? { readers } : { users: [ME] }));
+    vi.stubGlobal("fetch", fetchMock);
+    render(
+      <AuthContext.Provider value={auth}>
+        <AdminPage />
+      </AuthContext.Provider>
+    );
+    fireEvent.click(screen.getByRole("tab", { name: "Promos" }));
+
+    expect(await screen.findByText("1 promo reader failing.")).toBeInTheDocument();
+    const twentybet = screen.getByRole("row", { name: /20bet/ });
+    expect(within(twentybet).getByText("Failing").className).toContain("blocked");
+    expect(within(twentybet).getByText("HTTP 404")).toBeInTheDocument();
+    expect(within(twentybet).getByText("(admins told)")).toBeInTheDocument();
+    const neobet = screen.getByRole("row", { name: /neobet/ });
+    expect(within(neobet).getByText("OK").className).toContain("active");
+    expect(within(neobet).getByText("Early Payout")).toBeInTheDocument();
+    expect(within(screen.getByRole("row", { name: /Merkur Bets/ })).getByText("Empty").className).toContain("warning");
+    expect(fetchMock).toHaveBeenCalledWith("/api/admin/promo-readers", undefined);
   });
 
   it("lists the testers' feedback in its own tab, and marks a message done", async () => {

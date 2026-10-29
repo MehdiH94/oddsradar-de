@@ -5,6 +5,8 @@ import { createServer } from "../../src/api/server";
 import { createSession, findUserById, listUsers } from "../../src/auth/store";
 import { addUser, PASSWORD, SITE, testAuth, withCookie } from "./helpers";
 import { recordBookmakerRead } from "../../src/db/bookmakerStatus";
+import { saveSitePromos } from "../../src/promos/sitePromos";
+import { runSitePromoAlerts } from "../../src/alerts/sitePromos";
 
 async function setup() {
   const t = testAuth();
@@ -141,5 +143,22 @@ describe("GET /api/admin/bookmakers", () => {
     expect(res.body.bookmakers).toEqual([expect.objectContaining({ bookmaker: "betway", lastEvents: 950, health: "ok" })]);
     expect((await request(raw).get("/api/admin/bookmakers")).status).toBe(401);
     expect((await request(withCookie(raw, cookieFor(member.id))).get("/api/admin/bookmakers")).status).toBe(403);
+  });
+});
+
+describe("GET /api/admin/promo-readers", () => {
+  it("gives the admins each promo reader's state, and nobody else", async () => {
+    const { asAdmin, raw, member, cookieFor, odds, auth } = await setup();
+    saveSitePromos(auth.db, "neobet", [{ sourceKey: "neobet:1", bookmaker: "neobet", title: "Quoten-Boost", details: "", url: null, endsAt: null }]);
+    await runSitePromoAlerts(odds, [{ bookmaker: "twentybet", ok: false, error: "HTTP 404" }], {});
+    const res = await request(asAdmin).get("/api/admin/promo-readers");
+    expect(res.status).toBe(200);
+    const byName = Object.fromEntries((res.body.readers as { bookmaker: string }[]).map((r) => [r.bookmaker, r]));
+    expect(Object.keys(byName)).toEqual(["betathome", "neobet", "admiralbet", "twentybet", "merkurbets"]);
+    expect(byName.neobet).toMatchObject({ count: 1, newestTitle: "Quoten-Boost" });
+    expect(byName.neobet).not.toHaveProperty("failing");
+    expect(byName.twentybet).toMatchObject({ count: 0, failing: { lastError: "HTTP 404" } });
+    expect((await request(raw).get("/api/admin/promo-readers")).status).toBe(401);
+    expect((await request(withCookie(raw, cookieFor(member.id))).get("/api/admin/promo-readers")).status).toBe(403);
   });
 });

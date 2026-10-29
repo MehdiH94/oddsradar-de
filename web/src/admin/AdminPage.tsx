@@ -9,11 +9,13 @@ import {
   AdminError,
   fetchAdminBookmakers,
   fetchAdminFeedback,
+  fetchAdminPromoReaders,
   fetchAdminUsers,
   updateAdminFeedback,
   updateAdminUser,
   type AdminBookmaker,
   type AdminFeedback,
+  type AdminPromoReader,
   type AdminUser,
   type AdminUserChange,
 } from "./adminApi";
@@ -26,12 +28,14 @@ const formatDate = (iso: string | null) => (iso ? DATE_FORMAT.format(new Date(is
 // to the others; Root only spares them the page). Three tabs: the users (who
 // they are, whether the address is confirmed, whether they pay, and the two
 // things an admin does with an account -- block it, make it admin), the
-// bookmakers' health (whether each one still gives odds), and what the
+// bookmakers' health (whether each one still gives odds), the promo readers'
+// (whether each still finds its bookmaker's promotions), and what the
 // testers wrote (the header's Feedback button).
-type Tab = "users" | "bookmakers" | "feedback";
+type Tab = "users" | "bookmakers" | "promos" | "feedback";
 const TABS: [Tab, string][] = [
   ["users", "Users"],
   ["bookmakers", "Bookmakers"],
+  ["promos", "Promos"],
   ["feedback", "Feedback"],
 ];
 
@@ -69,7 +73,7 @@ export function AdminPage() {
           ))}
         </div>
         <section id={`admin-${tab}`} role="tabpanel" aria-labelledby={`tab-${tab}`}>
-          {tab === "users" ? <UsersTab /> : tab === "bookmakers" ? <BookmakersTab /> : <FeedbackTab />}
+          {tab === "users" ? <UsersTab /> : tab === "bookmakers" ? <BookmakersTab /> : tab === "promos" ? <PromoReadersTab /> : <FeedbackTab />}
         </section>
       </main>
     </div>
@@ -296,6 +300,91 @@ function BookmakersTab() {
           </table>
         </div>
       )}
+    </>
+  );
+}
+
+// Each promo reader's state (src/promos/), as `vps-report promos` prints it:
+// how many promotions it holds, the one found last, and while its reads fail
+// or find nothing, since when and its last error. After a day of that, the
+// administrators' Discord channel is told (src/alerts/sitePromos.ts).
+function PromoReadersTab() {
+  const [readers, setReaders] = useState<AdminPromoReader[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const load = useCallback(() => {
+    setError(null);
+    return fetchAdminPromoReaders()
+      .then(setReaders)
+      .catch((err) => setError(err instanceof AdminError ? err.message : "Something went wrong."));
+  }, []);
+  useEffect(() => {
+    void load();
+  }, [load]);
+
+  if (!readers) {
+    return error ? (
+      <p role="alert" className={styles.error}>
+        {error}{" "}
+        <button type="button" className={styles.linkButton} onClick={() => void load()}>
+          Try again
+        </button>
+      </p>
+    ) : (
+      <p aria-busy="true" className={styles.muted}>
+        Loading the promo readers…
+      </p>
+    );
+  }
+
+  const failing = readers.filter((r) => r.failing).length;
+  return (
+    <>
+      <p className={styles.muted}>
+        {failing === 0 ? "Every promo reader works." : `${failing} promo reader${failing === 1 ? "" : "s"} failing.`}{" "}
+        <button type="button" className={styles.linkButton} onClick={() => void load()}>
+          Refresh
+        </button>
+      </p>
+      <div className={styles.scroll}>
+        <table className={styles.table}>
+          <caption className="visually-hidden">The promo readers' state</caption>
+          <thead>
+            <tr>
+              <th scope="col">Bookmaker</th>
+              <th scope="col">Status</th>
+              <th scope="col">Promotions</th>
+              <th scope="col">Newest</th>
+              <th scope="col">Failing since</th>
+              <th scope="col">Last error</th>
+            </tr>
+          </thead>
+          <tbody>
+            {readers.map((r) => (
+              <tr key={r.bookmaker}>
+                <th scope="row" className={styles.email}>
+                  {BOOKMAKER_BRANDING[r.bookmaker]?.name ?? r.bookmaker}
+                </th>
+                <td>
+                  <span className={r.failing ? styles.blocked : r.count > 0 ? styles.active : styles.warning}>
+                    {r.failing ? "Failing" : r.count > 0 ? "OK" : "Empty"}
+                  </span>
+                </td>
+                <td>{r.count}</td>
+                <td>
+                  {r.newestTitle ?? "—"}
+                  {r.newestFoundAt && <span className={styles.you}> ({formatTime(r.newestFoundAt)})</span>}
+                </td>
+                <td>
+                  {r.failing ? formatTime(new Date(r.failing.failingSince).toISOString()) : "—"}
+                  {r.failing?.alerted && <span className={styles.you}> (admins told)</span>}
+                </td>
+                <td className={styles.errorCell}>{r.failing?.lastError ?? "—"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 }

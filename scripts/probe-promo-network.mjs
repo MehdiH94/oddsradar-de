@@ -11,7 +11,9 @@ import { chromium } from "@playwright/test";
 
 const PAGES = [
   ["sportingbet", "https://www.sportingbet.de/de/promo/offers"],
-  ["merkurbets", "https://www.merkurbets.de/de/promotions"],
+  // Its promotions page proper, the one its CMS menu points to (#76): the
+  // CMS call that fills it, to read without a browser.
+  ["merkurbets", "https://www.merkurbets.de/de/page/promotions-sportwetten"],
   ["neobet", "https://neobet.de/promotions"],
   ["betway", "https://betway.de/de/de/promotions"],
   ["admiralbet", "https://www.admiralbet.de/de/promotions"],

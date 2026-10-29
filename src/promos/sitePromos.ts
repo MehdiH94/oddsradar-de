@@ -49,15 +49,33 @@ export function saveSitePromos(db: DatabaseSync, bookmaker: string, promos: read
 // The readers of the bookmakers' promotions pages, by bookmaker.
 export type PromoReader = (now: Date) => Promise<SitePromo[]>;
 
+// One bookmaker's read: its promotions saved, or why not (an error, or a
+// read that found none, which removes nothing and is as suspect).
+export interface SitePromoRead {
+  bookmaker: string;
+  ok: boolean;
+  error?: string;
+}
+
 // Reads each bookmaker's promotions and saves them; one failing costs only
-// its own (logged). Never throws.
-export async function refreshSitePromos(db: DatabaseSync, readers: Readonly<Record<string, PromoReader>>, now = new Date()): Promise<void> {
+// its own (logged). Never throws. Each bookmaker's outcome is returned, for
+// the admins' alert (src/alerts/sitePromos.ts).
+export async function refreshSitePromos(
+  db: DatabaseSync,
+  readers: Readonly<Record<string, PromoReader>>,
+  now = new Date()
+): Promise<SitePromoRead[]> {
+  const reads: SitePromoRead[] = [];
   for (const [bookmaker, read] of Object.entries(readers)) {
     try {
-      const { added, removed } = saveSitePromos(db, bookmaker, await read(now), now);
+      const promos = await read(now);
+      const { added, removed } = saveSitePromos(db, bookmaker, promos, now);
       if (added || removed) console.log(`[site-promos] ${bookmaker}: ${added} new, ${removed} gone`);
+      reads.push(promos.length > 0 ? { bookmaker, ok: true } : { bookmaker, ok: false, error: "no promotion found" });
     } catch (err) {
       console.error(`[site-promos] ${bookmaker}: could not read its promotions:`, err);
+      reads.push({ bookmaker, ok: false, error: err instanceof Error ? err.message : String(err) });
     }
   }
+  return reads;
 }

@@ -3,7 +3,7 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import axe from "axe-core";
 import { AuthContext, type AuthValue } from "../auth/AuthContext";
 import { PromosPage } from "./PromosPage";
-import { bookmakerOf, endLabel, endOfDay, groupByBookmaker, type Promo } from "./promosApi";
+import { bookmakerOf, endLabel, endOfDay, groupByBookmaker, isNew, type Promo } from "./promosApi";
 
 const reply = (body: unknown, status = 200) => Promise.resolve({ ok: status < 400, status, json: () => Promise.resolve(body) });
 
@@ -74,6 +74,14 @@ describe("the promos' helpers", () => {
     expect(endOfDay("2026-10-20")).toBe(new Date("2026-10-20T23:59:00").toISOString());
     expect(endOfDay("bald")).toBeNull();
   });
+
+  it("marks new the promotions the site found in the last 24 hours, never one written by hand", () => {
+    const now = new Date("2026-10-30T12:00:00Z");
+    expect(isNew({ source: "site", foundAt: "2026-10-30T01:00:00Z" }, now)).toBe(true);
+    expect(isNew({ source: "site", foundAt: "2026-10-29T11:59:00Z" }, now)).toBe(false);
+    expect(isNew({ source: "manual", foundAt: "2026-10-30T11:00:00Z" }, now)).toBe(false);
+    expect(isNew({ source: "site", foundAt: "soon" }, now)).toBe(false);
+  });
 });
 
 describe("PromosPage", () => {
@@ -100,6 +108,20 @@ describe("PromosPage", () => {
     // A promo the site found cannot be deleted, only marked.
     expect(within(stake).queryByRole("button", { name: /Löschen/ })).not.toBeInTheDocument();
     expect(screen.getByText("2 offene Promos")).toBeInTheDocument();
+  });
+
+  it("marks \"Neu\" a promotion the site just found, and only it", async () => {
+    stubApi([
+      promo({ id: 1, bookmaker: "neobet", title: "Early Payout", mine: false, source: "site", foundAt: new Date(Date.now() - 60 * 60 * 1000).toISOString() }),
+      promo({ id: 2, bookmaker: "neobet", title: "Quoten-Boost", mine: false, source: "site" }),
+      promo({ id: 3, foundAt: new Date().toISOString() }),
+    ]);
+    renderPage();
+    const neobet = await screen.findByRole("region", { name: "neobet" });
+    expect(within(neobet).getByRole("heading", { level: 3, name: "Neu Early Payout" })).toBeInTheDocument();
+    expect(within(neobet).getByRole("heading", { level: 3, name: "Quoten-Boost" })).toBeInTheDocument();
+    expect(within(screen.getByRole("region", { name: "Winamax" })).queryByText("Neu")).not.toBeInTheDocument();
+    expect(screen.getAllByText("Neu")).toHaveLength(1);
   });
 
   it("marks a promo taken and back, on the account", async () => {

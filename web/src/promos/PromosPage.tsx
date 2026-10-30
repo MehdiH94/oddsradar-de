@@ -8,7 +8,7 @@ import { GamblingBanner } from "../components/GamblingBanner";
 import { Card } from "../freebets/Card";
 import { FREEBETS_PATH, navigate, oddsHref, valueBetsHref } from "../routes";
 import { useIsWide } from "../useMediaQuery";
-import { endLabel, endOfDay, groupByBookmaker, usePromos, type NewPromo, type Promo, type PromosState } from "./promosApi";
+import { endLabel, endOfDay, groupByBookmaker, isNew, usePromos, type NewPromo, type Promo, type PromosState } from "./promosApi";
 import styles from "./PromosPage.module.css";
 
 // The Promos page, for accounts: the bookmakers' promotions, one card per
@@ -93,7 +93,14 @@ function PromoItem({ promo, promos }: { promo: Promo; promos: PromosState }) {
   return (
     <li className={styles.promo} data-taken={taken || undefined}>
       <div className={styles.body}>
-        <h3 className={styles.promoTitle}>{promo.title}</h3>
+        <h3 className={styles.promoTitle}>
+          {isNew(promo) && (
+            <>
+              <span className={styles.newBadge}>Neu</span>{" "}
+            </>
+          )}
+          {promo.title}
+        </h3>
         {promo.details && <p className={styles.details}>{promo.details}</p>}
         <p className={styles.meta}>
           {end && <span data-expired={end === "Abgelaufen" || undefined}>{end}</span>}

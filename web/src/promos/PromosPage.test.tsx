@@ -105,6 +105,45 @@ describe("PromosPage", () => {
     vi.unstubAllGlobals();
     vi.restoreAllMocks();
     window.history.replaceState(null, "", "/");
+    localStorage.clear();
+  });
+
+  it("hides the taken promos when asked, an emptied card with them, and remembers it", async () => {
+    stubApi([
+      promo({ id: 1, title: "Offen bei Winamax" }),
+      promo({ id: 2, title: "Genommen bei Winamax", takenAt: "2026-10-20T10:00:00.000Z" }),
+      promo({ id: 3, bookmaker: "Stake", title: "Rakeback 10 %", takenAt: "2026-10-20T10:00:00.000Z" }),
+    ]);
+    const { unmount } = renderPage();
+    const toggle = await screen.findByRole("checkbox", { name: "Genommene ausblenden (2)" });
+    expect(toggle).not.toBeChecked();
+    expect(screen.getByRole("heading", { level: 3, name: "Genommen bei Winamax" })).toBeInTheDocument();
+
+    fireEvent.click(toggle);
+    expect(screen.queryByRole("heading", { level: 3, name: "Genommen bei Winamax" })).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "Offen bei Winamax" })).toBeInTheDocument();
+    expect(screen.queryByRole("region", { name: "Stake" })).not.toBeInTheDocument();
+    expect(screen.getByText("1 offene Promo")).toBeInTheDocument();
+
+    // Remembered by this browser.
+    unmount();
+    renderPage();
+    expect(await screen.findByRole("checkbox", { name: "Genommene ausblenden (2)" })).toBeChecked();
+    expect(screen.queryByRole("region", { name: "Stake" })).not.toBeInTheDocument();
+  });
+
+  it("says when every promo is taken and hidden, and offers no switch when none is taken", async () => {
+    localStorage.setItem("oddsblitzer.hideTakenPromos", "1");
+    stubApi([promo({ id: 1, takenAt: "2026-10-20T10:00:00.000Z" })]);
+    const { unmount } = renderPage();
+    expect(await screen.findByText("Alle Promos sind genommen.")).toBeInTheDocument();
+    expect(screen.queryByText("Noch keine Promo. Trag oben die erste ein.")).not.toBeInTheDocument();
+    unmount();
+
+    stubApi([promo({ id: 1 })]);
+    renderPage();
+    await screen.findByRole("region", { name: "Winamax" });
+    expect(screen.queryByRole("checkbox", { name: /Genommene ausblenden/ })).not.toBeInTheDocument();
   });
 
   it("shows one card per bookmaker, with each promo's conditions, end and link", async () => {

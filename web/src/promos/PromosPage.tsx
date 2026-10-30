@@ -11,6 +11,28 @@ import { useIsWide } from "../useMediaQuery";
 import { countNew, endLabel, endOfDay, groupByBookmaker, isNew, usePromos, type NewPromo, type Promo, type PromosState } from "./promosApi";
 import styles from "./PromosPage.module.css";
 
+// Whether the promos already marked taken are hidden, so that a long list shows
+// what is left to take. This browser remembers it, like the surebets' thin lays
+// (SurebetsTable); one that refuses its storage asks again on the next visit.
+const HIDE_TAKEN_KEY = "oddsblitzer.hideTakenPromos";
+
+function loadHideTaken(): boolean {
+  try {
+    return localStorage.getItem(HIDE_TAKEN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function saveHideTaken(hide: boolean): void {
+  try {
+    if (hide) localStorage.setItem(HIDE_TAKEN_KEY, "1");
+    else localStorage.removeItem(HIDE_TAKEN_KEY);
+  } catch {
+    // Nothing to do: the choice lasts as long as the page.
+  }
+}
+
 // The Promos page, for accounts: the bookmakers' promotions, one card per
 // bookmaker, each marked as taken or not (kept on the account). For now the
 // account writes down those it receives (by e-mail, on Telegram); those the
@@ -25,8 +47,11 @@ export function PromosPage() {
     else if (view === "freebets") navigate(FREEBETS_PATH);
   }
   const nav = <AppNav view="promos" onChange={changeView} placement={wide ? "header" : "bar"} newPromos={countNew(promos.promos)} />;
-  const groups = groupByBookmaker(promos.promos);
+  const [hideTaken, setHideTaken] = useState(loadHideTaken);
   const open = promos.promos.filter((p) => !p.takenAt).length;
+  const taken = promos.promos.length - open;
+  // A bookmaker whose promos are all taken leaves no empty card.
+  const groups = groupByBookmaker(hideTaken ? promos.promos.filter((p) => !p.takenAt) : promos.promos);
 
   return (
     <div className={wide ? styles.app : `${styles.app} ${styles.withBar}`}>
@@ -52,14 +77,28 @@ export function PromosPage() {
               Die Promos konnten nicht geladen werden. Bitte lade die Seite neu.
             </p>
           )}
-          {promos.status === "ready" && groups.length === 0 && (
+          {promos.status === "ready" && promos.promos.length === 0 && (
             <p className={styles.notice}>Noch keine Promo. Trag oben die erste ein.</p>
           )}
-          {groups.length > 0 && (
+          {promos.promos.length > 0 && (
             <p className={styles.count} aria-live="polite">
               {open === 1 ? "1 offene Promo" : `${open} offene Promos`}
             </p>
           )}
+          {taken > 0 && (
+            <label className={styles.remind}>
+              <input
+                type="checkbox"
+                checked={hideTaken}
+                onChange={(event) => {
+                  setHideTaken(event.target.checked);
+                  saveHideTaken(event.target.checked);
+                }}
+              />
+              Genommene ausblenden ({taken})
+            </label>
+          )}
+          {hideTaken && taken > 0 && groups.length === 0 && <p className={styles.notice}>Alle Promos sind genommen.</p>}
           {groups.map((group) => (
             <Card
               key={group.key}

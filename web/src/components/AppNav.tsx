@@ -60,7 +60,8 @@ export function AppNav({
                   <span className={styles.badge} aria-hidden="true">
                     {fresh}
                   </span>
-                  <span className="visually-hidden">, {fresh} neu</span>
+                  {" "}
+                  <span className="visually-hidden">({fresh} neu)</span>
                 </>
               )}
             </span>

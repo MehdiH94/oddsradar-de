@@ -138,7 +138,7 @@ describe("PromosPage", () => {
     expect(within(screen.getByRole("region", { name: "Winamax" })).queryByText("Neu")).not.toBeInTheDocument();
     expect(screen.getAllByText("Neu")).toHaveLength(1);
     // The navigation counts it too, from the page's own list.
-    expect(screen.getByRole("radio", { name: "Promos, 1 neu" })).toBeChecked();
+    expect(screen.getByRole("radio", { name: "Promos (1 neu)" })).toBeChecked();
   });
 
   it("marks a promo taken and back, on the account", async () => {

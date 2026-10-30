@@ -8,7 +8,8 @@ import { Mail, Mailer } from "../src/auth/mailer";
 import { hashPassword, ScryptCost } from "../src/auth/password";
 import { createUser } from "../src/auth/store";
 import { createServer } from "../src/api/server";
-import { BASE_URL, PORT, SEEDED_ADMIN, SEEDED_USER } from "./fixtures";
+import { saveSitePromos } from "../src/promos/sitePromos";
+import { BASE_URL, PORT, SEEDED_ADMIN, SEEDED_USER, SITE_PROMO } from "./fixtures";
 import { seedOdds } from "./seed";
 
 // The real API and the built dashboard (web/dist) on two throwaway databases,
@@ -31,6 +32,7 @@ seedOdds(db);
 
 const authDb = openAuthDb(path.join(dir, "auth.sqlite"));
 const auth = createAuthContext({ db: authDb, mailer, publicUrl: BASE_URL, cost: COST });
+saveSitePromos(authDb, SITE_PROMO.bookmaker, [SITE_PROMO]);
 
 async function main(): Promise<void> {
   createUser(authDb, { email: SEEDED_USER.email, passwordHash: await hashPassword(SEEDED_USER.password, COST), verified: true });

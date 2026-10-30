@@ -16,10 +16,16 @@ export interface SitePromo {
 // Saves one bookmaker's promotions as just read: new ones added, the others
 // updated, and those no longer on its page (ended or withdrawn) removed,
 // with their marks. An empty read removes nothing: a page that came back
-// without its list is more likely broken than empty.
-export function saveSitePromos(db: DatabaseSync, bookmaker: string, promos: readonly SitePromo[], now = new Date()): { added: number; removed: number } {
-  if (promos.length === 0) return { added: 0, removed: 0 };
-  let added = 0;
+// without its list is more likely broken than empty. The ones added are
+// returned, for the testers' Discord channel (src/alerts/newPromos.ts).
+export function saveSitePromos(
+  db: DatabaseSync,
+  bookmaker: string,
+  promos: readonly SitePromo[],
+  now = new Date()
+): { added: SitePromo[]; removed: number } {
+  if (promos.length === 0) return { added: [], removed: 0 };
+  const added: SitePromo[] = [];
   db.exec("BEGIN");
   try {
     const exists = db.prepare("SELECT 1 FROM promos WHERE source = 'site' AND source_key = ?");
@@ -31,7 +37,7 @@ export function saveSitePromos(db: DatabaseSync, bookmaker: string, promos: read
          url = excluded.url, ends_at = excluded.ends_at`
     );
     for (const promo of promos) {
-      if (!exists.get(promo.sourceKey)) added++;
+      if (!exists.get(promo.sourceKey)) added.push(promo);
       upsert.run({ ...promo, now: now.toISOString() });
     }
     const keys = promos.map((p) => p.sourceKey);
@@ -49,12 +55,14 @@ export function saveSitePromos(db: DatabaseSync, bookmaker: string, promos: read
 // The readers of the bookmakers' promotions pages, by bookmaker.
 export type PromoReader = (now: Date) => Promise<SitePromo[]>;
 
-// One bookmaker's read: its promotions saved, or why not (an error, or a
-// read that found none, which removes nothing and is as suspect).
+// One bookmaker's read: its promotions saved, with those it found for the
+// first time, or why not (an error, or a read that found none, which
+// removes nothing and is as suspect).
 export interface SitePromoRead {
   bookmaker: string;
   ok: boolean;
   error?: string;
+  added?: SitePromo[];
 }
 
 // Reads each bookmaker's promotions and saves them; one failing costs only
@@ -70,8 +78,8 @@ export async function refreshSitePromos(
     try {
       const promos = await read(now);
       const { added, removed } = saveSitePromos(db, bookmaker, promos, now);
-      if (added || removed) console.log(`[site-promos] ${bookmaker}: ${added} new, ${removed} gone`);
-      reads.push(promos.length > 0 ? { bookmaker, ok: true } : { bookmaker, ok: false, error: "no promotion found" });
+      if (added.length || removed) console.log(`[site-promos] ${bookmaker}: ${added.length} new, ${removed} gone`);
+      reads.push(promos.length > 0 ? { bookmaker, ok: true, added } : { bookmaker, ok: false, error: "no promotion found" });
     } catch (err) {
       console.error(`[site-promos] ${bookmaker}: could not read its promotions:`, err);
       reads.push({ bookmaker, ok: false, error: err instanceof Error ? err.message : String(err) });

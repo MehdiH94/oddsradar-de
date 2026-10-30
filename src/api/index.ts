@@ -11,6 +11,7 @@ import { runSurebetReminders } from "../auth/surebetReminders";
 import { runPromoReminders } from "../auth/promoReminders";
 import { refreshSitePromos } from "../promos/sitePromos";
 import { runSitePromoAlerts } from "../alerts/sitePromos";
+import { postNewPromos } from "../alerts/newPromos";
 import { PROMO_READERS } from "../promos/readers";
 import { marketsMaxAgeForInterval, oddsMaxAgeForPollInterval } from "../db/repository";
 import { createWorkerPool } from "../freebets/pool";
@@ -55,10 +56,12 @@ setInterval(() => void runSurebetReminders(auth), 60 * 1000).unref();
 setInterval(() => void runPromoReminders(auth), 10 * 60 * 1000).unref();
 // The promotions the site reads on the bookmakers' pages (src/promos/): a
 // minute after the start, then every hour.
-// A reader failing for a day is told to the admins (src/alerts/sitePromos.ts).
+// A reader failing for a day is told to the admins (src/alerts/sitePromos.ts),
+// each promotion found for the first time to the testers (src/alerts/newPromos.ts).
 const readSitePromos = async () => {
   const reads = await refreshSitePromos(authDb, PROMO_READERS, new Date());
   await runSitePromoAlerts(db, reads, { webhookUrl: process.env.DISCORD_ADMIN_WEBHOOK_URL });
+  await postNewPromos(reads, { webhookUrl: process.env.DISCORD_WEBHOOK_URL, publicUrl: auth.publicUrl });
 };
 setTimeout(() => void readSitePromos(), 60 * 1000).unref();
 setInterval(() => void readSitePromos(), 60 * 60 * 1000).unref();

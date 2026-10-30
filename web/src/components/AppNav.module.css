@@ -125,6 +125,11 @@ input:focus-visible + .face,
   font-size: var(--text-sm);
 }
 
+/* In the header's row, the count follows the name. */
+.header .badge {
+  position: static;
+}
+
 .header .icon {
   width: 16px;
   height: 16px;

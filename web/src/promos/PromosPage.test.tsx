@@ -3,7 +3,7 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import axe from "axe-core";
 import { AuthContext, type AuthValue } from "../auth/AuthContext";
 import { PromosPage } from "./PromosPage";
-import { bookmakerOf, endLabel, endOfDay, groupByBookmaker, isNew, type Promo } from "./promosApi";
+import { bookmakerOf, countNew, endLabel, endOfDay, groupByBookmaker, isNew, type Promo } from "./promosApi";
 
 const reply = (body: unknown, status = 200) => Promise.resolve({ ok: status < 400, status, json: () => Promise.resolve(body) });
 
@@ -82,6 +82,21 @@ describe("the promos' helpers", () => {
     expect(isNew({ source: "manual", foundAt: "2026-10-30T11:00:00Z" }, now)).toBe(false);
     expect(isNew({ source: "site", foundAt: "soon" }, now)).toBe(false);
   });
+
+  it("counts the new promotions not yet taken", () => {
+    const now = new Date("2026-10-30T12:00:00Z");
+    const fresh = "2026-10-30T10:00:00Z";
+    expect(
+      countNew(
+        [
+          promo({ id: 1, source: "site", foundAt: fresh }),
+          promo({ id: 2, source: "site", foundAt: fresh, takenAt: fresh }),
+          promo({ id: 3, source: "manual", foundAt: fresh }),
+        ],
+        now
+      )
+    ).toBe(1);
+  });
 });
 
 describe("PromosPage", () => {
@@ -122,6 +137,8 @@ describe("PromosPage", () => {
     expect(within(neobet).getByRole("heading", { level: 3, name: "Quoten-Boost" })).toBeInTheDocument();
     expect(within(screen.getByRole("region", { name: "Winamax" })).queryByText("Neu")).not.toBeInTheDocument();
     expect(screen.getAllByText("Neu")).toHaveLength(1);
+    // The navigation counts it too, from the page's own list.
+    expect(screen.getByRole("radio", { name: "Promos, 1 neu" })).toBeChecked();
   });
 
   it("marks a promo taken and back, on the account", async () => {

@@ -33,6 +33,8 @@ export interface AdminPromoReader {
   newestTitle: string | null;
   newestFoundAt: string | null;
   failing?: { failingSince: number; lastError?: string; alerted?: boolean };
+  // Its last good read and how many promotions it found, null before the first.
+  lastRead: { at: string; found: number } | null;
 }
 
 // A tester's message (src/auth/feedback.ts, FeedbackItem).

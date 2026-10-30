@@ -305,7 +305,7 @@ function BookmakersTab() {
 }
 
 // Each promo reader's state (src/promos/), as `vps-report promos` prints it:
-// how many promotions it holds, the one found last, and while its reads fail
+// how many promotions it holds, the one found last, its last good read, and while its reads fail
 // or find nothing, since when and its last error. After a day of that, the
 // administrators' Discord channel is told (src/alerts/sitePromos.ts).
 function PromoReadersTab() {
@@ -355,6 +355,7 @@ function PromoReadersTab() {
               <th scope="col">Status</th>
               <th scope="col">Promotions</th>
               <th scope="col">Newest</th>
+              <th scope="col">Last good read</th>
               <th scope="col">Failing since</th>
               <th scope="col">Last error</th>
             </tr>
@@ -374,6 +375,10 @@ function PromoReadersTab() {
                 <td>
                   {r.newestTitle ?? "—"}
                   {r.newestFoundAt && <span className={styles.you}> ({formatTime(r.newestFoundAt)})</span>}
+                </td>
+                <td>
+                  {formatTime(r.lastRead?.at ?? null)}
+                  {r.lastRead && <span className={styles.you}> ({r.lastRead.found} found)</span>}
                 </td>
                 <td>
                   {r.failing ? formatTime(new Date(r.failing.failingSince).toISOString()) : "—"}

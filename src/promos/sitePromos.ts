@@ -63,6 +63,8 @@ export interface SitePromoRead {
   ok: boolean;
   error?: string;
   added?: SitePromo[];
+  // How many promotions a good read found (src/promos/status.ts keeps it).
+  found?: number;
 }
 
 // Reads each bookmaker's promotions and saves them; one failing costs only
@@ -79,7 +81,7 @@ export async function refreshSitePromos(
       const promos = await read(now);
       const { added, removed } = saveSitePromos(db, bookmaker, promos, now);
       if (added.length || removed) console.log(`[site-promos] ${bookmaker}: ${added.length} new, ${removed} gone`);
-      reads.push(promos.length > 0 ? { bookmaker, ok: true, added } : { bookmaker, ok: false, error: "no promotion found" });
+      reads.push(promos.length > 0 ? { bookmaker, ok: true, added, found: promos.length } : { bookmaker, ok: false, error: "no promotion found" });
     } catch (err) {
       console.error(`[site-promos] ${bookmaker}: could not read its promotions:`, err);
       reads.push({ bookmaker, ok: false, error: err instanceof Error ? err.message : String(err) });

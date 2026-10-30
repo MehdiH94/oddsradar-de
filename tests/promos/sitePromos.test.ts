@@ -125,11 +125,11 @@ describe("the site's promotions in auth.sqlite", () => {
     expect(reads).toEqual([
       { bookmaker: "broken", ok: false, error: "HTTP 403" },
       { bookmaker: "empty", ok: false, error: "no promotion found" },
-      { bookmaker: "betathome", ok: true, added: expect.any(Array) },
+      { bookmaker: "betathome", ok: true, added: expect.any(Array), found: 3 },
     ]);
     // Read again: nothing new.
     const again = await refreshSitePromos(db, { betathome: async (now) => parseBetathomePromos(PAGE, now) }, NOW);
-    expect(again).toEqual([{ bookmaker: "betathome", ok: true, added: [] }]);
+    expect(again).toEqual([{ bookmaker: "betathome", ok: true, added: [], found: 3 }]);
     expect(db.prepare("SELECT COUNT(*) AS n FROM promos WHERE source = 'site'").get()).toEqual({ n: 3 });
     expect(errors).toHaveBeenCalledWith("[site-promos] broken: could not read its promotions:", expect.any(Error));
     vi.restoreAllMocks();

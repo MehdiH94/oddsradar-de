@@ -13,6 +13,7 @@ import { refreshSitePromos } from "../promos/sitePromos";
 import { runSitePromoAlerts } from "../alerts/sitePromos";
 import { postNewPromos } from "../alerts/newPromos";
 import { PROMO_READERS } from "../promos/readers";
+import { recordPromoReads } from "../promos/status";
 import { marketsMaxAgeForInterval, oddsMaxAgeForPollInterval } from "../db/repository";
 import { createWorkerPool } from "../freebets/pool";
 
@@ -60,6 +61,7 @@ setInterval(() => void runPromoReminders(auth), 10 * 60 * 1000).unref();
 // each promotion found for the first time to the testers (src/alerts/newPromos.ts).
 const readSitePromos = async () => {
   const reads = await refreshSitePromos(authDb, PROMO_READERS, new Date());
+  recordPromoReads(db, reads);
   await runSitePromoAlerts(db, reads, { webhookUrl: process.env.DISCORD_ADMIN_WEBHOOK_URL });
   await postNewPromos(reads, { webhookUrl: process.env.DISCORD_WEBHOOK_URL, publicUrl: auth.publicUrl });
 };

@@ -17,6 +17,18 @@ export const SEEDED_ADMIN = { email: "admin-e2e@example.com", password: "correct
 // the data start from. The accounts' and the access specs start signed out.
 export const SESSION = path.join(__dirname, ".tmp", "session.json");
 
+// A promotion the site found itself on a bookmaker's page (src/promos/), saved
+// by the server as the hourly read would, just now: new for a day, so marked
+// "Neu" on the Promos page and counted on the navigation's Promos entry.
+export const SITE_PROMO = {
+  sourceKey: "neobet:e2e",
+  bookmaker: "neobet",
+  title: "Quoten-Boost am Wochenende",
+  details: "Bis zu 20 % mehr Gewinn auf Kombiwetten",
+  url: "https://neobet.de/promotions",
+  endsAt: null,
+};
+
 // A password for the accounts the specs create themselves (12 characters or more).
 export const NEW_PASSWORD = "another long passphrase";
 

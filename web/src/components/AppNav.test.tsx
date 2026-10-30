@@ -36,7 +36,7 @@ describe("AppNav's new promotions count", () => {
     );
     vi.stubGlobal("fetch", fetchMock);
     render(<AppNav view="matches" onChange={() => {}} placement="bar" />);
-    expect(await screen.findByRole("radio", { name: "Promos, 2 neu" })).toBeInTheDocument();
+    expect(await screen.findByRole("radio", { name: "Promos (2 neu)" })).toBeInTheDocument();
     expect(fetchMock).toHaveBeenCalledWith("/api/promos");
   });
 
@@ -52,7 +52,7 @@ describe("AppNav's new promotions count", () => {
     const fetchMock = vi.fn(() => reply({ promos: [] }));
     vi.stubGlobal("fetch", fetchMock);
     render(<AppNav view="promos" onChange={() => {}} placement="header" newPromos={3} />);
-    expect(screen.getByRole("radio", { name: "Promos, 3 neu" })).toBeChecked();
+    expect(screen.getByRole("radio", { name: "Promos (3 neu)" })).toBeChecked();
     expect(fetchMock).not.toHaveBeenCalled();
   });
 });

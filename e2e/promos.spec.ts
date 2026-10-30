@@ -1,4 +1,5 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+import { BASE_URL, SITE_PROMO } from "./fixtures";
 
 // The Promos page: the promotions an account writes down, one card per bookmaker, each marked as taken or not,
 // kept with the account. The seeded account's session (a new account would spend the registrations' rate limit,
@@ -6,7 +7,7 @@ import { expect, test } from "@playwright/test";
 test("an account writes a promo down, marks it taken, finds it so after a reload, and deletes it", async ({ page }) => {
   const title = `100 % bis 100 € (${Date.now()})`;
   await page.goto("/odds");
-  await page.getByRole("navigation", { name: "Hauptnavigation" }).getByText("Promos", { exact: true }).click();
+  await page.getByRole("navigation", { name: "Hauptnavigation" }).locator("label", { hasText: "Promos" }).click();
   await expect(page).toHaveURL(/\/promos$/);
   await expect(page).toHaveTitle(/Promos/);
 
@@ -43,6 +44,48 @@ test("an account writes a promo down, marks it taken, finds it so after a reload
   await page.reload();
   await expect(page.getByRole("heading", { level: 1, name: "Promos" })).toBeVisible();
   await expect(page.getByRole("heading", { name: title })).toHaveCount(0);
+});
+
+// The seeded site promotion's id and mark, as the account's list gives them.
+async function sitePromo(page: Page): Promise<{ id: number; takenAt: string | null }> {
+  const { promos } = (await (await page.request.get("/api/promos")).json()) as {
+    promos: Array<{ id: number; title: string; takenAt: string | null }>;
+  };
+  const promo = promos.find((p) => p.title === SITE_PROMO.title);
+  if (!promo) throw new Error("the seeded site promotion is missing");
+  return promo;
+}
+
+const setTaken = (page: Page, id: number, taken: boolean) =>
+  page.request.put(`/api/promos/${id}/taken`, { data: { taken }, headers: { Origin: BASE_URL } });
+
+// A promotion the site found itself in the last day: "Neu" on its card, counted on the navigation's Promos
+// entry from any page, and no longer counted once the account marks it taken. Left unmarked at the end, and
+// unmarked first, so that a retry starts as the first try did.
+test("a promotion the site just found is marked new and counted on the navigation until it is taken", async ({ page }) => {
+  const { id } = await sitePromo(page);
+  expect((await setTaken(page, id, false)).status()).toBe(204);
+
+  await page.goto("/odds");
+  const nav = page.getByRole("navigation", { name: "Hauptnavigation" });
+  await expect(nav.getByRole("radio", { name: "Promos (1 neu)" })).toBeAttached();
+
+  await nav.locator("label", { hasText: "Promos" }).click();
+  await expect(page).toHaveURL(/\/promos$/);
+  const card = page.getByRole("region", { name: "neobet" });
+  await expect(card.getByRole("heading", { level: 3, name: `Neu ${SITE_PROMO.title}` })).toBeVisible();
+  await expect(card.getByText(SITE_PROMO.details)).toBeVisible();
+  // The site's own promotions are marked, not deleted.
+  await expect(card.getByRole("button", { name: `Löschen: ${SITE_PROMO.title}` })).toHaveCount(0);
+
+  await card.getByRole("button", { name: `Genommen: ${SITE_PROMO.title}` }).click();
+  await expect(nav.getByRole("radio", { name: "Promos" })).toBeChecked();
+  await expect.poll(async () => (await sitePromo(page)).takenAt).not.toBeNull();
+  await page.goto("/odds");
+  await expect(nav.getByRole("radio", { name: "Promos" })).toBeAttached();
+  await expect(nav.getByRole("radio", { name: "Promos (1 neu)" })).toHaveCount(0);
+
+  expect((await setTaken(page, id, false)).status()).toBe(204);
 });
 
 test.describe("signed out", () => {

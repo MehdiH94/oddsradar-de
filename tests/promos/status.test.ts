@@ -3,7 +3,7 @@ import { openDb } from "../../src/db/client";
 import { openAuthDb } from "../../src/auth/db";
 import { saveSitePromos, SitePromo } from "../../src/promos/sitePromos";
 import { runSitePromoAlerts } from "../../src/alerts/sitePromos";
-import { formatPromoReaderStatus, listPromoReaderStatus } from "../../src/promos/status";
+import { formatPromoReaderStatus, listPromoReaderStatus, recordPromoReads } from "../../src/promos/status";
 import { PROMO_READERS } from "../../src/promos/readers";
 
 const promo = (sourceKey: string, title: string): SitePromo => ({ sourceKey, bookmaker: "neobet", title, details: "", url: null, endsAt: null });
@@ -22,16 +22,25 @@ describe("promo readers' status (vps-report promos)", () => {
     // A manual promotion is no reader's.
     auth.prepare("INSERT INTO promos (source, bookmaker, title, found_at) VALUES ('manual', 'neobet', 'Mine', ?)").run(new Date(now).toISOString());
     await runSitePromoAlerts(odds, [{ bookmaker: "twentybet", ok: false, error: "HTTP 404" }], { now: now - 3 * 3_600_000 });
+    // The last good reads: neobet's 20 minutes ago; twentybet's before it began failing; a failed read changes nothing.
+    recordPromoReads(odds, [{ bookmaker: "twentybet", ok: true, found: 9 }], new Date(now - 4 * 3_600_000));
+    recordPromoReads(odds, [{ bookmaker: "neobet", ok: true, found: 2 }, { bookmaker: "twentybet", ok: false, error: "HTTP 404" }], new Date(now - 20 * 60_000));
 
     const statuses = listPromoReaderStatus(auth, odds, ["neobet", "twentybet", "betathome"]);
-    expect(statuses[0]).toMatchObject({ bookmaker: "neobet", count: 2, newestTitle: "Gratiswette", failing: undefined });
+    expect(statuses[0]).toMatchObject({
+      bookmaker: "neobet",
+      count: 2,
+      newestTitle: "Gratiswette",
+      failing: undefined,
+      lastRead: { at: new Date(now - 20 * 60_000).toISOString(), found: 2 },
+    });
     expect(statuses[1]).toMatchObject({ bookmaker: "twentybet", count: 0, newestTitle: null, failing: { lastError: "HTTP 404" } });
 
     expect(formatPromoReaderStatus(statuses, now).split("\n")).toEqual([
-      'OK      neobet       2 promotions, newest "Gratiswette" found 30 min ago',
-      "FAILING twentybet    no promotion held; failing since 3 h ago (admins not told yet)",
+      'OK      neobet       2 promotions, newest "Gratiswette" found 30 min ago; last good read 20 min ago (2 found)',
+      "FAILING twentybet    no promotion held; failing since 3 h ago (admins not told yet); last good read 4 h ago (9 found)",
       "    error: HTTP 404",
-      "EMPTY   betathome    no promotion held",
+      "EMPTY   betathome    no promotion held; no good read recorded",
     ]);
   });
 });

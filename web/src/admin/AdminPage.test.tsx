@@ -151,9 +151,9 @@ describe("AdminPage", () => {
 
   it("shows each promo reader's state in its own tab, the failing ones in red with their error", async () => {
     const readers: AdminPromoReader[] = [
-      { bookmaker: "neobet", count: 18, newestTitle: "Early Payout", newestFoundAt: "2026-10-28T04:20:00.000Z" },
-      { bookmaker: "twentybet", count: 9, newestTitle: "Bet Builder", newestFoundAt: "2026-10-29T01:05:00.000Z", failing: { failingSince: Date.parse("2026-10-29T08:00:00.000Z"), lastError: "HTTP 404", alerted: true } },
-      { bookmaker: "merkurbets", count: 0, newestTitle: null, newestFoundAt: null },
+      { bookmaker: "neobet", count: 18, newestTitle: "Early Payout", newestFoundAt: "2026-10-28T04:20:00.000Z", lastRead: { at: "2026-10-30T12:05:00.000Z", found: 18 } },
+      { bookmaker: "twentybet", count: 9, newestTitle: "Bet Builder", newestFoundAt: "2026-10-29T01:05:00.000Z", failing: { failingSince: Date.parse("2026-10-29T08:00:00.000Z"), lastError: "HTTP 404", alerted: true }, lastRead: null },
+      { bookmaker: "merkurbets", count: 0, newestTitle: null, newestFoundAt: null, lastRead: null },
     ];
     const fetchMock = vi.fn((url: string) => reply(url.endsWith("/promo-readers") ? { readers } : { users: [ME] }));
     vi.stubGlobal("fetch", fetchMock);
@@ -172,6 +172,7 @@ describe("AdminPage", () => {
     const neobet = screen.getByRole("row", { name: /neobet/ });
     expect(within(neobet).getByText("OK").className).toContain("active");
     expect(within(neobet).getByText("Early Payout")).toBeInTheDocument();
+    expect(within(neobet).getByText("(18 found)")).toBeInTheDocument();
     expect(within(screen.getByRole("row", { name: /Merkur Bets/ })).getByText("Empty").className).toContain("warning");
     expect(fetchMock).toHaveBeenCalledWith("/api/admin/promo-readers", undefined);
   });

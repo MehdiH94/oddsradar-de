@@ -76,6 +76,16 @@ export function endLabel(endsAt: string | null, now = new Date()): string | null
   return end.getTime() < now.getTime() ? "Abgelaufen" : `Endet ${END_FORMAT.format(end)}`;
 }
 
+// A promotion the site found itself (not one written down by hand) within
+// this long is marked "Neu", so that what came since the last visit stands out.
+export const NEW_FOR_MS = 24 * 60 * 60 * 1000;
+
+export function isNew(promo: Pick<Promo, "source" | "foundAt">, now = new Date()): boolean {
+  if (promo.source !== "site") return false;
+  const found = Date.parse(promo.foundAt);
+  return !Number.isNaN(found) && now.getTime() - found < NEW_FOR_MS;
+}
+
 // The end of the chosen day, where the visitor is: a promo "until the 20th"
 // lasts the whole 20th.
 export function endOfDay(day: string): string | null {

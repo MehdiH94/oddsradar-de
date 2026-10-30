@@ -680,7 +680,11 @@ Elles sont a tous les comptes (`source = 'site'`, une ligne par
 `source_key`, mise a jour sur place pour garder les marques « prise ») ; une
 promo qui quitte la page est retiree. Une page qui ne repond pas ou sans sa
 liste ne retire rien. Aucune protection anti-robot n'est contournee : un
-bookmaker qui en a une n'est pas lu.
+bookmaker qui en a une n'est pas lu. Chaque promo trouvee pour la premiere
+fois est annoncee dans le salon Discord des testeurs (celui des gems,
+`DISCORD_WEBHOOK_URL`), un message par bookmaker, en allemand, avec un lien
+vers la page Promos (`src/alerts/newPromos.ts`) ; une promo deja en base
+n'est jamais annoncee de nouveau.
 
 La veille de la fin d'une promo, le compte recoit un e-mail (le SMTP des
 comptes) qui liste ses promos ouvertes, non marquees prises, finissant dans

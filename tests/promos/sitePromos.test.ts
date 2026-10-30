@@ -89,7 +89,7 @@ describe("the site's promotions in auth.sqlite", () => {
     const db = openAuthDb(":memory:");
     const ada = createUser(db, { email: "ada@example.com", passwordHash: "x", verified: true }, NOW);
     const bob = createUser(db, { email: "bob@example.com", passwordHash: "x", verified: true }, NOW);
-    expect(saveSitePromos(db, "betathome", [promo("1"), promo("2")], NOW)).toEqual({ added: 2, removed: 0 });
+    expect(saveSitePromos(db, "betathome", [promo("1"), promo("2")], NOW)).toEqual({ added: [promo("1"), promo("2")], removed: 0 });
     const [first] = listPromos(db, ada.id);
     expect(first).toMatchObject({ source: "site", mine: false, bookmaker: "betathome" });
     expect(listPromos(db, bob.id)).toHaveLength(2);
@@ -98,14 +98,14 @@ describe("the site's promotions in auth.sqlite", () => {
     // Read again: one changed, one gone, one new; the mark stays on the changed one.
     const changed = first.title === "Promo 1" ? "1" : "2";
     const gone = changed === "1" ? "2" : "1";
-    expect(saveSitePromos(db, "betathome", [promo(changed, { title: "Neu" }), promo("3")], NOW)).toEqual({ added: 1, removed: 1 });
+    expect(saveSitePromos(db, "betathome", [promo(changed, { title: "Neu" }), promo("3")], NOW)).toEqual({ added: [promo("3")], removed: 1 });
     const now = listPromos(db, ada.id);
     expect(now.map((p) => p.title).sort()).toEqual(["Neu", "Promo 3"]);
     expect(now.find((p) => p.title === "Neu")).toMatchObject({ id: first.id, takenAt: NOW.toISOString() });
     expect(now.some((p) => p.title === `Promo ${gone}`)).toBe(false);
 
     // An empty read removes nothing; another bookmaker's are left alone.
-    expect(saveSitePromos(db, "betathome", [], NOW)).toEqual({ added: 0, removed: 0 });
+    expect(saveSitePromos(db, "betathome", [], NOW)).toEqual({ added: [], removed: 0 });
     saveSitePromos(db, "leovegas", [promo("9", { sourceKey: "leovegas:9", bookmaker: "leovegas" })], NOW);
     expect(listPromos(db, bob.id)).toHaveLength(3);
   });
@@ -125,8 +125,11 @@ describe("the site's promotions in auth.sqlite", () => {
     expect(reads).toEqual([
       { bookmaker: "broken", ok: false, error: "HTTP 403" },
       { bookmaker: "empty", ok: false, error: "no promotion found" },
-      { bookmaker: "betathome", ok: true },
+      { bookmaker: "betathome", ok: true, added: expect.any(Array) },
     ]);
+    // Read again: nothing new.
+    const again = await refreshSitePromos(db, { betathome: async (now) => parseBetathomePromos(PAGE, now) }, NOW);
+    expect(again).toEqual([{ bookmaker: "betathome", ok: true, added: [] }]);
     expect(db.prepare("SELECT COUNT(*) AS n FROM promos WHERE source = 'site'").get()).toEqual({ n: 3 });
     expect(errors).toHaveBeenCalledWith("[site-promos] broken: could not read its promotions:", expect.any(Error));
     vi.restoreAllMocks();

@@ -1,4 +1,5 @@
 import { BadgePercent, Gem, Gift, ListOrdered, SlidersHorizontal } from "lucide-react";
+import { useNewPromosCount } from "../promos/promosApi";
 import styles from "./AppNav.module.css";
 
 export type View = "value-bets" | "matches" | "freebets" | "promos";
@@ -16,12 +17,15 @@ const VIEWS: ReadonlyArray<{ value: View; label: string; Icon: typeof Gem }> = [
 // own address: choosing one moves there, see App, FreebetsPage and PromosPage). On a phone a bar fixed at the bottom
 // of the screen, under the thumb, with the button that opens the filters'
 // sheet (`filters`); from 768 px a switch in the header. Native radio buttons
-// underneath, like the sports'.
+// underneath, like the sports'. The "Promos" entry carries how many open
+// promotions the site found in the last 24 hours (`newPromos`, read here when
+// the page does not give it).
 export function AppNav({
   view,
   onChange,
   placement,
   filters,
+  newPromos,
 }: {
   view: View;
   onChange: (view: View) => void;
@@ -29,7 +33,11 @@ export function AppNav({
   // The phone's "Filters" button: how many filters differ from their default,
   // and the sheet it opens (FilterSheet).
   filters?: { count: number; open: boolean; onOpen: () => void; controls: string };
+  // The Promos page counts its own list, kept up as promotions are marked taken.
+  newPromos?: number;
 }) {
+  const read = useNewPromosCount(newPromos === undefined);
+  const fresh = newPromos ?? read;
   return (
     <nav className={placement === "bar" ? styles.bar : styles.header} aria-label="Hauptnavigation">
       <fieldset className={styles.group}>
@@ -47,6 +55,14 @@ export function AppNav({
             <span className={styles.face}>
               <Icon size={20} aria-hidden="true" className={styles.icon} />
               {label}
+              {value === "promos" && fresh > 0 && (
+                <>
+                  <span className={styles.badge} aria-hidden="true">
+                    {fresh}
+                  </span>
+                  <span className="visually-hidden">, {fresh} neu</span>
+                </>
+              )}
             </span>
           </label>
         ))}

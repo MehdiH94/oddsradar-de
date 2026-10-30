@@ -8,7 +8,7 @@ import { GamblingBanner } from "../components/GamblingBanner";
 import { Card } from "../freebets/Card";
 import { FREEBETS_PATH, navigate, oddsHref, valueBetsHref } from "../routes";
 import { useIsWide } from "../useMediaQuery";
-import { endLabel, endOfDay, groupByBookmaker, isNew, usePromos, type NewPromo, type Promo, type PromosState } from "./promosApi";
+import { countNew, endLabel, endOfDay, groupByBookmaker, isNew, usePromos, type NewPromo, type Promo, type PromosState } from "./promosApi";
 import styles from "./PromosPage.module.css";
 
 // The Promos page, for accounts: the bookmakers' promotions, one card per
@@ -24,7 +24,7 @@ export function PromosPage() {
     else if (view === "matches") navigate(oddsHref);
     else if (view === "freebets") navigate(FREEBETS_PATH);
   }
-  const nav = <AppNav view="promos" onChange={changeView} placement={wide ? "header" : "bar"} />;
+  const nav = <AppNav view="promos" onChange={changeView} placement={wide ? "header" : "bar"} newPromos={countNew(promos.promos)} />;
   const groups = groupByBookmaker(promos.promos);
   const open = promos.promos.filter((p) => !p.takenAt).length;
 

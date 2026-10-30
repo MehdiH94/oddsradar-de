@@ -86,6 +86,33 @@ export function isNew(promo: Pick<Promo, "source" | "foundAt">, now = new Date()
   return !Number.isNaN(found) && now.getTime() - found < NEW_FOR_MS;
 }
 
+// How many open promotions (not marked taken) are new: the count on the
+// navigation's "Promos" entry.
+export function countNew(promos: readonly Promo[], now = new Date()): number {
+  return promos.filter((p) => !p.takenAt && isNew(p, now)).length;
+}
+
+// That count for the pages other than Promos, read once when the navigation
+// shows (`enabled`). Quiet: a failed read is no count, and a lapsed session is
+// left to the page's own requests to announce.
+export function useNewPromosCount(enabled: boolean): number {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!enabled) return;
+    let alive = true;
+    fetch("/api/promos")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((body) => {
+        if (alive) setCount(countNew(readPromos(body)));
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, [enabled]);
+  return count;
+}
+
 // The end of the chosen day, where the visitor is: a promo "until the 20th"
 // lasts the whole 20th.
 export function endOfDay(day: string): string | null {

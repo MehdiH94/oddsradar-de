@@ -8,7 +8,7 @@ import { GamblingBanner } from "../components/GamblingBanner";
 import { Card } from "../freebets/Card";
 import { FREEBETS_PATH, navigate, oddsHref, valueBetsHref } from "../routes";
 import { useIsWide } from "../useMediaQuery";
-import { countNew, endLabel, endOfDay, foundLabel, groupByBookmaker, isNew, usePromos, type NewPromo, type Promo, type PromosState } from "./promosApi";
+import { countNew, endingSoon, endLabel, endOfDay, foundLabel, groupByBookmaker, isNew, usePromos, type NewPromo, type Promo, type PromosState } from "./promosApi";
 import styles from "./PromosPage.module.css";
 
 // Whether the promos already marked taken are hidden, so that a long list shows
@@ -128,7 +128,8 @@ export function PromosPage() {
 
 function PromoItem({ promo, promos }: { promo: Promo; promos: PromosState }) {
   const taken = promo.takenAt !== null;
-  const end = endLabel(promo.endsAt);
+  const soon = endingSoon(promo);
+  const end = endLabel(promo.endsAt, new Date(), soon);
   const found = foundLabel(promo);
   return (
     <li className={styles.promo} data-taken={taken || undefined}>
@@ -143,7 +144,11 @@ function PromoItem({ promo, promos }: { promo: Promo; promos: PromosState }) {
         </h3>
         {promo.details && <p className={styles.details}>{promo.details}</p>}
         <p className={styles.meta}>
-          {end && <span data-expired={end === "Abgelaufen" || undefined}>{end}</span>}
+          {end && (
+            <span data-expired={end === "Abgelaufen" || undefined} data-soon={soon || undefined}>
+              {end}
+            </span>
+          )}
           {found && <span>{found}</span>}
           {promo.url && (
             <a href={promo.url} target="_blank" rel="noopener noreferrer" aria-label={`Zur Aktion: ${promo.title}`}>

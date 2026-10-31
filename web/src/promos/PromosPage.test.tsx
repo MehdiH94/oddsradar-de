@@ -3,7 +3,7 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import axe from "axe-core";
 import { AuthContext, type AuthValue } from "../auth/AuthContext";
 import { PromosPage } from "./PromosPage";
-import { bookmakerOf, countNew, endLabel, endOfDay, foundLabel, groupByBookmaker, isNew, type Promo } from "./promosApi";
+import { bookmakerOf, countNew, endingSoon, endLabel, endOfDay, foundLabel, groupByBookmaker, isNew, type Promo } from "./promosApi";
 
 const reply = (body: unknown, status = 200) => Promise.resolve({ ok: status < 400, status, json: () => Promise.resolve(body) });
 
@@ -83,6 +83,16 @@ describe("the promos' helpers", () => {
     expect(isNew({ source: "site", foundAt: "soon" }, now)).toBe(false);
   });
 
+  it("marks an open promo ending within a day, never a taken or an ended one", () => {
+    const now = new Date("2026-10-31T10:00:00Z");
+    expect(endingSoon({ endsAt: "2026-11-01T09:00:00Z", takenAt: null }, now)).toBe(true);
+    expect(endingSoon({ endsAt: "2026-11-01T11:00:00Z", takenAt: null }, now)).toBe(false);
+    expect(endingSoon({ endsAt: "2026-11-01T09:00:00Z", takenAt: "2026-10-30T10:00:00Z" }, now)).toBe(false);
+    expect(endingSoon({ endsAt: "2026-10-31T09:00:00Z", takenAt: null }, now)).toBe(false);
+    expect(endingSoon({ endsAt: null, takenAt: null }, now)).toBe(false);
+    expect(endLabel("2026-11-01T09:59:00Z", now, true)).toMatch(/^Endet bald: So\., 01\.11\., \d\d:59$/);
+  });
+
   it("says when the site found its own promotions, and nothing for one written by hand", () => {
     expect(foundLabel({ source: "site", foundAt: "2026-10-29T10:00:00.000Z" })).toBe("Gefunden am 29.10.");
     expect(foundLabel({ source: "manual", foundAt: "2026-10-29T10:00:00.000Z" })).toBeNull();
@@ -150,6 +160,13 @@ describe("PromosPage", () => {
     renderPage();
     await screen.findByRole("region", { name: "Winamax" });
     expect(screen.queryByRole("checkbox", { name: /Genommene ausblenden/ })).not.toBeInTheDocument();
+  });
+
+  it("shows a promo ending within the day as ending soon", async () => {
+    stubApi([promo({ id: 1, title: "Letzte Chance", endsAt: new Date(Date.now() + 3 * 3_600_000).toISOString() })]);
+    renderPage();
+    const card = await screen.findByRole("region", { name: "Winamax" });
+    expect(within(card).getByText(/^Endet bald: /)).toHaveAttribute("data-soon", "true");
   });
 
   it("shows one card per bookmaker, with each promo's conditions, end and link", async () => {

@@ -211,6 +211,11 @@
   color: var(--color-text-muted);
 }
 
+.meta [data-soon] {
+  color: var(--color-warning-text);
+  font-weight: 700;
+}
+
 .meta [data-expired] {
   color: var(--color-danger-text);
 }

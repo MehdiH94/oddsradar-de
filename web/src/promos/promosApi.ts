@@ -68,12 +68,24 @@ const END_FORMAT = new Intl.DateTimeFormat("de-DE", {
   minute: "2-digit",
 });
 
-// "Endet Mo., 20.10., 23:59", "Abgelaufen", or nothing for a promo without an end.
-export function endLabel(endsAt: string | null, now = new Date()): string | null {
+// The window of the e-mail the day before (src/auth/promos.ts,
+// REMIND_BEFORE_END_MS): an open promo ending within it is marked on the page too.
+export const ENDING_SOON_MS = 24 * 60 * 60 * 1000;
+
+export function endingSoon(promo: Pick<Promo, "endsAt" | "takenAt">, now = new Date()): boolean {
+  if (promo.takenAt || !promo.endsAt) return false;
+  const left = Date.parse(promo.endsAt) - now.getTime();
+  return left >= 0 && left <= ENDING_SOON_MS;
+}
+
+// "Endet Mo., 20.10., 23:59", "Endet bald: Mo., 20.10., 23:59" within a day,
+// "Abgelaufen", or nothing for a promo without an end.
+export function endLabel(endsAt: string | null, now = new Date(), soon = false): string | null {
   if (!endsAt) return null;
   const end = new Date(endsAt);
   if (Number.isNaN(end.getTime())) return null;
-  return end.getTime() < now.getTime() ? "Abgelaufen" : `Endet ${END_FORMAT.format(end)}`;
+  if (end.getTime() < now.getTime()) return "Abgelaufen";
+  return `${soon ? "Endet bald:" : "Endet"} ${END_FORMAT.format(end)}`;
 }
 
 const FOUND_FORMAT = new Intl.DateTimeFormat("de-DE", { day: "2-digit", month: "2-digit" });

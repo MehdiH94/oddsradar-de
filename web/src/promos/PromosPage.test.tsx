@@ -3,7 +3,7 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import axe from "axe-core";
 import { AuthContext, type AuthValue } from "../auth/AuthContext";
 import { PromosPage } from "./PromosPage";
-import { bookmakerOf, countNew, endLabel, endOfDay, groupByBookmaker, isNew, type Promo } from "./promosApi";
+import { bookmakerOf, countNew, endLabel, endOfDay, foundLabel, groupByBookmaker, isNew, type Promo } from "./promosApi";
 
 const reply = (body: unknown, status = 200) => Promise.resolve({ ok: status < 400, status, json: () => Promise.resolve(body) });
 
@@ -83,6 +83,12 @@ describe("the promos' helpers", () => {
     expect(isNew({ source: "site", foundAt: "soon" }, now)).toBe(false);
   });
 
+  it("says when the site found its own promotions, and nothing for one written by hand", () => {
+    expect(foundLabel({ source: "site", foundAt: "2026-10-29T10:00:00.000Z" })).toBe("Gefunden am 29.10.");
+    expect(foundLabel({ source: "manual", foundAt: "2026-10-29T10:00:00.000Z" })).toBeNull();
+    expect(foundLabel({ source: "site", foundAt: "soon" })).toBeNull();
+  });
+
   it("counts the new promotions not yet taken", () => {
     const now = new Date("2026-10-30T12:00:00Z");
     const fresh = "2026-10-30T10:00:00Z";
@@ -159,8 +165,10 @@ describe("PromosPage", () => {
     expect(within(winamax).getByRole("link", { name: "Zur Aktion: 100 % bis 100 €" })).toHaveAttribute("href", "https://www.winamax.de/promo");
     expect(within(winamax).getByText("1 offen")).toBeInTheDocument();
     const stake = screen.getByRole("region", { name: "Stake" });
-    // A promo the site found cannot be deleted, only marked.
+    // A promo the site found cannot be deleted, only marked; it says when it was found.
     expect(within(stake).queryByRole("button", { name: /Löschen/ })).not.toBeInTheDocument();
+    expect(within(stake).getByText("Gefunden am 01.10.")).toBeInTheDocument();
+    expect(within(winamax).queryByText(/^Gefunden am/)).not.toBeInTheDocument();
     expect(screen.getByText("2 offene Promos")).toBeInTheDocument();
   });
 

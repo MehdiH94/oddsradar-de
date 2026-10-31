@@ -76,6 +76,16 @@ export function endLabel(endsAt: string | null, now = new Date()): string | null
   return end.getTime() < now.getTime() ? "Abgelaufen" : `Endet ${END_FORMAT.format(end)}`;
 }
 
+const FOUND_FORMAT = new Intl.DateTimeFormat("de-DE", { day: "2-digit", month: "2-digit" });
+
+// "Gefunden am 29.10." for a promotion the site found itself, so that its age
+// shows once its "Neu" is gone; nothing for one written down by hand.
+export function foundLabel(promo: Pick<Promo, "source" | "foundAt">): string | null {
+  if (promo.source !== "site") return null;
+  const found = new Date(promo.foundAt);
+  return Number.isNaN(found.getTime()) ? null : `Gefunden am ${FOUND_FORMAT.format(found)}`;
+}
+
 // A promotion the site found itself (not one written down by hand) within
 // this long is marked "Neu", so that what came since the last visit stands out.
 export const NEW_FOR_MS = 24 * 60 * 60 * 1000;

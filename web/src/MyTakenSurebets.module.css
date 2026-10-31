@@ -43,3 +43,8 @@
   color: var(--color-brand);
   font-weight: 600;
 }
+
+.profit {
+  color: var(--color-best-text);
+  font-weight: 700;
+}

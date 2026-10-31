@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { hasExchangeLeg, readTaken, surebetKey, takenLabel } from "./takenSurebets";
+import { hasExchangeLeg, profitLabel, readTaken, surebetKey, takenLabel } from "./takenSurebets";
 import type { Surebet } from "./types";
 
 const lay: Surebet = {
@@ -42,11 +42,16 @@ describe("the taken surebets", () => {
     const a = { key: "a", remind: true, eventId: "e1", startTime: "2026-11-01T18:00:00.000Z", label: "A - B, Ergebnis: …", remindedAt: "2026-11-01T17:00:00.000Z" };
     expect(readTaken({ taken: [a, { key: "b", remind: false }, { remind: true }] })).toEqual(
       new Map([
-        ["a", { remind: true, eventId: "e1", startTime: a.startTime, label: a.label, remindedAt: a.remindedAt }],
-        ["b", { remind: false, eventId: "", startTime: "", label: "", remindedAt: null }],
+        ["a", { remind: true, eventId: "e1", startTime: a.startTime, label: a.label, remindedAt: a.remindedAt, payoutRate: null }],
+        ["b", { remind: false, eventId: "", startTime: "", label: "", remindedAt: null, payoutRate: null }],
       ])
     );
+    expect(readTaken({ taken: [{ key: "c", payoutRate: 1.024 }] }).get("c")?.payoutRate).toBe(1.024);
     expect(readTaken(null).size).toBe(0);
     expect(readTaken({ taken: "a" }).size).toBe(0);
+  });
+
+  it("says what a taken surebet was worth, in German numbers", () => {
+    expect(profitLabel(1.024)).toBe("+2,4\u00a0% · 2,40 € auf 100 €");
   });
 });

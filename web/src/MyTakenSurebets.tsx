@@ -1,12 +1,13 @@
 import type { MouseEvent } from "react";
 import { formatStartTime } from "./format";
-import type { TakenInfo, TakenSurebets } from "./takenSurebets";
+import { profitLabel, type TakenInfo, type TakenSurebets } from "./takenSurebets";
 import styles from "./MyTakenSurebets.module.css";
 
 // "Meine Surebets": the surebets the account marked taken, in one place above
 // the value bets' list, even once a price moved and the surebet left it. Each
-// with its match, legs and prices as taken (its label), its kick-off, and its
-// reminder: asked for, sent, or none. The server forgets one two days after
+// with its match, legs and prices as taken (its label), its kick-off, its
+// payout then ("+2,4 % · 2,40 € auf 100 €"), and its reminder: asked for,
+// sent, or none. The server forgets one two days after
 // its match (src/auth/takenSurebets.ts).
 export function MyTakenSurebets({
   taken,
@@ -62,6 +63,7 @@ function TakenItem({
       <p className={styles.label}>{item.label}</p>
       <p className={styles.meta}>
         <span>{started ? "Gespielt" : `Anstoß ${formatStartTime(item.startTime, now)}`}</span>
+        {item.payoutRate !== null && <span className={styles.profit}>{profitLabel(item.payoutRate)}</span>}
         {reminder && <span>{reminder}</span>}
         {href && !started && (
           <a href={href} onClick={open}>

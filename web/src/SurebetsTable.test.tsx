@@ -355,6 +355,8 @@ describe("SurebetsTable", () => {
           startTime: "2099-01-01T07:00:00.000Z",
           label: "Alex De Minaur - Hubert Hurkacz, Aces réussis par Hubert Hurkacz (9.5 aces): Fenerbahçe @ 20bet 3,32 / Lay Fenerbahçe @ Börse 3,20",
           remind: true,
+          // Its payout as taken, kept with it.
+          payoutRate: withLay.payoutRate,
         },
       });
       expect(calls[0].body).toMatchObject({ remind: false });

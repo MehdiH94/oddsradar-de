@@ -50,11 +50,25 @@ export function parseTakenSurebet(input: unknown, now = new Date()): TakenSurebe
   return { key: k, eventId: id, startTime: new Date(start).toISOString(), label: clean(label, MAX_LABEL) || id, remind };
 }
 
-export function listTakenSurebets(db: DatabaseSync, userId: string): { key: string; remind: boolean }[] {
+// The account's taken surebets, soonest first: each with what the dashboard's
+// "Meine Surebets" shows (web/src/MyTakenSurebets.tsx).
+export interface ListedTakenSurebet {
+  key: string;
+  remind: boolean;
+  eventId: string;
+  startTime: string;
+  label: string;
+  remindedAt: string | null;
+}
+
+export function listTakenSurebets(db: DatabaseSync, userId: string): ListedTakenSurebet[] {
   const rows = db
-    .prepare("SELECT surebet_key AS key, remind FROM user_taken_surebets WHERE user_id = ? ORDER BY start_time, surebet_key")
-    .all(userId) as { key: string; remind: number }[];
-  return rows.map((r) => ({ key: r.key, remind: r.remind === 1 }));
+    .prepare(
+      `SELECT surebet_key AS key, remind, event_id AS eventId, start_time AS startTime, label, reminded_at AS remindedAt
+       FROM user_taken_surebets WHERE user_id = ? ORDER BY start_time, surebet_key`
+    )
+    .all(userId) as unknown as (Omit<ListedTakenSurebet, "remind"> & { remind: number })[];
+  return rows.map((r) => ({ ...r, remind: r.remind === 1 }));
 }
 
 // False when the account already keeps MAX_TAKEN others.

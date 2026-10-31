@@ -13,6 +13,8 @@ import {
 import { GroupedOddsTables } from "./GroupedOddsTables";
 import { ValueBetsTable } from "./ValueBetsTable";
 import { SurebetsTable } from "./SurebetsTable";
+import { MyTakenSurebets } from "./MyTakenSurebets";
+import { useTakenSurebets } from "./takenSurebets";
 import { MatchPage, type PageStatus } from "./MatchPage";
 import { AppHeader } from "./components/AppHeader";
 import { GamblingBanner } from "./components/GamblingBanner";
@@ -63,6 +65,8 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
   const [bets, setBets] = useState<ValueBet[] | null>(null);
   // Its surebets (SurebetsTable), above its value bets.
   const [surebets, setSurebets] = useState<Surebet[]>([]);
+  // The surebets the account took, shared by the surebets' table and "Meine Surebets".
+  const takenSurebets = useTakenSurebets();
   const [total, setTotal] = useState(0);
   const [pageSize, setPageSize] = useState(20);
   const [sport, setSport] = useState<string>(initial.sport);
@@ -598,8 +602,15 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
                   )
                 ) : isValueBets ? (
                   <>
+                    <MyTakenSurebets taken={takenSurebets.taken} matchHref={matchHref} onOpenMatch={openMatch} />
                     {surebets.length > 0 && (
-                      <SurebetsTable surebets={surebets} matchHref={matchHref} onOpenMatch={openMatch} sportHref={sportHref} />
+                      <SurebetsTable
+                        surebets={surebets}
+                        matchHref={matchHref}
+                        onOpenMatch={openMatch}
+                        sportHref={sportHref}
+                        takenSurebets={takenSurebets}
+                      />
                     )}
                     {total > 0 && (
                       <ValueBetsTable bets={bets ?? []} matchHref={matchHref} onOpenMatch={openMatch} sportHref={sportHref} />

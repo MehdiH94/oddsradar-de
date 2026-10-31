@@ -32,16 +32,36 @@ export function takenLabel(surebet: Surebet): string {
   return `${surebet.participants.join(" - ")}, ${surebet.marketLabel}: ${legs}`;
 }
 
-// The taken surebets by key, each with whether its reminder is asked for.
-export type TakenSurebets = ReadonlyMap<string, { remind: boolean }>;
+// A taken surebet: whether its reminder is asked for, and what "Meine
+// Surebets" (MyTakenSurebets) shows of it.
+export interface TakenInfo {
+  remind: boolean;
+  eventId: string;
+  startTime: string;
+  label: string;
+  // When its reminder was sent, null before.
+  remindedAt: string | null;
+}
 
-export function readTaken(body: unknown): Map<string, { remind: boolean }> {
+// The taken surebets by key.
+export type TakenSurebets = ReadonlyMap<string, TakenInfo>;
+
+const text = (value: unknown) => (typeof value === "string" ? value : "");
+
+export function readTaken(body: unknown): Map<string, TakenInfo> {
   const list = (body as { taken?: unknown } | null)?.taken;
-  const taken = new Map<string, { remind: boolean }>();
+  const taken = new Map<string, TakenInfo>();
   if (!Array.isArray(list)) return taken;
   for (const item of list) {
-    const { key, remind } = (item ?? {}) as { key?: unknown; remind?: unknown };
-    if (typeof key === "string") taken.set(key, { remind: remind === true });
+    const { key, remind, eventId, startTime, label, remindedAt } = (item ?? {}) as Record<string, unknown>;
+    if (typeof key !== "string") continue;
+    taken.set(key, {
+      remind: remind === true,
+      eventId: text(eventId),
+      startTime: text(startTime),
+      label: text(label),
+      remindedAt: typeof remindedAt === "string" ? remindedAt : null,
+    });
   }
   return taken;
 }
@@ -60,19 +80,24 @@ async function send(method: "PUT" | "DELETE", body: unknown): Promise<boolean> {
   }
 }
 
-// The account's taken surebets, and the ways to change them. A change shows at
-// once and is undone if the server refuses it.
-export function useTakenSurebets(): {
+export interface TakenSurebetsState {
   taken: TakenSurebets;
   setTaken: (surebet: Surebet, taken: boolean) => void;
   setRemind: (surebet: Surebet, remind: boolean) => void;
-} {
-  const [taken, setState] = useState<Map<string, { remind: boolean }>>(() => new Map());
+}
+
+// The account's taken surebets, and the ways to change them. A change shows at
+// once and is undone if the server refuses it. The dashboard holds one for its
+// surebets and "Meine Surebets" together (App); `enabled` false reads nothing,
+// for a table given that one.
+export function useTakenSurebets(enabled = true): TakenSurebetsState {
+  const [taken, setState] = useState<Map<string, TakenInfo>>(() => new Map());
   // The changes made before the account's list came: kept over it, so that a
   // quick click is not undone by the list arriving after it.
-  const early = useRef<Map<string, { remind: boolean } | undefined> | null>(new Map());
+  const early = useRef<Map<string, TakenInfo | undefined> | null>(new Map());
 
   useEffect(() => {
+    if (!enabled) return;
     let alive = true;
     fetch("/api/taken-surebets")
       .then((res) => (res.ok ? res.json() : null))
@@ -94,9 +119,9 @@ export function useTakenSurebets(): {
     return () => {
       alive = false;
     };
-  }, []);
+  }, [enabled]);
 
-  const update = useCallback((key: string, value: { remind: boolean } | undefined) => {
+  const update = useCallback((key: string, value: TakenInfo | undefined) => {
     early.current?.set(key, value);
     setState((current) => {
       const next = new Map(current);
@@ -107,10 +132,11 @@ export function useTakenSurebets(): {
   }, []);
 
   const save = useCallback(
-    (surebet: Surebet, remind: boolean, before: { remind: boolean } | undefined) => {
+    (surebet: Surebet, remind: boolean, before: TakenInfo | undefined) => {
       const key = surebetKey(surebet);
-      update(key, { remind });
-      void send("PUT", { key, eventId: surebet.eventId, startTime: surebet.startTime, label: takenLabel(surebet), remind }).then(
+      const label = takenLabel(surebet);
+      update(key, { remind, eventId: surebet.eventId, startTime: surebet.startTime, label, remindedAt: before?.remindedAt ?? null });
+      void send("PUT", { key, eventId: surebet.eventId, startTime: surebet.startTime, label, remind }).then(
         (ok) => {
           if (!ok) update(key, before);
         }

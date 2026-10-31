@@ -62,7 +62,9 @@ describe("the taken surebets and their reminders", () => {
     const { db, ada, bob } = setup();
     saveTakenSurebet(db, ada.id, TAKEN, NOW);
     saveTakenSurebet(db, ada.id, { ...TAKEN, remind: false }, NOW);
-    expect(listTakenSurebets(db, ada.id)).toEqual([{ key: TAKEN.key, remind: false }]);
+    expect(listTakenSurebets(db, ada.id)).toEqual([
+      { key: TAKEN.key, remind: false, eventId: TAKEN.eventId, startTime: TAKEN.startTime, label: TAKEN.label, remindedAt: null },
+    ]);
     expect(listTakenSurebets(db, bob.id)).toEqual([]);
   });
 
@@ -155,9 +157,9 @@ describe("/api/taken-surebets", () => {
     const cookie = await sessionCookie(t);
     expect((await t.get(cookie)).body).toEqual({ taken: [] });
     expect((await t.send("put", cookie, t.taken)).status).toBe(204);
-    expect((await t.get(cookie)).body).toEqual({ taken: [{ key: TAKEN.key, remind: true }] });
+    expect((await t.get(cookie)).body).toEqual({ taken: [expect.objectContaining({ key: TAKEN.key, remind: true, eventId: TAKEN.eventId, label: TAKEN.label, remindedAt: null })] });
     expect((await t.send("put", cookie, { ...t.taken, remind: false })).status).toBe(204);
-    expect((await t.get(cookie)).body).toEqual({ taken: [{ key: TAKEN.key, remind: false }] });
+    expect((await t.get(cookie)).body).toEqual({ taken: [expect.objectContaining({ key: TAKEN.key, remind: false })] });
     expect((await t.send("delete", cookie, { key: TAKEN.key })).status).toBe(204);
     const res = await t.get(cookie);
     expect(res.body).toEqual({ taken: [] });

@@ -39,10 +39,11 @@ describe("the taken surebets", () => {
   });
 
   it("reads the server's list, and nothing from an answer it doesn't know", () => {
-    expect(readTaken({ taken: [{ key: "a", remind: true }, { key: "b", remind: false }, { remind: true }] })).toEqual(
+    const a = { key: "a", remind: true, eventId: "e1", startTime: "2026-11-01T18:00:00.000Z", label: "A - B, Ergebnis: …", remindedAt: "2026-11-01T17:00:00.000Z" };
+    expect(readTaken({ taken: [a, { key: "b", remind: false }, { remind: true }] })).toEqual(
       new Map([
-        ["a", { remind: true }],
-        ["b", { remind: false }],
+        ["a", { remind: true, eventId: "e1", startTime: a.startTime, label: a.label, remindedAt: a.remindedAt }],
+        ["b", { remind: false, eventId: "", startTime: "", label: "", remindedAt: null }],
       ])
     );
     expect(readTaken(null).size).toBe(0);

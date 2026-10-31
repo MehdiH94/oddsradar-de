@@ -19,6 +19,7 @@ import {
   type AdminUser,
   type AdminUserChange,
 } from "./adminApi";
+import { problemsFirst, readerProblemsFirst } from "./order";
 import styles from "./AdminPage.module.css";
 
 const DATE_FORMAT = new Intl.DateTimeFormat("en-GB", { dateStyle: "short" });
@@ -304,7 +305,7 @@ function BookmakersTab() {
               </tr>
             </thead>
             <tbody>
-              {bookmakers.map((b) => (
+              {problemsFirst(bookmakers).map((b) => (
                 <tr key={b.bookmaker}>
                   <th scope="row" className={styles.email}>
                     {BOOKMAKER_BRANDING[b.bookmaker]?.name ?? b.bookmaker}
@@ -375,7 +376,7 @@ function PromoReadersTab() {
             </tr>
           </thead>
           <tbody>
-            {readers.map((r) => (
+            {readerProblemsFirst(readers).map((r) => (
               <tr key={r.bookmaker}>
                 <th scope="row" className={styles.email}>
                   {BOOKMAKER_BRANDING[r.bookmaker]?.name ?? r.bookmaker}

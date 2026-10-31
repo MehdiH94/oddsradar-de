@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { AuthContext, type AuthValue } from "../auth/AuthContext";
 import { AdminPage } from "./AdminPage";
+import { problemsFirst, readerProblemsFirst } from "./order";
 import type { AdminBookmaker, AdminFeedback, AdminPromoReader, AdminUser } from "./adminApi";
 
 const reply = (body: unknown, status = 200) => Promise.resolve({ ok: status < 400, status, json: () => Promise.resolve(body) });
@@ -44,6 +45,34 @@ function renderPage(users: AdminUser[], patch?: (url: string, init: RequestInit)
 }
 
 const rowOf = (email: string) => screen.getByRole("row", { name: new RegExp(email) });
+
+describe("the admin lists' order", () => {
+  it("puts what needs looking at first, each group by name", () => {
+    const bookmaker = (id: string, health: AdminBookmaker["health"]): AdminBookmaker => ({
+      bookmaker: id,
+      lastReadAt: "2026-10-20T10:05:00.000Z",
+      lastEvents: null,
+      lastError: null,
+      lastGoodAt: null,
+      lastGoodEvents: null,
+      health,
+      downAlerted: false,
+    });
+    const order = problemsFirst([bookmaker("betway", "ok"), bookmaker("vbet", "failing"), bookmaker("888sport", "ok"), bookmaker("tipico", "down"), bookmaker("oddset", "empty")]);
+    expect(order.map((b) => b.bookmaker)).toEqual(["tipico", "oddset", "vbet", "888sport", "betway"]);
+
+    const reader = (id: string, count: number, failing?: boolean): AdminPromoReader => ({
+      bookmaker: id,
+      count,
+      newestTitle: null,
+      newestFoundAt: null,
+      lastRead: null,
+      ...(failing ? { failing: { failingSince: 0 } } : {}),
+    });
+    const readers = readerProblemsFirst([reader("neobet", 18), reader("merkurbets", 0), reader("twentybet", 9, true), reader("betathome", 4)]);
+    expect(readers.map((r) => r.bookmaker)).toEqual(["twentybet", "merkurbets", "betathome", "neobet"]);
+  });
+});
 
 describe("AdminPage", () => {
   afterEach(() => {

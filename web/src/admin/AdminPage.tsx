@@ -217,22 +217,51 @@ const HEALTH_LABELS: Record<AdminBookmaker["health"], string> = {
   down: "Down",
 };
 
+// The Bookmakers and Promos tabs read their list again every minute while
+// open, so that a scraper or a reader failing shows without a reload. A
+// failed refresh keeps the last list and says so.
+const REFRESH_EVERY_MS = 60_000;
+const UPDATED_FORMAT = new Intl.DateTimeFormat("en-GB", { timeStyle: "short" });
+
+function useEveryMinute<T>(fetchList: () => Promise<T>) {
+  const [data, setData] = useState<T | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loadedAt, setLoadedAt] = useState<Date | null>(null);
+  const load = useCallback(() => {
+    setError(null);
+    return fetchList()
+      .then((list) => {
+        setData(list);
+        setLoadedAt(new Date());
+      })
+      .catch((err) => setError(err instanceof AdminError ? err.message : "Something went wrong."));
+  }, [fetchList]);
+  useEffect(() => {
+    void load();
+    const timer = setInterval(() => void load(), REFRESH_EVERY_MS);
+    return () => clearInterval(timer);
+  }, [load]);
+  return { data, error, loadedAt, load };
+}
+
+// "Refresh", with when the list was read and whether the last refresh failed.
+function RefreshButton({ load, loadedAt, error }: { load: () => unknown; loadedAt: Date | null; error: string | null }) {
+  return (
+    <>
+      <button type="button" className={styles.linkButton} onClick={() => void load()}>
+        Refresh
+      </button>
+      {loadedAt && <span className={styles.you}> · updated {UPDATED_FORMAT.format(loadedAt)}</span>}
+      {error && <span className={styles.you}> · the last refresh failed</span>}
+    </>
+  );
+}
+
 // Each bookmaker's last read: whether it still gives odds, how many matches,
 // and the last error. "Down" is no match for 30 minutes, which the
 // administrators' Discord channel is told about (src/alerts/health.ts).
 function BookmakersTab() {
-  const [bookmakers, setBookmakers] = useState<AdminBookmaker[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  const load = useCallback(() => {
-    setError(null);
-    return fetchAdminBookmakers()
-      .then(setBookmakers)
-      .catch((err) => setError(err instanceof AdminError ? err.message : "Something went wrong."));
-  }, []);
-  useEffect(() => {
-    void load();
-  }, [load]);
+  const { data: bookmakers, error, loadedAt, load } = useEveryMinute<AdminBookmaker[]>(fetchAdminBookmakers);
 
   if (!bookmakers) {
     return error ? (
@@ -258,9 +287,7 @@ function BookmakersTab() {
           : down === 0
             ? "Every bookmaker gives odds."
             : `${down} bookmaker${down === 1 ? "" : "s"} down.`}{" "}
-        <button type="button" className={styles.linkButton} onClick={() => void load()}>
-          Refresh
-        </button>
+        <RefreshButton load={load} loadedAt={loadedAt} error={error} />
       </p>
       {bookmakers.length > 0 && (
         <div className={styles.scroll}>
@@ -309,18 +336,7 @@ function BookmakersTab() {
 // or find nothing, since when and its last error. After a day of that, the
 // administrators' Discord channel is told (src/alerts/sitePromos.ts).
 function PromoReadersTab() {
-  const [readers, setReaders] = useState<AdminPromoReader[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  const load = useCallback(() => {
-    setError(null);
-    return fetchAdminPromoReaders()
-      .then(setReaders)
-      .catch((err) => setError(err instanceof AdminError ? err.message : "Something went wrong."));
-  }, []);
-  useEffect(() => {
-    void load();
-  }, [load]);
+  const { data: readers, error, loadedAt, load } = useEveryMinute<AdminPromoReader[]>(fetchAdminPromoReaders);
 
   if (!readers) {
     return error ? (
@@ -342,9 +358,7 @@ function PromoReadersTab() {
     <>
       <p className={styles.muted}>
         {failing === 0 ? "Every promo reader works." : `${failing} promo reader${failing === 1 ? "" : "s"} failing.`}{" "}
-        <button type="button" className={styles.linkButton} onClick={() => void load()}>
-          Refresh
-        </button>
+        <RefreshButton load={load} loadedAt={loadedAt} error={error} />
       </p>
       <div className={styles.scroll}>
         <table className={styles.table}>

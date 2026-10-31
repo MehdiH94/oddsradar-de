@@ -653,6 +653,12 @@ processus web l'envoie (`src/auth/surebetReminders.ts`, chaque minute), une
 fois ; un surebet est oublie deux jours apres le match, 200 au plus par
 compte.
 
+Au-dessus de la liste des value bets, « Meine Surebets (N) » regroupe les
+surebets pris du compte, meme ceux qui ont quitte la liste depuis (une cote a
+bouge) : le match, les paris et les cotes tels que pris, le coup d'envoi
+(« Gespielt » une fois commence), l'etat du rappel (demande ou envoye) et un
+lien vers la page du match (`web/src/MyTakenSurebets.tsx`).
+
 ### Promos
 
 La page « Promos » (`/promos`, pour les comptes) range les promotions des

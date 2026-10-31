@@ -8,7 +8,7 @@ import { EventTitle } from "./components/EventTitle";
 import { CheckAtBookmaker } from "./components/CheckAtBookmaker";
 import { ExchangePrices } from "./components/ExchangePrices";
 import { useIsWide } from "./useMediaQuery";
-import { hasExchangeLeg, surebetKey, useTakenSurebets } from "./takenSurebets";
+import { hasExchangeLeg, surebetKey, useTakenSurebets, type TakenSurebetsState } from "./takenSurebets";
 import groupStyles from "./GroupedOddsTables.module.css";
 import styles from "./SurebetsTable.module.css";
 
@@ -172,8 +172,11 @@ export function SurebetsTable({
   matchHref,
   onOpenMatch,
   sportHref,
+  takenSurebets,
 }: {
   surebets: Surebet[];
+  // The dashboard's taken surebets, shared with "Meine Surebets"; read here when not given.
+  takenSurebets?: TakenSurebetsState;
   matchHref?: (id: string) => string;
   onOpenMatch?: (id: string) => void;
   // Where a match with no other market leads: its sport's page (EventTitle).
@@ -183,7 +186,8 @@ export function SurebetsTable({
   const now = new Date();
   const [showThin, setShowThin] = useState(loadShowThin);
   // The ones the account took: greyed and last (src/takenSurebets.ts).
-  const { taken, setTaken, setRemind } = useTakenSurebets();
+  const own = useTakenSurebets(!takenSurebets);
+  const { taken, setTaken, setRemind } = takenSurebets ?? own;
   const thinCount = surebets.filter((s) => s.thin).length;
   const visible = showThin ? surebets : surebets.filter((s) => !s.thin);
   const shown = [...visible.filter((s) => !taken.has(surebetKey(s))), ...visible.filter((s) => taken.has(surebetKey(s)))];

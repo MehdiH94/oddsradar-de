@@ -157,6 +157,11 @@ const MIGRATIONS: string[] = [
     PRIMARY KEY (user_id, promo_id)
   );
   `,
+  // 9: a taken surebet's payout when it was taken (1.024 for +2.4 %), shown in
+  // "Meine Surebets" (web/src/MyTakenSurebets.tsx); null for those taken before.
+  `
+  ALTER TABLE user_taken_surebets ADD COLUMN payout_rate REAL;
+  `,
 ];
 
 export function migrate(db: DatabaseSync): void {

@@ -24,11 +24,19 @@ const TAKEN: TakenSurebet = {
   startTime: at(90),
   label: "Galatasaray - Fenerbahçe, Ergebnis: Lay Fenerbahçe an der Börse 3,40",
   remind: true,
+  payoutRate: 1.024,
 };
 
 describe("parseTakenSurebet", () => {
   it("keeps a valid body, its time written as the API writes it", () => {
     expect(parseTakenSurebet({ ...TAKEN, startTime: "2026-10-10T11:30:00Z" }, NOW)).toEqual({ ...TAKEN, startTime: at(90) });
+  });
+
+  it("keeps a payout a surebet can have, and none other", () => {
+    for (const payoutRate of [1, 0.98, 1.6, Number.NaN, "1.02", undefined]) {
+      expect(parseTakenSurebet({ ...TAKEN, payoutRate }, NOW)?.payoutRate, String(payoutRate)).toBeNull();
+    }
+    expect(parseTakenSurebet({ ...TAKEN, payoutRate: 1.5 }, NOW)?.payoutRate).toBe(1.5);
   });
 
   it("puts a label on one line and caps it", () => {
@@ -61,9 +69,10 @@ describe("the taken surebets and their reminders", () => {
   it("keeps each account's own, rewritten in place", () => {
     const { db, ada, bob } = setup();
     saveTakenSurebet(db, ada.id, TAKEN, NOW);
-    saveTakenSurebet(db, ada.id, { ...TAKEN, remind: false }, NOW);
+    // Saved again with the price moved since: the payout stays the one it was taken at.
+    saveTakenSurebet(db, ada.id, { ...TAKEN, remind: false, payoutRate: 1.01 }, NOW);
     expect(listTakenSurebets(db, ada.id)).toEqual([
-      { key: TAKEN.key, remind: false, eventId: TAKEN.eventId, startTime: TAKEN.startTime, label: TAKEN.label, remindedAt: null },
+      { key: TAKEN.key, remind: false, eventId: TAKEN.eventId, startTime: TAKEN.startTime, label: TAKEN.label, remindedAt: null, payoutRate: 1.024 },
     ]);
     expect(listTakenSurebets(db, bob.id)).toEqual([]);
   });

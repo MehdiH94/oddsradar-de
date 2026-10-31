@@ -656,8 +656,10 @@ compte.
 Au-dessus de la liste des value bets, « Meine Surebets (N) » regroupe les
 surebets pris du compte, meme ceux qui ont quitte la liste depuis (une cote a
 bouge) : le match, les paris et les cotes tels que pris, le coup d'envoi
-(« Gespielt » une fois commence), l'etat du rappel (demande ou envoye) et un
-lien vers la page du match (`web/src/MyTakenSurebets.tsx`).
+(« Gespielt » une fois commence), ce qu'il valait une fois pris (« +2,4 % ·
+2,40 € auf 100 € », le TRJ garde a la prise dans `payout_rate`, qu'un nouvel
+envoi ne change pas), l'etat du rappel (demande ou envoye) et un lien vers la
+page du match (`web/src/MyTakenSurebets.tsx`).
 
 ### Promos
 

@@ -10,6 +10,7 @@ const info = (over: Partial<TakenInfo>): TakenInfo => ({
   startTime: "2026-10-31T18:00:00.000Z",
   label: "Galatasaray - Fenerbahçe, Ergebnis: Fenerbahçe @ 20bet 3,32 / Lay Fenerbahçe @ Börse 3,20",
   remindedAt: null,
+  payoutRate: null,
   ...over,
 });
 
@@ -23,7 +24,7 @@ describe("MyTakenSurebets", () => {
     const onOpenMatch = vi.fn();
     const taken = new Map([
       ["late", info({ eventId: "late", label: "Bayern - Dortmund, Ergebnis: …", startTime: "2026-11-01T17:30:00.000Z", remind: true })],
-      ["soon", info({ remind: true, remindedAt: "2026-10-31T11:00:00.000Z" })],
+      ["soon", info({ remind: true, remindedAt: "2026-10-31T11:00:00.000Z", payoutRate: 1.024 })],
       ["past", info({ eventId: "past", label: "Ajax - PSV, Ergebnis: …", startTime: "2026-10-30T18:00:00.000Z" })],
     ]);
     render(<MyTakenSurebets taken={taken} matchHref={(id) => `/odds?match=${id}`} onOpenMatch={onOpenMatch} now={NOW} />);
@@ -39,6 +40,9 @@ describe("MyTakenSurebets", () => {
     expect(within(items[0]).getByText("Gespielt")).toBeInTheDocument();
     expect(within(items[0]).queryByRole("link")).not.toBeInTheDocument();
     expect(within(items[1]).getByText("Erinnerung gesendet")).toBeInTheDocument();
+    expect(within(items[1]).getByText(/^\+2,4.% · 2,40 € auf 100 €$/)).toBeInTheDocument();
+    // One taken before its payout was kept shows none.
+    expect(within(items[2]).queryByText(/auf 100 €/)).not.toBeInTheDocument();
     expect(within(items[2]).getByText("Erinnerung 1 Std. vorher")).toBeInTheDocument();
     expect(within(items[2]).getByText(/^Anstoß /)).toBeInTheDocument();
 

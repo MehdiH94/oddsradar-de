@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { announceUnauthorized } from "./auth/session";
 import { BOOKMAKER_BRANDING } from "./bookmakers";
-import { formatPrice } from "./format";
+import { formatEdge, formatPrice } from "./format";
 import type { Surebet } from "./types";
 
 // The surebets the account has marked as taken (src/auth/takenSurebets.ts),
@@ -41,6 +41,15 @@ export interface TakenInfo {
   label: string;
   // When its reminder was sent, null before.
   remindedAt: string | null;
+  // Its payout when taken (1.024 for +2.4 %), null for one taken before it was kept.
+  payoutRate: number | null;
+}
+
+// What a taken surebet was worth when taken: its payout over 100 %, and the
+// profit for 100 € staked in all ("+2,4 % · 2,40 € auf 100 €").
+export function profitLabel(payoutRate: number): string {
+  const profit = (100 * (payoutRate - 1)).toFixed(2).replace(".", ",");
+  return `${formatEdge(payoutRate - 1)} · ${profit} € auf 100 €`;
 }
 
 // The taken surebets by key.
@@ -53,7 +62,7 @@ export function readTaken(body: unknown): Map<string, TakenInfo> {
   const taken = new Map<string, TakenInfo>();
   if (!Array.isArray(list)) return taken;
   for (const item of list) {
-    const { key, remind, eventId, startTime, label, remindedAt } = (item ?? {}) as Record<string, unknown>;
+    const { key, remind, eventId, startTime, label, remindedAt, payoutRate } = (item ?? {}) as Record<string, unknown>;
     if (typeof key !== "string") continue;
     taken.set(key, {
       remind: remind === true,
@@ -61,6 +70,7 @@ export function readTaken(body: unknown): Map<string, TakenInfo> {
       startTime: text(startTime),
       label: text(label),
       remindedAt: typeof remindedAt === "string" ? remindedAt : null,
+      payoutRate: typeof payoutRate === "number" ? payoutRate : null,
     });
   }
   return taken;
@@ -135,8 +145,10 @@ export function useTakenSurebets(enabled = true): TakenSurebetsState {
     (surebet: Surebet, remind: boolean, before: TakenInfo | undefined) => {
       const key = surebetKey(surebet);
       const label = takenLabel(surebet);
-      update(key, { remind, eventId: surebet.eventId, startTime: surebet.startTime, label, remindedAt: before?.remindedAt ?? null });
-      void send("PUT", { key, eventId: surebet.eventId, startTime: surebet.startTime, label, remind }).then(
+      // The payout it was taken at stays, as on the server.
+      const payoutRate = before ? before.payoutRate : surebet.payoutRate;
+      update(key, { remind, eventId: surebet.eventId, startTime: surebet.startTime, label, remindedAt: before?.remindedAt ?? null, payoutRate });
+      void send("PUT", { key, eventId: surebet.eventId, startTime: surebet.startTime, label, remind, payoutRate: surebet.payoutRate }).then(
         (ok) => {
           if (!ok) update(key, before);
         }

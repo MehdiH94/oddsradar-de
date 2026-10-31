@@ -177,6 +177,40 @@ describe("AdminPage", () => {
     expect(fetchMock).toHaveBeenCalledWith("/api/admin/promo-readers", undefined);
   });
 
+  it("reads the promo readers again every minute, keeping the last list when a refresh fails", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    try {
+      const reader: AdminPromoReader = { bookmaker: "neobet", count: 18, newestTitle: "Early Payout", newestFoundAt: null, lastRead: null };
+      let calls = 0;
+      const fetchMock = vi.fn((url: string) => {
+        if (!url.endsWith("/promo-readers")) return reply({ users: [ME] });
+        calls++;
+        return calls === 2 ? reply({ message: "Server down." }, 500) : reply({ readers: [reader] });
+      });
+      vi.stubGlobal("fetch", fetchMock);
+      render(
+        <AuthContext.Provider value={auth}>
+          <AdminPage />
+        </AuthContext.Provider>
+      );
+      fireEvent.click(screen.getByRole("tab", { name: "Promos" }));
+      expect(await screen.findByText("Every promo reader works.")).toBeInTheDocument();
+      expect(screen.getByText(/· updated \d\d:\d\d/)).toBeInTheDocument();
+      expect(calls).toBe(1);
+
+      await vi.advanceTimersByTimeAsync(60_000);
+      expect(calls).toBe(2);
+      expect(await screen.findByText("· the last refresh failed")).toBeInTheDocument();
+      expect(screen.getByRole("row", { name: /neobet/ })).toBeInTheDocument();
+
+      await vi.advanceTimersByTimeAsync(60_000);
+      expect(calls).toBe(3);
+      await waitFor(() => expect(screen.queryByText("· the last refresh failed")).not.toBeInTheDocument());
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("lists the testers' feedback in its own tab, and marks a message done", async () => {
     const feedback: AdminFeedback[] = [
       { id: 2, email: "ada@example.com", message: "Betway is missing tonight's NBA", page: "/odds?sport=basketball", createdAt: "2026-10-20T10:05:00.000Z", doneAt: null },

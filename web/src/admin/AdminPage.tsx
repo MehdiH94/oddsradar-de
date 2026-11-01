@@ -14,12 +14,14 @@ import {
   updateAdminFeedback,
   updateAdminUser,
   type AdminBookmaker,
+  type AdminBookmakers,
   type AdminFeedback,
   type AdminPromoReader,
   type AdminUser,
   type AdminUserChange,
 } from "./adminApi";
 import { problemsFirst, readerProblemsFirst } from "./order";
+import { oddsApiCreditsLabel } from "./oddsApiCredits";
 import styles from "./AdminPage.module.css";
 
 const DATE_FORMAT = new Intl.DateTimeFormat("en-GB", { dateStyle: "short" });
@@ -262,9 +264,9 @@ function RefreshButton({ load, loadedAt, error }: { load: () => unknown; loadedA
 // and the last error. "Down" is no match for 30 minutes, which the
 // administrators' Discord channel is told about (src/alerts/health.ts).
 function BookmakersTab() {
-  const { data: bookmakers, error, loadedAt, load } = useEveryMinute<AdminBookmaker[]>(fetchAdminBookmakers);
+  const { data, error, loadedAt, load } = useEveryMinute<AdminBookmakers>(fetchAdminBookmakers);
 
-  if (!bookmakers) {
+  if (!data) {
     return error ? (
       <p role="alert" className={styles.error}>
         {error}{" "}
@@ -279,6 +281,8 @@ function BookmakersTab() {
     );
   }
 
+  const { bookmakers, oddsApiCredits } = data;
+  const credits = oddsApiCreditsLabel(oddsApiCredits);
   const down = bookmakers.filter((b) => b.health === "down").length;
   return (
     <>
@@ -290,6 +294,11 @@ function BookmakersTab() {
             : `${down} bookmaker${down === 1 ? "" : "s"} down.`}{" "}
         <RefreshButton load={load} loadedAt={loadedAt} error={error} />
       </p>
+      {credits && (
+        <p className={styles.muted}>
+          The Odds API (Tipico, Winamax, Pinnacle): <span className={credits.spent ? styles.blocked : undefined}>{credits.text}</span>
+        </p>
+      )}
       {bookmakers.length > 0 && (
         <div className={styles.scroll}>
           <table className={styles.table}>

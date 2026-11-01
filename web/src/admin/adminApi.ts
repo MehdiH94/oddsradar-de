@@ -24,6 +24,20 @@ export interface AdminBookmaker {
   downAlerted: boolean;
 }
 
+// The Odds API's credits left this month (src/scraper/oddsApiCredits.ts):
+// Tipico's, Winamax's and Pinnacle's prices. Null before the worker read it.
+export interface AdminOddsApiCredits {
+  creditsLeft: number | null;
+  checkedAt: string | null;
+  // At or under it, no more reads until the credits renew.
+  floor: number;
+}
+
+export interface AdminBookmakers {
+  bookmakers: AdminBookmaker[];
+  oddsApiCredits: AdminOddsApiCredits | null;
+}
+
 // A promo reader's state (src/promos/status.ts, PromoReaderStatus): the
 // promotions it holds, and while its reads fail or find nothing, since when
 // (ms), its last error and whether the admins' Discord was told.
@@ -81,7 +95,8 @@ export const updateAdminUser = (id: string, change: AdminUserChange) =>
     body: JSON.stringify(change),
   }).then((r) => r.user);
 
-export const fetchAdminBookmakers = () => call<{ bookmakers: AdminBookmaker[] }>("/api/admin/bookmakers").then((r) => r.bookmakers);
+export const fetchAdminBookmakers = () =>
+  call<AdminBookmakers>("/api/admin/bookmakers").then((r) => ({ bookmakers: r.bookmakers, oddsApiCredits: r.oddsApiCredits ?? null }));
 
 export const fetchAdminPromoReaders = () => call<{ readers: AdminPromoReader[] }>("/api/admin/promo-readers").then((r) => r.readers);
 

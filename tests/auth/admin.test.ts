@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
 import request from "supertest";
+import { mkdtempSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { openDb } from "../../src/db/client";
 import { createServer } from "../../src/api/server";
 import { createSession, findUserById, listUsers } from "../../src/auth/store";
@@ -143,6 +146,16 @@ describe("GET /api/admin/bookmakers", () => {
     expect(res.body.bookmakers).toEqual([expect.objectContaining({ bookmaker: "betway", lastEvents: 950, health: "ok" })]);
     expect((await request(raw).get("/api/admin/bookmakers")).status).toBe(401);
     expect((await request(withCookie(raw, cookieFor(member.id))).get("/api/admin/bookmakers")).status).toBe(403);
+  });
+
+  it("gives The Odds API's credits left from the worker's cache file, null without one", async () => {
+    const { auth, odds, cookieFor, admin } = await setup();
+    const dir = mkdtempSync(join(tmpdir(), "odds-api-"));
+    const file = join(dir, "cache.json");
+    const app = withCookie(createServer(odds, {}, { auth, oddsApiCacheFile: file }), cookieFor(admin.id));
+    expect((await request(app).get("/api/admin/bookmakers")).body.oddsApiCredits).toBeNull();
+    writeFileSync(file, JSON.stringify({ competitions: {}, creditsLeft: 494, creditsCheckedAt: "2026-11-01T04:08:00.000Z" }));
+    expect((await request(app).get("/api/admin/bookmakers")).body.oddsApiCredits).toEqual({ creditsLeft: 494, checkedAt: "2026-11-01T04:08:00.000Z", floor: 20 });
   });
 });
 

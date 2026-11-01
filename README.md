@@ -1026,7 +1026,9 @@ un rapport en lecture seule et le met dans son log et dans un artefact :
 - `bookmakers` : la derniere lecture de chaque bookmaker (`npm run
   bookmaker-status`) : son etat (OK, FAILING, EMPTY, DOWN), quand il a ete lu,
   combien de matchs, sa derniere bonne lecture et sa derniere erreur, comme
-  l'onglet « Bookmakers » de `/admin` ;
+  l'onglet « Bookmakers » de `/admin` ; puis les credits restants de The Odds
+  API (Tipico, Winamax, Pinnacle), lus dans le cache du worker
+  (`data/odds-api-cache.json`), que l'onglet montre aussi ;
 - `exchange` : la sortie de l'exchange hors d'Allemagne
   (`deploy/exchange-vpn.sh`) : l'etat du tunnel et du proxy, leurs dernieres
   lignes de log, et une recherche sur l'exchange a travers le proxy (HTTP 200

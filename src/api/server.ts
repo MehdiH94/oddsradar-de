@@ -7,6 +7,8 @@ import { getEventDetail } from "../db/eventDetail";
 import { getPlayerStats } from "../db/playerStats";
 import { getAlertStatus } from "../db/alerts";
 import { listBookmakerStatus } from "../db/bookmakerStatus";
+import { readOddsApiCredits } from "../scraper/oddsApiCredits";
+import { ODDS_API_CACHE_FILE } from "../scraper/oddsApi";
 import { listPromoReaderStatus } from "../promos/status";
 import { PROMO_READERS } from "../promos/readers";
 import { ttlCache } from "./cache";
@@ -59,12 +61,14 @@ export interface ServerOptions {
   freebetsPool?: ComputePool;
   // How long the matches on offer, and an account's answer, are reused (ms); 0, the default, keeps none.
   freebetsCacheMs?: number;
+  // The worker's Odds API cache file, read for its credits left (a test points it elsewhere).
+  oddsApiCacheFile?: string;
 }
 
 export function createServer(
   db: DatabaseSync,
   listing: ListingOptions = {},
-  { valueBetsCacheMs = 0, webDist = WEB_DIST, auth, trustProxy = 0, freebetsPool = createInlinePool(), freebetsCacheMs = 0 }: ServerOptions
+  { valueBetsCacheMs = 0, webDist = WEB_DIST, auth, trustProxy = 0, freebetsPool = createInlinePool(), freebetsCacheMs = 0, oddsApiCacheFile = ODDS_API_CACHE_FILE }: ServerOptions
 ): Express {
   const app = express();
   app.disable("x-powered-by");
@@ -108,10 +112,11 @@ export function createServer(
   const conversions = createConversionsService({ markets: () => freebetMarkets("markets", () => loadFreebetMarkets(db, listing)), pool: freebetsPool });
   app.use("/api/freebets/conversions", conversionsRouter({ auth, service: conversions, cacheMs: freebetsCacheMs }));
   // Each bookmaker's last read and health (src/db/bookmakerStatus.ts), from the
-  // odds' database, which the accounts' admin router does not open.
+  // odds' database, which the accounts' admin router does not open, and The
+  // Odds API's credits left, from the worker's cache file (Tipico, Winamax).
   app.get("/api/admin/bookmakers", requireRole("admin"), (_req, res) => {
     res.set("Cache-Control", "no-store");
-    res.json({ bookmakers: listBookmakerStatus(db) });
+    res.json({ bookmakers: listBookmakerStatus(db), oddsApiCredits: readOddsApiCredits(oddsApiCacheFile) });
   });
   // Each promo reader's state (src/promos/status.ts): its promotions in the
   // accounts' database, its alert's state in the odds'.

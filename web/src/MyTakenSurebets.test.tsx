@@ -29,6 +29,7 @@ describe("MyTakenSurebets", () => {
     ]);
     render(<MyTakenSurebets taken={taken} matchHref={(id) => `/odds?match=${id}`} onOpenMatch={onOpenMatch} now={NOW} />);
     expect(screen.getByText("Meine Surebets (3)")).toBeInTheDocument();
+    expect(screen.getByText(/^3 Surebets · Ø \+2,4.% · 2,40 € erwartet bei 100 € je Surebet$/)).toBeInTheDocument();
     const items = screen.getAllByRole("listitem");
     expect(items.map((li) => li.querySelector("p")?.textContent)).toEqual([
       "Ajax - PSV, Ergebnis: …",

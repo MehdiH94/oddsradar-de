@@ -1,6 +1,6 @@
 import type { MouseEvent } from "react";
 import { formatStartTime } from "./format";
-import { profitLabel, type TakenInfo, type TakenSurebets } from "./takenSurebets";
+import { profitLabel, summaryLabel, type TakenInfo, type TakenSurebets } from "./takenSurebets";
 import styles from "./MyTakenSurebets.module.css";
 
 // "Meine Surebets": the surebets the account marked taken, in one place above
@@ -25,6 +25,7 @@ export function MyTakenSurebets({
   return (
     <details className={styles.box}>
       <summary className={styles.summary}>Meine Surebets ({list.length})</summary>
+      <p className={styles.total}>{summaryLabel(list)}</p>
       <ul className={styles.list}>
         {list.map((item) => (
           <TakenItem key={`${item.eventId}|${item.label}`} item={item} matchHref={matchHref} onOpenMatch={onOpenMatch} now={now} />

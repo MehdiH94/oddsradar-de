@@ -12,6 +12,12 @@
   cursor: pointer;
 }
 
+.total {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
 .list {
   display: flex;
   flex-direction: column;

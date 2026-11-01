@@ -155,7 +155,7 @@ describe("GET /api/admin/bookmakers", () => {
     const app = withCookie(createServer(odds, {}, { auth, oddsApiCacheFile: file }), cookieFor(admin.id));
     expect((await request(app).get("/api/admin/bookmakers")).body.oddsApiCredits).toBeNull();
     writeFileSync(file, JSON.stringify({ competitions: {}, creditsLeft: 494, creditsCheckedAt: "2026-11-01T04:08:00.000Z" }));
-    expect((await request(app).get("/api/admin/bookmakers")).body.oddsApiCredits).toEqual({ creditsLeft: 494, checkedAt: "2026-11-01T04:08:00.000Z", floor: 20 });
+    expect((await request(app).get("/api/admin/bookmakers")).body.oddsApiCredits).toEqual({ creditsLeft: 494, checkedAt: "2026-11-01T04:08:00.000Z", floor: 20, refreshMinutes: null });
   });
 });
 

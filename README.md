@@ -1028,7 +1028,7 @@ un rapport en lecture seule et le met dans son log et dans un artefact :
   combien de matchs, sa derniere bonne lecture et sa derniere erreur, comme
   l'onglet « Bookmakers » de `/admin` ; puis les credits restants de The Odds
   API (Tipico, Winamax, Pinnacle), lus dans le cache du worker
-  (`data/odds-api-cache.json`), que l'onglet montre aussi ;
+  (`data/odds-api-cache.json`), que l'onglet montre aussi, avec l'intervalle de lecture etale pour tenir jusqu'au 1er du mois ;
 - `exchange` : la sortie de l'exchange hors d'Allemagne
   (`deploy/exchange-vpn.sh`) : l'etat du tunnel et du proxy, leurs dernieres
   lignes de log, et une recherche sur l'exchange a travers le proxy (HTTP 200

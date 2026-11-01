@@ -101,7 +101,7 @@ export function createServer(
   app.use("/api/preferences", preferencesRouter(auth));
   // What a tester tells the team, read on the administration page.
   app.use("/api/feedback", feedbackRouter(auth));
-  app.use("/api/taken-surebets", takenSurebetsRouter(auth));
+  app.use("/api/taken-surebets", takenSurebetsRouter(auth, db));
   app.use("/api/promos", promosRouter(auth));
   // The freebets an account holds, at their exact path, and what the Freebets
   // page converts them into, next to it under /api/freebets.

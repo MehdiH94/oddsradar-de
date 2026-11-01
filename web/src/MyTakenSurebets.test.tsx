@@ -52,4 +52,19 @@ describe("MyTakenSurebets", () => {
     fireEvent.click(link);
     expect(onOpenMatch).toHaveBeenCalledWith("gala-fener");
   });
+
+  it("shows each back's closing price once the match was played, not before", () => {
+    const legs = [
+      { market: "1X2", selection: "2", source: "twentybet", side: "back" as const, price: 3.32, closing: 3 },
+      { market: "1X2", selection: "2", source: "exchange", side: "lay" as const, price: 3.2, closing: null },
+    ];
+    const taken = new Map([
+      ["past", info({ eventId: "past", startTime: "2026-10-30T18:00:00.000Z", legs })],
+      ["soon", info({ legs: legs.map((l) => ({ ...l, closing: undefined })) })],
+    ]);
+    render(<MyTakenSurebets taken={taken} now={NOW} />);
+    const [past, soon] = screen.getAllByRole("listitem");
+    expect(within(past).getByText(/^Schlusskurs bei 20bet 3,00 \(\+10,7.%\)$/)).toBeInTheDocument();
+    expect(within(soon).queryByText(/Schlusskurs/)).not.toBeInTheDocument();
+  });
 });

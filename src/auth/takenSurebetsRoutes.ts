@@ -1,11 +1,15 @@
 import express, { Router } from "express";
+import { DatabaseSync } from "node:sqlite";
+import { closingPrice } from "../db/closingPrices";
 import { AuthContext } from "./context";
 import { sameSiteOnly } from "./middleware";
 import { deleteTakenSurebet, listTakenSurebets, MAX_KEY, MAX_TAKEN, parseTakenSurebet, saveTakenSurebet } from "./takenSurebets";
 
 // Mounted under /api after requireAuth: req.user is always set here. The body
 // parser and the CSRF check are not global, so this router brings its own.
-export function takenSurebetsRouter(auth: AuthContext): Router {
+// `odds`, the odds' database, gives each started surebet's backs their
+// closing price (src/db/closingPrices.ts); without it, none.
+export function takenSurebetsRouter(auth: AuthContext, odds?: DatabaseSync): Router {
   const router = Router();
 
   router.use((_req, res, next) => {
@@ -16,7 +20,13 @@ export function takenSurebetsRouter(auth: AuthContext): Router {
   router.use(sameSiteOnly(auth));
 
   router.get("/", (req, res) => {
-    res.json({ taken: listTakenSurebets(auth.db, req.user!.id) });
+    const now = auth.now().getTime();
+    const taken = listTakenSurebets(auth.db, req.user!.id).map((item) =>
+      odds && item.legs && Date.parse(item.startTime) <= now
+        ? { ...item, legs: item.legs.map((leg) => ({ ...leg, closing: closingPrice(odds, item.eventId, item.startTime, leg) })) }
+        : item
+    );
+    res.json({ taken });
   });
 
   // Marks a surebet taken, or changes its reminder.

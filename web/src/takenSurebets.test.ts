@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { hasExchangeLeg, profitLabel, readTaken, summaryLabel, surebetKey, takenLabel } from "./takenSurebets";
+import { closingLabel, hasExchangeLeg, profitLabel, readTaken, summaryLabel, surebetKey, takenLabel, takenLegs } from "./takenSurebets";
 import type { Surebet } from "./types";
 
 const lay: Surebet = {
@@ -60,5 +60,25 @@ describe("the taken surebets", () => {
       "3 Surebets · Ø +2,5\u00a0% · 5,00 € erwartet bei 100 € je Surebet"
     );
     expect(summaryLabel([{ payoutRate: null }])).toBe("1 Surebet");
+  });
+});
+
+describe("closing prices", () => {
+  it("keeps a surebet's legs as taken, with its market", () => {
+    expect(takenLegs(lay)[0]).toEqual({ market: "1X2", selection: "2", source: "twentybet", side: "back", price: 3.32 });
+  });
+
+  it("says a back's closing price and how far it was taken above it, or below", () => {
+    const leg = { market: "1X2", selection: "2", source: "twentybet", side: "back" as const, price: 3.32 };
+    expect(closingLabel({ ...leg, closing: 3 })).toMatch(/^Schlusskurs bei 20bet 3,00 \(\+10,7.%\)$/);
+    expect(closingLabel({ ...leg, closing: 3.5 })).toMatch(/^Schlusskurs bei 20bet 3,50 \(−5,1.%\)$/);
+    expect(closingLabel({ ...leg, closing: null })).toBeNull();
+    expect(closingLabel(leg)).toBeNull();
+  });
+
+  it("reads the legs and their closing prices from the server", () => {
+    const read = readTaken({ taken: [{ key: "k", legs: [{ market: "1X2", selection: "2", source: "twentybet", side: "back", price: 3.32, closing: 3.2 }, { side: "back" }] }] });
+    expect(read.get("k")?.legs).toEqual([{ market: "1X2", selection: "2", source: "twentybet", side: "back", price: 3.32, closing: 3.2 }]);
+    expect(readTaken({ taken: [{ key: "old" }] }).get("old")).not.toHaveProperty("legs");
   });
 });

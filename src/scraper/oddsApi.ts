@@ -52,7 +52,7 @@ const maxPriceAgeMs = (refreshMs: number) => Math.max(2 * refreshMs, 30 * 60 * 1
 // A competition read only when it has a match within this horizon.
 const HORIZON_MS = 48 * 60 * 60 * 1000;
 // The last credits are kept: the month's plan is never overrun.
-const MIN_CREDITS_LEFT = 20;
+export const MIN_CREDITS_LEFT = 20;
 const REQUEST_TIMEOUT_MS = 20_000;
 export const ODDS_API_CACHE_FILE = "./data/odds-api-cache.json";
 

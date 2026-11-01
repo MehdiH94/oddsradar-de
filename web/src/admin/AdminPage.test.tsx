@@ -159,7 +159,8 @@ describe("AdminPage", () => {
       { bookmaker: "betway", lastReadAt: "2026-10-20T10:05:00.000Z", lastEvents: 950, lastError: null, lastGoodAt: "2026-10-20T10:05:00.000Z", lastGoodEvents: 950, health: "ok", downAlerted: false },
       { bookmaker: "oddset", lastReadAt: "2026-10-20T10:05:00.000Z", lastEvents: null, lastError: "oddset sport 4: HTTP 403", lastGoodAt: "2026-10-20T09:00:00.000Z", lastGoodEvents: 830, health: "down", downAlerted: true },
     ];
-    const fetchMock = vi.fn((url: string) => reply(url.endsWith("/bookmakers") ? { bookmakers } : { users: [ME] }));
+    const oddsApiCredits = { creditsLeft: 494, checkedAt: "2026-11-01T04:08:00.000Z", floor: 20 };
+    const fetchMock = vi.fn((url: string) => reply(url.endsWith("/bookmakers") ? { bookmakers, oddsApiCredits } : { users: [ME] }));
     vi.stubGlobal("fetch", fetchMock);
     render(
       <AuthContext.Provider value={auth}>
@@ -176,6 +177,32 @@ describe("AdminPage", () => {
     expect(within(oddset).getByText("(830 matches)")).toBeInTheDocument();
     expect(within(screen.getByRole("row", { name: /Betway/ })).getByText("OK").className).toContain("active");
     expect(fetchMock).toHaveBeenCalledWith("/api/admin/bookmakers", undefined);
+    expect(screen.getByText(/^494 credits left this month/)).toBeInTheDocument();
+  });
+
+  it("marks The Odds API's credits spent in red, and says nothing of them before the worker read it", async () => {
+    const spent = { creditsLeft: 12, checkedAt: "2026-11-01T04:08:00.000Z", floor: 20 };
+    let oddsApiCredits: typeof spent | null = spent;
+    vi.stubGlobal("fetch", vi.fn((url: string) => reply(url.endsWith("/bookmakers") ? { bookmakers: [], oddsApiCredits } : { users: [ME] })));
+    const { unmount } = render(
+      <AuthContext.Provider value={auth}>
+        <AdminPage />
+      </AuthContext.Provider>
+    );
+    fireEvent.click(screen.getByRole("tab", { name: "Bookmakers" }));
+    expect((await screen.findByText(/^12 credits left this month/)).className).toContain("blocked");
+    expect(screen.getByText(/no reads until they renew/)).toBeInTheDocument();
+    unmount();
+
+    oddsApiCredits = null;
+    render(
+      <AuthContext.Provider value={auth}>
+        <AdminPage />
+      </AuthContext.Provider>
+    );
+    fireEvent.click(screen.getByRole("tab", { name: "Bookmakers" }));
+    expect(await screen.findByText(/No read yet/)).toBeInTheDocument();
+    expect(screen.queryByText(/The Odds API/)).not.toBeInTheDocument();
   });
 
   it("shows each promo reader's state in its own tab, the failing ones in red with their error", async () => {

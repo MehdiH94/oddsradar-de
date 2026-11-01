@@ -13,7 +13,9 @@ import { ODDS_API_PINNACLE, PinnacleMatch, pinnacleMatchesOf } from "../referenc
 // is read every ODDS_API_REFRESH_MINUTES (15 by default: the user chose fresh
 // prices over the free plan's 500 credits a month, 17/10/2026), only when it
 // has matches within 48 hours (which the API's event list, free, tells), and
-// never under MIN_CREDITS_LEFT. Between two reads the last prices are returned
+// never under MIN_CREDITS_LEFT; under it, the credits left are asked again
+// every CREDITS_RECHECK_MS on the free sports list, so that the reads start
+// again once the month's credits renew. Between two reads the last prices are returned
 // again, from a file that a restart keeps; a competition not read for
 // MAX_PRICE_AGE_MS (credits spent, the API down) is left out, so that no old
 // price is shown or alerted on.
@@ -112,7 +114,14 @@ export function parseOddsApiEvents(events: readonly OddsApiEvent[], bookmaker: E
 export interface OddsApiCache {
   competitions: Record<string, { readAt: string; events: OddsApiEvent[] }>;
   creditsLeft?: number;
+  // When the credits left were last told by the API.
+  creditsCheckedAt?: string;
 }
+
+// Under the floor, the credits are asked again this often, on the API's sports
+// list, which costs none: without it, no read would ever tell that the month's
+// credits renewed, and Tipico and Winamax would stay without prices.
+export const CREDITS_RECHECK_MS = 6 * 60 * 60 * 1000;
 
 export interface OddsApiOptions {
   key?: string;
@@ -157,6 +166,24 @@ export async function loadOddsApi(opts: OddsApiOptions = {}): Promise<OddsApiEve
     return u;
   };
   let changed = false;
+  if (cache.creditsLeft !== undefined && cache.creditsLeft <= MIN_CREDITS_LEFT) {
+    const checked = Date.parse(cache.creditsCheckedAt ?? "");
+    if (!Number.isFinite(checked) || now - checked >= CREDITS_RECHECK_MS) {
+      try {
+        const res = await doFetch(url("/sports"), { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
+        const left = Number(res.headers.get("x-requests-remaining") ?? NaN);
+        if (Number.isFinite(left)) {
+          if (left > cache.creditsLeft) console.log(`[scraper:odds-api] credits renewed: ${left} left`);
+          cache.creditsLeft = left;
+        }
+      } catch (err) {
+        console.warn("[scraper:odds-api] could not ask for the credits left:", err);
+      }
+      // Asked, answered or not: the next ask waits CREDITS_RECHECK_MS.
+      cache.creditsCheckedAt = new Date(now).toISOString();
+      changed = true;
+    }
+  }
   for (const sportKey of Object.keys(ODDS_API_COMPETITIONS)) {
     const last = cache.competitions[sportKey];
     if (last && now - Date.parse(last.readAt) < refreshMs) continue;
@@ -188,8 +215,12 @@ export async function loadOddsApi(opts: OddsApiOptions = {}): Promise<OddsApiEve
         }),
         { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) }
       );
-      const left = Number(res.headers.get("x-requests-remaining"));
-      if (Number.isFinite(left)) cache.creditsLeft = left;
+      // No header is no count (Number(null) would read as 0 credits left).
+      const left = Number(res.headers.get("x-requests-remaining") ?? NaN);
+      if (Number.isFinite(left)) {
+        cache.creditsLeft = left;
+        cache.creditsCheckedAt = new Date(now).toISOString();
+      }
       if (!res.ok) throw new Error(`odds: HTTP ${res.status}`);
       cache.competitions[sportKey] = { readAt: new Date(now).toISOString(), events: (await res.json()) as OddsApiEvent[] };
       changed = true;

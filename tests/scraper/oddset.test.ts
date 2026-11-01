@@ -2,6 +2,7 @@ import { describe, it, expect, vi, afterEach } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fetchOddset, ODDSET_SPORTS, OddsetReply, oddsetUrl, parseOddsetFixtures } from "../../src/scraper/oddset";
+import { optionTeam } from "../../src/scraper/entain";
 
 // Real answers of ODDSET's API (www.oddset.de/cds-api/bettingoffer/fixtures,
 // in English, 19/10/2026): each sport's first 6 matches before kick-off and a
@@ -12,6 +13,8 @@ const TENNIS = reply("tennis");
 const BASKETBALL = reply("basketball");
 const ICE_HOCKEY = reply("ice-hockey");
 const HANDBALL = reply("handball");
+// A US college game (01/11/2026), its options named "Memphis" and "Iowa St".
+const NCAA = reply("ncaa");
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -64,6 +67,33 @@ describe("parseOddsetFixtures", () => {
     const nhl = parseOddsetFixtures(ICE_HOCKEY, "12").find((e) => e.competition === "NHL")!;
     expect(nhl.participants).toEqual(["New York Rangers", "Anaheim Ducks"]);
     expect(nhl.odds.map((o) => o.selection).sort()).toEqual(["Anaheim Ducks", "Draw", "New York Rangers"]);
+  });
+
+  it("reads a US college game whose option shortens a team's name (\"Iowa St\" for Iowa State)", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const [game] = parseOddsetFixtures(NCAA, "7");
+    expect(warn).not.toHaveBeenCalled();
+    // "Memphis at Iowa State": Memphis 7.75, Iowa St 1.09.
+    expect(game.participants).toEqual(["Iowa State", "Memphis"]);
+    expect(game.odds.map((o) => o.selection).sort()).toEqual(["Iowa State", "Memphis"]);
+    expect(priceOf(game, "Iowa State")).toBeLessThan(priceOf(game, "Memphis")!);
+  });
+
+  it("gives an option to the team it names the closest: \"Florida\" to Florida, not South Florida", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const florida = changed(NCAA, (r) => {
+      const f = r.fixtures![0];
+      f.name = { value: "South Florida at Florida" };
+      f.participants![0].name = { value: "South Florida" };
+      f.participants![1].name = { value: "Florida" };
+      const [a, b] = f.optionMarkets![0].options!;
+      a.name = { value: "South Florida" };
+      b.name = { value: "Florida" };
+    });
+    const [game] = parseOddsetFixtures(florida, "7");
+    expect(warn).not.toHaveBeenCalled();
+    expect(game.participants).toEqual(["Florida", "South Florida"]);
+    expect(priceOf(game, "Florida")).toBeLessThan(priceOf(game, "South Florida")!);
   });
 
   it("reads an ice hockey game's result after regular time, and a handball match's result", () => {
@@ -140,5 +170,19 @@ describe("fetchOddset", () => {
     vi.spyOn(console, "warn").mockImplementation(() => {});
     vi.stubGlobal("fetch", vi.fn(async () => new Response("<html>", { status: 403 })));
     await expect(fetchOddset({ delayMs: 0 })).rejects.toThrow("every oddset sport failed");
+  });
+});
+
+describe("optionTeam", () => {
+  it("names the team by its name, its nickname or its shortened name, the closest first", () => {
+    expect(optionTeam("Florida", "South Florida", "Florida")).toBe(2);
+    expect(optionTeam("Iowa St", "Memphis", "Iowa State")).toBe(2);
+    expect(optionTeam("Ducks", "Anaheim Ducks", "New York Rangers")).toBe(1);
+    expect(optionTeam("St. Mary's", "St Mary's", "Gonzaga")).toBe(1);
+  });
+
+  it("names none when neither team or both as closely", () => {
+    expect(optionTeam("Draw", "Memphis", "Iowa State")).toBeUndefined();
+    expect(optionTeam("Florida", "North Florida", "South Florida")).toBeUndefined();
   });
 });

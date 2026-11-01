@@ -1,0 +1,311 @@
+{
+  "fixtures": [
+    {
+      "optionMarkets": [
+        {
+          "id": 1572651981,
+          "name": {
+            "value": "Money Line"
+          },
+          "status": "Visible",
+          "options": [
+            {
+              "id": 2335391468,
+              "status": "Visible",
+              "name": {
+                "value": "Memphis"
+              },
+              "sourceName": {
+                "value": "1"
+              },
+              "price": {
+                "id": -1,
+                "numerator": 13,
+                "denominator": 2,
+                "odds": 7.75,
+                "americanOdds": 675,
+                "priceHistory": []
+              },
+              "participantId": 2554277
+            },
+            {
+              "id": 2335391469,
+              "status": "Visible",
+              "name": {
+                "value": "Iowa St"
+              },
+              "sourceName": {
+                "value": "2"
+              },
+              "price": {
+                "id": -1,
+                "numerator": 1,
+                "denominator": 11,
+                "odds": 1.09,
+                "americanOdds": -1100,
+                "priceHistory": []
+              },
+              "participantId": 2554267
+            }
+          ],
+          "parameters": [
+            {
+              "key": "TemplateId",
+              "type": "Integer",
+              "value": "3450"
+            },
+            {
+              "key": "CategoryId",
+              "type": "Integer",
+              "value": "43"
+            }
+          ],
+          "grouping": {
+            "gridGroups": [
+              "xt229vkj8"
+            ],
+            "detailed": [
+              {
+                "subIndex": 12,
+                "marketTabId": 8,
+                "optionColumnId": 3,
+                "displayType": "SixPack",
+                "marketGroupId": "4cd333bb-53d1-4475-a35f-af429981b326",
+                "marketGroupItemId": "512609ea-6287-442f-a293-4fbb528dc90f",
+                "orderType": "None"
+              },
+              {
+                "subIndex": 10,
+                "marketTabId": 8,
+                "optionColumnId": 3,
+                "displayType": "SixPack",
+                "marketGroupId": "562a77f7-e317-4cbc-b174-6de0f9908a07",
+                "marketGroupItemId": "adc913fb-52d4-4529-b475-17743e6f49be",
+                "orderType": "None"
+              }
+            ]
+          },
+          "spread": 6.66,
+          "balanced": 1,
+          "isMain": true,
+          "templateCategory": {
+            "id": 43,
+            "name": {
+              "value": "Money Line"
+            },
+            "category": "Gridable",
+            "dynamicCategories": []
+          },
+          "comboPrevention": "NoEventCombo",
+          "minCombo": 1,
+          "resultOrder": "Default",
+          "source": "V1",
+          "isBetBuilder": true,
+          "oddsKey": 104.65
+        }
+      ],
+      "participants": [
+        {
+          "participantId": 2554277,
+          "name": {
+            "value": "Memphis",
+            "short": "Memphis"
+          },
+          "image": {
+            "jersey": "2554277_1",
+            "rotateJersey": true,
+            "isParticipantProfile": false
+          },
+          "options": [],
+          "source": "V1"
+        },
+        {
+          "participantId": 2554267,
+          "name": {
+            "value": "Iowa State",
+            "short": "Iowa St"
+          },
+          "image": {
+            "jersey": "2554267_1",
+            "rotateJersey": true,
+            "isParticipantProfile": false
+          },
+          "options": [],
+          "source": "V1"
+        },
+        {
+          "participantId": 2924799,
+          "name": {
+            "value": "Keonte Kennedy (Mem)",
+            "short": "Keonte Kennedy"
+          },
+          "image": {
+            "rotateJersey": false,
+            "isParticipantProfile": false
+          },
+          "properties": {
+            "type": "Player",
+            "team": 2554277
+          },
+          "options": []
+        },
+        {
+          "participantId": 2949183,
+          "name": {
+            "value": "Nick Jourdain (MEM)",
+            "short": "Nick Jourdain"
+          },
+          "image": {
+            "rotateJersey": false,
+            "isParticipantProfile": false
+          },
+          "properties": {
+            "type": "Player",
+            "team": 2554277
+          },
+          "options": []
+        }
+      ],
+      "id": "20057121",
+      "name": {
+        "value": "Memphis at Iowa State (Neutral Venue)"
+      },
+      "description": {
+        "value": "Neutral Venue"
+      },
+      "sourceId": 20057121,
+      "source": "V1",
+      "fixtureType": "Standard",
+      "context": "v1|en|20057121",
+      "addons": {
+        "betRadar": 73621242,
+        "statistics": true,
+        "participantDividend": {},
+        "liveMatchTracker": {
+          "sportradarId": 73621242,
+          "coverageLevel": 1
+        },
+        "betBuilderProvider": "None"
+      },
+      "stage": "PreMatch",
+      "groupId": 4450845,
+      "liveType": "NotSet",
+      "liveAlert": true,
+      "startDate": "2026-11-03T00:00:00Z",
+      "cutOffDate": "2026-11-03T00:00:00Z",
+      "sport": {
+        "type": "Sport",
+        "id": 7,
+        "name": {
+          "value": "Basketball",
+          "sign": "WotGFA=="
+        }
+      },
+      "competition": {
+        "parentLeagueId": 264,
+        "statistics": true,
+        "sportId": 7,
+        "compoundId": "1:264",
+        "type": "Competition",
+        "id": 264,
+        "parentId": 9,
+        "name": {
+          "value": "NCAA",
+          "sign": "OFO+kQ=="
+        }
+      },
+      "region": {
+        "code": "N-A",
+        "sportId": 7,
+        "type": "Region",
+        "id": 9,
+        "parentId": 7,
+        "name": {
+          "value": "North America",
+          "sign": "94++pQ=="
+        }
+      },
+      "viewType": "American",
+      "isOpenForBetting": true,
+      "isVirtual": false,
+      "taggedLocations": [],
+      "totalMarketsCount": 39,
+      "conferences": [
+        {
+          "competitionId": "1:264",
+          "type": "Conference",
+          "id": 1,
+          "parentId": 7,
+          "name": {
+            "value": "Big 12 Conference"
+          }
+        },
+        {
+          "competitionId": "1:264",
+          "type": "Conference",
+          "id": 2,
+          "parentId": 7,
+          "name": {
+            "value": "American"
+          }
+        },
+        {
+          "competitionId": "1:264",
+          "type": "Conference",
+          "id": 29,
+          "parentId": 7,
+          "name": {
+            "value": "Top 25"
+          }
+        },
+        {
+          "competitionId": "1:264",
+          "type": "Conference",
+          "id": 35,
+          "parentId": 7,
+          "name": {
+            "value": "March Madness"
+          }
+        },
+        {
+          "competitionId": "1:264",
+          "type": "Conference",
+          "id": 38,
+          "parentId": 7,
+          "name": {
+            "value": "Players Era"
+          }
+        },
+        {
+          "competitionId": "1:264",
+          "type": "Conference",
+          "id": 39,
+          "parentId": 7,
+          "name": {
+            "value": "All"
+          }
+        }
+      ],
+      "marketGroups": {
+        "outrightMarketGroupIds": [],
+        "specialMarketGroupIds": [],
+        "type": "MarketGroups",
+        "id": 0
+      },
+      "priceBoostCount": 0,
+      "tv2RelatedFixtureId": "6:48624",
+      "linkedTv1EventIds": [],
+      "hybridFixtureData": {
+        "fixtureId": "6:48624",
+        "status": "Unavailable"
+      },
+      "contexts": [
+        "v1|en|20057121"
+      ],
+      "playerStats": [],
+      "sequence": 277,
+      "isPlannedInPlay": false
+    }
+  ],
+  "totalCount": 1
+}

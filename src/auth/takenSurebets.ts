@@ -22,7 +22,48 @@ export interface TakenSurebet {
   // Its payout when taken (1.024 for +2.4 %), null when not sent or out of
   // reason: a surebet pays over 100 %, and the site shows none over 150 %.
   payoutRate: number | null;
+  // Its legs as taken, null when not sent or not readable.
+  legs: TakenLeg[] | null;
 }
+
+// A leg as taken: where, which outcome, and its price then.
+export interface TakenLeg {
+  market: string;
+  selection: string;
+  // A bookmaker's id, or "exchange".
+  source: string;
+  side: "back" | "lay";
+  price: number;
+}
+
+const MAX_LEGS = 6;
+
+// The legs sent, or null when any of them is not one: they are only shown
+// back to the same account, still checked and capped.
+export function parseTakenLegs(input: unknown): TakenLeg[] | null {
+  if (!Array.isArray(input) || input.length === 0 || input.length > MAX_LEGS) return null;
+  const legs: TakenLeg[] = [];
+  for (const item of input) {
+    if (typeof item !== "object" || item === null) return null;
+    const { market, selection, source, side, price } = item as Record<string, unknown>;
+    if (typeof market !== "string" || typeof selection !== "string" || typeof source !== "string") return null;
+    if (side !== "back" && side !== "lay") return null;
+    if (typeof price !== "number" || !Number.isFinite(price) || price <= 1 || price > 1000) return null;
+    const [m, sel, src] = [clean(market, 100), clean(selection, 200), clean(source, 40)];
+    if (!m || !sel || !src) return null;
+    legs.push({ market: m, selection: sel, source: src, side, price });
+  }
+  return legs;
+}
+
+const readLegs = (json: string | null): TakenLeg[] | null => {
+  if (json === null) return null;
+  try {
+    return parseTakenLegs(JSON.parse(json));
+  } catch {
+    return null;
+  }
+};
 
 export const MAX_KEY = 500;
 export const MAX_LABEL = 400;
@@ -39,7 +80,7 @@ const clean = (value: string, max: number) => value.replace(/[\u0000-\u001f\u007
 // The body of a PUT, or null when it is not a taken surebet.
 export function parseTakenSurebet(input: unknown, now = new Date()): TakenSurebet | null {
   if (typeof input !== "object" || input === null || Array.isArray(input)) return null;
-  const { key, eventId, startTime, label, remind, payoutRate } = input as Record<string, unknown>;
+  const { key, eventId, startTime, label, remind, payoutRate, legs } = input as Record<string, unknown>;
   if (typeof key !== "string" || typeof eventId !== "string" || typeof startTime !== "string" || typeof label !== "string") return null;
   if (typeof remind !== "boolean") return null;
   const start = Date.parse(startTime);
@@ -51,7 +92,15 @@ export function parseTakenSurebet(input: unknown, now = new Date()): TakenSurebe
   const id = clean(eventId, 200);
   if (!k || !id || k.length > MAX_KEY || /[\u0000-\u001f\u007f]/.test(k)) return null;
   const rate = typeof payoutRate === "number" && Number.isFinite(payoutRate) && payoutRate > 1 && payoutRate <= 1.5 ? payoutRate : null;
-  return { key: k, eventId: id, startTime: new Date(start).toISOString(), label: clean(label, MAX_LABEL) || id, remind, payoutRate: rate };
+  return {
+    key: k,
+    eventId: id,
+    startTime: new Date(start).toISOString(),
+    label: clean(label, MAX_LABEL) || id,
+    remind,
+    payoutRate: rate,
+    legs: parseTakenLegs(legs),
+  };
 }
 
 // The account's taken surebets, soonest first: each with what the dashboard's
@@ -64,17 +113,18 @@ export interface ListedTakenSurebet {
   label: string;
   remindedAt: string | null;
   payoutRate: number | null;
+  legs: TakenLeg[] | null;
 }
 
 export function listTakenSurebets(db: DatabaseSync, userId: string): ListedTakenSurebet[] {
   const rows = db
     .prepare(
       `SELECT surebet_key AS key, remind, event_id AS eventId, start_time AS startTime, label, reminded_at AS remindedAt,
-              payout_rate AS payoutRate
+              payout_rate AS payoutRate, legs
        FROM user_taken_surebets WHERE user_id = ? ORDER BY start_time, surebet_key`
     )
-    .all(userId) as unknown as (Omit<ListedTakenSurebet, "remind"> & { remind: number })[];
-  return rows.map((r) => ({ ...r, remind: r.remind === 1 }));
+    .all(userId) as unknown as (Omit<ListedTakenSurebet, "remind" | "legs"> & { remind: number; legs: string | null })[];
+  return rows.map((r) => ({ ...r, remind: r.remind === 1, legs: readLegs(r.legs) }));
 }
 
 // False when the account already keeps MAX_TAKEN others.
@@ -85,14 +135,25 @@ export function saveTakenSurebet(db: DatabaseSync, userId: string, taken: TakenS
     if (n >= MAX_TAKEN) return false;
   }
   // Asking again for a reminder already sent sends none: the time has passed.
-  // The payout stays the one it was taken at, whatever the price became since.
+  // The payout and the legs' prices stay those it was taken at, whatever the
+  // prices became since.
   db.prepare(
-    `INSERT INTO user_taken_surebets (user_id, surebet_key, event_id, start_time, label, remind, created_at, payout_rate)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `INSERT INTO user_taken_surebets (user_id, surebet_key, event_id, start_time, label, remind, created_at, payout_rate, legs)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
      ON CONFLICT(user_id, surebet_key) DO UPDATE SET
        event_id = excluded.event_id, start_time = excluded.start_time, label = excluded.label, remind = excluded.remind,
-       payout_rate = COALESCE(payout_rate, excluded.payout_rate)`
-  ).run(userId, taken.key, taken.eventId, taken.startTime, taken.label, taken.remind ? 1 : 0, now.toISOString(), taken.payoutRate ?? null);
+       payout_rate = COALESCE(payout_rate, excluded.payout_rate), legs = COALESCE(legs, excluded.legs)`
+  ).run(
+    userId,
+    taken.key,
+    taken.eventId,
+    taken.startTime,
+    taken.label,
+    taken.remind ? 1 : 0,
+    now.toISOString(),
+    taken.payoutRate ?? null,
+    taken.legs ? JSON.stringify(taken.legs) : null
+  );
   return true;
 }
 

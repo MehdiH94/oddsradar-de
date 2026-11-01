@@ -25,6 +25,11 @@ const TAKEN: TakenSurebet = {
   label: "Galatasaray - Fenerbahçe, Ergebnis: Lay Fenerbahçe an der Börse 3,40",
   remind: true,
   payoutRate: 1.024,
+  legs: [
+    { market: "1X2", selection: "1", source: "twentybet", side: "back", price: 2.04 },
+    { market: "1X2", selection: "X", source: "admiralbet", side: "back", price: 3.6 },
+    { market: "1X2", selection: "2", source: "exchange", side: "lay", price: 3.4 },
+  ],
 };
 
 describe("parseTakenSurebet", () => {
@@ -37,6 +42,14 @@ describe("parseTakenSurebet", () => {
       expect(parseTakenSurebet({ ...TAKEN, payoutRate }, NOW)?.payoutRate, String(payoutRate)).toBeNull();
     }
     expect(parseTakenSurebet({ ...TAKEN, payoutRate: 1.5 }, NOW)?.payoutRate).toBe(1.5);
+  });
+
+  it("keeps legs that are legs, and none when one of them is not", () => {
+    expect(parseTakenSurebet(TAKEN, NOW)?.legs).toEqual(TAKEN.legs);
+    const leg = TAKEN.legs![0];
+    for (const legs of [undefined, [], "x", [{ ...leg, side: "both" }], [{ ...leg, price: 1 }], [{ ...leg, price: "2" }], [{ ...leg, market: "" }], Array(7).fill(leg)]) {
+      expect(parseTakenSurebet({ ...TAKEN, legs }, NOW)?.legs, JSON.stringify(legs)).toBeNull();
+    }
   });
 
   it("puts a label on one line and caps it", () => {
@@ -69,10 +82,11 @@ describe("the taken surebets and their reminders", () => {
   it("keeps each account's own, rewritten in place", () => {
     const { db, ada, bob } = setup();
     saveTakenSurebet(db, ada.id, TAKEN, NOW);
-    // Saved again with the price moved since: the payout stays the one it was taken at.
-    saveTakenSurebet(db, ada.id, { ...TAKEN, remind: false, payoutRate: 1.01 }, NOW);
+    // Saved again with the price moved since: the payout and the legs stay those it was taken at.
+    const moved = TAKEN.legs!.map((l) => ({ ...l, price: l.price + 0.1 }));
+    saveTakenSurebet(db, ada.id, { ...TAKEN, remind: false, payoutRate: 1.01, legs: moved }, NOW);
     expect(listTakenSurebets(db, ada.id)).toEqual([
-      { key: TAKEN.key, remind: false, eventId: TAKEN.eventId, startTime: TAKEN.startTime, label: TAKEN.label, remindedAt: null, payoutRate: 1.024 },
+      { key: TAKEN.key, remind: false, eventId: TAKEN.eventId, startTime: TAKEN.startTime, label: TAKEN.label, remindedAt: null, payoutRate: 1.024, legs: TAKEN.legs },
     ]);
     expect(listTakenSurebets(db, bob.id)).toEqual([]);
   });
@@ -148,12 +162,13 @@ describe("the taken surebets and their reminders", () => {
 describe("/api/taken-surebets", () => {
   function setup() {
     const t = testAuth();
-    const app = createServer(openDb(":memory:"), {}, { auth: t.auth });
+    const odds = openDb(":memory:");
+    const app = createServer(odds, {}, { auth: t.auth });
     const send = (method: "put" | "delete", cookie: string, body: unknown) =>
       request(app)[method]("/api/taken-surebets").set({ Origin: SITE, Cookie: cookie }).send(body as object);
     const get = (cookie: string) => request(app).get("/api/taken-surebets").set("Cookie", cookie);
     const taken = { ...TAKEN, startTime: new Date(t.clock.now.getTime() + 90 * 60_000).toISOString() };
-    return { ...t, app, send, get, taken };
+    return { ...t, odds, app, send, get, taken };
   }
 
   it("needs an account", async () => {
@@ -183,6 +198,27 @@ describe("/api/taken-surebets", () => {
     expect((await t.get(bob)).body).toEqual({ taken: [] });
     await t.send("delete", bob, { key: TAKEN.key });
     expect((await t.get(ada)).body.taken).toHaveLength(1);
+  });
+
+  it("gives each started surebet's backs at a bookmaker their closing price, the last read before kick-off", async () => {
+    const t = setup();
+    const cookie = await sessionCookie(t);
+    await t.send("put", cookie, t.taken);
+    const start = t.taken.startTime;
+    const before = new Date(Date.parse(start) - 5 * 60_000).toISOString();
+    const after = new Date(Date.parse(start) + 5 * 60_000).toISOString();
+    t.odds.exec("INSERT INTO bookmakers (id, name) VALUES ('twentybet', '20bet'), ('admiralbet', 'Admiralbet')");
+    t.odds.prepare("INSERT INTO events (id, sport, competition, start_time, participants) VALUES (?, 'football', 'Süper Lig', ?, '[]')").run(TAKEN.eventId, start);
+    const price = t.odds.prepare("INSERT INTO event_bookmaker_odds (event_id, bookmaker_id, market, selection, price, scraped_at) VALUES (?, ?, '1X2', ?, ?, ?)");
+    price.run(TAKEN.eventId, "twentybet", "1", 1.98, before);
+    // Read again once the match had started: a live price, no closing price.
+    price.run(TAKEN.eventId, "admiralbet", "X", 3.2, after);
+
+    // Before kick-off: no closing price yet.
+    expect((await t.get(cookie)).body.taken[0].legs[0]).not.toHaveProperty("closing");
+    t.clock.now = new Date(Date.parse(start) + 60_000);
+    const legs = (await t.get(cookie)).body.taken[0].legs;
+    expect(legs.map((l: { closing: number | null }) => l.closing)).toEqual([1.98, null, null]);
   });
 
   it("refuses a body that is not a taken surebet, and a request from another site", async () => {

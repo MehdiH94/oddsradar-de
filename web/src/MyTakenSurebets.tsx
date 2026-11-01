@@ -1,13 +1,14 @@
 import type { MouseEvent } from "react";
 import { formatStartTime } from "./format";
-import { profitLabel, summaryLabel, type TakenInfo, type TakenSurebets } from "./takenSurebets";
+import { closingLabel, profitLabel, summaryLabel, type TakenInfo, type TakenSurebets } from "./takenSurebets";
 import styles from "./MyTakenSurebets.module.css";
 
 // "Meine Surebets": the surebets the account marked taken, in one place above
 // the value bets' list, even once a price moved and the surebet left it. Each
 // with its match, legs and prices as taken (its label), its kick-off, its
 // payout then ("+2,4 % · 2,40 € auf 100 €"), and its reminder: asked for,
-// sent, or none. The server forgets one two days after
+// sent, or none. Once played, each back's closing price against the price
+// taken ("Schlusskurs bei 20bet 1,98 (+3,0 %)"). The server forgets one two days after
 // its match (src/auth/takenSurebets.ts).
 export function MyTakenSurebets({
   taken,
@@ -53,6 +54,7 @@ function TakenItem({
 }) {
   const started = Date.parse(item.startTime) <= now.getTime();
   const reminder = reminderLabel(item);
+  const closings = started ? (item.legs ?? []).map(closingLabel).filter((l): l is string => l !== null) : [];
   const href = matchHref?.(item.eventId);
   const open = (e: MouseEvent<HTMLAnchorElement>) => {
     if (!onOpenMatch || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
@@ -72,6 +74,13 @@ function TakenItem({
           </a>
         )}
       </p>
+      {closings.length > 0 && (
+        <p className={styles.meta}>
+          {closings.map((c) => (
+            <span key={c}>{c}</span>
+          ))}
+        </p>
+      )}
     </li>
   );
 }

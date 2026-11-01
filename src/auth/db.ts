@@ -162,6 +162,12 @@ const MIGRATIONS: string[] = [
   `
   ALTER TABLE user_taken_surebets ADD COLUMN payout_rate REAL;
   `,
+  // 10: a taken surebet's legs as taken (JSON: market, selection, source,
+  // side, price), to show each back's closing price after kick-off
+  // (src/db/closingPrices.ts); null for those taken before.
+  `
+  ALTER TABLE user_taken_surebets ADD COLUMN legs TEXT;
+  `,
 ];
 
 export function migrate(db: DatabaseSync): void {

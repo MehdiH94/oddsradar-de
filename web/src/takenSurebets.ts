@@ -43,6 +43,43 @@ export interface TakenInfo {
   remindedAt: string | null;
   // Its payout when taken (1.024 for +2.4 %), null for one taken before it was kept.
   payoutRate: number | null;
+  // Its legs as taken, absent for one taken before they were kept. Once its
+  // match started, each back at a bookmaker with its closing price (null when
+  // none was read before kick-off).
+  legs?: TakenLeg[];
+}
+
+export interface TakenLeg {
+  market: string;
+  selection: string;
+  source: string;
+  side: "back" | "lay";
+  price: number;
+  closing?: number | null;
+}
+
+// The legs as the server keeps them (src/auth/takenSurebets.ts, TakenLeg).
+export const takenLegs = (surebet: Surebet): TakenLeg[] =>
+  surebet.legs.map((l) => ({ market: surebet.market, selection: l.selection, source: l.source, side: l.side, price: l.price }));
+
+// A back's price against its closing price: "Schlusskurs bei 20bet 1,98
+// (+3,0 %)", positive when it was taken above the close (the closing line
+// value). Null without a closing price.
+export function closingLabel(leg: TakenLeg): string | null {
+  if (typeof leg.closing !== "number") return null;
+  const source = BOOKMAKER_BRANDING[leg.source]?.name ?? leg.source;
+  return `Schlusskurs bei ${source} ${formatPrice(leg.closing)} (${formatEdge(leg.price / leg.closing - 1)})`;
+}
+
+function readLegs(value: unknown): TakenLeg[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const legs: TakenLeg[] = [];
+  for (const item of value) {
+    const { market, selection, source, side, price, closing } = (item ?? {}) as Record<string, unknown>;
+    if (typeof price !== "number" || (side !== "back" && side !== "lay")) continue;
+    legs.push({ market: text(market), selection: text(selection), source: text(source), side, price, closing: typeof closing === "number" ? closing : null });
+  }
+  return legs;
 }
 
 // What a taken surebet was worth when taken: its payout over 100 %, and the
@@ -75,9 +112,11 @@ export function readTaken(body: unknown): Map<string, TakenInfo> {
   const taken = new Map<string, TakenInfo>();
   if (!Array.isArray(list)) return taken;
   for (const item of list) {
-    const { key, remind, eventId, startTime, label, remindedAt, payoutRate } = (item ?? {}) as Record<string, unknown>;
+    const { key, remind, eventId, startTime, label, remindedAt, payoutRate, legs } = (item ?? {}) as Record<string, unknown>;
     if (typeof key !== "string") continue;
+    const read = readLegs(legs);
     taken.set(key, {
+      ...(read ? { legs: read } : {}),
       remind: remind === true,
       eventId: text(eventId),
       startTime: text(startTime),
@@ -160,8 +199,10 @@ export function useTakenSurebets(enabled = true): TakenSurebetsState {
       const label = takenLabel(surebet);
       // The payout it was taken at stays, as on the server.
       const payoutRate = before ? before.payoutRate : surebet.payoutRate;
-      update(key, { remind, eventId: surebet.eventId, startTime: surebet.startTime, label, remindedAt: before?.remindedAt ?? null, payoutRate });
-      void send("PUT", { key, eventId: surebet.eventId, startTime: surebet.startTime, label, remind, payoutRate: surebet.payoutRate }).then(
+      // So are its legs' prices.
+      const legs = before?.legs ?? takenLegs(surebet);
+      update(key, { remind, eventId: surebet.eventId, startTime: surebet.startTime, label, remindedAt: before?.remindedAt ?? null, payoutRate, legs });
+      void send("PUT", { key, eventId: surebet.eventId, startTime: surebet.startTime, label, remind, payoutRate: surebet.payoutRate, legs: takenLegs(surebet) }).then(
         (ok) => {
           if (!ok) update(key, before);
         }

@@ -37,18 +37,22 @@ describe("parseOddsApiEvents", () => {
   });
 });
 
-// An API whose event list has a match tomorrow for the Bundesliga only.
-function api(opts: { remaining?: string } = {}) {
+// An API whose event list has a match tomorrow for the Bundesliga only; its
+// sports list (free) tells the credits left, as `sportsRemaining`.
+function api(opts: { remaining?: string; sportsRemaining?: string; noHeader?: boolean } = {}) {
   const calls: string[] = [];
   const fetchMock = vi.fn(async (input: URL | string) => {
     const url = new URL(String(input));
     calls.push(url.pathname);
+    if (url.pathname.endsWith("/sports")) {
+      return new Response("[]", { status: 200, headers: opts.sportsRemaining ? { "x-requests-remaining": opts.sportsRemaining } : {} });
+    }
     const sport = url.pathname.split("/")[3];
     if (url.pathname.endsWith("/events")) {
       const events = sport === "soccer_germany_bundesliga" ? [{ commence_time: "2026-10-18T13:30:00Z" }] : [];
       return new Response(JSON.stringify(events), { status: 200 });
     }
-    return new Response(JSON.stringify(BUNDESLIGA), { status: 200, headers: { "x-requests-remaining": opts.remaining ?? "480" } });
+    return new Response(JSON.stringify(BUNDESLIGA), { status: 200, headers: opts.noHeader ? {} : { "x-requests-remaining": opts.remaining ?? "480" } });
   });
   return { fetchMock, calls };
 }
@@ -109,6 +113,38 @@ describe("loadOddsApi", () => {
     expect(warn).toHaveBeenCalled();
     // Not read again for over half an hour: its prices are no longer shown.
     expect(stale).toEqual([]);
+  });
+
+  it("asks for the credits again, for free, every 6 hours once spent, and reads again when they renewed", async () => {
+    const file = cacheFile();
+    vi.spyOn(console, "log").mockImplementation(() => {});
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    const spent = api({ remaining: "10", sportsRemaining: "10" });
+    await loadOddsApi({ key: "k", cacheFile: file, now: () => NOW, fetch: spent.fetchMock as unknown as typeof fetch });
+
+    // Within the 6 hours: nothing asked at all.
+    spent.calls.length = 0;
+    await loadOddsApi({ key: "k", cacheFile: file, now: () => NOW + 60 * 60 * 1000, fetch: spent.fetchMock as unknown as typeof fetch });
+    expect(spent.calls).toEqual([]);
+
+    // After them, still spent: the free sports list only, no odds bought.
+    await loadOddsApi({ key: "k", cacheFile: file, now: () => NOW + 7 * 60 * 60 * 1000, fetch: spent.fetchMock as unknown as typeof fetch });
+    expect(spent.calls).toEqual(["/v4/sports"]);
+
+    // The month's credits renewed: the next ask finds them, and the prices are read again.
+    const renewed = api({ remaining: "499", sportsRemaining: "500" });
+    await loadOddsApi({ key: "k", cacheFile: file, now: () => NOW + 14 * 60 * 60 * 1000, fetch: renewed.fetchMock as unknown as typeof fetch });
+    expect(renewed.calls[0]).toBe("/v4/sports");
+    expect(renewed.calls).toContain("/v4/sports/soccer_germany_bundesliga/odds");
+    expect(JSON.parse(readFileSync(file, "utf8"))).toMatchObject({ creditsLeft: 499 });
+  });
+
+  it("takes no credits header as no count, not as none left", async () => {
+    const file = cacheFile();
+    vi.spyOn(console, "log").mockImplementation(() => {});
+    const { fetchMock } = api({ noHeader: true });
+    await loadOddsApi({ key: "k", cacheFile: file, now: () => NOW, fetch: fetchMock as unknown as typeof fetch });
+    expect(JSON.parse(readFileSync(file, "utf8")).creditsLeft).toBeUndefined();
   });
 
   it("reads nothing without a key", async () => {

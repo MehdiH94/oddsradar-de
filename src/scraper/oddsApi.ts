@@ -20,6 +20,14 @@ import { ODDS_API_PINNACLE, PinnacleMatch, pinnacleMatchesOf } from "../referenc
 // MAX_PRICE_AGE_MS (credits spent, the API down) is left out, so that no old
 // price is shown or alerted on.
 //
+// The reads are paced to last the month (pacedRefreshMs): a refresh time
+// never shorter than ODDS_API_REFRESH_MINUTES, stretched to what the credits
+// left above the floor allow until the 1st of next month, when they renew
+// (seen on 01/11/2026). At 15 minutes the month's 500 credits went in under a
+// day; paced, Tipico's, Winamax's and Pinnacle's prices come in short windows
+// all month instead of stopping for weeks. The price age limit stays the
+// unpaced one: a price read hours ago is never shown as fresh.
+//
 // The prices are the bookmakers' as the API gives them, with no German betting
 // tax taken off: Tipico and Winamax.de both pay the tax themselves rather than
 // take it off the stake or the winnings, so a price pays as shown (sport1.de,
@@ -116,6 +124,26 @@ export interface OddsApiCache {
   creditsLeft?: number;
   // When the credits left were last told by the API.
   creditsCheckedAt?: string;
+  // The refresh time last used, paced (minutes): for bookmaker-status.
+  refreshMinutes?: number;
+}
+
+// The 1st of next month, 00:00 UTC: when the month's credits renew.
+export const nextRenewal = (now: number): number => {
+  const d = new Date(now);
+  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1);
+};
+
+// The refresh time that makes the credits left above the floor last until
+// they renew, a round of reads costing a credit per competition with matches
+// (those whose last read had events, one at least); never under the one set.
+export function pacedRefreshMs(cache: OddsApiCache, refreshMs: number, now: number): number {
+  if (cache.creditsLeft === undefined) return refreshMs;
+  const spendable = cache.creditsLeft - MIN_CREDITS_LEFT;
+  if (spendable <= 0) return refreshMs;
+  const perRound = Math.max(1, Object.values(cache.competitions).filter((c) => c.events.length > 0).length);
+  const rounds = spendable / perRound;
+  return Math.max(refreshMs, Math.ceil((nextRenewal(now) - now) / rounds));
 }
 
 // Under the floor, the credits are asked again this often, on the API's sports
@@ -166,6 +194,13 @@ export async function loadOddsApi(opts: OddsApiOptions = {}): Promise<OddsApiEve
     return u;
   };
   let changed = false;
+  const pacedMs = pacedRefreshMs(cache, refreshMs, now);
+  const pacedMinutes = Math.round(pacedMs / 60_000);
+  if (cache.refreshMinutes !== pacedMinutes) {
+    if (pacedMs > refreshMs) console.log(`[scraper:odds-api] paced to last the month: a read every ${pacedMinutes} min (${cache.creditsLeft} credits left)`);
+    cache.refreshMinutes = pacedMinutes;
+    changed = true;
+  }
   if (cache.creditsLeft !== undefined && cache.creditsLeft <= MIN_CREDITS_LEFT) {
     const checked = Date.parse(cache.creditsCheckedAt ?? "");
     if (!Number.isFinite(checked) || now - checked >= CREDITS_RECHECK_MS) {
@@ -186,7 +221,7 @@ export async function loadOddsApi(opts: OddsApiOptions = {}): Promise<OddsApiEve
   }
   for (const sportKey of Object.keys(ODDS_API_COMPETITIONS)) {
     const last = cache.competitions[sportKey];
-    if (last && now - Date.parse(last.readAt) < refreshMs) continue;
+    if (last && now - Date.parse(last.readAt) < pacedMs) continue;
     if (cache.creditsLeft !== undefined && cache.creditsLeft <= MIN_CREDITS_LEFT) {
       console.warn(`[scraper:odds-api] ${cache.creditsLeft} credits left this month: no more reads until they renew`);
       break;

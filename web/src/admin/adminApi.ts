@@ -31,6 +31,8 @@ export interface AdminOddsApiCredits {
   checkedAt: string | null;
   // At or under it, no more reads until the credits renew.
   floor: number;
+  // The refresh time the worker last used, paced to last the month (minutes).
+  refreshMinutes?: number | null;
 }
 
 export interface AdminBookmakers {

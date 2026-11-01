@@ -13,6 +13,9 @@ export interface OddsApiCredits {
   checkedAt: string | null;
   // At or under it, the worker reads no more until the credits renew.
   floor: number;
+  // The refresh time the worker last used, paced to last the month
+  // (./oddsApi.ts, pacedRefreshMs), in minutes; null before it set one.
+  refreshMinutes: number | null;
 }
 
 // Null when the worker has never read The Odds API (no cache file: no key,
@@ -28,6 +31,7 @@ export function readOddsApiCredits(file = ODDS_API_CACHE_FILE): OddsApiCredits |
     creditsLeft: typeof cache.creditsLeft === "number" ? cache.creditsLeft : null,
     checkedAt: typeof cache.creditsCheckedAt === "string" ? cache.creditsCheckedAt : null,
     floor: MIN_CREDITS_LEFT,
+    refreshMinutes: typeof cache.refreshMinutes === "number" ? cache.refreshMinutes : null,
   };
 }
 
@@ -38,5 +42,6 @@ export function formatOddsApiCredits(credits: OddsApiCredits | null, now = Date.
   if (credits.creditsLeft === null) return `${head} credits left not told yet`;
   const checked = credits.checkedAt ? `, checked ${Math.round((now - Date.parse(credits.checkedAt)) / 60_000)} min ago` : "";
   const spent = credits.creditsLeft <= credits.floor ? `; at or under the floor of ${credits.floor}: no reads until they renew` : "";
-  return `${head} ${credits.creditsLeft} credits left${checked}${spent}`;
+  const pace = credits.refreshMinutes !== null && !spent ? `; a read every ${credits.refreshMinutes} min` : "";
+  return `${head} ${credits.creditsLeft} credits left${checked}${pace}${spent}`;
 }

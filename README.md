@@ -659,7 +659,8 @@ bouge) : le match, les paris et les cotes tels que pris, le coup d'envoi
 (« Gespielt » une fois commence), ce qu'il valait une fois pris (« +2,4 % ·
 2,40 € auf 100 € », le TRJ garde a la prise dans `payout_rate`, qu'un nouvel
 envoi ne change pas), l'etat du rappel (demande ou envoye) et un lien vers la
-page du match (`web/src/MyTakenSurebets.tsx`).
+page du match (`web/src/MyTakenSurebets.tsx`). En tete, un resume : combien
+de surebets, leur TRJ moyen et le gain attendu pour 100 € sur chacune.
 
 ### Promos
 

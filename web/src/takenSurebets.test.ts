@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { hasExchangeLeg, profitLabel, readTaken, surebetKey, takenLabel } from "./takenSurebets";
+import { hasExchangeLeg, profitLabel, readTaken, summaryLabel, surebetKey, takenLabel } from "./takenSurebets";
 import type { Surebet } from "./types";
 
 const lay: Surebet = {
@@ -53,5 +53,12 @@ describe("the taken surebets", () => {
 
   it("says what a taken surebet was worth, in German numbers", () => {
     expect(profitLabel(1.024)).toBe("+2,4\u00a0% · 2,40 € auf 100 €");
+  });
+
+  it("sums up the taken surebets: how many, their average payout and the profit expected", () => {
+    expect(summaryLabel([{ payoutRate: 1.02 }, { payoutRate: 1.03 }, { payoutRate: null }])).toBe(
+      "3 Surebets · Ø +2,5\u00a0% · 5,00 € erwartet bei 100 € je Surebet"
+    );
+    expect(summaryLabel([{ payoutRate: null }])).toBe("1 Surebet");
   });
 });

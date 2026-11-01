@@ -52,6 +52,19 @@ export function profitLabel(payoutRate: number): string {
   return `${formatEdge(payoutRate - 1)} · ${profit} € auf 100 €`;
 }
 
+// The line above "Meine Surebets": how many, and of those whose payout was
+// kept, the average payout and the profit expected for 100 € staked on each
+// ("5 Surebets · Ø +2,1 % · 10,50 € erwartet bei 100 € je Surebet").
+export function summaryLabel(items: readonly Pick<TakenInfo, "payoutRate">[]): string {
+  const count = items.length === 1 ? "1 Surebet" : `${items.length} Surebets`;
+  const rates = items.map((i) => i.payoutRate).filter((r): r is number => r !== null);
+  if (rates.length === 0) return count;
+  const profit = rates.reduce((sum, r) => sum + 100 * (r - 1), 0);
+  const average = rates.reduce((sum, r) => sum + r, 0) / rates.length;
+  const euros = profit.toFixed(2).replace(".", ",");
+  return `${count} · Ø ${formatEdge(average - 1)} · ${euros} € erwartet bei 100 € je Surebet`;
+}
+
 // The taken surebets by key.
 export type TakenSurebets = ReadonlyMap<string, TakenInfo>;
 

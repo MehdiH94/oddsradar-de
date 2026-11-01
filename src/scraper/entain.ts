@@ -108,6 +108,26 @@ const nameOf = (raw: string): string =>
     .replace(/\s*\([A-Z]{3}\)$/, "")
     .trim();
 
+// How closely an option's name names a team: 3 its name itself, 2 its
+// nickname alone, as the NHL's and the NBA's are ("Ducks" for "Anaheim
+// Ducks"), 1 its name shortened word by word, as US colleges' are ("Iowa St"
+// for "Iowa State"), 0 not at all.
+function nameScore(team: string, option: string): number {
+  const words = (s: string) => s.toLowerCase().replace(/\./g, "").split(/\s+/).filter(Boolean);
+  if (team === option) return 3;
+  if (team.endsWith(` ${option}`)) return 2;
+  const [t, o] = [words(team), words(option)];
+  return o.length > 0 && t.length === o.length && o.every((w, i) => t[i].startsWith(w)) ? 1 : 0;
+}
+
+// The team (1 the first, 2 the second) an option without a participant id
+// names, the closer of the two: "Florida" is Florida's, not South Florida's,
+// whose name ends with it. Undefined when it names neither, or both as closely.
+export function optionTeam(option: string, first: string, second: string): 1 | 2 | undefined {
+  const [a, b] = [nameScore(first, option), nameScore(second, option)];
+  return a > b ? 1 : b > a ? 2 : undefined;
+}
+
 // The matches of a sport's answer as raw events: each match not yet started
 // with its main market, labelled with the teams' names and "Draw" (the matcher
 // reads them as 1, X and 2), the prices net of the site's tax. A market
@@ -139,11 +159,9 @@ export function parseEntainFixtures(reply: EntainReply, sportId: string, site: E
         if (market.status !== "Visible") continue;
         for (const option of market.options ?? []) {
           // Its team by the participant's id, else (a draw, an option without
-          // one) by its name: the team's, or its nickname alone, as the NHL's
-          // and the NBA's are ("Ducks" for "Anaheim Ducks").
+          // one) by its name (optionTeam).
           const participant = option.parameters?.fixtureParticipant;
           const name = option.name?.value ?? "";
-          const isTeam = (team: string) => team === name || team.endsWith(` ${name}`);
           const selection =
             participant !== undefined
               ? participant === first.id
@@ -151,13 +169,8 @@ export function parseEntainFixtures(reply: EntainReply, sportId: string, site: E
                 : participant === second.id
                   ? secondName
                   : undefined
-              : isTeam(first.name.value) && !isTeam(second.name.value)
-                ? firstName
-                : isTeam(second.name.value) && !isTeam(first.name.value)
-                  ? secondName
-                  : /^(x|draw)$/i.test(name)
-                    ? "Draw"
-                    : undefined;
+              : [undefined, firstName, secondName][optionTeam(name, first.name.value, second.name.value) ?? 0] ??
+                (/^(x|draw)$/i.test(name) ? "Draw" : undefined);
           if (!selection || prices.has(selection)) throw new Error(`unexpected option "${option.name?.value}"`);
           prices.set(selection, option.status === "Visible" && typeof option.price?.odds === "number" ? option.price.odds : NaN);
         }

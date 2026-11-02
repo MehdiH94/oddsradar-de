@@ -1,8 +1,9 @@
-import { ArrowDown, ArrowUp, Check, Zap } from "lucide-react";
+import { Check, Zap } from "lucide-react";
 import type { PriceMove } from "../types";
 import { BOOKMAKER_BRANDING, stakeTaxNote } from "../bookmakers";
 import { BookmakerLogo } from "../BookmakerLogo";
 import { formatEdge, formatPrice } from "../format";
+import { MoveArrow } from "./MoveArrow";
 import styles from "./PriceChip.module.css";
 
 // One bookmaker's price for one outcome. The best price (every bookmaker
@@ -62,7 +63,7 @@ export function PriceChip({
           <span className="visually-hidden"> (geboostet)</span>
         </span>
       )}
-      {moved && price !== undefined && moved.from !== price && <MoveArrow move={moved} price={price} />}
+      {moved && price !== undefined && <MoveArrow move={moved} price={price} className={styles.move} />}
       {best && (
         <>
           <Check size={12} strokeWidth={3} className={styles.check} aria-hidden="true" />
@@ -80,17 +81,3 @@ export function PriceChip({
   );
 }
 
-const MOVE_TIME = new Intl.DateTimeFormat("de-DE", { hour: "2-digit", minute: "2-digit" });
-
-// "↑ von 1,95 um 14:05": a price up from its last one, or down.
-function MoveArrow({ move, price }: { move: PriceMove; price: number }) {
-  const up = price > move.from;
-  const text = `${up ? "gestiegen" : "gefallen"} von ${formatPrice(move.from)} um ${MOVE_TIME.format(new Date(move.at))}`;
-  const Arrow = up ? ArrowUp : ArrowDown;
-  return (
-    <span className={styles.move} data-move={up ? "up" : "down"} title={`Quote ${text}`}>
-      <Arrow size={11} strokeWidth={2.5} aria-hidden="true" />
-      <span className="visually-hidden"> ({text})</span>
-    </span>
-  );
-}

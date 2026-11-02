@@ -7,6 +7,7 @@ import { PriceChip } from "./components/PriceChip";
 import { CheckAtBookmaker } from "./components/CheckAtBookmaker";
 import { ExchangePrices } from "./components/ExchangePrices";
 import { BestPrice } from "./components/BestPrice";
+import { MoveArrow } from "./components/MoveArrow";
 import { useIsWide } from "./useMediaQuery";
 import { REFERENCE_SOURCE } from "./value";
 import { BOOKMAKER_BRANDING } from "./bookmakers";
@@ -177,6 +178,7 @@ export function ValueBetsTable({
                         best={false}
                         edge={bet.edge}
                         suspect={bet.basis === "bookmaker"}
+                        moved={bet.moved}
                       />
                       <ReadAt readAt={bet.readAt} now={now} />
                       <CheckAtBookmaker bookmaker={bet.bookmaker} url={bet.url} />
@@ -204,6 +206,7 @@ export function ValueBetsTable({
                             : "Fair"
                       }
                     />
+                    {bet.moved && <MoveArrow move={bet.moved} price={bet.price} />}
                     <ReadAt readAt={bet.readAt} now={now} />
                     <ExchangePrices prices={bet.exchange} />
                     <CheckAtBookmaker bookmaker={bet.bookmaker} url={bet.url} />

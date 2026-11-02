@@ -94,6 +94,13 @@ describe("ValueBetsTable", () => {
     });
   });
 
+  it("shows an arrow after a bet's price that moved within the hour", () => {
+    const { container } = render(<ValueBetsTable bets={[bet({ moved: { from: 1.5, at: "2099-01-01T05:00:00.000Z" } })]} />);
+    const arrows = container.querySelectorAll("[data-move]");
+    expect(arrows).toHaveLength(1);
+    expect(arrows[0]).toHaveAttribute("data-move", "up");
+  });
+
   it("shows the reference market under the fair odds: the exchange's back and lay, or that it has none", () => {
     render(<ValueBetsTable bets={[bet({ exchange: { back: 1.52, backSize: 950, lay: 1.54, laySize: 1210.5 } }), bet({ selection: "X", label: "Unentschieden" })]} />);
     const [priced, unpriced] = screen.getAllByRole("row").slice(1);

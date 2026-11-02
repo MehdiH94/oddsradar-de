@@ -200,7 +200,7 @@ describe("/api/taken-surebets", () => {
     expect((await t.get(ada)).body.taken).toHaveLength(1);
   });
 
-  it("gives each started surebet's backs at a bookmaker their closing price, the last read before kick-off", async () => {
+  it("gives each started surebet's legs their closing price, the last read before kick-off, the exchange's too", async () => {
     const t = setup();
     const cookie = await sessionCookie(t);
     await t.send("put", cookie, t.taken);
@@ -213,12 +213,16 @@ describe("/api/taken-surebets", () => {
     price.run(TAKEN.eventId, "twentybet", "1", 1.98, before);
     // Read again once the match had started: a live price, no closing price.
     price.run(TAKEN.eventId, "admiralbet", "X", 3.2, after);
+    // The exchange's last read before kick-off: the lay's closing price is its lay.
+    t.odds
+      .prepare("INSERT INTO reference_odds (event_id, selection, fair, back, lay, matched, scraped_at) VALUES (?, '2', 3.45, 3.4, 3.5, 5000, ?)")
+      .run(TAKEN.eventId, before);
 
     // Before kick-off: no closing price yet.
     expect((await t.get(cookie)).body.taken[0].legs[0]).not.toHaveProperty("closing");
     t.clock.now = new Date(Date.parse(start) + 60_000);
     const legs = (await t.get(cookie)).body.taken[0].legs;
-    expect(legs.map((l: { closing: number | null }) => l.closing)).toEqual([1.98, null, null]);
+    expect(legs.map((l: { closing: number | null }) => l.closing)).toEqual([1.98, null, 3.5]);
   });
 
   it("refuses a body that is not a taken surebet, and a request from another site", async () => {

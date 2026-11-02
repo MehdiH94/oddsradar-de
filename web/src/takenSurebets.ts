@@ -62,13 +62,31 @@ export interface TakenLeg {
 export const takenLegs = (surebet: Surebet): TakenLeg[] =>
   surebet.legs.map((l) => ({ market: surebet.market, selection: l.selection, source: l.source, side: l.side, price: l.price }));
 
-// A back's price against its closing price: "Schlusskurs bei 20bet 1,98
-// (+3,0 %)", positive when it was taken above the close (the closing line
-// value). Null without a closing price.
-export function closingLabel(leg: TakenLeg): string | null {
+// How much better than its closing price a leg was taken (the closing line
+// value): a back above it, a lay below it. Null without a closing price.
+export function closingValue(leg: TakenLeg): number | null {
   if (typeof leg.closing !== "number") return null;
-  const source = BOOKMAKER_BRANDING[leg.source]?.name ?? leg.source;
-  return `Schlusskurs bei ${source} ${formatPrice(leg.closing)} (${formatEdge(leg.price / leg.closing - 1)})`;
+  return leg.side === "lay" ? leg.closing / leg.price - 1 : leg.price / leg.closing - 1;
+}
+
+// A leg's price against its closing price: "Schlusskurs bei 20bet 1,98
+// (+3,0 %)", "Schlusskurs Lay an der Börse 3,50 (+2,9 %)", positive when it
+// beat the close. Null without a closing price.
+export function closingLabel(leg: TakenLeg): string | null {
+  const value = closingValue(leg);
+  if (value === null || typeof leg.closing !== "number") return null;
+  const where = leg.source === EXCHANGE ? "an der Börse" : `bei ${BOOKMAKER_BRANDING[leg.source]?.name ?? leg.source}`;
+  return `Schlusskurs ${leg.side === "lay" ? "Lay " : ""}${where} ${formatPrice(leg.closing)} (${formatEdge(value)})`;
+}
+
+// Over every leg with a closing price, how much better than the close they
+// were taken on average: "Ø +2,1 % gegenüber dem Schlusskurs (4 Wetten)".
+// Null while none has one.
+export function closingSummaryLabel(items: readonly Pick<TakenInfo, "legs">[]): string | null {
+  const values = items.flatMap((i) => i.legs ?? []).map(closingValue).filter((v): v is number => v !== null);
+  if (values.length === 0) return null;
+  const average = values.reduce((sum, v) => sum + v, 0) / values.length;
+  return `Ø ${formatEdge(average)} gegenüber dem Schlusskurs (${values.length === 1 ? "1 Wette" : `${values.length} Wetten`})`;
 }
 
 function readLegs(value: unknown): TakenLeg[] | undefined {

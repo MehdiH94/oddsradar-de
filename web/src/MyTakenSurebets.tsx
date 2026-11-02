@@ -1,14 +1,15 @@
 import type { MouseEvent } from "react";
 import { formatStartTime } from "./format";
-import { closingLabel, profitLabel, summaryLabel, type TakenInfo, type TakenSurebets } from "./takenSurebets";
+import { closingLabel, closingSummaryLabel, profitLabel, summaryLabel, type TakenInfo, type TakenSurebets } from "./takenSurebets";
 import styles from "./MyTakenSurebets.module.css";
 
 // "Meine Surebets": the surebets the account marked taken, in one place above
 // the value bets' list, even once a price moved and the surebet left it. Each
 // with its match, legs and prices as taken (its label), its kick-off, its
 // payout then ("+2,4 % · 2,40 € auf 100 €"), and its reminder: asked for,
-// sent, or none. Once played, each back's closing price against the price
-// taken ("Schlusskurs bei 20bet 1,98 (+3,0 %)"). The server forgets one two days after
+// sent, or none. Once played, each leg's closing price against the price
+// taken ("Schlusskurs bei 20bet 1,98 (+3,0 %)"), and above the list their
+// average ("Ø +2,1 % gegenüber dem Schlusskurs (4 Wetten)"). The server forgets one two days after
 // its match (src/auth/takenSurebets.ts).
 export function MyTakenSurebets({
   taken,
@@ -23,10 +24,13 @@ export function MyTakenSurebets({
 }) {
   if (taken.size === 0) return null;
   const list = [...taken.values()].sort((a, b) => a.startTime.localeCompare(b.startTime));
+  // The closing prices of the played ones only: the server sends none before kick-off.
+  const closing = closingSummaryLabel(list.filter((i) => Date.parse(i.startTime) <= now.getTime()));
   return (
     <details className={styles.box}>
       <summary className={styles.summary}>Meine Surebets ({list.length})</summary>
       <p className={styles.total}>{summaryLabel(list)}</p>
+      {closing && <p className={styles.total}>{closing}</p>}
       <ul className={styles.list}>
         {list.map((item) => (
           <TakenItem key={`${item.eventId}|${item.label}`} item={item} matchHref={matchHref} onOpenMatch={onOpenMatch} now={now} />

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { closingLabel, hasExchangeLeg, profitLabel, readTaken, summaryLabel, surebetKey, takenLabel, takenLegs } from "./takenSurebets";
+import { closingLabel, closingSummaryLabel, closingValue, hasExchangeLeg, profitLabel, readTaken, summaryLabel, surebetKey, takenLabel, takenLegs } from "./takenSurebets";
 import type { Surebet } from "./types";
 
 const lay: Surebet = {
@@ -80,5 +80,26 @@ describe("closing prices", () => {
     const read = readTaken({ taken: [{ key: "k", legs: [{ market: "1X2", selection: "2", source: "twentybet", side: "back", price: 3.32, closing: 3.2 }, { side: "back" }] }] });
     expect(read.get("k")?.legs).toEqual([{ market: "1X2", selection: "2", source: "twentybet", side: "back", price: 3.32, closing: 3.2 }]);
     expect(readTaken({ taken: [{ key: "old" }] }).get("old")).not.toHaveProperty("legs");
+  });
+});
+
+describe("closing line value", () => {
+  const back = { market: "1X2", selection: "1", source: "twentybet", side: "back" as const, price: 2.2, closing: 2 };
+  const lay = { market: "1X2", selection: "2", source: "exchange", side: "lay" as const, price: 3.2, closing: 3.52 };
+
+  it("is a back taken above its close, a lay taken below it", () => {
+    expect(closingValue(back)).toBeCloseTo(0.1);
+    expect(closingValue(lay)).toBeCloseTo(0.1);
+    expect(closingValue({ ...lay, closing: 2.88 })).toBeCloseTo(-0.1);
+    expect(closingValue({ ...back, closing: null })).toBeNull();
+    expect(closingLabel(lay)).toMatch(/^Schlusskurs Lay an der Börse 3,52 \(\+10,0.%\)$/);
+  });
+
+  it("is averaged over every leg with a closing price", () => {
+    expect(closingSummaryLabel([{ legs: [back, { ...lay, closing: 2.88 }] }, { legs: [{ ...back, closing: null }] }, {}])).toMatch(
+      /^Ø \+0,0.% gegenüber dem Schlusskurs \(2 Wetten\)$/
+    );
+    expect(closingSummaryLabel([{ legs: [back] }])).toMatch(/^Ø \+10,0.% gegenüber dem Schlusskurs \(1 Wette\)$/);
+    expect(closingSummaryLabel([{ legs: [{ ...back, closing: null }] }, {}])).toBeNull();
   });
 });

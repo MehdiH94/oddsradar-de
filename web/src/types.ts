@@ -61,6 +61,8 @@ export interface Reference {
 // One bet of a surebet (src/db/surebets.ts): an outcome backed at a
 // bookmaker or on the exchange, or laid on the exchange.
 export interface SurebetLeg {
+  // Its bookmaker's price's move within the hour, when it moved.
+  moved?: PriceMove;
   selection: string;
   label: string;
   // "winamax", "betclic" or "exchange".
@@ -149,6 +151,8 @@ export interface ValueBet {
   exchange?: ExchangeOutcome;
   // When the price was read, like a surebet's legs (src/db/surebets.ts withReadAt).
   readAt?: string;
+  // Its move within the hour, when it moved.
+  moved?: PriceMove;
 }
 
 // One match's page (GET /api/events/:id, src/db/eventDetail.ts).

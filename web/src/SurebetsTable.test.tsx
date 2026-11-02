@@ -24,6 +24,22 @@ const surebet = (overrides: Partial<Surebet>): Surebet => ({
   ...overrides,
 });
 
+describe("a leg's price move", () => {
+  it("shows an arrow after a leg's price that moved within the hour", () => {
+    const moved = surebet({
+      legs: [
+        { selection: "over", label: "Über 9,5", source: "merkurbets", side: "back", price: 2, stake: 52.38, moved: { from: 2.1, at: "2099-01-01T05:00:00.000Z" } },
+        { selection: "under", label: "Unter 9,5", source: "leovegas", side: "back", price: 2.2, stake: 47.62 },
+      ],
+    });
+    const { container } = render(<SurebetsTable surebets={[moved]} />);
+    const arrows = container.querySelectorAll("[data-move]");
+    expect(arrows).toHaveLength(1);
+    expect(arrows[0]).toHaveAttribute("data-move", "down");
+    expect(arrows[0].closest("li")).toHaveTextContent(/gefallen von 2,10/);
+  });
+});
+
 describe("SurebetsTable", () => {
   it("shows one row per surebet: kick-off, match and market, each bet for €100, the TRJ and the profit", () => {
     render(<SurebetsTable surebets={[surebet({})]} />);

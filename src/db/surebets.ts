@@ -6,7 +6,7 @@ import { inChunks } from "./playerReference";
 import { loadBookmakerLinks } from "./bookmakerLinks";
 import { primaryMarket } from "./payoutRate";
 import { EventWithOdds } from "../types";
-import { countMarkets, ListingOptions, loadEvents, marketsCutoff, matchingEventIds, oddsCutoff } from "./repository";
+import { countMarkets, ListingOptions, loadEvents, marketsCutoff, matchingEventIds, MOVE_SHOWN_MS, oddsCutoff, PriceMove } from "./repository";
 
 // The surebets of the matches and races not started yet: every market whose
 // best prices guarantee a profit, whatever the outcome (the dashboard's
@@ -75,6 +75,8 @@ export interface SurebetLeg {
   // When this price was read (legReadAt), so that a price read long before
   // the others' shows (the owner, 22/10/2026: a 20bet price may have moved).
   readAt?: string;
+  // A bookmaker's price that moved within the hour: its price before, and when.
+  moved?: PriceMove;
 }
 
 export interface Surebet {
@@ -201,15 +203,15 @@ export function withExchangePrices<T extends { eventId: string; market: string; 
   });
 }
 
-// Each value bet with when its price was read (legReadAt, as a surebet's
-// legs), so that an old price shows before betting.
+// Each value bet with when its price was read (legRead, as a surebet's
+// legs), so that an old price shows before betting, and its move within the hour.
 export function withReadAt<T extends { eventId: string; market: string; selection: string; bookmaker: string }>(
   db: DatabaseSync,
   bets: readonly T[]
-): (T & { readAt?: string })[] {
+): (T & { readAt?: string; moved?: PriceMove })[] {
   return bets.map((bet) => {
-    const at = legReadAt(db, bet, { source: bet.bookmaker, selection: bet.selection });
-    return at ? { ...bet, readAt: at } : bet;
+    const read = legRead(db, bet, { source: bet.bookmaker, selection: bet.selection });
+    return read ? { ...bet, readAt: read.at, ...(read.moved ? { moved: read.moved } : {}) } : bet;
   });
 }
 
@@ -311,8 +313,9 @@ export function getSurebets(
   for (const surebet of surebets) {
     surebet.marketCount = counts.get(surebet.eventId) ?? 0;
     for (const leg of surebet.legs) {
-      const at = legReadAt(db, surebet, leg);
-      if (at) leg.readAt = at;
+      const read = legRead(db, surebet, leg);
+      if (read) leg.readAt = read.at;
+      if (read?.moved) leg.moved = read.moved;
     }
   }
   addBookmakerLinks(db, surebets);
@@ -346,9 +349,15 @@ export function getSuspectSurebets(db: DatabaseSync, opts: ListingOptions = {}):
 }
 
 // When a leg's price was read: a bookmaker's from the listing's or the markets
-// cycle's prices, the exchange's from the reference's.
-export function legReadAt(db: DatabaseSync, surebet: Pick<Surebet, "eventId" | "market">, leg: Pick<SurebetLeg, "source" | "selection">): string | null {
-  const args = { eventId: surebet.eventId, market: surebet.market, selection: leg.selection, source: leg.source };
+// cycle's prices, the exchange's from the reference's. A bookmaker's price
+// also gives its last move, when within MOVE_SHOWN_MS (the exchange's prices
+// keep none).
+export function legRead(
+  db: DatabaseSync,
+  surebet: Pick<Surebet, "eventId" | "market">,
+  leg: Pick<SurebetLeg, "source" | "selection">
+): { at: string; moved?: PriceMove } | null {
+  const args = { eventId: surebet.eventId, market: surebet.market, selection: leg.selection, source: leg.source, movedSince: "" };
   const queries =
     leg.source === EXCHANGE
       ? [
@@ -357,17 +366,23 @@ export function legReadAt(db: DatabaseSync, surebet: Pick<Surebet, "eventId" | "
             : "SELECT scraped_at AS at FROM reference_markets WHERE event_id = @eventId AND market = @market AND selection = @selection",
           "SELECT scraped_at AS at FROM reference_player_odds WHERE event_id = @eventId AND market = @market AND player = @selection",
         ]
-      : [
-          "SELECT scraped_at AS at FROM event_bookmaker_odds WHERE event_id = @eventId AND bookmaker_id = @source AND market = @market AND selection = @selection",
-          "SELECT scraped_at AS at FROM event_market_odds WHERE event_id = @eventId AND bookmaker_id = @source AND market = @market AND selection = @selection",
-        ];
+      : ["event_bookmaker_odds", "event_market_odds"].map(
+          (table) =>
+            `SELECT scraped_at AS at, CASE WHEN moved_at >= @movedSince THEN prev_price END AS movedFrom,
+                    CASE WHEN moved_at >= @movedSince THEN moved_at END AS movedAt
+             FROM ${table} WHERE event_id = @eventId AND bookmaker_id = @source AND market = @market AND selection = @selection`
+        );
+  args.movedSince = new Date(Date.now() - MOVE_SHOWN_MS).toISOString();
   for (const sql of queries) {
     const params = Object.fromEntries(Object.entries(args).filter(([key]) => sql.includes(`@${key}`)));
-    const row = db.prepare(sql).get(params) as { at: string } | undefined;
-    if (row) return row.at;
+    const row = db.prepare(sql).get(params) as { at: string; movedFrom?: number | null; movedAt?: string | null } | undefined;
+    if (row) return typeof row.movedFrom === "number" && row.movedAt ? { at: row.at, moved: { from: row.movedFrom, at: row.movedAt } } : { at: row.at };
   }
   return null;
 }
+
+export const legReadAt = (db: DatabaseSync, surebet: Pick<Surebet, "eventId" | "market">, leg: Pick<SurebetLeg, "source" | "selection">): string | null =>
+  legRead(db, surebet, leg)?.at ?? null;
 
 // A leg read this long before its surebet's newest leg is stale: its price may
 // have moved since. The site marks it "älter" (web/src/SurebetsTable.tsx,

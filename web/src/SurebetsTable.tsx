@@ -1,4 +1,5 @@
 import { useState, type MouseEvent } from "react";
+import { MoveArrow } from "./components/MoveArrow";
 import { ChevronRight } from "lucide-react";
 import type { Surebet, SurebetLeg } from "./types";
 import { formatPayoutRate, formatPrice, formatStartParts, readAgo } from "./format";
@@ -96,6 +97,7 @@ function Leg({ leg, others, newest, now }: { leg: SurebetLeg; others?: number; n
         {leg.source !== EXCHANGE && <BookmakerLogo bookmaker={leg.source} size={16} decorative />}
         <span className={leg.source === EXCHANGE ? styles.exchange : undefined}>{sourceName(leg.source)}</span>
         <strong className={styles.legPrice}>{formatPrice(leg.price)}</strong>
+        {leg.moved && <MoveArrow move={leg.moved} price={leg.price} />}
       </span>
       <span className={styles.legStake}>
         {leg.side === "lay" && leg.liability !== undefined

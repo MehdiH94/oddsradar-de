@@ -580,6 +580,26 @@ describe("withReadAt", () => {
       { eventId: "m", market: "1X2", selection: "1", bookmaker: "vbet" },
     ];
     expect(withReadAt(db, bets).map((b) => b.readAt)).toEqual([mainAt, playerAt, undefined]);
+    // Not moved yet: no move.
+    expect(withReadAt(db, bets)[0]).not.toHaveProperty("moved");
+  });
+
+  it("gives a value bet its price's move within the hour", () => {
+    const db = openDb(":memory:");
+    const match = (price: number): CanonicalEvent => ({
+      id: "m",
+      sport: "football",
+      competition: "Ligue 1",
+      startTime: hoursFromNow(5),
+      participants: ["A", "B"],
+      byBookmaker: { winamax: [{ market: "1X2", selection: "1", price }] },
+    });
+    upsertCanonicalEvents(db, [match(2)]);
+    upsertCanonicalEvents(db, [match(2.1)]);
+    const [bet] = withReadAt(db, [{ eventId: "m", market: "1X2", selection: "1", bookmaker: "winamax" }]);
+    expect(bet.moved).toEqual({ from: 2, at: bet.readAt });
+    db.prepare("UPDATE event_bookmaker_odds SET moved_at = ?").run(minutesAgo(61));
+    expect(withReadAt(db, [{ eventId: "m", market: "1X2", selection: "1", bookmaker: "winamax" }])[0]).not.toHaveProperty("moved");
   });
 });
 

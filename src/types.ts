@@ -7,6 +7,9 @@ export interface RawOdds {
   // never weighed in the surebets, the value bets or the alerts, which read
   // `price` only.
   boosted?: number;
+  // Its last move within the hour, when read back for the dashboard
+  // (src/db/repository.ts, loadEvents): its price before, and when.
+  moved?: { from: number; at: string };
 }
 
 export interface RawEvent {

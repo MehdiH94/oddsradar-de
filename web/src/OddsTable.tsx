@@ -249,6 +249,7 @@ export function OddsTable({
                                   best={best.includes(bookmaker)}
                                   edge={edges[b]}
                                   boosted={offers[b]?.boosted}
+                                  moved={offers[b]?.moved}
                                 />
                               ))}
                             </span>
@@ -267,6 +268,7 @@ export function OddsTable({
                               best={best.includes(bookmaker)}
                               edge={edges[b]}
                               boosted={offers[b]?.boosted}
+                              moved={offers[b]?.moved}
                             />
                           ))}
                         </span>

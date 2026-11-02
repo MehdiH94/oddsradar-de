@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { PriceChip } from "./PriceChip";
 
 const chip = (bookmaker: string, price: number | null = 1.9) =>
@@ -18,5 +18,18 @@ describe("PriceChip", () => {
 
   it("has no tooltip without a price", () => {
     expect(chip("leovegas", null)).not.toHaveAttribute("title");
+  });
+
+  it("shows an arrow after a price that moved, up or down, its price before and when in its tooltip and read out", () => {
+    const at = new Date(2026, 10, 2, 14, 5).toISOString();
+    const { container, rerender } = render(<PriceChip bookmaker="leovegas" price={2.05} best={false} moved={{ from: 1.95, at }} />);
+    const up = container.querySelector("[data-move]")!;
+    expect(up).toHaveAttribute("data-move", "up");
+    expect(up).toHaveAttribute("title", "Quote gestiegen von 1,95 um 14:05");
+    expect(screen.getByText(/\(gestiegen von 1,95 um 14:05\)/)).toHaveClass("visually-hidden");
+    rerender(<PriceChip bookmaker="leovegas" price={1.85} best={false} moved={{ from: 1.95, at }} />);
+    expect(container.querySelector("[data-move]")).toHaveAttribute("data-move", "down");
+    rerender(<PriceChip bookmaker="leovegas" price={1.85} best={false} />);
+    expect(container.querySelector("[data-move]")).toBeNull();
   });
 });

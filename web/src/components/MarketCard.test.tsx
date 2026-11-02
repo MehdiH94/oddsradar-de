@@ -75,6 +75,18 @@ describe("MarketCard", () => {
     expect(container.querySelectorAll('[title^="Quoten-Boost"]')).toHaveLength(1);
   });
 
+  it("shows an arrow beside a price that moved within the hour", () => {
+    const [psg, ...rest] = result.lines[0].outcomes;
+    const from = psg.prices.leovegas - 0.1;
+    const moved: MarketDetail = {
+      ...result,
+      lines: [{ ...result.lines[0], outcomes: [{ ...psg, moved: { leovegas: { from, at: "2026-11-02T13:05:00.000Z" } } }, ...rest] }],
+    };
+    const { container } = render(<MarketCard market={moved} bookmakers={["leovegas", "twentybet"]} />);
+    expect(container.querySelector('[data-bookmaker="leovegas"] [data-move="up"]')).not.toBeNull();
+    expect(container.querySelectorAll("[data-move]")).toHaveLength(1);
+  });
+
   it("leaves out an unticked bookmaker's value bet", () => {
     const { container } = render(<MarketCard market={result} bookmakers={["merkurbets"]} />);
     expect(container.querySelector("[data-value]")).toBeNull();

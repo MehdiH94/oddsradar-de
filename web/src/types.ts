@@ -171,6 +171,13 @@ export interface OutcomeDetail {
   // "bookmaker").
   suspects?: Record<string, number>;  // A bookmaker's boosted price (20bet's odds boost), shown beside its price.
   boosted?: Record<string, number>;
+  // A bookmaker's price that moved within the last hour: its price before, and when.
+  moved?: Record<string, PriceMove>;
+}
+
+export interface PriceMove {
+  from: number;
+  at: string;
 }
 
 export interface MarketLine {

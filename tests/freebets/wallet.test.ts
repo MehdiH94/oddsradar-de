@@ -151,9 +151,9 @@ describe("the stored wallet", () => {
 });
 
 describe("the freebets table in the accounts database", () => {
-  it("is on the schema's version 10 (the feedback, the taken surebets, the promos and their payout and legs came after), with its columns", () => {
+  it("is on the schema's version 11 (the feedback, the taken surebets, the promos and their payout and legs and the deposits came after), with its columns", () => {
     const db = openAuthDb(":memory:");
-    expect(db.prepare("PRAGMA user_version").get()).toEqual({ user_version: 10 });
+    expect(db.prepare("PRAGMA user_version").get()).toEqual({ user_version: 11 });
     const columns = (db.prepare("PRAGMA table_info(user_freebets)").all() as { name: string }[]).map((c) => c.name);
     expect(columns).toEqual(["user_id", "bookmaker", "amount_cents", "updated_at"]);
   });
@@ -165,6 +165,7 @@ describe("the freebets table in the accounts database", () => {
     const prefs: Preferences = { sport: "tennis", sort: "start", bookmakers: ["leovegas"], players: false, favoriteSports: [] };
     savePreferences(db, ada.id, prefs, now);
     // The schema as it was before: no freebets table (nor the feedback, the taken surebets and the promos after it), version 3.
+    db.exec("DROP TABLE user_deposits");
     db.exec("DROP TABLE user_promo_reminded");
     db.exec("DROP TABLE user_promo_settings");
     db.exec("DROP TABLE user_promo_taken");
@@ -176,7 +177,7 @@ describe("the freebets table in the accounts database", () => {
 
     migrate(db);
 
-    expect(db.prepare("PRAGMA user_version").get()).toEqual({ user_version: 10 });
+    expect(db.prepare("PRAGMA user_version").get()).toEqual({ user_version: 11 });
     expect(db.prepare("SELECT email FROM users").all()).toEqual([{ email: "ada@example.com" }]);
     expect(getPreferences(db, ada.id)).toEqual(prefs);
     expect(getWallet(db, ada.id)).toEqual({});

@@ -166,3 +166,22 @@ export function conversionsUrl(request: ConversionRequest): string {
 
 export const fetchConversions = (request: ConversionRequest, signal?: AbortSignal) =>
   call<ConversionAnswer>(conversionsUrl(request), { signal });
+
+// This month's deposits the account wrote down, against LUGAS's monthly limit
+// across German-licensed bookmakers (src/deposits/deposits.ts).
+export interface MonthDeposits {
+  month: string;
+  deposits: Partial<Record<BookmakerId, number>>;
+  total: number;
+  limit: number;
+}
+
+export const fetchDeposits = () => call<MonthDeposits>("/api/deposits");
+
+// Replaces this month's deposits; the answer is what the server kept.
+export const saveDeposits = (deposits: MonthDeposits["deposits"]) =>
+  call<MonthDeposits>("/api/deposits", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ deposits }),
+  });

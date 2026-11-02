@@ -12,6 +12,8 @@ import { readSettings, requestOf, settingsQuery, type Settings } from "./setting
 import { useConversions } from "./useConversions";
 import { useWallet } from "./useWallet";
 import { WalletCard as Wallet } from "./WalletCard";
+import { DepositsCard } from "./DepositsCard";
+import { useDeposits } from "./useDeposits";
 import styles from "./FreebetsPage.module.css";
 
 // The Freebets page, for accounts: the freebets held at each bookmaker (kept on the account), how to convert them
@@ -20,6 +22,7 @@ import styles from "./FreebetsPage.module.css";
 export function FreebetsPage() {
   const wide = useIsWide();
   const wallet = useWallet();
+  const deposits = useDeposits();
   const [settings, setSettings] = useState<Settings>(() => readSettings(window.location.search));
   const holding = useMemo(() => ALL_BOOKMAKERS.filter((id) => (wallet.wallet[id] ?? 0) > 0), [wallet.wallet]);
   const request = requestOf(settings, holding);
@@ -69,6 +72,7 @@ export function FreebetsPage() {
             waiting={waiting}
             onSwitchToExchange={() => setSettings((current) => ({ ...current, mode: "exchange" }))}
           />
+          <DepositsCard deposits={deposits} />
         </div>
       </main>
       <AppFooter />

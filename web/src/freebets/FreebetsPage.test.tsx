@@ -52,6 +52,11 @@ function stubApi(over: Partial<Api> = {}) {
       }
       return reply({ wallet: api.wallet });
     }
+    if (url === "/api/deposits") {
+      const deposits = init?.method === "PUT" ? JSON.parse(String(init.body)).deposits : {};
+      const total = Object.values(deposits as Record<string, number>).reduce((a, b) => a + b, 0);
+      return reply({ month: "2026-11", deposits, total, limit: 1000 });
+    }
     if (url.startsWith("/api/freebets/conversions")) {
       calls.asked.push(url);
       const answer = api.answers(new URL(url, "http://localhost"));
@@ -92,9 +97,23 @@ describe("FreebetsPage", () => {
       expect(fb("20bet")).toHaveValue("");
       expect(fb("Admiralbet")).toHaveValue("");
       expect(fb("Tipico")).toHaveValue("");
-      expect(screen.getAllByRole("textbox")).toHaveLength(13);
+      expect(screen.getAllByRole("textbox", { name: /^Freebets bei/ })).toHaveLength(13);
       expect(screen.getByText(/Insgesamt umzuwandeln/)).toHaveTextContent("55,50 FB");
       expect(await screen.findByText("In deinem Konto gespeichert")).toBeInTheDocument();
+    });
+
+    it("keeps this month's deposits against LUGAS's limit, the German-licensed bookmakers only, saved when a field is left", async () => {
+      const { fetchMock } = stubApi();
+      renderPage();
+      const leovegas = await screen.findByRole("textbox", { name: "Einzahlungen bei LeoVegas im November 2026 in Euro" });
+      expect(screen.queryByRole("textbox", { name: /^Einzahlungen bei 20bet/ })).not.toBeInTheDocument();
+      expect(screen.getAllByRole("textbox", { name: /^Einzahlungen bei/ })).toHaveLength(12);
+      fireEvent.change(leovegas, { target: { value: "400" } });
+      fireEvent.change(screen.getByRole("textbox", { name: /^Einzahlungen bei ODDSET/ }), { target: { value: "240,5" } });
+      fireEvent.blur(leovegas);
+      await waitFor(() => expect(screen.getByText(/November 2026:/)).toHaveTextContent(/640,50\s€ von 1\.000,00\s€ eingezahlt · noch 359,50\s€ frei/));
+      const put = fetchMock.mock.calls.find(([url, init]) => url === "/api/deposits" && init?.method === "PUT");
+      expect(JSON.parse(String(put![1]!.body))).toEqual({ deposits: { leovegas: 400, oddset: 240.5 } });
     });
 
     it("says when the wallet cannot be read, and reads it again", async () => {

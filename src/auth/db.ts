@@ -168,6 +168,19 @@ const MIGRATIONS: string[] = [
   `
   ALTER TABLE user_taken_surebets ADD COLUMN legs TEXT;
   `,
+  // 11: the deposits an account writes down per bookmaker and month, against
+  // LUGAS's monthly limit across operators (src/deposits/deposits.ts). Whole
+  // cents; a month is Berlin's calendar month ("2026-11").
+  `
+  CREATE TABLE user_deposits (
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    month TEXT NOT NULL,
+    bookmaker TEXT NOT NULL,
+    amount_cents INTEGER NOT NULL CHECK (amount_cents > 0),
+    updated_at TEXT NOT NULL,
+    PRIMARY KEY (user_id, month, bookmaker)
+  );
+  `,
 ];
 
 export function migrate(db: DatabaseSync): void {

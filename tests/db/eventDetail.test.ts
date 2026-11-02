@@ -133,6 +133,36 @@ describe("getEventDetail", () => {
     expect(unticked.sections[0].markets[0].lines[0].outcomes[2].boosted).toBeUndefined();
   });
 
+  it("gives a price that moved within the hour its price before and when, and none once the hour has passed", () => {
+    // Betclic's Werder Brême, from 6.50 to 6.80; its draw read again unchanged.
+    upsertCanonicalEvents(db, [
+      {
+        ...match,
+        byBookmaker: {
+          ...match.byBookmaker,
+          betclic: [
+            { market: "1X2", selection: "1", price: 1.33 },
+            { market: "1X2", selection: "X", price: 5.25 },
+            { market: "1X2", selection: "2", price: 6.8 },
+          ],
+        },
+      },
+    ]);
+    const [home, draw, away] = getEventDetail(db, "bvb")!.sections[0].markets[0].lines[0].outcomes;
+    expect(away.moved).toEqual({ betclic: { from: 6.5, at: expect.any(String) } });
+    expect(Date.now() - Date.parse(away.moved!.betclic.at)).toBeLessThan(60_000);
+    expect(home.moved).toBeUndefined();
+    expect(draw.moved).toBeUndefined();
+
+    // Read again at the same price: the move stays the one it was.
+    upsertCanonicalEvents(db, [{ ...match, byBookmaker: { betclic: [{ market: "1X2", selection: "2", price: 6.8 }] } }]);
+    expect(getEventDetail(db, "bvb")!.sections[0].markets[0].lines[0].outcomes[2].moved).toEqual({ betclic: { from: 6.5, at: away.moved!.betclic.at } });
+
+    // Over an hour ago: no longer shown.
+    db.prepare("UPDATE event_bookmaker_odds SET moved_at = ? WHERE moved_at IS NOT NULL").run(minutesAgo(61));
+    expect(getEventDetail(db, "bvb")!.sections[0].markets[0].lines[0].outcomes[2].moved).toBeUndefined();
+  });
+
   it("puts over/under lines of one market in one table, and a TRJ on each line", () => {
     save(db, "winamax", [
       { market: "total_goals|2.5", selection: "over", price: 1.3 },

@@ -31,6 +31,13 @@
   margin-right: -2px;
 }
 
+/* A price's recent move, after it: a small arrow in the price's own colour. */
+.move {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.75;
+}
+
 /* A boosted price, after the price: smaller, in the value bets' amber. */
 .boost {
   display: inline-flex;
@@ -104,6 +111,10 @@
     width: 10px;
     height: 10px;
     margin-right: 0;
+  }
+
+  .compact .move {
+    order: 2;
   }
 
   .compact .boost {

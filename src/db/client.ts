@@ -295,6 +295,10 @@ const ADDED_COLUMNS: [table: string, column: string, definition: string][] = [
   ["reference_sources", "listed_at", "TEXT"],
   // A boosted outcome's price (RawOdds.boosted), beside its price.
   ["event_bookmaker_odds", "boosted", "REAL"],
+  // An outcome's last move (src/db/repository.ts, INSERT_ODDS): its price
+  // before, and when it moved; the match page shows a recent one.
+  ["event_bookmaker_odds", "prev_price", "REAL"],
+  ["event_bookmaker_odds", "moved_at", "TEXT"],
 ];
 
 function addMissingColumns(db: DatabaseSync): void {

@@ -1,4 +1,5 @@
-import { Check, Zap } from "lucide-react";
+import { ArrowDown, ArrowUp, Check, Zap } from "lucide-react";
+import type { PriceMove } from "../types";
 import { BOOKMAKER_BRANDING, stakeTaxNote } from "../bookmakers";
 import { BookmakerLogo } from "../BookmakerLogo";
 import { formatEdge, formatPrice } from "../format";
@@ -14,7 +15,9 @@ import styles from "./PriceChip.module.css";
 // showing many bookmakers side by side (the chip then has under 3 rem). A
 // boosted outcome (20bet's odds boost, `boosted`) shows its boosted price
 // after the price, with a lightning: never the best price nor a value bet,
-// which the price alone decides. Its tooltip says what tax the price is net
+// which the price alone decides. A price that moved within the hour (`moved`)
+// shows an arrow up or down after it, its price before and when in the
+// arrow's tooltip and read out. Its tooltip says what tax the price is net
 // of (stakeTaxNote).
 export function PriceChip({
   bookmaker,
@@ -25,6 +28,7 @@ export function PriceChip({
   showLogo = true,
   compact = false,
   boosted,
+  moved,
 }: {
   bookmaker: string;
   price: number | undefined;
@@ -34,6 +38,7 @@ export function PriceChip({
   showLogo?: boolean;
   compact?: boolean;
   boosted?: number;
+  moved?: PriceMove;
 }) {
   const name = BOOKMAKER_BRANDING[bookmaker]?.name ?? bookmaker;
   const className = [styles.chip, best && styles.best, edge !== undefined && styles.value, price === undefined && styles.missing, compact && styles.compact]
@@ -57,6 +62,7 @@ export function PriceChip({
           <span className="visually-hidden"> (geboostet)</span>
         </span>
       )}
+      {moved && price !== undefined && moved.from !== price && <MoveArrow move={moved} price={price} />}
       {best && (
         <>
           <Check size={12} strokeWidth={3} className={styles.check} aria-hidden="true" />
@@ -70,6 +76,21 @@ export function PriceChip({
             : ` (Value Bet: ${formatEdge(edge)} über der fairen Quote)`}
         </span>
       )}
+    </span>
+  );
+}
+
+const MOVE_TIME = new Intl.DateTimeFormat("de-DE", { hour: "2-digit", minute: "2-digit" });
+
+// "↑ von 1,95 um 14:05": a price up from its last one, or down.
+function MoveArrow({ move, price }: { move: PriceMove; price: number }) {
+  const up = price > move.from;
+  const text = `${up ? "gestiegen" : "gefallen"} von ${formatPrice(move.from)} um ${MOVE_TIME.format(new Date(move.at))}`;
+  const Arrow = up ? ArrowUp : ArrowDown;
+  return (
+    <span className={styles.move} data-move={up ? "up" : "down"} title={`Quote ${text}`}>
+      <Arrow size={11} strokeWidth={2.5} aria-hidden="true" />
+      <span className="visually-hidden"> ({text})</span>
     </span>
   );
 }

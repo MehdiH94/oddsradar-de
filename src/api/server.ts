@@ -22,6 +22,7 @@ import { feedbackRouter } from "../auth/feedbackRoutes";
 import { takenSurebetsRouter } from "../auth/takenSurebetsRoutes";
 import { promosRouter } from "../auth/promosRoutes";
 import { walletRouter } from "../freebets/walletRoutes";
+import { depositsRouter } from "../deposits/depositsRoutes";
 import { conversionsRouter } from "../freebets/conversionsRoutes";
 import { createConversionsService } from "../freebets/conversions";
 import { createInlinePool, ComputePool } from "../freebets/pool";
@@ -106,6 +107,8 @@ export function createServer(
   // The freebets an account holds, at their exact path, and what the Freebets
   // page converts them into, next to it under /api/freebets.
   app.use("/api/freebets/wallet", walletRouter(auth));
+  // The deposits an account writes down against LUGAS's monthly limit.
+  app.use("/api/deposits", depositsRouter(auth));
   // What to do with it: the matches on offer are read once for everyone (they
   // only move with the worker's cycles), the calculation is each account's own.
   const freebetMarkets = ttlCache<ReturnType<typeof loadFreebetMarkets>>(freebetsCacheMs);

@@ -83,8 +83,8 @@ describe("the stored preferences", () => {
     expect(db.prepare("SELECT COUNT(*) AS n FROM user_preferences").get()).toEqual({ n: 0 });
   });
 
-  it("is on the schema's version 10 (the subscriptions column, the freebets wallet, the feedback, the taken surebets, the promos and the taken surebets' payout and legs came after)", () => {
-    expect(openAuthDb(":memory:").prepare("PRAGMA user_version").get()).toEqual({ user_version: 10 });
+  it("is on the schema's version 11 (the subscriptions column, the freebets wallet, the feedback, the taken surebets, the promos and the taken surebets' payout and legs and the deposits came after)", () => {
+    expect(openAuthDb(":memory:").prepare("PRAGMA user_version").get()).toEqual({ user_version: 11 });
   });
 });
 

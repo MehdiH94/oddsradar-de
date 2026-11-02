@@ -47,6 +47,14 @@ export function readAgo(readAt: string, now: number): string {
   return `read ${Math.floor(minutes / 60)} h ago`;
 }
 
+// A leg's price that moved within the hour: "up from 2.40 12 min ago", "down
+// from 2.80 3 min ago". A price that jumped just before the surebet appeared
+// is the likeliest to be a mistake, or gone already.
+export function movedLine(moved: { from: number; at: string }, price: number, now: number): string {
+  const minutes = Math.max(0, Math.floor((now - Date.parse(moved.at)) / 60_000));
+  return `${price > moved.from ? "up" : "down"} from ${moved.from.toFixed(2)} ${minutes < 1 ? "just now" : `${minutes} min ago`}`;
+}
+
 export function suspectMessage(s: SuspectSurebet, publicUrl?: string, now = Date.now()): DiscordMessage {
   const { leg, others } = s.suspect;
   const link = matchUrl(s.eventId, publicUrl);
@@ -55,7 +63,8 @@ export function suspectMessage(s: SuspectSurebet, publicUrl?: string, now = Date
     const stake = l.side === "lay" && l.liability !== undefined ? `stake ${euros(l.stake)}, liability ${euros(l.liability)}` : `stake ${euros(l.stake)}`;
     const size = l.size !== undefined ? `, ${euros(l.size)} on the exchange` : "";
     const read = l.readAt ? `, ${readAgo(l.readAt, now)}` : "";
-    return `• ${l.side} ${l.label} @ ${sourceName(l.source)} ${l.price.toFixed(2)}: ${stake}${size}${read}${l.url ? ` · <${l.url}>` : ""}`;
+    const moved = l.moved ? `, ${movedLine(l.moved, l.price, now)}` : "";
+    return `• ${l.side} ${l.label} @ ${sourceName(l.source)} ${l.price.toFixed(2)}: ${stake}${size}${read}${moved}${l.url ? ` · <${l.url}>` : ""}`;
   };
   const head = `🔎 **Suspect surebet, ${(s.payoutRate * 100).toFixed(1)} %** (+${euros(s.profit)} on 100 €): ${s.participants.join(" - ")} (${s.competition || s.sport}), ${s.marketLabel}, kick-off <t:${kickOff}:f> (<t:${kickOff}:R>).`;
   const tail = [

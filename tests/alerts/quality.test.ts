@@ -85,6 +85,25 @@ describe("suspectMessage", () => {
     expect(suspectMessage(unread).content).not.toContain(", read ");
   });
 
+  it("says when a leg's price moved within the hour, and from what", () => {
+    const db = openDb(":memory:");
+    // 20bet's Brugge jumped from 1.32 to 2.63: the likeliest mistake.
+    upsertCanonicalEvents(db, [
+      event("brugge-brakel", ["Club Brugge II (W)", "K Olsa Brakel (W)"], {
+        twentybet: main("1X2", { "1": 1.32, X: 3.73, "2": 2.07 }),
+        betway: main("1X2", { "1": 1.3, X: 6.16, "2": 9.47 }),
+      }),
+    ]);
+    upsertCanonicalEvents(db, [brugge()]);
+    const [suspect] = getSuspectSurebets(db);
+    expect(suspect.legs[0].moved).toEqual({ from: 1.32, at: expect.any(String) });
+    const at = Date.parse(suspect.legs[0].moved!.at);
+    const text = suspectMessage(suspect, undefined, at + 12 * 60_000).content;
+    expect(text).toMatch(/@ 20bet 2\.63: stake \d+\.\d\d €, read 12 min ago, up from 1\.32 12 min ago/);
+    // Betway's legs did not move.
+    expect(text.match(/ from /g)).toHaveLength(1);
+  });
+
   it("keeps a race's many legs under Discord's 2000 characters", () => {
     const db = openDb(":memory:");
     upsertCanonicalEvents(db, [brugge()]);

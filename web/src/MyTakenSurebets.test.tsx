@@ -56,7 +56,7 @@ describe("MyTakenSurebets", () => {
   it("shows each back's closing price once the match was played, not before", () => {
     const legs = [
       { market: "1X2", selection: "2", source: "twentybet", side: "back" as const, price: 3.32, closing: 3 },
-      { market: "1X2", selection: "2", source: "exchange", side: "lay" as const, price: 3.2, closing: null },
+      { market: "1X2", selection: "2", source: "exchange", side: "lay" as const, price: 3.2, closing: 3.52 },
     ];
     const taken = new Map([
       ["past", info({ eventId: "past", startTime: "2026-10-30T18:00:00.000Z", legs })],
@@ -66,5 +66,8 @@ describe("MyTakenSurebets", () => {
     const [past, soon] = screen.getAllByRole("listitem");
     expect(within(past).getByText(/^Schlusskurs bei 20bet 3,00 \(\+10,7.%\)$/)).toBeInTheDocument();
     expect(within(soon).queryByText(/Schlusskurs/)).not.toBeInTheDocument();
+    // The exchange's lay too, and their average over the played ones only.
+    expect(within(past).getByText(/^Schlusskurs Lay an der Börse 3,52 \(\+10,0.%\)$/)).toBeInTheDocument();
+    expect(screen.getByText(/^Ø \+10,3.% gegenüber dem Schlusskurs \(2 Wetten\)$/)).toBeInTheDocument();
   });
 });

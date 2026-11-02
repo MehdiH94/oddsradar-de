@@ -29,6 +29,14 @@ const INSERT_ODDS = `
     scraped_at = excluded.scraped_at
 `;
 
+// A price's last move (INSERT_ODDS, saveMarketOdds): its price before, and
+// when. The dashboard and a match's page show one this recent.
+export interface PriceMove {
+  from: number;
+  at: string;
+}
+export const MOVE_SHOWN_MS = 60 * 60 * 1000;
+
 // How far back a stored event is still looked up to keep its id: a match is
 // listed until it starts, a day is more than enough.
 const STORED_ID_LOOKBACK_MS = 24 * 60 * 60 * 1000;
@@ -160,6 +168,8 @@ interface OddsRow {
   price: number;
   boosted: number | null;
   scrapedAt: string;
+  movedFrom: number | null;
+  movedAt: string | null;
 }
 
 // Only pre-match odds are compared: a match drops off the dashboard at its
@@ -450,13 +460,15 @@ export function loadEvents(
   const rows = db
     .prepare(
       `SELECT e.id, e.sport, e.competition, e.start_time as startTime, e.participants,
-              o.bookmaker_id as bookmakerId, o.market, o.selection, o.price, o.boosted, o.scraped_at as scrapedAt
+              o.bookmaker_id as bookmakerId, o.market, o.selection, o.price, o.boosted, o.scraped_at as scrapedAt,
+              CASE WHEN o.moved_at >= @movedSince THEN o.prev_price END AS movedFrom,
+              CASE WHEN o.moved_at >= @movedSince THEN o.moved_at END AS movedAt
        FROM events e
        JOIN (
-         SELECT event_id, bookmaker_id, market, selection, price, boosted, scraped_at FROM event_bookmaker_odds
+         SELECT event_id, bookmaker_id, market, selection, price, boosted, scraped_at, prev_price, moved_at FROM event_bookmaker_odds
          WHERE event_id IN (${idList}) AND scraped_at >= @oddsSince
          UNION ALL
-         SELECT m.event_id, m.bookmaker_id, m.market, m.selection, m.price, NULL, m.scraped_at FROM event_market_odds m
+         SELECT m.event_id, m.bookmaker_id, m.market, m.selection, m.price, NULL, m.scraped_at, m.prev_price, m.moved_at FROM event_market_odds m
          WHERE m.event_id IN (${idList}) AND m.market = @winner AND m.scraped_at >= @marketsSince
            AND EXISTS (SELECT 1 FROM event_bookmaker_odds l
                        WHERE l.event_id = m.event_id AND l.bookmaker_id = m.bookmaker_id AND l.scraped_at >= @oddsSince)
@@ -467,7 +479,13 @@ export function loadEvents(
        WHERE e.id IN (${idList})
        ORDER BY o.bookmaker_id, o.market, o.selection`
     )
-    .all({ ...idParams, oddsSince, marketsSince, winner: MARKET_MATCH_WINNER }) as unknown as OddsRow[];
+    .all({
+      ...idParams,
+      oddsSince,
+      marketsSince,
+      winner: MARKET_MATCH_WINNER,
+      movedSince: new Date(Date.now() - MOVE_SHOWN_MS).toISOString(),
+    }) as unknown as OddsRow[];
 
   const eventsById = new Map<string, EventWithOdds>();
   for (const row of rows) {
@@ -491,6 +509,7 @@ export function loadEvents(
       selection: row.selection,
       price: row.price,
       ...(row.boosted !== null ? { boosted: row.boosted } : {}),
+      ...(row.movedFrom !== null && row.movedAt !== null ? { moved: { from: row.movedFrom, at: row.movedAt } } : {}),
     });
   }
 
@@ -901,20 +920,44 @@ export function saveMarketOdds(db: DatabaseSync, batches: readonly EventMarketOd
   const insertBookmaker = db.prepare(`INSERT INTO bookmakers (id, name) VALUES (@id, @name) ON CONFLICT(id) DO NOTHING`);
   const forget = db.prepare("DELETE FROM event_market_odds WHERE event_id = @eventId AND bookmaker_id = @bookmakerId");
   const insertOdds = db.prepare(`
-    INSERT INTO event_market_odds (event_id, bookmaker_id, market, selection, price, scraped_at)
-    VALUES (@eventId, @bookmakerId, @market, @selection, @price, @scrapedAt)
+    INSERT INTO event_market_odds (event_id, bookmaker_id, market, selection, price, scraped_at, prev_price, moved_at)
+    VALUES (@eventId, @bookmakerId, @market, @selection, @price, @scrapedAt, @prevPrice, @movedAt)
     ON CONFLICT(event_id, market, bookmaker_id, selection) DO UPDATE SET
       price = excluded.price,
-      scraped_at = excluded.scraped_at
+      scraped_at = excluded.scraped_at,
+      prev_price = excluded.prev_price,
+      moved_at = excluded.moved_at
   `);
+  // A bookmaker's prices of a match are replaced whole: their last moves are
+  // read first, and carried over (or a new one made) price by price.
+  const before = db.prepare(
+    `SELECT market, selection, price, prev_price AS prevPrice, moved_at AS movedAt FROM event_market_odds
+     WHERE event_id = @eventId AND bookmaker_id = @bookmakerId`
+  );
   for (const { eventId, bookmakerId, odds } of batches) {
     if (odds.length === 0) continue;
     db.exec("BEGIN");
     try {
       insertBookmaker.run({ id: bookmakerId, name: bookmakerId });
+      const old = new Map(
+        (before.all({ eventId, bookmakerId }) as { market: string; selection: string; price: number; prevPrice: number | null; movedAt: string | null }[]).map(
+          (r) => [`${r.market}\u0000${r.selection}`, r]
+        )
+      );
       forget.run({ eventId, bookmakerId });
       for (const o of odds) {
-        insertOdds.run({ eventId, bookmakerId, market: o.market, selection: o.selection, price: o.price, scrapedAt });
+        const was = old.get(`${o.market}\u0000${o.selection}`);
+        const moved = was !== undefined && was.price !== o.price;
+        insertOdds.run({
+          eventId,
+          bookmakerId,
+          market: o.market,
+          selection: o.selection,
+          price: o.price,
+          scrapedAt,
+          prevPrice: moved ? was.price : (was?.prevPrice ?? null),
+          movedAt: moved ? scrapedAt : (was?.movedAt ?? null),
+        });
       }
       db.exec("COMMIT");
     } catch (err) {

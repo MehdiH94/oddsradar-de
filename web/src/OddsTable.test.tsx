@@ -207,6 +207,29 @@ describe("OddsTable", () => {
     expect(chip("1,65").getAttribute("data-best")).toBe("true");
   });
 
+  it("shows an arrow beside a price that moved within the hour", () => {
+    const moved: EventWithOdds[] = [
+      {
+        ...events[0],
+        byBookmaker: {
+          ...events[0].byBookmaker,
+          twentybet: {
+            scrapedAt: "2026-09-20T10:00:00.000Z",
+            odds: [
+              { market: "1X2", selection: "1", price: 1.6, moved: { from: 1.55, at: "2026-09-20T09:40:00.000Z" } },
+              { market: "1X2", selection: "X", price: 3.0 },
+              { market: "1X2", selection: "2", price: 4.5 },
+            ],
+          },
+        },
+      },
+    ];
+    render(<OddsTable events={moved} bookmakers={["leovegas", "merkurbets", "twentybet"]} />);
+    expect(chip("1,60").querySelector('[data-move="up"]')).not.toBeNull();
+    expect(text(chip("1,60"))).toMatch(/gestiegen von 1,55 um \d\d:40/);
+    expect(document.querySelectorAll("[data-move]")).toHaveLength(1);
+  });
+
   it("on a phone, shows the highest boost beside the best price, folded or not", () => {
     mockPhone();
     // Monza - Cagliari, 19/10/2026: 20bet's 3.05 on Cagliari, the best, geboostet auf 3.17.

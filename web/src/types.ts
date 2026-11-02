@@ -5,6 +5,8 @@ export interface RawOdds {
   // Its odds boost's price, when the bookmaker boosts it (20bet): shown
   // beside the price, never counted as the price.
   boosted?: number;
+  // Its move within the last hour: its price before, and when.
+  moved?: PriceMove;
 }
 
 export interface EventWithOdds {

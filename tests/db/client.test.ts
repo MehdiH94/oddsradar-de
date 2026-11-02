@@ -170,7 +170,7 @@ describe("the odds database's migrations", () => {
     expect(names).toEqual(["event_market_odds"]);
     const sql = (db.prepare("SELECT sql FROM sqlite_master WHERE name = 'event_market_odds'").get() as { sql: string }).sql;
     expect(sql).toContain("WITHOUT ROWID");
-    expect(pragma(db, "user_version")).toBe(1);
+    expect(pragma(db, "user_version")).toBe(2);
     // The same upsert as the odds' writers keeps working on the new key.
     db.prepare(
       `INSERT INTO event_market_odds (event_id, bookmaker_id, market, selection, price, scraped_at)
@@ -192,7 +192,7 @@ describe("the odds database's migrations", () => {
     const db = openDb(path);
 
     expect(odds(db)).toHaveLength(3);
-    expect(pragma(db, "user_version")).toBe(1);
+    expect(pragma(db, "user_version")).toBe(2);
     db.close();
   });
 
@@ -200,8 +200,11 @@ describe("the odds database's migrations", () => {
     dir = mkdtempSync(join(tmpdir(), "coteradar-db-"));
     const db = openDb(join(dir, "coteradar.sqlite"));
 
-    expect(pragma(db, "user_version")).toBe(1);
+    expect(pragma(db, "user_version")).toBe(2);
     expect(odds(db)).toEqual([]);
+    // Each market price keeps its last move (src/db/repository.ts, saveMarketOdds).
+    const columns = (db.prepare("PRAGMA table_info(event_market_odds)").all() as { name: string }[]).map((c) => c.name);
+    expect(columns).toEqual(expect.arrayContaining(["prev_price", "moved_at"]));
     db.close();
   });
 
@@ -215,7 +218,7 @@ describe("the odds database's migrations", () => {
 
     const db = openDb(path);
 
-    expect(pragma(db, "user_version")).toBe(1);
+    expect(pragma(db, "user_version")).toBe(2);
     expect(odds(db)).toHaveLength(3);
     // The wait for a statement is back to its usual length once migrated.
     expect(pragma(db, "busy_timeout")).toBe(BUSY_TIMEOUT_MS);

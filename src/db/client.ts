@@ -353,6 +353,12 @@ const MIGRATIONS: Migration[] = [
     `);
     db.exec("DROP TABLE event_market_odds_old");
   },
+  // A market price's last move, as the listing's (src/db/repository.ts,
+  // saveMarketOdds): its price before, and when it moved.
+  (db) => {
+    db.exec("ALTER TABLE event_market_odds ADD COLUMN prev_price REAL");
+    db.exec("ALTER TABLE event_market_odds ADD COLUMN moved_at TEXT");
+  },
 ];
 
 // Copying the markets of a whole database takes seconds, and the worker and

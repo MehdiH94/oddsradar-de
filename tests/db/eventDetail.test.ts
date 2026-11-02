@@ -163,6 +163,25 @@ describe("getEventDetail", () => {
     expect(getEventDetail(db, "bvb")!.sections[0].markets[0].lines[0].outcomes[2].moved).toBeUndefined();
   });
 
+  it("keeps a market price's last move across the markets cycle's reads, which replace a bookmaker's prices whole", () => {
+    save(db, "winamax", [
+      { market: "btts", selection: "yes", price: 1.8 },
+      { market: "btts", selection: "no", price: 2 },
+    ]);
+    save(db, "winamax", [
+      { market: "btts", selection: "yes", price: 1.9 },
+      { market: "btts", selection: "no", price: 2 },
+    ]);
+    const outcomes = () => getEventDetail(db, "bvb")!.sections.flatMap((s) => s.markets).find((m) => m.key === "btts")!.lines[0].outcomes;
+    const yes = () => outcomes().find((o) => o.key === "yes")!;
+    expect(yes().moved).toEqual({ winamax: { from: 1.8, at: expect.any(String) } });
+    expect(outcomes().find((o) => o.key === "no")!.moved).toBeUndefined();
+    // Read again unchanged: the move is carried over, not lost with the old rows.
+    const at = yes().moved!.winamax.at;
+    save(db, "winamax", [{ market: "btts", selection: "yes", price: 1.9 }], new Date(Date.now() + 1000).toISOString());
+    expect(yes().moved).toEqual({ winamax: { from: 1.8, at } });
+  });
+
   it("puts over/under lines of one market in one table, and a TRJ on each line", () => {
     save(db, "winamax", [
       { market: "total_goals|2.5", selection: "over", price: 1.3 },

@@ -63,7 +63,11 @@ describe("repository", () => {
 
     const { events } = getLatestEvents(db);
     expect(events).toHaveLength(1);
-    expect(events[0].byBookmaker.winamax.odds).toEqual([{ market: "1X2", selection: "1", price: 1.6 }]);
+    // With its last move: the price before, and when.
+    expect(events[0].byBookmaker.winamax.odds).toEqual([
+      { market: "1X2", selection: "1", price: 1.6, moved: { from: expect.any(Number), at: expect.any(String) } },
+    ]);
+    expect(events[0].byBookmaker.winamax.odds[0].moved!.from).not.toBe(1.6);
   });
 
   it("filters by sport", () => {

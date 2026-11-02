@@ -12,7 +12,7 @@ import {
   sectionsOf,
   SectionKey,
 } from "../markets/catalog";
-import { ListingOptions, marketsCutoff, notStartedCutoff, oddsCutoff } from "./repository";
+import { ListingOptions, marketsCutoff, MOVE_SHOWN_MS, notStartedCutoff, oddsCutoff, PriceMove } from "./repository";
 import { competitionName } from "./competition";
 import { loadBookmakerLinks } from "./bookmakerLinks";
 import { loadReferences } from "./reference";
@@ -58,17 +58,11 @@ export interface OutcomeDetail {
   // shown beside its price and never counted as it.
   boosted?: Record<string, number>;
   // A bookmaker's price that moved within MOVE_SHOWN_MS: the price before,
-  // and when it moved (the listing's prices only).
+  // and when it moved.
   moved?: Record<string, PriceMove>;
 }
 
-export interface PriceMove {
-  from: number;
-  at: string;
-}
-
-// How long a move stays shown beside its price.
-export const MOVE_SHOWN_MS = 60 * 60 * 1000;
+export type { PriceMove };
 
 // What a market's outcome is worth, given its ticked bookmakers' prices.
 type Valuation = (
@@ -211,8 +205,9 @@ export function getEventDetail(
        FROM event_bookmaker_odds
        WHERE event_id = @id AND scraped_at >= @oddsSince
        UNION ALL
-       SELECT bookmaker_id AS bookmakerId, market, selection, price, NULL AS boosted, NULL AS movedFrom, NULL AS movedAt,
-              0 AS fromListing
+       SELECT bookmaker_id AS bookmakerId, market, selection, price, NULL AS boosted,
+              CASE WHEN moved_at >= @movedSince THEN prev_price END AS movedFrom,
+              CASE WHEN moved_at >= @movedSince THEN moved_at END AS movedAt, 0 AS fromListing
        FROM event_market_odds
        WHERE event_id = @id AND scraped_at >= @marketsSince
        ORDER BY bookmakerId, fromListing`

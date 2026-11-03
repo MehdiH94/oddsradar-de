@@ -181,6 +181,15 @@ const MIGRATIONS: string[] = [
     PRIMARY KEY (user_id, month, bookmaker)
   );
   `,
+  // 12: an account's own LUGAS limit, when it differs from the default
+  // (raised or lowered at the operator). Whole cents; no row is the default.
+  `
+  CREATE TABLE user_deposit_limit (
+    user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+    limit_cents INTEGER NOT NULL CHECK (limit_cents > 0),
+    updated_at TEXT NOT NULL
+  );
+  `,
 ];
 
 export function migrate(db: DatabaseSync): void {

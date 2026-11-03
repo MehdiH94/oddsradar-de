@@ -740,3 +740,15 @@ describe("the winners of the competitions", () => {
     expect(targets.map((t) => t.eventId)).toEqual(["match"]);
   });
 });
+
+describe("appendMove", () => {
+  it("adds a move to a price's list, keeps the last twelve, and starts again from a broken one", async () => {
+    const { appendMove, MAX_MOVES } = await import("../../src/db/repository");
+    expect(JSON.parse(appendMove(null, 1.8, "t1"))).toEqual([[1.8, "t1"]]);
+    let json: string | null = null;
+    for (let i = 0; i < 14; i++) json = appendMove(json, i, `t${i}`);
+    expect(JSON.parse(json!)).toHaveLength(MAX_MOVES);
+    expect(JSON.parse(json!)[0]).toEqual([2, "t2"]);
+    expect(JSON.parse(appendMove("{oops", 1, "t"))).toEqual([[1, "t"]]);
+  });
+});

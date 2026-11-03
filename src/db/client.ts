@@ -362,6 +362,11 @@ const MIGRATIONS: Migration[] = [
     db.exec("ALTER TABLE event_market_odds ADD COLUMN prev_price REAL");
     db.exec("ALTER TABLE event_market_odds ADD COLUMN moved_at TEXT");
   },
+  // Its last moves too (JSON, as event_bookmaker_odds.moves), for the match
+  // page's history of the day.
+  (db) => {
+    db.exec("ALTER TABLE event_market_odds ADD COLUMN moves TEXT");
+  },
 ];
 
 // Copying the markets of a whole database takes seconds, and the worker and

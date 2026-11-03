@@ -60,6 +60,26 @@ export interface OutcomeDetail {
   // A bookmaker's price that moved within MOVE_SHOWN_MS: the price before,
   // and when it moved.
   moved?: Record<string, PriceMove>;
+  // With such a move, a bookmaker's moves of the last day, oldest first, when
+  // there were two or more (the listing's prices only).
+  history?: Record<string, PriceMove[]>;
+}
+
+// How far back a price's moves are listed.
+export const HISTORY_MS = 24 * 60 * 60 * 1000;
+
+// A row's stored moves (JSON [[price before, when], …]) since `since`.
+function movesSince(json: string | null, since: string): PriceMove[] {
+  if (!json) return [];
+  try {
+    const list = JSON.parse(json) as unknown;
+    if (!Array.isArray(list)) return [];
+    return list
+      .filter((m): m is [number, string] => Array.isArray(m) && typeof m[0] === "number" && typeof m[1] === "string" && m[1] >= since)
+      .map(([from, at]) => ({ from, at }));
+  } catch {
+    return [];
+  }
 }
 
 export type { PriceMove };
@@ -123,6 +143,7 @@ interface Row {
   boosted: number | null;
   movedFrom: number | null;
   movedAt: string | null;
+  moves: string | null;
 }
 
 function bestOf(prices: Map<string, number>): string[] {
@@ -143,7 +164,8 @@ function outcomesOf(
   participants: string[],
   valuation?: Valuation,
   boosts?: ReadonlyMap<string, Map<string, number>>,
-  moves?: ReadonlyMap<string, Map<string, PriceMove>>
+  moves?: ReadonlyMap<string, Map<string, PriceMove>>,
+  histories?: ReadonlyMap<string, Map<string, PriceMove[]>>
 ): OutcomeDetail[] {
   const line = parsed.kind === "family" ? parsed.line : undefined;
   const comparable = (key: string) => parsed.kind !== "family" || !isRemainder(key) || sameOutcomes(grid);
@@ -160,6 +182,7 @@ function outcomesOf(
       best: comparable(key) ? bestOf(prices) : [],
       ...(boosts?.get(key)?.size ? { boosted: Object.fromEntries(boosts.get(key)!) } : {}),
       ...(moves?.get(key)?.size ? { moved: Object.fromEntries(moves.get(key)!) } : {}),
+      ...(histories?.get(key)?.size ? { history: Object.fromEntries(histories.get(key)!) } : {}),
     };
     return { ...outcome, ...valuation?.(key, outcome.prices) };
   });
@@ -201,13 +224,14 @@ export function getEventDetail(
     .prepare(
       `SELECT bookmaker_id AS bookmakerId, market, selection, price, boosted,
               CASE WHEN moved_at >= @movedSince THEN prev_price END AS movedFrom,
-              CASE WHEN moved_at >= @movedSince THEN moved_at END AS movedAt, 1 AS fromListing
+              CASE WHEN moved_at >= @movedSince THEN moved_at END AS movedAt,
+              CASE WHEN moved_at >= @movedSince THEN moves END AS moves, 1 AS fromListing
        FROM event_bookmaker_odds
        WHERE event_id = @id AND scraped_at >= @oddsSince
        UNION ALL
        SELECT bookmaker_id AS bookmakerId, market, selection, price, NULL AS boosted,
               CASE WHEN moved_at >= @movedSince THEN prev_price END AS movedFrom,
-              CASE WHEN moved_at >= @movedSince THEN moved_at END AS movedAt, 0 AS fromListing
+              CASE WHEN moved_at >= @movedSince THEN moved_at END AS movedAt, NULL AS moves, 0 AS fromListing
        FROM event_market_odds
        WHERE event_id = @id AND scraped_at >= @marketsSince
        ORDER BY bookmakerId, fromListing`
@@ -227,6 +251,8 @@ export function getEventDetail(
   const boosts = new Map<string, Map<string, Map<string, number>>>();
   // The recent moves, the same way.
   const moves = new Map<string, Map<string, Map<string, PriceMove>>>();
+  const histories = new Map<string, Map<string, Map<string, PriceMove[]>>>();
+  const historySince = new Date(Date.now() - HISTORY_MS).toISOString();
   for (const row of rows) {
     if (opts.bookmakers && !opts.bookmakers.includes(row.bookmakerId)) continue;
     let grid = grids.get(row.market);
@@ -249,6 +275,15 @@ export function getEventDetail(
       const bySelection = moves.get(row.market)!;
       if (!bySelection.has(row.selection)) bySelection.set(row.selection, new Map());
       bySelection.get(row.selection)!.set(row.bookmakerId, { from: row.movedFrom, at: row.movedAt });
+    }
+    const history = histories.get(row.market)?.get(row.selection);
+    const day = movesSince(row.moves, historySince);
+    if (day.length < 2) history?.delete(row.bookmakerId);
+    else {
+      if (!histories.has(row.market)) histories.set(row.market, new Map());
+      const bySelection = histories.get(row.market)!;
+      if (!bySelection.has(row.selection)) bySelection.set(row.selection, new Map());
+      bySelection.get(row.selection)!.set(row.bookmakerId, day);
     }
   }
 
@@ -333,7 +368,7 @@ export function getEventDetail(
     const line: MarketLine = {
       line: parsed.kind === "family" ? (parsed.line ?? null) : null,
       payoutRate,
-      outcomes: outcomesOf(parsed, grid, participants, valuationOf(key), boosts.get(key), moves.get(key)),
+      outcomes: outcomesOf(parsed, grid, participants, valuationOf(key), boosts.get(key), moves.get(key), histories.get(key)),
     };
     const shared = sharesLines(parsed, grid);
     // A player's statistic is a card of its own, its lines in the table.

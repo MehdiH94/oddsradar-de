@@ -17,13 +17,19 @@ import { tennisSignals } from "./tennisValue";
 
 
 // A price that moves keeps its last move: the price before and when (the
-// expressions on the right read the row as it was before the update).
+// expressions on the right read the row as it was before the update), and its
+// last MAX_MOVES moves (JSON [[price before, when], …], the oldest dropped).
+export const MAX_MOVES = 12;
 const INSERT_ODDS = `
   INSERT INTO event_bookmaker_odds (event_id, bookmaker_id, market, selection, price, boosted, scraped_at)
   VALUES (@eventId, @bookmakerId, @market, @selection, @price, @boosted, @scrapedAt)
   ON CONFLICT(event_id, bookmaker_id, market, selection) DO UPDATE SET
     prev_price = CASE WHEN price <> excluded.price THEN price ELSE prev_price END,
     moved_at = CASE WHEN price <> excluded.price THEN excluded.scraped_at ELSE moved_at END,
+    moves = CASE WHEN price <> excluded.price THEN json_insert(
+      CASE WHEN json_array_length(COALESCE(moves, '[]')) >= ${MAX_MOVES} THEN json_remove(moves, '$[0]') ELSE COALESCE(moves, '[]') END,
+      '$[#]', json_array(price, excluded.scraped_at)
+    ) ELSE moves END,
     price = excluded.price,
     boosted = excluded.boosted,
     scraped_at = excluded.scraped_at

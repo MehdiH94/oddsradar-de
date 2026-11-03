@@ -179,6 +179,8 @@ export interface OutcomeDetail {
   boosted?: Record<string, number>;
   // A bookmaker's price that moved within the last hour: its price before, and when.
   moved?: Record<string, PriceMove>;
+  // With it, its moves of the last day, oldest first (two or more).
+  history?: Record<string, PriceMove[]>;
 }
 
 export interface PriceMove {

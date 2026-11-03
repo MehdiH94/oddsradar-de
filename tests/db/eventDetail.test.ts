@@ -163,6 +163,23 @@ describe("getEventDetail", () => {
     expect(getEventDetail(db, "bvb")!.sections[0].markets[0].lines[0].outcomes[2].moved).toBeUndefined();
   });
 
+  it("lists a price's moves of the last day, oldest first, the last twelve at most", () => {
+    const betclicAt = (price: number) =>
+      upsertCanonicalEvents(db, [{ ...match, byBookmaker: { betclic: [{ market: "1X2", selection: "2", price }] } }]);
+    betclicAt(6.8);
+    betclicAt(7);
+    const away = () => getEventDetail(db, "bvb")!.sections[0].markets[0].lines[0].outcomes[2];
+    expect(away().history?.betclic.map((m) => m.from)).toEqual([6.5, 6.8]);
+    // A single move is no history: the arrow says it.
+    expect(away().history?.winamax).toBeUndefined();
+    for (let i = 0; i < 14; i++) betclicAt(8 + i / 10);
+    expect(away().history?.betclic).toHaveLength(12);
+    expect(away().history?.betclic.at(-1)!.from).toBeCloseTo(9.2);
+    // Moves over a day old are left out.
+    db.prepare("UPDATE event_bookmaker_odds SET moves = json_set(moves, '$[0][1]', ?) WHERE bookmaker_id = 'betclic' AND selection = '2'").run(minutesAgo(25 * 60));
+    expect(away().history?.betclic).toHaveLength(11);
+  });
+
   it("keeps a market price's last move across the markets cycle's reads, which replace a bookmaker's prices whole", () => {
     save(db, "winamax", [
       { market: "btts", selection: "yes", price: 1.8 },

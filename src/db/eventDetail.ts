@@ -61,7 +61,7 @@ export interface OutcomeDetail {
   // and when it moved.
   moved?: Record<string, PriceMove>;
   // With such a move, a bookmaker's moves of the last day, oldest first, when
-  // there were two or more (the listing's prices only).
+  // there were two or more.
   history?: Record<string, PriceMove[]>;
 }
 
@@ -231,7 +231,8 @@ export function getEventDetail(
        UNION ALL
        SELECT bookmaker_id AS bookmakerId, market, selection, price, NULL AS boosted,
               CASE WHEN moved_at >= @movedSince THEN prev_price END AS movedFrom,
-              CASE WHEN moved_at >= @movedSince THEN moved_at END AS movedAt, NULL AS moves, 0 AS fromListing
+              CASE WHEN moved_at >= @movedSince THEN moved_at END AS movedAt,
+              CASE WHEN moved_at >= @movedSince THEN moves END AS moves, 0 AS fromListing
        FROM event_market_odds
        WHERE event_id = @id AND scraped_at >= @marketsSince
        ORDER BY bookmakerId, fromListing`

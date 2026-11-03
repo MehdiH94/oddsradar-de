@@ -199,6 +199,12 @@ describe("getEventDetail", () => {
     expect(yes().moved).toEqual({ winamax: { from: 1.8, at } });
   });
 
+  it("lists a market price's moves of the day too, across the markets cycle's whole replacements", () => {
+    for (const price of [1.8, 1.9, 2]) save(db, "winamax", [{ market: "btts", selection: "yes", price }]);
+    const yes = getEventDetail(db, "bvb")!.sections.flatMap((s) => s.markets).find((m) => m.key === "btts")!.lines[0].outcomes.find((o) => o.key === "yes")!;
+    expect(yes.history?.winamax.map((m) => m.from)).toEqual([1.8, 1.9]);
+  });
+
   it("puts over/under lines of one market in one table, and a TRJ on each line", () => {
     save(db, "winamax", [
       { market: "total_goals|2.5", selection: "over", price: 1.3 },

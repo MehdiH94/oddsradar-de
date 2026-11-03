@@ -6,6 +6,9 @@ import { fetchDeposits, saveDeposits, type BookmakerId, type MonthDeposits } fro
 // The bookmakers LUGAS counts: the German-licensed ones (not 20bet).
 export const LUGAS_BOOKMAKERS = ALL_BOOKMAKERS.filter((id) => !BOOKMAKER_BRANDING[id]?.unlicensed) as BookmakerId[];
 
+// The most a personal limit can be, as on the server (src/deposits/deposits.ts, MAX_LIMIT).
+export const MAX_LIMIT = 30_000;
+
 export interface DepositsState {
   status: "loading" | "ready" | "failed";
   // What the server holds: the month, its total and the limit.
@@ -99,7 +102,7 @@ export function useDeposits(): DepositsState {
   const commitLimit = useCallback(() => {
     if (!held) return;
     const deposits = depositsTyped();
-    const amount = parseAmount(limitText);
+    const amount = parseAmount(limitText, MAX_LIMIT);
     if (deposits === null || amount === null) return;
     const limit = amount > 0 ? amount : null;
     if (limit === (held.personalLimit ? held.limit : null)) return;
@@ -134,7 +137,7 @@ export function useDeposits(): DepositsState {
     setText: (bookmaker, text) => setTexts((current) => ({ ...current, [bookmaker]: text })),
     commit,
     limitText,
-    limitInvalid: parseAmount(limitText) === null,
+    limitInvalid: parseAmount(limitText, MAX_LIMIT) === null,
     setLimitText,
     commitLimit,
     retry: () => {

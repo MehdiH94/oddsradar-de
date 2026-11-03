@@ -258,7 +258,7 @@ describe("PromosPage", () => {
       },
     ]);
     expect(screen.getByRole("textbox", { name: "Titel" })).toHaveValue("");
-    await waitFor(() => expect(fetchMock.mock.calls.filter(([, init]) => !init?.method)).toHaveLength(2));
+    await waitFor(() => expect(fetchMock.mock.calls.filter(([url, init]) => !init?.method && String(url).startsWith("/api/promos"))).toHaveLength(2));
   });
 
   it("says why the server refused a promo, keeping what was typed", async () => {

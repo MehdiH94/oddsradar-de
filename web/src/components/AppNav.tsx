@@ -1,8 +1,11 @@
 import { BadgePercent, Gem, Gift, ListOrdered, SlidersHorizontal } from "lucide-react";
 import { useNewPromosCount } from "../promos/promosApi";
+import { useLugasLeft } from "../freebets/lugasLeft";
 import styles from "./AppNav.module.css";
 
 export type View = "value-bets" | "matches" | "freebets" | "promos";
+
+const EURO = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 
 const VIEWS: ReadonlyArray<{ value: View; label: string; Icon: typeof Gem }> = [
   { value: "value-bets", label: "Value Bets", Icon: Gem },
@@ -19,7 +22,9 @@ const VIEWS: ReadonlyArray<{ value: View; label: string; Icon: typeof Gem }> = [
 // sheet (`filters`); from 768 px a switch in the header. Native radio buttons
 // underneath, like the sports'. The "Promos" entry carries how many open
 // promotions the site found in the last 24 hours (`newPromos`, read here when
-// the page does not give it).
+// the page does not give it); the "Freebets" entry, once the account wrote
+// down a deposit, what is left of this month's LUGAS limit ("360 €"), read
+// on the other pages (the Freebets page's own card says it in full).
 export function AppNav({
   view,
   onChange,
@@ -38,6 +43,7 @@ export function AppNav({
 }) {
   const read = useNewPromosCount(newPromos === undefined);
   const fresh = newPromos ?? read;
+  const left = useLugasLeft(view !== "freebets");
   return (
     <nav className={placement === "bar" ? styles.bar : styles.header} aria-label="Hauptnavigation">
       <fieldset className={styles.group}>
@@ -55,6 +61,15 @@ export function AppNav({
             <span className={styles.face}>
               <Icon size={20} aria-hidden="true" className={styles.icon} />
               {label}
+              {value === "freebets" && left !== null && (
+                <>
+                  <span className={styles.badge} aria-hidden="true">
+                    {EURO.format(left)}
+                  </span>
+                  {" "}
+                  <span className="visually-hidden">(noch {EURO.format(left)} vom Einzahlungslimit frei)</span>
+                </>
+              )}
               {value === "promos" && fresh > 0 && (
                 <>
                   <span className={styles.badge} aria-hidden="true">

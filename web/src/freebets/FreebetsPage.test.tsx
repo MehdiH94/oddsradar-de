@@ -134,6 +134,20 @@ describe("FreebetsPage", () => {
       expect(puts).toEqual([{ deposits: {}, limit: 500 }, { deposits: { leovegas: 420 } }]);
     });
 
+    it("takes a personal LUGAS limit above 10.000 €, up to the server's 30.000 €", async () => {
+      const { fetchMock } = stubApi();
+      renderPage();
+      const limit = await screen.findByRole("textbox", { name: /^Mein monatliches Einzahlungslimit/ });
+      fireEvent.change(limit, { target: { value: "15.000" } });
+      expect(limit).toHaveAttribute("aria-invalid", "false");
+      fireEvent.blur(limit);
+      await waitFor(() => expect(screen.getByText(/November 2026:/)).toHaveTextContent(/von 15\.000,00\s€ eingezahlt/));
+      fireEvent.change(limit, { target: { value: "30.001" } });
+      expect(limit).toHaveAttribute("aria-invalid", "true");
+      const puts = fetchMock.mock.calls.filter(([url, init]) => url === "/api/deposits" && init?.method === "PUT");
+      expect(JSON.parse(String(puts[0][1]!.body))).toEqual({ deposits: {}, limit: 15000 });
+    });
+
     it("says when the wallet cannot be read, and reads it again", async () => {
       let ok = false;
       const fetchMock = stubApi().fetchMock;

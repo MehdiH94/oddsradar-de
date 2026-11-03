@@ -190,6 +190,11 @@ const MIGRATIONS: string[] = [
     updated_at TEXT NOT NULL
   );
   `,
+  // 13: the stakes an account actually placed on a taken surebet's legs (JSON,
+  // one per leg, null for one not written down), to see the profit locked in.
+  `
+  ALTER TABLE user_taken_surebets ADD COLUMN stakes TEXT;
+  `,
 ];
 
 export function migrate(db: DatabaseSync): void {

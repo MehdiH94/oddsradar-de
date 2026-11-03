@@ -70,4 +70,36 @@ describe("MyTakenSurebets", () => {
     expect(within(past).getByText(/^Schlusskurs Lay an der Börse 3,52 \(\+10,0.%\)$/)).toBeInTheDocument();
     expect(screen.getByText(/^Ø \+10,3.% gegenüber dem Schlusskurs \(2 Wetten\)$/)).toBeInTheDocument();
   });
+
+  it("writes down the stakes placed on a surebet of backs when a field is left, and says what they lock in", () => {
+    const onStakes = vi.fn();
+    const legs = [
+      { market: "1X2", selection: "1", source: "twentybet", side: "back" as const, price: 2.1 },
+      { market: "1X2", selection: "2", source: "leovegas", side: "back" as const, price: 2.05 },
+    ];
+    const taken = new Map([["k", info({ legs, stakes: [50, 52] })]]);
+    render(<MyTakenSurebets taken={taken} onStakes={onStakes} now={NOW} />);
+    expect(screen.getByText("Gesichert: +3,00 € bei 102,00 € Einsatz")).toBeInTheDocument();
+    const twenty = screen.getByRole("textbox", { name: "Einsatz bei 20bet (2,10) in Euro" });
+    expect(twenty).toHaveValue("50");
+    fireEvent.change(twenty, { target: { value: "55,5" } });
+    fireEvent.blur(twenty);
+    expect(onStakes).toHaveBeenCalledWith("k", [55.5, 52]);
+    // Nothing sent for a field that is not an amount, nor without a change.
+    fireEvent.change(twenty, { target: { value: "abc" } });
+    fireEvent.blur(twenty);
+    expect(onStakes).toHaveBeenCalledTimes(1);
+  });
+
+  it("offers no stakes for a surebet with a lay, nor without onStakes", () => {
+    const legs = [
+      { market: "1X2", selection: "2", source: "twentybet", side: "back" as const, price: 3.32 },
+      { market: "1X2", selection: "2", source: "exchange", side: "lay" as const, price: 3.2 },
+    ];
+    const { unmount } = render(<MyTakenSurebets taken={new Map([["k", info({ legs })]])} onStakes={() => {}} now={NOW} />);
+    expect(screen.queryByText("Meine Einsätze")).not.toBeInTheDocument();
+    unmount();
+    render(<MyTakenSurebets taken={new Map([["k", info({ legs: [legs[0]] })]])} now={NOW} />);
+    expect(screen.queryByText("Meine Einsätze")).not.toBeInTheDocument();
+  });
 });

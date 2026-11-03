@@ -86,7 +86,7 @@ describe("the taken surebets and their reminders", () => {
     const moved = TAKEN.legs!.map((l) => ({ ...l, price: l.price + 0.1 }));
     saveTakenSurebet(db, ada.id, { ...TAKEN, remind: false, payoutRate: 1.01, legs: moved }, NOW);
     expect(listTakenSurebets(db, ada.id)).toEqual([
-      { key: TAKEN.key, remind: false, eventId: TAKEN.eventId, startTime: TAKEN.startTime, label: TAKEN.label, remindedAt: null, payoutRate: 1.024, legs: TAKEN.legs },
+      { key: TAKEN.key, remind: false, eventId: TAKEN.eventId, startTime: TAKEN.startTime, label: TAKEN.label, remindedAt: null, payoutRate: 1.024, legs: TAKEN.legs, stakes: null },
     ]);
     expect(listTakenSurebets(db, bob.id)).toEqual([]);
   });
@@ -223,6 +223,24 @@ describe("/api/taken-surebets", () => {
     t.clock.now = new Date(Date.parse(start) + 60_000);
     const legs = (await t.get(cookie)).body.taken[0].legs;
     expect(legs.map((l: { closing: number | null }) => l.closing)).toEqual([1.98, null, 3.5]);
+  });
+
+  it("writes down the stakes placed on a taken surebet's legs, and forgets them", async () => {
+    const t = setup();
+    const cookie = await sessionCookie(t);
+    const stakes = (body: unknown) => request(t.app).put("/api/taken-surebets/stakes").set({ Origin: SITE, Cookie: cookie }).send(body as object);
+    expect((await stakes({ key: TAKEN.key, stakes: [50, null, 47.123] })).status).toBe(404);
+    await t.send("put", cookie, t.taken);
+    expect((await stakes({ key: TAKEN.key, stakes: [50, null, 47.123] })).status).toBe(204);
+    expect((await t.get(cookie)).body.taken[0].stakes).toEqual([50, null, 47.12]);
+    // Marked taken again: the stakes stay.
+    await t.send("put", cookie, { ...t.taken, remind: false });
+    expect((await t.get(cookie)).body.taken[0].stakes).toEqual([50, null, 47.12]);
+    for (const bad of [{ key: TAKEN.key, stakes: [] }, { key: TAKEN.key, stakes: [-1] }, { key: TAKEN.key, stakes: ["5"] }, { stakes: [5] }]) {
+      expect((await stakes(bad)).status, JSON.stringify(bad)).toBe(400);
+    }
+    expect((await stakes({ key: TAKEN.key, stakes: [null, null] })).status).toBe(204);
+    expect((await t.get(cookie)).body.taken[0].stakes).toBeNull();
   });
 
   it("refuses a body that is not a taken surebet, and a request from another site", async () => {

@@ -53,6 +53,29 @@ describe("AppNav's new promotions count", () => {
     vi.stubGlobal("fetch", fetchMock);
     render(<AppNav view="promos" onChange={() => {}} placement="header" newPromos={3} />);
     expect(screen.getByRole("radio", { name: "Promos (3 neu)" })).toBeChecked();
-    expect(fetchMock).not.toHaveBeenCalled();
+    expect(fetchMock).not.toHaveBeenCalledWith("/api/promos");
+  });
+});
+
+describe("AppNav's LUGAS limit left", () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("says on the Freebets entry what is left of the month's limit, once a deposit is written down", async () => {
+    vi.stubGlobal("fetch", vi.fn((url: string) => reply(url === "/api/deposits" ? { month: "2026-11", deposits: { leovegas: 640 }, total: 640, limit: 1000 } : { promos: [] })));
+    render(<AppNav view="matches" onChange={() => {}} placement="header" />);
+    expect(await screen.findByRole("radio", { name: /^Freebets\s+\(noch 360\s€ vom Einzahlungslimit frei\)$/ })).toBeInTheDocument();
+  });
+
+  it("says nothing without deposits, on a failure, nor on the Freebets page itself", async () => {
+    const none = vi.fn((url: string) => reply(url === "/api/deposits" ? { month: "2026-11", deposits: {}, total: 0, limit: 1000 } : { promos: [] }));
+    vi.stubGlobal("fetch", none);
+    const { unmount } = render(<AppNav view="matches" onChange={() => {}} placement="header" />);
+    await vi.waitFor(() => expect(none).toHaveBeenCalledWith("/api/deposits"));
+    expect(screen.getByRole("radio", { name: "Freebets" })).toBeInTheDocument();
+    unmount();
+    const onPage = vi.fn(() => reply({}, 401));
+    vi.stubGlobal("fetch", onPage);
+    render(<AppNav view="freebets" onChange={() => {}} placement="header" />);
+    expect(onPage).not.toHaveBeenCalledWith("/api/deposits");
   });
 });

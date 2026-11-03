@@ -1,6 +1,7 @@
 import { useState, type CSSProperties } from "react";
 import type { MarketDetail, MarketLine, OutcomeDetail } from "../types";
 import { PriceChip } from "./PriceChip";
+import { Sparkline } from "./Sparkline";
 import { PayoutBadge } from "./PayoutBadge";
 import { FairOdds, SuspectOdds } from "./FairOdds";
 import styles from "./MarketCard.module.css";
@@ -103,6 +104,15 @@ function LinesTable({ market, bookmakers }: { market: MarketDetail; bookmakers: 
   );
 }
 
+// The day's moves of an outcome's price, under its name: the best price's
+// when it moved twice or more, else the first ticked bookmaker's that did.
+function OutcomeSparkline({ outcome, bookmakers }: { outcome: OutcomeDetail; bookmakers: readonly string[] }) {
+  const moved = (b: string) => (outcome.history?.[b]?.length ?? 0) >= 2 && outcome.prices[b] !== undefined;
+  const bookmaker = outcome.best.find((b) => bookmakers.includes(b) && moved(b)) ?? bookmakers.find(moved);
+  if (!bookmaker) return null;
+  return <Sparkline bookmaker={bookmaker} history={outcome.history![bookmaker]} price={outcome.prices[bookmaker]} />;
+}
+
 // Outcomes one under another, the favourites first when there are many.
 function OutcomeList({ market, line, bookmakers }: { market: MarketDetail; line: MarketLine; bookmakers: readonly string[] }) {
   const [expanded, setExpanded] = useState(false);
@@ -132,6 +142,7 @@ function OutcomeList({ market, line, bookmakers }: { market: MarketDetail; line:
             <tr key={outcome.key}>
               <th scope="row" className={styles.outcome}>
                 {outcome.label}
+                <OutcomeSparkline outcome={outcome} bookmakers={bookmakers} />
               </th>
               <td>
                 <Prices outcome={outcome} bookmakers={bookmakers} />

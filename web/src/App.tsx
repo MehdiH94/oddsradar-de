@@ -602,7 +602,7 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
                   )
                 ) : isValueBets ? (
                   <>
-                    <MyTakenSurebets taken={takenSurebets.taken} matchHref={matchHref} onOpenMatch={openMatch} />
+                    <MyTakenSurebets taken={takenSurebets.taken} matchHref={matchHref} onOpenMatch={openMatch} onStakes={takenSurebets.setStakes} />
                     {surebets.length > 0 && (
                       <SurebetsTable
                         surebets={surebets}

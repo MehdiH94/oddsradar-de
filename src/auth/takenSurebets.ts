@@ -114,17 +114,19 @@ export interface ListedTakenSurebet {
   remindedAt: string | null;
   payoutRate: number | null;
   legs: TakenLeg[] | null;
+  // The stakes actually placed, by leg (null: not written down), or null.
+  stakes: (number | null)[] | null;
 }
 
 export function listTakenSurebets(db: DatabaseSync, userId: string): ListedTakenSurebet[] {
   const rows = db
     .prepare(
       `SELECT surebet_key AS key, remind, event_id AS eventId, start_time AS startTime, label, reminded_at AS remindedAt,
-              payout_rate AS payoutRate, legs
+              payout_rate AS payoutRate, legs, stakes
        FROM user_taken_surebets WHERE user_id = ? ORDER BY start_time, surebet_key`
     )
-    .all(userId) as unknown as (Omit<ListedTakenSurebet, "remind" | "legs"> & { remind: number; legs: string | null })[];
-  return rows.map((r) => ({ ...r, remind: r.remind === 1, legs: readLegs(r.legs) }));
+    .all(userId) as unknown as (Omit<ListedTakenSurebet, "remind" | "legs" | "stakes"> & { remind: number; legs: string | null; stakes: string | null })[];
+  return rows.map((r) => ({ ...r, remind: r.remind === 1, legs: readLegs(r.legs), stakes: readStakes(r.stakes) }));
 }
 
 // False when the account already keeps MAX_TAKEN others.
@@ -155,6 +157,38 @@ export function saveTakenSurebet(db: DatabaseSync, userId: string, taken: TakenS
     taken.legs ? JSON.stringify(taken.legs) : null
   );
   return true;
+}
+
+// The most a stake can be: a typo must not count.
+export const MAX_STAKE = 100_000;
+
+// The stakes of a body: one per leg at most MAX_LEGS, each an amount in euros
+// to the cent or null; null when they are not that.
+export function parseStakes(input: unknown): (number | null)[] | null {
+  if (!Array.isArray(input) || input.length === 0 || input.length > MAX_LEGS) return null;
+  const stakes: (number | null)[] = [];
+  for (const s of input) {
+    if (s === null) stakes.push(null);
+    else if (typeof s === "number" && Number.isFinite(s) && s >= 0 && s <= MAX_STAKE) stakes.push(Math.round(s * 100) / 100);
+    else return null;
+  }
+  return stakes;
+}
+
+function readStakes(json: string | null): (number | null)[] | null {
+  if (json === null) return null;
+  try {
+    return parseStakes(JSON.parse(json));
+  } catch {
+    return null;
+  }
+}
+
+// Writes down the stakes placed on one of the account's taken surebets; false
+// when it holds no such surebet. All null forgets them.
+export function saveStakes(db: DatabaseSync, userId: string, key: string, stakes: (number | null)[]): boolean {
+  const json = stakes.every((s) => s === null) ? null : JSON.stringify(stakes);
+  return db.prepare("UPDATE user_taken_surebets SET stakes = ? WHERE user_id = ? AND surebet_key = ?").run(json, userId, key).changes > 0;
 }
 
 export function deleteTakenSurebet(db: DatabaseSync, userId: string, key: string): void {

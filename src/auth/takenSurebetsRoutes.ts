@@ -3,7 +3,7 @@ import { DatabaseSync } from "node:sqlite";
 import { closingPrice } from "../db/closingPrices";
 import { AuthContext } from "./context";
 import { sameSiteOnly } from "./middleware";
-import { deleteTakenSurebet, listTakenSurebets, MAX_KEY, MAX_TAKEN, parseTakenSurebet, saveTakenSurebet } from "./takenSurebets";
+import { deleteTakenSurebet, listTakenSurebets, MAX_KEY, MAX_TAKEN, parseStakes, parseTakenSurebet, saveStakes, saveTakenSurebet } from "./takenSurebets";
 
 // Mounted under /api after requireAuth: req.user is always set here. The body
 // parser and the CSRF check are not global, so this router brings its own.
@@ -38,6 +38,21 @@ export function takenSurebetsRouter(auth: AuthContext, odds?: DatabaseSync): Rou
     }
     if (!saveTakenSurebet(auth.db, req.user!.id, taken, auth.now())) {
       res.status(409).json({ error: "too_many", message: `Höchstens ${MAX_TAKEN} genommene Surebets.` });
+      return;
+    }
+    res.status(204).end();
+  });
+
+  // Writes down the stakes actually placed on a taken surebet's legs.
+  router.put("/stakes", (req, res) => {
+    const body = (req.body ?? {}) as { key?: unknown; stakes?: unknown };
+    const stakes = parseStakes(body.stakes);
+    if (typeof body.key !== "string" || !body.key || body.key.length > MAX_KEY || !stakes) {
+      res.status(400).json({ error: "invalid", message: "Ungültige Einsätze." });
+      return;
+    }
+    if (!saveStakes(auth.db, req.user!.id, body.key, stakes)) {
+      res.status(404).json({ error: "not_found", message: "Dieser Surebet ist nicht genommen." });
       return;
     }
     res.status(204).end();

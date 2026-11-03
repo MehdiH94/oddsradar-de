@@ -47,6 +47,8 @@ export interface TakenInfo {
   // match started, each back at a bookmaker with its closing price (null when
   // none was read before kick-off).
   legs?: TakenLeg[];
+  // The stakes actually placed, by leg (null: not written down).
+  stakes?: (number | null)[];
 }
 
 export interface TakenLeg {
@@ -130,11 +132,12 @@ export function readTaken(body: unknown): Map<string, TakenInfo> {
   const taken = new Map<string, TakenInfo>();
   if (!Array.isArray(list)) return taken;
   for (const item of list) {
-    const { key, remind, eventId, startTime, label, remindedAt, payoutRate, legs } = (item ?? {}) as Record<string, unknown>;
+    const { key, remind, eventId, startTime, label, remindedAt, payoutRate, legs, stakes } = (item ?? {}) as Record<string, unknown>;
     if (typeof key !== "string") continue;
     const read = readLegs(legs);
     taken.set(key, {
       ...(read ? { legs: read } : {}),
+      ...(Array.isArray(stakes) ? { stakes: stakes.map((s) => (typeof s === "number" ? s : null)) } : {}),
       remind: remind === true,
       eventId: text(eventId),
       startTime: text(startTime),
@@ -164,6 +167,38 @@ export interface TakenSurebetsState {
   taken: TakenSurebets;
   setTaken: (surebet: Surebet, taken: boolean) => void;
   setRemind: (surebet: Surebet, remind: boolean) => void;
+  // Writes down the stakes placed on a taken surebet's legs (by its key).
+  setStakes: (key: string, stakes: (number | null)[]) => void;
+}
+
+// What the stakes written down lock in, when every leg is a back with a stake:
+// the least that any leg winning pays, less all that was staked ("Gesichert:
+// +2,40 € bei 100,00 € Einsatz"). Null otherwise (a lay's result depends on
+// the exchange's commission and its liability, not written down here).
+export function lockedLabel(legs: readonly TakenLeg[] | undefined, stakes: readonly (number | null)[] | undefined): string | null {
+  if (!legs || !stakes || legs.length === 0 || legs.some((l) => l.side !== "back")) return null;
+  if (legs.some((_, i) => typeof stakes[i] !== "number")) return null;
+  const total = legs.reduce((sum, _, i) => sum + (stakes[i] as number), 0);
+  if (total <= 0) return null;
+  const worst = Math.min(...legs.map((l, i) => (stakes[i] as number) * l.price - total));
+  const euros = (v: number) => `${v.toFixed(2).replace(".", ",")} €`;
+  return worst >= 0
+    ? `Gesichert: +${euros(worst)} bei ${euros(total)} Einsatz`
+    : `Möglicher Verlust: −${euros(-worst)} bei ${euros(total)} Einsatz`;
+}
+
+async function sendStakes(key: string, stakes: (number | null)[]): Promise<boolean> {
+  try {
+    const res = await fetch("/api/taken-surebets/stakes", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ key, stakes }),
+    });
+    if (res.status === 401) announceUnauthorized();
+    return res.ok;
+  } catch {
+    return false;
+  }
 }
 
 // The account's taken surebets, and the ways to change them. A change shows at
@@ -219,7 +254,16 @@ export function useTakenSurebets(enabled = true): TakenSurebetsState {
       const payoutRate = before ? before.payoutRate : surebet.payoutRate;
       // So are its legs' prices.
       const legs = before?.legs ?? takenLegs(surebet);
-      update(key, { remind, eventId: surebet.eventId, startTime: surebet.startTime, label, remindedAt: before?.remindedAt ?? null, payoutRate, legs });
+      update(key, {
+        remind,
+        eventId: surebet.eventId,
+        startTime: surebet.startTime,
+        label,
+        remindedAt: before?.remindedAt ?? null,
+        payoutRate,
+        legs,
+        ...(before?.stakes ? { stakes: before.stakes } : {}),
+      });
       void send("PUT", { key, eventId: surebet.eventId, startTime: surebet.startTime, label, remind, payoutRate: surebet.payoutRate, legs: takenLegs(surebet) }).then(
         (ok) => {
           if (!ok) update(key, before);
@@ -250,5 +294,17 @@ export function useTakenSurebets(enabled = true): TakenSurebetsState {
     [taken, save]
   );
 
-  return { taken, setTaken, setRemind };
+  const setStakes = useCallback(
+    (key: string, stakes: (number | null)[]) => {
+      const before = taken.get(key);
+      if (!before) return;
+      update(key, { ...before, stakes });
+      void sendStakes(key, stakes).then((ok) => {
+        if (!ok) update(key, before);
+      });
+    },
+    [taken, update]
+  );
+
+  return { taken, setTaken, setRemind, setStakes };
 }

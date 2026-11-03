@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { closingLabel, closingSummaryLabel, closingValue, hasExchangeLeg, profitLabel, readTaken, summaryLabel, surebetKey, takenLabel, takenLegs } from "./takenSurebets";
+import { closingLabel, closingSummaryLabel, closingValue, lockedLabel, hasExchangeLeg, profitLabel, readTaken, summaryLabel, surebetKey, takenLabel, takenLegs } from "./takenSurebets";
 import type { Surebet } from "./types";
 
 const lay: Surebet = {
@@ -101,5 +101,21 @@ describe("closing line value", () => {
     );
     expect(closingSummaryLabel([{ legs: [back] }])).toMatch(/^Ø \+10,0.% gegenüber dem Schlusskurs \(1 Wette\)$/);
     expect(closingSummaryLabel([{ legs: [{ ...back, closing: null }] }, {}])).toBeNull();
+  });
+});
+
+describe("lockedLabel", () => {
+  const back = (source: string, price: number) => ({ market: "1X2", selection: source, source, side: "back" as const, price });
+
+  it("is the least any back winning pays, less all that was staked", () => {
+    const legs = [back("twentybet", 2.1), back("leovegas", 2.05)];
+    expect(lockedLabel(legs, [50, 52])).toBe("Gesichert: +3,00 € bei 102,00 € Einsatz");
+    expect(lockedLabel(legs, [60, 40])).toBe("Möglicher Verlust: −18,00 € bei 100,00 € Einsatz");
+  });
+
+  it("says nothing until every stake is written down, nor with a lay", () => {
+    expect(lockedLabel([back("twentybet", 2.1), back("leovegas", 2.05)], [50, null])).toBeNull();
+    expect(lockedLabel([back("twentybet", 2.1), { ...back("exchange", 2.2), side: "lay" as const }], [50, 50])).toBeNull();
+    expect(lockedLabel(undefined, [50])).toBeNull();
   });
 });

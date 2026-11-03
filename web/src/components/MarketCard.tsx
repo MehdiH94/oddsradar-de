@@ -31,6 +31,7 @@ function Prices({ outcome, bookmakers }: { outcome: OutcomeDetail | undefined; b
           compact={bookmakers.length >= COMPACT_FROM}
           boosted={outcome?.boosted?.[bookmaker]}
           moved={outcome?.moved?.[bookmaker]}
+          history={outcome?.history?.[bookmaker]}
         />
       ))}
     </span>

@@ -299,6 +299,9 @@ const ADDED_COLUMNS: [table: string, column: string, definition: string][] = [
   // before, and when it moved; the match page shows a recent one.
   ["event_bookmaker_odds", "prev_price", "REAL"],
   ["event_bookmaker_odds", "moved_at", "TEXT"],
+  // Its last moves (JSON, [[price before, when], …], MAX_MOVES at most), for
+  // the match page's history of the day.
+  ["event_bookmaker_odds", "moves", "TEXT"],
 ];
 
 function addMissingColumns(db: DatabaseSync): void {

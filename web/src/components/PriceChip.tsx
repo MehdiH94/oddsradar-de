@@ -30,6 +30,7 @@ export function PriceChip({
   compact = false,
   boosted,
   moved,
+  history,
 }: {
   bookmaker: string;
   price: number | undefined;
@@ -40,6 +41,7 @@ export function PriceChip({
   compact?: boolean;
   boosted?: number;
   moved?: PriceMove;
+  history?: PriceMove[];
 }) {
   const name = BOOKMAKER_BRANDING[bookmaker]?.name ?? bookmaker;
   const className = [styles.chip, best && styles.best, edge !== undefined && styles.value, price === undefined && styles.missing, compact && styles.compact]
@@ -63,7 +65,7 @@ export function PriceChip({
           <span className="visually-hidden"> (geboostet)</span>
         </span>
       )}
-      {moved && price !== undefined && <MoveArrow move={moved} price={price} className={styles.move} />}
+      {moved && price !== undefined && <MoveArrow move={moved} price={price} history={history} className={styles.move} />}
       {best && (
         <>
           <Check size={12} strokeWidth={3} className={styles.check} aria-hidden="true" />

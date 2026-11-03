@@ -32,4 +32,17 @@ describe("PriceChip", () => {
     rerender(<PriceChip bookmaker="leovegas" price={1.85} best={false} />);
     expect(container.querySelector("[data-move]")).toBeNull();
   });
+
+  it("lists the day's moves after the last one in the arrow's tooltip, when there were more", () => {
+    const at = (h: number, m: number) => new Date(2026, 10, 2, h, m).toISOString();
+    const history = [
+      { from: 1.9, at: at(9, 10) },
+      { from: 1.95, at: at(14, 5) },
+    ];
+    const { container } = render(<PriceChip bookmaker="leovegas" price={2.05} best={false} moved={history[1]} history={history} />);
+    expect(container.querySelector("[data-move]")).toHaveAttribute(
+      "title",
+      "Quote gestiegen von 1,95 um 14:05 · Verlauf: 1,90 → 1,95 → 2,05 seit 09:10"
+    );
+  });
 });

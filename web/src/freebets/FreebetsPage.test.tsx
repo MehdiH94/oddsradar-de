@@ -42,6 +42,7 @@ function stubApi(over: Partial<Api> = {}) {
     ...over,
   };
   const calls = { saved: [] as Wallet[], asked: [] as string[] };
+  let depositLimit: number | null = null;
   const fetchMock = vi.fn((url: string, init?: RequestInit) => {
     if (url === "/api/freebets/wallet") {
       if (init?.method === "PUT") {
@@ -53,9 +54,11 @@ function stubApi(over: Partial<Api> = {}) {
       return reply({ wallet: api.wallet });
     }
     if (url === "/api/deposits") {
-      const deposits = init?.method === "PUT" ? JSON.parse(String(init.body)).deposits : {};
+      const body = init?.method === "PUT" ? JSON.parse(String(init.body)) : {};
+      const deposits = body.deposits ?? {};
+      if (body.limit !== undefined) depositLimit = body.limit;
       const total = Object.values(deposits as Record<string, number>).reduce((a, b) => a + b, 0);
-      return reply({ month: "2026-11", deposits, total, limit: 1000 });
+      return reply({ month: "2026-11", deposits, total, limit: depositLimit ?? 1000, personalLimit: depositLimit !== null });
     }
     if (url.startsWith("/api/freebets/conversions")) {
       calls.asked.push(url);
@@ -114,6 +117,21 @@ describe("FreebetsPage", () => {
       await waitFor(() => expect(screen.getByText(/November 2026:/)).toHaveTextContent(/640,50\s€ von 1\.000,00\s€ eingezahlt · noch 359,50\s€ frei/));
       const put = fetchMock.mock.calls.find(([url, init]) => url === "/api/deposits" && init?.method === "PUT");
       expect(JSON.parse(String(put![1]!.body))).toEqual({ deposits: { leovegas: 400, oddset: 240.5 } });
+    });
+
+    it("takes an account's own LUGAS limit, and warns from 80 % of it", async () => {
+      const { fetchMock } = stubApi();
+      renderPage();
+      const limit = await screen.findByRole("textbox", { name: /^Mein monatliches Einzahlungslimit/ });
+      fireEvent.change(limit, { target: { value: "500" } });
+      fireEvent.blur(limit);
+      await waitFor(() => expect(screen.getByText(/November 2026:/)).toHaveTextContent(/von 500,00\s€ eingezahlt/));
+      const leovegas = screen.getByRole("textbox", { name: /^Einzahlungen bei LeoVegas/ });
+      fireEvent.change(leovegas, { target: { value: "420" } });
+      fireEvent.blur(leovegas);
+      expect(await screen.findByText(/Achtung: über 80 % deines Limits eingezahlt/)).toBeInTheDocument();
+      const puts = fetchMock.mock.calls.filter(([url, init]) => url === "/api/deposits" && init?.method === "PUT").map(([, init]) => JSON.parse(String(init!.body)));
+      expect(puts).toEqual([{ deposits: {}, limit: 500 }, { deposits: { leovegas: 420 } }]);
     });
 
     it("says when the wallet cannot be read, and reads it again", async () => {

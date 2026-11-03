@@ -45,7 +45,34 @@ export interface MonthDeposits {
   month: string;
   deposits: Deposits;
   total: number;
+  // The account's own limit, else LUGAS_MONTHLY_LIMIT.
   limit: number;
+  // Whether `limit` is the account's own.
+  personalLimit: boolean;
+}
+
+// The most a personal limit can be: LUGAS allows a raise to 30,000 euros at most
+// (a typo must not count either).
+export const MAX_LIMIT = 30_000;
+
+// A limit in a PUT's body: undefined when absent (unchanged), null to go back
+// to the default, a number of euros; "invalid" when it is none of them.
+export function parseLimit(input: unknown): number | null | undefined | "invalid" {
+  if (input === undefined) return undefined;
+  if (input === null) return null;
+  if (typeof input !== "number" || !Number.isFinite(input) || input <= 0 || input > MAX_LIMIT) return "invalid";
+  return toCents(input) / 100;
+}
+
+export function setDepositLimit(db: DatabaseSync, userId: string, limit: number | null, now = new Date()): void {
+  if (limit === null) {
+    db.prepare("DELETE FROM user_deposit_limit WHERE user_id = ?").run(userId);
+    return;
+  }
+  db.prepare(
+    `INSERT INTO user_deposit_limit (user_id, limit_cents, updated_at) VALUES (?, ?, ?)
+     ON CONFLICT(user_id) DO UPDATE SET limit_cents = excluded.limit_cents, updated_at = excluded.updated_at`
+  ).run(userId, toCents(limit), now.toISOString());
 }
 
 // The account's deposits of this month: last month's are gone with it.
@@ -64,7 +91,14 @@ export function getDeposits(db: DatabaseSync, userId: string, now = new Date()):
     deposits[id] = amount / 100;
     total += amount;
   }
-  return { month, deposits, total: total / 100, limit: LUGAS_MONTHLY_LIMIT };
+  const own = db.prepare("SELECT limit_cents FROM user_deposit_limit WHERE user_id = ?").get(userId) as { limit_cents: number } | undefined;
+  return {
+    month,
+    deposits,
+    total: total / 100,
+    limit: own ? own.limit_cents / 100 : LUGAS_MONTHLY_LIMIT,
+    personalLimit: own !== undefined,
+  };
 }
 
 // Replaces this month's deposits, in one transaction; older months' rows go.

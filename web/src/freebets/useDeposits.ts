@@ -17,6 +17,12 @@ export interface DepositsState {
   setText(bookmaker: BookmakerId, text: string): void;
   // A field left: what it says is saved when it changed.
   commit(): void;
+  // The account's own limit as typed, and whether it is not an amount.
+  limitText: string;
+  limitInvalid: boolean;
+  setLimitText(text: string): void;
+  // The limit field left: an amount saved as the account's own, empty back to the default.
+  commitLimit(): void;
   retry(): void;
 }
 
@@ -40,6 +46,7 @@ export function useDeposits(): DepositsState {
   const [saving, setSaving] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
   const [loads, setLoads] = useState(0);
+  const [limitText, setLimitText] = useState("");
 
   useEffect(() => {
     let alive = true;
@@ -50,6 +57,7 @@ export function useDeposits(): DepositsState {
         if (!answer) throw new Error("not deposits");
         setHeld(answer);
         setTexts(textsOf(answer));
+        setLimitText(answer.personalLimit ? amountText(answer.limit) : "");
         setStatus("ready");
       })
       .catch(() => alive && setStatus("failed"));
@@ -60,14 +68,48 @@ export function useDeposits(): DepositsState {
 
   const invalid = new Set(LUGAS_BOOKMAKERS.filter((id) => parseAmount(texts[id] ?? "") === null));
 
-  const commit = useCallback(() => {
-    if (!held) return;
+  const depositsTyped = useCallback((): MonthDeposits["deposits"] | null => {
     const deposits: MonthDeposits["deposits"] = {};
     for (const id of LUGAS_BOOKMAKERS) {
       const amount = parseAmount(texts[id] ?? "");
-      if (amount === null) return;
+      if (amount === null) return null;
       if (amount > 0) deposits[id] = amount;
     }
+    return deposits;
+  }, [texts]);
+
+  const send = useCallback(
+    (deposits: MonthDeposits["deposits"], limit?: number | null) => {
+      setSaving(true);
+      setSaveFailed(false);
+      saveDeposits(deposits, limit)
+        .then((raw) => {
+          const answer = checked(raw);
+          if (!answer) throw new Error("not deposits");
+          setHeld(answer);
+          setTexts(textsOf(answer));
+          setLimitText(answer.personalLimit ? amountText(answer.limit) : "");
+        })
+        .catch(() => setSaveFailed(true))
+        .finally(() => setSaving(false));
+    },
+    []
+  );
+
+  const commitLimit = useCallback(() => {
+    if (!held) return;
+    const deposits = depositsTyped();
+    const amount = parseAmount(limitText);
+    if (deposits === null || amount === null) return;
+    const limit = amount > 0 ? amount : null;
+    if (limit === (held.personalLimit ? held.limit : null)) return;
+    send(deposits, limit);
+  }, [held, depositsTyped, limitText, send]);
+
+  const commit = useCallback(() => {
+    if (!held) return;
+    const deposits = depositsTyped();
+    if (deposits === null) return;
     if (JSON.stringify(deposits) === JSON.stringify(held.deposits)) return;
     setSaving(true);
     setSaveFailed(false);
@@ -80,7 +122,7 @@ export function useDeposits(): DepositsState {
       })
       .catch(() => setSaveFailed(true))
       .finally(() => setSaving(false));
-  }, [held, texts]);
+  }, [held, depositsTyped]);
 
   return {
     status,
@@ -91,6 +133,10 @@ export function useDeposits(): DepositsState {
     saveFailed,
     setText: (bookmaker, text) => setTexts((current) => ({ ...current, [bookmaker]: text })),
     commit,
+    limitText,
+    limitInvalid: parseAmount(limitText) === null,
+    setLimitText,
+    commitLimit,
     retry: () => {
       if (status === "failed") {
         setStatus("loading");

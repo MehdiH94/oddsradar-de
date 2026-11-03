@@ -8,6 +8,9 @@ import styles from "./WalletCard.module.css";
 
 const MONTH = new Intl.DateTimeFormat("de-DE", { month: "long", year: "numeric" });
 
+// From this share of the limit on, the card warns.
+const WARN_FROM = 0.8;
+
 // LUGAS's monthly deposit limit across the German-licensed bookmakers: the
 // deposits the account writes down this month, their total against the
 // limit, and what is left. Saved with the account when a field is left.
@@ -15,6 +18,7 @@ export function DepositsCard({ deposits }: { deposits: DepositsState }) {
   const { held } = deposits;
   const month = held ? MONTH.format(new Date(`${held.month}-15T12:00:00Z`)) : "";
   const left = held ? held.limit - held.total : 0;
+  const near = held !== null && held.total >= WARN_FROM * held.limit;
   return (
     <Card id="deposits-heading" title="Einzahlungslimit (LUGAS)">
       <p className={styles.hint}>
@@ -65,6 +69,32 @@ export function DepositsCard({ deposits }: { deposits: DepositsState }) {
               );
             })}
           </div>
+          <div className={styles.cell}>
+            <label className={deposits.limitText ? styles.tileOn : styles.tile}>
+              <span className={styles.name}>Mein Limit</span>
+              <span className={styles.field}>
+                <input
+                  className={`${styles.input} num`}
+                  type="text"
+                  inputMode="decimal"
+                  autoComplete="off"
+                  value={deposits.limitText}
+                  placeholder="1.000"
+                  aria-label="Mein monatliches Einzahlungslimit in Euro, leer für den Standard von 1.000 €"
+                  aria-invalid={deposits.limitInvalid}
+                  onChange={(event) => deposits.setLimitText(event.target.value)}
+                  onBlur={deposits.commitLimit}
+                />
+                <span className={styles.unit}>€</span>
+              </span>
+            </label>
+          </div>
+          {near && (
+            <p className={styles.invalid}>
+              <TriangleAlert size={16} aria-hidden="true" />{" "}
+              {left > 0 ? `Achtung: über ${Math.round(WARN_FROM * 100)} % deines Limits eingezahlt.` : "Dein Limit für diesen Monat ist erreicht."}
+            </p>
+          )}
           <p className={styles.total} role="status">
             {month}: <b className="num">{formatEuro(held.total)}</b> von {formatEuro(held.limit)} eingezahlt
             {left > 0 ? ` · noch ${formatEuro(left)} frei` : " · Limit erreicht"}

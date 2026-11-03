@@ -4,7 +4,7 @@ import { openDb } from "../../src/db/client";
 import { openAuthDb } from "../../src/auth/db";
 import { createServer } from "../../src/api/server";
 import { createUser } from "../../src/auth/store";
-import { getDeposits, LUGAS_BOOKMAKERS, lugasMonth, parseDeposits, saveDeposits } from "../../src/deposits/deposits";
+import { getDeposits, LUGAS_BOOKMAKERS, lugasMonth, parseDeposits, parseLimit, saveDeposits } from "../../src/deposits/deposits";
 import { SITE, sessionCookie, testAuth } from "../auth/helpers";
 
 describe("lugasMonth", () => {
@@ -28,14 +28,23 @@ describe("parseDeposits", () => {
   });
 });
 
+describe("parseLimit", () => {
+  it("is unchanged when absent, the default with null, else euros to the cent up to 30,000", () => {
+    expect(parseLimit(undefined)).toBeUndefined();
+    expect(parseLimit(null)).toBeNull();
+    expect(parseLimit(1500.004)).toBe(1500);
+    for (const bad of [0, -5, 30_001, "1000", Number.NaN]) expect(parseLimit(bad), String(bad)).toBe("invalid");
+  });
+});
+
 describe("the deposits store", () => {
   it("keeps this month's deposits and their total, and forgets them with the month", () => {
     const db = openAuthDb(":memory:");
     const ada = createUser(db, { email: "ada@example.com", passwordHash: "x", verified: true }, new Date("2026-11-01T10:00:00Z"));
     const nov = new Date("2026-11-02T10:00:00Z");
     saveDeposits(db, ada.id, { leovegas: 400, oddset: 240 }, nov);
-    expect(getDeposits(db, ada.id, nov)).toEqual({ month: "2026-11", deposits: { leovegas: 400, oddset: 240 }, total: 640, limit: 1000 });
-    expect(getDeposits(db, ada.id, new Date("2026-12-01T10:00:00Z"))).toEqual({ month: "2026-12", deposits: {}, total: 0, limit: 1000 });
+    expect(getDeposits(db, ada.id, nov)).toEqual({ month: "2026-11", deposits: { leovegas: 400, oddset: 240 }, total: 640, limit: 1000, personalLimit: false });
+    expect(getDeposits(db, ada.id, new Date("2026-12-01T10:00:00Z"))).toEqual({ month: "2026-12", deposits: {}, total: 0, limit: 1000, personalLimit: false });
   });
 });
 
@@ -56,13 +65,24 @@ describe("/api/deposits", () => {
   it("answers this month's deposits against the limit, then what was saved", async () => {
     const t = setup();
     const cookie = await sessionCookie(t);
-    expect((await t.get(cookie)).body).toEqual({ month: "2026-10", deposits: {}, total: 0, limit: 1000 });
+    expect((await t.get(cookie)).body).toEqual({ month: "2026-10", deposits: {}, total: 0, limit: 1000, personalLimit: false });
     const saved = await t.put(cookie, { deposits: { leovegas: 400, oddset: 240.5 } });
     expect(saved.status).toBe(200);
-    expect(saved.body).toEqual({ month: "2026-10", deposits: { leovegas: 400, oddset: 240.5 }, total: 640.5, limit: 1000 });
+    expect(saved.body).toEqual({ month: "2026-10", deposits: { leovegas: 400, oddset: 240.5 }, total: 640.5, limit: 1000, personalLimit: false });
     const res = await t.get(cookie);
     expect(res.body.total).toBe(640.5);
     expect(res.headers["cache-control"]).toBe("no-store");
+  });
+
+  it("keeps an account's own limit until it goes back to the default, the deposits with it", async () => {
+    const t = setup();
+    const cookie = await sessionCookie(t);
+    const own = await t.put(cookie, { deposits: { leovegas: 400 }, limit: 500 });
+    expect(own.body).toMatchObject({ total: 400, limit: 500, personalLimit: true });
+    // Deposits sent without a limit keep it.
+    expect((await t.put(cookie, { deposits: { leovegas: 450 } })).body).toMatchObject({ total: 450, limit: 500, personalLimit: true });
+    expect((await t.put(cookie, { deposits: { leovegas: 450 }, limit: null })).body).toMatchObject({ limit: 1000, personalLimit: false });
+    expect((await t.put(cookie, { deposits: {}, limit: 0 })).status).toBe(400);
   });
 
   it("refuses an amount that is not one, and a request from another site", async () => {

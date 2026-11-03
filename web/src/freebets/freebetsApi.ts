@@ -174,14 +174,17 @@ export interface MonthDeposits {
   deposits: Partial<Record<BookmakerId, number>>;
   total: number;
   limit: number;
+  // Whether `limit` is the account's own rather than the 1,000 € default.
+  personalLimit?: boolean;
 }
 
 export const fetchDeposits = () => call<MonthDeposits>("/api/deposits");
 
-// Replaces this month's deposits; the answer is what the server kept.
-export const saveDeposits = (deposits: MonthDeposits["deposits"]) =>
+// Replaces this month's deposits, and the account's own limit when given
+// (null: back to the default); the answer is what the server kept.
+export const saveDeposits = (deposits: MonthDeposits["deposits"], limit?: number | null) =>
   call<MonthDeposits>("/api/deposits", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ deposits }),
+    body: JSON.stringify(limit === undefined ? { deposits } : { deposits, limit }),
   });

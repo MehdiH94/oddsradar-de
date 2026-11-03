@@ -1,0 +1,7 @@
+/* A price's moves of the day, beside its outcome: quiet, in the text's own colour. */
+.line {
+  display: block;
+  margin-top: 2px;
+  color: var(--color-text-muted);
+  overflow: visible;
+}

@@ -87,6 +87,22 @@ describe("MarketCard", () => {
     expect(container.querySelectorAll("[data-move]")).toHaveLength(1);
   });
 
+  it("draws the day's moves of the best price under its outcome, when it moved twice or more", () => {
+    const [psg, ...rest] = result.lines[0].outcomes;
+    const [bookmaker] = psg.best.length ? psg.best : Object.keys(psg.prices);
+    const price = psg.prices[bookmaker];
+    const history = [
+      { from: price - 0.15, at: "2026-11-03T08:10:00.000Z" },
+      { from: price - 0.05, at: "2026-11-03T09:05:00.000Z" },
+    ];
+    const moved: MarketDetail = { ...result, lines: [{ ...result.lines[0], outcomes: [{ ...psg, history: { [bookmaker]: history } }, ...rest] }] };
+    render(<MarketCard market={moved} bookmakers={["leovegas", "merkurbets", "twentybet"]} />);
+    const line = screen.getByRole("img", { name: /^Verlauf bei / });
+    expect(line.getAttribute("aria-label")).toMatch(/ → .* → .* seit \d\d:10$/);
+    expect(line).toHaveAttribute("data-up", "true");
+    expect(screen.getAllByRole("img", { name: /^Verlauf bei / })).toHaveLength(1);
+  });
+
   it("leaves out an unticked bookmaker's value bet", () => {
     const { container } = render(<MarketCard market={result} bookmakers={["merkurbets"]} />);
     expect(container.querySelector("[data-value]")).toBeNull();

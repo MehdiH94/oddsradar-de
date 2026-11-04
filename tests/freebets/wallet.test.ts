@@ -153,7 +153,7 @@ describe("the stored wallet", () => {
 describe("the freebets table in the accounts database", () => {
   it("is on the schema's version 13 (the feedback, the taken surebets, the promos and their payout and legs and the deposits and their limit and the taken surebets' stakes came after), with its columns", () => {
     const db = openAuthDb(":memory:");
-    expect(db.prepare("PRAGMA user_version").get()).toEqual({ user_version: 15 });
+    expect(db.prepare("PRAGMA user_version").get()).toEqual({ user_version: 16 });
     const columns = (db.prepare("PRAGMA table_info(user_freebets)").all() as { name: string }[]).map((c) => c.name);
     expect(columns).toEqual(["user_id", "bookmaker", "amount_cents", "updated_at"]);
   });
@@ -180,7 +180,7 @@ describe("the freebets table in the accounts database", () => {
 
     migrate(db);
 
-    expect(db.prepare("PRAGMA user_version").get()).toEqual({ user_version: 15 });
+    expect(db.prepare("PRAGMA user_version").get()).toEqual({ user_version: 16 });
     expect(db.prepare("SELECT email FROM users").all()).toEqual([{ email: "ada@example.com" }]);
     expect(getPreferences(db, ada.id)).toEqual(prefs);
     expect(getWallet(db, ada.id)).toEqual({});

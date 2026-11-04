@@ -28,6 +28,8 @@ export interface TakenValueBet {
   // Once its match started, the bookmaker's last price before kick-off (null
   // when none was read); absent before.
   closing?: number | null;
+  // The stake placed on it, null or absent when not written down.
+  stake?: number | null;
 }
 
 export type TakenValueBets = ReadonlyMap<string, TakenValueBet>;
@@ -51,6 +53,7 @@ export function readTakenValueBets(body: unknown): Map<string, TakenValueBet> {
       price: r.price,
       edge: r.edge,
       ...(r.closing === null || typeof r.closing === "number" ? { closing: r.closing } : {}),
+      ...(typeof r.stake === "number" ? { stake: r.stake } : {}),
     });
   }
   return taken;
@@ -64,14 +67,42 @@ export function closingValue(bet: TakenValueBet): number | null {
 
 // Above the list: the average edge taken and, of the played ones with a
 // closing price, the average closing line value ("3 Value Bets · Ø Vorteil
-// +4,2 % · Ø +2,1 % gegenüber dem Schlusskurs (2)").
+// +4,2 % · Ø +2,1 % gegenüber dem Schlusskurs (2)"). Both are weighted by the
+// stakes once every one counted has one, as a bet's weight is its stake.
 export function valueSummaryLabel(list: readonly TakenValueBet[]): string {
   const count = list.length === 1 ? "1 Value Bet" : `${list.length} Value Bets`;
   if (list.length === 0) return count;
-  const edge = list.reduce((sum, b) => sum + b.edge, 0) / list.length;
-  const values = list.map(closingValue).filter((v): v is number => v !== null);
-  const clv = values.length > 0 ? ` · Ø ${formatEdge(values.reduce((a, b) => a + b, 0) / values.length)} gegenüber dem Schlusskurs (${values.length})` : "";
+  const average = (items: readonly { value: number; stake?: number | null }[]) => {
+    const weighted = items.every((i) => typeof i.stake === "number" && i.stake > 0);
+    const weight = (i: { stake?: number | null }) => (weighted ? (i.stake as number) : 1);
+    const total = items.reduce((sum, i) => sum + weight(i), 0);
+    return items.reduce((sum, i) => sum + i.value * weight(i), 0) / total;
+  };
+  const edge = average(list.map((b) => ({ value: b.edge, stake: b.stake })));
+  const values = list.flatMap((b) => {
+    const value = closingValue(b);
+    return value === null ? [] : [{ value, stake: b.stake }];
+  });
+  const clv = values.length > 0 ? ` · Ø ${formatEdge(average(values))} gegenüber dem Schlusskurs (${values.length})` : "";
   return `${count} · Ø Vorteil ${formatEdge(edge)}${clv}`;
+}
+
+const euros = (v: number) => `${v.toFixed(2).replace(".", ",")} €`;
+
+// What a stake is expected to win at the edge it was taken at: stake × edge
+// ("erwartet +0,90 €"), null without a stake.
+export function expectedLabel(bet: TakenValueBet): string | null {
+  return typeof bet.stake === "number" && bet.stake > 0 ? `erwartet +${euros(bet.stake * bet.edge)}` : null;
+}
+
+// The stakes written down and what they are expected to win ("Einsatz
+// 150,00 € · erwartet +6,30 €"), null when none is.
+export function stakesSummaryLabel(list: readonly TakenValueBet[]): string | null {
+  const staked = list.filter((b) => typeof b.stake === "number" && b.stake > 0);
+  if (staked.length === 0) return null;
+  const total = staked.reduce((sum, b) => sum + (b.stake as number), 0);
+  const expected = staked.reduce((sum, b) => sum + (b.stake as number) * b.edge, 0);
+  return `Einsatz ${euros(total)} · erwartet +${euros(expected)}`;
 }
 
 async function send(method: "PUT" | "DELETE", body: unknown): Promise<boolean> {
@@ -88,9 +119,25 @@ async function send(method: "PUT" | "DELETE", body: unknown): Promise<boolean> {
   }
 }
 
+async function sendStake(key: string, stake: number | null): Promise<boolean> {
+  try {
+    const res = await fetch("/api/taken-value-bets/stake", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ key, stake }),
+    });
+    if (res.status === 401) announceUnauthorized();
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 export interface TakenValueBetsState {
   taken: TakenValueBets;
   setTaken: (bet: ValueBet, taken: boolean) => void;
+  // Writes down the stake placed on a taken value bet (by its key).
+  setStake?: (key: string, stake: number | null) => void;
 }
 
 // The account's taken value bets, and the way to change them: a change shows
@@ -164,5 +211,17 @@ export function useTakenValueBets(enabled = true): TakenValueBetsState {
     [taken, update]
   );
 
-  return { taken, setTaken };
+  const setStake = useCallback(
+    (key: string, stake: number | null) => {
+      const before = taken.get(key);
+      if (!before) return;
+      update(key, { ...before, stake });
+      void sendStake(key, stake).then((ok) => {
+        if (!ok) update(key, before);
+      });
+    },
+    [taken, update]
+  );
+
+  return { taken, setTaken, setStake };
 }

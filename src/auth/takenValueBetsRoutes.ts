@@ -4,7 +4,7 @@ import { closingPrice } from "../db/closingPrices";
 import { AuthContext } from "./context";
 import { sameSiteOnly } from "./middleware";
 import { MAX_KEY } from "./takenSurebets";
-import { deleteTakenValueBet, listTakenValueBets, MAX_TAKEN_VALUE_BETS, parseTakenValueBet, saveTakenValueBet } from "./takenValueBets";
+import { deleteTakenValueBet, listTakenValueBets, MAX_TAKEN_VALUE_BETS, parseStake, parseTakenValueBet, saveTakenValueBet, saveValueBetStake } from "./takenValueBets";
 
 // Mounted under /api after requireAuth: req.user is always set here. `odds`,
 // the odds' database, gives each started value bet its closing price.
@@ -44,6 +44,21 @@ export function takenValueBetsRouter(auth: AuthContext, odds?: DatabaseSync): Ro
     }
     if (!saveTakenValueBet(auth.db, req.user!.id, bet, auth.now())) {
       res.status(409).json({ error: "too_many", message: `Höchstens ${MAX_TAKEN_VALUE_BETS} genommene Value Bets.` });
+      return;
+    }
+    res.status(204).end();
+  });
+
+  // Writes down the stake actually placed on a taken value bet.
+  router.put("/stake", (req, res) => {
+    const body = (req.body ?? {}) as { key?: unknown; stake?: unknown };
+    const stake = parseStake(body.stake);
+    if (typeof body.key !== "string" || !body.key || body.key.length > MAX_KEY || stake === undefined) {
+      res.status(400).json({ error: "invalid", message: "Ungültiger Einsatz." });
+      return;
+    }
+    if (!saveValueBetStake(auth.db, req.user!.id, body.key, stake)) {
+      res.status(404).json({ error: "not_found", message: "Diese Value Bet ist nicht genommen." });
       return;
     }
     res.status(204).end();

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { closingValue, readTakenValueBets, valueBetKey, valueBetLabel, valueSummaryLabel, type TakenValueBet } from "./takenValueBets";
+import { closingValue, expectedLabel, readTakenValueBets, stakesSummaryLabel, valueBetKey, valueBetLabel, valueSummaryLabel, type TakenValueBet } from "./takenValueBets";
 import type { ValueBet } from "./types";
 
 const BET = {
@@ -59,5 +59,19 @@ describe("takenValueBets", () => {
       /^2 Value Bets · Ø Vorteil \+5,0.% · Ø \+10,0.% gegenüber dem Schlusskurs \(1\)$/
     );
     expect(valueSummaryLabel([taken({ edge: 0.021 })])).toMatch(/^1 Value Bet · Ø Vorteil \+2,1.%$/);
+  });
+
+  it("reads a stake, and weighs the averages by the stakes once each has one", () => {
+    expect(readTakenValueBets({ taken: [{ key: "k", ...taken({}), stake: 20 }] }).get("k")?.stake).toBe(20);
+    const list = [taken({ edge: 0.02, stake: 300, price: 3.3, closing: 3 }), taken({ edge: 0.08, stake: 100, price: 2, closing: 2 })];
+    // Edge: (0,02 × 300 + 0,08 × 100) / 400 = 3,5 %; CLV: (10 % × 300 + 0) / 400 = 7,5 %.
+    expect(valueSummaryLabel(list)).toMatch(/^2 Value Bets · Ø Vorteil \+3,5.% · Ø \+7,5.% gegenüber dem Schlusskurs \(2\)$/);
+  });
+
+  it("says what the stakes are expected to win at the edge taken", () => {
+    expect(expectedLabel(taken({ stake: 20, edge: 0.045 }))).toBe("erwartet +0,90 €");
+    expect(expectedLabel(taken({}))).toBeNull();
+    expect(stakesSummaryLabel([taken({ stake: 20, edge: 0.045 }), taken({ stake: 130, edge: 0.04 }), taken({})])).toBe("Einsatz 150,00 € · erwartet +6,10 €");
+    expect(stakesSummaryLabel([taken({})])).toBeNull();
   });
 });

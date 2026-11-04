@@ -223,4 +223,23 @@ describe("ValueBetsTable", () => {
     expect(suspect[4]).toHaveAttribute("title", expect.stringMatching(/wird dieser Spieler nicht gehandelt; die Quote bei Merkur Bets$/));
     expect(suspect[5]).toHaveTextContent("+44,4 %");
   });
+
+  it("marks a value bet taken, greyed and last", () => {
+    const setTaken = vi.fn();
+    const first = bet({});
+    const second = bet({ selection: "X", label: "Unentschieden", bookmaker: "leovegas", price: 4.4, fair: 4.2, edge: 0.05 });
+    const taken = new Map([
+      ["psg-om:1X2:1:merkurbets", { eventId: "psg-om", startTime: first.startTime, label: "", market: "1X2", selection: "1", bookmaker: "merkurbets", price: 1.56, edge: 0.04 }],
+    ]);
+    render(<ValueBetsTable bets={[first, second]} takenValueBets={{ taken, setTaken }} />);
+    const [top, bottom] = screen.getAllByRole("row").slice(1);
+    expect(top).not.toHaveAttribute("data-taken");
+    expect(bottom).toHaveAttribute("data-taken");
+    const done = within(bottom).getByRole("button", { name: "Genommen: PSG bei Merkur Bets, PSG - OM" });
+    expect(done).toHaveAttribute("aria-pressed", "true");
+    fireEvent.click(within(top).getByRole("button", { name: /^Genommen: Unentschieden/ }));
+    expect(setTaken).toHaveBeenCalledWith(second, true);
+    fireEvent.click(done);
+    expect(setTaken).toHaveBeenCalledWith(first, false);
+  });
 });

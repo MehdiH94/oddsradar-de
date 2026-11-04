@@ -20,6 +20,7 @@ import { adminRouter } from "../auth/adminRoutes";
 import { preferencesRouter } from "../auth/preferencesRoutes";
 import { feedbackRouter } from "../auth/feedbackRoutes";
 import { takenSurebetsRouter } from "../auth/takenSurebetsRoutes";
+import { takenValueBetsRouter } from "../auth/takenValueBetsRoutes";
 import { promosRouter } from "../auth/promosRoutes";
 import { walletRouter } from "../freebets/walletRoutes";
 import { depositsRouter } from "../deposits/depositsRoutes";
@@ -103,6 +104,7 @@ export function createServer(
   // What a tester tells the team, read on the administration page.
   app.use("/api/feedback", feedbackRouter(auth));
   app.use("/api/taken-surebets", takenSurebetsRouter(auth, db));
+  app.use("/api/taken-value-bets", takenValueBetsRouter(auth, db));
   app.use("/api/promos", promosRouter(auth));
   // The freebets an account holds, at their exact path, and what the Freebets
   // page converts them into, next to it under /api/freebets.

@@ -15,6 +15,8 @@ import { ValueBetsTable } from "./ValueBetsTable";
 import { SurebetsTable } from "./SurebetsTable";
 import { MyTakenSurebets } from "./MyTakenSurebets";
 import { useTakenSurebets } from "./takenSurebets";
+import { useTakenValueBets } from "./takenValueBets";
+import { MyTakenValueBets } from "./MyTakenValueBets";
 import { MatchPage, type PageStatus } from "./MatchPage";
 import { AppHeader } from "./components/AppHeader";
 import { GamblingBanner } from "./components/GamblingBanner";
@@ -67,6 +69,7 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
   const [surebets, setSurebets] = useState<Surebet[]>([]);
   // The surebets the account took, shared by the surebets' table and "Meine Surebets".
   const takenSurebets = useTakenSurebets();
+  const takenValueBets = useTakenValueBets();
   const [total, setTotal] = useState(0);
   const [pageSize, setPageSize] = useState(20);
   const [sport, setSport] = useState<string>(initial.sport);
@@ -603,6 +606,7 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
                 ) : isValueBets ? (
                   <>
                     <MyTakenSurebets taken={takenSurebets.taken} matchHref={matchHref} onOpenMatch={openMatch} onStakes={takenSurebets.setStakes} results={takenSurebets.results} />
+                    <MyTakenValueBets taken={takenValueBets.taken} matchHref={matchHref} onOpenMatch={openMatch} />
                     {surebets.length > 0 && (
                       <SurebetsTable
                         surebets={surebets}
@@ -613,7 +617,7 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
                       />
                     )}
                     {total > 0 && (
-                      <ValueBetsTable bets={bets ?? []} matchHref={matchHref} onOpenMatch={openMatch} sportHref={sportHref} />
+                      <ValueBetsTable bets={bets ?? []} matchHref={matchHref} onOpenMatch={openMatch} sportHref={sportHref} takenValueBets={takenValueBets} />
                     )}
                   </>
                 ) : (

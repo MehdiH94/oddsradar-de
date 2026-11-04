@@ -6,6 +6,7 @@ import { createAuthContext } from "../auth/context";
 import { mailerFromEnv } from "../auth/mailer";
 import { purgeExpired } from "../auth/store";
 import { purgeTakenSurebets } from "../auth/takenSurebets";
+import { purgeTakenValueBets } from "../auth/takenValueBets";
 import { purgePromos } from "../auth/promos";
 import { runSurebetReminders } from "../auth/surebetReminders";
 import { runPromoReminders } from "../auth/promoReminders";
@@ -45,10 +46,12 @@ const auth = createAuthContext({
 // Forget what has expired now, then every hour.
 purgeExpired(authDb);
 purgeTakenSurebets(authDb);
+purgeTakenValueBets(authDb);
 purgePromos(authDb);
 setInterval(() => {
   purgeExpired(authDb);
   purgeTakenSurebets(authDb);
+  purgeTakenValueBets(authDb);
   purgePromos(authDb);
 }, 60 * 60 * 1000).unref();
 // The taken surebets' reminders, an hour before kick-off (src/auth/surebetReminders.ts).

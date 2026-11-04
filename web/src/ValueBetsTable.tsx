@@ -14,6 +14,7 @@ import { BOOKMAKER_BRANDING } from "./bookmakers";
 import { sportEmoji, sportLabel, VALUE_BETS } from "./sports";
 import groupStyles from "./GroupedOddsTables.module.css";
 import styles from "./ValueBetsTable.module.css";
+import { useTakenValueBets, valueBetKey, type TakenValueBetsState } from "./takenValueBets";
 
 const FAIR_TITLE = `Faire Quote: die Quote an ${REFERENCE_SOURCE}, ohne ihre Marge`;
 const bookmakerName = (id: string) => BOOKMAKER_BRANDING[id]?.name ?? id;
@@ -82,8 +83,11 @@ export function ValueBetsTable({
   matchHref,
   onOpenMatch,
   sportHref,
+  takenValueBets,
 }: {
   bets: ValueBet[];
+  // The dashboard's taken value bets, shared with "Meine Value Bets"; read here when not given.
+  takenValueBets?: TakenValueBetsState;
   // A match's page (MatchPage), like OddsTable's.
   matchHref?: (id: string) => string;
   onOpenMatch?: (id: string) => void;
@@ -92,6 +96,10 @@ export function ValueBetsTable({
 }) {
   const wide = useIsWide();
   const now = new Date();
+  // The ones the account took: greyed and last (src/takenValueBets.ts).
+  const own = useTakenValueBets(!takenValueBets);
+  const { taken, setTaken } = takenValueBets ?? own;
+  const shown = [...bets.filter((b) => !taken.has(valueBetKey(b))), ...bets.filter((b) => taken.has(valueBetKey(b)))];
   return (
     <section className={groupStyles.section} aria-labelledby="value-bets-heading">
       <h2 id="value-bets-heading" className={groupStyles.heading}>
@@ -117,7 +125,7 @@ export function ValueBetsTable({
           </tr>
         </thead>
         <tbody>
-          {bets.map((bet) => {
+          {shown.map((bet) => {
             const start = formatStartParts(bet.startTime, now);
             const teams = bet.participants.join(" - ");
             const hasPage = matchHref !== undefined && bet.marketCount > 1;
@@ -126,8 +134,9 @@ export function ValueBetsTable({
               e.preventDefault();
               onOpenMatch(bet.eventId);
             };
+            const isTaken = taken.has(valueBetKey(bet));
             return (
-              <tr key={`${bet.eventId}:${bet.market}:${bet.bookmaker}:${bet.selection}`} className={styles.row}>
+              <tr key={`${bet.eventId}:${bet.market}:${bet.bookmaker}:${bet.selection}`} className={styles.row} data-taken={isTaken || undefined}>
                 <td className={styles.start}>
                   <time dateTime={bet.startTime}>
                     {start === null ? (
@@ -214,6 +223,16 @@ export function ValueBetsTable({
                 )}
                 <td className={styles.edge} data-label="Vorteil">
                   <strong className={styles.edgeValue}>{formatEdge(bet.edge)}</strong>
+                  <button
+                    type="button"
+                    className={styles.takenButton}
+                    aria-pressed={isTaken}
+                    aria-label={`Genommen: ${bet.label} bei ${bookmakerName(bet.bookmaker)}, ${teams}`}
+                    title={isTaken ? "Als nicht genommen markieren" : "Als genommen markieren"}
+                    onClick={() => setTaken(bet, !isTaken)}
+                  >
+                    {isTaken ? "✓ Genommen" : "Genommen?"}
+                  </button>
                 </td>
                 {!wide && hasPage && (
                   <td className={styles.actions}>

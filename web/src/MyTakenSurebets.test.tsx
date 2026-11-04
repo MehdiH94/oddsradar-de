@@ -122,6 +122,16 @@ describe("MyTakenSurebets", () => {
     expect(screen.getByRole("textbox", { name: "Einsatz bei LeoVegas (2,05) in Euro" })).toHaveValue("51");
   });
 
+  it("says the month's total, the results the server already forgot included", () => {
+    const results = { month: "2026-11", profit: 12.4, count: 4 };
+    const { unmount } = render(<MyTakenSurebets taken={new Map()} results={results} now={new Date("2026-11-04T07:00:00Z")} />);
+    expect(screen.getByText("November: +12,40 € gesichert aus 4 Surebets")).toBeInTheDocument();
+    unmount();
+    // Another month's results alone show nothing.
+    const { container } = render(<MyTakenSurebets taken={new Map()} results={{ ...results, month: "2026-10" }} now={new Date("2026-11-04T07:00:00Z")} />);
+    expect(container).toBeEmptyDOMElement();
+  });
+
   it("offers no stakes without onStakes", () => {
     const legs = [{ market: "1X2", selection: "2", source: "twentybet", side: "back" as const, price: 3.32 }];
     render(<MyTakenSurebets taken={new Map([["k", info({ legs })]])} now={NOW} />);

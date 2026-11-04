@@ -1,4 +1,6 @@
 import { DatabaseSync } from "node:sqlite";
+import { EXCHANGE_COMMISSION } from "../db/surebets";
+import { lugasMonth } from "../deposits/deposits";
 
 // The surebets an account has marked as taken (web/src/takenSurebets.ts): the
 // dashboard shows them so on every device and puts them last. One with a bet
@@ -222,7 +224,64 @@ export function markReminded(db: DatabaseSync, userId: string, key: string, now 
   db.prepare("UPDATE user_taken_surebets SET reminded_at = ? WHERE user_id = ? AND surebet_key = ?").run(now.toISOString(), userId, key);
 }
 
-// Forgets the surebets whose match is long over.
+// What the stakes placed lock in, in euros: the worst result over the
+// outcomes, each leg settled as the surebets list computes it (a back at the
+// exchange or a won lay less the exchange's commission on its winnings; a
+// lost lay costs its liability). With a lay, the outcomes are its selection
+// winning or not. Null without legs or a stake on each. The same as the
+// dashboard's (web/src/takenSurebets.ts, lockedResult).
+export function lockedProfit(legs: readonly TakenLeg[] | null, stakes: readonly (number | null)[] | null): number | null {
+  if (!legs || !stakes || legs.length === 0 || legs.some((_, i) => typeof stakes[i] !== "number")) return null;
+  const stake = (i: number) => stakes[i] as number;
+  if (legs.every((_, i) => stake(i) === 0)) return null;
+  const settle = (winner: string | null) =>
+    legs.reduce((sum, l, i) => {
+      const wins = l.selection === winner;
+      if (l.side === "lay") return sum + (wins ? -stake(i) * (l.price - 1) : stake(i) * (1 - EXCHANGE_COMMISSION));
+      const cut = l.source === "exchange" ? 1 - EXCHANGE_COMMISSION : 1;
+      return sum + (wins ? stake(i) * (l.price - 1) * cut : -stake(i));
+    }, 0);
+  // A back and its lay share one selection: the other outcome is any other.
+  const outcomes: (string | null)[] = [...new Set(legs.map((l) => l.selection))];
+  if (outcomes.length === 1 && legs.some((l) => l.side === "lay")) outcomes.push(null);
+  return Math.min(...outcomes.map(settle));
+}
+
+// How long a result is kept: a year and a month, for a year's months.
+const KEEP_RESULTS_MS = 400 * 24 * 60 * 60 * 1000;
+
+// Forgets the surebets whose match is long over, first keeping what those
+// with stakes locked in (user_surebet_results), and the results over a year old.
 export function purgeTakenSurebets(db: DatabaseSync, now = new Date()): void {
-  db.prepare("DELETE FROM user_taken_surebets WHERE start_time < ?").run(new Date(now.getTime() - KEEP_AFTER_START_MS).toISOString());
+  const before = new Date(now.getTime() - KEEP_AFTER_START_MS).toISOString();
+  const over = db
+    .prepare("SELECT user_id AS userId, surebet_key AS key, start_time AS startTime, legs, stakes FROM user_taken_surebets WHERE start_time < ? AND stakes IS NOT NULL")
+    .all(before) as { userId: string; key: string; startTime: string; legs: string | null; stakes: string | null }[];
+  const keep = db.prepare(
+    `INSERT INTO user_surebet_results (user_id, surebet_key, start_time, month, profit_cents) VALUES (?, ?, ?, ?, ?)
+     ON CONFLICT(user_id, surebet_key) DO UPDATE SET start_time = excluded.start_time, month = excluded.month, profit_cents = excluded.profit_cents`
+  );
+  db.exec("BEGIN");
+  try {
+    for (const row of over) {
+      const profit = lockedProfit(readLegs(row.legs), readStakes(row.stakes));
+      if (profit !== null) keep.run(row.userId, row.key, row.startTime, lugasMonth(new Date(row.startTime)), Math.round(profit * 100));
+    }
+    db.prepare("DELETE FROM user_taken_surebets WHERE start_time < ?").run(before);
+    db.prepare("DELETE FROM user_surebet_results WHERE start_time < ?").run(new Date(now.getTime() - KEEP_RESULTS_MS).toISOString());
+    db.exec("COMMIT");
+  } catch (err) {
+    db.exec("ROLLBACK");
+    throw err;
+  }
+}
+
+// The results kept for the account's surebets played in the month of `now`
+// (Berlin), their taken surebets already forgotten: their sum and how many.
+export function monthResults(db: DatabaseSync, userId: string, now = new Date()): { month: string; profit: number; count: number } {
+  const month = lugasMonth(now);
+  const { cents, n } = db
+    .prepare("SELECT COALESCE(SUM(profit_cents), 0) AS cents, COUNT(*) AS n FROM user_surebet_results WHERE user_id = ? AND month = ?")
+    .get(userId, month) as { cents: number; n: number };
+  return { month, profit: cents / 100, count: n };
 }

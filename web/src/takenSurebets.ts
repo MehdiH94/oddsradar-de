@@ -165,6 +165,8 @@ async function send(method: "PUT" | "DELETE", body: unknown): Promise<boolean> {
 
 export interface TakenSurebetsState {
   taken: TakenSurebets;
+  // The month's results of the surebets the server has forgotten.
+  results: MonthResults | null;
   setTaken: (surebet: Surebet, taken: boolean) => void;
   setRemind: (surebet: Surebet, remind: boolean) => void;
   // Writes down the stakes placed on a taken surebet's legs (by its key).
@@ -185,6 +187,22 @@ export const layLiability = (stake: number, price: number): number => stake * (p
 // selection winning or not. "Gesichert: +2,40 € bei 100,00 € Einsatz", with a
 // lay "… bei 100,00 € Einsatz und 108,00 € Haftung". Null otherwise.
 export function lockedLabel(legs: readonly TakenLeg[] | undefined, stakes: readonly (number | null)[] | undefined): string | null {
+  const result = lockedResult(legs, stakes);
+  if (!result) return null;
+  const { worst, backs, liability } = result;
+  const at = liability > 0 ? `bei ${euros(backs)} Einsatz und ${euros(liability)} Haftung` : `bei ${euros(backs)} Einsatz`;
+  return worst >= -0.005 ? `Gesichert: +${euros(Math.max(worst, 0))} ${at}` : `Möglicher Verlust: −${euros(-worst)} ${at}`;
+}
+
+const euros = (v: number) => `${v.toFixed(2).replace(".", ",")} €`;
+
+// lockedLabel's numbers: the worst result in euros, the backs' stakes and the
+// lays' liability. The same as the server's (src/auth/takenSurebets.ts,
+// lockedProfit), which keeps it once the surebet is forgotten.
+export function lockedResult(
+  legs: readonly TakenLeg[] | undefined,
+  stakes: readonly (number | null)[] | undefined
+): { worst: number; backs: number; liability: number } | null {
   if (!legs || !stakes || legs.length === 0) return null;
   if (legs.some((_, i) => typeof stakes[i] !== "number")) return null;
   const stake = (i: number) => stakes[i] as number;
@@ -198,12 +216,50 @@ export function lockedLabel(legs: readonly TakenLeg[] | undefined, stakes: reado
       const cut = l.source === EXCHANGE ? 1 - EXCHANGE_COMMISSION : 1;
       return sum + (wins ? stake(i) * (l.price - 1) * cut : -stake(i));
     }, 0);
+  // A back and its lay share one selection: the other outcome is any other.
   const outcomes: (string | null)[] = [...new Set(legs.map((l) => l.selection))];
-  if (legs.some((l) => l.side === "lay")) outcomes.push(null);
-  const worst = Math.min(...outcomes.map(settle));
-  const euros = (v: number) => `${v.toFixed(2).replace(".", ",")} €`;
-  const at = liability > 0 ? `bei ${euros(backs)} Einsatz und ${euros(liability)} Haftung` : `bei ${euros(backs)} Einsatz`;
-  return worst >= -0.005 ? `Gesichert: +${euros(Math.max(worst, 0))} ${at}` : `Möglicher Verlust: −${euros(-worst)} ${at}`;
+  if (outcomes.length === 1 && legs.some((l) => l.side === "lay")) outcomes.push(null);
+  return { worst: Math.min(...outcomes.map(settle)), backs, liability };
+}
+
+// The month's results the server keeps for the surebets it has forgotten
+// (two days after their match): "2026-11", their sum in euros, how many.
+export interface MonthResults {
+  month: string;
+  profit: number;
+  count: number;
+}
+
+export function readResults(body: unknown): MonthResults | null {
+  const r = (body as { results?: unknown } | null)?.results as Record<string, unknown> | undefined;
+  if (!r || typeof r.month !== "string" || typeof r.profit !== "number" || typeof r.count !== "number") return null;
+  return { month: r.month, profit: r.profit, count: r.count };
+}
+
+const BERLIN_MONTH = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin", year: "numeric", month: "2-digit" });
+const MONTH_NAME = new Intl.DateTimeFormat("de-DE", { timeZone: "UTC", month: "long" });
+
+// The month's total above "Meine Surebets": the server's results, and the
+// surebets still held whose match started this month (Berlin) with a stake on
+// each leg ("November: +18,40 € gesichert aus 6 Surebets"). Null with none.
+export function monthLabel(results: MonthResults | null, taken: readonly TakenInfo[], now: Date): string | null {
+  const month = BERLIN_MONTH.format(now).slice(0, 7);
+  let profit = results?.month === month ? results.profit : 0;
+  let count = results?.month === month ? results.count : 0;
+  for (const item of taken) {
+    const start = Date.parse(item.startTime);
+    if (!(start <= now.getTime()) || BERLIN_MONTH.format(new Date(start)).slice(0, 7) !== month) continue;
+    const result = lockedResult(item.legs, item.stakes);
+    if (!result) continue;
+    profit += result.worst;
+    count += 1;
+  }
+  if (count === 0) return null;
+  const name = MONTH_NAME.format(new Date(`${month}-15T00:00:00Z`));
+  const surebets = count === 1 ? "1 Surebet" : `${count} Surebets`;
+  return profit >= -0.005
+    ? `${name}: +${euros(Math.max(profit, 0))} gesichert aus ${surebets}`
+    : `${name}: −${euros(-profit)} aus ${surebets}`;
 }
 
 // A total stake split over a taken surebet's legs as the surebets list splits
@@ -248,6 +304,7 @@ async function sendStakes(key: string, stakes: (number | null)[]): Promise<boole
 // for a table given that one.
 export function useTakenSurebets(enabled = true): TakenSurebetsState {
   const [taken, setState] = useState<Map<string, TakenInfo>>(() => new Map());
+  const [results, setResults] = useState<MonthResults | null>(null);
   // The changes made before the account's list came: kept over it, so that a
   // quick click is not undone by the list arriving after it.
   const early = useRef<Map<string, TakenInfo | undefined> | null>(new Map());
@@ -267,6 +324,7 @@ export function useTakenSurebets(enabled = true): TakenSurebetsState {
           else loaded.delete(key);
         }
         setState(loaded);
+        setResults(readResults(body));
       })
       .catch(() => {
         // Only what was marked here is shown as taken: the list stays usable.
@@ -347,5 +405,5 @@ export function useTakenSurebets(enabled = true): TakenSurebetsState {
     [taken, update]
   );
 
-  return { taken, setTaken, setRemind, setStakes };
+  return { taken, results, setTaken, setRemind, setStakes };
 }

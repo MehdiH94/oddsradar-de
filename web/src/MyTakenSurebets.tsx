@@ -1,7 +1,7 @@
 import { useState, type MouseEvent } from "react";
 import { BOOKMAKER_BRANDING } from "./bookmakers";
 import { formatPrice, formatStartTime } from "./format";
-import { closingLabel, closingSummaryLabel, layLiability, lockedLabel, profitLabel, splitStakes, summaryLabel, type TakenInfo, type TakenSurebets } from "./takenSurebets";
+import { closingLabel, closingSummaryLabel, layLiability, lockedLabel, monthLabel, profitLabel, splitStakes, summaryLabel, type MonthResults, type TakenInfo, type TakenSurebets } from "./takenSurebets";
 import styles from "./MyTakenSurebets.module.css";
 
 // "Meine Surebets": the surebets the account marked taken, in one place above
@@ -13,29 +13,35 @@ import styles from "./MyTakenSurebets.module.css";
 // average ("Ø +2,1 % gegenüber dem Schlusskurs (4 Wetten)"). The server forgets one two days after
 // its match (src/auth/takenSurebets.ts). With `onStakes`, the stakes
 // actually placed on each leg can be written down, and what they lock in is
-// said ("Gesichert: +2,40 € bei 100,00 € Einsatz").
+// said ("Gesichert: +2,40 € bei 100,00 € Einsatz"); above the list, the
+// month's total of the played ones with stakes, those the server already
+// forgot (`results`) included ("November: +18,40 € gesichert aus 6 Surebets").
 export function MyTakenSurebets({
   taken,
   matchHref,
   onOpenMatch,
   onStakes,
+  results = null,
   now = new Date(),
 }: {
   taken: TakenSurebets;
+  results?: MonthResults | null;
   matchHref?: (id: string) => string;
   onOpenMatch?: (id: string) => void;
   onStakes?: (key: string, stakes: (number | null)[]) => void;
   now?: Date;
 }) {
-  if (taken.size === 0) return null;
   const entries = [...taken].sort(([, a], [, b]) => a.startTime.localeCompare(b.startTime));
   const list = entries.map(([, item]) => item);
+  const month = monthLabel(results, list, now);
+  if (taken.size === 0 && !month) return null;
   // The closing prices of the played ones only: the server sends none before kick-off.
   const closing = closingSummaryLabel(list.filter((i) => Date.parse(i.startTime) <= now.getTime()));
   return (
     <details className={styles.box}>
       <summary className={styles.summary}>Meine Surebets ({list.length})</summary>
-      <p className={styles.total}>{summaryLabel(list)}</p>
+      {month && <p className={styles.total}>{month}</p>}
+      {list.length > 0 && <p className={styles.total}>{summaryLabel(list)}</p>}
       {closing && <p className={styles.total}>{closing}</p>}
       <ul className={styles.list}>
         {entries.map(([key, item]) => (

@@ -7,9 +7,12 @@ import { createUser } from "../../src/auth/store";
 import {
   dueReminders,
   listTakenSurebets,
+  lockedProfit,
   MAX_TAKEN,
+  monthResults,
   parseTakenSurebet,
   purgeTakenSurebets,
+  saveStakes,
   saveTakenSurebet,
   TakenSurebet,
 } from "../../src/auth/takenSurebets";
@@ -127,6 +130,33 @@ describe("the taken surebets and their reminders", () => {
     expect(listTakenSurebets(db, ada.id)).toEqual([]);
   });
 
+  it("keeps what a played surebet with stakes locked in once it is forgotten, for the month's total", () => {
+    const { db, ada, bob } = setup();
+    const pair: TakenSurebet = {
+      ...TAKEN,
+      key: "pair",
+      legs: [
+        { market: "1X2", selection: "2", source: "twentybet", side: "back", price: 3.5 },
+        { market: "1X2", selection: "2", source: "exchange", side: "lay", price: 3.2 },
+      ],
+    };
+    saveTakenSurebet(db, ada.id, pair, NOW);
+    saveStakes(db, ada.id, "pair", [100, 110]);
+    // Without stakes, nothing to keep.
+    saveTakenSurebet(db, ada.id, TAKEN, NOW);
+    saveTakenSurebet(db, bob.id, pair, NOW);
+    saveStakes(db, bob.id, "pair", [100, null]);
+    const later = new Date(Date.parse(at(90 + 49 * 60)));
+    purgeTakenSurebets(db, later);
+    expect(listTakenSurebets(db, ada.id)).toEqual([]);
+    expect(monthResults(db, ada.id, later)).toEqual({ month: "2026-10", profit: 6.7, count: 1 });
+    expect(monthResults(db, bob.id, later)).toEqual({ month: "2026-10", profit: 0, count: 0 });
+    expect(monthResults(db, ada.id, new Date("2026-11-01T00:30:00Z"))).toEqual({ month: "2026-11", profit: 0, count: 0 });
+    // Kept a year, and forgotten with the account.
+    purgeTakenSurebets(db, new Date("2027-11-20T00:00:00Z"));
+    expect(db.prepare("SELECT COUNT(*) AS n FROM user_surebet_results").get()).toEqual({ n: 0 });
+  });
+
   it("sends each reminder once, to the account's address, with the match and what to check", async () => {
     const t = testAuth();
     const ada = createUser(t.auth.db, { email: "ada@example.com", passwordHash: "x", verified: true }, NOW);
@@ -159,6 +189,29 @@ describe("the taken surebets and their reminders", () => {
   });
 });
 
+describe("lockedProfit", () => {
+  const back = (selection: string, source: string, price: number) => ({ market: "1X2", selection, source, side: "back" as const, price });
+
+  it("is the worst result over the outcomes", () => {
+    expect(lockedProfit([back("1", "twentybet", 2.1), back("2", "leovegas", 2.05)], [50, 52])).toBeCloseTo(3);
+    // A back at the exchange pays less its commission: 50 × 1,2 × 0,97 − 50.
+    expect(lockedProfit([back("1", "twentybet", 2.3), back("2", "exchange", 2.2)], [50, 50])).toBeCloseTo(8.2);
+  });
+
+  it("settles a back and its lay as the surebets list does", () => {
+    const legs = [back("2", "twentybet", 3.5), { ...back("2", "exchange", 3.2), side: "lay" as const }];
+    expect(lockedProfit(legs, [100, 110])).toBeCloseTo(6.7);
+    expect(lockedProfit(legs, [100, 90])).toBeCloseTo(-12.7);
+  });
+
+  it("is null without legs or a stake on each", () => {
+    expect(lockedProfit(null, [50])).toBeNull();
+    expect(lockedProfit([back("1", "twentybet", 2.1)], null)).toBeNull();
+    expect(lockedProfit([back("1", "twentybet", 2.1), back("2", "leovegas", 2.05)], [50, null])).toBeNull();
+    expect(lockedProfit([back("1", "twentybet", 2.1)], [0])).toBeNull();
+  });
+});
+
 describe("/api/taken-surebets", () => {
   function setup() {
     const t = testAuth();
@@ -179,14 +232,14 @@ describe("/api/taken-surebets", () => {
   it("marks a surebet taken, changes its reminder, and takes the mark off", async () => {
     const t = setup();
     const cookie = await sessionCookie(t);
-    expect((await t.get(cookie)).body).toEqual({ taken: [] });
+    expect((await t.get(cookie)).body.taken).toEqual([]);
     expect((await t.send("put", cookie, t.taken)).status).toBe(204);
-    expect((await t.get(cookie)).body).toEqual({ taken: [expect.objectContaining({ key: TAKEN.key, remind: true, eventId: TAKEN.eventId, label: TAKEN.label, remindedAt: null })] });
+    expect((await t.get(cookie)).body).toMatchObject({ taken: [expect.objectContaining({ key: TAKEN.key, remind: true, eventId: TAKEN.eventId, label: TAKEN.label, remindedAt: null })] });
     expect((await t.send("put", cookie, { ...t.taken, remind: false })).status).toBe(204);
-    expect((await t.get(cookie)).body).toEqual({ taken: [expect.objectContaining({ key: TAKEN.key, remind: false })] });
+    expect((await t.get(cookie)).body).toMatchObject({ taken: [expect.objectContaining({ key: TAKEN.key, remind: false })] });
     expect((await t.send("delete", cookie, { key: TAKEN.key })).status).toBe(204);
     const res = await t.get(cookie);
-    expect(res.body).toEqual({ taken: [] });
+    expect(res.body.taken).toEqual([]);
     expect(res.headers["cache-control"]).toBe("no-store");
   });
 
@@ -195,7 +248,7 @@ describe("/api/taken-surebets", () => {
     const ada = await sessionCookie(t, "ada@example.com");
     const bob = await sessionCookie(t, "bob@example.com");
     await t.send("put", ada, t.taken);
-    expect((await t.get(bob)).body).toEqual({ taken: [] });
+    expect((await t.get(bob)).body.taken).toEqual([]);
     await t.send("delete", bob, { key: TAKEN.key });
     expect((await t.get(ada)).body.taken).toHaveLength(1);
   });
@@ -239,6 +292,7 @@ describe("/api/taken-surebets", () => {
     for (const bad of [{ key: TAKEN.key, stakes: [] }, { key: TAKEN.key, stakes: [-1] }, { key: TAKEN.key, stakes: ["5"] }, { stakes: [5] }]) {
       expect((await stakes(bad)).status, JSON.stringify(bad)).toBe(400);
     }
+    expect((await t.get(cookie)).body.results).toEqual({ month: "2026-10", profit: 0, count: 0 });
     expect((await stakes({ key: TAKEN.key, stakes: [null, null] })).status).toBe(204);
     expect((await t.get(cookie)).body.taken[0].stakes).toBeNull();
   });
@@ -250,6 +304,6 @@ describe("/api/taken-surebets", () => {
     expect((await t.send("delete", cookie, { key: 3 })).status).toBe(400);
     const foreign = await request(t.app).put("/api/taken-surebets").set({ Origin: "https://evil.test", Cookie: cookie }).send(t.taken);
     expect(foreign.status).toBe(403);
-    expect((await t.get(cookie)).body).toEqual({ taken: [] });
+    expect((await t.get(cookie)).body.taken).toEqual([]);
   });
 });

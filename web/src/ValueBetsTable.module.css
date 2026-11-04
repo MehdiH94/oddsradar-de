@@ -287,3 +287,34 @@
     font-size: var(--text-sm);
   }
 }
+
+/* A value bet the account took (src/takenValueBets.ts): greyed, its toggle at
+   full strength. */
+.row[data-taken] > td {
+  opacity: 0.55;
+}
+
+.row[data-taken] > .edge {
+  opacity: 1;
+}
+
+.takenButton {
+  display: block;
+  margin-top: var(--space-2);
+  margin-left: auto;
+  min-height: var(--tap);
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.takenButton[aria-pressed="true"] {
+  border-color: var(--color-brand);
+  background: var(--color-brand-soft);
+  color: var(--color-brand);
+}

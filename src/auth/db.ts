@@ -209,6 +209,25 @@ const MIGRATIONS: string[] = [
   );
   CREATE INDEX user_surebet_results_month ON user_surebet_results (user_id, month);
   `,
+  // 15: the value bets an account marked as taken, with their price and edge
+  // then (src/auth/takenValueBets.ts); forgotten two days after their match.
+  `
+  CREATE TABLE user_taken_value_bets (
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    bet_key TEXT NOT NULL,
+    event_id TEXT NOT NULL,
+    start_time TEXT NOT NULL,
+    label TEXT NOT NULL,
+    market TEXT NOT NULL,
+    selection TEXT NOT NULL,
+    bookmaker TEXT NOT NULL,
+    price REAL NOT NULL,
+    edge REAL NOT NULL,
+    created_at TEXT NOT NULL,
+    PRIMARY KEY (user_id, bet_key)
+  );
+  CREATE INDEX user_taken_value_bets_start ON user_taken_value_bets (start_time);
+  `,
 ];
 
 export function migrate(db: DatabaseSync): void {

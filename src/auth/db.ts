@@ -228,6 +228,11 @@ const MIGRATIONS: string[] = [
   );
   CREATE INDEX user_taken_value_bets_start ON user_taken_value_bets (start_time);
   `,
+  // 16: the stake an account actually placed on a taken value bet (euros to
+  // the cent), null when not written down.
+  `
+  ALTER TABLE user_taken_value_bets ADD COLUMN stake REAL;
+  `,
 ];
 
 export function migrate(db: DatabaseSync): void {

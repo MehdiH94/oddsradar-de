@@ -63,7 +63,7 @@ describe("the taken value bets", () => {
     const { db, ada, bob } = setup();
     saveTakenValueBet(db, ada.id, BET, NOW);
     saveTakenValueBet(db, ada.id, { ...BET, price: 3.2, edge: 0.01 }, NOW);
-    expect(listTakenValueBets(db, ada.id)).toEqual([BET]);
+    expect(listTakenValueBets(db, ada.id)).toEqual([{ ...BET, stake: null }]);
     expect(listTakenValueBets(db, bob.id)).toEqual([]);
   });
 
@@ -108,7 +108,7 @@ describe("/api/taken-value-bets", () => {
     const t = setup();
     const cookie = await sessionCookie(t);
     expect((await t.send("put", cookie, t.bet)).status).toBe(204);
-    expect((await t.get(cookie)).body.taken).toEqual([t.bet]);
+    expect((await t.get(cookie)).body.taken).toEqual([{ ...t.bet, stake: null }]);
     expect((await t.send("delete", cookie, { key: BET.key })).status).toBe(204);
     expect((await t.get(cookie)).body.taken).toEqual([]);
   });
@@ -126,6 +126,24 @@ describe("/api/taken-value-bets", () => {
     expect((await t.get(cookie)).body.taken[0]).not.toHaveProperty("closing");
     t.clock.now = new Date(Date.parse(start) + 60_000);
     expect((await t.get(cookie)).body.taken[0].closing).toBe(3.3);
+  });
+
+  it("writes down the stake placed on a taken value bet, and forgets it", async () => {
+    const t = setup();
+    const cookie = await sessionCookie(t);
+    const stake = (body: unknown) => request(t.app).put("/api/taken-value-bets/stake").set({ Origin: SITE, Cookie: cookie }).send(body as object);
+    expect((await stake({ key: BET.key, stake: 20 })).status).toBe(404);
+    await t.send("put", cookie, t.bet);
+    expect((await stake({ key: BET.key, stake: 20.555 })).status).toBe(204);
+    expect((await t.get(cookie)).body.taken[0].stake).toBe(20.56);
+    // Marked taken again: the stake stays.
+    await t.send("put", cookie, t.bet);
+    expect((await t.get(cookie)).body.taken[0].stake).toBe(20.56);
+    for (const bad of [{ key: BET.key, stake: -1 }, { key: BET.key, stake: "5" }, { key: BET.key, stake: 1e9 }, { stake: 5 }]) {
+      expect((await stake(bad)).status, JSON.stringify(bad)).toBe(400);
+    }
+    expect((await stake({ key: BET.key, stake: null })).status).toBe(204);
+    expect((await t.get(cookie)).body.taken[0].stake).toBeNull();
   });
 
   it("refuses a body that is not a taken value bet, and a request from another site", async () => {

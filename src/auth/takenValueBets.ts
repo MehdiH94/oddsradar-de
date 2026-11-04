@@ -1,5 +1,5 @@
 import { DatabaseSync } from "node:sqlite";
-import { KEEP_AFTER_START_MS, MAX_KEY, MAX_LABEL } from "./takenSurebets";
+import { KEEP_AFTER_START_MS, MAX_KEY, MAX_LABEL, MAX_STAKE } from "./takenSurebets";
 
 // The value bets an account has marked as taken (web/src/takenValueBets.ts):
 // greyed and last on the dashboard's list, and in "Meine Value Bets" with the
@@ -56,14 +56,34 @@ export function parseTakenValueBet(input: unknown, now = new Date()): TakenValue
   };
 }
 
+// A taken value bet as listed: with the stake placed on it, null when not
+// written down.
+export interface ListedTakenValueBet extends TakenValueBet {
+  stake: number | null;
+}
+
 // The account's taken value bets, soonest first.
-export function listTakenValueBets(db: DatabaseSync, userId: string): TakenValueBet[] {
+export function listTakenValueBets(db: DatabaseSync, userId: string): ListedTakenValueBet[] {
   return db
     .prepare(
-      `SELECT bet_key AS key, event_id AS eventId, start_time AS startTime, label, market, selection, bookmaker, price, edge
+      `SELECT bet_key AS key, event_id AS eventId, start_time AS startTime, label, market, selection, bookmaker, price, edge, stake
        FROM user_taken_value_bets WHERE user_id = ? ORDER BY start_time, bet_key`
     )
-    .all(userId) as unknown as TakenValueBet[];
+    .all(userId) as unknown as ListedTakenValueBet[];
+}
+
+// A stake from a body: euros to the cent, at most MAX_STAKE, or null to
+// forget it; undefined when it is neither.
+export function parseStake(input: unknown): number | null | undefined {
+  if (input === null) return null;
+  if (typeof input !== "number" || !Number.isFinite(input) || input < 0 || input > MAX_STAKE) return undefined;
+  return Math.round(input * 100) / 100;
+}
+
+// Writes down the stake placed on one of the account's taken value bets;
+// false when it holds no such value bet.
+export function saveValueBetStake(db: DatabaseSync, userId: string, key: string, stake: number | null): boolean {
+  return db.prepare("UPDATE user_taken_value_bets SET stake = ? WHERE user_id = ? AND bet_key = ?").run(stake, userId, key).changes > 0;
 }
 
 // False when the account already keeps MAX_TAKEN_VALUE_BETS others. Marked

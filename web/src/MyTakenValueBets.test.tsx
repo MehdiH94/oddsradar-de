@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { MyTakenValueBets } from "./MyTakenValueBets";
 import type { TakenValueBet } from "./takenValueBets";
 
@@ -37,5 +37,21 @@ describe("MyTakenValueBets", () => {
     expect(within(later).getByText(/^Vorteil \+4,5.%$/)).toBeInTheDocument();
     expect(within(later).getByRole("link", { name: "Spielseite" })).toHaveAttribute("href", "/spiel/gala-fener");
     expect(within(later).queryByText(/Schlusskurs/)).not.toBeInTheDocument();
+  });
+
+  it("writes down the stake placed when its field is left, and says what it is expected to win", () => {
+    const onStake = vi.fn();
+    render(<MyTakenValueBets taken={new Map([["k", bet({ stake: 20 })]])} onStake={onStake} now={NOW} />);
+    expect(screen.getByText("erwartet +0,90 €")).toBeInTheDocument();
+    expect(screen.getByText("Einsatz 20,00 € · erwartet +0,90 €")).toBeInTheDocument();
+    const field = screen.getByRole("textbox", { name: "Einsatz bei 20bet (3,50) in Euro" });
+    expect(field).toHaveValue("20");
+    fireEvent.change(field, { target: { value: "25,5" } });
+    fireEvent.blur(field);
+    expect(onStake).toHaveBeenCalledWith("k", 25.5);
+    // Nothing sent for a field that is not an amount.
+    fireEvent.change(field, { target: { value: "abc" } });
+    fireEvent.blur(field);
+    expect(onStake).toHaveBeenCalledTimes(1);
   });
 });

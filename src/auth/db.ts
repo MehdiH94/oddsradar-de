@@ -195,6 +195,20 @@ const MIGRATIONS: string[] = [
   `
   ALTER TABLE user_taken_surebets ADD COLUMN stakes TEXT;
   `,
+  // 14: what a played taken surebet with stakes locked in, kept once the
+  // taken surebet itself is forgotten (two days after its match), for the
+  // month's total. In cents; its match's start in Berlin's calendar month.
+  `
+  CREATE TABLE user_surebet_results (
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    surebet_key TEXT NOT NULL,
+    start_time TEXT NOT NULL,
+    month TEXT NOT NULL,
+    profit_cents INTEGER NOT NULL,
+    PRIMARY KEY (user_id, surebet_key)
+  );
+  CREATE INDEX user_surebet_results_month ON user_surebet_results (user_id, month);
+  `,
 ];
 
 export function migrate(db: DatabaseSync): void {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { closingLabel, closingSummaryLabel, closingValue, layLiability, lockedLabel, hasExchangeLeg, splitStakes, profitLabel, readTaken, summaryLabel, surebetKey, takenLabel, takenLegs } from "./takenSurebets";
+import { closingLabel, closingSummaryLabel, closingValue, layLiability, lockedLabel, hasExchangeLeg, monthLabel, readResults, splitStakes, profitLabel, readTaken, summaryLabel, surebetKey, takenLabel, takenLegs } from "./takenSurebets";
 import type { Surebet } from "./types";
 
 const lay: Surebet = {
@@ -156,5 +156,46 @@ describe("splitStakes", () => {
     expect(splitStakes([leg("1", "twentybet", 2.1)], 0)).toBeNull();
     expect(splitStakes([], 100)).toBeNull();
     expect(splitStakes([leg("2", "exchange", 3.2, "lay"), leg("1", "exchange", 2.2, "lay")], 100)).toBeNull();
+  });
+});
+
+describe("monthLabel", () => {
+  const NOW = new Date("2026-11-04T07:00:00Z");
+  const played = (startTime: string, stakes: (number | null)[]) => ({
+    remind: false,
+    eventId: "e",
+    startTime,
+    label: "",
+    remindedAt: null,
+    payoutRate: null,
+    legs: [
+      { market: "1X2", selection: "1", source: "twentybet", side: "back" as const, price: 2.1 },
+      { market: "1X2", selection: "2", source: "leovegas", side: "back" as const, price: 2.05 },
+    ],
+    stakes,
+  });
+
+  it("adds the played surebets still held this month to the server's results", () => {
+    const results = { month: "2026-11", profit: 12.4, count: 4 };
+    // +3,00 played this month; one not played yet, one without a stake, one of October left out.
+    const taken = [
+      played("2026-11-03T18:00:00Z", [50, 52]),
+      played("2026-11-05T18:00:00Z", [50, 52]),
+      played("2026-11-03T18:00:00Z", [50, null]),
+      played("2026-10-31T22:30:00Z", [50, 52]),
+    ];
+    expect(monthLabel(results, taken, NOW)).toBe("November: +15,40 € gesichert aus 5 Surebets");
+  });
+
+  it("counts a match by its start in Berlin, says a loss, and nothing without any", () => {
+    // 31/10 at 23:30 UTC is 1 November in Berlin.
+    expect(monthLabel(null, [played("2026-10-31T23:30:00Z", [60, 40])], NOW)).toBe("November: −18,00 € aus 1 Surebet");
+    expect(monthLabel({ month: "2026-10", profit: 9, count: 3 }, [], NOW)).toBeNull();
+  });
+
+  it("reads the server's results, and none that are not", () => {
+    expect(readResults({ results: { month: "2026-11", profit: 1.5, count: 1 } })).toEqual({ month: "2026-11", profit: 1.5, count: 1 });
+    expect(readResults({ taken: [] })).toBeNull();
+    expect(readResults({ results: { month: "2026-11", profit: "1" } })).toBeNull();
   });
 });

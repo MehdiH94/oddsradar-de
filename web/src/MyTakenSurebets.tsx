@@ -1,7 +1,7 @@
 import { useState, type MouseEvent } from "react";
 import { BOOKMAKER_BRANDING } from "./bookmakers";
 import { formatPrice, formatStartTime } from "./format";
-import { closingLabel, closingSummaryLabel, lockedLabel, profitLabel, summaryLabel, type TakenInfo, type TakenSurebets } from "./takenSurebets";
+import { closingLabel, closingSummaryLabel, layLiability, lockedLabel, profitLabel, summaryLabel, type TakenInfo, type TakenSurebets } from "./takenSurebets";
 import styles from "./MyTakenSurebets.module.css";
 
 // "Meine Surebets": the surebets the account marked taken, in one place above
@@ -12,7 +12,7 @@ import styles from "./MyTakenSurebets.module.css";
 // taken ("Schlusskurs bei 20bet 1,98 (+3,0 %)"), and above the list their
 // average ("Ø +2,1 % gegenüber dem Schlusskurs (4 Wetten)"). The server forgets one two days after
 // its match (src/auth/takenSurebets.ts). With `onStakes`, the stakes
-// actually placed on each back can be written down, and what they lock in is
+// actually placed on each leg can be written down, and what they lock in is
 // said ("Gesichert: +2,40 € bei 100,00 € Einsatz").
 export function MyTakenSurebets({
   taken,
@@ -66,9 +66,11 @@ function stakeOf(text: string): number | null | undefined {
   return Number.isFinite(n) && n >= 0 && n <= 100_000 ? Math.round(n * 100) / 100 : undefined;
 }
 const stakeText = (s: number | null | undefined) => (typeof s === "number" ? String(s).replace(".", ",") : "");
+const euroText = (v: number) => `${v.toFixed(2).replace(".", ",")} €`;
 
-// The stakes actually placed on a surebet of backs only, written down when a
-// field is left, and what they lock in.
+// The stakes actually placed on a taken surebet's legs (a lay's is its
+// backer's stake, its liability shown beside it), written down when a field is
+// left, and what they lock in.
 function Stakes({ item, onStakes }: { item: TakenInfo; onStakes: (stakes: (number | null)[]) => void }) {
   const legs = item.legs!;
   const [texts, setTexts] = useState(() => legs.map((_, i) => stakeText(item.stakes?.[i])));
@@ -84,10 +86,13 @@ function Stakes({ item, onStakes }: { item: TakenInfo; onStakes: (stakes: (numbe
       <summary>Meine Einsätze</summary>
       <div className={styles.stakeFields}>
         {legs.map((leg, i) => {
-          const name = BOOKMAKER_BRANDING[leg.source]?.name ?? leg.source;
+          const lay = leg.side === "lay";
+          const name = leg.source === "exchange" ? "Börse" : (BOOKMAKER_BRANDING[leg.source]?.name ?? leg.source);
+          const stake = stakeOf(texts[i]);
           return (
             <label key={i} className={styles.stakeField}>
               <span>
+                {lay ? "Lay an der " : ""}
                 {name} {formatPrice(leg.price)}
               </span>
               <input
@@ -96,12 +101,13 @@ function Stakes({ item, onStakes }: { item: TakenInfo; onStakes: (stakes: (numbe
                 autoComplete="off"
                 value={texts[i]}
                 placeholder="0"
-                aria-label={`Einsatz bei ${name} (${formatPrice(leg.price)}) in Euro`}
-                aria-invalid={stakeOf(texts[i]) === undefined}
+                aria-label={lay ? `Lay-Einsatz an der Börse (${formatPrice(leg.price)}) in Euro` : `Einsatz bei ${name} (${formatPrice(leg.price)}) in Euro`}
+                aria-invalid={stake === undefined}
                 onChange={(e) => setTexts((t) => t.map((x, j) => (j === i ? e.target.value : x)))}
                 onBlur={commit}
               />
               <span>€</span>
+              {lay && typeof stake === "number" && stake > 0 && <span>Haftung {euroText(layLiability(stake, leg.price))}</span>}
             </label>
           );
         })}
@@ -146,7 +152,7 @@ function TakenItem({
           </a>
         )}
       </p>
-      {onStakes && item.legs && item.legs.length > 0 && item.legs.every((l) => l.side === "back") && <Stakes item={item} onStakes={onStakes} />}
+      {onStakes && item.legs && item.legs.length > 0 && <Stakes item={item} onStakes={onStakes} />}
       {closings.length > 0 && (
         <p className={styles.meta}>
           {closings.map((c) => (

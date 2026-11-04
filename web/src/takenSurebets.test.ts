@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { closingLabel, closingSummaryLabel, closingValue, layLiability, lockedLabel, hasExchangeLeg, profitLabel, readTaken, summaryLabel, surebetKey, takenLabel, takenLegs } from "./takenSurebets";
+import { closingLabel, closingSummaryLabel, closingValue, layLiability, lockedLabel, hasExchangeLeg, splitStakes, profitLabel, readTaken, summaryLabel, surebetKey, takenLabel, takenLegs } from "./takenSurebets";
 import type { Surebet } from "./types";
 
 const lay: Surebet = {
@@ -133,5 +133,28 @@ describe("lockedLabel", () => {
     expect(lockedLabel([back("twentybet", 2.1), back("leovegas", 2.05)], [50, null])).toBeNull();
     expect(lockedLabel([back("twentybet", 2.1), { ...back("exchange", 2.2), side: "lay" as const }], [50, null])).toBeNull();
     expect(lockedLabel(undefined, [50])).toBeNull();
+  });
+});
+
+describe("splitStakes", () => {
+  const leg = (selection: string, source: string, price: number, side: "back" | "lay" = "back") => ({ market: "1X2", selection, source, side, price });
+
+  it("splits backs in inverse proportion to their prices, rounded to the euro", () => {
+    expect(splitStakes([leg("1", "twentybet", 2.1), leg("2", "leovegas", 2.05)], 100)).toEqual([49, 51]);
+  });
+
+  it("takes a back at the exchange net of its commission", () => {
+    // 2,2 at the exchange pays as 2,164.
+    expect(splitStakes([leg("1", "twentybet", 2.3), leg("2", "exchange", 2.2)], 100)).toEqual([48, 52]);
+  });
+
+  it("with a lay, the total is the back's stake and the lay's is back × price / (lay − commission)", () => {
+    expect(splitStakes([leg("2", "twentybet", 3.5), leg("2", "exchange", 3.2, "lay")], 100)).toEqual([100, 110]);
+  });
+
+  it("refuses a total that is not positive and legs it cannot split", () => {
+    expect(splitStakes([leg("1", "twentybet", 2.1)], 0)).toBeNull();
+    expect(splitStakes([], 100)).toBeNull();
+    expect(splitStakes([leg("2", "exchange", 3.2, "lay"), leg("1", "exchange", 2.2, "lay")], 100)).toBeNull();
   });
 });

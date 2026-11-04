@@ -106,6 +106,22 @@ describe("MyTakenSurebets", () => {
     expect(onStakes).toHaveBeenCalledWith("k", [100, 112]);
   });
 
+  it("fills each leg's stake from a total, as the surebets list splits it", () => {
+    const onStakes = vi.fn();
+    const legs = [
+      { market: "1X2", selection: "1", source: "twentybet", side: "back" as const, price: 2.1 },
+      { market: "1X2", selection: "2", source: "leovegas", side: "back" as const, price: 2.05 },
+    ];
+    render(<MyTakenSurebets taken={new Map([["k", info({ legs })]])} onStakes={onStakes} now={NOW} />);
+    const split = screen.getByRole("button", { name: "Aufteilen" });
+    expect(split).toBeDisabled();
+    fireEvent.change(screen.getByRole("textbox", { name: "Gesamteinsatz in Euro, auf die Wetten aufzuteilen" }), { target: { value: "100" } });
+    fireEvent.click(split);
+    expect(onStakes).toHaveBeenCalledWith("k", [49, 51]);
+    expect(screen.getByRole("textbox", { name: "Einsatz bei 20bet (2,10) in Euro" })).toHaveValue("49");
+    expect(screen.getByRole("textbox", { name: "Einsatz bei LeoVegas (2,05) in Euro" })).toHaveValue("51");
+  });
+
   it("offers no stakes without onStakes", () => {
     const legs = [{ market: "1X2", selection: "2", source: "twentybet", side: "back" as const, price: 3.32 }];
     render(<MyTakenSurebets taken={new Map([["k", info({ legs })]])} now={NOW} />);

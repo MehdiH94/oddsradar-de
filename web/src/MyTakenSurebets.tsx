@@ -1,7 +1,7 @@
 import { useState, type MouseEvent } from "react";
 import { BOOKMAKER_BRANDING } from "./bookmakers";
 import { formatPrice, formatStartTime } from "./format";
-import { closingLabel, closingSummaryLabel, layLiability, lockedLabel, profitLabel, summaryLabel, type TakenInfo, type TakenSurebets } from "./takenSurebets";
+import { closingLabel, closingSummaryLabel, layLiability, lockedLabel, profitLabel, splitStakes, summaryLabel, type TakenInfo, type TakenSurebets } from "./takenSurebets";
 import styles from "./MyTakenSurebets.module.css";
 
 // "Meine Surebets": the surebets the account marked taken, in one place above
@@ -70,12 +70,16 @@ const euroText = (v: number) => `${v.toFixed(2).replace(".", ",")} €`;
 
 // The stakes actually placed on a taken surebet's legs (a lay's is its
 // backer's stake, its liability shown beside it), written down when a field is
-// left, and what they lock in.
+// left, and what they lock in. A total typed above fills them as the surebets
+// list splits it ("Aufteilen").
 function Stakes({ item, onStakes }: { item: TakenInfo; onStakes: (stakes: (number | null)[]) => void }) {
   const legs = item.legs!;
   const [texts, setTexts] = useState(() => legs.map((_, i) => stakeText(item.stakes?.[i])));
-  const commit = () => {
-    const stakes = texts.map(stakeOf);
+  const [totalText, setTotalText] = useState("");
+  const total = stakeOf(totalText);
+  const split = typeof total === "number" ? splitStakes(legs, total) : null;
+  const commit = (from: string[] = texts) => {
+    const stakes = from.map(stakeOf);
     if (stakes.some((s) => s === undefined)) return;
     if (JSON.stringify(stakes) === JSON.stringify(legs.map((_, i) => item.stakes?.[i] ?? null))) return;
     onStakes(stakes as (number | null)[]);
@@ -84,6 +88,35 @@ function Stakes({ item, onStakes }: { item: TakenInfo; onStakes: (stakes: (numbe
   return (
     <details className={styles.stakes}>
       <summary>Meine Einsätze</summary>
+      <div className={styles.stakeFields}>
+        <label className={styles.stakeField}>
+          <span>{legs.some((l) => l.side === "lay") ? "Einsatz beim Buchmacher" : "Gesamteinsatz"}</span>
+          <input
+            type="text"
+            inputMode="decimal"
+            autoComplete="off"
+            value={totalText}
+            placeholder="100"
+            aria-label="Gesamteinsatz in Euro, auf die Wetten aufzuteilen"
+            aria-invalid={total === undefined}
+            onChange={(e) => setTotalText(e.target.value)}
+          />
+          <span>€</span>
+        </label>
+        <button
+          type="button"
+          className={styles.split}
+          disabled={!split}
+          onClick={() => {
+            if (!split) return;
+            const filled = split.map(stakeText);
+            setTexts(filled);
+            commit(filled);
+          }}
+        >
+          Aufteilen
+        </button>
+      </div>
       <div className={styles.stakeFields}>
         {legs.map((leg, i) => {
           const lay = leg.side === "lay";
@@ -104,7 +137,7 @@ function Stakes({ item, onStakes }: { item: TakenInfo; onStakes: (stakes: (numbe
                 aria-label={lay ? `Lay-Einsatz an der Börse (${formatPrice(leg.price)}) in Euro` : `Einsatz bei ${name} (${formatPrice(leg.price)}) in Euro`}
                 aria-invalid={stake === undefined}
                 onChange={(e) => setTexts((t) => t.map((x, j) => (j === i ? e.target.value : x)))}
-                onBlur={commit}
+                onBlur={() => commit()}
               />
               <span>€</span>
               {lay && typeof stake === "number" && stake > 0 && <span>Haftung {euroText(layLiability(stake, leg.price))}</span>}

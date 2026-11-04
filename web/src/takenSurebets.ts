@@ -206,6 +206,28 @@ export function lockedLabel(legs: readonly TakenLeg[] | undefined, stakes: reado
   return worst >= -0.005 ? `Gesichert: +${euros(Math.max(worst, 0))} ${at}` : `Möglicher Verlust: −${euros(-worst)} ${at}`;
 }
 
+// A total stake split over a taken surebet's legs as the surebets list splits
+// it (src/db/surebets.ts): backs in inverse proportion to their prices (a back
+// at the exchange net of its commission), so that any of them winning pays
+// the same; with a lay, the total is its back's stake and the lay's stake is
+// back × price / (lay − commission). Rounded to the euro, as a bookmaker
+// expects a stake. Null when the total is not a positive amount or the legs
+// are neither all backs nor a back and its lay.
+export function splitStakes(legs: readonly TakenLeg[], total: number): number[] | null {
+  if (!(total > 0) || legs.length === 0) return null;
+  const lays = legs.filter((l) => l.side === "lay");
+  if (lays.length > 0) {
+    const back = legs.find((l) => l.side === "back");
+    if (legs.length !== 2 || lays.length !== 1 || !back || lays[0].price <= EXCHANGE_COMMISSION) return null;
+    const lay = Math.round((total * back.price) / (lays[0].price - EXCHANGE_COMMISSION));
+    return legs.map((l) => (l.side === "lay" ? lay : Math.round(total)));
+  }
+  const net = (l: TakenLeg) => (l.source === EXCHANGE ? 1 + (l.price - 1) * (1 - EXCHANGE_COMMISSION) : l.price);
+  if (legs.some((l) => net(l) <= 1)) return null;
+  const rate = 1 / legs.reduce((sum, l) => sum + 1 / net(l), 0);
+  return legs.map((l) => Math.round((total * rate) / net(l)));
+}
+
 async function sendStakes(key: string, stakes: (number | null)[]): Promise<boolean> {
   try {
     const res = await fetch("/api/taken-surebets/stakes", {

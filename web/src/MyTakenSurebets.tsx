@@ -1,6 +1,7 @@
 import { useState, type MouseEvent } from "react";
 import { BOOKMAKER_BRANDING } from "./bookmakers";
 import { formatPrice, formatStartTime } from "./format";
+import { downloadTakenCsv } from "./takenCsv";
 import { closingLabel, closingSummaryLabel, layLiability, lockedLabel, monthLabel, profitLabel, splitStakes, summaryLabel, type MonthResults, type TakenInfo, type TakenSurebets } from "./takenSurebets";
 import styles from "./MyTakenSurebets.module.css";
 
@@ -43,6 +44,11 @@ export function MyTakenSurebets({
       {month && <p className={styles.total}>{month}</p>}
       {list.length > 0 && <p className={styles.total}>{summaryLabel(list)}</p>}
       {closing && <p className={styles.total}>{closing}</p>}
+      {list.length > 0 && (
+        <button type="button" className={styles.csv} onClick={() => downloadTakenCsv(list, now)}>
+          Als CSV herunterladen
+        </button>
+      )}
       <ul className={styles.list}>
         {entries.map(([key, item]) => (
           <TakenItem

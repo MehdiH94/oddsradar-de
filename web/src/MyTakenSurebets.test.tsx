@@ -132,6 +132,20 @@ describe("MyTakenSurebets", () => {
     expect(container).toBeEmptyDOMElement();
   });
 
+  it("hands the list to the browser as a CSV file", () => {
+    const createObjectURL = vi.fn(() => "blob:csv");
+    const revokeObjectURL = vi.fn();
+    Object.assign(URL, { createObjectURL, revokeObjectURL });
+    const click = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
+    render(<MyTakenSurebets taken={new Map([["k", info({})]])} now={NOW} />);
+    fireEvent.click(screen.getByRole("button", { name: "Als CSV herunterladen" }));
+    expect(createObjectURL).toHaveBeenCalledTimes(1);
+    expect(click).toHaveBeenCalledTimes(1);
+    expect((click.mock.instances[0] as unknown as HTMLAnchorElement).download).toMatch(/^meine-surebets-\d{4}-\d{2}-\d{2}\.csv$/);
+    expect(revokeObjectURL).toHaveBeenCalledWith("blob:csv");
+    click.mockRestore();
+  });
+
   it("offers no stakes without onStakes", () => {
     const legs = [{ market: "1X2", selection: "2", source: "twentybet", side: "back" as const, price: 3.32 }];
     render(<MyTakenSurebets taken={new Map([["k", info({ legs })]])} now={NOW} />);

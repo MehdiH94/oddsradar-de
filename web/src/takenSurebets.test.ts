@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { closingLabel, closingSummaryLabel, closingValue, lockedLabel, hasExchangeLeg, profitLabel, readTaken, summaryLabel, surebetKey, takenLabel, takenLegs } from "./takenSurebets";
+import { closingLabel, closingSummaryLabel, closingValue, layLiability, lockedLabel, hasExchangeLeg, profitLabel, readTaken, summaryLabel, surebetKey, takenLabel, takenLegs } from "./takenSurebets";
 import type { Surebet } from "./types";
 
 const lay: Surebet = {
@@ -113,9 +113,25 @@ describe("lockedLabel", () => {
     expect(lockedLabel(legs, [60, 40])).toBe("Möglicher Verlust: −18,00 € bei 100,00 € Einsatz");
   });
 
-  it("says nothing until every stake is written down, nor with a lay", () => {
+  it("takes the exchange's commission off a back there", () => {
+    const legs = [back("twentybet", 2.3), back("exchange", 2.2)];
+    expect(lockedLabel(legs, [50, 50])).toBe("Gesichert: +8,20 € bei 100,00 € Einsatz");
+  });
+
+  it("settles a back and its lay: the selection winning costs the lay's liability, losing pays its stake less the commission", () => {
+    const legs = [
+      { market: "1X2", selection: "2", source: "twentybet", side: "back" as const, price: 3.5 },
+      { market: "1X2", selection: "2", source: "exchange", side: "lay" as const, price: 3.2 },
+    ];
+    // Wins: 100 × 2,5 − 110 × 2,2 = 8; loses: 110 × 0,97 − 100 = 6,70.
+    expect(lockedLabel(legs, [100, 110])).toBe("Gesichert: +6,70 € bei 100,00 € Einsatz und 242,00 € Haftung");
+    expect(lockedLabel(legs, [100, 90])).toBe("Möglicher Verlust: −12,70 € bei 100,00 € Einsatz und 198,00 € Haftung");
+    expect(layLiability(110, 3.2)).toBeCloseTo(242);
+  });
+
+  it("says nothing until every stake is written down", () => {
     expect(lockedLabel([back("twentybet", 2.1), back("leovegas", 2.05)], [50, null])).toBeNull();
-    expect(lockedLabel([back("twentybet", 2.1), { ...back("exchange", 2.2), side: "lay" as const }], [50, 50])).toBeNull();
+    expect(lockedLabel([back("twentybet", 2.1), { ...back("exchange", 2.2), side: "lay" as const }], [50, null])).toBeNull();
     expect(lockedLabel(undefined, [50])).toBeNull();
   });
 });

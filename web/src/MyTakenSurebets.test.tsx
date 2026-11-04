@@ -91,15 +91,24 @@ describe("MyTakenSurebets", () => {
     expect(onStakes).toHaveBeenCalledTimes(1);
   });
 
-  it("offers no stakes for a surebet with a lay, nor without onStakes", () => {
+  it("writes down a lay's stake too, shows its liability and what the pair locks in", () => {
+    const onStakes = vi.fn();
     const legs = [
-      { market: "1X2", selection: "2", source: "twentybet", side: "back" as const, price: 3.32 },
+      { market: "1X2", selection: "2", source: "twentybet", side: "back" as const, price: 3.5 },
       { market: "1X2", selection: "2", source: "exchange", side: "lay" as const, price: 3.2 },
     ];
-    const { unmount } = render(<MyTakenSurebets taken={new Map([["k", info({ legs })]])} onStakes={() => {}} now={NOW} />);
-    expect(screen.queryByText("Meine Einsätze")).not.toBeInTheDocument();
-    unmount();
-    render(<MyTakenSurebets taken={new Map([["k", info({ legs: [legs[0]] })]])} now={NOW} />);
+    render(<MyTakenSurebets taken={new Map([["k", info({ legs, stakes: [100, 110] })]])} onStakes={onStakes} now={NOW} />);
+    expect(screen.getByText("Gesichert: +6,70 € bei 100,00 € Einsatz und 242,00 € Haftung")).toBeInTheDocument();
+    expect(screen.getByText("Haftung 242,00 €")).toBeInTheDocument();
+    const lay = screen.getByRole("textbox", { name: "Lay-Einsatz an der Börse (3,20) in Euro" });
+    fireEvent.change(lay, { target: { value: "112" } });
+    fireEvent.blur(lay);
+    expect(onStakes).toHaveBeenCalledWith("k", [100, 112]);
+  });
+
+  it("offers no stakes without onStakes", () => {
+    const legs = [{ market: "1X2", selection: "2", source: "twentybet", side: "back" as const, price: 3.32 }];
+    render(<MyTakenSurebets taken={new Map([["k", info({ legs })]])} now={NOW} />);
     expect(screen.queryByText("Meine Einsätze")).not.toBeInTheDocument();
   });
 });

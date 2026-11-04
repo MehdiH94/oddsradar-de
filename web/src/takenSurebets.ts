@@ -171,20 +171,39 @@ export interface TakenSurebetsState {
   setStakes: (key: string, stakes: (number | null)[]) => void;
 }
 
-// What the stakes written down lock in, when every leg is a back with a stake:
-// the least that any leg winning pays, less all that was staked ("Gesichert:
-// +2,40 € bei 100,00 € Einsatz"). Null otherwise (a lay's result depends on
-// the exchange's commission and its liability, not written down here).
+// The exchange's commission on a market's net winnings (src/db/surebets.ts,
+// EXCHANGE_COMMISSION).
+export const EXCHANGE_COMMISSION = 0.03;
+
+// What a lay leg risks: its stake times its price less one.
+export const layLiability = (stake: number, price: number): number => stake * (price - 1);
+
+// What the stakes written down lock in, once every leg has one: the worst
+// result over the outcomes, each leg settled as the surebets list computes it
+// (a back at the exchange or a won lay less the exchange's commission on its
+// winnings; a lost lay costs its liability). With a lay, the outcomes are its
+// selection winning or not. "Gesichert: +2,40 € bei 100,00 € Einsatz", with a
+// lay "… bei 100,00 € Einsatz und 108,00 € Haftung". Null otherwise.
 export function lockedLabel(legs: readonly TakenLeg[] | undefined, stakes: readonly (number | null)[] | undefined): string | null {
-  if (!legs || !stakes || legs.length === 0 || legs.some((l) => l.side !== "back")) return null;
+  if (!legs || !stakes || legs.length === 0) return null;
   if (legs.some((_, i) => typeof stakes[i] !== "number")) return null;
-  const total = legs.reduce((sum, _, i) => sum + (stakes[i] as number), 0);
-  if (total <= 0) return null;
-  const worst = Math.min(...legs.map((l, i) => (stakes[i] as number) * l.price - total));
+  const stake = (i: number) => stakes[i] as number;
+  const backs = legs.reduce((sum, l, i) => sum + (l.side === "back" ? stake(i) : 0), 0);
+  const liability = legs.reduce((sum, l, i) => sum + (l.side === "lay" ? layLiability(stake(i), l.price) : 0), 0);
+  if (backs + liability <= 0) return null;
+  const settle = (winner: string | null) =>
+    legs.reduce((sum, l, i) => {
+      const wins = l.selection === winner;
+      if (l.side === "lay") return sum + (wins ? -layLiability(stake(i), l.price) : stake(i) * (1 - EXCHANGE_COMMISSION));
+      const cut = l.source === EXCHANGE ? 1 - EXCHANGE_COMMISSION : 1;
+      return sum + (wins ? stake(i) * (l.price - 1) * cut : -stake(i));
+    }, 0);
+  const outcomes: (string | null)[] = [...new Set(legs.map((l) => l.selection))];
+  if (legs.some((l) => l.side === "lay")) outcomes.push(null);
+  const worst = Math.min(...outcomes.map(settle));
   const euros = (v: number) => `${v.toFixed(2).replace(".", ",")} €`;
-  return worst >= 0
-    ? `Gesichert: +${euros(worst)} bei ${euros(total)} Einsatz`
-    : `Möglicher Verlust: −${euros(-worst)} bei ${euros(total)} Einsatz`;
+  const at = liability > 0 ? `bei ${euros(backs)} Einsatz und ${euros(liability)} Haftung` : `bei ${euros(backs)} Einsatz`;
+  return worst >= -0.005 ? `Gesichert: +${euros(Math.max(worst, 0))} ${at}` : `Möglicher Verlust: −${euros(-worst)} ${at}`;
 }
 
 async function sendStakes(key: string, stakes: (number | null)[]): Promise<boolean> {

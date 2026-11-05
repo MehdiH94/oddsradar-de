@@ -2,6 +2,7 @@ import { useState, type MouseEvent } from "react";
 import { BOOKMAKER_BRANDING } from "./bookmakers";
 import { formatPrice, formatStartTime } from "./format";
 import { downloadTakenCsv } from "./takenCsv";
+import { RemoveButton } from "./RemoveButton";
 import { closingLabel, closingSummaryLabel, layLiability, lockedLabel, monthLabel, profitLabel, splitStakes, summaryLabel, type MonthResults, type TakenInfo, type TakenSurebets } from "./takenSurebets";
 import styles from "./MyTakenSurebets.module.css";
 
@@ -22,10 +23,13 @@ export function MyTakenSurebets({
   matchHref,
   onOpenMatch,
   onStakes,
+  onRemove,
   results = null,
   now = new Date(),
 }: {
   taken: TakenSurebets;
+  // Takes the mark off one, by its key ("Entfernen").
+  onRemove?: (key: string) => void;
   results?: MonthResults | null;
   matchHref?: (id: string) => string;
   onOpenMatch?: (id: string) => void;
@@ -57,6 +61,7 @@ export function MyTakenSurebets({
             matchHref={matchHref}
             onOpenMatch={onOpenMatch}
             onStakes={onStakes && ((stakes) => onStakes(key, stakes))}
+            onRemove={onRemove && (() => onRemove(key))}
             now={now}
           />
         ))}
@@ -167,9 +172,11 @@ function TakenItem({
   matchHref,
   onOpenMatch,
   onStakes,
+  onRemove,
   now,
 }: {
   item: TakenInfo;
+  onRemove?: () => void;
   matchHref?: (id: string) => string;
   onOpenMatch?: (id: string) => void;
   onStakes?: (stakes: (number | null)[]) => void;
@@ -196,6 +203,7 @@ function TakenItem({
             Spielseite
           </a>
         )}
+        {onRemove && <RemoveButton label={item.label} hasStakes={(item.stakes ?? []).some((x) => typeof x === "number")} onRemove={onRemove} />}
       </p>
       {onStakes && item.legs && item.legs.length > 0 && <Stakes item={item} onStakes={onStakes} />}
       {closings.length > 0 && (

@@ -190,6 +190,8 @@ export interface TakenValueBetsState {
   setTaken: (bet: ValueBet, taken: boolean) => void;
   // Writes down the stake placed on a taken value bet (by its key).
   setStake?: (key: string, stake: number | null) => void;
+  // Takes the mark off a taken value bet by its key, once it left the list too.
+  remove?: (key: string) => void;
 }
 
 // The account's taken value bets, and the way to change them: a change shows
@@ -236,15 +238,23 @@ export function useTakenValueBets(enabled = true): TakenValueBetsState {
     });
   }, []);
 
+  const remove = useCallback(
+    (key: string) => {
+      const before = taken.get(key);
+      update(key, undefined);
+      void send("DELETE", { key }).then((ok) => {
+        if (!ok) update(key, before);
+      });
+    },
+    [taken, update]
+  );
+
   const setTaken = useCallback(
     (bet: ValueBet, isTaken: boolean) => {
       const key = valueBetKey(bet);
       const before = taken.get(key);
       if (!isTaken) {
-        update(key, undefined);
-        void send("DELETE", { key }).then((ok) => {
-          if (!ok) update(key, before);
-        });
+        remove(key);
         return;
       }
       const value: TakenValueBet = before ?? {
@@ -262,7 +272,7 @@ export function useTakenValueBets(enabled = true): TakenValueBetsState {
         if (!ok) update(key, before);
       });
     },
-    [taken, update]
+    [taken, update, remove]
   );
 
   const setStake = useCallback(
@@ -277,5 +287,5 @@ export function useTakenValueBets(enabled = true): TakenValueBetsState {
     [taken, update]
   );
 
-  return { taken, results, setTaken, setStake };
+  return { taken, results, setTaken, setStake, remove };
 }

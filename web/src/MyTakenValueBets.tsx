@@ -3,6 +3,7 @@ import { BOOKMAKER_BRANDING } from "./bookmakers";
 import { formatEdge, formatPrice, formatStartTime } from "./format";
 import styles from "./MyTakenSurebets.module.css";
 import { downloadValueBetsCsv } from "./valueBetsCsv";
+import { RemoveButton } from "./RemoveButton";
 import { closingValue, expectedLabel, monthValueLabel, stakesSummaryLabel, valueSummaryLabel, type TakenValueBet, type TakenValueBets, type ValueBetResults } from "./takenValueBets";
 
 // "Meine Value Bets (N)": the account's taken value bets, soonest first, even
@@ -19,10 +20,13 @@ export function MyTakenValueBets({
   matchHref,
   onOpenMatch,
   onStake,
+  onRemove,
   results = null,
   now = new Date(),
 }: {
   taken: TakenValueBets;
+  // Takes the mark off one, by its key ("Entfernen").
+  onRemove?: (key: string) => void;
   results?: ValueBetResults | null;
   onStake?: (key: string, stake: number | null) => void;
   matchHref?: (id: string) => string;
@@ -53,6 +57,7 @@ export function MyTakenValueBets({
             matchHref={matchHref}
             onOpenMatch={onOpenMatch}
             onStake={onStake && ((stake) => onStake(key, stake))}
+            onRemove={onRemove && (() => onRemove(key))}
             now={now}
           />
         ))}
@@ -66,9 +71,11 @@ function TakenValueBetItem({
   matchHref,
   onOpenMatch,
   onStake,
+  onRemove,
   now,
 }: {
   bet: TakenValueBet;
+  onRemove?: () => void;
   onStake?: (stake: number | null) => void;
   matchHref?: (id: string) => string;
   onOpenMatch?: (id: string) => void;
@@ -101,6 +108,7 @@ function TakenValueBetItem({
             Spielseite
           </a>
         )}
+        {onRemove && <RemoveButton label={bet.label} hasStakes={typeof bet.stake === "number" && bet.stake > 0} onRemove={onRemove} />}
       </p>
       {onStake && <Stake bet={bet} bookmaker={bookmaker} onStake={onStake} />}
     </li>

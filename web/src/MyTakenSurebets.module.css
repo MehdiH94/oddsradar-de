@@ -129,3 +129,14 @@
   margin: var(--space-2) 0 0;
   font-weight: 700;
 }
+
+/* "Entfernen": takes the mark off a taken bet, once it left the lists too. */
+.remove {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text-muted);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -7,9 +7,11 @@ import { createUser } from "../../src/auth/store";
 import {
   listTakenValueBets,
   MAX_TAKEN_VALUE_BETS,
+  monthValueBetResults,
   parseTakenValueBet,
   purgeTakenValueBets,
   saveTakenValueBet,
+  saveValueBetStake,
   TakenValueBet,
 } from "../../src/auth/takenValueBets";
 import { SITE, sessionCookie, testAuth } from "./helpers";
@@ -87,6 +89,37 @@ describe("the taken value bets", () => {
   });
 });
 
+describe("the value bets' results", () => {
+  it("keeps a played value bet with a stake once it is forgotten, with its closing line value, for the month's total", () => {
+    const db = openAuthDb(":memory:");
+    const odds = openDb(":memory:");
+    const ada = createUser(db, { email: "ada@example.com", passwordHash: "x", verified: true }, NOW);
+    odds.exec("INSERT INTO bookmakers (id, name) VALUES ('twentybet', '20bet'), ('leovegas', 'LeoVegas')");
+    odds.prepare("INSERT INTO events (id, sport, competition, start_time, participants) VALUES (?, 'football', 'Süper Lig', ?, '[]')").run(BET.eventId, BET.startTime);
+    odds
+      .prepare("INSERT INTO event_bookmaker_odds (event_id, bookmaker_id, market, selection, price, scraped_at) VALUES (?, 'twentybet', '1X2', '2', 3.2, ?)")
+      .run(BET.eventId, at(80));
+    saveTakenValueBet(db, ada.id, BET, NOW);
+    saveValueBetStake(db, ada.id, BET.key, 100);
+    // No closing price read for this one: kept without a closing line value.
+    saveTakenValueBet(db, ada.id, { ...BET, key: "other", bookmaker: "leovegas", edge: 0.02 }, NOW);
+    saveValueBetStake(db, ada.id, "other", 50);
+    // Without a stake, nothing to keep.
+    saveTakenValueBet(db, ada.id, { ...BET, key: "no stake" }, NOW);
+    const later = new Date(Date.parse(at(90 + 49 * 60)));
+    purgeTakenValueBets(db, later, odds);
+    expect(listTakenValueBets(db, ada.id)).toEqual([]);
+    const results = monthValueBetResults(db, ada.id, later);
+    expect(results).toMatchObject({ month: "2026-10", count: 2, staked: 150, clvStake: 100 });
+    // 100 × 4,5 % + 50 × 2 %; 100 × (3,5 / 3,2 − 1).
+    expect(results.expected).toBeCloseTo(5.5);
+    expect(results.clvSum).toBeCloseTo(100 * (3.5 / 3.2 - 1));
+    expect(monthValueBetResults(db, ada.id, new Date("2026-11-01T00:30:00Z"))).toMatchObject({ month: "2026-11", count: 0, staked: 0 });
+    purgeTakenValueBets(db, new Date("2027-11-20T00:00:00Z"), odds);
+    expect(db.prepare("SELECT COUNT(*) AS n FROM user_value_bet_results").get()).toEqual({ n: 0 });
+  });
+});
+
 describe("/api/taken-value-bets", () => {
   function setup() {
     const t = testAuth();
@@ -109,6 +142,7 @@ describe("/api/taken-value-bets", () => {
     const cookie = await sessionCookie(t);
     expect((await t.send("put", cookie, t.bet)).status).toBe(204);
     expect((await t.get(cookie)).body.taken).toEqual([{ ...t.bet, stake: null }]);
+    expect((await t.get(cookie)).body.results).toEqual({ month: "2026-10", count: 0, staked: 0, expected: 0, clvSum: 0, clvStake: 0 });
     expect((await t.send("delete", cookie, { key: BET.key })).status).toBe(204);
     expect((await t.get(cookie)).body.taken).toEqual([]);
   });

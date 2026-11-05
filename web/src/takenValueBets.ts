@@ -105,6 +105,56 @@ export function stakesSummaryLabel(list: readonly TakenValueBet[]): string | nul
   return `Einsatz ${euros(total)} · erwartet +${euros(expected)}`;
 }
 
+// The month's results the server keeps for the value bets it has forgotten
+// (src/auth/takenValueBets.ts, monthValueBetResults).
+export interface ValueBetResults {
+  month: string;
+  count: number;
+  staked: number;
+  expected: number;
+  clvSum: number;
+  clvStake: number;
+}
+
+export function readValueBetResults(body: unknown): ValueBetResults | null {
+  const r = (body as { results?: unknown } | null)?.results as Record<string, unknown> | undefined;
+  if (!r || typeof r.month !== "string") return null;
+  const n = (k: string) => (typeof r[k] === "number" ? (r[k] as number) : null);
+  const [count, staked, expected, clvSum, clvStake] = ["count", "staked", "expected", "clvSum", "clvStake"].map(n);
+  if (count === null || staked === null || expected === null || clvSum === null || clvStake === null) return null;
+  return { month: r.month, count, staked, expected, clvSum, clvStake };
+}
+
+const BERLIN_MONTH = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin", year: "numeric", month: "2-digit" });
+const MONTH_NAME = new Intl.DateTimeFormat("de-DE", { timeZone: "UTC", month: "long" });
+
+// The month's total above "Meine Value Bets": the server's results, and the
+// value bets still held whose match started this month (Berlin) with a stake
+// ("November: 12 Value Bets · 340,00 € Einsatz · erwartet +14,20 € · Ø +2,3 %
+// gegenüber dem Schlusskurs"), the closing line value weighted by stake. Null with none.
+export function monthValueLabel(results: ValueBetResults | null, taken: readonly TakenValueBet[], now: Date): string | null {
+  const month = BERLIN_MONTH.format(now).slice(0, 7);
+  const sum = results?.month === month ? { ...results } : { month, count: 0, staked: 0, expected: 0, clvSum: 0, clvStake: 0 };
+  for (const bet of taken) {
+    const start = Date.parse(bet.startTime);
+    if (!(start <= now.getTime()) || BERLIN_MONTH.format(new Date(start)).slice(0, 7) !== month) continue;
+    if (!(typeof bet.stake === "number" && bet.stake > 0)) continue;
+    sum.count += 1;
+    sum.staked += bet.stake;
+    sum.expected += bet.stake * bet.edge;
+    const value = closingValue(bet);
+    if (value !== null) {
+      sum.clvSum += bet.stake * value;
+      sum.clvStake += bet.stake;
+    }
+  }
+  if (sum.count === 0) return null;
+  const name = MONTH_NAME.format(new Date(`${month}-15T00:00:00Z`));
+  const bets = sum.count === 1 ? "1 Value Bet" : `${sum.count} Value Bets`;
+  const clv = sum.clvStake > 0 ? ` · Ø ${formatEdge(sum.clvSum / sum.clvStake)} gegenüber dem Schlusskurs` : "";
+  return `${name}: ${bets} · ${euros(sum.staked)} Einsatz · erwartet +${euros(sum.expected)}${clv}`;
+}
+
 async function send(method: "PUT" | "DELETE", body: unknown): Promise<boolean> {
   try {
     const res = await fetch("/api/taken-value-bets", {
@@ -135,6 +185,8 @@ async function sendStake(key: string, stake: number | null): Promise<boolean> {
 
 export interface TakenValueBetsState {
   taken: TakenValueBets;
+  // The month's results of the value bets the server has forgotten.
+  results?: ValueBetResults | null;
   setTaken: (bet: ValueBet, taken: boolean) => void;
   // Writes down the stake placed on a taken value bet (by its key).
   setStake?: (key: string, stake: number | null) => void;
@@ -145,6 +197,7 @@ export interface TakenValueBetsState {
 // its value bets and "Meine Value Bets" together (App).
 export function useTakenValueBets(enabled = true): TakenValueBetsState {
   const [taken, setState] = useState<Map<string, TakenValueBet>>(() => new Map());
+  const [results, setResults] = useState<ValueBetResults | null>(null);
   // The changes made before the account's list came: kept over it.
   const early = useRef<Map<string, TakenValueBet | undefined> | null>(new Map());
 
@@ -163,6 +216,7 @@ export function useTakenValueBets(enabled = true): TakenValueBetsState {
           else loaded.delete(key);
         }
         setState(loaded);
+        setResults(readValueBetResults(body));
       })
       .catch(() => {
         early.current = null;
@@ -223,5 +277,5 @@ export function useTakenValueBets(enabled = true): TakenValueBetsState {
     [taken, update]
   );
 
-  return { taken, setTaken, setStake };
+  return { taken, results, setTaken, setStake };
 }

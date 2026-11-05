@@ -84,7 +84,7 @@ describe("the stored preferences", () => {
   });
 
   it("is on the schema's version 13 (the subscriptions column, the freebets wallet, the feedback, the taken surebets, the promos and the taken surebets' payout and legs and the deposits and their limit and the taken surebets' stakes came after)", () => {
-    expect(openAuthDb(":memory:").prepare("PRAGMA user_version").get()).toEqual({ user_version: 16 });
+    expect(openAuthDb(":memory:").prepare("PRAGMA user_version").get()).toEqual({ user_version: 17 });
   });
 });
 

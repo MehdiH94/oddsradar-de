@@ -616,10 +616,11 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
                         onOpenMatch={openMatch}
                         sportHref={sportHref}
                         takenSurebets={takenSurebets}
+                        takenValueBets={takenValueBets.taken}
                       />
                     )}
                     {total > 0 && (
-                      <ValueBetsTable bets={bets ?? []} matchHref={matchHref} onOpenMatch={openMatch} sportHref={sportHref} takenValueBets={takenValueBets} />
+                      <ValueBetsTable bets={bets ?? []} matchHref={matchHref} onOpenMatch={openMatch} sportHref={sportHref} takenValueBets={takenValueBets} takenSurebets={takenSurebets.taken} />
                     )}
                   </>
                 ) : (

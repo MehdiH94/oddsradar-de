@@ -12,6 +12,8 @@ import { useIsWide } from "./useMediaQuery";
 import { hasExchangeLeg, surebetKey, useTakenSurebets, type TakenSurebetsState } from "./takenSurebets";
 import groupStyles from "./GroupedOddsTables.module.css";
 import styles from "./SurebetsTable.module.css";
+import { takenElsewhereLabel } from "./takenElsewhere";
+import type { TakenValueBets } from "./takenValueBets";
 
 // Whether the surebets whose lay has under 20 € on it are shown: hidden unless
 // asked for, since such a lay cannot take a real stake (the owner's backlog,
@@ -175,8 +177,11 @@ export function SurebetsTable({
   onOpenMatch,
   sportHref,
   takenSurebets,
+  takenValueBets,
 }: {
   surebets: Surebet[];
+  // The account's taken value bets: a row of a match with one says so.
+  takenValueBets?: TakenValueBets;
   // The dashboard's taken surebets, shared with "Meine Surebets"; read here when not given.
   takenSurebets?: TakenSurebetsState;
   matchHref?: (id: string) => string;
@@ -269,6 +274,10 @@ export function SurebetsTable({
                       sportHref={sportHref}
                     />
                     <span className={styles.market}>{surebet.marketLabel}</span>
+                    {(() => {
+                      const elsewhere = takenElsewhereLabel(surebet.eventId, key, taken, takenValueBets);
+                      return elsewhere && <span className={styles.elsewhere}>{elsewhere}</span>;
+                    })()}
                     {wide && hasPage && (
                       <a
                         className={styles.more}

@@ -242,4 +242,12 @@ describe("ValueBetsTable", () => {
     fireEvent.click(done);
     expect(setTaken).toHaveBeenCalledWith(first, false);
   });
+
+  it("says when another bet was already taken on the row's match", () => {
+    const takenSurebets = new Map([["s", { eventId: "psg-om" }]]) as unknown as Parameters<typeof ValueBetsTable>[0]["takenSurebets"];
+    render(<ValueBetsTable bets={[bet({}), bet({ eventId: "lyon-nice", participants: ["Lyon", "Nice"] })]} takenValueBets={{ taken: new Map(), setTaken: vi.fn() }} takenSurebets={takenSurebets} />);
+    const [psg, lyon] = screen.getAllByRole("row").slice(1);
+    expect(within(psg).getByText("Auf diesem Spiel schon genommen: 1 Surebet")).toBeInTheDocument();
+    expect(within(lyon).queryByText(/schon genommen/)).not.toBeInTheDocument();
+  });
 });

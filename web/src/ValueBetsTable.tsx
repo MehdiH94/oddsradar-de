@@ -15,6 +15,8 @@ import { sportEmoji, sportLabel, VALUE_BETS } from "./sports";
 import groupStyles from "./GroupedOddsTables.module.css";
 import styles from "./ValueBetsTable.module.css";
 import { useTakenValueBets, valueBetKey, type TakenValueBetsState } from "./takenValueBets";
+import { takenElsewhereLabel } from "./takenElsewhere";
+import type { TakenSurebets } from "./takenSurebets";
 
 const FAIR_TITLE = `Faire Quote: die Quote an ${REFERENCE_SOURCE}, ohne ihre Marge`;
 const bookmakerName = (id: string) => BOOKMAKER_BRANDING[id]?.name ?? id;
@@ -84,8 +86,11 @@ export function ValueBetsTable({
   onOpenMatch,
   sportHref,
   takenValueBets,
+  takenSurebets,
 }: {
   bets: ValueBet[];
+  // The account's taken surebets: a row of a match with one says so.
+  takenSurebets?: TakenSurebets;
   // The dashboard's taken value bets, shared with "Meine Value Bets"; read here when not given.
   takenValueBets?: TakenValueBetsState;
   // A match's page (MatchPage), like OddsTable's.
@@ -160,6 +165,10 @@ export function ValueBetsTable({
                     sportHref={sportHref}
                   />
                   {bet.competition && <span className={styles.competition}>{bet.competition}</span>}
+                  {(() => {
+                    const elsewhere = takenElsewhereLabel(bet.eventId, valueBetKey(bet), takenSurebets, taken);
+                    return elsewhere && <span className={styles.elsewhere}>{elsewhere}</span>;
+                  })()}
                   {wide && hasPage && (
                     <a
                       className={styles.more}

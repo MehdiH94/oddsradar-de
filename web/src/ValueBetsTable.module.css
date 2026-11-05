@@ -318,3 +318,12 @@
   background: var(--color-brand-soft);
   color: var(--color-brand);
 }
+
+/* A row of a match where the account already took another bet. */
+.elsewhere {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-brand);
+}

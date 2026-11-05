@@ -2,7 +2,7 @@ import { useState, type MouseEvent } from "react";
 import { BOOKMAKER_BRANDING } from "./bookmakers";
 import { formatEdge, formatPrice, formatStartTime } from "./format";
 import styles from "./MyTakenSurebets.module.css";
-import { closingValue, expectedLabel, stakesSummaryLabel, valueSummaryLabel, type TakenValueBet, type TakenValueBets } from "./takenValueBets";
+import { closingValue, expectedLabel, monthValueLabel, stakesSummaryLabel, valueSummaryLabel, type TakenValueBet, type TakenValueBets, type ValueBetResults } from "./takenValueBets";
 
 // "Meine Value Bets (N)": the account's taken value bets, soonest first, even
 // once their price moved and they left the list: the bet, its bookmaker and
@@ -11,28 +11,33 @@ import { closingValue, expectedLabel, stakesSummaryLabel, valueSummaryLabel, typ
 // them, the average edge and closing line value. With `onStake`, the stake
 // placed on each can be written down ("Mein Einsatz"), and what it is expected
 // to win at its edge is said, for each and in all. Shares "Meine Surebets"'s
-// look (MyTakenSurebets.module.css).
+// look (MyTakenSurebets.module.css). Above all, the month's total of the
+// played ones with a stake, those the server already forgot (`results`) included.
 export function MyTakenValueBets({
   taken,
   matchHref,
   onOpenMatch,
   onStake,
+  results = null,
   now = new Date(),
 }: {
   taken: TakenValueBets;
+  results?: ValueBetResults | null;
   onStake?: (key: string, stake: number | null) => void;
   matchHref?: (id: string) => string;
   onOpenMatch?: (id: string) => void;
   now?: Date;
 }) {
-  if (taken.size === 0) return null;
   const entries = [...taken].sort(([, a], [, b]) => a.startTime.localeCompare(b.startTime));
   const list = entries.map(([, bet]) => bet);
+  const month = monthValueLabel(results, list, now);
+  if (taken.size === 0 && !month) return null;
   const stakes = stakesSummaryLabel(list);
   return (
     <details className={styles.box}>
       <summary className={styles.summary}>Meine Value Bets ({list.length})</summary>
-      <p className={styles.total}>{valueSummaryLabel(list)}</p>
+      {month && <p className={styles.total}>{month}</p>}
+      {list.length > 0 && <p className={styles.total}>{valueSummaryLabel(list)}</p>}
       {stakes && <p className={styles.total}>{stakes}</p>}
       <ul className={styles.list}>
         {entries.map(([key, bet]) => (

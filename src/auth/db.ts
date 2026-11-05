@@ -233,6 +233,23 @@ const MIGRATIONS: string[] = [
   `
   ALTER TABLE user_taken_value_bets ADD COLUMN stake REAL;
   `,
+  // 17: a played taken value bet with a stake, kept once the taken value bet
+  // is forgotten (two days after its match), for the month's total: its
+  // stake, its edge when taken and its closing line value (null without a
+  // closing price). Its match's start in Berlin's calendar month.
+  `
+  CREATE TABLE user_value_bet_results (
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    bet_key TEXT NOT NULL,
+    start_time TEXT NOT NULL,
+    month TEXT NOT NULL,
+    stake REAL NOT NULL,
+    edge REAL NOT NULL,
+    clv REAL,
+    PRIMARY KEY (user_id, bet_key)
+  );
+  CREATE INDEX user_value_bet_results_month ON user_value_bet_results (user_id, month);
+  `,
 ];
 
 export function migrate(db: DatabaseSync): void {

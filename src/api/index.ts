@@ -46,12 +46,12 @@ const auth = createAuthContext({
 // Forget what has expired now, then every hour.
 purgeExpired(authDb);
 purgeTakenSurebets(authDb);
-purgeTakenValueBets(authDb);
+purgeTakenValueBets(authDb, new Date(), db);
 purgePromos(authDb);
 setInterval(() => {
   purgeExpired(authDb);
   purgeTakenSurebets(authDb);
-  purgeTakenValueBets(authDb);
+  purgeTakenValueBets(authDb, new Date(), db);
   purgePromos(authDb);
 }, 60 * 60 * 1000).unref();
 // The taken surebets' reminders, an hour before kick-off (src/auth/surebetReminders.ts).

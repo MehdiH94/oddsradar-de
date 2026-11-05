@@ -4,7 +4,7 @@ import { closingPrice } from "../db/closingPrices";
 import { AuthContext } from "./context";
 import { sameSiteOnly } from "./middleware";
 import { MAX_KEY } from "./takenSurebets";
-import { deleteTakenValueBet, listTakenValueBets, MAX_TAKEN_VALUE_BETS, parseStake, parseTakenValueBet, saveTakenValueBet, saveValueBetStake } from "./takenValueBets";
+import { deleteTakenValueBet, listTakenValueBets, MAX_TAKEN_VALUE_BETS, monthValueBetResults, parseStake, parseTakenValueBet, saveTakenValueBet, saveValueBetStake } from "./takenValueBets";
 
 // Mounted under /api after requireAuth: req.user is always set here. `odds`,
 // the odds' database, gives each started value bet its closing price.
@@ -33,7 +33,9 @@ export function takenValueBetsRouter(auth: AuthContext, odds?: DatabaseSync): Ro
           }
         : bet
     );
-    res.json({ taken });
+    // The month's results of the value bets already forgotten: the dashboard
+    // adds the played ones it still holds.
+    res.json({ taken, results: monthValueBetResults(auth.db, req.user!.id, auth.now()) });
   });
 
   router.put("/", (req, res) => {

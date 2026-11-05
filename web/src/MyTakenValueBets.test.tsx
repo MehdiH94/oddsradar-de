@@ -54,4 +54,11 @@ describe("MyTakenValueBets", () => {
     fireEvent.blur(field);
     expect(onStake).toHaveBeenCalledTimes(1);
   });
+
+  it("says the month's total, the results the server already forgot included", () => {
+    const results = { month: "2026-11", count: 4, staked: 200, expected: 8, clvSum: 0, clvStake: 0 };
+    render(<MyTakenValueBets taken={new Map()} results={results} now={NOW} />);
+    expect(screen.getByText("November: 4 Value Bets · 200,00 € Einsatz · erwartet +8,00 €")).toBeInTheDocument();
+    expect(screen.getByText("Meine Value Bets (0)")).toBeInTheDocument();
+  });
 });

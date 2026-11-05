@@ -1,4 +1,6 @@
 import { DatabaseSync } from "node:sqlite";
+import { closingPrice } from "../db/closingPrices";
+import { lugasMonth } from "../deposits/deposits";
 import { KEEP_AFTER_START_MS, MAX_KEY, MAX_LABEL, MAX_STAKE } from "./takenSurebets";
 
 // The value bets an account has marked as taken (web/src/takenValueBets.ts):
@@ -106,7 +108,62 @@ export function deleteTakenValueBet(db: DatabaseSync, userId: string, key: strin
   db.prepare("DELETE FROM user_taken_value_bets WHERE user_id = ? AND bet_key = ?").run(userId, key);
 }
 
-// Forgets the value bets whose match is long over.
-export function purgeTakenValueBets(db: DatabaseSync, now = new Date()): void {
-  db.prepare("DELETE FROM user_taken_value_bets WHERE start_time < ?").run(new Date(now.getTime() - KEEP_AFTER_START_MS).toISOString());
+// How long a result is kept: a year and a month, for a year's months.
+const KEEP_RESULTS_MS = 400 * 24 * 60 * 60 * 1000;
+
+// Forgets the value bets whose match is long over, first keeping those with a
+// stake (user_value_bet_results), with their closing line value when `odds`,
+// the odds' database, has their closing price; and the results over a year old.
+export function purgeTakenValueBets(db: DatabaseSync, now = new Date(), odds?: DatabaseSync): void {
+  const before = new Date(now.getTime() - KEEP_AFTER_START_MS).toISOString();
+  const over = db
+    .prepare(
+      `SELECT user_id AS userId, bet_key AS key, event_id AS eventId, start_time AS startTime, market, selection, bookmaker, price, edge, stake
+       FROM user_taken_value_bets WHERE start_time < ? AND stake > 0`
+    )
+    .all(before) as { userId: string; key: string; eventId: string; startTime: string; market: string; selection: string; bookmaker: string; price: number; edge: number; stake: number }[];
+  const keep = db.prepare(
+    `INSERT INTO user_value_bet_results (user_id, bet_key, start_time, month, stake, edge, clv) VALUES (?, ?, ?, ?, ?, ?, ?)
+     ON CONFLICT(user_id, bet_key) DO UPDATE SET start_time = excluded.start_time, month = excluded.month, stake = excluded.stake, edge = excluded.edge, clv = excluded.clv`
+  );
+  db.exec("BEGIN");
+  try {
+    for (const bet of over) {
+      const closing = odds ? closingPrice(odds, bet.eventId, bet.startTime, { market: bet.market, selection: bet.selection, source: bet.bookmaker, side: "back" }) : null;
+      const clv = closing !== null && closing > 1 ? bet.price / closing - 1 : null;
+      keep.run(bet.userId, bet.key, bet.startTime, lugasMonth(new Date(bet.startTime)), bet.stake, bet.edge, clv);
+    }
+    db.prepare("DELETE FROM user_taken_value_bets WHERE start_time < ?").run(before);
+    db.prepare("DELETE FROM user_value_bet_results WHERE start_time < ?").run(new Date(now.getTime() - KEEP_RESULTS_MS).toISOString());
+    db.exec("COMMIT");
+  } catch (err) {
+    db.exec("ROLLBACK");
+    throw err;
+  }
+}
+
+// The results kept for the account's value bets played in the month of `now`
+// (Berlin), their taken value bets already forgotten: how many, their stakes,
+// their expected profit (stake × edge) and, of those with a closing line
+// value, its stake-weighted sum and their stakes (to average with the others).
+export interface ValueBetResults {
+  month: string;
+  count: number;
+  staked: number;
+  expected: number;
+  clvSum: number;
+  clvStake: number;
+}
+
+export function monthValueBetResults(db: DatabaseSync, userId: string, now = new Date()): ValueBetResults {
+  const month = lugasMonth(now);
+  const row = db
+    .prepare(
+      `SELECT COUNT(*) AS count, COALESCE(SUM(stake), 0) AS staked, COALESCE(SUM(stake * edge), 0) AS expected,
+              COALESCE(SUM(CASE WHEN clv IS NOT NULL THEN stake * clv END), 0) AS clvSum,
+              COALESCE(SUM(CASE WHEN clv IS NOT NULL THEN stake END), 0) AS clvStake
+       FROM user_value_bet_results WHERE user_id = ? AND month = ?`
+    )
+    .get(userId, month) as Omit<ValueBetResults, "month">;
+  return { month, ...row };
 }

@@ -12,6 +12,9 @@ import { CheckAtBookmaker } from "./components/CheckAtBookmaker";
 import { BookmakerLogo } from "./BookmakerLogo";
 import { EmptyState, ErrorBanner, Skeleton } from "./components/StatusViews";
 import styles from "./MatchPage.module.css";
+import { TakenOnMatch } from "./TakenOnMatch";
+import type { TakenSurebets } from "./takenSurebets";
+import type { TakenValueBets } from "./takenValueBets";
 
 const POLL_MS = 60_000;
 
@@ -86,8 +89,14 @@ export function MatchPage({
   onOpenCompetition,
   reloads,
   onStatus,
+  takenSurebets,
+  takenValueBets,
 }: {
   id: string;
+  // The account's taken surebets and value bets: those of this match show at
+  // its top (TakenOnMatch).
+  takenSurebets?: TakenSurebets;
+  takenValueBets?: TakenValueBets;
   bookmakers: string[];
   onBookmakersChange: (bookmakers: string[]) => void;
   // The list's URL, for the back link to work as a link too.
@@ -265,6 +274,7 @@ export function MatchPage({
         </div>
         <BookmakerMenu selected={bookmakers} onChange={onBookmakersChange} />
       </header>
+      <TakenOnMatch eventId={id} surebets={takenSurebets} valueBets={takenValueBets} />
 
       {checks.length > 0 && (
         <ul className={styles.checks} aria-label="Das Spiel bei den Buchmachern">

@@ -1,0 +1,32 @@
+/* What the account already took on this match, above its markets. */
+.box {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-brand);
+  border-radius: var(--radius-sm);
+  background: var(--color-brand-soft);
+  font-size: var(--text-sm);
+}
+
+.heading {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-brand);
+}
+
+.list {
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.kind {
+  font-weight: 700;
+}
+
+.note {
+  color: var(--color-text-muted);
+}

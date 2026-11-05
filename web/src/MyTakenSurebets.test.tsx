@@ -146,6 +146,19 @@ describe("MyTakenSurebets", () => {
     click.mockRestore();
   });
 
+  it("takes a surebet's mark off with Entfernen, asking first when stakes are written down", () => {
+    const onRemove = vi.fn();
+    const confirm = vi.spyOn(window, "confirm").mockReturnValue(true);
+    render(<MyTakenSurebets taken={new Map([["k", info({ label: "Plain" })], ["s", info({ label: "Staked", stakes: [50, null] })]])} onRemove={onRemove} now={NOW} />);
+    fireEvent.click(screen.getByRole("button", { name: "Entfernen: Plain" }));
+    expect(onRemove).toHaveBeenCalledWith("k");
+    expect(confirm).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button", { name: "Entfernen: Staked" }));
+    expect(confirm).toHaveBeenCalledWith("Entfernen? Die eingetragenen Einsätze gehen mit.");
+    expect(onRemove).toHaveBeenLastCalledWith("s");
+    confirm.mockRestore();
+  });
+
   it("offers no stakes without onStakes", () => {
     const legs = [{ market: "1X2", selection: "2", source: "twentybet", side: "back" as const, price: 3.32 }];
     render(<MyTakenSurebets taken={new Map([["k", info({ legs })]])} now={NOW} />);

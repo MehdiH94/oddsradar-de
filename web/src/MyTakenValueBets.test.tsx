@@ -74,4 +74,19 @@ describe("MyTakenValueBets", () => {
     expect(revokeObjectURL).toHaveBeenCalledWith("blob:csv");
     click.mockRestore();
   });
+
+  it("takes a value bet's mark off with Entfernen, asking first when a stake is written down", () => {
+    const onRemove = vi.fn();
+    const confirm = vi.spyOn(window, "confirm").mockReturnValueOnce(false).mockReturnValueOnce(true);
+    render(<MyTakenValueBets taken={new Map([["k", bet({})], ["s", bet({ label: "Staked", stake: 20 })]])} onRemove={onRemove} now={NOW} />);
+    fireEvent.click(screen.getByRole("button", { name: "Entfernen: Galatasaray - Fenerbahçe, Ergebnis: Fenerbahçe" }));
+    expect(onRemove).toHaveBeenCalledWith("k");
+    expect(confirm).not.toHaveBeenCalled();
+    const staked = screen.getByRole("button", { name: "Entfernen: Staked" });
+    fireEvent.click(staked);
+    expect(onRemove).toHaveBeenCalledTimes(1);
+    fireEvent.click(staked);
+    expect(onRemove).toHaveBeenLastCalledWith("s");
+    confirm.mockRestore();
+  });
 });

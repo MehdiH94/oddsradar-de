@@ -171,6 +171,8 @@ export interface TakenSurebetsState {
   setRemind: (surebet: Surebet, remind: boolean) => void;
   // Writes down the stakes placed on a taken surebet's legs (by its key).
   setStakes: (key: string, stakes: (number | null)[]) => void;
+  // Takes the mark off a taken surebet by its key, once it left the list too.
+  remove: (key: string) => void;
 }
 
 // The exchange's commission on a market's net winnings (src/db/surebets.ts,
@@ -372,20 +374,27 @@ export function useTakenSurebets(enabled = true): TakenSurebetsState {
     [update]
   );
 
-  const setTaken = useCallback(
-    (surebet: Surebet, isTaken: boolean) => {
-      const key = surebetKey(surebet);
+  const remove = useCallback(
+    (key: string) => {
       const before = taken.get(key);
-      if (isTaken) {
-        save(surebet, hasExchangeLeg(surebet), before);
-        return;
-      }
       update(key, undefined);
       void send("DELETE", { key }).then((ok) => {
         if (!ok) update(key, before);
       });
     },
-    [taken, save, update]
+    [taken, update]
+  );
+
+  const setTaken = useCallback(
+    (surebet: Surebet, isTaken: boolean) => {
+      const key = surebetKey(surebet);
+      if (isTaken) {
+        save(surebet, hasExchangeLeg(surebet), taken.get(key));
+        return;
+      }
+      remove(key);
+    },
+    [taken, save, remove]
   );
 
   const setRemind = useCallback(
@@ -405,5 +414,5 @@ export function useTakenSurebets(enabled = true): TakenSurebetsState {
     [taken, update]
   );
 
-  return { taken, results, setTaken, setRemind, setStakes };
+  return { taken, results, setTaken, setRemind, setStakes, remove };
 }

@@ -61,4 +61,17 @@ describe("MyTakenValueBets", () => {
     expect(screen.getByText("November: 4 Value Bets · 200,00 € Einsatz · erwartet +8,00 €")).toBeInTheDocument();
     expect(screen.getByText("Meine Value Bets (0)")).toBeInTheDocument();
   });
+
+  it("hands the list to the browser as a CSV file", () => {
+    const createObjectURL = vi.fn(() => "blob:csv");
+    const revokeObjectURL = vi.fn();
+    Object.assign(URL, { createObjectURL, revokeObjectURL });
+    const click = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
+    render(<MyTakenValueBets taken={new Map([["k", bet({})]])} now={NOW} />);
+    fireEvent.click(screen.getByRole("button", { name: "Als CSV herunterladen" }));
+    expect(createObjectURL).toHaveBeenCalledTimes(1);
+    expect((click.mock.instances[0] as unknown as HTMLAnchorElement).download).toBe("meine-value-bets-2026-11-04.csv");
+    expect(revokeObjectURL).toHaveBeenCalledWith("blob:csv");
+    click.mockRestore();
+  });
 });

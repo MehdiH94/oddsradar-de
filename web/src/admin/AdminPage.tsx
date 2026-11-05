@@ -10,6 +10,7 @@ import {
   fetchAdminBookmakers,
   fetchAdminFeedback,
   fetchAdminPromoReaders,
+  fetchAdminUsage,
   fetchAdminUsers,
   updateAdminFeedback,
   updateAdminUser,
@@ -19,6 +20,8 @@ import {
   type AdminPromoReader,
   type AdminUser,
   type AdminUserChange,
+  type AdminTrackerCounts,
+  type AdminUsage,
 } from "./adminApi";
 import { problemsFirst, readerProblemsFirst } from "./order";
 import { oddsApiCreditsLabel } from "./oddsApiCredits";
@@ -32,13 +35,14 @@ const formatDate = (iso: string | null) => (iso ? DATE_FORMAT.format(new Date(is
 // they are, whether the address is confirmed, whether they pay, and the two
 // things an admin does with an account -- block it, make it admin), the
 // bookmakers' health (whether each one still gives odds), the promo readers'
-// (whether each still finds its bookmaker's promotions), and what the
-// testers wrote (the header's Feedback button).
-type Tab = "users" | "bookmakers" | "promos" | "feedback";
+// (whether each still finds its bookmaker's promotions), how the testers use
+// the bet tracker (counts only), and what the testers wrote (the header's Feedback button).
+type Tab = "users" | "bookmakers" | "promos" | "usage" | "feedback";
 const TABS: [Tab, string][] = [
   ["users", "Users"],
   ["bookmakers", "Bookmakers"],
   ["promos", "Promos"],
+  ["usage", "Usage"],
   ["feedback", "Feedback"],
 ];
 
@@ -76,7 +80,7 @@ export function AdminPage() {
           ))}
         </div>
         <section id={`admin-${tab}`} role="tabpanel" aria-labelledby={`tab-${tab}`}>
-          {tab === "users" ? <UsersTab /> : tab === "bookmakers" ? <BookmakersTab /> : tab === "promos" ? <PromoReadersTab /> : <FeedbackTab />}
+          {tab === "users" ? <UsersTab /> : tab === "bookmakers" ? <BookmakersTab /> : tab === "promos" ? <PromoReadersTab /> : tab === "usage" ? <UsageTab /> : <FeedbackTab />}
         </section>
       </main>
     </div>
@@ -409,6 +413,74 @@ function PromoReadersTab() {
                   {r.failing?.alerted && <span className={styles.you}> (admins told)</span>}
                 </td>
                 <td className={styles.errorCell}>{r.failing?.lastError ?? "—"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+}
+
+// How the testers use the bet tracker ("Meine Surebets", "Meine Value Bets"):
+// counts only, never anyone's bets or amounts (GET /api/admin/usage).
+function UsageTab() {
+  const { data: usage, error, loadedAt, load } = useEveryMinute<AdminUsage>(fetchAdminUsage);
+
+  if (!usage) {
+    return error ? (
+      <p role="alert" className={styles.error}>
+        {error}{" "}
+        <button type="button" className={styles.linkButton} onClick={() => void load()}>
+          Try again
+        </button>
+      </p>
+    ) : (
+      <p aria-busy="true" className={styles.muted}>
+        Loading the usage…
+      </p>
+    );
+  }
+
+  const rows: [string, AdminTrackerCounts][] = [
+    ["Surebets", usage.surebets],
+    ["Value bets", usage.valueBets],
+  ];
+  return (
+    <>
+      <p className={styles.muted}>
+        The bet tracker, counts only. <RefreshButton load={load} loadedAt={loadedAt} error={error} />
+      </p>
+      <div className={styles.scroll}>
+        <table className={styles.table}>
+          <caption className="visually-hidden">How the testers use the bet tracker</caption>
+          <thead>
+            <tr>
+              <th scope="col">Tracked</th>
+              <th scope="col">Accounts</th>
+              <th scope="col">Held now</th>
+              <th scope="col">With stakes</th>
+              <th scope="col">Results kept ({usage.month})</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(([label, c]) => (
+              <tr key={label}>
+                <th scope="row" className={styles.email}>
+                  {label}
+                </th>
+                <td>{c.accounts}</td>
+                <td>{c.held}</td>
+                <td>{c.withStakes}</td>
+                <td>
+                  {c.monthResults}
+                  {c.monthResults > 0 && (
+                    <span className={styles.you}>
+                      {" "}
+                      ({c.monthAccounts} account{c.monthAccounts === 1 ? "" : "s"})
+                    </span>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

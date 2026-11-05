@@ -175,3 +175,39 @@ describe("GET /api/admin/promo-readers", () => {
     expect((await request(withCookie(raw, cookieFor(member.id))).get("/api/admin/promo-readers")).status).toBe(403);
   });
 });
+
+describe("GET /api/admin/usage", () => {
+  it("gives the admins the bet tracker's counts, never a bet or an amount, and nobody else", async () => {
+    const { asAdmin, raw, member, admin, cookieFor, auth } = await setup();
+    const start = new Date(auth.now().getTime() + 90 * 60_000).toISOString();
+    const db = auth.db;
+    const now = auth.now().toISOString();
+    db.prepare(
+      "INSERT INTO user_taken_surebets (user_id, surebet_key, event_id, start_time, label, remind, created_at, stakes) VALUES (?, ?, 'e', ?, 'Secret label', 0, ?, ?)"
+    ).run(member.id, "s1", start, now, "[50,52]");
+    db.prepare("INSERT INTO user_taken_surebets (user_id, surebet_key, event_id, start_time, label, remind, created_at) VALUES (?, ?, 'e', ?, 'x', 0, ?)").run(
+      admin.id,
+      "s2",
+      start,
+      now
+    );
+    db.prepare(
+      "INSERT INTO user_taken_value_bets (user_id, bet_key, event_id, start_time, label, market, selection, bookmaker, price, edge, created_at, stake) VALUES (?, 'v1', 'e', ?, 'x', '1X2', '1', 'twentybet', 2, 0.05, ?, 20)"
+    ).run(member.id, start, now);
+    db.prepare("INSERT INTO user_surebet_results (user_id, surebet_key, start_time, month, profit_cents) VALUES (?, 'old', ?, ?, 670)").run(
+      member.id,
+      now,
+      "2026-10"
+    );
+    const res = await request(asAdmin).get("/api/admin/usage");
+    expect(res.status).toBe(200);
+    expect(res.body.usage).toEqual({
+      month: "2026-10",
+      surebets: { accounts: 2, held: 2, withStakes: 1, monthResults: 1, monthAccounts: 1 },
+      valueBets: { accounts: 1, held: 1, withStakes: 1, monthResults: 0, monthAccounts: 0 },
+    });
+    expect(JSON.stringify(res.body)).not.toMatch(/Secret|670|ada@/);
+    expect((await request(raw).get("/api/admin/usage")).status).toBe(401);
+    expect((await request(withCookie(raw, cookieFor(member.id))).get("/api/admin/usage")).status).toBe(403);
+  });
+});

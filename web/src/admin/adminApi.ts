@@ -102,6 +102,23 @@ export const fetchAdminBookmakers = () =>
 
 export const fetchAdminPromoReaders = () => call<{ readers: AdminPromoReader[] }>("/api/admin/promo-readers").then((r) => r.readers);
 
+// How the testers use the bet tracker, counts only (src/auth/trackerUsage.ts).
+export interface AdminTrackerCounts {
+  accounts: number;
+  held: number;
+  withStakes: number;
+  monthResults: number;
+  monthAccounts: number;
+}
+
+export interface AdminUsage {
+  month: string;
+  surebets: AdminTrackerCounts;
+  valueBets: AdminTrackerCounts;
+}
+
+export const fetchAdminUsage = () => call<{ usage: AdminUsage }>("/api/admin/usage").then((r) => r.usage);
+
 export const fetchAdminFeedback = () => call<{ feedback: AdminFeedback[] }>("/api/admin/feedback").then((r) => r.feedback);
 
 export const updateAdminFeedback = (id: number, done: boolean) =>

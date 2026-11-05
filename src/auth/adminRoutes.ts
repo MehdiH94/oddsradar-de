@@ -2,6 +2,7 @@ import express, { Router } from "express";
 import { AuthContext } from "./context";
 import { sameSiteOnly } from "./middleware";
 import { listFeedback, setFeedbackDone } from "./feedback";
+import { trackerUsage } from "./trackerUsage";
 import { deleteUserSessions, findUserById, listUsers, recordEvent, Role, setRole, setStatus, User } from "./store";
 
 // Mounted under /api/admin after requireAuth and requireRole("admin"): req.user
@@ -56,6 +57,11 @@ export function adminRouter(auth: AuthContext): Router {
       audit(role === "admin" ? "admin_grant_admin" : "admin_revoke_admin");
     }
     res.json({ user: listUsers(db).find((user) => user.id === target.id) });
+  });
+
+  // How the testers use the bet tracker: counts only (src/auth/trackerUsage.ts).
+  router.get("/usage", (_req, res) => {
+    res.json({ usage: trackerUsage(db, auth.now()) });
   });
 
   // The testers' messages (src/auth/feedback.ts), the newest first.

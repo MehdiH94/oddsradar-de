@@ -2,6 +2,7 @@ import { useState, type MouseEvent } from "react";
 import { BOOKMAKER_BRANDING } from "./bookmakers";
 import { formatEdge, formatPrice, formatStartTime } from "./format";
 import styles from "./MyTakenSurebets.module.css";
+import { downloadValueBetsCsv } from "./valueBetsCsv";
 import { closingValue, expectedLabel, monthValueLabel, stakesSummaryLabel, valueSummaryLabel, type TakenValueBet, type TakenValueBets, type ValueBetResults } from "./takenValueBets";
 
 // "Meine Value Bets (N)": the account's taken value bets, soonest first, even
@@ -39,6 +40,11 @@ export function MyTakenValueBets({
       {month && <p className={styles.total}>{month}</p>}
       {list.length > 0 && <p className={styles.total}>{valueSummaryLabel(list)}</p>}
       {stakes && <p className={styles.total}>{stakes}</p>}
+      {list.length > 0 && (
+        <button type="button" className={styles.csv} onClick={() => downloadValueBetsCsv(list, now)}>
+          Als CSV herunterladen
+        </button>
+      )}
       <ul className={styles.list}>
         {entries.map(([key, bet]) => (
           <TakenValueBetItem

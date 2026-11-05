@@ -545,6 +545,8 @@ export function App({ preferences = null }: { preferences?: Preferences | null }
             onOpenCompetition={openCompetition}
             reloads={reloads}
             onStatus={(status) => setMatchStatus((current) => ({ ...current, ...status }))}
+            takenSurebets={takenSurebets.taken}
+            takenValueBets={takenValueBets.taken}
           />
         ) : (
           <>

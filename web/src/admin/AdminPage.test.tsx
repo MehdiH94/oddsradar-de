@@ -233,6 +233,27 @@ describe("AdminPage", () => {
     expect(fetchMock).toHaveBeenCalledWith("/api/admin/promo-readers", undefined);
   });
 
+  it("shows how the testers use the bet tracker, counts only, in its own tab", async () => {
+    const usage = {
+      month: "2026-11",
+      surebets: { accounts: 3, held: 7, withStakes: 4, monthResults: 12, monthAccounts: 2 },
+      valueBets: { accounts: 1, held: 2, withStakes: 0, monthResults: 0, monthAccounts: 0 },
+    };
+    const fetchMock = vi.fn((url: string) => reply(url.endsWith("/usage") ? { usage } : { users: [ME] }));
+    vi.stubGlobal("fetch", fetchMock);
+    render(
+      <AuthContext.Provider value={auth}>
+        <AdminPage />
+      </AuthContext.Provider>
+    );
+    fireEvent.click(screen.getByRole("tab", { name: "Usage" }));
+    const surebets = await screen.findByRole("row", { name: /^Surebets/ });
+    expect(within(surebets).getAllByRole("cell").map((c) => c.textContent)).toEqual(["3", "7", "4", "12 (2 accounts)"]);
+    expect(within(screen.getByRole("row", { name: /^Value bets/ })).getAllByRole("cell").map((c) => c.textContent)).toEqual(["1", "2", "0", "0"]);
+    expect(screen.getByRole("columnheader", { name: "Results kept (2026-11)" })).toBeInTheDocument();
+    expect(fetchMock).toHaveBeenCalledWith("/api/admin/usage", undefined);
+  });
+
   it("reads the promo readers again every minute, keeping the last list when a refresh fails", async () => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
     try {

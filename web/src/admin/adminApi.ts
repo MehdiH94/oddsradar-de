@@ -112,8 +112,16 @@ export interface AdminTrackerCounts {
   monthAccounts: number;
 }
 
+export interface AdminActivity {
+  seenDay: number;
+  seenWeek: number;
+  newWeek: number;
+  openFeedback: number;
+}
+
 export interface AdminUsage {
   month: string;
+  activity: AdminActivity;
   surebets: AdminTrackerCounts;
   valueBets: AdminTrackerCounts;
 }

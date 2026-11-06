@@ -203,11 +203,28 @@ describe("GET /api/admin/usage", () => {
     expect(res.status).toBe(200);
     expect(res.body.usage).toEqual({
       month: "2026-10",
+      activity: { seenDay: 1, seenWeek: 1, newWeek: 2, openFeedback: 0 },
       surebets: { accounts: 2, held: 2, withStakes: 1, monthResults: 1, monthAccounts: 1 },
       valueBets: { accounts: 1, held: 1, withStakes: 1, monthResults: 0, monthAccounts: 0 },
     });
     expect(JSON.stringify(res.body)).not.toMatch(/Secret|670|ada@/);
     expect((await request(raw).get("/api/admin/usage")).status).toBe(401);
     expect((await request(withCookie(raw, cookieFor(member.id))).get("/api/admin/usage")).status).toBe(403);
+  });
+});
+
+describe("GET /api/admin/usage, the testers' activity", () => {
+  it("counts the accounts seen in a day and a week, the new ones, and the open feedback", async () => {
+    const { asAdmin, member, auth } = await setup();
+    const db = auth.db;
+    const now = auth.now().getTime();
+    const iso = (hoursAgo: number) => new Date(now - hoursAgo * 3600_000).toISOString();
+    // The member last seen three days ago; an old account never seen.
+    createSession(db, member.id, {}, new Date(now - 72 * 3600_000));
+    db.prepare("INSERT INTO users (id, email, password_hash, created_at, updated_at) VALUES ('old', 'old@example.com', 'x', ?, ?)").run(iso(24 * 30), iso(24 * 30));
+    db.prepare("INSERT INTO feedback (user_id, message, page, created_at) VALUES (?, 'a', '/', ?), (?, 'b', '/', ?)").run(member.id, iso(1), member.id, iso(2));
+    db.prepare("UPDATE feedback SET done_at = ? WHERE message = 'b'").run(iso(0));
+    const res = await request(asAdmin).get("/api/admin/usage");
+    expect(res.body.usage.activity).toEqual({ seenDay: 1, seenWeek: 2, newWeek: 2, openFeedback: 1 });
   });
 });

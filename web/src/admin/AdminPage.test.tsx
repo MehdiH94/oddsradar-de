@@ -236,6 +236,7 @@ describe("AdminPage", () => {
   it("shows how the testers use the bet tracker, counts only, in its own tab", async () => {
     const usage = {
       month: "2026-11",
+      activity: { seenDay: 4, seenWeek: 9, newWeek: 2, openFeedback: 3 },
       surebets: { accounts: 3, held: 7, withStakes: 4, monthResults: 12, monthAccounts: 2 },
       valueBets: { accounts: 1, held: 2, withStakes: 0, monthResults: 0, monthAccounts: 0 },
     };
@@ -251,6 +252,8 @@ describe("AdminPage", () => {
     expect(within(surebets).getAllByRole("cell").map((c) => c.textContent)).toEqual(["3", "7", "4", "12 (2 accounts)"]);
     expect(within(screen.getByRole("row", { name: /^Value bets/ })).getAllByRole("cell").map((c) => c.textContent)).toEqual(["1", "2", "0", "0"]);
     expect(screen.getByRole("columnheader", { name: "Results kept (2026-11)" })).toBeInTheDocument();
+    expect(screen.getByText("Seen in 7 days").nextElementSibling).toHaveTextContent("9");
+    expect(screen.getByText("Open feedback").nextElementSibling).toHaveTextContent("3");
     expect(fetchMock).toHaveBeenCalledWith("/api/admin/usage", undefined);
   });
 

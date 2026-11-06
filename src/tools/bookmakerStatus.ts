@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { openDb } from "../db/client";
 import { formatBookmakerStatus, listBookmakerStatus } from "../db/bookmakerStatus";
-import { formatOddsApiCredits, readOddsApiCredits } from "../scraper/oddsApiCredits";
+import { formatOddsApiCredits, oddsApiPace, readOddsApiCredits } from "../scraper/oddsApiCredits";
 
 // npm run bookmaker-status
 // Each bookmaker's last read (src/db/bookmakerStatus.ts), as the admin page's
@@ -10,8 +10,9 @@ import { formatOddsApiCredits, readOddsApiCredits } from "../scraper/oddsApiCred
 // left, from the worker's cache file.
 function main(): void {
   const db = openDb(process.env.DB_PATH ?? "./data/coteradar.sqlite");
-  console.log(formatBookmakerStatus(listBookmakerStatus(db)));
-  console.log(formatOddsApiCredits(readOddsApiCredits()));
+  const credits = readOddsApiCredits();
+  console.log(formatBookmakerStatus(listBookmakerStatus(db, Date.now(), oddsApiPace(credits))));
+  console.log(formatOddsApiCredits(credits));
   db.close();
 }
 

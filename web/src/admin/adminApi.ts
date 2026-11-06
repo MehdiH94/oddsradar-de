@@ -20,7 +20,8 @@ export interface AdminBookmaker {
   lastError: string | null;
   lastGoodAt: string | null;
   lastGoodEvents: number | null;
-  health: "ok" | "failing" | "empty" | "down";
+  // "paused": read only so often (The Odds API's paced reads), between two reads.
+  health: "ok" | "failing" | "empty" | "paused" | "down";
   downAlerted: boolean;
 }
 

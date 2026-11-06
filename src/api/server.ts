@@ -7,7 +7,7 @@ import { getEventDetail } from "../db/eventDetail";
 import { getPlayerStats } from "../db/playerStats";
 import { getAlertStatus } from "../db/alerts";
 import { listBookmakerStatus } from "../db/bookmakerStatus";
-import { readOddsApiCredits } from "../scraper/oddsApiCredits";
+import { oddsApiPace, readOddsApiCredits } from "../scraper/oddsApiCredits";
 import { ODDS_API_CACHE_FILE } from "../scraper/oddsApi";
 import { listPromoReaderStatus } from "../promos/status";
 import { PROMO_READERS } from "../promos/readers";
@@ -121,7 +121,8 @@ export function createServer(
   // Odds API's credits left, from the worker's cache file (Tipico, Winamax).
   app.get("/api/admin/bookmakers", requireRole("admin"), (_req, res) => {
     res.set("Cache-Control", "no-store");
-    res.json({ bookmakers: listBookmakerStatus(db), oddsApiCredits: readOddsApiCredits(oddsApiCacheFile) });
+    const credits = readOddsApiCredits(oddsApiCacheFile);
+    res.json({ bookmakers: listBookmakerStatus(db, Date.now(), oddsApiPace(credits)), oddsApiCredits: credits });
   });
   // Each promo reader's state (src/promos/status.ts): its promotions in the
   // accounts' database, its alert's state in the odds'.

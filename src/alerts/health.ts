@@ -1,5 +1,6 @@
 import { DatabaseSync } from "node:sqlite";
-import { BookmakerStatus, listBookmakerStatus, setDownAlerted } from "../db/bookmakerStatus";
+import { BookmakerPace, BookmakerStatus, listBookmakerStatus, setDownAlerted } from "../db/bookmakerStatus";
+import { oddsApiPace, readOddsApiCredits } from "../scraper/oddsApiCredits";
 import { APP_NAME } from "../brand";
 import { bookmakerName, DiscordMessage, post, Send } from "./gems";
 
@@ -11,6 +12,9 @@ import { bookmakerName, DiscordMessage, post, Send } from "./gems";
 
 export interface HealthAlertOptions {
   webhookUrl?: string;
+  // The bookmakers read only so often (The Odds API's, paced): between two
+  // reads they are paused, not down. Read from the worker's cache file when absent.
+  pace?: BookmakerPace;
   now?: number;
   send?: Send;
   sleep?: (ms: number) => Promise<void>;
@@ -38,7 +42,8 @@ export async function runHealthAlerts(db: DatabaseSync, opts: HealthAlertOptions
   const now = opts.now ?? Date.now();
   const send = opts.send ?? (fetch as unknown as Send);
   const sleep = opts.sleep ?? ((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)));
-  for (const status of listBookmakerStatus(db, now)) {
+  const pace = opts.pace ?? oddsApiPace(readOddsApiCredits());
+  for (const status of listBookmakerStatus(db, now, pace)) {
     try {
       if (status.health === "down" && !status.downAlerted) {
         await post(send, url, downMessage(status, now), sleep);

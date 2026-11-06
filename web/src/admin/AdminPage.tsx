@@ -221,6 +221,7 @@ const HEALTH_LABELS: Record<AdminBookmaker["health"], string> = {
   ok: "OK",
   failing: "Failing",
   empty: "No match",
+  paused: "Paused",
   down: "Down",
 };
 

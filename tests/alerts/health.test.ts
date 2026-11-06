@@ -46,6 +46,15 @@ describe("runHealthAlerts", () => {
     expect(sent).toEqual([]);
   });
 
+  it("says nothing about a bookmaker paused between two paced reads", async () => {
+    const db = openDb(":memory:");
+    const { sent, send } = discord();
+    recordBookmakerRead(db, "tipico", { events: 105 }, at(0));
+    recordBookmakerRead(db, "tipico", { events: 0 }, at(180));
+    await runHealthAlerts(db, { webhookUrl: WEBHOOK, now: T0 + 180 * 60_000, send, pace: { tipico: 800 * 60_000 } });
+    expect(sent).toEqual([]);
+  });
+
   it("tries again next cycle when Discord fails, without throwing", async () => {
     const db = openDb(":memory:");
     vi.spyOn(console, "error").mockImplementation(() => {});

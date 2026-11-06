@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { formatOddsApiCredits, readOddsApiCredits } from "../../src/scraper/oddsApiCredits";
+import { formatOddsApiCredits, oddsApiPace, readOddsApiCredits } from "../../src/scraper/oddsApiCredits";
 
 const file = (content?: string) => {
   const path = join(mkdtempSync(join(tmpdir(), "odds-api-")), "cache.json");
@@ -34,5 +34,14 @@ describe("formatOddsApiCredits", () => {
     );
     expect(formatOddsApiCredits({ creditsLeft: null, checkedAt: null, floor: 20, refreshMinutes: null }, NOW)).toBe("The Odds API (tipico, winamaxde, Pinnacle): credits left not told yet");
     expect(formatOddsApiCredits(null, NOW)).toBe("The Odds API (tipico, winamaxde, Pinnacle): never read here (no cache file)");
+  });
+});
+
+describe("oddsApiPace", () => {
+  it("gives the Odds API's bookmakers the worker's refresh time, none before it set one", () => {
+    const credits = { creditsLeft: 245, checkedAt: null, floor: 20, refreshMinutes: 954 };
+    expect(oddsApiPace(credits)).toEqual({ tipico: 954 * 60_000, winamaxde: 954 * 60_000 });
+    expect(oddsApiPace({ ...credits, refreshMinutes: null })).toEqual({});
+    expect(oddsApiPace(null)).toEqual({});
   });
 });

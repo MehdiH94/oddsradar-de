@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
-import { MIN_CREDITS_LEFT, ODDS_API_CACHE_FILE, OddsApiCache } from "./oddsApi";
+import { MIN_CREDITS_LEFT, ODDS_API_BOOKMAKERS, ODDS_API_CACHE_FILE, OddsApiCache } from "./oddsApi";
+import type { BookmakerPace } from "../db/bookmakerStatus";
 
 // The Odds API's credits left this month (Tipico's, Winamax's and Pinnacle's
 // prices, ./oddsApi.ts), as the worker last heard them, from its cache file:
@@ -44,4 +45,13 @@ export function formatOddsApiCredits(credits: OddsApiCredits | null, now = Date.
   const spent = credits.creditsLeft <= credits.floor ? `; at or under the floor of ${credits.floor}: no reads until they renew` : "";
   const pace = credits.refreshMinutes !== null && !spent ? `; a read every ${credits.refreshMinutes} min` : "";
   return `${head} ${credits.creditsLeft} credits left${checked}${pace}${spent}`;
+}
+
+// The Odds API's bookmakers' pace, from the refresh time the worker last used:
+// between two paced reads they give no price, which is no failure
+// (src/db/bookmakerStatus.ts, healthOf). Empty before a pace was set.
+export function oddsApiPace(credits: OddsApiCredits | null): BookmakerPace {
+  const minutes = credits?.refreshMinutes;
+  if (typeof minutes !== "number" || !(minutes > 0)) return {};
+  return Object.fromEntries(Object.values(ODDS_API_BOOKMAKERS).map((id) => [id, minutes * 60_000]));
 }

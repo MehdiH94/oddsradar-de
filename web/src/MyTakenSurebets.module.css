@@ -140,3 +140,14 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* "Nur offene": only the bets whose match has not started. */
+.onlyOpen {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}

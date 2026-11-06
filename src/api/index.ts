@@ -13,6 +13,7 @@ import { runPromoReminders } from "../auth/promoReminders";
 import { refreshSitePromos } from "../promos/sitePromos";
 import { runSitePromoAlerts } from "../alerts/sitePromos";
 import { runWeeklyReport } from "../alerts/weeklyReport";
+import { runWeeklySummary } from "../alerts/weeklySummary";
 import { postNewPromos } from "../alerts/newPromos";
 import { PROMO_READERS } from "../promos/readers";
 import { recordPromoReads } from "../promos/status";
@@ -73,9 +74,12 @@ setTimeout(() => void readSitePromos(), 60 * 1000).unref();
 setInterval(() => void readSitePromos(), 60 * 60 * 1000).unref();
 // The admins' weekly health report, Sunday evening (src/alerts/weeklyReport.ts),
 // checked every 10 minutes.
-const weeklyReport = () =>
-  void runWeeklyReport(db, authDb, { webhookUrl: process.env.DISCORD_ADMIN_WEBHOOK_URL, promoReaders: Object.keys(PROMO_READERS) });
-setInterval(weeklyReport, 10 * 60 * 1000).unref();
+// With it, the testers' weekly summary of the alerts sent (src/alerts/weeklySummary.ts).
+const weeklyReport = async () => {
+  await runWeeklyReport(db, authDb, { webhookUrl: process.env.DISCORD_ADMIN_WEBHOOK_URL, promoReaders: Object.keys(PROMO_READERS) });
+  await runWeeklySummary(db, { webhookUrl: process.env.DISCORD_WEBHOOK_URL });
+};
+setInterval(() => void weeklyReport(), 10 * 60 * 1000).unref();
 
 const trustProxy = Number(process.env.TRUST_PROXY ?? "0");
 const app = createServer(

@@ -213,3 +213,22 @@
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+
+/* The Usage tab's activity: a few counts side by side. */
+.activity {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-6);
+  margin: 0 0 var(--space-4);
+}
+
+.activity dt {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.activity dd {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}

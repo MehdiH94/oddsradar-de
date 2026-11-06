@@ -423,8 +423,8 @@ function PromoReadersTab() {
   );
 }
 
-// How the testers use the bet tracker ("Meine Surebets", "Meine Value Bets"):
-// counts only, never anyone's bets or amounts (GET /api/admin/usage).
+// How the testers use the site (accounts seen, new ones, open feedback) and
+// the bet tracker ("Meine Surebets", "Meine Value Bets"): counts only, never anyone's bets or amounts (GET /api/admin/usage).
 function UsageTab() {
   const { data: usage, error, loadedAt, load } = useEveryMinute<AdminUsage>(fetchAdminUsage);
 
@@ -450,8 +450,26 @@ function UsageTab() {
   return (
     <>
       <p className={styles.muted}>
-        The bet tracker, counts only. <RefreshButton load={load} loadedAt={loadedAt} error={error} />
+        Counts only. <RefreshButton load={load} loadedAt={loadedAt} error={error} />
       </p>
+      <dl className={styles.activity}>
+        <div>
+          <dt>Seen in 24 h</dt>
+          <dd>{usage.activity.seenDay}</dd>
+        </div>
+        <div>
+          <dt>Seen in 7 days</dt>
+          <dd>{usage.activity.seenWeek}</dd>
+        </div>
+        <div>
+          <dt>New in 7 days</dt>
+          <dd>{usage.activity.newWeek}</dd>
+        </div>
+        <div>
+          <dt>Open feedback</dt>
+          <dd>{usage.activity.openFeedback}</dd>
+        </div>
+      </dl>
       <div className={styles.scroll}>
         <table className={styles.table}>
           <caption className="visually-hidden">How the testers use the bet tracker</caption>

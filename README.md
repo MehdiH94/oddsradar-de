@@ -803,6 +803,16 @@ fonctionnalite ou correction arrivee en production (pull request d'une branche
 echec. La documentation, la CI et les taches de maintenance ne sont pas
 annoncees (`deploy/announce.sh`).
 
+### Rapport de sante hebdomadaire (administrateurs)
+
+Chaque dimanche a partir de 18 h (heure de Berlin), l'API envoie un message au
+salon Discord des administrateurs (`DISCORD_ADMIN_WEBHOOK_URL`) avec ce
+qu'affichent `vps-report bookmakers` et `vps-report promos` : l'etat et les
+matchs de chaque bookmaker, les credits et le rythme de The Odds API, les
+promotions et la derniere bonne lecture de chaque lecteur de promos
+(`src/alerts/weeklyReport.ts`). Le dimanche envoye est garde dans `alert_state`,
+pour qu'un redemarrage ne l'envoie pas deux fois.
+
 ### Retours des testeurs
 
 Le bouton « Send feedback » de l'en-tete (icone bulle, comptes connectes)

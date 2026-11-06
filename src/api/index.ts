@@ -12,6 +12,7 @@ import { runSurebetReminders } from "../auth/surebetReminders";
 import { runPromoReminders } from "../auth/promoReminders";
 import { refreshSitePromos } from "../promos/sitePromos";
 import { runSitePromoAlerts } from "../alerts/sitePromos";
+import { runWeeklyReport } from "../alerts/weeklyReport";
 import { postNewPromos } from "../alerts/newPromos";
 import { PROMO_READERS } from "../promos/readers";
 import { recordPromoReads } from "../promos/status";
@@ -70,6 +71,11 @@ const readSitePromos = async () => {
 };
 setTimeout(() => void readSitePromos(), 60 * 1000).unref();
 setInterval(() => void readSitePromos(), 60 * 60 * 1000).unref();
+// The admins' weekly health report, Sunday evening (src/alerts/weeklyReport.ts),
+// checked every 10 minutes.
+const weeklyReport = () =>
+  void runWeeklyReport(db, authDb, { webhookUrl: process.env.DISCORD_ADMIN_WEBHOOK_URL, promoReaders: Object.keys(PROMO_READERS) });
+setInterval(weeklyReport, 10 * 60 * 1000).unref();
 
 const trustProxy = Number(process.env.TRUST_PROXY ?? "0");
 const app = createServer(

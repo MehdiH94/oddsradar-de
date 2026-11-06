@@ -37,6 +37,21 @@ describe("the bookmakers' last reads", () => {
     recordBookmakerRead(db, "oddset", { events: 790 }, at(40));
     expect(listBookmakerStatus(db, T0 + 40 * 60_000).find((b) => b.bookmaker === "oddset")).toMatchObject({ health: "ok", lastError: null, lastGoodAt: at(40) });
   });
+
+  it("calls a bookmaker read only so often paused between two reads, and down once its pace is long past", () => {
+    const db = openDb(":memory:");
+    const pace = { tipico: 800 * 60_000 };
+    recordBookmakerRead(db, "tipico", { events: 105 }, at(0));
+    recordBookmakerRead(db, "tipico", { events: 0 }, at(180));
+    expect(listBookmakerStatus(db, T0 + 180 * 60_000, pace)[0].health).toBe("paused");
+    // Without its pace, down as any other.
+    expect(listBookmakerStatus(db, T0 + 180 * 60_000)[0].health).toBe("down");
+    // Its pace and 30 minutes on, down.
+    expect(listBookmakerStatus(db, T0 + (800 + 30) * 60_000, pace)[0].health).toBe("down");
+    // A failing read is no pause.
+    recordBookmakerRead(db, "tipico", { error: "HTTP 401" }, at(200));
+    expect(listBookmakerStatus(db, T0 + 200 * 60_000, pace)[0].health).toBe("down");
+  });
 });
 
 describe("formatBookmakerStatus", () => {

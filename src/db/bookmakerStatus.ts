@@ -9,7 +9,7 @@ import { DatabaseSync } from "node:sqlite";
 // 5 minutes, long enough to let one or two failed reads pass.
 export const DOWN_AFTER_MS = 30 * 60 * 1000;
 
-export type BookmakerHealth = "ok" | "failing" | "empty" | "down";
+export type BookmakerHealth = "ok" | "failing" | "empty" | "paused" | "down";
 
 export interface BookmakerStatus {
   bookmaker: string;
@@ -20,7 +20,10 @@ export interface BookmakerStatus {
   lastGoodAt: string | null;
   lastGoodEvents: number | null;
   // "ok": the last read gave matches. "failing" or "empty": it did not, but a
-  // good read is recent. "down": no good read for DOWN_AFTER_MS.
+  // good read is recent. "paused": it did not, but it is read only so often
+  // (The Odds API's paced reads, src/scraper/oddsApi.ts) and its last good
+  // read is within that pace. "down": no good read for DOWN_AFTER_MS (or its
+  // pace and DOWN_AFTER_MS when it has one).
   health: BookmakerHealth;
   // Whether the admin alert of its being down was sent (and its recovery not yet).
   downAlerted: boolean;
@@ -59,13 +62,19 @@ interface Row {
   downAlerted: number;
 }
 
-export function healthOf(row: Pick<Row, "lastEvents" | "lastError" | "lastGoodAt">, now: number): BookmakerHealth {
+// How long a bookmaker read only so often goes between two reads, by id (ms):
+// between them, no price is no failure.
+export type BookmakerPace = Readonly<Record<string, number>>;
+
+export function healthOf(row: Pick<Row, "lastEvents" | "lastError" | "lastGoodAt">, now: number, paceMs = 0): BookmakerHealth {
   if (row.lastEvents !== null && row.lastEvents > 0) return "ok";
-  if (!row.lastGoodAt || now - Date.parse(row.lastGoodAt) >= DOWN_AFTER_MS) return "down";
+  const since = row.lastGoodAt ? now - Date.parse(row.lastGoodAt) : Infinity;
+  if (row.lastError === null && paceMs > DOWN_AFTER_MS && since < paceMs + DOWN_AFTER_MS) return "paused";
+  if (since >= DOWN_AFTER_MS) return "down";
   return row.lastError !== null ? "failing" : "empty";
 }
 
-export function listBookmakerStatus(db: DatabaseSync, now = Date.now()): BookmakerStatus[] {
+export function listBookmakerStatus(db: DatabaseSync, now = Date.now(), pace: BookmakerPace = {}): BookmakerStatus[] {
   const rows = db
     .prepare(
       `SELECT bookmaker_id AS bookmaker, last_read_at AS lastReadAt, last_events AS lastEvents, last_error AS lastError,
@@ -73,7 +82,7 @@ export function listBookmakerStatus(db: DatabaseSync, now = Date.now()): Bookmak
        FROM bookmaker_status ORDER BY bookmaker_id`
     )
     .all() as unknown as Row[];
-  return rows.map((row) => ({ ...row, health: healthOf(row, now), downAlerted: row.downAlerted === 1 }));
+  return rows.map((row) => ({ ...row, health: healthOf(row, now, pace[row.bookmaker]), downAlerted: row.downAlerted === 1 }));
 }
 
 // Each bookmaker's last read, one line each, for `npm run bookmaker-status`

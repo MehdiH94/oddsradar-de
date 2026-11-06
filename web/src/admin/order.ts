@@ -5,7 +5,7 @@ import type { AdminBookmaker, AdminPromoReader } from "./adminApi";
 // match, then the OK ones; a promo reader failing, then empty, then OK. Each
 // group by the name shown.
 const nameOf = (id: string) => BOOKMAKER_BRANDING[id]?.name ?? id;
-const HEALTH_ORDER: Record<AdminBookmaker["health"], number> = { down: 0, failing: 1, empty: 1, ok: 2 };
+const HEALTH_ORDER: Record<AdminBookmaker["health"], number> = { down: 0, failing: 1, empty: 1, paused: 2, ok: 2 };
 const readerRank = (r: AdminPromoReader) => (r.failing ? 0 : r.count === 0 ? 1 : 2);
 
 export function problemsFirst(bookmakers: readonly AdminBookmaker[]): AdminBookmaker[] {

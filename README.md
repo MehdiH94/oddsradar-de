@@ -813,6 +813,11 @@ promotions et la derniere bonne lecture de chaque lecteur de promos
 (`src/alerts/weeklyReport.ts`). Le dimanche envoye est garde dans `alert_state`,
 pour qu'un redemarrage ne l'envoie pas deux fois.
 
+Au meme moment, le salon des testeurs (`DISCORD_WEBHOOK_URL`) recoit le resume
+de la semaine : combien de surebets et de 💎 value bets ont ete envoyes, le
+meilleur avantage de chacun et le jour le plus charge, sans jamais nommer un
+bookmaker ni une cote (`src/alerts/weeklySummary.ts`).
+
 ### Retours des testeurs
 
 Le bouton « Send feedback » de l'en-tete (icone bulle, comptes connectes)

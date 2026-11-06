@@ -2,6 +2,7 @@ import { useState, type MouseEvent } from "react";
 import { BOOKMAKER_BRANDING } from "./bookmakers";
 import { formatEdge, formatPrice, formatStartTime } from "./format";
 import styles from "./MyTakenSurebets.module.css";
+import { isOpen, useOnlyOpen } from "./onlyOpen";
 import { downloadValueBetsCsv } from "./valueBetsCsv";
 import { RemoveButton } from "./RemoveButton";
 import { closingValue, expectedLabel, monthValueLabel, stakesSummaryLabel, valueSummaryLabel, type TakenValueBet, type TakenValueBets, type ValueBetResults } from "./takenValueBets";
@@ -33,8 +34,11 @@ export function MyTakenValueBets({
   onOpenMatch?: (id: string) => void;
   now?: Date;
 }) {
+  const [onlyOpen, setOnlyOpen] = useOnlyOpen();
   const entries = [...taken].sort(([, a], [, b]) => a.startTime.localeCompare(b.startTime));
   const list = entries.map(([, bet]) => bet);
+  const played = list.filter((x) => !isOpen(x.startTime, now)).length;
+  const shown = onlyOpen ? entries.filter(([, x]) => isOpen(x.startTime, now)) : entries;
   const month = monthValueLabel(results, list, now);
   if (taken.size === 0 && !month) return null;
   const stakes = stakesSummaryLabel(list);
@@ -49,8 +53,14 @@ export function MyTakenValueBets({
           Als CSV herunterladen
         </button>
       )}
+      {played > 0 && (
+        <label className={styles.onlyOpen}>
+          <input type="checkbox" checked={onlyOpen} onChange={(e) => setOnlyOpen(e.target.checked)} /> Nur offene ({played} gespielt ausgeblendet)
+        </label>
+      )}
+      {onlyOpen && list.length > 0 && shown.length === 0 && <p className={styles.total}>Alle sind schon gespielt.</p>}
       <ul className={styles.list}>
-        {entries.map(([key, bet]) => (
+        {shown.map(([key, bet]) => (
           <TakenValueBetItem
             key={key}
             bet={bet}

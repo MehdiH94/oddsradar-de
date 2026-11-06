@@ -159,6 +159,30 @@ describe("MyTakenSurebets", () => {
     confirm.mockRestore();
   });
 
+  it("hides the played ones with Nur offene, remembered in the browser", () => {
+    localStorage.clear();
+    const taken = new Map([
+      ["played", info({ label: "Played", startTime: new Date(NOW.getTime() - 3600_000).toISOString() })],
+      ["open", info({ label: "Open", startTime: new Date(NOW.getTime() + 3600_000).toISOString() })],
+    ]);
+    const { unmount } = render(<MyTakenSurebets taken={taken} now={NOW} />);
+    expect(screen.getByText("Played")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("checkbox", { name: "Nur offene (1 gespielt ausgeblendet)" }));
+    expect(screen.queryByText("Played")).not.toBeInTheDocument();
+    expect(screen.getByText("Open")).toBeInTheDocument();
+    unmount();
+    // Remembered, for "Meine Value Bets" too.
+    render(<MyTakenSurebets taken={new Map([["played", taken.get("played")!]])} now={NOW} />);
+    expect(screen.getByRole("checkbox", { name: /^Nur offene/ })).toBeChecked();
+    expect(screen.getByText("Alle sind schon gespielt.")).toBeInTheDocument();
+    localStorage.clear();
+  });
+
+  it("offers no Nur offene switch while nothing is played", () => {
+    render(<MyTakenSurebets taken={new Map([["open", info({ startTime: new Date(NOW.getTime() + 3600_000).toISOString() })]])} now={NOW} />);
+    expect(screen.queryByRole("checkbox", { name: /^Nur offene/ })).not.toBeInTheDocument();
+  });
+
   it("offers no stakes without onStakes", () => {
     const legs = [{ market: "1X2", selection: "2", source: "twentybet", side: "back" as const, price: 3.32 }];
     render(<MyTakenSurebets taken={new Map([["k", info({ legs })]])} now={NOW} />);

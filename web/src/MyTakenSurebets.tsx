@@ -5,6 +5,7 @@ import { downloadTakenCsv } from "./takenCsv";
 import { RemoveButton } from "./RemoveButton";
 import { closingLabel, closingSummaryLabel, layLiability, lockedLabel, monthLabel, profitLabel, splitStakes, summaryLabel, type MonthResults, type TakenInfo, type TakenSurebets } from "./takenSurebets";
 import styles from "./MyTakenSurebets.module.css";
+import { isOpen, useOnlyOpen } from "./onlyOpen";
 
 // "Meine Surebets": the surebets the account marked taken, in one place above
 // the value bets' list, even once a price moved and the surebet left it. Each
@@ -36,8 +37,11 @@ export function MyTakenSurebets({
   onStakes?: (key: string, stakes: (number | null)[]) => void;
   now?: Date;
 }) {
+  const [onlyOpen, setOnlyOpen] = useOnlyOpen();
   const entries = [...taken].sort(([, a], [, b]) => a.startTime.localeCompare(b.startTime));
   const list = entries.map(([, item]) => item);
+  const played = list.filter((x) => !isOpen(x.startTime, now)).length;
+  const shown = onlyOpen ? entries.filter(([, x]) => isOpen(x.startTime, now)) : entries;
   const month = monthLabel(results, list, now);
   if (taken.size === 0 && !month) return null;
   // The closing prices of the played ones only: the server sends none before kick-off.
@@ -53,8 +57,14 @@ export function MyTakenSurebets({
           Als CSV herunterladen
         </button>
       )}
+      {played > 0 && (
+        <label className={styles.onlyOpen}>
+          <input type="checkbox" checked={onlyOpen} onChange={(e) => setOnlyOpen(e.target.checked)} /> Nur offene ({played} gespielt ausgeblendet)
+        </label>
+      )}
+      {onlyOpen && list.length > 0 && shown.length === 0 && <p className={styles.total}>Alle sind schon gespielt.</p>}
       <ul className={styles.list}>
-        {entries.map(([key, item]) => (
+        {shown.map(([key, item]) => (
           <TakenItem
             key={key}
             item={item}

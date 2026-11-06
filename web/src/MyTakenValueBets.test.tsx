@@ -89,4 +89,13 @@ describe("MyTakenValueBets", () => {
     expect(onRemove).toHaveBeenLastCalledWith("s");
     confirm.mockRestore();
   });
+
+  it("hides the played ones with Nur offene", () => {
+    localStorage.clear();
+    render(<MyTakenValueBets taken={new Map([["p", bet({ label: "Played", startTime: "2026-11-04T10:00:00Z" })], ["o", bet({ label: "Open" })]])} now={NOW} />);
+    fireEvent.click(screen.getByRole("checkbox", { name: "Nur offene (1 gespielt ausgeblendet)" }));
+    expect(screen.queryByText(/^Played/)).not.toBeInTheDocument();
+    expect(screen.getByText(/^Open/)).toBeInTheDocument();
+    localStorage.clear();
+  });
 });

@@ -40,7 +40,9 @@ describe("runWeeklyReport", () => {
     expect(await runWeeklyReport(odds, auth, { ...opts, now: new Date("2026-11-08T21:00:00Z") })).toBe(false);
     expect(sent).toHaveLength(1);
     expect(sent[0].content).toBe("📋 Weekly health report");
-    expect(sent[0].embeds.map((e) => e.title)).toEqual(["Bookmakers", "Promo readers"]);
+    expect(sent[0].embeds.map((e) => e.title)).toEqual(["Bookmakers", "Promo readers", "Usage"]);
+    expect(sent[0].embeds[2].description).toContain("Activity: 0 seen in 24 h, 0 in 7 days, 0 new in 7 days, 0 feedback open");
+    expect(sent[0].embeds[2].description).toContain("Surebets: 0 accounts, 0 held, 0 with stakes, 0 results kept in 2026-11");
     expect(sent[0].embeds[0].description).toContain("OK      betway       read 4 min ago: 1513 matches");
     expect(sent[0].embeds[0].description).toContain("The Odds API (tipico, winamaxde, Pinnacle): never read here");
     expect(sent[0].embeds[1].description).toContain("neobet");
@@ -66,9 +68,25 @@ describe("runWeeklyReport", () => {
 
   it("keeps the message within Discord's limits whatever the lines", () => {
     const long = "x".repeat(9000);
-    const message = weeklyReportMessage(long, "credits", long);
+    const message = weeklyReportMessage(long, "credits", long, long);
     const total = message.embeds!.reduce((sum, e) => sum + e.title.length + (e.description?.length ?? 0), 0);
     expect(total).toBeLessThanOrEqual(6000);
     expect(message.embeds![0].description!.length).toBeLessThanOrEqual(4096);
+  });
+});
+
+describe("formatTrackerUsage", () => {
+  it("puts the usage counts on three lines", async () => {
+    const { formatTrackerUsage } = await import("../../src/auth/trackerUsage");
+    const counts = { accounts: 1, held: 7, withStakes: 4, monthResults: 12, monthAccounts: 2 };
+    expect(
+      formatTrackerUsage({ month: "2026-11", activity: { seenDay: 4, seenWeek: 9, newWeek: 2, openFeedback: 3 }, surebets: counts, valueBets: { ...counts, monthResults: 0 } })
+    ).toBe(
+      [
+        "Activity: 4 seen in 24 h, 9 in 7 days, 2 new in 7 days, 3 feedback open",
+        "Surebets: 1 account, 7 held, 4 with stakes, 12 results kept in 2026-11 (2 accounts)",
+        "Value bets: 1 account, 7 held, 4 with stakes, 0 results kept in 2026-11",
+      ].join("\n")
+    );
   });
 });

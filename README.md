@@ -662,6 +662,49 @@ envoi ne change pas), l'etat du rappel (demande ou envoye) et un lien vers la
 page du match (`web/src/MyTakenSurebets.tsx`). En tete, un resume : combien
 de surebets, leur TRJ moyen et le gain attendu pour 100 € sur chacune.
 
+#### Suivi des paris
+
+« Meine Surebets » et « Meine Value Bets » forment le suivi des paris du
+compte. Tout est garde avec le compte, dans `auth.sqlite` :
+
+- **Mises** : « Meine Einsätze » prend la mise placee sur chaque jambe d'un
+  surebet, celle d'un lay comprise, avec sa responsabilite (migration 13,
+  `user_taken_surebets.stakes`, `PUT /api/taken-surebets/stakes`). Il dit ce
+  qu'elles garantissent : la pire issue, chaque jambe reglee comme la liste
+  des surebets (un back ou un lay gagne sur l'exchange moins 3 % de
+  commission, un lay perdu coute sa responsabilite). Exemple : « Gesichert:
+  +6,70 € bei 100,00 € Einsatz und 242,00 € Haftung » (`lockedLabel`,
+  `web/src/takenSurebets.ts`, et `lockedProfit` cote serveur).
+- **Aufteilen** : un total reparti entre les jambes comme la liste le fait,
+  arrondi a l'euro (`splitStakes`).
+- **Value bets pris** : le bouton « Genommen? » de chaque value bet (migration
+  15, `user_taken_value_bets`, `/api/taken-value-bets`,
+  `src/auth/takenValueBets.ts`) garde sa cote et son avantage a la prise. Une
+  fois le match commence, la cote de cloture du bookmaker s'affiche face a la
+  cote prise. « Mein Einsatz » (migration 16) donne le gain attendu, mise ×
+  avantage.
+- **Totaux du mois** : avant d'oublier un pari deux jours apres son match, le
+  serveur garde ce que ses mises ont garanti (surebets, migration 14,
+  `user_surebet_results`), ou sa mise, son avantage et son ecart a la cloture
+  (value bets, migration 17, `user_value_bet_results`). Ces resultats sont
+  gardes un an. Chaque liste affiche le total du mois de Berlin, par exemple
+  « November: +18,40 € gesichert aus 6 Surebets ».
+- **Outils de liste** :
+  - « Als CSV herunterladen » : une ligne par jambe ou par value bet, au
+    format allemand (`web/src/takenCsv.ts`, `web/src/valueBetsCsv.ts`) ;
+  - « Entfernen » sur chaque pari, avec une confirmation quand des mises sont
+    saisies ;
+  - « Nur offene » : masque les paris dont le match a commence, choix garde
+    dans le navigateur.
+- **Ailleurs sur le site** :
+  - la page d'un match montre ce qui y a deja ete pris (« Schon genommen »,
+    `web/src/TakenOnMatch.tsx`) ;
+  - sur les listes, une ligne dit quand un autre pari a deja ete pris sur le
+    meme match (« Auf diesem Spiel schon genommen »).
+- **Admin** : l'onglet « Usage » en donne les totaux, sans aucun pari ni
+  montant (`GET /api/admin/usage`, `src/auth/trackerUsage.ts`).
+- **Tests de bout en bout** : `e2e/tracker.spec.ts`.
+
 ### Promos
 
 La page « Promos » (`/promos`, pour les comptes) range les promotions des

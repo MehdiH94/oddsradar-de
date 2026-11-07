@@ -257,7 +257,7 @@ npm test
 
 # Dashboard
 cd web
-npm run lint
+npm run lint        # oxlint --deny-warnings: a warning fails it too
 npm test
 npm run build
 

@@ -236,11 +236,13 @@ function useEveryMinute<T>(fetchList: () => Promise<T>) {
   const [error, setError] = useState<string | null>(null);
   const [loadedAt, setLoadedAt] = useState<Date | null>(null);
   const load = useCallback(() => {
-    setError(null);
+    // The error is cleared when a read succeeds, not before it starts: no
+    // state is set synchronously in the effect that calls this.
     return fetchList()
       .then((list) => {
         setData(list);
         setLoadedAt(new Date());
+        setError(null);
       })
       .catch((err) => setError(err instanceof AdminError ? err.message : "Something went wrong."));
   }, [fetchList]);
@@ -518,9 +520,11 @@ function FeedbackTab() {
   const [busyId, setBusyId] = useState<number | null>(null);
 
   const load = useCallback(() => {
-    setError(null);
     return fetchAdminFeedback()
-      .then(setFeedback)
+      .then((list) => {
+        setFeedback(list);
+        setError(null);
+      })
       .catch((err) => setError(err instanceof AdminError ? err.message : "Something went wrong."));
   }, []);
   useEffect(() => {

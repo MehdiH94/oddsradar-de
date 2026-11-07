@@ -327,3 +327,34 @@
   font-weight: 600;
   color: var(--color-brand);
 }
+
+/* The minimum edge: "Alle", "Ab +3 %", "+5 %", "+10 %" (src/minEdge.ts). */
+.minEdge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-3);
+}
+
+.minEdge button {
+  min-height: var(--tap);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.minEdge button[aria-pressed="true"] {
+  border-color: var(--color-brand);
+  background: var(--color-brand-soft);
+  color: var(--color-brand);
+}
+
+.hidden {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}

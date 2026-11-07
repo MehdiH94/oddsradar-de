@@ -250,4 +250,26 @@ describe("ValueBetsTable", () => {
     expect(within(psg).getByText("Auf diesem Spiel schon genommen: 1 Surebet")).toBeInTheDocument();
     expect(within(lyon).queryByText(/schon genommen/)).not.toBeInTheDocument();
   });
+
+  it("hides the value bets under the minimum edge chosen, remembered in the browser, a taken one kept", () => {
+    localStorage.clear();
+    const small = bet({});
+    const big = bet({ eventId: "lyon-nice", participants: ["Lyon", "Nice"], edge: 0.12 });
+    const { unmount } = render(<ValueBetsTable bets={[small, big]} takenValueBets={{ taken: new Map(), setTaken: vi.fn() }} />);
+    expect(screen.getByRole("button", { name: "Alle" })).toHaveAttribute("aria-pressed", "true");
+    fireEvent.click(screen.getByRole("button", { name: /^Ab \+5.%$/ }));
+    expect(screen.getAllByRole("row")).toHaveLength(2);
+    expect(screen.getByText("1 ausgeblendet")).toBeInTheDocument();
+    unmount();
+    // Remembered; a taken bet under it stays in view.
+    const taken = new Map([["psg-om:1X2:1:merkurbets", { eventId: "psg-om", startTime: small.startTime, label: "", market: "1X2", selection: "1", bookmaker: "merkurbets", price: 1.56, edge: 0.04 }]]);
+    const { unmount: again } = render(<ValueBetsTable bets={[small, big]} takenValueBets={{ taken, setTaken: vi.fn() }} />);
+    expect(screen.getByRole("button", { name: /^Ab \+5.%$/ })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getAllByRole("row")).toHaveLength(3);
+    again();
+    // None left over the minimum: says so.
+    render(<ValueBetsTable bets={[small]} takenValueBets={{ taken: new Map(), setTaken: vi.fn() }} />);
+    expect(screen.getByText(/^Keine Value Bet ab \+5.%\.$/)).toBeInTheDocument();
+    localStorage.clear();
+  });
 });

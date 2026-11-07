@@ -421,3 +421,20 @@ describe("SurebetsTable", () => {
     });
   });
 });
+
+describe("the minimum payout", () => {
+  it("hides the surebets under the payout chosen, remembered in the browser", () => {
+    localStorage.clear();
+    const list = [surebet({}), surebet({ eventId: "small", participants: ["A", "B"], payoutRate: 1.012 })];
+    const { unmount } = render(<SurebetsTable surebets={list} />);
+    expect(screen.getByRole("button", { name: "Alle" })).toHaveAttribute("aria-pressed", "true");
+    fireEvent.click(screen.getByRole("button", { name: /^Ab 102.%$/ }));
+    expect(screen.getAllByRole("row")).toHaveLength(2);
+    expect(screen.getByText("1 ausgeblendet")).toBeInTheDocument();
+    unmount();
+    render(<SurebetsTable surebets={[list[1]]} />);
+    expect(screen.getByRole("button", { name: /^Ab 102.%$/ })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByText(/^Kein Surebet ab 102.%\.$/)).toBeInTheDocument();
+    localStorage.clear();
+  });
+});

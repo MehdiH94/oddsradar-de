@@ -14,6 +14,7 @@ import groupStyles from "./GroupedOddsTables.module.css";
 import styles from "./SurebetsTable.module.css";
 import { takenElsewhereLabel } from "./takenElsewhere";
 import type { TakenValueBets } from "./takenValueBets";
+import { MIN_PAYOUTS, minPayoutLabel, useMinPayout } from "./minPayout";
 
 // Whether the surebets whose lay has under 20 € on it are shown: hidden unless
 // asked for, since such a lay cannot take a real stake (the owner's backlog,
@@ -197,7 +198,11 @@ export function SurebetsTable({
   const { taken, setTaken, setRemind } = takenSurebets ?? own;
   const thinCount = surebets.filter((s) => s.thin).length;
   const visible = showThin ? surebets : surebets.filter((s) => !s.thin);
-  const shown = [...visible.filter((s) => !taken.has(surebetKey(s))), ...visible.filter((s) => taken.has(surebetKey(s)))];
+  // The minimum payout chosen ("Ab 102 %"): a taken surebet stays in view whatever it is.
+  const [minPayout, setMinPayout] = useMinPayout();
+  const kept = visible.filter((s) => s.payoutRate >= minPayout - 1e-9 || taken.has(surebetKey(s)));
+  const hidden = visible.length - kept.length;
+  const shown = [...kept.filter((s) => !taken.has(surebetKey(s))), ...kept.filter((s) => taken.has(surebetKey(s)))];
   return (
     <section className={groupStyles.section} aria-labelledby="surebets-heading">
       <h2 id="surebets-heading" className={groupStyles.heading}>
@@ -216,7 +221,16 @@ export function SurebetsTable({
           Auch dünne Lays zeigen ({thinCount}): unter {THIN_SIZE}&nbsp;€ zum Layen
         </label>
       )}
-      {shown.length === 0 && <p className={styles.allThin}>Gerade nur Surebets mit dünnen Lays, ausgeblendet.</p>}
+      <div className={styles.minPayout} role="group" aria-label="Mindestauszahlung">
+        {MIN_PAYOUTS.map((payout) => (
+          <button key={payout} type="button" aria-pressed={minPayout === payout} onClick={() => setMinPayout(payout)}>
+            {minPayoutLabel(payout)}
+          </button>
+        ))}
+        {hidden > 0 && <span className={styles.allThin}>{hidden} ausgeblendet</span>}
+      </div>
+      {visible.length === 0 && <p className={styles.allThin}>Gerade nur Surebets mit dünnen Lays, ausgeblendet.</p>}
+      {visible.length > 0 && shown.length === 0 && <p className={styles.allThin}>Kein Surebet {minPayoutLabel(minPayout).replace("Ab", "ab")}.</p>}
       {shown.length > 0 && (
         <table className={styles.table}>
           <thead>

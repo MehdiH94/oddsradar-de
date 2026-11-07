@@ -17,6 +17,7 @@ import styles from "./ValueBetsTable.module.css";
 import { useTakenValueBets, valueBetKey, type TakenValueBetsState } from "./takenValueBets";
 import { takenElsewhereLabel } from "./takenElsewhere";
 import type { TakenSurebets } from "./takenSurebets";
+import { MIN_EDGES, minEdgeLabel, useMinEdge } from "./minEdge";
 
 const FAIR_TITLE = `Faire Quote: die Quote an ${REFERENCE_SOURCE}, ohne ihre Marge`;
 const bookmakerName = (id: string) => BOOKMAKER_BRANDING[id]?.name ?? id;
@@ -104,12 +105,27 @@ export function ValueBetsTable({
   // The ones the account took: greyed and last (src/takenValueBets.ts).
   const own = useTakenValueBets(!takenValueBets);
   const { taken, setTaken } = takenValueBets ?? own;
-  const shown = [...bets.filter((b) => !taken.has(valueBetKey(b))), ...bets.filter((b) => taken.has(valueBetKey(b)))];
+  // The minimum edge chosen ("Ab +5 %"): a taken bet stays in view whatever it is.
+  const [minEdge, setMinEdge] = useMinEdge();
+  const kept = bets.filter((b) => b.edge >= minEdge - 1e-9 || taken.has(valueBetKey(b)));
+  const hidden = bets.length - kept.length;
+  const shown = [...kept.filter((b) => !taken.has(valueBetKey(b))), ...kept.filter((b) => taken.has(valueBetKey(b)))];
   return (
     <section className={groupStyles.section} aria-labelledby="value-bets-heading">
       <h2 id="value-bets-heading" className={groupStyles.heading}>
         <span aria-hidden="true">{sportEmoji(VALUE_BETS)}</span> {sportLabel(VALUE_BETS)}
       </h2>
+      <div className={styles.minEdge} role="group" aria-label="Mindestvorteil">
+        {MIN_EDGES.map((edge) => (
+          <button key={edge} type="button" aria-pressed={minEdge === edge} onClick={() => setMinEdge(edge)}>
+            {minEdgeLabel(edge)}
+          </button>
+        ))}
+        {hidden > 0 && <span className={styles.hidden}>{hidden} ausgeblendet</span>}
+      </div>
+      {shown.length === 0 ? (
+        <p className={styles.hidden}>Keine Value Bet {minEdgeLabel(minEdge).replace("Ab", "ab")}.</p>
+      ) : (
       <table className={styles.table}>
         <thead>
           <tr>
@@ -259,6 +275,7 @@ export function ValueBetsTable({
           })}
         </tbody>
       </table>
+      )}
     </section>
   );
 }

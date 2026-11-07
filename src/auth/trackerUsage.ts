@@ -64,3 +64,17 @@ export function trackerUsage(db: DatabaseSync, now = new Date()): TrackerUsage {
     },
   };
 }
+
+// The usage as lines, for the admins' weekly report (src/alerts/weeklyReport.ts):
+// "Activity: 4 seen in 24 h, 9 in 7 days, 2 new in 7 days, 3 feedback open".
+export function formatTrackerUsage(u: TrackerUsage): string {
+  const counts = (label: string, c: TrackerCounts) =>
+    `${label}: ${c.accounts} account${c.accounts === 1 ? "" : "s"}, ${c.held} held, ${c.withStakes} with stakes, ${c.monthResults} results kept in ${u.month}` +
+    (c.monthResults > 0 ? ` (${c.monthAccounts} account${c.monthAccounts === 1 ? "" : "s"})` : "");
+  const a = u.activity;
+  return [
+    `Activity: ${a.seenDay} seen in 24 h, ${a.seenWeek} in 7 days, ${a.newWeek} new in 7 days, ${a.openFeedback} feedback open`,
+    counts("Surebets", u.surebets),
+    counts("Value bets", u.valueBets),
+  ].join("\n");
+}

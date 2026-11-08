@@ -5,13 +5,15 @@ import { formatBookmakerStatus, listBookmakerStatus } from "../db/bookmakerStatu
 import { formatPromoReaderStatus, listPromoReaderStatus } from "../promos/status";
 import { formatOddsApiCredits, oddsApiPace, readOddsApiCredits } from "../scraper/oddsApiCredits";
 import { formatTrackerUsage, trackerUsage } from "../auth/trackerUsage";
+import { formatWeekCounts, weekCounts } from "./weekCounts";
 import { DiscordMessage, post, Send } from "./gems";
 
 // Once a week, on Sunday evening (Berlin), one message to the administrators'
 // Discord (DISCORD_ADMIN_WEBHOOK_URL) with what `vps-report bookmakers` and
 // `vps-report promos` print: each bookmaker's health and matches, The Odds
 // API's credits and pace, each promo reader's promotions and last good read,
-// and the admin Usage tab's counts (the testers' activity, the bet tracker),
+// the week's alerts (./weekCounts.ts) and the admin Usage tab's counts (the
+// testers' activity, the bet tracker),
 // so that nobody has to run them to see the week end well. The Sunday it was
 // sent for is kept in the odds database's alert_state, so that a restart does
 // not send it twice.
@@ -51,9 +53,9 @@ export function weeklyReportMessage(bookmakers: string, credits: string, promos:
     allowed_mentions: { parse: [] },
     content: "📋 Weekly health report",
     embeds: [
-      block("Bookmakers", `${bookmakers}\n${credits}`, 3200),
+      block("Bookmakers", `${bookmakers}\n${credits}`, 3000),
       block("Promo readers", promos, 1800),
-      ...(usage ? [block("Usage", usage, 700)] : []),
+      ...(usage ? [block("Usage", usage, 900)] : []),
     ],
   };
 }
@@ -82,7 +84,7 @@ export async function runWeeklyReport(oddsDb: DatabaseSync, authDb: DatabaseSync
       formatBookmakerStatus(listBookmakerStatus(oddsDb, ms, oddsApiPace(credits)), ms),
       formatOddsApiCredits(credits, ms),
       formatPromoReaderStatus(listPromoReaderStatus(authDb, oddsDb, opts.promoReaders), ms),
-      formatTrackerUsage(trackerUsage(authDb, now))
+      `${formatWeekCounts(weekCounts(oddsDb, now, "en-GB"))}\n${formatTrackerUsage(trackerUsage(authDb, now))}`
     );
     await post(opts.send ?? (fetch as unknown as Send), url, message, opts.sleep ?? ((t) => new Promise((r) => setTimeout(r, t))));
     setAlertState(oddsDb, WEEKLY_REPORT_KEY, day);

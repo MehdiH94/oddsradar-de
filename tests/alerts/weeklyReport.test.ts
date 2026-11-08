@@ -43,6 +43,7 @@ describe("runWeeklyReport", () => {
     expect(sent[0].content).toBe("📋 Weekly health report");
     expect(sent[0].embeds.map((e) => e.title)).toEqual(["Bookmakers", "Promo readers", "Usage"]);
     expect(sent[0].embeds[2].description).toContain("Activity: 0 seen in 24 h, 0 in 7 days, 0 new in 7 days, 0 feedback open");
+    expect(sent[0].embeds[2].description).toContain("Alerts sent in 7 days: 0 surebets, 0 value bets");
     expect(sent[0].embeds[2].description).toContain("Surebets: 0 accounts, 0 held, 0 with stakes, 0 results kept in 2026-11");
     expect(sent[0].embeds[0].description).toContain("OK      betway       read 4 min ago: 1513 matches");
     expect(sent[0].embeds[0].description).toContain("The Odds API (tipico, winamaxde, Pinnacle): never read here");
@@ -99,5 +100,14 @@ describe("formatSundayReports", () => {
     setAlertState(db, WEEKLY_REPORT_KEY, "2026-11-08");
     setAlertState(db, "weekly_summary_sent_for", "2026-11-08");
     expect(formatSundayReports(db)).toBe("Sunday reports: the admins' last sent for 2026-11-08, the testers' for 2026-11-08");
+  });
+});
+
+describe("formatWeekCounts", () => {
+  it("says the week's alerts in English", async () => {
+    const { formatWeekCounts } = await import("../../src/alerts/weekCounts");
+    expect(formatWeekCounts({ surebets: 2, gems: 1, bestSurebet: 0.048, bestGem: 0.231, busiestDay: "Saturday" })).toBe(
+      "Alerts sent in 7 days: 2 surebets (best +4.8 %), 1 value bet (best +23.1 %), most on Saturday"
+    );
   });
 });

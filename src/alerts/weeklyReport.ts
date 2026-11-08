@@ -17,6 +17,8 @@ import { DiscordMessage, post, Send } from "./gems";
 // not send it twice.
 
 export const WEEKLY_REPORT_KEY = "weekly_report_sent_for";
+// The testers' summary's (./weeklySummary.ts), here so that both are read together.
+export const WEEKLY_SUMMARY_KEY_NAME = "weekly_summary_sent_for";
 // From this hour on Sunday, Berlin time.
 export const WEEKLY_REPORT_HOUR = 18;
 
@@ -89,4 +91,12 @@ export async function runWeeklyReport(oddsDb: DatabaseSync, authDb: DatabaseSync
     console.error("[alerts:weekly] could not send the weekly report:", err);
     return false;
   }
+}
+
+// When the Sunday reports were last sent, for `npm run bookmaker-status`
+// (vps-report bookmakers): the admins' report and the testers' summary
+// (./weeklySummary.ts), by the Sunday each was sent for.
+export function formatSundayReports(db: DatabaseSync): string {
+  const sent = (key: string) => getAlertState(db, key) ?? "never";
+  return `Sunday reports: the admins' last sent for ${sent(WEEKLY_REPORT_KEY)}, the testers' for ${sent(WEEKLY_SUMMARY_KEY_NAME)}`;
 }

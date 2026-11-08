@@ -2,7 +2,7 @@ import { DatabaseSync } from "node:sqlite";
 import { APP_NAME } from "../brand";
 import { getAlertState, setAlertState } from "../db/alerts";
 import { DiscordMessage, post, Send } from "./gems";
-import { weeklyReportDay } from "./weeklyReport";
+import { WEEKLY_SUMMARY_KEY_NAME, weeklyReportDay } from "./weeklyReport";
 
 // Once a week, on Sunday evening (Berlin, like the admins' report,
 // ./weeklyReport.ts), one message to the testers' Discord (DISCORD_WEBHOOK_URL)
@@ -12,7 +12,7 @@ import { weeklyReportDay } from "./weeklyReport";
 // 23/10/2026). From the alerts sent (gem_alerts), the Sunday sent kept in
 // alert_state.
 
-export const WEEKLY_SUMMARY_KEY = "weekly_summary_sent_for";
+export const WEEKLY_SUMMARY_KEY = WEEKLY_SUMMARY_KEY_NAME;
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
 const WEEKDAY = new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", weekday: "long" });

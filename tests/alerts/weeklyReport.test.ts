@@ -3,7 +3,8 @@ import { openDb } from "../../src/db/client";
 import { openAuthDb } from "../../src/auth/db";
 import { recordBookmakerRead } from "../../src/db/bookmakerStatus";
 import { getAlertState } from "../../src/db/alerts";
-import { runWeeklyReport, WEEKLY_REPORT_KEY, weeklyReportDay, weeklyReportMessage } from "../../src/alerts/weeklyReport";
+import { formatSundayReports, runWeeklyReport, WEEKLY_REPORT_KEY, weeklyReportDay, weeklyReportMessage } from "../../src/alerts/weeklyReport";
+import { setAlertState } from "../../src/db/alerts";
 
 const WEBHOOK = "https://discord.com/api/webhooks/1/admin";
 
@@ -88,5 +89,15 @@ describe("formatTrackerUsage", () => {
         "Value bets: 1 account, 7 held, 4 with stakes, 0 results kept in 2026-11",
       ].join("\n")
     );
+  });
+});
+
+describe("formatSundayReports", () => {
+  it("says when each Sunday report was last sent", () => {
+    const db = openDb(":memory:");
+    expect(formatSundayReports(db)).toBe("Sunday reports: the admins' last sent for never, the testers' for never");
+    setAlertState(db, WEEKLY_REPORT_KEY, "2026-11-08");
+    setAlertState(db, "weekly_summary_sent_for", "2026-11-08");
+    expect(formatSundayReports(db)).toBe("Sunday reports: the admins' last sent for 2026-11-08, the testers' for 2026-11-08");
   });
 });

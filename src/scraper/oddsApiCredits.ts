@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { MIN_CREDITS_LEFT, ODDS_API_BOOKMAKERS, ODDS_API_CACHE_FILE, OddsApiCache } from "./oddsApi";
+import { MIN_CREDITS_LEFT, nextRenewal, ODDS_API_BOOKMAKERS, ODDS_API_CACHE_FILE, OddsApiCache } from "./oddsApi";
 import type { BookmakerPace } from "../db/bookmakerStatus";
 
 // The Odds API's credits left this month (Tipico's, Winamax's and Pinnacle's
@@ -17,11 +17,15 @@ export interface OddsApiCredits {
   // The refresh time the worker last used, paced to last the month
   // (./oddsApi.ts, pacedRefreshMs), in minutes; null before it set one.
   refreshMinutes: number | null;
+  // When the credits renew (the 1st of next month, UTC), and how many paced
+  // reads are left before then (null without a pace).
+  renewsAt: string;
+  readsLeft: number | null;
 }
 
 // Null when the worker has never read The Odds API (no cache file: no key,
 // or not yet run), or its file can't be read.
-export function readOddsApiCredits(file = ODDS_API_CACHE_FILE): OddsApiCredits | null {
+export function readOddsApiCredits(file = ODDS_API_CACHE_FILE, now = Date.now()): OddsApiCredits | null {
   let cache: OddsApiCache;
   try {
     cache = JSON.parse(readFileSync(file, "utf8")) as OddsApiCache;
@@ -33,6 +37,8 @@ export function readOddsApiCredits(file = ODDS_API_CACHE_FILE): OddsApiCredits |
     checkedAt: typeof cache.creditsCheckedAt === "string" ? cache.creditsCheckedAt : null,
     floor: MIN_CREDITS_LEFT,
     refreshMinutes: typeof cache.refreshMinutes === "number" ? cache.refreshMinutes : null,
+    renewsAt: new Date(nextRenewal(now)).toISOString(),
+    readsLeft: typeof cache.refreshMinutes === "number" && cache.refreshMinutes > 0 ? Math.floor((nextRenewal(now) - now) / (cache.refreshMinutes * 60_000)) : null,
   };
 }
 
@@ -44,7 +50,8 @@ export function formatOddsApiCredits(credits: OddsApiCredits | null, now = Date.
   const checked = credits.checkedAt ? `, checked ${Math.round((now - Date.parse(credits.checkedAt)) / 60_000)} min ago` : "";
   const spent = credits.creditsLeft <= credits.floor ? `; at or under the floor of ${credits.floor}: no reads until they renew` : "";
   const pace = credits.refreshMinutes !== null && !spent ? `; a read every ${credits.refreshMinutes} min` : "";
-  return `${head} ${credits.creditsLeft} credits left${checked}${pace}${spent}`;
+  const renews = `; renews on ${credits.renewsAt.slice(0, 10)}${credits.readsLeft !== null && !spent ? `, about ${credits.readsLeft} reads left` : ""}`;
+  return `${head} ${credits.creditsLeft} credits left${checked}${pace}${spent}${renews}`;
 }
 
 // The Odds API's bookmakers' pace, from the refresh time the worker last used:

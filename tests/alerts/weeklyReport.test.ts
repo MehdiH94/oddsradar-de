@@ -139,3 +139,20 @@ describe("the matches' fall since the last report", () => {
     expect(sent[1].embeds[0].description).toContain("⚠️ Matches fell by half or more since the last report: betway 1513 → 600");
   });
 });
+
+describe("alertsByBookmaker", () => {
+  it("counts the week's alerts by bookmaker, most first, for the admins", async () => {
+    const { alertsByBookmaker } = await import("../../src/alerts/weekCounts");
+    const { recordSentGems } = await import("../../src/db/alerts");
+    const db = openDb(":memory:");
+    const now = new Date("2026-11-08T18:00:00Z");
+    expect(alertsByBookmaker(db, now)).toBeNull();
+    const gem = (selection: string, bookmaker: string, sentAt = "2026-11-07T12:00:00Z") => ({
+      eventId: "e", market: "1X2", selection, bookmaker, basis: "fair", price: 2, fair: 1.9, edge: 0.05,
+      label: "", marketLabel: "", matchLabel: "", startTime: "2026-11-08T20:00:00Z", sentAt,
+    });
+    recordSentGems(db, [gem("1", "twentybet"), gem("2", "twentybet"), gem("X", "leovegas"), gem("1", "merkurbets", "2026-10-30T12:00:00Z")]);
+    expect(alertsByBookmaker(db, now)).toBe("By bookmaker: 20bet 2, LeoVegas 1");
+    expect(alertsByBookmaker(db, now, 1)).toBe("By bookmaker: 20bet 2, 1 more");
+  });
+});

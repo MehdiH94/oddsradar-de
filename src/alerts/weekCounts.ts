@@ -1,4 +1,5 @@
 import { DatabaseSync } from "node:sqlite";
+import { bookmakerName } from "./gems";
 
 // What the alerts sent in the 7 days before `now` came to (gem_alerts): how
 // many surebets and value bets, the best edge of each and the busiest day
@@ -41,4 +42,20 @@ export function formatWeekCounts(c: WeekCounts): string {
   const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
   const day = c.busiestDay ? `, most on ${c.busiestDay}` : "";
   return `Alerts sent in 7 days: ${plural(c.surebets, "surebet")}${pct(c.bestSurebet)}, ${plural(c.gems, "value bet")}${pct(c.bestGem)}${day}`;
+}
+
+// Which bookmakers the alerts of the 7 days before `now` came from (the one
+// each alert names; a surebet's, its first leg's), most first, for the admins'
+// report only: "By bookmaker: 20bet 41, LeoVegas 12, Merkur Bets 9". The
+// testers' messages never name one (the owner's rule, 23/10/2026).
+export function alertsByBookmaker(db: DatabaseSync, now: Date, max = 8): string | null {
+  const rows = db
+    .prepare(
+      "SELECT bookmaker, COUNT(*) AS n FROM gem_alerts WHERE sent_at >= ? AND sent_at <= ? GROUP BY bookmaker ORDER BY n DESC, bookmaker"
+    )
+    .all(new Date(now.getTime() - WEEK_MS).toISOString(), now.toISOString()) as { bookmaker: string; n: number }[];
+  if (rows.length === 0) return null;
+  const shown = rows.slice(0, max).map((r) => `${bookmakerName(r.bookmaker)} ${r.n}`);
+  const rest = rows.length > max ? `, ${rows.length - max} more` : "";
+  return `By bookmaker: ${shown.join(", ")}${rest}`;
 }

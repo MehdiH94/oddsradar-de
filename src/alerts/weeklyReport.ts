@@ -5,7 +5,7 @@ import { BookmakerStatus, formatBookmakerStatus, listBookmakerStatus } from "../
 import { formatPromoReaderStatus, listPromoReaderStatus } from "../promos/status";
 import { formatOddsApiCredits, oddsApiPace, readOddsApiCredits } from "../scraper/oddsApiCredits";
 import { formatTrackerUsage, trackerUsage } from "../auth/trackerUsage";
-import { formatWeekCounts, weekCounts } from "./weekCounts";
+import { alertsByBookmaker, formatWeekCounts, weekCounts } from "./weekCounts";
 import { DiscordMessage, post, Send } from "./gems";
 
 // Once a week, on Sunday evening (Berlin), one message to the administrators'
@@ -115,7 +115,7 @@ export async function runWeeklyReport(oddsDb: DatabaseSync, authDb: DatabaseSync
       dropLine + formatBookmakerStatus(statuses, ms),
       formatOddsApiCredits(credits, ms),
       formatPromoReaderStatus(listPromoReaderStatus(authDb, oddsDb, opts.promoReaders), ms),
-      `${formatWeekCounts(weekCounts(oddsDb, now, "en-GB"))}\n${formatTrackerUsage(trackerUsage(authDb, now))}`
+      [formatWeekCounts(weekCounts(oddsDb, now, "en-GB")), alertsByBookmaker(oddsDb, now), formatTrackerUsage(trackerUsage(authDb, now))].filter(Boolean).join("\n")
     );
     await post(opts.send ?? (fetch as unknown as Send), url, message, opts.sleep ?? ((t) => new Promise((r) => setTimeout(r, t))));
     setAlertState(oddsDb, WEEKLY_REPORT_KEY, day);

@@ -3,7 +3,7 @@ import { openDb } from "../../src/db/client";
 import { openAuthDb } from "../../src/auth/db";
 import { recordBookmakerRead } from "../../src/db/bookmakerStatus";
 import { getAlertState } from "../../src/db/alerts";
-import { formatSundayReports, runWeeklyReport, WEEKLY_REPORT_KEY, weeklyReportDay, weeklyReportMessage } from "../../src/alerts/weeklyReport";
+import { formatSundayReports, matchDrops, runWeeklyReport, WEEKLY_MATCHES_KEY, WEEKLY_REPORT_KEY, weeklyReportDay, weeklyReportMessage } from "../../src/alerts/weeklyReport";
 import { setAlertState } from "../../src/db/alerts";
 
 const WEBHOOK = "https://discord.com/api/webhooks/1/admin";
@@ -112,5 +112,30 @@ describe("formatWeekCounts", () => {
     expect(formatWeekCounts({ surebets: 2, gems: 1, bestSurebet: 0.048, bestGem: 0.231, busiestDay: "Saturday" })).toBe(
       "Alerts sent in 7 days: 2 surebets (best +4.8 %), 1 value bet (best +23.1 %), most on Saturday"
     );
+  });
+});
+
+describe("the matches' fall since the last report", () => {
+  const status = (bookmaker: string, lastGoodEvents: number) =>
+    ({ bookmaker, lastReadAt: "", lastEvents: lastGoodEvents, lastError: null, lastGoodAt: "", lastGoodEvents, health: "ok", downAlerted: false }) as const;
+
+  it("flags a bookmaker whose matches fell by half or more, not a paced or a small one", () => {
+    const before = { betway: 1513, vbet: 1200, tipico: 105, tiny: 40 };
+    const now = [status("betway", 600), status("vbet", 700), status("tipico", 0), status("tiny", 0), status("neobet", 10)];
+    expect(matchDrops(now, before, new Set(["tipico"]))).toEqual(["betway 1513 → 600"]);
+  });
+
+  it("keeps each bookmaker's matches at each report and flags the fall at the next", async () => {
+    const odds = openDb(":memory:");
+    const auth = openAuthDb(":memory:");
+    const { sent, send } = discord();
+    const opts = { webhookUrl: WEBHOOK, send, promoReaders: [], oddsApiCacheFile: "/nonexistent/cache.json" };
+    recordBookmakerRead(odds, "betway", { events: 1513 }, "2026-11-08T17:55:00.000Z");
+    await runWeeklyReport(odds, auth, { ...opts, now: new Date("2026-11-08T18:00:00Z") });
+    expect(JSON.parse(getAlertState(odds, WEEKLY_MATCHES_KEY)!)).toEqual({ betway: 1513 });
+    expect(sent[0].embeds[0].description).not.toContain("fell");
+    recordBookmakerRead(odds, "betway", { events: 600 }, "2026-11-15T17:55:00.000Z");
+    await runWeeklyReport(odds, auth, { ...opts, now: new Date("2026-11-15T18:00:00Z") });
+    expect(sent[1].embeds[0].description).toContain("⚠️ Matches fell by half or more since the last report: betway 1513 → 600");
   });
 });

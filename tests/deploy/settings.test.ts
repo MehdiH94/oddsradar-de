@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { spawnSync } from "node:child_process";
-import { chmodSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { chmodSync, copyFileSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
@@ -161,12 +161,14 @@ describe("deploy.sh's containers", () => {
     );
     writeFileSync(join(dir, "curl"), `#!/bin/sh\necho "curl $*" >> "${calls}"\nexit \${CURL_EXIT:-0}\n`);
     writeFileSync(join(dir, "sleep"), "#!/bin/sh\nexit 0\n");
-    for (const bin of ["docker", "curl", "sleep"]) chmodSync(join(dir, bin), 0o755);
+    writeFileSync(join(dir, "systemctl"), `#!/bin/sh\necho "systemctl $*" >> "${calls}"\n`);
+    for (const bin of ["docker", "curl", "sleep", "systemctl"]) chmodSync(join(dir, bin), 0o755);
   });
   afterEach(() => rmSync(dir, { recursive: true, force: true }));
 
-  const run = (script: string, env: Record<string, string>) =>
+  const run = (script: string, env: Record<string, string>, cwd?: string) =>
     spawnSync("bash", ["-c", `source <(sed '/^main "\\$@"$/,$d' "${SCRIPT}") && ${script}`], {
+      cwd,
       encoding: "utf8",
       env: { ...process.env, PATH: `${dir}:${process.env.PATH}`, DEPLOY_HEALTH_TIMEOUT_S: "2", ...env },
     });
@@ -194,5 +196,28 @@ describe("deploy.sh's containers", () => {
     const deploy = run("check_health", { RUNNING: "web worker", CURL_EXIT: "7" });
     expect(deploy.status).not.toBe(0);
     expect(deploy.stderr).toContain("the API does not answer on http://127.0.0.1:5010/api/health");
+  });
+
+  it("installs and starts the backup timers as user units, from the checkout", () => {
+    const checkout = join(dir, "checkout");
+    const home = join(dir, "home");
+    mkdirSync(join(checkout, "deploy"), { recursive: true });
+    const units = readdirSync(resolve(__dirname, "../../deploy")).filter((f) => f.startsWith("oddsblitzer-backup"));
+    expect(units.sort()).toEqual([
+      "oddsblitzer-backup-odds.service",
+      "oddsblitzer-backup-odds.timer",
+      "oddsblitzer-backup.service",
+      "oddsblitzer-backup.timer",
+    ]);
+    for (const unit of units) copyFileSync(resolve(__dirname, "../../deploy", unit), join(checkout, "deploy", unit));
+
+    const deploy = run("install_timers", { HOME: home, XDG_CONFIG_HOME: "" }, checkout);
+    expect(deploy.status, deploy.stderr).toBe(0);
+    expect(readdirSync(join(home, ".config/systemd/user")).sort()).toEqual(units.sort());
+    expect(statSync(join(checkout, "backups")).isDirectory()).toBe(true);
+    expect(logged()).toEqual([
+      "systemctl --user daemon-reload",
+      "systemctl --user enable --now oddsblitzer-backup.timer oddsblitzer-backup-odds.timer",
+    ]);
   });
 });

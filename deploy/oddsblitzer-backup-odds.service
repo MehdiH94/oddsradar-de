@@ -1,0 +1,12 @@
+# Backup of the odds database, from the web container (deploy/backup-db.sh
+# with the image's sqlite3): a systemd user unit of the claude user, installed
+# and enabled by deploy/deploy.sh. The copies land in ~/projets/oddsblitzer/backups.
+[Unit]
+Description=OddsBlitzer odds database backup
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/projets/oddsblitzer
+# The odds are rebuilt by the worker, but the players' stats, their signals and
+# the alerts sent are not: a copy every week, kept 28 days (4 copies).
+ExecStart=/usr/bin/docker compose -f docker-compose.sandbox.yml exec -T --user root web deploy/backup-db.sh data/coteradar.sqlite odds 28

@@ -36,6 +36,12 @@ services:
       TRUST_PROXY: "1"
     ports:
       - "127.0.0.1:5010:3000"
+    # The backups' copies (deploy/backup-db.sh, run here by the backup
+    # timers): written by the container's root, which is the claude user on
+    # the machine (rootless Docker), so they land in ~/projets/oddsblitzer/backups.
+    volumes:
+      - data:/app/data
+      - ./backups:/app/backups
 
   worker:
     <<: *app

@@ -52,4 +52,22 @@ describe("the sandbox's container", () => {
     expect(compose).toMatch(/AUTH_DB_PATH: \/app\/data\/auth\.sqlite/);
     expect(compose).toMatch(/- data:\/app\/data/);
   });
+
+  it("backs both databases up from the web container into ./backups", () => {
+    expect(dockerfile).toMatch(/apt-get install -y --no-install-recommends sqlite3/);
+    expect(dockerfile).toMatch(/^COPY deploy\/backup-db\.sh deploy\/backup-db\.sh$/m);
+    expect(compose).toMatch(/- \.\/backups:\/app\/backups/);
+    const unit = (name: string) => read(`deploy/${name}`);
+    for (const [service, args, timer, when] of [
+      ["oddsblitzer-backup.service", "data/auth.sqlite auth 30", "oddsblitzer-backup.timer", "hourly"],
+      ["oddsblitzer-backup-odds.service", "data/coteradar.sqlite odds 28", "oddsblitzer-backup-odds.timer", "Sun *-*-* 04:00:00"],
+    ]) {
+      expect(unit(service)).toContain("WorkingDirectory=%h/projets/oddsblitzer");
+      expect(unit(service)).toContain(
+        `ExecStart=/usr/bin/docker compose -f docker-compose.sandbox.yml exec -T --user root web deploy/backup-db.sh ${args}`
+      );
+      expect(unit(service)).not.toMatch(/^User=/m);
+      expect(unit(timer)).toContain(`OnCalendar=${when}`);
+    }
+  });
 });

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { openDb } from "../../src/db/client";
-import { DOWN_AFTER_MS, formatBookmakerStatus, listBookmakerStatus, recordBookmakerRead } from "../../src/db/bookmakerStatus";
+import { DOWN_AFTER_MS, formatBookmakerStatus, listBookmakerStatus, nextReadLabel, recordBookmakerRead } from "../../src/db/bookmakerStatus";
 
 const T0 = Date.parse("2026-10-20T10:00:00.000Z");
 const at = (minutes: number) => new Date(T0 + minutes * 60_000).toISOString();
@@ -43,7 +43,9 @@ describe("the bookmakers' last reads", () => {
     const pace = { tipico: 800 * 60_000 };
     recordBookmakerRead(db, "tipico", { events: 105 }, at(0));
     recordBookmakerRead(db, "tipico", { events: 0 }, at(180));
-    expect(listBookmakerStatus(db, T0 + 180 * 60_000, pace)[0].health).toBe("paused");
+    const [paused] = listBookmakerStatus(db, T0 + 180 * 60_000, pace);
+    expect(paused).toMatchObject({ health: "paused", nextReadAt: at(800) });
+    expect(formatBookmakerStatus([paused], T0 + 180 * 60_000)).toContain("; next read in about 10 h");
     // Without its pace, down as any other.
     expect(listBookmakerStatus(db, T0 + 180 * 60_000)[0].health).toBe("down");
     // Its pace and 30 minutes on, down.
@@ -70,5 +72,13 @@ describe("formatBookmakerStatus", () => {
 
   it("says so when no bookmaker was read yet", () => {
     expect(formatBookmakerStatus([])).toBe("No bookmaker read yet.");
+  });
+});
+
+describe("nextReadLabel", () => {
+  it("says in minutes or hours when a paused bookmaker's next read is due", () => {
+    expect(nextReadLabel(at(40), T0)).toBe("next read in about 40 min");
+    expect(nextReadLabel(at(9 * 60), T0)).toBe("next read in about 9 h");
+    expect(nextReadLabel(at(-5), T0)).toBe("next read due now");
   });
 });

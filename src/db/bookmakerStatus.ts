@@ -27,6 +27,8 @@ export interface BookmakerStatus {
   health: BookmakerHealth;
   // Whether the admin alert of its being down was sent (and its recovery not yet).
   downAlerted: boolean;
+  // While paused, when its next paced read is due: its last good read plus its pace.
+  nextReadAt?: string;
 }
 
 // A read: the matches it gave, or the error it failed with.
@@ -82,7 +84,11 @@ export function listBookmakerStatus(db: DatabaseSync, now = Date.now(), pace: Bo
        FROM bookmaker_status ORDER BY bookmaker_id`
     )
     .all() as unknown as Row[];
-  return rows.map((row) => ({ ...row, health: healthOf(row, now, pace[row.bookmaker]), downAlerted: row.downAlerted === 1 }));
+  return rows.map((row) => {
+    const health = healthOf(row, now, pace[row.bookmaker]);
+    const next = health === "paused" && row.lastGoodAt ? { nextReadAt: new Date(Date.parse(row.lastGoodAt) + pace[row.bookmaker]).toISOString() } : {};
+    return { ...row, health, downAlerted: row.downAlerted === 1, ...next };
+  });
 }
 
 // Each bookmaker's last read, one line each, for `npm run bookmaker-status`
@@ -97,7 +103,15 @@ export function formatBookmakerStatus(statuses: readonly BookmakerStatus[], now 
       const last = s.lastEvents === null ? "failed" : `${s.lastEvents} matches`;
       const good = s.lastGoodAt === null ? "no good read" : `last good ${ago(s.lastGoodAt)} (${s.lastGoodEvents ?? 0} matches)`;
       const error = s.lastError ? `\n    error: ${s.lastError.replace(/\s+/g, " ").slice(0, 300)}` : "";
-      return `${s.health.toUpperCase().padEnd(7)} ${s.bookmaker.padEnd(12)} read ${ago(s.lastReadAt)}: ${last}; ${good}${error}`;
+      const next = s.nextReadAt ? `; ${nextReadLabel(s.nextReadAt, now)}` : "";
+      return `${s.health.toUpperCase().padEnd(7)} ${s.bookmaker.padEnd(12)} read ${ago(s.lastReadAt)}: ${last}; ${good}${next}${error}`;
     })
     .join("\n");
+}
+
+// "next read in about 9 h", "next read in about 40 min", "next read due now".
+export function nextReadLabel(nextReadAt: string, now = Date.now()): string {
+  const minutes = Math.round((Date.parse(nextReadAt) - now) / 60_000);
+  if (minutes <= 0) return "next read due now";
+  return minutes < 90 ? `next read in about ${minutes} min` : `next read in about ${Math.round(minutes / 60)} h`;
 }

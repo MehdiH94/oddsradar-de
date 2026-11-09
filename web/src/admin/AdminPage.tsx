@@ -25,6 +25,7 @@ import {
 } from "./adminApi";
 import { problemsFirst, readerProblemsFirst } from "./order";
 import { oddsApiCreditsLabel } from "./oddsApiCredits";
+import { nextReadLabel } from "./nextRead";
 import styles from "./AdminPage.module.css";
 
 const DATE_FORMAT = new Intl.DateTimeFormat("en-GB", { dateStyle: "short" });
@@ -330,6 +331,7 @@ function BookmakersTab() {
                     <span className={b.health === "ok" ? styles.active : b.health === "down" ? styles.blocked : styles.warning}>
                       {HEALTH_LABELS[b.health]}
                     </span>
+                    {b.nextReadAt && <span className={styles.you}> ({nextReadLabel(b.nextReadAt)})</span>}
                   </td>
                   <td>{formatTime(b.lastReadAt)}</td>
                   <td>{b.lastEvents ?? "—"}</td>

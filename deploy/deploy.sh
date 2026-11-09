@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-# Deploys a commit of origin/main on this machine: check it out, build both
-# packages, restart the systemd services, check they answer.
+# Deploys a commit of origin/main on this machine: check it out, rebuild the
+# containers (docker-compose.sandbox.yml), restart them, check they answer.
 #
-# The staging checkout (/opt/oddsradar-staging) runs this same script for
-# origin/development and its own services: its SSH key's forced command sets
-# DEPLOY_BRANCH and DEPLOY_SERVICES (README, "Environnement de test").
+# Runs as the "claude" user, in its checkout (~/projets/oddsblitzer), with its
+# own rootless Docker: the site has been running in containers since
+# 09/11/2026 (README, "Docker (sandbox)"). Caddy, on the machine, sends
+# odds-blitzer.de to 127.0.0.1:5010.
 #
 # Run by the GitHub Actions deploy job (.github/workflows/deploy.yml) through
 # an SSH key restricted to this script (a forced command in authorized_keys,
@@ -17,15 +18,19 @@
 # this very file mid-run safely.
 set -euo pipefail
 
-# Production by default; the staging key's forced command overrides both, so
-# that a key can only ever deploy its own branch to its own services.
+# main by default; a key's forced command may name another branch, so that a
+# key can only ever deploy its own branch.
 DEPLOY_BRANCH=${DEPLOY_BRANCH:-main}
 [[ "$DEPLOY_BRANCH" =~ ^[A-Za-z0-9._/-]+$ ]] || {
   echo "[deploy] ERROR: invalid DEPLOY_BRANCH" >&2
   exit 1
 }
-read -r -a SERVICES <<<"${DEPLOY_SERVICES:-oddsradar-worker oddsradar-web}"
-HEALTH_TIMEOUT_S=${DEPLOY_HEALTH_TIMEOUT_S:-30}
+COMPOSE=${DEPLOY_COMPOSE:-docker-compose.sandbox.yml}
+# The API's port as docker-compose.sandbox.yml publishes it on the machine.
+HEALTH_URL=${DEPLOY_HEALTH_URL:-http://127.0.0.1:5010/api/health}
+# Both containers must be running after the restart.
+SERVICES=(web worker)
+HEALTH_TIMEOUT_S=${DEPLOY_HEALTH_TIMEOUT_S:-60}
 
 log() { echo "[deploy] $*"; }
 fail() {
@@ -118,36 +123,30 @@ set_env() {
 }
 
 build() {
-  log "building the backend"
-  npm ci --no-audit --no-fund
-  npm run build
-  log "building the web dashboard"
-  (cd web && npm ci --no-audit --no-fund && npm run build)
+  log "building the image (backend and web dashboard)"
+  docker compose -f "$COMPOSE" build
 }
 
 restart() {
-  log "restarting ${SERVICES[*]}"
-  # -n: fail instead of prompting when sudo would want a password.
-  sudo -n systemctl restart "${SERVICES[@]}"
+  log "restarting the containers"
+  docker compose -f "$COMPOSE" up -d --remove-orphans
 }
 
 check_health() {
-  local port deadline service
-  port=$(sed -n 's/^PORT=//p' .env 2>/dev/null | tail -n 1 | tr -d '"\r ')
-  port=${port:-3000}
-
+  local deadline service running
   deadline=$((SECONDS + HEALTH_TIMEOUT_S))
-  until curl -fs -o /dev/null "http://localhost:${port}/api/health"; do
+  until curl -fs -o /dev/null "$HEALTH_URL"; do
     ((SECONDS < deadline)) ||
-      fail "the API does not answer on port $port after ${HEALTH_TIMEOUT_S}s (journalctl -u ${SERVICES[*]})"
+      fail "the API does not answer on $HEALTH_URL after ${HEALTH_TIMEOUT_S}s (docker compose -f $COMPOSE logs web)"
     sleep 1
   done
 
-  # The worker serves nothing to probe: check that neither service went down
-  # in the seconds after the restart, e.g. by crashing on startup.
+  # The worker serves nothing to probe: check that neither container went
+  # down in the seconds after the restart, e.g. by crashing on startup.
   sleep 5
+  running=$(docker compose -f "$COMPOSE" ps --status running --services)
   for service in "${SERVICES[@]}"; do
-    systemctl is-active --quiet "$service" || fail "$service is not running (journalctl -u $service)"
+    grep -qx "$service" <<<"$running" || fail "$service is not running (docker compose -f $COMPOSE logs $service)"
   done
   log "health check passed"
 }

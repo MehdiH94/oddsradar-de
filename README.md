@@ -981,24 +981,26 @@ deploiement.
 Chaque push sur `main` lance le workflow `.github/workflows/deploy.yml` :
 
 1. job `test` (`test.yml`, commun a tous les workflows) : typecheck et tests
-   du backend, puis lint, tests et build du dashboard (`web/`) ;
-2. job `gate`, seulement si les tests passent : le commit doit venir de
-   `development` et ce code doit avoir ete deploye avec succes sur le site de
-   test (voir « Environnement de test ») ;
-3. job `deploy`, seulement si le `gate` passe : connexion SSH au VPS avec
-   une cle qui ne peut rien faire d'autre que lancer `deploy/deploy.sh` sur le
-   commit teste. Le script recupere ce commit (`git reset --hard` : `.env` et
-   `data/` sont conserves, les modifications locales des fichiers suivis sont
-   ecrasees), lance `npm ci` et les deux builds, redemarre les deux services
-   et verifie que l'API repond et que le worker tourne ;
+   du backend, lint, tests et build du dashboard (`web/`), puis les tests
+   end-to-end ;
+2. job `gate`, seulement si les tests passent : le commit doit etre le merge
+   d'une pull request (un push direct sur `main` n'est jamais deploye) ;
+3. job `deploy`, seulement si le `gate` passe : connexion SSH au VPS, en
+   tant que `claude`, avec une cle qui ne peut rien faire d'autre que lancer
+   `deploy/deploy.sh` sur le commit teste. Le script recupere ce commit dans
+   `~/projets/oddsblitzer` (`git reset --hard` : `.env` est conserve, les
+   bases sont dans le volume Docker), reconstruit l'image, relance les deux
+   conteneurs (`docker-compose.sandbox.yml`) et verifie que l'API repond sur
+   `127.0.0.1:5010` et que le worker tourne. Les anciens conteneurs servent le
+   site pendant la construction : la coupure se limite au redemarrage ;
 4. le job verifie enfin que le site repond depuis l'exterieur.
 
 Le job passe aussi au VPS, sur l'entree standard de la commande SSH, les
-reglages gardes dans GitHub : le secret `DISCORD_WEBHOOK_URL` (voir
-« Alertes Discord ») et l'adresse du site (`PUBLIC_URL`). `deploy/deploy.sh`
-n'accepte que ces deux cles, verifie leur forme (sans jamais les afficher)
-et les ecrit dans `.env` ; une valeur vide retire la ligne. Le secret GitHub
-fait donc foi : ne pas modifier ces deux lignes de `.env` a la main.
+reglages gardes dans GitHub : les secrets `DISCORD_WEBHOOK_URL`,
+`DISCORD_ADMIN_WEBHOOK_URL`, `SMTP_*` et l'adresse du site (`PUBLIC_URL`).
+`deploy/deploy.sh` n'accepte que ces cles, verifie leur forme (sans jamais
+les afficher) et les ecrit dans `.env` ; une valeur vide retire la ligne. Le
+secret GitHub fait donc foi : ne pas modifier ces lignes de `.env` a la main.
 
 Un echec rend le run rouge dans l'onglet Actions (et GitHub envoie un mail).
 Pour relancer un deploiement : Actions > deploy > Run workflow, ou "Re-run" sur
@@ -1007,70 +1009,56 @@ retour arriere).
 
 #### Mise en place (une seule fois)
 
-A lancer **sur le VPS** (pas sur une machine de developpement), connecte en
-tant que l'utilisateur des services. Verifier d'abord qu'on est au bon
-endroit : la commande doit afficher `oddsradar` puis `/opt/oddsradar`.
+Depuis le 09/11/2026, le site tourne dans les conteneurs de l'utilisateur
+`claude` (section « Docker (sandbox) »). Il faut deux cles, creees **sur le
+VPS** par un administrateur (compte `ubuntu`) :
+
+1. une cle en lecture seule sur le depot, pour que `claude` puisse faire
+   `git fetch` (GitHub : Settings > Deploy keys) ;
+2. la cle du job `deploy`, limitee a `deploy/deploy.sh` par une commande
+   forcee dans les `authorized_keys` de `claude`.
 
 ```bash
-whoami && ls -d /opt/oddsradar
+sudo -u claude -H bash -c '
+  set -e; cd ~
+  mkdir -p -m 700 .ssh
+  [ -f .ssh/oddsblitzer_repo ] || ssh-keygen -q -t ed25519 -N "" -C oddsblitzer-vps-claude -f .ssh/oddsblitzer_repo
+  grep -q "IdentityFile ~/.ssh/oddsblitzer_repo" .ssh/config 2>/dev/null \
+    || printf "Host github.com\n  IdentityFile ~/.ssh/oddsblitzer_repo\n  IdentitiesOnly yes\n" >> .ssh/config
+  ssh-keyscan -t ed25519 github.com >> .ssh/known_hosts 2>/dev/null
+  echo "== Cle publique a ajouter dans GitHub > Settings > Deploy keys (sans ecriture) :"
+  cat .ssh/oddsblitzer_repo.pub'
+sudo install -d -m 700 /root/cles && sudo ssh-keygen -q -t ed25519 -N "" -C github-deploy-claude -f /root/cles/github_deploy_claude
+echo "command=\"/home/claude/projets/oddsblitzer/deploy/deploy.sh\",restrict $(sudo cat /root/cles/github_deploy_claude.pub)" \
+  | sudo -u claude -H tee -a /home/claude/.ssh/authorized_keys >/dev/null
 ```
 
-Puis, en un seul bloc (il s'arrete a la premiere erreur) :
+Puis, une fois la deploy key ajoutee dans GitHub, verifier que `claude` lit
+le depot : `sudo -u claude -H git -C ~claude/projets/oddsblitzer fetch origin main && echo FETCH-OK`.
 
-```bash
-cd /opt/oddsradar && git pull origin main \
-&& GIT_TERMINAL_PROMPT=0 git fetch origin main && echo FETCH-OK \
-&& { sudo -n true && echo SUDO-OK || echo SUDO-KO; } \
-&& mkdir -p -m 700 ~/.ssh \
-&& ssh-keygen -t ed25519 -N "" -C github-deploy -f ~/.ssh/github_deploy \
-&& echo "command=\"/opt/oddsradar/deploy/deploy.sh\",restrict $(cat ~/.ssh/github_deploy.pub)" >> ~/.ssh/authorized_keys \
-&& for f in /etc/ssh/ssh_host_*_key.pub; do echo "141.95.86.176 $(cut -d' ' -f1,2 "$f")"; done
-```
+Enfin, dans GitHub : Settings > Secrets and variables > Actions, remplacer le
+secret `VPS_SSH_KEY` par la cle privee `/root/cles/github_deploy_claude`
+(`sudo cat` sur le VPS, lignes `BEGIN` et `END` comprises). C'est une cle
+privee : la copier uniquement dans ce secret, puis la supprimer du VPS avec
+`sudo rm -r /root/cles`. `VPS_KNOWN_HOSTS` ne change pas (meme serveur).
 
-Puis dans GitHub : Settings > Secrets and variables > Actions > New repository
-secret, deux fois :
-
-- `VPS_KNOWN_HOSTS` : toutes les lignes `141.95.86.176 ...` affichees a la
-  fin (ce sont les cles publiques du serveur) ;
-- `VPS_SSH_KEY` : la sortie complete de `cat ~/.ssh/github_deploy`, lignes
-  `BEGIN` et `END` comprises. C'est une cle privee : la copier uniquement
-  dans ce secret, nulle part ailleurs, puis la supprimer du VPS avec
-  `rm ~/.ssh/github_deploy ~/.ssh/github_deploy.pub`.
-
-Si `FETCH-OK` ne s'affiche pas, le VPS ne peut pas lire le depot (prive) sans
-mot de passe. Lui donner une cle en lecture seule :
-
-```bash
-ssh-keygen -t ed25519 -N "" -C oddsradar-vps -f ~/.ssh/oddsradar_repo
-cat ~/.ssh/oddsradar_repo.pub   # GitHub : Settings > Deploy keys > Add deploy key (sans ecriture)
-printf 'Host github.com\n  IdentityFile ~/.ssh/oddsradar_repo\n' >> ~/.ssh/config
-git -C /opt/oddsradar remote set-url origin git@github.com:MehdiH94/oddsradar-de.git
-ssh -o StrictHostKeyChecking=accept-new -T git@github.com   # accepte la cle de GitHub
-```
-
-Si `SUDO-KO` s'affiche, autoriser uniquement le redemarrage des
-services :
-
-```bash
-echo 'oddsradar ALL=(root) NOPASSWD: /usr/bin/systemctl restart oddsradar-worker oddsradar-web' \
-  | sudo tee /etc/sudoers.d/oddsradar-deploy
-sudo chmod 440 /etc/sudoers.d/oddsradar-deploy
-```
+L'ancienne cle de deploiement, dans les `authorized_keys` de `oddsradar`,
+ne sert plus : la retirer (la ligne qui contient `/opt/oddsradar/deploy/deploy.sh`).
 
 #### Deployer a la main
 
-Le meme script sert sans GitHub, depuis le VPS :
+Le meme script sert sans GitHub, sur le VPS, en tant que `claude` :
 
 ```bash
-/opt/oddsradar/deploy/deploy.sh          # dernier commit de main
-/opt/oddsradar/deploy/deploy.sh <sha>    # un commit precis de main
+sudo -u claude -H bash -c 'cd ~/projets/oddsblitzer && deploy/deploy.sh'          # dernier commit de main
+sudo -u claude -H bash -c 'cd ~/projets/oddsblitzer && deploy/deploy.sh <sha>'    # un commit precis de main
 ```
 
 En cas de probleme apres un deploiement :
 
 ```bash
-sudo systemctl status oddsradar-worker oddsradar-web
-journalctl -u oddsradar-worker -f   # Ctrl+C pour quitter
+sudo -u claude -H XDG_RUNTIME_DIR=/run/user/$(id -u claude) bash -c \
+  'cd ~/projets/oddsblitzer && docker compose -f docker-compose.sandbox.yml ps && docker compose -f docker-compose.sandbox.yml logs -f'
 ```
 
 ### Rapports du VPS

@@ -28,12 +28,13 @@ Winamax, Betclic, Vbet, CircusBet, DAZN Bet, NetBet, Genybet, Unibet, Betsson, P
                        (toutes les MARKETS_INTERVAL_MINUTES)
 ```
 
-Deux process tournent en production, sous forme de deux services systemd
-qui partagent le même fichier SQLite :
+Deux process tournent en production, sous forme de deux conteneurs Docker
+(`web` et `worker`, `docker-compose.sandbox.yml`) qui partagent le même
+fichier SQLite :
 
-- `oddsradar-worker` interroge les bookmakers à intervalle régulier et
+- `worker` interroge les bookmakers à intervalle régulier et
   enregistre les cotes ;
-- `oddsradar-web` sert l'API sur `/api/*` et le dashboard compilé
+- `web` sert l'API sur `/api/*` et le dashboard compilé
   (`web/dist`), sur le même port.
 
 | Chemin | Rôle |
@@ -354,9 +355,9 @@ Le push sur `main` lance le workflow `deploy`, qui comporte trois jobs :
 3. **deploy**, seulement si `gate` est vert. Le job se connecte au VPS en
    SSH et lance `deploy/deploy.sh` sur le commit testé. Le script :
    - récupère ce commit ;
-   - réinstalle les dépendances (`npm ci`) et compile le backend et le
-     dashboard ;
-   - redémarre les deux services ;
+   - reconstruit l'image (dépendances, backend et dashboard) pendant que les
+     anciens conteneurs servent encore le site ;
+   - relance les deux conteneurs ;
    - vérifie que l'API répond et que le worker tourne.
 
    Le job vérifie enfin que le site répond depuis l'extérieur.
@@ -424,35 +425,27 @@ En urgence, on peut aussi relancer un ancien run vert de `deploy` (Actions >
 le run > « Re-run all jobs »). Il redéploie son propre commit. Ce n'est que
 temporaire : le prochain push sur `main` redéploie `main`.
 
-**Sur le VPS** (`ssh oddsradar@141.95.86.176`) :
+**Sur le VPS**, en tant que `claude` (depuis le compte `ubuntu` :
+`sudo -u claude -H bash`, puis `cd ~/projets/oddsblitzer`) :
 
 ```bash
-sudo systemctl status oddsradar-worker oddsradar-web   # état des services
-journalctl -u oddsradar-web -n 100                     # 100 dernières lignes du log
-journalctl -u oddsradar-worker -f                      # log en direct (Ctrl+C pour quitter)
-/opt/oddsradar/deploy/deploy.sh                        # redéployer main à la main
-/opt/oddsradar/deploy/deploy.sh <sha>                  # redéployer un commit précis de main
-sudo systemctl disable --now oddsradar-staging-worker oddsradar-staging-web
-                                                       # arrêter l'ancien site de test
+docker compose -f docker-compose.sandbox.yml ps                  # état des conteneurs
+docker compose -f docker-compose.sandbox.yml logs --tail 100 web # 100 dernières lignes du log
+docker compose -f docker-compose.sandbox.yml logs -f worker      # log en direct (Ctrl+C pour quitter)
+deploy/deploy.sh                                                 # redéployer main à la main
+deploy/deploy.sh <sha>                                           # redéployer un commit précis de main
 ```
 
 ## 8. Ce que le déploiement automatique ne fait pas
 
 Ces changements se font à la main sur le VPS, en plus du push :
 
-- **Réglages dans `.env`** (`PORT`, `POLL_INTERVAL_MINUTES`,
-  `MARKETS_INTERVAL_MINUTES`, `DB_PATH`) :
-  modifier `/opt/oddsradar/.env`, puis
-  `sudo systemctl restart oddsradar-worker oddsradar-web`. Si le port
-  change, mettre aussi à jour `APP_URL` dans
-  `.github/workflows/deploy.yml`.
-- **Unités systemd** (`deploy/*.service`) : les recopier et les recharger.
-
-  ```bash
-  sudo cp /opt/oddsradar/deploy/*.service /etc/systemd/system/
-  sudo systemctl daemon-reload
-  sudo systemctl restart oddsradar-worker oddsradar-web
-  ```
+- **Réglages dans `.env`** (`POLL_INTERVAL_MINUTES`,
+  `MARKETS_INTERVAL_MINUTES`...) : modifier `~/projets/oddsblitzer/.env`
+  (utilisateur `claude`), puis
+  `docker compose -f docker-compose.sandbox.yml up -d` pour relancer les
+  conteneurs. `PORT`, `HOST` et les chemins des bases sont fixés par le
+  compose ; le port publié (5010) l'est aussi dans le Caddyfile du VPS.
 
 - **Structure de la base** : `src/db/client.ts` crée les tables qui manquent
   (`SCHEMA`) et ajoute à une table existante les colonnes listées dans
@@ -471,9 +464,10 @@ Ces changements se font à la main sur le VPS, en plus du push :
   Le worker et l'API ouvrent la base ensemble au déploiement : le second
   attend la fin de la migration du premier. Le fichier ne rétrécit pas après
   une migration qui supprime des données ; pour rendre l'espace au disque,
-  services arrêtés : `sqlite3 data/coteradar.sqlite "PRAGMA wal_checkpoint(TRUNCATE); VACUUM;"`.
+  conteneurs arrêtés, dans le volume `data` : `sqlite3 data/coteradar.sqlite "PRAGMA wal_checkpoint(TRUNCATE); VACUUM;"`.
 
-- **Version de Node.js et paquets système du VPS**.
+- **Paquets système du VPS** (la version de Node.js est celle de l'image,
+  dans le `Dockerfile`, et suit donc les pull requests).
 - **Clés et secrets** (`VPS_SSH_KEY`, `VPS_KNOWN_HOSTS`, clé de lecture du
   dépôt) : voir le README. Une clé privée ne se copie que dans un secret
   GitHub. Jamais dans un chat, un ticket ou un commit.

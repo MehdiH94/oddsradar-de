@@ -23,6 +23,8 @@ export interface AdminBookmaker {
   // "paused": read only so often (The Odds API's paced reads), between two reads.
   health: "ok" | "failing" | "empty" | "paused" | "down";
   downAlerted: boolean;
+  // While paused, when its next paced read is due.
+  nextReadAt?: string;
 }
 
 // The Odds API's credits left this month (src/scraper/oddsApiCredits.ts):

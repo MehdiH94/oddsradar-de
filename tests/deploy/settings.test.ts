@@ -91,9 +91,9 @@ describe("deploy.sh's SMTP settings", () => {
   });
 });
 
-// Which branch and which services a deploy.sh run is for: production unless
-// the staging key's forced command says otherwise.
-describe("deploy.sh's branch and services", () => {
+// Which branch a deploy.sh run is for: main unless a key's forced command
+// says otherwise.
+describe("deploy.sh's branch", () => {
   let dir: string;
   let clone: string;
   const git = (cwd: string, ...args: string[]) =>
@@ -125,24 +125,74 @@ describe("deploy.sh's branch and services", () => {
       env: { ...process.env, ...deployEnv },
     });
 
-  it("deploys main to the production services unless told otherwise", () => {
+  it("deploys main unless told otherwise, with the sandbox's compose file", () => {
     const main = sha("origin/main");
     const dev = sha("origin/development");
     expect(run("checkout ''", {}).status).toBe(0);
     expect(sha("HEAD")).toBe(main);
     expect(run(`checkout ${dev}`, {}).stderr).toContain(`${dev} is not a commit of origin/main`);
-    expect(run('echo "${SERVICES[*]}"', {}).stdout.trim()).toBe("oddsradar-worker oddsradar-web");
+    expect(run('echo "$COMPOSE ${SERVICES[*]}"', {}).stdout.trim()).toBe("docker-compose.sandbox.yml web worker");
   });
 
-  it("deploys development to the staging services when the forced command says so", () => {
+  it("deploys another branch only when the forced command names it", () => {
     const dev = sha("origin/development");
-    const staging = { DEPLOY_BRANCH: "development", DEPLOY_SERVICES: "oddsradar-staging-worker oddsradar-staging-web" };
-    expect(run(`checkout ${dev}`, staging).status).toBe(0);
+    expect(run(`checkout ${dev}`, { DEPLOY_BRANCH: "development" }).status).toBe(0);
     expect(sha("HEAD")).toBe(dev);
-    expect(run('echo "${SERVICES[*]}"', staging).stdout.trim()).toBe("oddsradar-staging-worker oddsradar-staging-web");
   });
 
   it("refuses a branch name that isn't one", () => {
     expect(run("true", { DEPLOY_BRANCH: "main; reboot" }).status).not.toBe(0);
+  });
+});
+
+// deploy.sh's build, restart and health check, with docker and curl replaced
+// by stand-ins that log their calls: the containers are rebuilt and restarted
+// from the sandbox's compose file, and a container that is not running fails
+// the deploy.
+describe("deploy.sh's containers", () => {
+  let dir: string;
+  let calls: string;
+  beforeEach(() => {
+    dir = mkdtempSync(join(tmpdir(), "oddsblitzer-docker-"));
+    calls = join(dir, "calls");
+    writeFileSync(
+      join(dir, "docker"),
+      `#!/bin/sh\necho "docker $*" >> "${calls}"\ncase "$*" in *" ps "*) printf '%s\\n' $RUNNING ;; esac\n`
+    );
+    writeFileSync(join(dir, "curl"), `#!/bin/sh\necho "curl $*" >> "${calls}"\nexit \${CURL_EXIT:-0}\n`);
+    writeFileSync(join(dir, "sleep"), "#!/bin/sh\nexit 0\n");
+    for (const bin of ["docker", "curl", "sleep"]) chmodSync(join(dir, bin), 0o755);
+  });
+  afterEach(() => rmSync(dir, { recursive: true, force: true }));
+
+  const run = (script: string, env: Record<string, string>) =>
+    spawnSync("bash", ["-c", `source <(sed '/^main "\\$@"$/,$d' "${SCRIPT}") && ${script}`], {
+      encoding: "utf8",
+      env: { ...process.env, PATH: `${dir}:${process.env.PATH}`, DEPLOY_HEALTH_TIMEOUT_S: "2", ...env },
+    });
+  const logged = () => readFileSync(calls, "utf8").trim().split("\n");
+
+  it("rebuilds and restarts the sandbox's containers, then checks both run", () => {
+    const deploy = run("build && restart && check_health", { RUNNING: "web worker" });
+    expect(deploy.status).toBe(0);
+    expect(deploy.stdout).toContain("health check passed");
+    expect(logged()).toEqual([
+      "docker compose -f docker-compose.sandbox.yml build",
+      "docker compose -f docker-compose.sandbox.yml up -d --remove-orphans",
+      "curl -fs -o /dev/null http://127.0.0.1:5010/api/health",
+      "docker compose -f docker-compose.sandbox.yml ps --status running --services",
+    ]);
+  });
+
+  it("fails when the worker is not running after the restart", () => {
+    const deploy = run("check_health", { RUNNING: "web" });
+    expect(deploy.status).not.toBe(0);
+    expect(deploy.stderr).toContain("worker is not running");
+  });
+
+  it("fails when the API does not answer", () => {
+    const deploy = run("check_health", { RUNNING: "web worker", CURL_EXIT: "7" });
+    expect(deploy.status).not.toBe(0);
+    expect(deploy.stderr).toContain("the API does not answer on http://127.0.0.1:5010/api/health");
   });
 });

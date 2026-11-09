@@ -13,33 +13,44 @@ const NOW = Date.parse("2026-11-01T04:20:00.000Z");
 
 describe("readOddsApiCredits", () => {
   it("reads the credits left and when they were told from the worker's cache file", () => {
-    const credits = readOddsApiCredits(file(JSON.stringify({ competitions: {}, creditsLeft: 494, creditsCheckedAt: "2026-11-01T04:08:00.000Z", refreshMinutes: 15 })));
-    expect(credits).toEqual({ creditsLeft: 494, checkedAt: "2026-11-01T04:08:00.000Z", floor: 20, refreshMinutes: 15 });
+    const credits = readOddsApiCredits(file(JSON.stringify({ competitions: {}, creditsLeft: 494, creditsCheckedAt: "2026-11-01T04:08:00.000Z", refreshMinutes: 15 })), NOW);
+    // From 01/11 04:20 to 01/12 00:00, every 15 minutes: 2862 reads.
+    expect(credits).toEqual({ creditsLeft: 494, checkedAt: "2026-11-01T04:08:00.000Z", floor: 20, refreshMinutes: 15, renewsAt: "2026-12-01T00:00:00.000Z", readsLeft: 2862 });
   });
 
   it("gives null without a file or with a broken one, no count before the API told one", () => {
     expect(readOddsApiCredits(file())).toBeNull();
     expect(readOddsApiCredits(file("{not json"))).toBeNull();
-    expect(readOddsApiCredits(file(JSON.stringify({ competitions: {} })))).toEqual({ creditsLeft: null, checkedAt: null, floor: 20, refreshMinutes: null });
+    expect(readOddsApiCredits(file(JSON.stringify({ competitions: {} })), NOW)).toEqual({
+      creditsLeft: null,
+      checkedAt: null,
+      floor: 20,
+      refreshMinutes: null,
+      renewsAt: "2026-12-01T00:00:00.000Z",
+      readsLeft: null,
+    });
   });
 });
 
 describe("formatOddsApiCredits", () => {
   it("says how many are left and since when, and when the reads have stopped", () => {
-    expect(formatOddsApiCredits({ creditsLeft: 494, checkedAt: "2026-11-01T04:08:00.000Z", floor: 20, refreshMinutes: 1000 }, NOW)).toBe(
-      "The Odds API (tipico, winamaxde, Pinnacle): 494 credits left, checked 12 min ago; a read every 1000 min"
+    const renews = { renewsAt: "2026-12-01T00:00:00.000Z" };
+    expect(formatOddsApiCredits({ creditsLeft: 494, checkedAt: "2026-11-01T04:08:00.000Z", floor: 20, refreshMinutes: 1000, ...renews, readsLeft: 42 }, NOW)).toBe(
+      "The Odds API (tipico, winamaxde, Pinnacle): 494 credits left, checked 12 min ago; a read every 1000 min; renews on 2026-12-01, about 42 reads left"
     );
-    expect(formatOddsApiCredits({ creditsLeft: 12, checkedAt: "2026-11-01T04:08:00.000Z", floor: 20, refreshMinutes: 15 }, NOW)).toBe(
-      "The Odds API (tipico, winamaxde, Pinnacle): 12 credits left, checked 12 min ago; at or under the floor of 20: no reads until they renew"
+    expect(formatOddsApiCredits({ creditsLeft: 12, checkedAt: "2026-11-01T04:08:00.000Z", floor: 20, refreshMinutes: 15, ...renews, readsLeft: 2862 }, NOW)).toBe(
+      "The Odds API (tipico, winamaxde, Pinnacle): 12 credits left, checked 12 min ago; at or under the floor of 20: no reads until they renew; renews on 2026-12-01"
     );
-    expect(formatOddsApiCredits({ creditsLeft: null, checkedAt: null, floor: 20, refreshMinutes: null }, NOW)).toBe("The Odds API (tipico, winamaxde, Pinnacle): credits left not told yet");
+    expect(formatOddsApiCredits({ creditsLeft: null, checkedAt: null, floor: 20, refreshMinutes: null, ...renews, readsLeft: null }, NOW)).toBe(
+      "The Odds API (tipico, winamaxde, Pinnacle): credits left not told yet"
+    );
     expect(formatOddsApiCredits(null, NOW)).toBe("The Odds API (tipico, winamaxde, Pinnacle): never read here (no cache file)");
   });
 });
 
 describe("oddsApiPace", () => {
   it("gives the Odds API's bookmakers the worker's refresh time, none before it set one", () => {
-    const credits = { creditsLeft: 245, checkedAt: null, floor: 20, refreshMinutes: 954 };
+    const credits = { creditsLeft: 245, checkedAt: null, floor: 20, refreshMinutes: 954, renewsAt: "2026-12-01T00:00:00.000Z", readsLeft: 37 };
     expect(oddsApiPace(credits)).toEqual({ tipico: 954 * 60_000, winamaxde: 954 * 60_000 });
     expect(oddsApiPace({ ...credits, refreshMinutes: null })).toEqual({});
     expect(oddsApiPace(null)).toEqual({});

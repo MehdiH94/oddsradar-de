@@ -36,6 +36,9 @@ export interface AdminOddsApiCredits {
   floor: number;
   // The refresh time the worker last used, paced to last the month (minutes).
   refreshMinutes?: number | null;
+  // When they renew, and how many paced reads are left before then.
+  renewsAt?: string;
+  readsLeft?: number | null;
 }
 
 export interface AdminBookmakers {

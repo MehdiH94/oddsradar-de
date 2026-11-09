@@ -20,4 +20,13 @@ describe("oddsApiCreditsLabel", () => {
     expect(oddsApiCreditsLabel(null)).toBeNull();
     expect(oddsApiCreditsLabel({ creditsLeft: null, checkedAt: null, floor: 20 })).toEqual({ text: "credits left not told yet", spent: false });
   });
+
+  it("says when the credits renew and how many paced reads are left", () => {
+    expect(oddsApiCreditsLabel({ creditsLeft: 222, checkedAt: null, floor: 20, refreshMinutes: 792, renewsAt: "2026-12-01T00:00:00.000Z", readsLeft: 39 })!.text).toBe(
+      "222 credits left this month, a read every 13 h 12 min; renews on 01/12/2026, about 39 reads left"
+    );
+    expect(oddsApiCreditsLabel({ creditsLeft: 20, checkedAt: null, floor: 20, renewsAt: "2026-12-01T00:00:00.000Z", readsLeft: 3 })!.text).toBe(
+      "20 credits left this month: at the floor of 20, no reads until they renew; renews on 01/12/2026"
+    );
+  });
 });

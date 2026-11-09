@@ -860,6 +860,9 @@ Au meme moment, le salon des testeurs (`DISCORD_WEBHOOK_URL`) recoit le resume
 de la semaine : combien de surebets et de 💎 value bets ont ete envoyes, le
 meilleur avantage de chacun et le jour le plus charge, sans jamais nommer un
 bookmaker ni une cote (`src/alerts/weeklySummary.ts`).
+Le 1er de chaque mois, a partir de 10 h (heure de Berlin), ce meme salon recoit
+le resume du mois ecoule, dans les memes termes, avec le jour le plus charge
+(`src/alerts/monthlySummary.ts`).
 
 ### Retours des testeurs
 

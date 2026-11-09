@@ -1,0 +1,56 @@
+# OddsBlitzer in the sandbox environment of the VPS (README, "Docker
+# (sandbox)"). Run by the "claude" user, whose Docker is rootless and separate
+# from the machine's: the external network "sandbox" and the port range
+# 5000-5999 on 127.0.0.1 are that environment's. Caddy, on the machine, is the
+# only way in (sudo usine-publier oddsblitzer sandbox 5010).
+#
+#   docker compose -f docker-compose.sandbox.yml up -d --build
+#
+# .env is the same file as production's (secrets included, never committed);
+# the settings below override the ones that differ inside a container.
+name: oddsblitzer-sandbox
+
+x-app: &app
+  build: .
+  image: oddsblitzer:sandbox
+  env_file: .env
+  environment: &env
+    DB_PATH: /app/data/coteradar.sqlite
+    AUTH_DB_PATH: /app/data/auth.sqlite
+  volumes:
+    - data:/app/data
+  networks: [sandbox]
+  restart: unless-stopped
+
+services:
+  web:
+    <<: *app
+    command: ["node", "dist/api/index.js"]
+    environment:
+      <<: *env
+      PORT: "3000"
+      # Inside the container: the port is published on 127.0.0.1 only, so
+      # Caddy is still the only one to reach it, and TRUST_PROXY=1 reads the
+      # visitor's address from its X-Forwarded-For.
+      HOST: 0.0.0.0
+      TRUST_PROXY: "1"
+    ports:
+      - "127.0.0.1:5010:3000"
+
+  worker:
+    <<: *app
+    command: ["node", "dist/worker/index.js"]
+    # Serves nothing: the image's /api/health check does not apply. Its
+    # exchange requests go through EXCHANGE_PROXY (.env), the VPN proxy that
+    # stays on the machine (deploy/exchange-vpn.sh).
+    healthcheck:
+      disable: true
+
+# Both SQLite databases and the odds API cache. The worker and the API share
+# them, as they share /opt/oddsradar/data under systemd.
+volumes:
+  data:
+
+networks:
+  sandbox:
+    external: true

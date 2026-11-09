@@ -7,7 +7,16 @@ import { join, relative, resolve } from "node:path";
 // copied from the documentation, a deploy or a workflow must only ever reach
 // OddsBlitzer's server, repository and sites.
 const ROOT = resolve(__dirname, "../..");
-const CHECKED = ["deploy", ".github", "README.md", "CONTRIBUTING.md", "web/README.md", ".env.example"];
+const CHECKED = [
+  "deploy",
+  ".github",
+  "README.md",
+  "CONTRIBUTING.md",
+  "web/README.md",
+  ".env.example",
+  "Dockerfile",
+  "docker-compose.sandbox.yml",
+];
 const COTERADAR = [
   /cote-radar\.fr/i, // its sites
   /141\.94\.244\.108/, // its server

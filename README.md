@@ -366,10 +366,9 @@ Seuls les matchs pas encore commences sont listes : un match disparait des
 son coup d'envoi.
 
 Production : <https://odds-blitzer.de>, deployee automatiquement a chaque push
-sur `main`. Site de test : <https://staging.odds-blitzer.de>, deploye
-automatiquement a chaque push sur `development` : rien n'arrive sur `main`
-sans y etre passe. **Pour modifier le projet et mettre la modification en
-prod, voir [CONTRIBUTING.md](CONTRIBUTING.md).**
+sur `main`. **Pour modifier le projet et mettre la modification en
+prod, voir [CONTRIBUTING.md](CONTRIBUTING.md).** Une copie tourne aussi en
+conteneur dans la sandbox du VPS (section « Docker (sandbox) »).
 
 ## Prerequis
 
@@ -1149,121 +1148,44 @@ avec `rm ~/.ssh/github_report ~/.ssh/github_report.pub`.
 Facultatif, pour que `status` montre aussi les logs des services (depuis le
 compte `ubuntu`) : `sudo usermod -aG systemd-journal oddsradar`.
 
-### Environnement de test
+### Environnement de test (supprime)
 
-> **Plus utilise depuis le 20/10/2026.** Le site n'ayant ni trafic ni
-> clients, il n'y a plus qu'un environnement, la production : les pull
-> requests vont directement sur `main` (CONTRIBUTING.md, section 6), et les
-> workflows `deploy-staging` et `sync-development` sont supprimes. Pour
-> arreter les anciens services sur le VPS :
-> `sudo systemctl disable --now oddsradar-staging-worker oddsradar-staging-web`.
-> La suite decrit l'ancienne mise en place, gardee pour pouvoir la refaire.
+Le site de test `staging.odds-blitzer.de` n'est plus utilise depuis le
+20/10/2026 et a ete supprime du VPS le 08/11/2026 : services
+`oddsradar-staging-*`, dossier `/opt/oddsradar-staging`, bloc Caddy et cle
+SSH de deploiement. Une archive reste dans `/root/archives` sur le VPS. Son
+ancienne mise en place est dans l'historique Git de ce fichier.
 
-`staging.odds-blitzer.de` montre toujours le dernier etat de la branche
-`development`. C'est le meme VPS que la production, mais un autre dossier
-(`/opt/oddsradar-staging`), d'autres services (`oddsradar-staging-worker`,
-`oddsradar-staging-web`, port 3001) et d'autres bases : celles de la
-production ne sont jamais touchees. Son worker scrape toutes les 45 minutes
-(meme IP que la production) et n'envoie aucune alerte Discord.
+### Docker (sandbox)
 
-Chaque push sur `development` lance `.github/workflows/deploy-staging.yml`
-(tests, deploiement, verification du site), avec sa propre cle SSH dont la
-commande forcee deploie `development` vers les services de test, et rien
-d'autre. Le job `gate` de `deploy.yml` refuse ensuite de deployer en
-production un commit qui n'a pas ete deploye avec succes sur le site de test.
+L'application tourne aussi en conteneur, dans l'environnement « sandbox » du
+VPS : une seule image (`Dockerfile`) pour l'API, qui sert aussi le dashboard,
+et le worker ; `docker-compose.sandbox.yml` lance les deux. La production
+reste sur systemd (sections precedentes) tant que la bascule n'est pas faite.
 
-#### Mise en place (une seule fois)
+Ce Docker est celui de l'utilisateur `claude` (mode rootless, separe de celui
+de la machine) : reseau `sandbox`, ports 5000-5999 sur `127.0.0.1`. Caddy,
+sur la machine, reste le seul acces : `usine-publier` lui ajoute l'adresse
+`https://oddsblitzer-sandbox.mehdi-saas.duckdns.org`.
 
-1. **DNS** : un enregistrement `A` `staging.odds-blitzer.de` vers
-   `141.95.86.176`.
-2. **Sur le VPS**, en tant que `oddsradar` (une fois la branche `development`
-   contenant `deploy/staging/` fusionnee). `/opt` appartient a root : le
-   dossier est d'abord cree au nom de `oddsradar`, puis le depot y est clone :
+- **Bases** : le volume `data` (`/app/data`), partage par l'API et le
+  worker comme `/opt/oddsradar/data` sous systemd. Le compose force
+  `DB_PATH` et `AUTH_DB_PATH` dedans.
+- **Reglages** : le meme `.env` que la production (jamais commite) ; le
+  compose remplace ce qui change dans un conteneur (`HOST=0.0.0.0`,
+  `PORT=3000`, `TRUST_PROXY=1`, chemins des bases).
+- **Exchange** : le VPN et son proxy restent sur la machine
+  (`deploy/exchange-vpn.sh`) ; le worker les joint par
+  `EXCHANGE_PROXY=http://10.200.0.2:8888`.
 
-   ```bash
-   sudo install -d -o oddsradar -g oddsradar -m 755 /opt/oddsradar-staging \
-   && git clone git@github.com:MehdiH94/oddsradar-de.git /opt/oddsradar-staging \
-   && cd /opt/oddsradar-staging && git checkout development \
-   && mkdir -p data \
-   && cp deploy/staging/.env.staging.example .env && chmod 600 .env \
-   && sqlite3 /opt/oddsradar/data/coteradar.sqlite ".backup /opt/oddsradar-staging/data/coteradar.sqlite" \
-   && sudo cp deploy/staging/*.service /etc/systemd/system/ && sudo systemctl daemon-reload \
-   && sudo systemctl enable oddsradar-staging-worker oddsradar-staging-web
-   ```
-
-   La copie de la base des cotes evite un site de test vide pendant le premier
-   cycle ; ne jamais copier `auth.sqlite`. Les services sont actives sans etre
-   demarres : le premier deploiement construit l'application.
-
-   La regle sudoers est validee par `visudo` avant d'etre installee, pour
-   qu'une faute de frappe ne puisse pas casser `sudo` :
-
-   ```bash
-   echo 'oddsradar ALL=(root) NOPASSWD: /usr/bin/systemctl restart oddsradar-staging-worker oddsradar-staging-web' \
-     > /tmp/oddsradar-staging-deploy \
-   && sudo visudo -cf /tmp/oddsradar-staging-deploy \
-   && sudo install -m 440 -o root -g root /tmp/oddsradar-staging-deploy /etc/sudoers.d/oddsradar-staging-deploy \
-   && rm /tmp/oddsradar-staging-deploy && sudo visudo -c
-   ```
-
-   Puis le bloc Caddy du site de test, ajoute a la fin de
-   `/etc/caddy/Caddyfile` apres une sauvegarde, et valide avant tout
-   rechargement :
-
-   ```bash
-   sudo cp -p /etc/caddy/Caddyfile /etc/caddy/Caddyfile.bak-$(date +%Y%m%d-%H%M%S) \
-   && printf '\n' | sudo tee -a /etc/caddy/Caddyfile >/dev/null \
-   && sudo tee -a /etc/caddy/Caddyfile < /opt/oddsradar-staging/deploy/staging/Caddyfile.snippet >/dev/null \
-   && sudo -u caddy caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
-   ```
-
-   Ne recharger Caddy qu'une fois le DNS en place
-   (`dig +short staging.odds-blitzer.de @1.1.1.1` doit repondre
-   `141.95.86.176`) : sinon Caddy demande tout de suite un certificat pour un
-   nom qui ne pointe pas encore vers le serveur, et Let's Encrypt limite le
-   nombre d'echecs par heure.
-
-   ```bash
-   sudo systemctl reload caddy
-   curl -sI https://odds-blitzer.de | head -1                               # la production repond toujours
-   curl -sI https://staging.odds-blitzer.de | grep -iE '^HTTP|x-robots'     # 502 normal avant le premier deploiement
-   ```
-
-3. **Cle SSH du deploiement de test**, sur le VPS (meme demarche que pour la
-   production). La premiere ligne evite que la nouvelle cle se colle a la
-   derniere ligne d'`authorized_keys` si celle-ci ne finit pas par un saut de
-   ligne ; les lignes existantes ne sont pas modifiees :
-
-   ```bash
-   { [ -z "$(tail -c1 ~/.ssh/authorized_keys)" ] || echo >> ~/.ssh/authorized_keys; } \
-   && ssh-keygen -t ed25519 -N "" -C github-deploy-staging -f ~/.ssh/github_deploy_staging \
-   && echo "command=\"env DEPLOY_BRANCH=development DEPLOY_SERVICES='oddsradar-staging-worker oddsradar-staging-web' /opt/oddsradar-staging/deploy/deploy.sh\",restrict $(cat ~/.ssh/github_deploy_staging.pub)" >> ~/.ssh/authorized_keys
-   ```
-
-   Puis, **depuis le PC** (avec `gh` connecte au compte proprietaire du depot),
-   le secret `STAGING_VPS_SSH_KEY` et la variable `STAGING_URL`. La cle privee
-   passe directement du VPS au secret, sans jamais etre affichee :
-
-   ```bash
-   ( set -o pipefail; ssh oddsradar@141.95.86.176 'test -s ~/.ssh/github_deploy_staging && cat ~/.ssh/github_deploy_staging' \
-     | gh secret set STAGING_VPS_SSH_KEY --repo MehdiH94/oddsradar-de ) && echo "secret OK"
-   gh variable set STAGING_URL --body "https://staging.odds-blitzer.de" --repo MehdiH94/oddsradar-de
-   gh secret list --repo MehdiH94/oddsradar-de; gh variable list --repo MehdiH94/oddsradar-de
-   ```
-
-   Une fois `STAGING_VPS_SSH_KEY` dans la liste, supprimer la cle du VPS :
-   `rm ~/.ssh/github_deploy_staging ~/.ssh/github_deploy_staging.pub` (la
-   ligne d'`authorized_keys` reste). `VPS_KNOWN_HOSTS` et les secrets `SMTP_*`
-   de la production sont reutilises.
-4. Lancer le premier deploiement (Actions > deploy-staging > Run workflow, ou
-   `gh workflow run deploy-staging.yml --repo MehdiH94/oddsradar-de --ref development`),
-   puis creer un compte administrateur de test (email et mot de passe tapes
-   dans le terminal, distincts de ceux de la production) :
-   `cd /opt/oddsradar-staging && npm run create-admin`.
-
-Le site de test se deploie a la main comme la production :
+En tant que `claude`, depuis le depot clone dans `~/projets/oddsblitzer`
+(le `.env` y est copie par un administrateur, en `chmod 600`) :
 
 ```bash
-DEPLOY_BRANCH=development DEPLOY_SERVICES='oddsradar-staging-worker oddsradar-staging-web' \
-  /opt/oddsradar-staging/deploy/deploy.sh
+docker compose -f docker-compose.sandbox.yml up -d --build
+docker compose -f docker-compose.sandbox.yml ps        # web : healthy
+sudo usine-publier oddsblitzer sandbox 5010
 ```
+
+La CI (`ci.yml`, job `docker`) construit l'image et verifie l'API, le
+dashboard et le demarrage du worker a chaque pull request.

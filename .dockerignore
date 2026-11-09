@@ -1,0 +1,19 @@
+# Built inside the image, or never part of it: dependencies, build output,
+# databases, secrets, tests and docs.
+**/node_modules
+dist
+web/dist
+data
+.env
+.env.*
+!.env.example
+.git
+.github
+.claude
+.worktrees
+e2e
+tests
+docs
+playwright-report
+test-results
+*.md

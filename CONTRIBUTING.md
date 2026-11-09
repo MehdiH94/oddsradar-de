@@ -47,8 +47,8 @@ qui partagent le même fichier SQLite :
 | `tests/` | Tests du backend, même arborescence que `src/`. `tests/scraper/fixtures/` contient de vraies réponses des bookmakers. |
 | `e2e/` | Tests end-to-end (Playwright) des chemins critiques, section 5 : `server.ts` lance la vraie API sur une base semée (`seed.ts`), `fixtures.ts` dit ce que le semis contient, un fichier `*.spec.ts` par famille de parcours. |
 | `web/src/` | Site React : la page d'accueil (`/`, `HomePage.tsx`) et le dashboard (`/odds`, `App.tsx`), choisis par `Root.tsx`. Chaque composant a son test à côté (`OddsTable.tsx` et `OddsTable.test.tsx`). |
-| `deploy/` | Script de déploiement et unités systemd ; `deploy/staging/` : ceux de l'ancien site de test, plus déployé. |
-| `.github/workflows/` | `test.yml` (les vérifications : les tests, puis le job `e2e`), `ci.yml` (les pull requests), `deploy.yml` (déploiement de `main`, gardé par le job `gate`). |
+| `deploy/` | Script de déploiement et unités systemd de la production. Le conteneur de la sandbox du VPS : `Dockerfile` et `docker-compose.sandbox.yml` à la racine (README, « Docker (sandbox) »). |
+| `.github/workflows/` | `test.yml` (les vérifications : les tests, puis le job `e2e`), `ci.yml` (les pull requests, plus le job `docker` qui construit et démarre le conteneur), `deploy.yml` (déploiement de `main`, gardé par le job `gate`). |
 
 Le backend (racine) et le dashboard (`web/`) sont deux packages npm séparés.
 Chacun a son `package.json`, son `package-lock.json` et ses tests.
@@ -326,7 +326,8 @@ Une branche durable, un environnement :
 
 L'ancien site de test (`development`, <https://staging.odds-blitzer.de>) n'est
 plus déployé depuis le 20/10/2026 : le site n'a ni trafic ni clients, et deux
-environnements ralentissaient chaque modification.
+environnements ralentissaient chaque modification. Il a été supprimé du VPS le
+08/11/2026.
 
 ### Une modification (feature ou bug)
 

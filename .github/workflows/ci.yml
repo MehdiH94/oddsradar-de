@@ -18,3 +18,38 @@ concurrency:
 jobs:
   test:
     uses: ./.github/workflows/test.yml
+
+  # The sandbox's container (Dockerfile, docker-compose.sandbox.yml): the image
+  # builds, the API answers its health check and serves the dashboard behind
+  # 127.0.0.1:5010, and the worker starts. Pull requests only: production
+  # still runs on systemd, so deploy.yml does not wait for it.
+  docker:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Sandbox network and settings
+        run: |
+          docker network create sandbox
+          printf '%s\n' 'SMTP_HOST=localhost' 'SMTP_FROM=OddsBlitzer <no-reply@example.com>' \
+            'PUBLIC_URL=http://localhost:5010' 'POLL_INTERVAL_MINUTES=60' > .env
+      - name: Build
+        run: docker compose -f docker-compose.sandbox.yml build
+      - name: API and dashboard
+        run: |
+          docker compose -f docker-compose.sandbox.yml up -d web
+          for _ in $(seq 1 30); do
+            [ "$(docker inspect -f '{{.State.Health.Status}}' "$(docker compose -f docker-compose.sandbox.yml ps -q web)")" = healthy ] && break
+            sleep 2
+          done
+          curl -fsS http://127.0.0.1:5010/api/health
+          curl -fsS http://127.0.0.1:5010/ | grep -q '<title>OddsBlitzer'
+      - name: Worker
+        run: |
+          docker compose -f docker-compose.sandbox.yml up -d worker
+          sleep 15
+          # Running, and never restarted: a crash at startup would loop on restart.
+          [ "$(docker inspect -f '{{.State.Running}} {{.RestartCount}}' "$(docker compose -f docker-compose.sandbox.yml ps -q worker)")" = "true 0" ]
+      - name: Logs
+        if: always()
+        run: docker compose -f docker-compose.sandbox.yml logs --no-color --tail 50

@@ -14,6 +14,7 @@ import { refreshSitePromos } from "../promos/sitePromos";
 import { runSitePromoAlerts } from "../alerts/sitePromos";
 import { runWeeklyReport } from "../alerts/weeklyReport";
 import { runWeeklySummary } from "../alerts/weeklySummary";
+import { runMonthlySummary } from "../alerts/monthlySummary";
 import { postNewPromos } from "../alerts/newPromos";
 import { PROMO_READERS } from "../promos/readers";
 import { recordPromoReads } from "../promos/status";
@@ -78,6 +79,8 @@ setInterval(() => void readSitePromos(), 60 * 60 * 1000).unref();
 const weeklyReport = async () => {
   await runWeeklyReport(db, authDb, { webhookUrl: process.env.DISCORD_ADMIN_WEBHOOK_URL, promoReaders: Object.keys(PROMO_READERS) });
   await runWeeklySummary(db, { webhookUrl: process.env.DISCORD_WEBHOOK_URL });
+  // And on the 1st, the testers' monthly one (src/alerts/monthlySummary.ts).
+  await runMonthlySummary(db, { webhookUrl: process.env.DISCORD_WEBHOOK_URL });
 };
 setInterval(() => void weeklyReport(), 10 * 60 * 1000).unref();
 

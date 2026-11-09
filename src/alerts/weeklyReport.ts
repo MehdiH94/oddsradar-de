@@ -1,7 +1,7 @@
 import { DatabaseSync } from "node:sqlite";
 import { APP_NAME } from "../brand";
 import { getAlertState, setAlertState } from "../db/alerts";
-import { formatBookmakerStatus, listBookmakerStatus } from "../db/bookmakerStatus";
+import { BookmakerStatus, formatBookmakerStatus, listBookmakerStatus } from "../db/bookmakerStatus";
 import { formatPromoReaderStatus, listPromoReaderStatus } from "../promos/status";
 import { formatOddsApiCredits, oddsApiPace, readOddsApiCredits } from "../scraper/oddsApiCredits";
 import { formatTrackerUsage, trackerUsage } from "../auth/trackerUsage";
@@ -19,6 +19,8 @@ import { DiscordMessage, post, Send } from "./gems";
 // not send it twice.
 
 export const WEEKLY_REPORT_KEY = "weekly_report_sent_for";
+// Each bookmaker's matches at the last report (JSON), to flag a fall.
+export const WEEKLY_MATCHES_KEY = "weekly_report_matches";
 // The testers' summary's (./weeklySummary.ts), here so that both are read together.
 export const WEEKLY_SUMMARY_KEY_NAME = "weekly_summary_sent_for";
 // And the testers' monthly summary's (./monthlySummary.ts).
@@ -73,6 +75,29 @@ export interface WeeklyReportOptions {
 
 // Never throws: a failure is logged, and the report is tried again at the
 // next check while it is still that Sunday evening.
+// The bookmakers whose matches (their last good read) fell by half or more
+// since the last report, a scraper reading only part of a site being easy to
+// miss otherwise: "betway 1513 → 600". The paced ones (The Odds API's) are
+// left out, their counts following the credits; so are the small ones (under
+// 50 matches before).
+export function matchDrops(statuses: readonly BookmakerStatus[], before: Readonly<Record<string, number>>, paced: ReadonlySet<string>): string[] {
+  return statuses.flatMap((s) => {
+    const was = before[s.bookmaker];
+    const now = s.lastGoodEvents ?? 0;
+    if (paced.has(s.bookmaker) || typeof was !== "number" || was < 50 || now > was / 2) return [];
+    return [`${s.bookmaker} ${was} → ${now}`];
+  });
+}
+
+function readMatches(db: DatabaseSync): Record<string, number> {
+  try {
+    const parsed = JSON.parse(getAlertState(db, WEEKLY_MATCHES_KEY) ?? "{}") as unknown;
+    return typeof parsed === "object" && parsed !== null ? (parsed as Record<string, number>) : {};
+  } catch {
+    return {};
+  }
+}
+
 export async function runWeeklyReport(oddsDb: DatabaseSync, authDb: DatabaseSync, opts: WeeklyReportOptions): Promise<boolean> {
   const url = opts.webhookUrl?.trim();
   if (!url) return false;
@@ -82,14 +107,19 @@ export async function runWeeklyReport(oddsDb: DatabaseSync, authDb: DatabaseSync
   try {
     const credits = readOddsApiCredits(opts.oddsApiCacheFile);
     const ms = now.getTime();
+    const pace = oddsApiPace(credits);
+    const statuses = listBookmakerStatus(oddsDb, ms, pace);
+    const drops = matchDrops(statuses, readMatches(oddsDb), new Set(Object.keys(pace)));
+    const dropLine = drops.length > 0 ? `⚠️ Matches fell by half or more since the last report: ${drops.join(", ")}\n` : "";
     const message = weeklyReportMessage(
-      formatBookmakerStatus(listBookmakerStatus(oddsDb, ms, oddsApiPace(credits)), ms),
+      dropLine + formatBookmakerStatus(statuses, ms),
       formatOddsApiCredits(credits, ms),
       formatPromoReaderStatus(listPromoReaderStatus(authDb, oddsDb, opts.promoReaders), ms),
       `${formatWeekCounts(weekCounts(oddsDb, now, "en-GB"))}\n${formatTrackerUsage(trackerUsage(authDb, now))}`
     );
     await post(opts.send ?? (fetch as unknown as Send), url, message, opts.sleep ?? ((t) => new Promise((r) => setTimeout(r, t))));
     setAlertState(oddsDb, WEEKLY_REPORT_KEY, day);
+    setAlertState(oddsDb, WEEKLY_MATCHES_KEY, JSON.stringify(Object.fromEntries(statuses.map((s) => [s.bookmaker, s.lastGoodEvents ?? 0]))));
     return true;
   } catch (err) {
     console.error("[alerts:weekly] could not send the weekly report:", err);

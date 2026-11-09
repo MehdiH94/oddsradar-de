@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # A consistent copy of a SQLite database while its services run (sqlite3's
 # .backup is the online backup API), checked, with the copies older than a
-# number of days removed. Run by the oddsradar-backup*.service units from the
-# checkout (WorkingDirectory=/opt/oddsradar); the copies go to ./backups.
+# number of days removed. Run in the web container (/app, the image's
+# sqlite3) by the oddsblitzer-backup*.service units; the copies go to
+# ./backups, mounted from ~claude/projets/oddsblitzer/backups.
 #
 # Usage: deploy/backup-db.sh <database> <name> <days-kept>
 #   deploy/backup-db.sh data/auth.sqlite auth 30

@@ -925,23 +925,26 @@ sont ecrits dans le terminal de `npm run api`.
    Mailjet, OVH...). Le deploiement les ecrit dans `.env`. **Sans `SMTP_HOST` et
    `SMTP_FROM`, le service web refuse de demarrer** (`NODE_ENV=production`) : un
    compte ne pourrait jamais etre confirme.
-3. **Sauvegarde** : `sudo apt install sqlite3`, puis
-   `sudo cp deploy/oddsradar-backup*.{service,timer} /etc/systemd/system/`,
-   `sudo systemctl daemon-reload` et
-   `sudo systemctl enable --now oddsradar-backup.timer oddsradar-backup-odds.timer`.
-   Le deploiement n'installe pas ces fichiers : a refaire a la main quand ils
-   changent. Deux copies, faites par `deploy/backup-db.sh` (copie coherente
-   pendant que les services tournent, puis `PRAGMA integrity_check` ; une copie
-   abimee est gardee a part en `.corrupt` et fait echouer l'unite, visible dans
-   `systemctl status` ou `journalctl -u oddsradar-backup`) :
+3. **Sauvegarde** : rien a installer. Deux timers systemd **utilisateur** de
+   `claude` (`deploy/oddsblitzer-backup*.{service,timer}`), installes et
+   actives par `deploy/deploy.sh` a chaque deploiement, lancent
+   `deploy/backup-db.sh` dans le conteneur `web` (le `sqlite3` de l'image :
+   copie coherente pendant que les conteneurs tournent, puis
+   `PRAGMA integrity_check` ; une copie abimee est gardee a part en `.corrupt`
+   et fait echouer l'unite, visible avec `systemctl --user status
+   oddsblitzer-backup` ou `journalctl --user -u oddsblitzer-backup`, en tant
+   que `claude`) :
    - les **comptes** (`auth.sqlite`), toutes les heures, 30 jours gardes ;
    - la **base des cotes** (`coteradar.sqlite`), chaque dimanche, 4 copies : les
      cotes se reconstruisent, pas les stats des joueurs ni les alertes envoyees.
 
-   Les copies sont dans `/opt/oddsradar/backups/`, **sur le meme disque** : en
-   recopier regulierement hors du VPS (un disque qui tombe emporte le serveur
-   et ses sauvegardes). Essayer de temps en temps de restaurer une copie sur
-   une machine de test.
+   Les copies sont dans `~claude/projets/oddsblitzer/backups/`, **sur le meme
+   disque** : en recopier regulierement hors du VPS (un disque qui tombe
+   emporte le serveur et ses sauvegardes). Essayer de temps en temps de
+   restaurer une copie sur une machine de test. Les copies d'avant la bascule
+   en conteneurs (09/11/2026) restent dans `/opt/oddsradar/backups/` ; les
+   anciens timers systemd de la machine se coupent avec
+   `sudo systemctl disable --now oddsradar-backup.timer oddsradar-backup-odds.timer`.
 
 ## Déploiement (VPS)
 

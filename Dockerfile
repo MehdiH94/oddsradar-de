@@ -26,11 +26,18 @@ FROM node:24-bookworm-slim AS runtime
 ENV NODE_ENV=production
 WORKDIR /app
 
+# sqlite3 for deploy/backup-db.sh, run in the container by the backup timers
+# (deploy/oddsblitzer-backup*.service): its .backup copies a database while
+# the API and the worker use it.
+RUN apt-get update && apt-get install -y --no-install-recommends sqlite3 \
+  && rm -rf /var/lib/apt/lists/*
+
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev --no-audit --no-fund && npm cache clean --force
 
 COPY --from=build /app/dist dist
 COPY --from=build /app/web/dist web/dist
+COPY deploy/backup-db.sh deploy/backup-db.sh
 
 # data/ holds both SQLite databases and the odds API cache (relative paths in
 # the code: ./data/...). It is a volume, owned by the unprivileged user.

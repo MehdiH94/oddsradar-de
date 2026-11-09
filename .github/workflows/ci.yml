@@ -44,6 +44,12 @@ jobs:
           done
           curl -fsS http://127.0.0.1:5010/api/health
           curl -fsS http://127.0.0.1:5010/ | grep -q '<title>OddsBlitzer'
+      # What the backup timers run (deploy/oddsblitzer-backup.service): a
+      # checked copy of the accounts' database lands in ./backups.
+      - name: Backup
+        run: |
+          docker compose -f docker-compose.sandbox.yml exec -T --user root web deploy/backup-db.sh data/auth.sqlite auth 30
+          ls backups/auth-*.sqlite
       - name: Worker
         run: |
           docker compose -f docker-compose.sandbox.yml up -d worker

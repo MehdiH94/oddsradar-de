@@ -132,6 +132,19 @@ restart() {
   docker compose -f "$COMPOSE" up -d --remove-orphans
 }
 
+# The backup timers (deploy/oddsblitzer-backup*): systemd user units of this
+# user, refreshed from the checkout at every deploy so that a change to them
+# ships like any other.
+TIMERS=(oddsblitzer-backup.timer oddsblitzer-backup-odds.timer)
+install_timers() {
+  local dir=${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user
+  log "installing the backup timers"
+  mkdir -p "$dir" backups
+  install -m 644 deploy/oddsblitzer-backup*.service deploy/oddsblitzer-backup*.timer "$dir/"
+  systemctl --user daemon-reload
+  systemctl --user enable --now "${TIMERS[@]}"
+}
+
 check_health() {
   local deadline service running
   deadline=$((SECONDS + HEALTH_TIMEOUT_S))
@@ -164,6 +177,7 @@ main() {
   apply_settings .env
   build
   restart
+  install_timers
   check_health
   log "deployed $(git rev-parse --short HEAD)"
 }

@@ -1,0 +1,11 @@
+# Backup of the accounts database, from the web container (deploy/backup-db.sh
+# with the image's sqlite3): a systemd user unit of the claude user, installed
+# and enabled by deploy/deploy.sh. The copies land in ~/projets/oddsblitzer/backups.
+[Unit]
+Description=OddsBlitzer accounts database backup
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/projets/oddsblitzer
+# The accounts cannot be rebuilt: a copy every hour, kept 30 days.
+ExecStart=/usr/bin/docker compose -f docker-compose.sandbox.yml exec -T --user root web deploy/backup-db.sh data/auth.sqlite auth 30

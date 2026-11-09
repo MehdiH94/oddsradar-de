@@ -357,7 +357,8 @@ Le push sur `main` lance le workflow `deploy`, qui comporte trois jobs :
    - récupère ce commit ;
    - reconstruit l'image (dépendances, backend et dashboard) pendant que les
      anciens conteneurs servent encore le site ;
-   - relance les deux conteneurs ;
+   - relance les deux conteneurs et rafraîchit les timers de sauvegarde
+     (unités systemd utilisateur de `claude`) ;
    - vérifie que l'API répond et que le worker tourne.
 
    Le job vérifie enfin que le site répond depuis l'extérieur.

@@ -96,10 +96,13 @@ describe("formatTrackerUsage", () => {
 describe("formatSundayReports", () => {
   it("says when each Sunday report was last sent", () => {
     const db = openDb(":memory:");
-    expect(formatSundayReports(db)).toBe("Sunday reports: the admins' last sent for never, the testers' for never");
+    expect(formatSundayReports(db)).toBe("Sunday reports: the admins' last sent for never, the testers' for never; the testers' monthly summary last sent for never");
     setAlertState(db, WEEKLY_REPORT_KEY, "2026-11-08");
     setAlertState(db, "weekly_summary_sent_for", "2026-11-08");
-    expect(formatSundayReports(db)).toBe("Sunday reports: the admins' last sent for 2026-11-08, the testers' for 2026-11-08");
+    setAlertState(db, "monthly_summary_sent_for", "2026-11");
+    expect(formatSundayReports(db)).toBe(
+      "Sunday reports: the admins' last sent for 2026-11-08, the testers' for 2026-11-08; the testers' monthly summary last sent for 2026-11"
+    );
   });
 });
 

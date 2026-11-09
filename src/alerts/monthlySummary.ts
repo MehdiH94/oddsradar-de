@@ -3,6 +3,7 @@ import { APP_NAME } from "../brand";
 import { getAlertState, setAlertState } from "../db/alerts";
 import { lugasMonth } from "../deposits/deposits";
 import { DiscordMessage, post, Send } from "./gems";
+import { MONTHLY_SUMMARY_KEY_NAME } from "./weeklyReport";
 
 // On the 1st of each month (Berlin, from 10:00), one message to the testers'
 // Discord (DISCORD_WEBHOOK_URL) with what the alerts sent in the past month
@@ -11,7 +12,7 @@ import { DiscordMessage, post, Send } from "./gems";
 // owner's rule, 23/10/2026), like the Sunday summary (./weeklySummary.ts). The
 // month sent for is kept in alert_state.
 
-export const MONTHLY_SUMMARY_KEY = "monthly_summary_sent_for";
+export const MONTHLY_SUMMARY_KEY = MONTHLY_SUMMARY_KEY_NAME;
 export const MONTHLY_SUMMARY_HOUR = 10;
 
 const BERLIN = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", hourCycle: "h23" });

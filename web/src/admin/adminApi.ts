@@ -131,6 +131,19 @@ export interface AdminUsage {
   valueBets: AdminTrackerCounts;
 }
 
+// The last 7 days' alerts (src/alerts/weekCounts.ts): counts, best edges,
+// busiest day, and the bookmakers they came from.
+export interface AdminAlerts {
+  surebets: number;
+  gems: number;
+  bestSurebet: number | null;
+  bestGem: number | null;
+  busiestDay: string | null;
+  byBookmaker: string | null;
+}
+
+export const fetchAdminAlerts = () => call<{ alerts: AdminAlerts }>("/api/admin/alerts").then((r) => r.alerts);
+
 export const fetchAdminUsage = () => call<{ usage: AdminUsage }>("/api/admin/usage").then((r) => r.usage);
 
 export const fetchAdminFeedback = () => call<{ feedback: AdminFeedback[] }>("/api/admin/feedback").then((r) => r.feedback);

@@ -228,3 +228,19 @@ describe("GET /api/admin/usage, the testers' activity", () => {
     expect(res.body.usage.activity).toEqual({ seenDay: 1, seenWeek: 2, newWeek: 2, openFeedback: 1 });
   });
 });
+
+describe("GET /api/admin/alerts", () => {
+  it("gives the admins the last 7 days' alerts, and nobody else", async () => {
+    const { asAdmin, raw, member, cookieFor, odds, auth } = await setup();
+    const { recordSentGems } = await import("../../src/db/alerts");
+    const sentAt = new Date(auth.now().getTime() - 60 * 60_000).toISOString();
+    recordSentGems(odds, [
+      { eventId: "e", market: "1X2", selection: "1", bookmaker: "twentybet", basis: "fair", price: 2, fair: 1.9, edge: 0.05, label: "", marketLabel: "", matchLabel: "", startTime: sentAt, sentAt },
+    ]);
+    const res = await request(asAdmin).get("/api/admin/alerts");
+    expect(res.status).toBe(200);
+    expect(res.body.alerts).toMatchObject({ surebets: 0, gems: 1, bestGem: 0.05, byBookmaker: "By bookmaker: 20bet 1" });
+    expect((await request(raw).get("/api/admin/alerts")).status).toBe(401);
+    expect((await request(withCookie(raw, cookieFor(member.id))).get("/api/admin/alerts")).status).toBe(403);
+  });
+});

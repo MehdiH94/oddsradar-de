@@ -10,6 +10,7 @@ import {
   fetchAdminBookmakers,
   fetchAdminFeedback,
   fetchAdminPromoReaders,
+  fetchAdminAlerts,
   fetchAdminUsage,
   fetchAdminUsers,
   updateAdminFeedback,
@@ -20,12 +21,14 @@ import {
   type AdminPromoReader,
   type AdminUser,
   type AdminUserChange,
+  type AdminAlerts,
   type AdminTrackerCounts,
   type AdminUsage,
 } from "./adminApi";
 import { problemsFirst, readerProblemsFirst } from "./order";
 import { oddsApiCreditsLabel } from "./oddsApiCredits";
 import { nextReadLabel } from "./nextRead";
+import { alertsLine } from "./alertsLine";
 import styles from "./AdminPage.module.css";
 
 const DATE_FORMAT = new Intl.DateTimeFormat("en-GB", { dateStyle: "short" });
@@ -431,6 +434,7 @@ function PromoReadersTab() {
 // the bet tracker ("Meine Surebets", "Meine Value Bets"): counts only, never anyone's bets or amounts (GET /api/admin/usage).
 function UsageTab() {
   const { data: usage, error, loadedAt, load } = useEveryMinute<AdminUsage>(fetchAdminUsage);
+  const { data: alerts } = useEveryMinute<AdminAlerts>(fetchAdminAlerts);
 
   if (!usage) {
     return error ? (
@@ -474,6 +478,7 @@ function UsageTab() {
           <dd>{usage.activity.openFeedback}</dd>
         </div>
       </dl>
+      {alerts && <p className={styles.muted}>{alertsLine(alerts)}</p>}
       <div className={styles.scroll}>
         <table className={styles.table}>
           <caption className="visually-hidden">How the testers use the bet tracker</caption>

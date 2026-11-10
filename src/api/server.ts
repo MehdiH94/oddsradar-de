@@ -29,6 +29,7 @@ import { createConversionsService } from "../freebets/conversions";
 import { createInlinePool, ComputePool } from "../freebets/pool";
 import { loadFreebetMarkets } from "../db/freebets";
 import { getPublicHomeStats } from "../db/publicStats";
+import { alertsByBookmaker, weekCounts } from "../alerts/weekCounts";
 
 // The built frontend, relative to this module's directory. tsconfig.json maps
 // src -> dist (rootDir/outDir), so this file runs either as src/api/server.ts
@@ -129,6 +130,13 @@ export function createServer(
   app.get("/api/admin/promo-readers", requireRole("admin"), (_req, res) => {
     res.set("Cache-Control", "no-store");
     res.json({ readers: listPromoReaderStatus(auth.db, db, Object.keys(PROMO_READERS)) });
+  });
+  // The last 7 days' alerts, as the admins' weekly report says them
+  // (src/alerts/weekCounts.ts), from the odds' database, for the Usage tab.
+  app.get("/api/admin/alerts", requireRole("admin"), (_req, res) => {
+    res.set("Cache-Control", "no-store");
+    const now = auth.now();
+    res.json({ alerts: { ...weekCounts(db, now, "en-GB"), byBookmaker: alertsByBookmaker(db, now) } });
   });
   app.use("/api/admin", requireRole("admin"), adminRouter(auth));
   // Value bets and surebets read every upcoming match's prices: the slowest

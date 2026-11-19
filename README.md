@@ -1098,6 +1098,15 @@ un rapport en lecture seule et le met dans son log et dans un artefact :
 - `pinnacle` : si les cotes publiques de Pinnacle (l'API que lit son propre
   site, sans cle) repondent depuis l'Allemagne : les ligues de football, puis
   les matchs et les cotes de la Bundesliga, le debut de chaque reponse ;
+
+Les cotes de Pinnacle qui servent de reference aux value bets du 1X2 de
+football viennent de l'API de PS3838 (`src/reference/ps3838.ts`) quand le
+compte du proprietaire y a acces (`PS3838_USERNAME`, `PS3838_PASSWORD` dans le
+`.env` du VPS, voir `.env.example`) : toutes les ligues, lues au plus toutes les
+2 minutes. Sinon (pas d'identifiant, `NO_API_ACCESS`, panne), elles viennent de
+The Odds API, comme avant. Le salon Discord des administrateurs recoit un
+message quand l'acces se met a marcher ou est refuse (une fois par changement,
+garde dans `data/ps3838-status.json`).
 - `promos` : les promos que chaque lecteur de `src/promos/` a trouvees en
   production (`npm run promo-status`, les bases ouvertes en lecture seule) :
   combien, la derniere trouvee et quand, son dernier passage reussi (et

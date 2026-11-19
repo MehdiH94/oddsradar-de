@@ -4,13 +4,15 @@ import { runScrapeCycle } from "../scraper/run";
 import { runMarketsCycle } from "../scraper/marketsRun";
 import { runReferenceCycle } from "../reference/run";
 import { runPinnacleCycle } from "../reference/pinnacleRun";
+import { accessMessage, pinnacleSource, ps3838Credentials } from "../reference/ps3838";
 import { runTennisReferenceCycle } from "../reference/tennisRun";
 import { runFootballMarketsReferenceCycle } from "../reference/footballRun";
 import { runSportsReferenceCycle } from "../reference/sportsRun";
 import { runGolfReferenceCycle } from "../reference/golfRun";
 import { runF1ReferenceCycle } from "../reference/f1Run";
 import { REFERENCE_SPORTS } from "../reference/sports";
-import { GEM_MIN_EDGE, runGemAlerts } from "../alerts/gems";
+import { GEM_MIN_EDGE, post, runGemAlerts, Send } from "../alerts/gems";
+import { APP_NAME } from "../brand";
 import { runHealthAlerts } from "../alerts/health";
 import { runQualityAlerts } from "../alerts/quality";
 import { runExchangeAlerts } from "../alerts/exchange";
@@ -88,6 +90,20 @@ console.log(
     ? `[worker] Discord alerts on, for the 1X2's value bets from ${GEM_MIN_EDGE.match * 100}% and the players' from ${GEM_MIN_EDGE.players * 100}%`
     : "[worker] Discord alerts off (no DISCORD_WEBHOOK_URL)"
 );
+// Pinnacle's prices: PS3838's API with the owner's login (PS3838_USERNAME,
+// PS3838_PASSWORD), The Odds API's otherwise; its access told to the
+// administrators when it starts working or is refused.
+const ps3838 = ps3838Credentials();
+console.log(ps3838 ? "[worker] Pinnacle's prices from PS3838's API, The Odds API's when it refuses" : "[worker] Pinnacle's prices from The Odds API (no PS3838_USERNAME / PS3838_PASSWORD)");
+const pinnacleMatches = pinnacleSource({
+  credentials: ps3838,
+  fallback: pinnacleOddsApiMatches,
+  onAccessChange: async (status) => {
+    const url = adminWebhookUrl?.trim();
+    if (!url) return;
+    await post(fetch as unknown as Send, url, { username: APP_NAME, allowed_mentions: { parse: [] }, content: accessMessage(status) }, (ms) => new Promise((r) => setTimeout(r, ms)));
+  },
+});
 startScheduler(intervalMinutes, async () => {
   try {
     await runReferenceCycle(db, listing);
@@ -96,8 +112,9 @@ startScheduler(intervalMinutes, async () => {
   }
   try {
     // Pinnacle's football 1X2, the fair odds' reference where it prices the
-    // match (src/reference/pinnacleRun.ts), from The Odds API's last reads.
-    await runPinnacleCycle(db, { matches: pinnacleOddsApiMatches, oddsMaxAgeMs: listing.oddsMaxAgeMs });
+    // match (src/reference/pinnacleRun.ts), from PS3838's API when it answers
+    // the owner's account (src/reference/ps3838.ts), The Odds API's last reads otherwise.
+    await runPinnacleCycle(db, { matches: pinnacleMatches, oddsMaxAgeMs: listing.oddsMaxAgeMs });
   } catch (err) {
     console.error("[reference:pinnacle] cycle failed:", err);
   }
